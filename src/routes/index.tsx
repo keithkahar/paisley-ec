@@ -4,6 +4,7 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import myWordieText from "@/assets/brand/mywordie-text.png.asset.json";
 import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
+import shirinTalkText from "@/assets/brand/shirintalk-text.png.asset.json";
 import { Mic } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -20,13 +21,13 @@ function Home() {
   const name = "Danielle";
   return (
     <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
-      <div className="relative min-h-screen flex flex-col">
+      <div className="relative h-[100dvh] overflow-hidden flex flex-col">
         {/* App logo top-left */}
         <div className="absolute top-7 left-5 z-20">
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </div>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-28 pb-0">
+        <section className="relative px-6 pt-[10.5rem] pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -67,7 +68,13 @@ function Home() {
             }}
           >
             <Mic className="h-5 w-5" />
-            Start with ShirinTalk
+            <span className="text-base">Start with</span>
+            <img
+              src={shirinTalkText.url}
+              alt="ShirinTalk"
+              className="h-5 w-auto object-contain"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
           </Link>
 
           {/* Quaternary: subtle skip link */}
