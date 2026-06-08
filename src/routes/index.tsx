@@ -60,18 +60,18 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="relative isolate mt-10 flex items-center justify-center gap-[10px] rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
+            className="relative isolate mt-10 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               fontFamily: "var(--font-sans)",
             }}
           >
-            <Mic className="relative z-10 h-5 w-5 shrink-0" />
-            <span className="relative z-10 text-base leading-none">Start with</span>
+            <Mic className="h-[18px] w-[18px] shrink-0" />
+            <span className="text-[15px] leading-none">Start with</span>
             <img
               src={shirinTalkText.url}
               alt="ShirinTalk"
-              className="relative z-20 h-[18px] w-auto shrink-0 object-contain self-center align-baseline"
+              className="h-5 w-auto shrink-0 object-contain"
             />
           </Link>
 
