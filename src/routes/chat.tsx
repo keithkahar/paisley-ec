@@ -362,23 +362,28 @@ function ChatPage() {
               );
             })}
 
-            {/* Last-assistant action row */}
+            {/* Last-assistant action row — aligned to the shirin bubble */}
             {!shareMode && lastAssistantIdx >= 0 && !sending && (
-              <AssistantActions
-                hasVariants={!!messages[lastAssistantIdx].variants}
-                canPrev={(messages[lastAssistantIdx].variantIndex ?? 0) > 0}
-                canNext={
-                  !!messages[lastAssistantIdx].variants &&
-                  (messages[lastAssistantIdx].variantIndex ?? 0) <
-                    (messages[lastAssistantIdx].variants!.length - 1)
-                }
-                onCopy={copyLast}
-                onSpeaker={() => showToast("Voice playback soon")}
-                onShare={startShare}
-                onRegenerate={regenerate}
-                onPrev={() => switchVariant(-1)}
-                onNext={() => switchVariant(1)}
-              />
+              <div className="flex items-start gap-2 -mt-1">
+                <div className="h-8 w-8 shrink-0" />
+                <div className="max-w-[76%] w-full">
+                  <AssistantActions
+                    hasVariants={!!messages[lastAssistantIdx].variants}
+                    canPrev={(messages[lastAssistantIdx].variantIndex ?? 0) > 0}
+                    canNext={
+                      !!messages[lastAssistantIdx].variants &&
+                      (messages[lastAssistantIdx].variantIndex ?? 0) <
+                        (messages[lastAssistantIdx].variants!.length - 1)
+                    }
+                    onCopy={copyLast}
+                    onSpeaker={() => showToast("Voice playback soon")}
+                    onShare={startShare}
+                    onRegenerate={regenerate}
+                    onPrev={() => switchVariant(-1)}
+                    onNext={() => switchVariant(1)}
+                  />
+                </div>
+              </div>
             )}
 
             {sending && (
