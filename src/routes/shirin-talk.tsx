@@ -4,7 +4,7 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { AppHeader } from "@/components/app/AppHeader";
 import { BpPill, StreakPill } from "@/components/app/Pills";
 import logo from "@/assets/brand/ShirinTalk.png";
-import icon from "@/assets/brand/icon-ShirinTalk.png";
+import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import { Mic, BookOpen, MessagesSquare, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
@@ -19,10 +19,11 @@ function ShirinTalkPage() {
 
       {/* Shirin hero */}
       <section className="px-5 pt-2 pb-6 text-center">
-        <div className="mx-auto h-32 w-32 rounded-[2rem] grid place-items-center shadow-xl"
-          style={{ background: "linear-gradient(135deg, var(--shirin), oklch(0.78 0.18 20))" }}>
-          <img src={icon} alt="" className="h-24 w-24" />
-        </div>
+        <img
+          src={shirinHero.url}
+          alt="Shirin"
+          className="mx-auto h-40 w-40 object-contain drop-shadow-[0_10px_25px_color-mix(in_oklab,var(--shirin)_35%,transparent)]"
+        />
         <h2 className="mt-4 text-2xl font-bold text-[color:var(--shirin)]">Hi, I'm Shirin!</h2>
         <p className="text-sm text-foreground/70 mt-1">Let's practise English together.</p>
 
