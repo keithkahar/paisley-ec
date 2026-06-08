@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Layers, Zap, ClipboardCheck, Flame, Play } from "lucide-react";
+import { Layers, Zap, ClipboardCheck, Flame, Play, ChevronLeft } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/mywordie")({
