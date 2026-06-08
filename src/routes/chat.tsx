@@ -630,9 +630,9 @@ function VoiceHoldOverlay() {
     <div
       className="absolute left-0 right-0 bottom-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-6"
       style={{
-        height: "190px",
+        height: "260px",
         background:
-          "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 50%, transparent) 55%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
+          "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 6%, transparent) 25%, color-mix(in oklab, var(--shirin) 18%, transparent) 45%, color-mix(in oklab, var(--shirin) 38%, transparent) 65%, color-mix(in oklab, var(--shirin) 65%, transparent) 85%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
         borderTopLeftRadius: "50% 36px",
         borderTopRightRadius: "50% 36px",
       }}
