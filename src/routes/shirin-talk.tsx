@@ -3,7 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Pill } from "@/components/app/Pills";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
-import { ChevronLeft, Flame, MessageCircle, BookOpen, Notebook, Lightbulb } from "lucide-react";
+import { ChevronLeft, Flame, Sparkles, MessageCircle, BookOpen, BookA, Lightbulb } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
@@ -13,20 +13,10 @@ export const Route = createFileRoute("/shirin-talk")({
 const PINK = "var(--shirin)";
 
 function ShirinTalkPage() {
-  const week = [
-    { d: "Mon", n: 2, done: true },
-    { d: "Tue", n: 3, done: true },
-    { d: "Wed", n: 4, done: true },
-    { d: "Thu", n: 5, done: true, today: true },
-    { d: "Fri", n: 6, done: false },
-    { d: "Sat", n: 7, done: false },
-    { d: "Sun", n: 8, done: false },
-  ];
-
   const cards = [
     { to: "/chat", title: "Free Talk", sub: "Chat about anything", icon: MessageCircle },
     { to: "/smart-reading", title: "Smart Reading Talk", sub: "Read & discuss", icon: BookOpen },
-    { to: "/mywordie", title: "myWordie Talk", sub: "Practise your words", icon: Notebook },
+    { to: "/mywordie", title: "myWordie Talk", sub: "Practise your words", icon: BookA },
     { to: "/topics", title: "Topic Talk", sub: "Guided conversations", icon: Lightbulb },
   ];
 
@@ -63,44 +53,23 @@ function ShirinTalkPage() {
             Let's practise English together.
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
-            <Pill color={PINK} icon={<Flame className="h-3.5 w-3.5" />}>7</Pill>
-            <Pill color={PINK}>1,240 Bp</Pill>
-          </div>
-        </section>
-
-        {/* Week calendar */}
-        <section className="px-6 pt-6 pb-5">
-          <div className="flex items-center justify-between">
-            {week.map((w) => {
-              const active = w.today;
-              return (
-                <div key={w.d} className="flex-1 flex flex-col items-center gap-1.5">
-                  <span
-                    className="text-[11px] font-semibold uppercase tracking-wide"
-                    style={{ color: active ? PINK : "color-mix(in oklab, var(--foreground) 45%, white)" }}
-                  >
-                    {w.d}
-                  </span>
-                  <span
-                    className="h-9 w-9 grid place-items-center rounded-full text-[14px] font-semibold"
-                    style={
-                      active
-                        ? { background: PINK, color: "white" }
-                        : w.done
-                        ? { background: "color-mix(in oklab, var(--shirin) 14%, white)", color: PINK }
-                        : { color: "color-mix(in oklab, var(--foreground) 55%, white)" }
-                    }
-                  >
-                    {w.n}
-                  </span>
-                </div>
-              );
-            })}
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold bg-white"
+              style={{ color: PINK, border: `1.5px solid ${PINK}` }}
+            >
+              <Flame className="h-3.5 w-3.5" />7
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold bg-white"
+              style={{ color: PINK, border: `1.5px solid ${PINK}` }}
+            >
+              <Sparkles className="h-3.5 w-3.5" />1,240 Bp
+            </span>
           </div>
         </section>
 
         {/* Pill actions */}
-        <section className="px-6 pt-2 pb-6 flex flex-col gap-3">
+        <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
