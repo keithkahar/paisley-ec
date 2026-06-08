@@ -65,6 +65,7 @@ function ShirinTalkPage() {
               to={f.to}
               className="relative block px-7 pt-6 pb-6 flex-1 active:scale-[0.995] transition-transform"
               style={{
+                background: f.bg,
                 borderTopLeftRadius: "28px",
                 borderTopRightRadius: "28px",
                 marginTop: i === 0 ? "-16px" : "-20px",
