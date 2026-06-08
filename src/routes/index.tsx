@@ -21,7 +21,7 @@ function Home() {
   const name = "Danielle";
   return (
     <PhoneFrame bg="bg-card">
-      <div className="relative h-[100dvh] overflow-hidden flex flex-col bg-[color:var(--paisley-soft)]">
+      <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-[color:var(--paisley-soft)]">
         {/* App logo top-left */}
         <div className="absolute top-7 left-5 z-20">
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
