@@ -114,10 +114,10 @@ function ShirinTalkPage() {
                   <Icon className="h-5 w-5" style={{ color: PINK }} />
                 </span>
                 <span className="flex flex-col leading-tight">
-                  <span className="text-[17px] font-bold tracking-tight text-foreground" style={{ letterSpacing: "-0.01em" }}>
+                  <span className="text-[17px] font-bold tracking-tight" style={{ letterSpacing: "-0.01em", color: PINK }}>
                     {c.title}
                   </span>
-                  <span className="text-[13px] font-medium text-foreground/55 mt-0.5">{c.sub}</span>
+                  <span className="text-[13px] font-medium mt-0.5" style={{ color: "color-mix(in oklab, var(--shirin) 55%, white)" }}>{c.sub}</span>
                 </span>
               </Link>
             );
