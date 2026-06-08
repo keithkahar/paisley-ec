@@ -110,16 +110,16 @@ function TopicsPage() {
               <div className="grid grid-cols-2 gap-2.5">
                 <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                 <HeroCard t={byId.football_talk} ratio="aspect-square" />
+                {/* Minecraft Adventure spans both columns right under Pet Talk & Football Talk */}
+                <div className="col-span-2">
+                  <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1]" />
+                </div>
                 <HeroCard t={byId.free_talk} ratio="aspect-square" />
                 <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
                 <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
                 <HeroCard t={byId.smart_reading} ratio="aspect-square" />
                 <HeroCard t={byId.food_talk} ratio="aspect-square" />
                 <HeroCard t={byId.mywordie} ratio="aspect-square" />
-                {/* Minecraft Adventure spans both columns as a closing pixel banner so its long title fits comfortably */}
-                <div className="col-span-2">
-                  <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1]" />
-                </div>
               </div>
             );
           })()}
