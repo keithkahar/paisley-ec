@@ -50,7 +50,7 @@ function TopicsPage() {
         </header>
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-1">
-          <div className="mb-4 px-1">
+          <div className="mb-4">
             <h1
               className="text-[26px] leading-[1.2] font-semibold tracking-tight"
               style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
