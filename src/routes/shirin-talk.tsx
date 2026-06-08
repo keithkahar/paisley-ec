@@ -60,12 +60,18 @@ function ShirinTalkPage() {
           >
             Let's practise English together.
           </p>
-          <div className="mt-3 flex items-center justify-center gap-2">
+          <div className="mt-3 flex items-center justify-between">
           <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               <Flame className="h-3.5 w-3.5" />7
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
+            >
+              116 words
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
