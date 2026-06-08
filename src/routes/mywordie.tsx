@@ -143,6 +143,10 @@ function MyWordiePage() {
           <PillLink to="/wordie-bank" title="Wordie Bank" Icon={Layers} />
           <PillLink to="/wordie-x" title="Wordie-X" Icon={Zap} />
           <PillLink to="/wordie-test" title="Wordie Test" Icon={ClipboardCheck} />
+          {/* Invisible spacer so the 3 pills align with the first 3 of ShirinTalk's 4 pills */}
+          <div aria-hidden className="rounded-full py-4 px-4 invisible">
+            <span className="h-7 w-7 inline-block" />
+          </div>
         </section>
       </div>
 
