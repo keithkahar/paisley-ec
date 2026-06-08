@@ -24,12 +24,12 @@ const TOPICS: Topic[] = [
   { topic_id: "free_talk", title: "Free Talk", art: freeTalkArt },
   { topic_id: "smart_reading", title: "Smart Reading", art: smartReadingArt },
   { topic_id: "pet_talk", title: "Pet Talk", art: petTalkArt },
-  { topic_id: "minecraft_adventure", title: "Minecraft Adventure", art: minecraftArt },
+  { topic_id: "minecraft_adventure", title: "Minecraft Adventure talk", art: minecraftArt },
   { topic_id: "food_talk", title: "Food Talk", art: foodTalkArt },
   { topic_id: "football_talk", title: "Football Talk", art: footballArt },
   { topic_id: "magic_adventure", title: "Magic Adventure", art: magicArt },
   { topic_id: "nature_explorer", title: "Nature Explorer", art: natureArt },
-  { topic_id: "mywordie", title: "myWordie", art: mywordieArt },
+  { topic_id: "mywordie", title: "myWordie talk", art: mywordieArt },
 ];
 
 export const Route = createFileRoute("/topics")({
