@@ -310,14 +310,15 @@ function ChatPage() {
               const isLastAssistant = i === lastAssistantIdx;
               const canShare = m.shareable !== false;
               return (
-                <div key={m.id} className={`flex items-start ${isUser ? "justify-end" : "justify-start"} gap-2`}>
-                  {shareMode && !isUser && (
+                <div key={m.id} className="flex items-start gap-2">
+                  {shareMode && (
                     <SelectDot
                       enabled={canShare}
                       selected={!!selected[m.id]}
                       onClick={() => canShare && toggleSelect(m.id)}
                     />
                   )}
+                  {isUser && <div className="flex-1" />}
                   {!isUser && (
                     <img src={shirinGirl} alt="Shirin" className="h-8 w-8 mt-0.5 object-contain shrink-0" />
                   )}
@@ -351,34 +352,32 @@ function ChatPage() {
                       {m.time}
                     </p>
                   </div>
-                  {shareMode && isUser && (
-                    <SelectDot
-                      enabled={canShare}
-                      selected={!!selected[m.id]}
-                      onClick={() => canShare && toggleSelect(m.id)}
-                    />
-                  )}
                 </div>
               );
             })}
 
-            {/* Last-assistant action row */}
+            {/* Last-assistant action row — aligned to the shirin bubble */}
             {!shareMode && lastAssistantIdx >= 0 && !sending && (
-              <AssistantActions
-                hasVariants={!!messages[lastAssistantIdx].variants}
-                canPrev={(messages[lastAssistantIdx].variantIndex ?? 0) > 0}
-                canNext={
-                  !!messages[lastAssistantIdx].variants &&
-                  (messages[lastAssistantIdx].variantIndex ?? 0) <
-                    (messages[lastAssistantIdx].variants!.length - 1)
-                }
-                onCopy={copyLast}
-                onSpeaker={() => showToast("Voice playback soon")}
-                onShare={startShare}
-                onRegenerate={regenerate}
-                onPrev={() => switchVariant(-1)}
-                onNext={() => switchVariant(1)}
-              />
+              <div className="flex items-start gap-2 -mt-1">
+                <div className="h-8 w-8 shrink-0" />
+                <div className="max-w-[76%] w-full">
+                  <AssistantActions
+                    hasVariants={!!messages[lastAssistantIdx].variants}
+                    canPrev={(messages[lastAssistantIdx].variantIndex ?? 0) > 0}
+                    canNext={
+                      !!messages[lastAssistantIdx].variants &&
+                      (messages[lastAssistantIdx].variantIndex ?? 0) <
+                        (messages[lastAssistantIdx].variants!.length - 1)
+                    }
+                    onCopy={copyLast}
+                    onSpeaker={() => showToast("Voice playback soon")}
+                    onShare={startShare}
+                    onRegenerate={regenerate}
+                    onPrev={() => switchVariant(-1)}
+                    onNext={() => switchVariant(1)}
+                  />
+                </div>
+              </div>
             )}
 
             {sending && (
@@ -635,17 +634,17 @@ function VoiceHoldOverlay() {
   const bars = Array.from({ length: 56 });
   return (
     <div
-      className="absolute inset-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-8"
+      className="absolute left-0 right-0 bottom-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-6"
       style={{
+        height: "190px",
         background:
-          "linear-gradient(180deg, rgba(15,30,80,0) 0%, rgba(28,68,200,0.55) 45%, rgba(56,130,255,0.85) 100%)",
-        backdropFilter: "blur(2px)",
+          "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 50%, transparent) 55%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
       }}
     >
-      <p className="text-white/90 text-[13px] font-semibold mb-4 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
+      <p className="text-white text-[12px] font-semibold mb-3 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
         Release to send · slide up to cancel
       </p>
-      <div className="flex items-end gap-[3px] h-12 px-6">
+      <div className="flex items-end gap-[3px] h-9 px-6">
         {bars.map((_, i) => (
           <span
             key={i}
@@ -710,13 +709,13 @@ function AssistantActions({
   onNext: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between -mt-1">
-      <div className="flex items-center gap-0.5 pl-10">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-1.5">
         <ActionBtn onClick={onCopy} label="Copy"><Copy className="h-3.5 w-3.5" /></ActionBtn>
         <ActionBtn onClick={onSpeaker} label="Play"><Volume2 className="h-3.5 w-3.5" /></ActionBtn>
         <ActionBtn onClick={onShare} label="Share"><Share2 className="h-3.5 w-3.5" /></ActionBtn>
       </div>
-      <div className="flex items-center gap-0.5 pr-1">
+      <div className="flex items-center gap-1">
         {hasVariants && (
           <div className="flex items-center gap-0.5 mr-1 rounded-full px-1.5 py-0.5 border border-[oklch(0.94_0.02_10)]">
             <button onClick={onPrev} disabled={!canPrev} aria-label="Previous variant" className="text-muted-foreground disabled:opacity-30">
@@ -730,10 +729,10 @@ function AssistantActions({
         <button
           onClick={onRegenerate}
           aria-label="Regenerate"
-          className="h-7 w-7 rounded-full grid place-items-center text-white shadow-sm transition-transform hover:scale-105 active:scale-95"
+          className="h-8 w-8 rounded-full grid place-items-center text-white shadow-sm transition-transform hover:scale-105 active:scale-95"
           style={{ background: `linear-gradient(135deg, var(--shirin), color-mix(in oklab, var(--shirin) 60%, white))` }}
         >
-          <RotateCw className="h-3.5 w-3.5" />
+          <RotateCw className="h-4 w-4" />
         </button>
       </div>
     </div>
@@ -756,7 +755,8 @@ function ActionBtn({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="h-7 w-7 rounded-full grid place-items-center text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-30"
+      className="h-8 w-8 rounded-full grid place-items-center disabled:opacity-30 transition-transform active:scale-95"
+      style={{ background: PINK_SOFT, color: "var(--shirin)" }}
     >
       {children}
     </button>
