@@ -33,9 +33,9 @@ function MyWordiePage() {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
-        <section className="px-5 pt-6 pb-1">
+        <section className="px-5 pt-10 pb-1">
           <div
-            className="relative rounded-[28px] p-4 text-white overflow-hidden"
+            className="relative rounded-[28px] p-4 text-white overflow-hidden flex flex-col"
             style={{ background: "var(--wordie)" }}
           >
           <h2
@@ -143,9 +143,14 @@ function MyWordiePage() {
           <PillLink to="/wordie-bank" title="Wordie Bank" Icon={Layers} />
           <PillLink to="/wordie-x" title="Wordie-X" Icon={Zap} />
           <PillLink to="/wordie-test" title="Wordie Test" Icon={ClipboardCheck} />
-          {/* Invisible spacer so the 3 pills align with the first 3 of ShirinTalk's 4 pills */}
-          <div aria-hidden className="rounded-full py-4 px-4 invisible">
-            <span className="h-7 w-7 inline-block" />
+          {/* Invisible spacer (matches PillLink dimensions exactly) so the 3 pills
+              align with the first 3 of ShirinTalk's 4 pills. */}
+          <div
+            aria-hidden
+            className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 invisible"
+          >
+            <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full" />
+            <span className="text-[17px] font-bold tracking-tight leading-none">.</span>
           </div>
         </section>
       </div>
