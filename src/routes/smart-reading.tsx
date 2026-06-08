@@ -7,13 +7,31 @@ const PINK = "var(--shirin)";
 const PINK_SOFT = "color-mix(in oklab, var(--shirin) 14%, white)";
 const LAST_BOOK_KEY = "smart_reading_last_selected_book_code_v1";
 
+// Emoji cover circle — pastel gradients deterministically picked by lesson_id.
+// To change the palette: edit COVER_PALETTE. To change selection rule: edit coverFor().
+const COVER_PALETTE: string[] = [
+  "linear-gradient(135deg,#FFD1DC,#FFA8C5)", // pink
+  "linear-gradient(135deg,#FDE68A,#FCA5A5)", // peach
+  "linear-gradient(135deg,#BFDBFE,#C4B5FD)", // periwinkle
+  "linear-gradient(135deg,#FBCFE8,#FCD34D)", // pink-gold
+  "linear-gradient(135deg,#A7F3D0,#67E8F9)", // mint
+  "linear-gradient(135deg,#FEF3C7,#FBBF24)", // sunshine
+  "linear-gradient(135deg,#C7D2FE,#A78BFA)", // lavender
+  "linear-gradient(135deg,#FECACA,#FB7185)", // coral
+  "linear-gradient(135deg,#E0E7FF,#BFDBFE)", // sky
+];
+function coverFor(id: string): string {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  return COVER_PALETTE[h % COVER_PALETTE.length];
+}
+
 type Unit = {
   lesson_id: string;
   unit_number: number;
   story_title: string;
   cover_question: string;
   emoji: string;
-  cover: string;
   done?: boolean;
 };
 
@@ -29,25 +47,25 @@ type Pack = {
 };
 
 const UNITS_2_1: Unit[] = [
-  { lesson_id: "smart_reading_2_1_unit_1", unit_number: 1, story_title: "My Cat Bob", cover_question: "Bob has many feelings. How does Bob feel?", emoji: "🐱", cover: "linear-gradient(135deg,#FFD1DC,#FFA8C5)", done: true },
-  { lesson_id: "smart_reading_2_1_unit_2", unit_number: 2, story_title: "I Can Run", cover_question: "What can you do at the park?", emoji: "🏃", cover: "linear-gradient(135deg,#FDE68A,#FCA5A5)", done: true },
-  { lesson_id: "smart_reading_2_1_unit_3", unit_number: 3, story_title: "A Big Red Bus", cover_question: "Where does the red bus go?", emoji: "🚌", cover: "linear-gradient(135deg,#BFDBFE,#C4B5FD)" },
-  { lesson_id: "smart_reading_2_1_unit_4", unit_number: 4, story_title: "My Mom and Me", cover_question: "What do you and your mom do together?", emoji: "👩‍👧", cover: "linear-gradient(135deg,#FBCFE8,#FCD34D)" },
-  { lesson_id: "smart_reading_2_1_unit_5", unit_number: 5, story_title: "The Little Duck", cover_question: "Why is the little duck happy?", emoji: "🦆", cover: "linear-gradient(135deg,#A7F3D0,#67E8F9)" },
-  { lesson_id: "smart_reading_2_1_unit_6", unit_number: 6, story_title: "At the Farm", cover_question: "Which animal do you like at the farm?", emoji: "🐮", cover: "linear-gradient(135deg,#FEF3C7,#FBBF24)" },
-  { lesson_id: "smart_reading_2_1_unit_7", unit_number: 7, story_title: "Rainy Day Fun", cover_question: "What do you do on a rainy day?", emoji: "🌧️", cover: "linear-gradient(135deg,#C7D2FE,#A78BFA)" },
-  { lesson_id: "smart_reading_2_1_unit_8", unit_number: 8, story_title: "My New Shoes", cover_question: "What color are your favorite shoes?", emoji: "👟", cover: "linear-gradient(135deg,#FECACA,#FB7185)" },
+  { lesson_id: "smart_reading_2_1_unit_1", unit_number: 1, story_title: "My Cat Bob", cover_question: "Bob has many feelings. How does Bob feel?", emoji: "🐱", done: true },
+  { lesson_id: "smart_reading_2_1_unit_2", unit_number: 2, story_title: "I Can Run", cover_question: "What can you do at the park?", emoji: "🏃", done: true },
+  { lesson_id: "smart_reading_2_1_unit_3", unit_number: 3, story_title: "A Big Red Bus", cover_question: "Where does the red bus go?", emoji: "🚌" },
+  { lesson_id: "smart_reading_2_1_unit_4", unit_number: 4, story_title: "My Mom and Me", cover_question: "What do you and your mom do together?", emoji: "👩‍👧" },
+  { lesson_id: "smart_reading_2_1_unit_5", unit_number: 5, story_title: "The Little Duck", cover_question: "Why is the little duck happy?", emoji: "🦆" },
+  { lesson_id: "smart_reading_2_1_unit_6", unit_number: 6, story_title: "At the Farm", cover_question: "Which animal do you like at the farm?", emoji: "🐮" },
+  { lesson_id: "smart_reading_2_1_unit_7", unit_number: 7, story_title: "Rainy Day Fun", cover_question: "What do you do on a rainy day?", emoji: "🌧️" },
+  { lesson_id: "smart_reading_2_1_unit_8", unit_number: 8, story_title: "My New Shoes", cover_question: "What color are your favorite shoes?", emoji: "👟" },
 ];
 
 const UNITS_2_2: Unit[] = [
-  { lesson_id: "smart_reading_2_2_unit_1", unit_number: 1, story_title: "A Day at the Zoo", cover_question: "Which animal do you want to see first?", emoji: "🦁", cover: "linear-gradient(135deg,#FDE68A,#FCA5A5)" },
-  { lesson_id: "smart_reading_2_2_unit_2", unit_number: 2, story_title: "My Best Friend", cover_question: "Who is your best friend? Why?", emoji: "🤝", cover: "linear-gradient(135deg,#FBCFE8,#FCD34D)" },
-  { lesson_id: "smart_reading_2_2_unit_3", unit_number: 3, story_title: "The Lost Kite", cover_question: "Where did the kite go?", emoji: "🪁", cover: "linear-gradient(135deg,#BFDBFE,#C4B5FD)" },
-  { lesson_id: "smart_reading_2_2_unit_4", unit_number: 4, story_title: "Bedtime Story", cover_question: "What story do you like before bed?", emoji: "🌙", cover: "linear-gradient(135deg,#C7D2FE,#A78BFA)" },
-  { lesson_id: "smart_reading_2_2_unit_5", unit_number: 5, story_title: "Lunch with Grandma", cover_question: "What is your favorite lunch?", emoji: "🥪", cover: "linear-gradient(135deg,#FECACA,#FB7185)" },
-  { lesson_id: "smart_reading_2_2_unit_6", unit_number: 6, story_title: "The Brave Little Boat", cover_question: "How does the boat feel in the storm?", emoji: "⛵", cover: "linear-gradient(135deg,#A7F3D0,#67E8F9)" },
-  { lesson_id: "smart_reading_2_2_unit_7", unit_number: 7, story_title: "My Birthday Party", cover_question: "Who do you want at your party?", emoji: "🎂", cover: "linear-gradient(135deg,#FFD1DC,#FFA8C5)" },
-  { lesson_id: "smart_reading_2_2_unit_8", unit_number: 8, story_title: "Snowy Morning", cover_question: "What do you do when it snows?", emoji: "⛄", cover: "linear-gradient(135deg,#E0E7FF,#BFDBFE)" },
+  { lesson_id: "smart_reading_2_2_unit_1", unit_number: 1, story_title: "A Day at the Zoo", cover_question: "Which animal do you want to see first?", emoji: "🦁" },
+  { lesson_id: "smart_reading_2_2_unit_2", unit_number: 2, story_title: "My Best Friend", cover_question: "Who is your best friend? Why?", emoji: "🤝" },
+  { lesson_id: "smart_reading_2_2_unit_3", unit_number: 3, story_title: "The Lost Kite", cover_question: "Where did the kite go?", emoji: "🪁" },
+  { lesson_id: "smart_reading_2_2_unit_4", unit_number: 4, story_title: "Bedtime Story", cover_question: "What story do you like before bed?", emoji: "🌙" },
+  { lesson_id: "smart_reading_2_2_unit_5", unit_number: 5, story_title: "Lunch with Grandma", cover_question: "What is your favorite lunch?", emoji: "🥪" },
+  { lesson_id: "smart_reading_2_2_unit_6", unit_number: 6, story_title: "The Brave Little Boat", cover_question: "How does the boat feel in the storm?", emoji: "⛵" },
+  { lesson_id: "smart_reading_2_2_unit_7", unit_number: 7, story_title: "My Birthday Party", cover_question: "Who do you want at your party?", emoji: "🎂" },
+  { lesson_id: "smart_reading_2_2_unit_8", unit_number: 8, story_title: "Snowy Morning", cover_question: "What do you do when it snows?", emoji: "⛄" },
 ];
 
 const PACKS: Pack[] = [
@@ -232,7 +250,7 @@ function SmartReadingPage() {
                   >
                     <div
                       className="h-11 w-11 shrink-0 grid place-items-center text-xl my-2 ml-2 rounded-full"
-                      style={{ background: u.cover }}
+                      style={{ background: coverFor(u.lesson_id) }}
                       aria-hidden
                     >
                       {u.emoji}
@@ -272,7 +290,7 @@ function SmartReadingPage() {
 function MiniPill({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold leading-none bg-white"
+      className="inline-flex items-center rounded-full px-2.5 py-1 text-[12px] font-bold leading-none bg-white"
       style={{ color: PINK }}
     >
       {children}
