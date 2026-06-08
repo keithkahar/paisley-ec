@@ -1,51 +1,35 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ChevronLeft } from "lucide-react";
+import freeTalkArt from "@/assets/topics/free_talk.png";
+import smartReadingArt from "@/assets/topics/smart_reading.png";
+import petTalkArt from "@/assets/topics/pet_talk.png";
+import minecraftArt from "@/assets/topics/minecraft_adventure.png";
+import foodTalkArt from "@/assets/topics/food_talk.png";
+import footballArt from "@/assets/topics/football_talk.png";
+import magicArt from "@/assets/topics/magic_adventure.png";
+import natureArt from "@/assets/topics/nature_explorer.png";
+import mywordieArt from "@/assets/topics/mywordie.png";
 
 const PINK = "var(--shirin)";
 
-const PALETTE: string[] = [
-  "linear-gradient(135deg,#FFD1DC,#FFA8C5)",
-  "linear-gradient(135deg,#FDE68A,#FCA5A5)",
-  "linear-gradient(135deg,#BFDBFE,#C4B5FD)",
-  "linear-gradient(135deg,#FBCFE8,#FCD34D)",
-  "linear-gradient(135deg,#A7F3D0,#67E8F9)",
-  "linear-gradient(135deg,#FEF3C7,#FBBF24)",
-  "linear-gradient(135deg,#C7D2FE,#A78BFA)",
-  "linear-gradient(135deg,#FECACA,#FB7185)",
-  "linear-gradient(135deg,#E0E7FF,#BFDBFE)",
-];
-function bgFor(id: string): string {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-  return PALETTE[h % PALETTE.length];
-}
-
-// Canonical topics per topic-talk-spec. topic_id MUST match the chat opening/prompt map.
-// `mywordie` is intentionally excluded from the list (entered via its own hub card).
-// `smart_reading` is included but routes to /smart-reading instead of /chat.
+// Canonical topics rendered as a 3x3 brand gallery of pink line-art paintings.
+// `smart_reading` routes to its own flow; `mywordie` opens the myWordie chat.
 type Topic = {
   topic_id: string;
   title: string;
-  subtitle: string;
-  emoji: string;
+  art: string;
 };
 const TOPICS: Topic[] = [
-  { topic_id: "free_talk", title: "Free Talk", subtitle: "Talk about anything you like.", emoji: "💬" },
-  { topic_id: "smart_reading", title: "Smart Reading Talk", subtitle: "Talk about your story.", emoji: "📖" },
-  { topic_id: "pet_talk", title: "Pet Talk", subtitle: "Talk about pets and Scratch.", emoji: "🐱" },
-  { topic_id: "minecraft_adventure", title: "Minecraft Adventure", subtitle: "Build, dig, and explore.", emoji: "⛏️" },
-  { topic_id: "food_talk", title: "Food Talk", subtitle: "Talk about yummy food.", emoji: "🍜" },
-  { topic_id: "football_talk", title: "Football Talk", subtitle: "Talk about football and games.", emoji: "⚽" },
-  { topic_id: "magic_adventure", title: "Magic Adventure", subtitle: "Open a magic door.", emoji: "🪄" },
-  { topic_id: "nature_explorer", title: "Nature Explorer", subtitle: "Animals, plants, and weather.", emoji: "🌿" },
-];
-
-// Bento spans on a 6-col grid. Cycles to give the page rhythm.
-const BENTO: Array<[number, number]> = [
-  [4, 2], [2, 1], [2, 1],
-  [3, 1], [3, 2], [3, 1],
-  [2, 1], [2, 1],
+  { topic_id: "free_talk", title: "Free Talk", art: freeTalkArt },
+  { topic_id: "smart_reading", title: "Smart Reading", art: smartReadingArt },
+  { topic_id: "pet_talk", title: "Pet Talk", art: petTalkArt },
+  { topic_id: "minecraft_adventure", title: "Minecraft", art: minecraftArt },
+  { topic_id: "food_talk", title: "Food Talk", art: foodTalkArt },
+  { topic_id: "football_talk", title: "Football", art: footballArt },
+  { topic_id: "magic_adventure", title: "Magic", art: magicArt },
+  { topic_id: "nature_explorer", title: "Nature", art: natureArt },
+  { topic_id: "mywordie", title: "myWordie", art: mywordieArt },
 ];
 
 export const Route = createFileRoute("/topics")({
@@ -56,77 +40,103 @@ export const Route = createFileRoute("/topics")({
 function TopicsPage() {
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
+      <div
+        className="relative min-h-[100dvh] flex flex-col"
+        style={{ background: "color-mix(in oklab, var(--shirin) 5%, white)" }}
+      >
+        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 backdrop-blur"
+          style={{ background: "color-mix(in oklab, var(--shirin) 5%, white)" }}>
           <Link to="/shirin-talk" aria-label="Back" className="h-9 w-9 grid place-items-center rounded-full">
             <ChevronLeft className="h-5 w-5" />
           </Link>
-          <span aria-hidden />
+          <span
+            className="text-[12px] font-bold tracking-[0.22em] uppercase"
+            style={{ color: PINK, fontFamily: "var(--font-sans)" }}
+          >
+            Gallery
+          </span>
           <div className="h-9 w-9" />
         </header>
 
         <div className="flex-1 overflow-y-auto scroll-hide px-4 pb-16 pt-1">
-          <div className="mb-4 px-1">
+          <div className="mb-5 px-1 text-center">
             <h1
-              className="text-[28px] font-black tracking-tight leading-none"
+              className="text-[26px] font-black tracking-tight leading-none"
               style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
             >
-              Pick a <span style={{ color: PINK }}>topic</span>
+              The <span style={{ color: PINK, fontStyle: "italic", fontWeight: 900 }}>Shirin</span> Gallery
             </h1>
-            <p className="mt-1.5 text-[13px] font-semibold text-foreground/55">
-              Tap any tile to start chatting with Shirin.
+            <p className="mt-2 text-[12px] font-semibold tracking-wide text-foreground/55">
+              Nine little paintings · pick one to talk about
             </p>
           </div>
 
-          <div
-            className="grid gap-2.5"
-            style={{
-              gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
-              gridAutoRows: "64px",
-              gridAutoFlow: "dense",
-            }}
-          >
-            {TOPICS.map((t, i) => {
-              const [cs, rs] = BENTO[i % BENTO.length];
-              const big = rs >= 2 || cs >= 4;
-
-              // Per-spec exception: smart_reading routes to its own flow page.
+          <div className="grid grid-cols-3 gap-3">
+            {TOPICS.map((t) => {
               const linkProps =
                 t.topic_id === "smart_reading"
                   ? ({ to: "/smart-reading" } as const)
-                  : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
+                  : t.topic_id === "mywordie"
+                    ? ({ to: "/chat", search: { mode: "mywordie" } } as const)
+                    : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
 
               return (
                 <Link
                   key={t.topic_id}
                   {...linkProps}
-                  className="relative rounded-3xl p-3 overflow-hidden active:scale-[0.97] transition-transform flex flex-col justify-between"
-                  style={{
-                    gridColumn: `span ${cs} / span ${cs}`,
-                    gridRow: `span ${rs} / span ${rs}`,
-                    background: bgFor(t.topic_id),
-                  }}
+                  className="group flex flex-col items-stretch active:scale-[0.97] transition-transform"
                 >
-                  <div className={`${big ? "text-[40px]" : "text-[26px]"} leading-none drop-shadow-sm`} aria-hidden>
-                    {t.emoji}
+                  {/* Frame */}
+                  <div
+                    className="relative aspect-square rounded-[6px] bg-white p-2"
+                    style={{
+                      border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
+                      boxShadow:
+                        "0 1px 0 rgba(0,0,0,0.03), 0 8px 18px -12px color-mix(in oklab, var(--shirin) 35%, transparent)",
+                    }}
+                  >
+                    {/* Inner mat */}
+                    <div
+                      className="absolute inset-2 rounded-[3px]"
+                      style={{ background: "color-mix(in oklab, var(--shirin) 4%, white)" }}
+                    />
+                    {/* Pink-tinted line art via CSS mask */}
+                    <div
+                      aria-hidden
+                      className="absolute inset-3"
+                      style={{
+                        background: PINK,
+                        WebkitMaskImage: `url(${t.art})`,
+                        maskImage: `url(${t.art})`,
+                        WebkitMaskRepeat: "no-repeat",
+                        maskRepeat: "no-repeat",
+                        WebkitMaskPosition: "center",
+                        maskPosition: "center",
+                        WebkitMaskSize: "contain",
+                        maskSize: "contain",
+                      }}
+                    />
                   </div>
-                  <div className="min-w-0">
+                  {/* Plaque */}
+                  <div className="mt-1.5 text-center">
                     <p
-                      className={`${big ? "text-[15px]" : "text-[12.5px]"} font-black tracking-tight leading-tight text-foreground`}
-                      style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                      className="text-[10.5px] font-black tracking-[0.1em] uppercase leading-tight"
+                      style={{ fontFamily: "var(--font-sans)", color: "var(--foreground)" }}
                     >
                       {t.title}
                     </p>
-                    {big && (
-                      <p className="mt-1 text-[11px] font-semibold line-clamp-2 text-foreground/65">
-                        {t.subtitle}
-                      </p>
-                    )}
                   </div>
                 </Link>
               );
             })}
           </div>
+
+          <p
+            className="mt-6 text-center text-[10px] font-semibold tracking-[0.25em] uppercase"
+            style={{ color: "color-mix(in oklab, var(--shirin) 55%, var(--foreground))" }}
+          >
+            — Shirin · No. 001 / 009 —
+          </p>
         </div>
       </div>
     </PhoneFrame>
