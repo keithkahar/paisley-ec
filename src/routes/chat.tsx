@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
-import { BpPill } from "@/components/app/Pills";
 import shirinIcon from "@/assets/brand/Shirin.png.asset.json";
 import { Mic, Send, Volume2, Sparkles } from "lucide-react";
 
