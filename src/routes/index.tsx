@@ -66,12 +66,13 @@ function Home() {
               fontFamily: "var(--font-sans)",
             }}
           >
-            <Mic className="h-[18px] w-[18px] shrink-0" />
+            <Mic className="shrink-0" style={{ width: "1.15em", height: "1.15em" }} />
             <span className="text-[15px] leading-none">Start with</span>
             <img
               src={shirinTalkText.url}
               alt="ShirinTalk"
-              className="h-5 w-auto shrink-0 object-contain"
+              className="w-auto shrink-0 object-contain"
+              style={{ height: "1.25em" }}
             />
           </Link>
 
