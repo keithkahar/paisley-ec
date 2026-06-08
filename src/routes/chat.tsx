@@ -228,7 +228,7 @@ function ChatPage() {
   }
 
   function onMessagePressStart(id: string, text: string) {
-    longPressTimer.current = window.setTimeout(() => {
+    longPressTimer.current = setTimeout(() => {
       const word = text.match(/[A-Za-z]{3,}/)?.[0];
       if (!word) {
         showToast("No English word found");
