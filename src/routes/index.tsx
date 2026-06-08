@@ -22,11 +22,11 @@ function Home() {
     <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
       <div className="relative min-h-screen flex flex-col">
         {/* App logo top-left */}
-        <div className="absolute top-5 left-5 z-20">
-          <img src={paisleyLogo.url} alt="Paisley EC" className="h-7 w-auto object-contain" />
+        <div className="absolute top-4 left-5 z-20">
+          <img src={paisleyLogo.url} alt="Paisley EC" className="h-10 w-auto object-contain" />
         </div>
-        {/* PRIMARY: Shirin hero — pushed down for better visual balance */}
-        <section className="relative px-6 pt-24 pb-0">
+        {/* PRIMARY: Shirin hero */}
+        <section className="relative px-6 pt-16 pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -35,14 +35,14 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[78%] max-w-[320px] object-contain drop-shadow-[0_18px_35px_color-mix(in_oklab,var(--shirin)_25%,transparent)]"
+              className="relative z-10 w-[66%] max-w-[270px] object-contain drop-shadow-[0_18px_35px_color-mix(in_oklab,var(--shirin)_25%,transparent)]"
             />
           </div>
         </section>
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-2 flex-1 bg-card px-7 pt-10 pb-10 flex flex-col justify-center"
+          className="relative -mt-2 flex-1 bg-card px-7 pt-9 pb-6"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}

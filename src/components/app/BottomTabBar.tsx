@@ -50,7 +50,7 @@ export function BottomTabBar() {
                 <img
                   src={active ? t.filled : t.outline}
                   alt=""
-                  className="relative z-10 h-12 w-12 object-contain"
+                  className="relative z-10 h-16 w-16 object-contain"
                 />
               </Link>
             );
