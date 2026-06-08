@@ -56,7 +56,7 @@ function ShirinTalkPage() {
             Hi, I'm Shirin!
           </h2>
           <p
-            className="mt-1 text-[15px] text-foreground/70 font-semibold tracking-tight"
+            className="mt-1 text-[15px] text-foreground/70 font-bold tracking-tight"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Let's practise English together.
