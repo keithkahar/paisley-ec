@@ -22,12 +22,11 @@ export function BottomTabBar() {
     <>
       {/* spacer so content isn't hidden under the bar */}
       <div className="h-24" aria-hidden />
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-7 pb-4">
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10 pb-4">
         <div className="relative h-20 rounded-full bg-white/95 backdrop-blur border border-border shadow-[0_10px_30px_-10px_rgba(1,70,185,0.25)] flex items-stretch">
-          {tabs.map((t, i) => {
+          {tabs.map((t) => {
             const active = pathname.startsWith(t.to);
-            const isFirst = i === 0;
-            const isLast = i === tabs.length - 1;
+            const isProfile = t.to === "/profile";
             return (
               <Link
                 key={t.to}
@@ -38,19 +37,16 @@ export function BottomTabBar() {
                 {active && (
                   <span
                     aria-hidden
-                    className="absolute top-0 bottom-0 aspect-square rounded-full"
+                    className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 aspect-square rounded-full"
                     style={{
                       background: `color-mix(in oklab, ${t.color} 14%, white)`,
-                      left: isFirst ? 0 : isLast ? "auto" : "50%",
-                      right: isLast ? 0 : "auto",
-                      transform: !isFirst && !isLast ? "translateX(-50%)" : undefined,
                     }}
                   />
                 )}
                 <img
                   src={active ? t.filled : t.outline}
                   alt=""
-                  className="relative z-10 h-12 w-12 object-contain"
+                  className={`relative z-10 object-contain ${isProfile ? "h-10 w-10" : "h-12 w-12"}`}
                 />
               </Link>
             );
