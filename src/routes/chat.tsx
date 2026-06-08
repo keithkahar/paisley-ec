@@ -159,25 +159,6 @@ function ChatPage() {
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
         <div className="w-full max-w-[420px] pointer-events-auto">
           <div className="px-4 pb-5 pt-2 bg-white/90 backdrop-blur border-t border-border">
-            {/* Quick chips */}
-            <div className="flex gap-2 overflow-x-auto scroll-hide pb-2">
-              {["🐼 Animals", "🍕 Food", "🏫 School", "🎮 Games"].map(
-                (chip) => (
-                  <button
-                    key={chip}
-                    className="shrink-0 rounded-full px-3 py-1 text-xs font-semibold border"
-                    style={{
-                      borderColor: SHIRIN_COLOR,
-                      color: SHIRIN_COLOR,
-                      background: SHIRIN_SOFT,
-                    }}
-                  >
-                    {chip}
-                  </button>
-                )
-              )}
-            </div>
-
             <div className="flex items-center gap-2">
               <button
                 className="h-10 w-10 rounded-full grid place-items-center text-white shadow-md shrink-0"
