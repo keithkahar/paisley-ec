@@ -4,20 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -59,29 +45,51 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* Paisley EC brand */
+  --color-paisley: var(--paisley);
+  --color-paisley-soft: var(--paisley-soft);
+  --color-sand: var(--sand);
+  --color-sand-soft: var(--sand-soft);
+  /* ShirinTalk */
+  --color-shirin: var(--shirin);
+  --color-shirin-soft: var(--shirin-soft);
+  /* myWordie */
+  --color-wordie: var(--wordie);
+  --color-wordie-soft: var(--wordie-soft);
+  --color-wordie-accent: var(--wordie-accent);
+  /* Bloxia */
+  --color-bloxia: var(--bloxia);
+  --color-bloxia-deep: var(--bloxia-deep);
+  --color-bloxia-soft: var(--bloxia-soft);
+  --color-bloxia-sky: var(--bloxia-sky);
+  /* Fonts */
+  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: "Press Start 2P", ui-monospace, monospace;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1.1rem;
+  --background: oklch(0.985 0.005 95);
+  --foreground: oklch(0.22 0.05 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.22 0.05 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.22 0.05 260);
+  /* Paisley blue #0146b9 as primary */
+  --primary: oklch(0.46 0.21 261);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.02 80);
+  --secondary-foreground: oklch(0.22 0.05 260);
+  --muted: oklch(0.96 0.012 90);
+  --muted-foreground: oklch(0.5 0.03 260);
+  --accent: oklch(0.92 0.06 75); /* sand */
+  --accent-foreground: oklch(0.22 0.05 260);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.91 0.015 80);
+  --input: oklch(0.93 0.015 80);
+  --ring: oklch(0.46 0.21 261);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -95,6 +103,20 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  /* Brand exacts (mapped from hex) */
+  --paisley: oklch(0.46 0.21 261);        /* #0146b9 */
+  --paisley-soft: oklch(0.93 0.05 250);
+  --sand: oklch(0.78 0.06 75);             /* #cdae8d */
+  --sand-soft: oklch(0.95 0.03 80);
+  --shirin: oklch(0.66 0.24 9);            /* #f93e6b */
+  --shirin-soft: oklch(0.95 0.05 10);
+  --wordie: oklch(0.58 0.22 273);          /* #5064f5 */
+  --wordie-soft: oklch(0.95 0.04 270);
+  --wordie-accent: oklch(0.78 0.17 65);    /* #fda220 */
+  --bloxia: oklch(0.68 0.21 138);          /* #52b22c */
+  --bloxia-deep: oklch(0.32 0.12 152);     /* #024527 */
+  --bloxia-soft: oklch(0.94 0.06 140);
+  --bloxia-sky: oklch(0.92 0.05 220);
 }
 
 .dark {
@@ -140,5 +162,17 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
 }
+
+/* Pixel surface for Bloxia */
+@utility pixel-edges {
+  image-rendering: pixelated;
+}
+@utility scroll-hide {
+  scrollbar-width: none;
+}
+.scroll-hide::-webkit-scrollbar { display: none; }
