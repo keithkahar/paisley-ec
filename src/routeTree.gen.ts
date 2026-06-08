@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShirinTalkRouteImport } from './routes/shirin-talk'
 import { Route as MywordieRouteImport } from './routes/mywordie'
+import { Route as BloxiaRouteImport } from './routes/bloxia'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ShirinTalkRoute = ShirinTalkRouteImport.update({
@@ -23,6 +24,11 @@ const MywordieRoute = MywordieRouteImport.update({
   path: '/mywordie',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BloxiaRoute = BloxiaRouteImport.update({
+  id: '/bloxia',
+  path: '/bloxia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bloxia': typeof BloxiaRoute
   '/mywordie': typeof MywordieRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bloxia': typeof BloxiaRoute
   '/mywordie': typeof MywordieRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bloxia': typeof BloxiaRoute
   '/mywordie': typeof MywordieRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/mywordie' | '/shirin-talk'
+  fullPaths: '/' | '/bloxia' | '/mywordie' | '/shirin-talk'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/mywordie' | '/shirin-talk'
-  id: '__root__' | '/' | '/mywordie' | '/shirin-talk'
+  to: '/' | '/bloxia' | '/mywordie' | '/shirin-talk'
+  id: '__root__' | '/' | '/bloxia' | '/mywordie' | '/shirin-talk'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BloxiaRoute: typeof BloxiaRoute
   MywordieRoute: typeof MywordieRoute
   ShirinTalkRoute: typeof ShirinTalkRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MywordieRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bloxia': {
+      id: '/bloxia'
+      path: '/bloxia'
+      fullPath: '/bloxia'
+      preLoaderRoute: typeof BloxiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BloxiaRoute: BloxiaRoute,
   MywordieRoute: MywordieRoute,
   ShirinTalkRoute: ShirinTalkRoute,
 }
