@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShirinTalkRouteImport } from './routes/shirin-talk'
+import { Route as MywordieRouteImport } from './routes/mywordie'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ShirinTalkRoute = ShirinTalkRouteImport.update({
   id: '/shirin-talk',
   path: '/shirin-talk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MywordieRoute = MywordieRouteImport.update({
+  id: '/mywordie',
+  path: '/mywordie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/mywordie': typeof MywordieRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/mywordie': typeof MywordieRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/mywordie': typeof MywordieRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/shirin-talk'
+  fullPaths: '/' | '/mywordie' | '/shirin-talk'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/shirin-talk'
-  id: '__root__' | '/' | '/shirin-talk'
+  to: '/' | '/mywordie' | '/shirin-talk'
+  id: '__root__' | '/' | '/mywordie' | '/shirin-talk'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MywordieRoute: typeof MywordieRoute
   ShirinTalkRoute: typeof ShirinTalkRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/shirin-talk'
       fullPath: '/shirin-talk'
       preLoaderRoute: typeof ShirinTalkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mywordie': {
+      id: '/mywordie'
+      path: '/mywordie'
+      fullPath: '/mywordie'
+      preLoaderRoute: typeof MywordieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MywordieRoute: MywordieRoute,
   ShirinTalkRoute: ShirinTalkRoute,
 }
 export const routeTree = rootRouteImport
