@@ -1,10 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import shirinFilled from "@/assets/tabs/shirin-filled.png.asset.json";
-import shirinOutline from "@/assets/tabs/shirin-outline-bold.png.asset.json";
+import shirinOutline from "@/assets/tabs/shirin-outline-medium.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
 import wordieOutline from "@/assets/tabs/wordie-outline.png.asset.json";
 import bloxiaFilled from "@/assets/tabs/bloxia-filled.png.asset.json";
-import bloxiaOutline from "@/assets/tabs/bloxia-outline-bold.png.asset.json";
+import bloxiaOutline from "@/assets/tabs/bloxia-outline-medium.png.asset.json";
 import profileFilled from "@/assets/tabs/profile-filled.png.asset.json";
 import profileOutline from "@/assets/tabs/profile-outline.png.asset.json";
 
@@ -23,7 +23,7 @@ export function BottomTabBar() {
       {/* spacer so content isn't hidden under the bar */}
       <div className="h-24" aria-hidden />
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10 pb-4">
-        <div className="relative h-20 rounded-full bg-white/95 backdrop-blur border border-border shadow-[0_10px_30px_-10px_rgba(1,70,185,0.25)] flex items-stretch">
+        <div className="relative h-20 rounded-full bg-white border border-border flex items-stretch">
           {tabs.map((t, i) => {
             const active = pathname.startsWith(t.to);
             const isProfile = t.to === "/profile";
