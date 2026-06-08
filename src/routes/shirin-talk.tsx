@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Pill } from "@/components/app/Pills";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
-import { ChevronLeft, Flame, Sparkles, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import { ChevronLeft, Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
