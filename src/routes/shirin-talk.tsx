@@ -1,86 +1,186 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { BpPill, StreakPill } from "@/components/app/Pills";
+import { Pill } from "@/components/app/Pills";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Flame, Sparkles, MessageCircle, BookOpen, Notebook, Lightbulb } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
   component: ShirinTalkPage,
 });
 
+const PINK = "var(--shirin)";
+
 function ShirinTalkPage() {
-  const folders = [
-    { to: "/chat", title: "Free Talk", bg: "oklch(0.93 0.05 12)" },
-    { to: "/smart-reading", title: "Smart Reading Talk", bg: "oklch(0.87 0.07 12)" },
-    { to: "/mywordie", title: "myWordie Talk", bg: "oklch(0.81 0.09 12)" },
-    { to: "/topics", title: "Topic Talk", bg: "oklch(0.75 0.11 12)" },
+  const week = [
+    { d: "Mon", n: 2, done: true },
+    { d: "Tue", n: 3, done: true },
+    { d: "Wed", n: 4, done: true },
+    { d: "Thu", n: 5, done: true, today: true },
+    { d: "Fri", n: 6, done: false },
+    { d: "Sat", n: 7, done: false },
+    { d: "Sun", n: 8, done: false },
   ];
+
+  const cards = [
+    {
+      to: "/chat",
+      title: "Free Talk",
+      sub: "Chat about anything",
+      icon: MessageCircle,
+      bg: "oklch(0.95 0.03 12)",
+      progress: 0.6,
+      progressLabel: "12/20",
+    },
+    {
+      to: "/smart-reading",
+      title: "Smart Reading",
+      sub: "Read & discuss",
+      icon: BookOpen,
+      bg: "oklch(0.93 0.05 20)",
+      progress: 0.35,
+      progressLabel: "7/20",
+    },
+    {
+      to: "/mywordie",
+      title: "myWordie Talk",
+      sub: "Practise your words",
+      icon: Notebook,
+      bg: "oklch(0.95 0.04 5)",
+      progress: 0.8,
+      progressLabel: "16/20",
+    },
+    {
+      to: "/topics",
+      title: "Topic Talk",
+      sub: "Guided conversations",
+      icon: Lightbulb,
+      bg: "oklch(0.93 0.06 15)",
+      progress: 0.25,
+      progressLabel: "5/20",
+    },
+  ];
+
   return (
     <PhoneFrame bg="bg-card">
-      <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-card">
-        {/* Back button */}
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-card">
         <div className="absolute top-4 left-4 z-30">
           <Link
             to="/"
             aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white/85 backdrop-blur border border-border"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
         </div>
 
-        {/* White hero */}
-        <section className="relative px-6 pt-[4.5rem] pb-0 text-center">
-
+        {/* Hero */}
+        <section className="px-6 pt-16 pb-2 text-center">
           <img
             src={shirinHero.url}
             alt="Shirin"
-            className="relative z-10 mx-auto h-44 w-44 object-contain drop-shadow-[0_10px_25px_color-mix(in_oklab,var(--shirin)_35%,transparent)]"
+            className="mx-auto h-40 w-40 object-contain drop-shadow-[0_10px_25px_color-mix(in_oklab,var(--shirin)_30%,transparent)]"
           />
           <h2
-            className="relative z-10 mt-3 text-[28px] leading-[1.2] font-semibold tracking-tight text-[color:var(--shirin)]"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Hi, I'm Shirin!
           </h2>
           <p
-            className="relative z-10 mt-1 text-[17px] text-foreground/70 leading-[1.3]"
+            className="mt-1 text-[15px] text-foreground/70"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Let's practise English together.
           </p>
-          <div className="relative z-10 mt-3 flex items-center justify-center gap-2">
-            <StreakPill days={7} />
-            <BpPill value={1240} />
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <Pill color={PINK} icon={<Flame className="h-3.5 w-3.5" />}>7-day streak</Pill>
+            <Pill color={PINK} icon={<Sparkles className="h-3.5 w-3.5" />}>1,240 Bp</Pill>
           </div>
         </section>
 
-        {/* Stacked pink folder cards */}
-        <section className="relative flex-1 flex flex-col bg-card">
-          {folders.map((f, i) => (
-            <Link
-              key={f.title}
-              to={f.to}
-              className="relative block px-7 pt-6 pb-6 flex-1 active:scale-[0.995] transition-transform"
-              style={{
-                background: f.bg,
-                borderTopLeftRadius: "28px",
-                borderTopRightRadius: "28px",
-                marginTop: i === 0 ? "-16px" : "-20px",
-                zIndex: i + 1,
-                boxShadow: "0 -8px 18px -12px rgba(0,0,0,0.18)",
-              }}
-            >
-              <h3
-                className="text-[22px] font-semibold tracking-tight text-foreground"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        {/* Week calendar */}
+        <section className="px-6 pt-5">
+          <div className="flex items-center justify-between">
+            {week.map((w) => {
+              const active = w.today;
+              return (
+                <div key={w.d} className="flex-1 flex flex-col items-center gap-1.5">
+                  <span
+                    className="text-[11px] font-semibold uppercase tracking-wide"
+                    style={{ color: active ? PINK : "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                  >
+                    {w.d}
+                  </span>
+                  <span
+                    className="h-9 w-9 grid place-items-center rounded-full text-[14px] font-semibold"
+                    style={
+                      active
+                        ? { background: PINK, color: "white" }
+                        : w.done
+                        ? { background: "color-mix(in oklab, var(--shirin) 14%, white)", color: PINK }
+                        : { color: "color-mix(in oklab, var(--foreground) 55%, white)" }
+                    }
+                  >
+                    {w.n}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Section heading */}
+        <section className="px-6 pt-6 pb-2">
+          <h3
+            className="text-[17px] font-semibold tracking-tight"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Talk Modes
+          </h3>
+        </section>
+
+        {/* Mini cards grid */}
+        <section className="px-6 pb-6 grid grid-cols-2 gap-3">
+          {cards.map((c) => {
+            const Icon = c.icon;
+            return (
+              <Link
+                key={c.title}
+                to={c.to}
+                className="rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.98] transition-transform"
+                style={{ background: c.bg }}
               >
-                {f.title}
-              </h3>
-            </Link>
-          ))}
+                <span
+                  className="h-10 w-10 grid place-items-center rounded-xl bg-white"
+                  style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}
+                >
+                  <Icon className="h-5 w-5" style={{ color: PINK }} />
+                </span>
+                <div>
+                  <div
+                    className="text-[15px] font-semibold leading-tight tracking-tight text-foreground"
+                    style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                  >
+                    {c.title}
+                  </div>
+                  <div className="mt-0.5 text-[12px] text-foreground/60">{c.sub}</div>
+                </div>
+                <div className="mt-1">
+                  <div className="text-right text-[11px] font-semibold text-foreground/70">
+                    {c.progressLabel}
+                  </div>
+                  <div className="mt-1 h-1.5 w-full rounded-full bg-white/70 overflow-hidden">
+                    <div
+                      className="h-full rounded-full"
+                      style={{ width: `${c.progress * 100}%`, background: PINK }}
+                    />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </section>
       </div>
 
