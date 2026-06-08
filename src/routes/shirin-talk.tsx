@@ -16,7 +16,7 @@ function ShirinTalkPage() {
   const cards = [
     { to: "/chat", title: "Free Talk", icon: MessageCircle },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen },
-    { to: "/mywordie", title: "myWordie Talk", icon: null },
+    { to: "/chat", title: "myWordie Talk", icon: null, search: { mode: "mywordie" } as const },
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },
   ];
 
@@ -110,6 +110,7 @@ function ShirinTalkPage() {
               <Link
                 key={c.title}
                 to={c.to}
+                search={"search" in c ? c.search : undefined}
                 className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
               >
