@@ -92,7 +92,7 @@ function MyWordiePage() {
           </div>
 
           {/* Streak + Bp pills — match ShirinTalk position (mt-3 inside hero) */}
-          <div className="mt-3 flex items-center justify-center gap-2">
+          <div className="mt-3 flex items-center justify-between">
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
@@ -104,6 +104,12 @@ function MyWordiePage() {
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
             230 cards
+          </span>
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+          >
+            318 min
           </span>
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
