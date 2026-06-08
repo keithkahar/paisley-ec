@@ -93,39 +93,10 @@ function TopicsPage() {
                     draggable={false}
                   />
                 </div>
-                <div className="px-3 py-2.5">
+                <div className="px-3 py-3">
                   <p
-                    className="text-[14px] font-bold tracking-tight leading-tight whitespace-nowrap"
-                    style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-                  >
-                    {t.title}
-                  </p>
-                </div>
-              </Link>
-            );
-
-            // Mini card: image flexes to fill remaining height inside its parent stack column.
-            const MiniCard = ({ t, size = "sm" }: { t: Topic; size?: "sm" | "md" }) => (
-              <Link
-                {...getLinkProps(t)}
-                className="group flex flex-col flex-1 min-h-0 rounded-2xl overflow-hidden active:scale-[0.98] transition-transform"
-                style={cardStyle}
-              >
-                <div className="relative flex-1 min-h-0 bg-white">
-                  <img
-                    src={t.art}
-                    alt={t.title}
-                    loading="lazy"
-                    width={1024}
-                    height={1024}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    draggable={false}
-                  />
-                </div>
-                <div className="px-2 py-1.5">
-                  <p
-                    className={`${size === "md" ? "text-[13px]" : "text-[11.5px]"} font-bold tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis`}
-                    style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                    className="text-[17px] font-bold tracking-tight leading-none whitespace-nowrap"
+                    style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.015em" }}
                   >
                     {t.title}
                   </p>
@@ -137,36 +108,32 @@ function TopicsPage() {
 
             return (
               <div className="flex flex-col gap-2.5">
-                {/* Row 1: Pet Talk hero (2/3) + stack of 2 minis (1/3) */}
-                <div className="grid grid-cols-3 gap-2.5 items-stretch">
-                  <div className="col-span-2">
-                    <HeroCard t={byId.pet_talk} ratio="aspect-square" />
-                  </div>
-                  <div className="flex flex-col gap-2.5 min-h-0">
-                    <MiniCard t={byId.free_talk} />
-                    <MiniCard t={byId.food_talk} />
-                  </div>
+                {/* Row 1 — featured pair: Pet Talk + Football Talk */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <HeroCard t={byId.pet_talk} ratio="aspect-square" />
+                  <HeroCard t={byId.football_talk} ratio="aspect-square" />
                 </div>
 
-                {/* Row 2: stack of 2 minis (1/3) + Football Talk hero (2/3) */}
-                <div className="grid grid-cols-3 gap-2.5 items-stretch">
-                  <div className="flex flex-col gap-2.5 min-h-0">
-                    <MiniCard t={byId.mywordie} />
-                    <MiniCard t={byId.smart_reading} />
-                  </div>
-                  <div className="col-span-2">
-                    <HeroCard t={byId.football_talk} ratio="aspect-square" />
-                  </div>
-                </div>
-
-                {/* Row 3: Magic Adventure + Nature Explorer, twin heroes (1/2 each) */}
+                {/* Row 2 — featured pair: Magic Adventure + Nature Explorer */}
                 <div className="grid grid-cols-2 gap-2.5">
                   <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
                   <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
                 </div>
 
-                {/* Row 4: Minecraft Adventure full-width banner */}
+                {/* Row 3 — Minecraft Adventure full-width pixel banner */}
                 <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1]" />
+
+                {/* Row 4 — supporting pair: Free Talk + Smart Reading */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <HeroCard t={byId.free_talk} ratio="aspect-square" />
+                  <HeroCard t={byId.smart_reading} ratio="aspect-square" />
+                </div>
+
+                {/* Row 5 — supporting pair: Food Talk + myWordie */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <HeroCard t={byId.food_talk} ratio="aspect-square" />
+                  <HeroCard t={byId.mywordie} ratio="aspect-square" />
+                </div>
               </div>
             );
           })()}
