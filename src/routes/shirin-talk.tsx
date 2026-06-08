@@ -14,7 +14,7 @@ const PINK = "var(--shirin)";
 
 function ShirinTalkPage() {
   const cards = [
-    { to: "/chat", title: "Free Talk", icon: MessageCircle },
+    { to: "/chat", title: "Free Talk", icon: MessageCircle, search: { mode: "topic", topic_id: "free_talk", from: "shirin-talk" } as const },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen },
     { to: "/chat", title: "myWordie Talk", icon: null, search: { mode: "mywordie" } as const },
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },

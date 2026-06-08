@@ -89,6 +89,7 @@ export const Route = createFileRoute("/chat")({
     mode: z.string().optional(),
     topic_id: z.string().optional(),
     lesson_id: z.string().optional(),
+    from: z.string().optional(),
   }),
   component: ChatPage,
 });
@@ -299,7 +300,15 @@ function ChatPage() {
         {/* Header */}
         <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
           <Link
-            to={mode === "topic" ? "/topics" : mode === "smart_reading" ? "/smart-reading" : "/shirin-talk"}
+            to={
+              (search.from as string) === "shirin-talk"
+                ? "/shirin-talk"
+                : mode === "topic"
+                  ? "/topics"
+                  : mode === "smart_reading"
+                    ? "/smart-reading"
+                    : "/shirin-talk"
+            }
             aria-label="Back"
             className="h-9 w-9 grid place-items-center rounded-full"
           >
