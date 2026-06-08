@@ -632,6 +632,37 @@ function Dot({ delay }: { delay: number }) {
   );
 }
 
+function VoiceHoldOverlay() {
+  const bars = Array.from({ length: 56 });
+  return (
+    <div
+      className="absolute inset-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-8"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(15,30,80,0) 0%, rgba(28,68,200,0.55) 45%, rgba(56,130,255,0.85) 100%)",
+        backdropFilter: "blur(2px)",
+      }}
+    >
+      <p className="text-white/90 text-[13px] font-semibold mb-4 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
+        Release to send · slide up to cancel
+      </p>
+      <div className="flex items-end gap-[3px] h-12 px-6">
+        {bars.map((_, i) => (
+          <span
+            key={i}
+            className="w-[3px] rounded-full bg-white/85"
+            style={{
+              height: `${20 + Math.abs(Math.sin((i + 1) * 0.6)) * 70}%`,
+              animation: `voiceWave 900ms ease-in-out ${i * 28}ms infinite alternate`,
+            }}
+          />
+        ))}
+      </div>
+      <style>{`@keyframes voiceWave { from { transform: scaleY(0.4); } to { transform: scaleY(1.1); } }`}</style>
+    </div>
+  );
+}
+
 function SelectDot({
   enabled,
   selected,
