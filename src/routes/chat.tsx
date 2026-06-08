@@ -53,6 +53,23 @@ const MODE_OPENING: Record<string, string> = {
     "Great reading today! Let's chat about the story. What was your favourite part?",
 };
 
+// Per-spec: when mode=topic, opening comes from this map keyed by topic_id.
+// Keep IDs in sync with src/routes/topics.tsx TOPICS.
+const TOPIC_OPENING: Record<string, string> = {
+  free_talk: "Hi! I'm Shirin. What do you want to talk about today?",
+  pet_talk:
+    "Hi! I'm Shirin. I have a pet cat. His name is Scratch. Scratch is funny and a little naughty! Do you have a pet?",
+  minecraft_adventure:
+    "Welcome to Minecraft Adventure! What do you want to build today — a house, a farm, or something else?",
+  food_talk: "Yum! Let's talk about food. What food do you like?",
+  football_talk:
+    "Let's talk about football! Do you play football? Which team do you like?",
+  magic_adventure:
+    "You find a magic door. It opens slowly… What do you see on the other side?",
+  nature_explorer:
+    "Let's be nature explorers! What animal or plant did you see today?",
+};
+
 const ALBUM_COLORS = [
   "#FBCFE8", "#FDE68A", "#A7F3D0", "#BFDBFE",
   "#DDD6FE", "#FBCFE8", "#FECACA", "#C7D2FE",
@@ -79,8 +96,12 @@ export const Route = createFileRoute("/chat")({
 function ChatPage() {
   const search = useSearch({ from: "/chat" });
   const mode = (search.mode as string) || "topic";
+  const topicId = (search.topic_id as string) || "free_talk";
   const title = MODE_TITLES[mode] ?? "ShirinTalk";
-  const opening = MODE_OPENING[mode] ?? MODE_OPENING.topic;
+  const opening =
+    mode === "topic"
+      ? TOPIC_OPENING[topicId] ?? TOPIC_OPENING.free_talk
+      : MODE_OPENING[mode] ?? MODE_OPENING.topic;
 
   const initialMessages: Message[] = useMemo(
     () => [

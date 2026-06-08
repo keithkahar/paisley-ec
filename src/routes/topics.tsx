@@ -4,7 +4,6 @@ import { ChevronLeft } from "lucide-react";
 
 const PINK = "var(--shirin)";
 
-// Pastel gradient palette for topic tiles.
 const PALETTE: string[] = [
   "linear-gradient(135deg,#FFD1DC,#FFA8C5)",
   "linear-gradient(135deg,#FDE68A,#FCA5A5)",
@@ -22,40 +21,31 @@ function bgFor(id: string): string {
   return PALETTE[h % PALETTE.length];
 }
 
+// Canonical topics per topic-talk-spec. topic_id MUST match the chat opening/prompt map.
+// `mywordie` is intentionally excluded from the list (entered via its own hub card).
+// `smart_reading` is included but routes to /smart-reading instead of /chat.
 type Topic = {
   topic_id: string;
   title: string;
-  prompt: string;
+  subtitle: string;
   emoji: string;
 };
-
-// Single curated stream — varied bento tile sizes drive the visual rhythm.
 const TOPICS: Topic[] = [
-  { topic_id: "topic_daily_1", title: "Morning Routine", prompt: "What do you do after you wake up?", emoji: "🌅" },
-  { topic_id: "topic_friends_1", title: "Best Friend", prompt: "Who is your best friend? Why?", emoji: "🤝" },
-  { topic_id: "topic_nature_1", title: "Favorite Animal", prompt: "Which animal do you love most?", emoji: "🦊" },
-  { topic_id: "topic_daily_2", title: "Breakfast", prompt: "What did you eat this morning?", emoji: "🥞" },
-  { topic_id: "topic_nature_2", title: "Rainy Day", prompt: "What do you do on a rainy day?", emoji: "🌧️" },
-  { topic_id: "topic_friends_3", title: "Playing Together", prompt: "What games do you play with friends?", emoji: "🎲" },
-  { topic_id: "topic_daily_5", title: "My Weekend", prompt: "What did you do last weekend?", emoji: "🎈" },
-  { topic_id: "topic_nature_4", title: "Stars at Night", prompt: "Have you seen the stars?", emoji: "✨" },
-  { topic_id: "topic_friends_5", title: "Birthday Party", prompt: "Who do you want at your party?", emoji: "🎂" },
-  { topic_id: "topic_nature_5", title: "The Big Sea", prompt: "What lives in the sea?", emoji: "🐳" },
-  { topic_id: "topic_daily_3", title: "After School", prompt: "What do you do after school?", emoji: "🎒" },
-  { topic_id: "topic_nature_6", title: "Seasons", prompt: "Which season do you like best?", emoji: "🍂" },
-  { topic_id: "topic_friends_6", title: "Sharing Snacks", prompt: "What snack do you love to share?", emoji: "🍪" },
-  { topic_id: "topic_daily_4", title: "Bedtime", prompt: "What helps you fall asleep?", emoji: "🛏️" },
-  { topic_id: "topic_nature_3", title: "At the Park", prompt: "What do you see at the park?", emoji: "🌳" },
-  { topic_id: "topic_friends_2", title: "New Classmate", prompt: "How would you welcome a new friend?", emoji: "👋" },
+  { topic_id: "free_talk", title: "Free Talk", subtitle: "Talk about anything you like.", emoji: "💬" },
+  { topic_id: "smart_reading", title: "Smart Reading Talk", subtitle: "Talk about your story.", emoji: "📖" },
+  { topic_id: "pet_talk", title: "Pet Talk", subtitle: "Talk about pets and Scratch.", emoji: "🐱" },
+  { topic_id: "minecraft_adventure", title: "Minecraft Adventure", subtitle: "Build, dig, and explore.", emoji: "⛏️" },
+  { topic_id: "food_talk", title: "Food Talk", subtitle: "Talk about yummy food.", emoji: "🍜" },
+  { topic_id: "football_talk", title: "Football Talk", subtitle: "Talk about football and games.", emoji: "⚽" },
+  { topic_id: "magic_adventure", title: "Magic Adventure", subtitle: "Open a magic door.", emoji: "🪄" },
+  { topic_id: "nature_explorer", title: "Nature Explorer", subtitle: "Animals, plants, and weather.", emoji: "🌿" },
 ];
 
-// Bento spans — repeats every 6 tiles for a balanced rhythm on a 6-col grid.
-// Each entry = [colSpan, rowSpan]. Tweak here to change layout cadence.
+// Bento spans on a 6-col grid. Cycles to give the page rhythm.
 const BENTO: Array<[number, number]> = [
   [4, 2], [2, 1], [2, 1],
   [3, 1], [3, 2], [3, 1],
-  [2, 1], [2, 1], [2, 1],
-  [3, 1], [3, 1],
+  [2, 1], [2, 1],
 ];
 
 export const Route = createFileRoute("/topics")({
@@ -88,7 +78,6 @@ function TopicsPage() {
             </p>
           </div>
 
-          {/* Bento grid — 6 cols, auto rows ~64px. Varied spans create rhythm. */}
           <div
             className="grid gap-2.5"
             style={{
@@ -99,13 +88,18 @@ function TopicsPage() {
           >
             {TOPICS.map((t, i) => {
               const [cs, rs] = BENTO[i % BENTO.length];
-              const isTall = rs >= 2;
-              const isWide = cs >= 4;
+              const big = rs >= 2 || cs >= 4;
+
+              // Per-spec exception: smart_reading routes to its own flow page.
+              const linkProps =
+                t.topic_id === "smart_reading"
+                  ? ({ to: "/smart-reading" } as const)
+                  : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
+
               return (
                 <Link
                   key={t.topic_id}
-                  to="/chat"
-                  search={{ mode: "topic", topic_id: t.topic_id }}
+                  {...linkProps}
                   className="relative rounded-3xl p-3 overflow-hidden active:scale-[0.97] transition-transform flex flex-col justify-between"
                   style={{
                     gridColumn: `span ${cs} / span ${cs}`,
@@ -113,22 +107,19 @@ function TopicsPage() {
                     background: bgFor(t.topic_id),
                   }}
                 >
-                  <div
-                    className={`${isTall || isWide ? "text-[40px]" : "text-[26px]"} leading-none drop-shadow-sm`}
-                    aria-hidden
-                  >
+                  <div className={`${big ? "text-[40px]" : "text-[26px]"} leading-none drop-shadow-sm`} aria-hidden>
                     {t.emoji}
                   </div>
                   <div className="min-w-0">
                     <p
-                      className={`${isTall || isWide ? "text-[15px]" : "text-[12.5px]"} font-black tracking-tight leading-tight text-foreground`}
+                      className={`${big ? "text-[15px]" : "text-[12.5px]"} font-black tracking-tight leading-tight text-foreground`}
                       style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                     >
                       {t.title}
                     </p>
-                    {(isTall || isWide) && (
+                    {big && (
                       <p className="mt-1 text-[11px] font-semibold line-clamp-2 text-foreground/65">
-                        {t.prompt}
+                        {t.subtitle}
                       </p>
                     )}
                   </div>
