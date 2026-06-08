@@ -91,13 +91,13 @@ function MyWordiePage() {
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
-            230 cards
+            <Flame className="h-3.5 w-3.5" />7
           </span>
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
-            <Flame className="h-3.5 w-3.5" />7
+            230 cards
           </span>
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
