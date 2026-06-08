@@ -4,7 +4,8 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { AppHeader } from "@/components/app/AppHeader";
 import { BpPill } from "@/components/app/Pills";
 import logo from "@/assets/brand/Bloxia.png";
-import { Hammer, Sprout, PawPrint, Gift } from "lucide-react";
+import { Hammer, Sprout, PawPrint, Gift, Play } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/bloxia")({
   head: () => ({ meta: [{ title: "Bloxia — Paisley EC" }] }),
@@ -57,6 +58,22 @@ function BloxiaPage() {
         <ActionCard label="Pets" sub="Feed your pal" icon={<PawPrint />} tint="var(--wordie-accent)" />
         <ActionCard label="Rewards" sub="Open today's gift" icon={<Gift />} tint="var(--shirin)" />
       </section>
+
+      {/* Primary CTA */}
+      <div className="px-5 mt-5">
+        <Link
+          to="/bloxia"
+          className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
+          style={{
+            background: "var(--bloxia)",
+            fontFamily: "var(--font-sans)",
+            fontSize: "17.25px",
+          }}
+        >
+          <Play className="shrink-0 fill-current" style={{ width: "1.15em", height: "1.15em" }} />
+          <span className="leading-none">Play Bloxia</span>
+        </Link>
+      </div>
 
       <BottomTabBar />
     </PhoneFrame>

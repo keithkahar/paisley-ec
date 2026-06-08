@@ -3,7 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { AppHeader } from "@/components/app/AppHeader";
 import { BpPill, StreakPill } from "@/components/app/Pills";
-import { TrendingUp, ClipboardList, CalendarDays, Pencil, ShieldCheck, ChevronRight } from "lucide-react";
+import { TrendingUp, ClipboardList, CalendarDays, Pencil, ShieldCheck, ChevronRight, Settings } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [{ title: "My Profile — Paisley EC" }] }),
@@ -21,8 +21,15 @@ function ProfilePage() {
         <div className="flex items-center gap-4">
           <div className="h-16 w-16 rounded-2xl bg-white/20 grid place-items-center text-2xl font-bold">L</div>
           <div>
-            <h2 className="text-xl font-bold">Lily</h2>
-            <p className="text-xs opacity-80">Age 9 · CEFR A2</p>
+            <h2
+              className="text-[28px] leading-[1.2] font-semibold tracking-tight"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            >
+              Lily
+            </h2>
+            <p className="text-sm opacity-85" style={{ fontFamily: "var(--font-sans)" }}>
+              Age 9 · CEFR A2
+            </p>
           </div>
         </div>
         <div className="mt-4 flex gap-2">
@@ -36,6 +43,22 @@ function ProfilePage() {
         <Tile to="/my-tests" label="My Tests" icon={<ClipboardList />} tint="var(--shirin)" />
         <Tile to="/calendar" label="Calendar" icon={<CalendarDays />} tint="var(--bloxia)" />
       </section>
+
+      {/* Primary CTA (Paisley brand pill) */}
+      <div className="px-5 mt-5">
+        <Link
+          to="/edit-profile"
+          className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
+          style={{
+            background: "var(--paisley)",
+            fontFamily: "var(--font-sans)",
+            fontSize: "17.25px",
+          }}
+        >
+          <Settings className="shrink-0" style={{ width: "1.15em", height: "1.15em" }} />
+          <span className="leading-none">Edit my Profile</span>
+        </Link>
+      </div>
 
       <section className="px-5 mt-5 rounded-2xl bg-white border border-border divide-y divide-border">
         <Row to="/parent" icon={<ShieldCheck />} label="Parent Page" hint="Manage learning & settings" />
