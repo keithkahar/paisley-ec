@@ -1,10 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import shirinFilled from "@/assets/tabs/shirin-filled.png.asset.json";
-import shirinOutline from "@/assets/tabs/shirin-outline.png.asset.json";
+import shirinOutline from "@/assets/tabs/shirin-outline-bold.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
 import wordieOutline from "@/assets/tabs/wordie-outline.png.asset.json";
 import bloxiaFilled from "@/assets/tabs/bloxia-filled.png.asset.json";
-import bloxiaOutline from "@/assets/tabs/bloxia-outline.png.asset.json";
+import bloxiaOutline from "@/assets/tabs/bloxia-outline-bold.png.asset.json";
 import profileFilled from "@/assets/tabs/profile-filled.png.asset.json";
 import profileOutline from "@/assets/tabs/profile-outline.png.asset.json";
 
