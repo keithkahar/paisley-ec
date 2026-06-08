@@ -9,7 +9,7 @@ import {
   Flame,
   Play,
 } from "lucide-react";
-import { ProgressBar, SectionTitle } from "@/components/app/WordieKit";
+import { ProgressBar } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/mywordie")({
   head: () => ({ meta: [{ title: "myWordie — Paisley EC" }] }),
