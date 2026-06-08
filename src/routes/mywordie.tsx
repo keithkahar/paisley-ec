@@ -22,10 +22,21 @@ export const Route = createFileRoute("/mywordie")({
 function MyWordiePage() {
   // Today's card pack
   const cardsTotal = 5;
-  const reviewCount = 0;
-  const newCount = 5;
-  const doneToday = 0; // cards completed today
+  const reviewCount = 1;
+  const newCount = 4;
+  const doneToday = 2; // cards completed today (mock for visual progress)
   const pct = Math.round((doneToday / cardsTotal) * 100);
+
+  // Week calendar
+  const today = new Date();
+  const week = Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() - today.getDay() + i);
+    return d;
+  });
+  const dayLabels = ["S", "M", "T", "W", "T", "F", "S"];
+  // Mock study days within the week (relative day-of-week indices)
+  const studiedDows = new Set([1, 2, 3, today.getDay()]);
 
   return (
     <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
@@ -68,13 +79,17 @@ function MyWordiePage() {
             />
           </div>
 
-          <div className="mt-4 flex items-center gap-3 text-[12px] font-bold">
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/18 px-2.5 py-1">
-              <Flame className="h-3.5 w-3.5" />
-              7-day streak
+          <div className="mt-4 flex items-center justify-center gap-2 text-[13px] font-bold">
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 bg-transparent text-white"
+              style={{ border: "1px solid rgba(255,255,255,0.9)" }}
+            >
+              <Flame className="h-3.5 w-3.5" />7
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/18 px-2.5 py-1">
-              <Sparkles className="h-3.5 w-3.5" />
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 bg-transparent text-white"
+              style={{ border: "1px solid rgba(255,255,255,0.9)" }}
+            >
               1,240 Bp
             </span>
           </div>
@@ -92,6 +107,44 @@ function MyWordiePage() {
             <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
             <span>Start Word Card</span>
           </Link>
+        </section>
+
+        {/* Week calendar */}
+        <section className="mt-5 rounded-3xl bg-white border border-border px-4 py-3.5">
+          <div className="flex items-center justify-between">
+            {week.map((d, i) => {
+              const isToday = d.toDateString() === today.toDateString();
+              const studied = studiedDows.has(i);
+              return (
+                <div key={i} className="flex flex-col items-center gap-1">
+                  <span
+                    className="text-[11px] font-medium"
+                    style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+                  >
+                    {dayLabels[i]}
+                  </span>
+                  <span
+                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
+                    style={
+                      isToday
+                        ? {
+                            color: "white",
+                            background: "var(--wordie)",
+                          }
+                        : studied
+                          ? {
+                              color: "var(--wordie)",
+                              border: "1.5px solid var(--wordie)",
+                            }
+                          : { color: "var(--foreground)" }
+                    }
+                  >
+                    {d.getDate()}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </section>
 
         {/* Three feature cards */}
