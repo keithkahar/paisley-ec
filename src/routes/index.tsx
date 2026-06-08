@@ -22,7 +22,7 @@ function Home() {
     <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
       <div className="relative min-h-screen flex flex-col">
         {/* App logo top-left */}
-        <div className="absolute top-4 left-5 z-20">
+        <div className="absolute top-7 left-5 z-20">
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </div>
         {/* PRIMARY: Shirin hero */}
@@ -35,14 +35,14 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[66%] max-w-[270px] object-contain"
+              className="relative z-10 w-[72%] max-w-[297px] object-contain"
             />
           </div>
         </section>
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-2 flex-1 bg-card px-7 pt-12 pb-6"
+          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
