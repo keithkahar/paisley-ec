@@ -112,7 +112,7 @@ function TopicsPage() {
                 <HeroCard t={byId.football_talk} ratio="aspect-square" />
                 {/* Minecraft Adventure spans both columns right under Pet Talk & Football Talk */}
                 <div className="col-span-2">
-                  <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2.057/1]" />
+                  <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1] [aspect-ratio:auto] [&>div:first-child]:!aspect-auto" />
                 </div>
                 <HeroCard t={byId.free_talk} ratio="aspect-square" />
                 <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
