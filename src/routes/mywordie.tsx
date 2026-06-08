@@ -32,6 +32,15 @@ function MyWordiePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
+        <div className="absolute top-4 left-4 z-30">
+          <Link
+            to="/"
+            aria-label="Back"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Link>
+        </div>
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-12 pb-1">
           <div
@@ -97,7 +106,7 @@ function MyWordiePage() {
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
-            <Flame className="h-3.5 w-3.5" />7
+            7 days
           </span>
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
