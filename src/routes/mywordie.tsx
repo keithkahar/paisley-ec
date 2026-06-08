@@ -26,7 +26,12 @@ function MyWordiePage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-wider opacity-80">Today's Practice</p>
-            <h2 className="text-2xl font-bold mt-1">{done} of {total} words</h2>
+            <h2
+              className="mt-1 text-[28px] leading-[1.2] font-semibold tracking-tight"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            >
+              {done} of {total} words
+            </h2>
           </div>
           <div className="h-16 w-16 rounded-full grid place-items-center text-sm font-bold"
             style={{ background: "color-mix(in oklab, var(--wordie-accent) 60%, white)", color: "var(--wordie)" }}>
@@ -42,8 +47,10 @@ function MyWordiePage() {
         </div>
 
         <Link to="/word-card"
-          className="mt-4 inline-flex items-center justify-center gap-2 w-full rounded-2xl bg-white text-[color:var(--wordie)] py-3 font-bold shadow-md">
-          <Play className="h-4 w-4 fill-current" /> Start Word Card
+          className="mt-5 relative isolate flex items-center justify-center gap-[8px] w-full rounded-full bg-white text-[color:var(--wordie)] py-4 font-bold shadow-lg active:scale-[0.98] transition-transform"
+          style={{ fontFamily: "var(--font-sans)", fontSize: "17.25px" }}>
+          <Play className="shrink-0 fill-current" style={{ width: "1.15em", height: "1.15em" }} />
+          <span className="leading-none">Start Word Card</span>
         </Link>
       </section>
 

@@ -24,8 +24,18 @@ function ShirinTalkPage() {
           alt="Shirin"
           className="mx-auto h-40 w-40 object-contain drop-shadow-[0_10px_25px_color-mix(in_oklab,var(--shirin)_35%,transparent)]"
         />
-        <h2 className="mt-4 text-2xl font-bold text-[color:var(--shirin)]">Hi, I'm Shirin!</h2>
-        <p className="text-sm text-foreground/70 mt-1">Let's practise English together.</p>
+        <h2
+          className="mt-4 text-[28px] leading-[1.2] font-semibold tracking-tight text-[color:var(--shirin)]"
+          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        >
+          Hi, I'm Shirin!
+        </h2>
+        <p
+          className="mt-2 text-[17px] text-foreground/70 leading-[1.3]"
+          style={{ fontFamily: "var(--font-sans)" }}
+        >
+          Let's practise English together.
+        </p>
 
         <div className="mt-3 flex items-center justify-center gap-2">
           <StreakPill days={7} />
@@ -34,10 +44,15 @@ function ShirinTalkPage() {
 
         <Link
           to="/chat"
-          className="mt-5 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-white font-bold text-base shadow-lg w-[80%]"
-          style={{ background: "var(--shirin)" }}
+          className="mt-6 relative isolate flex items-center justify-center gap-[8px] rounded-full py-4 font-bold text-white w-[80%] mx-auto active:scale-[0.98] transition-transform shadow-lg"
+          style={{
+            background: "var(--shirin)",
+            fontFamily: "var(--font-sans)",
+            fontSize: "17.25px",
+          }}
         >
-          <Mic className="h-5 w-5" /> Start ShirinTalk
+          <Mic className="shrink-0" style={{ width: "1.15em", height: "1.15em" }} />
+          <span className="leading-none">Start ShirinTalk</span>
         </Link>
       </section>
 
