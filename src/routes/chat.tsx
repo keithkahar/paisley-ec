@@ -82,14 +82,7 @@ function ChatPage() {
       {/* Header */}
       <AppHeader
         back="/shirin-talk"
-        title={
-          <div className="flex items-center justify-center gap-2">
-            <img src={shirinIcon.url} alt="" className="h-6 w-6 rounded-lg" />
-            <span className="text-[15px] font-bold">ShirinTalk</span>
-            <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
-          </div>
-        }
-        right={<BpPill value={1255} />}
+        title={null}
         tone={SHIRIN_COLOR}
         bg="white"
       />
