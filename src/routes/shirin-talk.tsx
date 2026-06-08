@@ -103,7 +103,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Pill actions */}
-        <section className="px-6 pt-4 pb-6 flex-1 flex flex-col justify-end gap-3">
+        <section className="px-6 pt-4 pb-10 flex-1 flex flex-col justify-end gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
@@ -113,13 +113,16 @@ function ShirinTalkPage() {
                 className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
               >
-                <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
+                <span
+                  className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white"
+                  style={{ border: `1.5px solid ${PINK}` }}
+                >
                   {Icon ? (
-                    <Icon className="h-4 w-4" style={{ color: PINK }} />
+                    <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PINK }} />
                   ) : (
                     <span
                       aria-hidden
-                      className="block h-3.5 w-3.5"
+                      className="block h-[18px] w-[18px]"
                       style={{
                         background: PINK,
                         WebkitMaskImage: `url(${mywordieIcon.url})`,
