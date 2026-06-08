@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { BpPill } from "@/components/app/Pills";
-import shirinIcon from "@/assets/brand/icon-ShirinTalk.png";
+import shirinIcon from "@/assets/brand/Shirin.png.asset.json";
 import { Mic, Send, Volume2, Sparkles } from "lucide-react";
 
 const SHIRIN_COLOR = "var(--shirin)";
@@ -84,7 +84,7 @@ function ChatPage() {
         back="/shirin-talk"
         title={
           <div className="flex items-center justify-center gap-2">
-            <img src={shirinIcon} alt="" className="h-6 w-6 rounded-lg" />
+            <img src={shirinIcon.url} alt="" className="h-6 w-6 rounded-lg" />
             <span className="text-[15px] font-bold">ShirinTalk</span>
             <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
           </div>
@@ -103,7 +103,7 @@ function ChatPage() {
           >
             {m.role === "shirin" && (
               <img
-                src={shirinIcon}
+                src={shirinIcon.url}
                 alt="Shirin"
                 className="h-8 w-8 rounded-xl mr-2 mt-1 shadow-sm"
               />
@@ -147,7 +147,7 @@ function ChatPage() {
         {/* Typing indicator */}
         <div className="flex items-start gap-2">
           <img
-            src={shirinIcon}
+            src={shirinIcon.url}
             alt="Shirin"
             className="h-8 w-8 rounded-xl shadow-sm"
           />
