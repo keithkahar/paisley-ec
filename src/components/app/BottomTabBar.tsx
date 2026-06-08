@@ -23,7 +23,13 @@ export function BottomTabBar() {
       {/* spacer so content isn't hidden under the bar */}
       <div className="h-24" aria-hidden />
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10 pb-4">
-        <div className="relative h-20 rounded-full bg-white border border-border flex items-stretch">
+        <div
+          className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
+          style={{
+            boxShadow:
+              "0 -10px 30px -8px rgba(255,255,255,0.95), 0 12px 28px -10px rgba(0,0,0,0.15), 0 4px 10px -4px rgba(0,0,0,0.08)",
+          }}
+        >
           {tabs.map((t, i) => {
             const active = pathname.startsWith(t.to);
             const isProfile = t.to === "/profile";
