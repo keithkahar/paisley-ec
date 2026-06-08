@@ -634,17 +634,17 @@ function VoiceHoldOverlay() {
   const bars = Array.from({ length: 56 });
   return (
     <div
-      className="absolute inset-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-8"
+      className="absolute left-0 right-0 bottom-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-6"
       style={{
+        height: "190px",
         background:
-          "linear-gradient(180deg, rgba(15,30,80,0) 0%, rgba(28,68,200,0.55) 45%, rgba(56,130,255,0.85) 100%)",
-        backdropFilter: "blur(2px)",
+          "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 50%, transparent) 55%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
       }}
     >
-      <p className="text-white/90 text-[13px] font-semibold mb-4 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
+      <p className="text-white text-[12px] font-semibold mb-3 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
         Release to send · slide up to cancel
       </p>
-      <div className="flex items-end gap-[3px] h-12 px-6">
+      <div className="flex items-end gap-[3px] h-9 px-6">
         {bars.map((_, i) => (
           <span
             key={i}
