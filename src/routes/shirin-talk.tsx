@@ -16,7 +16,7 @@ function ShirinTalkPage() {
   const cards = [
     { to: "/chat", title: "Free Talk", icon: MessageCircle },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen },
-    { to: "/mywordie", title: "myWordie Talk", icon: null },
+    { to: "/chat", title: "myWordie Talk", icon: null, search: { mode: "mywordie" } as const },
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },
   ];
 
