@@ -65,7 +65,7 @@ function ShirinTalkPage() {
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
-              <Flame className="h-3.5 w-3.5" />7
+              7 days
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
