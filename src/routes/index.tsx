@@ -23,10 +23,10 @@ function Home() {
       <div className="relative min-h-screen flex flex-col">
         {/* App logo top-left */}
         <div className="absolute top-4 left-5 z-20">
-          <img src={paisleyLogo.url} alt="Paisley EC" className="h-10 w-auto object-contain" />
+          <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </div>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-16 pb-0">
+        <section className="relative px-6 pt-28 pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -35,7 +35,7 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[66%] max-w-[270px] object-contain drop-shadow-[0_18px_35px_color-mix(in_oklab,var(--shirin)_25%,transparent)]"
+              className="relative z-10 w-[66%] max-w-[270px] object-contain"
             />
           </div>
         </section>
