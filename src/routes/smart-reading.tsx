@@ -150,16 +150,18 @@ function SmartReadingPage() {
               className="w-full flex items-center justify-between gap-3 rounded-full px-4 py-4 text-left active:scale-[0.98] transition-transform"
               style={{ background: PINK_SOFT }}
             >
-              <div className="min-w-0 flex items-center gap-2 flex-wrap">
+              <div className="min-w-0 flex flex-col gap-1.5">
                 <p
                   className="text-[17px] font-bold tracking-tight leading-none"
                   style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                 >
                   {currentPack.title}
                 </p>
-                <MiniPill>{currentPack.CEFR}</MiniPill>
-                <MiniPill>{currentPack.Lexile}</MiniPill>
-                <MiniPill>{currentPack.wordCount} Words</MiniPill>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <MiniPill>{currentPack.CEFR}</MiniPill>
+                  <MiniPill>{currentPack.Lexile}</MiniPill>
+                  <MiniPill>{currentPack.wordCount} Words</MiniPill>
+                </div>
               </div>
               <ChevronDown
                 className="h-5 w-5 shrink-0 transition-transform"
@@ -181,13 +183,15 @@ function SmartReadingPage() {
                       className="w-full text-left px-4 py-3 flex items-center justify-between gap-3 hover:bg-[color:var(--muted)]"
                       style={active ? { background: PINK_SOFT } : undefined}
                     >
-                      <div className="min-w-0 flex items-center gap-2 flex-wrap">
+                      <div className="min-w-0 flex flex-col gap-1.5">
                         <p className="text-[15px] font-bold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
                           {p.title}
                         </p>
-                        <MiniPill>{p.CEFR}</MiniPill>
-                        <MiniPill>{p.Lexile}</MiniPill>
-                        <MiniPill>{p.wordCount} Words</MiniPill>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <MiniPill>{p.CEFR}</MiniPill>
+                          <MiniPill>{p.Lexile}</MiniPill>
+                          <MiniPill>{p.wordCount} Words</MiniPill>
+                        </div>
                       </div>
                       {active && <Check className="h-4 w-4 shrink-0" strokeWidth={3} style={{ color: PINK }} />}
                     </button>
@@ -224,19 +228,20 @@ function SmartReadingPage() {
                     to="/chat"
                     search={{ mode: "smart_reading", lesson_id: u.lesson_id }}
                     className="flex items-stretch rounded-full overflow-hidden active:scale-[0.98] transition-transform"
-                    style={{ background: PINK_SOFT }}
+                    style={{ background: "white", border: "1px solid oklch(0.94 0.02 10)" }}
                   >
                     <div
-                      className="w-14 shrink-0 grid place-items-center text-2xl my-1 ml-1 rounded-full bg-white"
+                      className="h-11 w-11 shrink-0 grid place-items-center text-xl my-2 ml-2 rounded-full"
+                      style={{ background: u.cover }}
                       aria-hidden
                     >
                       {u.emoji}
                     </div>
                     <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
-                      <p className="text-[15px] font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-sans)", color: PINK, letterSpacing: "-0.01em" }}>
+                      <p className="text-[15px] font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}>
                         {u.story_title}
                       </p>
-                      <p className="mt-0.5 text-[11px] font-semibold line-clamp-1" style={{ color: "color-mix(in oklab, var(--shirin) 75%, black)" }}>
+                      <p className="mt-0.5 text-[11px] font-semibold line-clamp-1 text-foreground/60">
                         {u.cover_question}
                       </p>
                     </div>
@@ -244,7 +249,7 @@ function SmartReadingPage() {
                       {u.done ? (
                         <span
                           className="h-6 w-6 grid place-items-center rounded-full"
-                          style={{ background: "white" }}
+                          style={{ background: PINK_SOFT }}
                           aria-label="Read"
                         >
                           <Check className="h-3.5 w-3.5" strokeWidth={3} style={{ color: PINK }} />
