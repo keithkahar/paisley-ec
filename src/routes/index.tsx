@@ -72,7 +72,7 @@ function Home() {
               src={shirinTalkText.url}
               alt="ShirinTalk"
               className="w-auto shrink-0 object-contain"
-              style={{ height: "1.25em" }}
+              style={{ height: "0.625em" }}
             />
           </Link>
 
