@@ -27,10 +27,6 @@ function MyWordiePage() {
   const doneToday = 0; // cards completed today
   const pct = Math.round((doneToday / cardsTotal) * 100);
 
-  // Assigned pack progress
-  const pack = { name: "Animal Friends · Pack 4", done: 18, total: 25 };
-  const packPct = Math.round((pack.done / pack.total) * 100);
-
   return (
     <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
       <AppHeader
