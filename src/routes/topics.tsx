@@ -55,7 +55,7 @@ function TopicsPage() {
               className="text-[26px] leading-[1.2] font-semibold tracking-tight"
               style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
-              Choose a topic
+              Choose A Topic
             </h1>
             <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
               Pick a painting · let's talk about it.
