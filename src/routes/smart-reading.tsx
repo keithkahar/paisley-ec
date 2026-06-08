@@ -45,8 +45,6 @@ function SmartReadingPage() {
     );
   }, [query, level]);
 
-  const recommended = LESSONS[1];
-
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
