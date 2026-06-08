@@ -33,10 +33,10 @@ function MyWordiePage() {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
-        <section className="px-5 pt-6 pb-1">
+        <section className="px-5 pt-12 pb-1">
           <div
-            className="relative rounded-[28px] p-4 text-white overflow-hidden"
-            style={{ background: "var(--wordie)" }}
+            className="relative rounded-[28px] p-4 text-white overflow-hidden flex flex-col"
+            style={{ background: "var(--wordie)", minHeight: 224 }}
           >
           <h2
             className="text-center text-[22px] font-bold leading-none"
