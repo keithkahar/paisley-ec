@@ -86,35 +86,24 @@ function TopicsPage() {
                   {...linkProps}
                   className="group flex flex-col items-stretch active:scale-[0.97] transition-transform"
                 >
-                  {/* Frame */}
+                  {/* Painting in a thin gallery frame */}
                   <div
-                    className="relative aspect-square rounded-[6px] bg-white p-2"
+                    className="relative aspect-square rounded-[3px] overflow-hidden bg-white"
                     style={{
-                      border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
+                      padding: "4px",
+                      border: "1px solid color-mix(in oklab, var(--shirin) 22%, white)",
                       boxShadow:
-                        "0 1px 0 rgba(0,0,0,0.03), 0 8px 18px -12px color-mix(in oklab, var(--shirin) 35%, transparent)",
+                        "0 1px 0 rgba(0,0,0,0.04), 0 10px 22px -14px color-mix(in oklab, var(--shirin) 45%, transparent)",
                     }}
                   >
-                    {/* Inner mat */}
-                    <div
-                      className="absolute inset-2 rounded-[3px]"
-                      style={{ background: "color-mix(in oklab, var(--shirin) 4%, white)" }}
-                    />
-                    {/* Pink-tinted line art via CSS mask */}
-                    <div
-                      aria-hidden
-                      className="absolute inset-3"
-                      style={{
-                        background: PINK,
-                        WebkitMaskImage: `url(${t.art})`,
-                        maskImage: `url(${t.art})`,
-                        WebkitMaskRepeat: "no-repeat",
-                        maskRepeat: "no-repeat",
-                        WebkitMaskPosition: "center",
-                        maskPosition: "center",
-                        WebkitMaskSize: "contain",
-                        maskSize: "contain",
-                      }}
+                    <img
+                      src={t.art}
+                      alt={t.title}
+                      loading="lazy"
+                      width={1024}
+                      height={1024}
+                      className="block h-full w-full object-cover rounded-[1px]"
+                      draggable={false}
                     />
                   </div>
                   {/* Plaque */}
