@@ -35,7 +35,7 @@ function MyWordiePage() {
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-12 pb-1">
           <div
-            className="relative h-[220px] rounded-[28px] p-4 text-white overflow-hidden flex flex-col justify-between"
+            className="relative h-[228px] rounded-[28px] p-4 text-white overflow-hidden flex flex-col justify-between"
             style={{ background: "var(--wordie)" }}
           >
           <div>
