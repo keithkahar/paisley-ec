@@ -62,13 +62,13 @@ function ShirinTalkPage() {
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold bg-white"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               <Flame className="h-3.5 w-3.5" />7
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold bg-white"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               1,240 Bp
@@ -90,7 +90,7 @@ function ShirinTalkPage() {
                     className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
                     style={
                       isToday
-                        ? { background: PINK, color: "white" }
+                        ? { color: PINK, border: `1.5px solid ${PINK}` }
                         : { color: "var(--foreground)" }
                     }
                   >
@@ -103,7 +103,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Pill actions */}
-        <section className="px-6 pt-6 pb-8 flex flex-col gap-3">
+        <section className="px-6 pb-8 flex-1 flex flex-col justify-center gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
@@ -119,7 +119,7 @@ function ShirinTalkPage() {
                   ) : (
                     <span
                       aria-hidden
-                      className="block h-4 w-4"
+                      className="block h-3.5 w-3.5"
                       style={{
                         background: PINK,
                         WebkitMaskImage: `url(${mywordieIcon.url})`,
