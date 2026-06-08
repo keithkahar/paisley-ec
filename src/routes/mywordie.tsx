@@ -1,17 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { AppHeader } from "@/components/app/AppHeader";
 import {
   Layers,
   Zap,
   ClipboardCheck,
-  ChevronRight,
   Sparkles,
   Flame,
   Play,
 } from "lucide-react";
-import type { ReactNode } from "react";
 import { ProgressBar, SectionTitle } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/mywordie")({
@@ -20,6 +17,7 @@ export const Route = createFileRoute("/mywordie")({
 });
 
 function MyWordiePage() {
+  const WORDIE = "var(--wordie)";
   // Today's card pack
   const cardsTotal = 5;
   const reviewCount = 1;
@@ -39,13 +37,8 @@ function MyWordiePage() {
   const studiedDows = new Set([1, 2, 3, today.getDay()]);
 
   return (
-    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
-      <AppHeader
-        title="myWordie"
-        bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
-      />
-
-      <div className="px-5 pb-6">
+    <PhoneFrame bg="bg-white">
+      <div className="px-5 pt-6 pb-6">
         {/* Hero progress card */}
         <section
           className="relative rounded-[28px] p-5 text-white overflow-hidden"
@@ -118,11 +111,10 @@ function MyWordiePage() {
         </section>
 
         {/* Week calendar */}
-        <section className="mt-5 rounded-3xl bg-white border border-border px-4 py-3.5">
+        <section className="mt-5 px-2">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
-              const studied = studiedDows.has(i);
               return (
                 <div key={i} className="flex flex-col items-center gap-1">
                   <span
@@ -135,16 +127,8 @@ function MyWordiePage() {
                     className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
                     style={
                       isToday
-                        ? {
-                            color: "white",
-                            background: "var(--wordie)",
-                          }
-                        : studied
-                          ? {
-                              color: "var(--wordie)",
-                              border: "1.5px solid var(--wordie)",
-                            }
-                          : { color: "var(--foreground)" }
+                        ? { color: WORDIE, border: `1.5px solid ${WORDIE}` }
+                        : { color: "var(--foreground)" }
                     }
                   >
                     {d.getDate()}
@@ -155,33 +139,11 @@ function MyWordiePage() {
           </div>
         </section>
 
-        {/* Three feature cards */}
-        <section className="mt-5">
-          <SectionTitle>Practice</SectionTitle>
-          <div className="space-y-2.5">
-            <FeatureCard
-              to="/wordie-bank"
-              icon={<Layers className="h-5 w-5" />}
-              title="Wordie Bank"
-              desc="Browse your growing collection"
-              tint="var(--paisley)"
-            />
-            <FeatureCard
-              to="/wordie-x"
-              icon={<Zap className="h-5 w-5" />}
-              title="Wordie-X"
-              desc="Power up tricky words"
-              tint="var(--wordie-accent)"
-              badge="12 to do"
-            />
-            <FeatureCard
-              to="/wordie-test"
-              icon={<ClipboardCheck className="h-5 w-5" />}
-              title="Wordie Test"
-              desc="Quick check, friendly feedback"
-              tint="var(--shirin)"
-            />
-          </div>
+        {/* Pill actions — match ShirinTalk style */}
+        <section className="mt-5 flex flex-col gap-3">
+          <PillLink to="/wordie-bank" title="Wordie Bank" Icon={Layers} />
+          <PillLink to="/wordie-x" title="Wordie-X" Icon={Zap} />
+          <PillLink to="/wordie-test" title="Wordie Test" Icon={ClipboardCheck} />
         </section>
 
       </div>
@@ -191,50 +153,31 @@ function MyWordiePage() {
   );
 }
 
-function FeatureCard({
+function PillLink({
   to,
-  icon,
   title,
-  desc,
-  tint,
-  badge,
+  Icon,
 }: {
   to: string;
-  icon: ReactNode;
   title: string;
-  desc: string;
-  tint: string;
-  badge?: string;
+  Icon: React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>;
 }) {
+  const WORDIE = "var(--wordie)";
   return (
     <Link
       to={to}
-      className="flex items-center gap-3 rounded-3xl bg-white border border-border px-4 py-3.5 active:scale-[0.99] transition-transform"
+      className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
+      style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", fontFamily: "var(--font-sans)" }}
     >
-      <div
-        className="h-12 w-12 rounded-2xl grid place-items-center text-white shrink-0"
-        style={{ background: tint }}
+      <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
+        <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: WORDIE }} />
+      </span>
+      <span
+        className="text-[17px] font-bold tracking-tight leading-none"
+        style={{ letterSpacing: "-0.01em", color: WORDIE }}
       >
-        {icon}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <p className="font-bold text-[15px]">{title}</p>
-          {badge && (
-            <span
-              className="text-[10px] font-bold rounded-full px-2 py-0.5"
-              style={{
-                background: `color-mix(in oklab, ${tint} 18%, white)`,
-                color: tint,
-              }}
-            >
-              {badge}
-            </span>
-          )}
-        </div>
-        <p className="text-[12.5px] text-muted-foreground mt-0.5">{desc}</p>
-      </div>
-      <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
+        {title}
+      </span>
     </Link>
   );
 }
