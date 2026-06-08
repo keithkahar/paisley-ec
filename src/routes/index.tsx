@@ -19,11 +19,11 @@ function Home() {
   return (
     <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
       <div className="relative min-h-screen flex flex-col">
-        {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-6 pb-0">
-          <Cloud className="absolute top-4 right-6 w-24 opacity-80" />
-          <Cloud className="absolute top-20 left-4 w-16 opacity-70" />
-          <Cloud className="absolute top-36 right-16 w-20 opacity-60" />
+        {/* PRIMARY: Shirin hero — pushed down for better visual balance */}
+        <section className="relative px-6 pt-20 pb-0">
+          <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
+          <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
+          <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
 
           <div className="relative flex justify-center">
             <div
@@ -39,14 +39,14 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[70%] max-w-[280px] object-contain drop-shadow-[0_18px_35px_color-mix(in_oklab,var(--shirin)_25%,transparent)]"
+              className="relative z-10 w-[78%] max-w-[320px] object-contain drop-shadow-[0_18px_35px_color-mix(in_oklab,var(--shirin)_25%,transparent)]"
             />
           </div>
         </section>
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-6 flex-1 bg-card px-7 pt-9 pb-6"
+          className="relative -mt-6 flex-1 bg-card px-7 pt-10 pb-10 flex flex-col justify-center"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
