@@ -31,19 +31,20 @@ function MyWordiePage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <div className="px-5 pt-6 pb-6">
-        {/* Hero progress card */}
-        <section
-          className="relative rounded-[28px] p-5 text-white overflow-hidden"
-          style={{ background: "var(--wordie)" }}
-        >
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
+        {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
+        <section className="px-5 pt-6 pb-1">
+          <div
+            className="relative rounded-[28px] p-4 text-white overflow-hidden"
+            style={{ background: "var(--wordie)" }}
+          >
           <h2
             className="text-center text-[22px] font-bold leading-none"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Today's Practice
           </h2>
-          <div className="mt-4">
+          <div className="mt-3">
             <ProgressBar
               value={pct}
               color="var(--wordie-accent)"
@@ -51,31 +52,31 @@ function MyWordiePage() {
               height={6}
             />
           </div>
-          <div className="flex items-baseline justify-center gap-2 mt-4">
+          <div className="flex items-baseline justify-center gap-2 mt-3">
             <span
-              className="text-[56px] font-bold leading-none"
+              className="text-[48px] font-bold leading-none"
               style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
             >
               {cardsTotal}
             </span>
             <span
-              className="text-[28px] opacity-90 font-bold leading-none"
+              className="text-[24px] opacity-90 font-bold leading-none"
               style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
               cards
             </span>
           </div>
-          <p className="mt-3 text-center text-[13px] font-bold opacity-90">
+          <p className="mt-2 text-center text-[13px] font-bold opacity-90">
             {reviewCount} review · {newCount} new
           </p>
 
-          {/* Start word card — white pill (matches home pink pill style) */}
+          {/* Start word card — white pill */}
           <Link
             to="/word-card"
-            className="mt-6 flex items-center justify-center gap-2 rounded-full py-4 font-bold active:scale-[0.98] transition-transform"
+            className="mt-4 flex items-center justify-center gap-2 rounded-full py-3.5 font-bold active:scale-[0.98] transition-transform"
             style={{
               color: "var(--wordie)",
-              background: "var(--wordie-accent)",
+              background: "white",
               fontFamily: "var(--font-sans)",
               fontSize: "17.25px",
             }}
@@ -83,10 +84,10 @@ function MyWordiePage() {
             <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
             <span>Start Word Card</span>
           </Link>
-        </section>
+          </div>
 
-        {/* Streak + Bp pills — match ShirinTalk */}
-        <section className="mt-4 flex items-center justify-center gap-2">
+          {/* Streak + Bp pills — match ShirinTalk position (mt-3 inside hero) */}
+          <div className="mt-3 flex items-center justify-center gap-2">
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
@@ -105,10 +106,11 @@ function MyWordiePage() {
           >
             1,240 Bp
           </span>
+          </div>
         </section>
 
-        {/* Week calendar */}
-        <section className="mt-4 px-2">
+        {/* Week calendar — matches ShirinTalk (px-6 pt-3) */}
+        <section className="px-6 pt-3">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
@@ -136,13 +138,12 @@ function MyWordiePage() {
           </div>
         </section>
 
-        {/* Pill actions — match ShirinTalk style */}
-        <section className="mt-5 flex flex-col gap-3">
+        {/* Pill actions — matches ShirinTalk (px-6 pt-4 pb-10 flex-1 justify-end) */}
+        <section className="px-6 pt-4 pb-10 flex-1 flex flex-col justify-end gap-3">
           <PillLink to="/wordie-bank" title="Wordie Bank" Icon={Layers} />
           <PillLink to="/wordie-x" title="Wordie-X" Icon={Zap} />
           <PillLink to="/wordie-test" title="Wordie Test" Icon={ClipboardCheck} />
         </section>
-
       </div>
 
       <BottomTabBar />
