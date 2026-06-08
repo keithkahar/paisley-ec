@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Pill } from "@/components/app/Pills";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
-import mywordieLogo from "@/assets/brand/mywordie-logo.png.asset.json";
-import { ChevronLeft, Flame, Sparkles, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
+import { ChevronLeft, Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
@@ -15,10 +14,10 @@ const PINK = "var(--shirin)";
 
 function ShirinTalkPage() {
   const cards = [
-    { to: "/chat", title: "Free Talk", sub: "Chat about anything", icon: MessageCircle },
-    { to: "/smart-reading", title: "Smart Reading Talk", sub: "Read & discuss", icon: BookOpen },
-    { to: "/mywordie", title: "myWordie Talk", sub: "Practise your words", icon: null },
-    { to: "/topics", title: "Topic Talk", sub: "Guided conversations", icon: Lightbulb },
+    { to: "/chat", title: "Free Talk", icon: MessageCircle },
+    { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen },
+    { to: "/mywordie", title: "myWordie Talk", icon: null },
+    { to: "/topics", title: "Topic Talk", icon: Lightbulb },
   ];
 
   const today = new Date();
@@ -43,7 +42,7 @@ function ShirinTalkPage() {
         </div>
 
         {/* Hero */}
-        <section className="px-6 pt-16 pb-2 text-center">
+        <section className="px-6 pt-14 pb-2 text-center">
           <img
             src={shirinHero.url}
             alt="Shirin"
@@ -78,7 +77,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Week calendar */}
-        <section className="px-6 pt-4">
+        <section className="px-6 pt-5">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
@@ -104,33 +103,39 @@ function ShirinTalkPage() {
         </section>
 
         {/* Pill actions */}
-        <section className="px-6 pt-6 pb-6 flex flex-col gap-2.5">
+        <section className="px-6 pt-6 pb-8 flex flex-col gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
               <Link
                 key={c.title}
                 to={c.to}
-                className="relative isolate flex items-center gap-3 rounded-full py-2.5 px-4 active:scale-[0.98] transition-transform"
+                className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
               >
-                <span className="h-9 w-9 shrink-0 grid place-items-center rounded-full bg-white">
+                <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
                   {Icon ? (
-                    <Icon className="h-[18px] w-[18px]" style={{ color: PINK }} />
+                    <Icon className="h-4 w-4" style={{ color: PINK }} />
                   ) : (
-                    <img
-                      src={mywordieLogo.url}
-                      alt=""
-                      className="h-[18px] w-[18px] object-contain"
-                      style={{ filter: "brightness(0) saturate(100%) invert(45%) sepia(85%) saturate(2500%) hue-rotate(310deg) brightness(100%) contrast(95%)" }}
+                    <span
+                      aria-hidden
+                      className="block h-4 w-4"
+                      style={{
+                        background: PINK,
+                        WebkitMaskImage: `url(${mywordieIcon.url})`,
+                        maskImage: `url(${mywordieIcon.url})`,
+                        WebkitMaskRepeat: "no-repeat",
+                        maskRepeat: "no-repeat",
+                        WebkitMaskPosition: "center",
+                        maskPosition: "center",
+                        WebkitMaskSize: "contain",
+                        maskSize: "contain",
+                      }}
                     />
                   )}
                 </span>
-                <span className="flex flex-col leading-tight">
-                  <span className="text-[17px] font-bold tracking-tight" style={{ letterSpacing: "-0.01em", color: PINK }}>
-                    {c.title}
-                  </span>
-                  <span className="text-[13px] font-medium mt-0.5" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>{c.sub}</span>
+                <span className="text-[17px] font-bold tracking-tight leading-none" style={{ letterSpacing: "-0.01em", color: PINK }}>
+                  {c.title}
                 </span>
               </Link>
             );
