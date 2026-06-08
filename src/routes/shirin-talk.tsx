@@ -12,10 +12,10 @@ export const Route = createFileRoute("/shirin-talk")({
 
 function ShirinTalkPage() {
   const folders = [
-    { to: "/chat", title: "Free Talk" },
-    { to: "/smart-reading", title: "Smart Reading Talk" },
-    { to: "/mywordie", title: "myWordie Talk" },
-    { to: "/topics", title: "Topic Talk" },
+    { to: "/chat", title: "Free Talk", bg: "oklch(0.93 0.05 12)" },
+    { to: "/smart-reading", title: "Smart Reading Talk", bg: "oklch(0.87 0.07 12)" },
+    { to: "/mywordie", title: "myWordie Talk", bg: "oklch(0.81 0.09 12)" },
+    { to: "/topics", title: "Topic Talk", bg: "oklch(0.75 0.11 12)" },
   ];
   return (
     <PhoneFrame bg="bg-card">
