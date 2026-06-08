@@ -1,15 +1,18 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { MessageCircle, BookOpen, Box, User } from "lucide-react";
-import iconShirin from "@/assets/brand/icon-ShirinTalk.png";
-import iconWordie from "@/assets/brand/icon-myWordie.png";
-import iconBloxia from "@/assets/brand/icon-Bloxia.png";
-import iconProfile from "@/assets/brand/icon-Profile.png";
+import shirinFilled from "@/assets/tabs/shirin-filled.png.asset.json";
+import shirinOutline from "@/assets/tabs/shirin-outline.png.asset.json";
+import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
+import wordieOutline from "@/assets/tabs/wordie-outline.png.asset.json";
+import bloxiaFilled from "@/assets/tabs/bloxia-filled.png.asset.json";
+import bloxiaOutline from "@/assets/tabs/bloxia-outline.png.asset.json";
+import profileFilled from "@/assets/tabs/profile-filled.png.asset.json";
+import profileOutline from "@/assets/tabs/profile-outline.png.asset.json";
 
 const tabs = [
-  { to: "/shirin-talk", label: "ShirinTalk", icon: iconShirin, Outline: MessageCircle, color: "var(--shirin)" },
-  { to: "/mywordie", label: "myWordie", icon: iconWordie, Outline: BookOpen, color: "var(--wordie)" },
-  { to: "/bloxia", label: "Bloxia", icon: iconBloxia, Outline: Box, color: "var(--bloxia)" },
-  { to: "/profile", label: "Me", icon: iconProfile, Outline: User, color: "var(--paisley)" },
+  { to: "/shirin-talk", label: "ShirinTalk", filled: shirinFilled.url, outline: shirinOutline.url, color: "var(--shirin)" },
+  { to: "/mywordie", label: "myWordie", filled: wordieFilled.url, outline: wordieOutline.url, color: "var(--wordie)" },
+  { to: "/bloxia", label: "Bloxia", filled: bloxiaFilled.url, outline: bloxiaOutline.url, color: "var(--bloxia)" },
+  { to: "/profile", label: "Me", filled: profileFilled.url, outline: profileOutline.url, color: "var(--paisley)" },
 ] as const;
 
 export function BottomTabBar() {
@@ -34,11 +37,11 @@ export function BottomTabBar() {
                     : undefined
                 }
               >
-                {active ? (
-                  <img src={t.icon} alt="" className="h-7 w-7 rounded-lg scale-110 transition-transform" />
-                ) : (
-                  <t.Outline className="h-6 w-6" strokeWidth={1.8} style={{ color: "#111" }} />
-                )}
+                <img
+                  src={active ? t.filled : t.outline}
+                  alt=""
+                  className={`h-7 w-7 object-contain transition-transform ${active ? "scale-110" : ""}`}
+                />
                 <span
                   className="text-[10px] font-bold tracking-wide"
                   style={{ color: active ? t.color : "#111" }}
