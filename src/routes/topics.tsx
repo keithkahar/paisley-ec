@@ -75,10 +75,11 @@ function TopicsPage() {
               border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
             } as const;
 
-            const Card = ({ t, ratio }: { t: Topic; ratio: string }) => (
+            // Hero card: aspect drives height.
+            const HeroCard = ({ t, ratio }: { t: Topic; ratio: string }) => (
               <Link
                 {...getLinkProps(t)}
-                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform"
+                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
                 style={cardStyle}
               >
                 <div className={`relative ${ratio} bg-white`}>
@@ -94,7 +95,36 @@ function TopicsPage() {
                 </div>
                 <div className="px-3 py-2.5">
                   <p
-                    className="text-[14px] font-bold tracking-tight leading-tight"
+                    className="text-[14px] font-bold tracking-tight leading-tight whitespace-nowrap"
+                    style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                  >
+                    {t.title}
+                  </p>
+                </div>
+              </Link>
+            );
+
+            // Mini card: image flexes to fill remaining height inside its parent stack column.
+            const MiniCard = ({ t, size = "sm" }: { t: Topic; size?: "sm" | "md" }) => (
+              <Link
+                {...getLinkProps(t)}
+                className="group flex flex-col flex-1 min-h-0 rounded-2xl overflow-hidden active:scale-[0.98] transition-transform"
+                style={cardStyle}
+              >
+                <div className="relative flex-1 min-h-0 bg-white">
+                  <img
+                    src={t.art}
+                    alt={t.title}
+                    loading="lazy"
+                    width={1024}
+                    height={1024}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    draggable={false}
+                  />
+                </div>
+                <div className="px-2 py-1.5">
+                  <p
+                    className={`${size === "md" ? "text-[13px]" : "text-[11.5px]"} font-bold tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis`}
                     style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                   >
                     {t.title}
