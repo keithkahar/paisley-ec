@@ -276,7 +276,7 @@ function ChatPage() {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
         {/* Header */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur border-b border-[oklch(0.95_0.02_10)]">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
           <Link
             to="/shirin-talk"
             aria-label="Back"
@@ -284,12 +284,7 @@ function ChatPage() {
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
-          <h1
-            className="text-[15px] font-bold tracking-tight"
-            style={{ color: PINK, letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
-          >
-            {title}
-          </h1>
+          <span aria-hidden />
           <div className="h-9 w-9" />
         </header>
 
@@ -635,9 +630,9 @@ function VoiceHoldOverlay() {
     <div
       className="absolute left-0 right-0 bottom-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-6"
       style={{
-        height: "190px",
+        height: "260px",
         background:
-          "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 50%, transparent) 55%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
+          "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 6%, transparent) 25%, color-mix(in oklab, var(--shirin) 18%, transparent) 45%, color-mix(in oklab, var(--shirin) 38%, transparent) 65%, color-mix(in oklab, var(--shirin) 65%, transparent) 85%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
         borderTopLeftRadius: "50% 36px",
         borderTopRightRadius: "50% 36px",
       }}
