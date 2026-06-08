@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const name = "Danielle";
   return (
-    <PhoneFrame bg="bg-[color:var(--shirin-soft)]">
+    <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
       <div className="relative min-h-screen flex flex-col">
         {/* Top: greeting + Shirin hero on soft sky */}
         <section className="relative px-6 pt-8 pb-0">
