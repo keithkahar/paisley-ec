@@ -714,20 +714,21 @@ function AssistantActions({
         <ActionBtn onClick={onSpeaker} label="Play"><Volume2 className="h-3.5 w-3.5" /></ActionBtn>
         <ActionBtn onClick={onShare} label="Share"><Share2 className="h-3.5 w-3.5" /></ActionBtn>
       </div>
-      <div className="flex items-center gap-1">
-        {hasVariants && (
-          <div className="flex items-center gap-0.5 mr-1 rounded-full px-1.5 py-0.5 border border-[oklch(0.94_0.02_10)]">
-            <button onClick={onPrev} disabled={!canPrev} aria-label="Previous variant" className="text-muted-foreground disabled:opacity-30">
-              <ChevLeft className="h-3 w-3" />
-            </button>
-            <button onClick={onNext} disabled={!canNext} aria-label="Next variant" className="text-muted-foreground disabled:opacity-30">
-              <ChevronRight className="h-3 w-3" />
-            </button>
-          </div>
+      <div className="flex items-center gap-1.5">
+        {canPrev && (
+          <ActionBtn onClick={onPrev} label="Previous variant">
+            <ChevLeft className="h-3.5 w-3.5" />
+          </ActionBtn>
         )}
-        <ActionBtn onClick={onRegenerate} label="Regenerate">
-          <RotateCw className="h-3.5 w-3.5" />
-        </ActionBtn>
+        {hasVariants && canNext ? (
+          <ActionBtn onClick={onNext} label="Next variant">
+            <ChevronRight className="h-3.5 w-3.5" />
+          </ActionBtn>
+        ) : (
+          <ActionBtn onClick={onRegenerate} label="Regenerate">
+            <RotateCw className="h-3.5 w-3.5" />
+          </ActionBtn>
+        )}
       </div>
     </div>
   );
