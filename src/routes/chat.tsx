@@ -584,7 +584,7 @@ function ChatPage() {
             replyTo={replyTo}
             commentInput={commentInput}
             onCommentInput={setCommentInput}
-            onReply={(name) => setReplyTo(name)}
+            onReply={(index, name) => setReplyTo({ index, name })}
             onCancelReply={() => setReplyTo(null)}
             onSend={sendComment}
             onClose={() => { setCommentsOpen(false); setReplyTo(null); }}
