@@ -33,10 +33,10 @@ function MyWordiePage() {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
-        <section className="px-5 pt-12 pb-1">
+        <section className="px-5 pt-10 pb-1">
           <div
             className="relative rounded-[28px] p-4 text-white overflow-hidden flex flex-col"
-            style={{ background: "var(--wordie)", minHeight: 224 }}
+            style={{ background: "var(--wordie)" }}
           >
           <h2
             className="text-center text-[22px] font-bold leading-none"
@@ -110,7 +110,7 @@ function MyWordiePage() {
         </section>
 
         {/* Week calendar — matches ShirinTalk (px-6 pt-3) */}
-        <section className="px-6 pt-3">
+        <section className="px-6 pt-3 -mt-[33px]">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
