@@ -318,11 +318,10 @@ function ChatPage() {
                       onClick={() => canShare && toggleSelect(m.id)}
                     />
                   )}
-                  {isUser && <div className="flex-1" />}
                   {!isUser && (
                     <img src={shirinGirl} alt="Shirin" className="h-8 w-8 mt-0.5 object-contain shrink-0" />
                   )}
-                  <div className={`max-w-[76%] ${isUser ? "items-end" : "items-start"} flex flex-col`}>
+                  <div className={`max-w-[76%] flex flex-col ${isUser ? "items-end ml-auto" : "items-start"}`}>
                     <div
                       onPointerDown={() => onMessagePressStart(m.id, m.text)}
                       onPointerUp={onMessagePressEnd}
@@ -729,10 +728,10 @@ function AssistantActions({
         <button
           onClick={onRegenerate}
           aria-label="Regenerate"
-          className="h-8 w-8 rounded-full grid place-items-center text-white shadow-sm transition-transform hover:scale-105 active:scale-95"
-          style={{ background: `linear-gradient(135deg, var(--shirin), color-mix(in oklab, var(--shirin) 60%, white))` }}
+          className="h-7 w-7 rounded-full grid place-items-center transition-transform active:scale-95"
+          style={{ background: PINK_SOFT, color: "var(--shirin)" }}
         >
-          <RotateCw className="h-4 w-4" />
+          <RotateCw className="h-3.5 w-3.5" />
         </button>
       </div>
     </div>
@@ -755,7 +754,7 @@ function ActionBtn({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="h-8 w-8 rounded-full grid place-items-center disabled:opacity-30 transition-transform active:scale-95"
+      className="h-7 w-7 rounded-full grid place-items-center disabled:opacity-30 transition-transform active:scale-95"
       style={{ background: PINK_SOFT, color: "var(--shirin)" }}
     >
       {children}
