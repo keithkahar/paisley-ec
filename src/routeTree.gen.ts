@@ -18,9 +18,13 @@ import { Route as SmartReadingRouteImport } from './routes/smart-reading'
 import { Route as ShirinTalkRouteImport } from './routes/shirin-talk'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ParentRouteImport } from './routes/parent'
 import { Route as MywordieRouteImport } from './routes/mywordie'
+import { Route as MyTestsRouteImport } from './routes/my-tests'
+import { Route as EditProfileRouteImport } from './routes/edit-profile'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CefrTestRouteImport } from './routes/cefr-test'
+import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as BloxiaRouteImport } from './routes/bloxia'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -70,9 +74,24 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentRoute = ParentRouteImport.update({
+  id: '/parent',
+  path: '/parent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MywordieRoute = MywordieRouteImport.update({
   id: '/mywordie',
   path: '/mywordie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyTestsRoute = MyTestsRouteImport.update({
+  id: '/my-tests',
+  path: '/my-tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EditProfileRoute = EditProfileRouteImport.update({
+  id: '/edit-profile',
+  path: '/edit-profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -83,6 +102,11 @@ const ChatRoute = ChatRouteImport.update({
 const CefrTestRoute = CefrTestRouteImport.update({
   id: '/cefr-test',
   path: '/cefr-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BloxiaRoute = BloxiaRouteImport.update({
@@ -105,9 +129,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bloxia': typeof BloxiaRoute
+  '/calendar': typeof CalendarRoute
   '/cefr-test': typeof CefrTestRoute
   '/chat': typeof ChatRoute
+  '/edit-profile': typeof EditProfileRoute
+  '/my-tests': typeof MyTestsRoute
   '/mywordie': typeof MywordieRoute
+  '/parent': typeof ParentRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/shirin-talk': typeof ShirinTalkRoute
@@ -122,9 +150,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bloxia': typeof BloxiaRoute
+  '/calendar': typeof CalendarRoute
   '/cefr-test': typeof CefrTestRoute
   '/chat': typeof ChatRoute
+  '/edit-profile': typeof EditProfileRoute
+  '/my-tests': typeof MyTestsRoute
   '/mywordie': typeof MywordieRoute
+  '/parent': typeof ParentRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/shirin-talk': typeof ShirinTalkRoute
@@ -140,9 +172,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/bloxia': typeof BloxiaRoute
+  '/calendar': typeof CalendarRoute
   '/cefr-test': typeof CefrTestRoute
   '/chat': typeof ChatRoute
+  '/edit-profile': typeof EditProfileRoute
+  '/my-tests': typeof MyTestsRoute
   '/mywordie': typeof MywordieRoute
+  '/parent': typeof ParentRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/shirin-talk': typeof ShirinTalkRoute
@@ -159,9 +195,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/bloxia'
+    | '/calendar'
     | '/cefr-test'
     | '/chat'
+    | '/edit-profile'
+    | '/my-tests'
     | '/mywordie'
+    | '/parent'
     | '/profile'
     | '/progress'
     | '/shirin-talk'
@@ -176,9 +216,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/bloxia'
+    | '/calendar'
     | '/cefr-test'
     | '/chat'
+    | '/edit-profile'
+    | '/my-tests'
     | '/mywordie'
+    | '/parent'
     | '/profile'
     | '/progress'
     | '/shirin-talk'
@@ -193,9 +237,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/bloxia'
+    | '/calendar'
     | '/cefr-test'
     | '/chat'
+    | '/edit-profile'
+    | '/my-tests'
     | '/mywordie'
+    | '/parent'
     | '/profile'
     | '/progress'
     | '/shirin-talk'
@@ -211,9 +259,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BloxiaRoute: typeof BloxiaRoute
+  CalendarRoute: typeof CalendarRoute
   CefrTestRoute: typeof CefrTestRoute
   ChatRoute: typeof ChatRoute
+  EditProfileRoute: typeof EditProfileRoute
+  MyTestsRoute: typeof MyTestsRoute
   MywordieRoute: typeof MywordieRoute
+  ParentRoute: typeof ParentRoute
   ProfileRoute: typeof ProfileRoute
   ProgressRoute: typeof ProgressRoute
   ShirinTalkRoute: typeof ShirinTalkRoute
@@ -290,11 +342,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent': {
+      id: '/parent'
+      path: '/parent'
+      fullPath: '/parent'
+      preLoaderRoute: typeof ParentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mywordie': {
       id: '/mywordie'
       path: '/mywordie'
       fullPath: '/mywordie'
       preLoaderRoute: typeof MywordieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-tests': {
+      id: '/my-tests'
+      path: '/my-tests'
+      fullPath: '/my-tests'
+      preLoaderRoute: typeof MyTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/edit-profile': {
+      id: '/edit-profile'
+      path: '/edit-profile'
+      fullPath: '/edit-profile'
+      preLoaderRoute: typeof EditProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -309,6 +382,13 @@ declare module '@tanstack/react-router' {
       path: '/cefr-test'
       fullPath: '/cefr-test'
       preLoaderRoute: typeof CefrTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bloxia': {
@@ -339,9 +419,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BloxiaRoute: BloxiaRoute,
+  CalendarRoute: CalendarRoute,
   CefrTestRoute: CefrTestRoute,
   ChatRoute: ChatRoute,
+  EditProfileRoute: EditProfileRoute,
+  MyTestsRoute: MyTestsRoute,
   MywordieRoute: MywordieRoute,
+  ParentRoute: ParentRoute,
   ProfileRoute: ProfileRoute,
   ProgressRoute: ProgressRoute,
   ShirinTalkRoute: ShirinTalkRoute,
