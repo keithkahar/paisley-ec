@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShirinTalkRouteImport } from './routes/shirin-talk'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MywordieRouteImport } from './routes/mywordie'
 import { Route as BloxiaRouteImport } from './routes/bloxia'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const ShirinTalkRoute = ShirinTalkRouteImport.update({
   id: '/shirin-talk',
   path: '/shirin-talk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MywordieRoute = MywordieRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bloxia': typeof BloxiaRoute
   '/mywordie': typeof MywordieRoute
+  '/profile': typeof ProfileRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bloxia': typeof BloxiaRoute
   '/mywordie': typeof MywordieRoute
+  '/profile': typeof ProfileRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/bloxia': typeof BloxiaRoute
   '/mywordie': typeof MywordieRoute
+  '/profile': typeof ProfileRoute
   '/shirin-talk': typeof ShirinTalkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bloxia' | '/mywordie' | '/shirin-talk'
+  fullPaths: '/' | '/bloxia' | '/mywordie' | '/profile' | '/shirin-talk'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bloxia' | '/mywordie' | '/shirin-talk'
-  id: '__root__' | '/' | '/bloxia' | '/mywordie' | '/shirin-talk'
+  to: '/' | '/bloxia' | '/mywordie' | '/profile' | '/shirin-talk'
+  id: '__root__' | '/' | '/bloxia' | '/mywordie' | '/profile' | '/shirin-talk'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BloxiaRoute: typeof BloxiaRoute
   MywordieRoute: typeof MywordieRoute
+  ProfileRoute: typeof ProfileRoute
   ShirinTalkRoute: typeof ShirinTalkRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/shirin-talk'
       fullPath: '/shirin-talk'
       preLoaderRoute: typeof ShirinTalkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mywordie': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BloxiaRoute: BloxiaRoute,
   MywordieRoute: MywordieRoute,
+  ProfileRoute: ProfileRoute,
   ShirinTalkRoute: ShirinTalkRoute,
 }
 export const routeTree = rootRouteImport
