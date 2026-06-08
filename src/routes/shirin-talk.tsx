@@ -42,7 +42,7 @@ function ShirinTalkPage() {
         </div>
 
         {/* Hero */}
-        <section className="px-6 pt-14 pb-2 text-center">
+        <section className="px-6 pt-12 pb-1 text-center">
           <img
             src={shirinHero.url}
             alt="Shirin"
@@ -77,7 +77,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Week calendar */}
-        <section className="px-6 pt-5">
+        <section className="px-6 pt-3">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
@@ -103,7 +103,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Pill actions */}
-        <section className="px-6 pb-8 flex-1 flex flex-col justify-center gap-3">
+        <section className="px-6 pt-4 pb-6 flex-1 flex flex-col justify-end gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
