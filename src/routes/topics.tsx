@@ -58,7 +58,7 @@ function TopicsPage() {
               Choose A Topic
             </h1>
             <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
-              Pick a painting · let's talk about it.
+              Let's talk about it.
             </p>
           </div>
 
@@ -76,7 +76,7 @@ function TopicsPage() {
             } as const;
 
             // Hero card: aspect drives height, or an explicit style override.
-            const HeroCard = ({ t, ratio, imgStyle, fit = "cover" }: { t: Topic; ratio?: string; imgStyle?: React.CSSProperties; fit?: "cover" | "contain" }) => (
+            const HeroCard = ({ t, ratio, imgStyle, fit = "cover", imgScale }: { t: Topic; ratio?: string; imgStyle?: React.CSSProperties; fit?: "cover" | "contain"; imgScale?: number }) => (
               <Link
                 {...getLinkProps(t)}
                 className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
@@ -90,12 +90,13 @@ function TopicsPage() {
                     width={1024}
                     height={1024}
                     className={`block h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
+                    style={imgScale ? { transform: `scale(${imgScale})`, transformOrigin: "center" } : undefined}
                     draggable={false}
                   />
                 </div>
                 <div className="px-3 py-3">
                   <p
-                    className="text-[17px] font-bold tracking-tight leading-none whitespace-nowrap"
+                    className="text-[17px] font-bold tracking-tight leading-none whitespace-nowrap text-center"
                     style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.015em" }}
                   >
                     {t.title}
@@ -117,6 +118,7 @@ function TopicsPage() {
                     t={byId.minecraft_adventure}
                     imgStyle={{ height: "calc((100cqw - 10px) / 2)" }}
                     fit="contain"
+                    imgScale={1.35}
                   />
                 </div>
                 <HeroCard t={byId.free_talk} ratio="aspect-square" />
