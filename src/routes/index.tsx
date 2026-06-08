@@ -71,7 +71,7 @@ function Home() {
             <img
               src={shirinTalkText.url}
               alt="ShirinTalk"
-              className="h-4 w-auto object-contain"
+              className="h-[14px] w-auto object-contain"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </Link>
@@ -80,7 +80,7 @@ function Home() {
           <div className="mt-3 text-center">
             <Link
               to="/mywordie"
-              className="inline-flex items-center gap-1 text-xs text-muted-foreground font-medium underline-offset-4 hover:underline"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground font-semibold underline-offset-4 hover:underline"
               style={{ fontFamily: "var(--font-sans)" }}
             >
               or practice with
