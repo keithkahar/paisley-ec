@@ -3,7 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Pill } from "@/components/app/Pills";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
-import { ChevronLeft, Flame, Sparkles, MessageCircle, BookOpen, Notebook, Lightbulb } from "lucide-react";
+import { ChevronLeft, Flame, MessageCircle, BookOpen, Notebook, Lightbulb } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
@@ -30,17 +30,13 @@ function ShirinTalkPage() {
       sub: "Chat about anything",
       icon: MessageCircle,
       bg: "oklch(0.95 0.03 12)",
-      progress: 0.6,
-      progressLabel: "12/20",
     },
     {
       to: "/smart-reading",
-      title: "Smart Reading",
+      title: "Smart Reading Talk",
       sub: "Read & discuss",
       icon: BookOpen,
       bg: "oklch(0.93 0.05 20)",
-      progress: 0.35,
-      progressLabel: "7/20",
     },
     {
       to: "/mywordie",
@@ -48,8 +44,6 @@ function ShirinTalkPage() {
       sub: "Practise your words",
       icon: Notebook,
       bg: "oklch(0.95 0.04 5)",
-      progress: 0.8,
-      progressLabel: "16/20",
     },
     {
       to: "/topics",
@@ -57,8 +51,6 @@ function ShirinTalkPage() {
       sub: "Guided conversations",
       icon: Lightbulb,
       bg: "oklch(0.93 0.06 15)",
-      progress: 0.25,
-      progressLabel: "5/20",
     },
   ];
 
@@ -80,7 +72,7 @@ function ShirinTalkPage() {
           <img
             src={shirinHero.url}
             alt="Shirin"
-            className="mx-auto h-40 w-40 object-contain drop-shadow-[0_10px_25px_color-mix(in_oklab,var(--shirin)_30%,transparent)]"
+            className="mx-auto h-40 w-40 object-contain"
           />
           <h2
             className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
@@ -95,8 +87,8 @@ function ShirinTalkPage() {
             Let's practise English together.
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
-            <Pill color={PINK} icon={<Flame className="h-3.5 w-3.5" />}>7-day streak</Pill>
-            <Pill color={PINK} icon={<Sparkles className="h-3.5 w-3.5" />}>1,240 Bp</Pill>
+            <Pill color={PINK} icon={<Flame className="h-3.5 w-3.5" />}>7</Pill>
+            <Pill color={PINK}>1,240 Bp</Pill>
           </div>
         </section>
 
@@ -149,7 +141,7 @@ function ShirinTalkPage() {
               <Link
                 key={c.title}
                 to={c.to}
-                className="rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.98] transition-transform"
+                className="rounded-2xl p-4 flex flex-col gap-2.5 active:scale-[0.98] transition-transform"
                 style={{ background: c.bg }}
               >
                 <span
@@ -160,23 +152,12 @@ function ShirinTalkPage() {
                 </span>
                 <div>
                   <div
-                    className="text-[15px] font-semibold leading-tight tracking-tight text-foreground"
+                    className="text-[17px] font-semibold leading-tight tracking-tight text-foreground"
                     style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                   >
                     {c.title}
                   </div>
                   <div className="mt-0.5 text-[12px] text-foreground/60">{c.sub}</div>
-                </div>
-                <div className="mt-1">
-                  <div className="text-right text-[11px] font-semibold text-foreground/70">
-                    {c.progressLabel}
-                  </div>
-                  <div className="mt-1 h-1.5 w-full rounded-full bg-white/70 overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: `${c.progress * 100}%`, background: PINK }}
-                    />
-                  </div>
                 </div>
               </Link>
             );
