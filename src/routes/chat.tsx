@@ -513,7 +513,6 @@ function ChatPage() {
                       <button
                         onPointerDown={() => {
                           setHolding(true);
-                          showToast("Voice input ready soon");
                         }}
                         onPointerUp={() => setHolding(false)}
                         onPointerLeave={() => setHolding(false)}
