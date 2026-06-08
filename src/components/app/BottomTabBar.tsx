@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import shirinFilled from "@/assets/tabs/shirin-filled.png.asset.json";
+import shirinFilled from "@/assets/tabs/shirin-filled.png";
 import shirinOutline from "@/assets/tabs/shirin-outline-medium.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
 import wordieOutline from "@/assets/tabs/wordie-outline.png.asset.json";
@@ -9,7 +9,7 @@ import profileFilled from "@/assets/tabs/profile-filled.png.asset.json";
 import profileOutline from "@/assets/tabs/profile-outline.png.asset.json";
 
 const tabs = [
-  { to: "/shirin-talk", label: "ShirinTalk", filled: shirinFilled.url, outline: shirinOutline.url, color: "var(--shirin)" },
+  { to: "/shirin-talk", label: "ShirinTalk", filled: shirinFilled, outline: shirinOutline.url, color: "var(--shirin)" },
   { to: "/mywordie", label: "myWordie", filled: wordieFilled.url, outline: wordieOutline.url, color: "var(--wordie)" },
   { to: "/bloxia", label: "Bloxia", filled: bloxiaFilled.url, outline: bloxiaOutline.url, color: "var(--bloxia)" },
   { to: "/profile", label: "Me", filled: profileFilled.url, outline: profileOutline.url, color: "var(--paisley)" },
