@@ -9,7 +9,7 @@ import {
   ChevronRight,
   Sparkles,
   Flame,
-  BookOpen,
+  Play,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { ProgressBar, SectionTitle } from "@/components/app/WordieKit";
@@ -20,14 +20,12 @@ export const Route = createFileRoute("/mywordie")({
 });
 
 function MyWordiePage() {
-  const mastered = 420;
-  const total = 500;
-  const reviewDue = 12;
-  const pct = Math.round((mastered / total) * 100);
-
-  // Assigned pack progress
-  const pack = { name: "Animal Friends · Pack 4", done: 18, total: 25 };
-  const packPct = Math.round((pack.done / pack.total) * 100);
+  // Today's card pack
+  const cardsTotal = 5;
+  const reviewCount = 0;
+  const newCount = 5;
+  const doneToday = 0; // cards completed today
+  const pct = Math.round((doneToday / cardsTotal) * 100);
 
   return (
     <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
@@ -51,21 +49,17 @@ function MyWordiePage() {
             style={{ background: "radial-gradient(circle, white, transparent 70%)" }}
             aria-hidden
           />
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] opacity-80">Your word world</p>
-          <h2
-            className="mt-1 text-[24px] leading-[1.15] font-semibold tracking-tight"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-          >
-            Almost there — keep growing.
-          </h2>
-
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-[34px] font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>
-              {mastered}
+          <div className="flex items-baseline justify-center gap-2 mt-2">
+            <span className="text-[56px] font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>
+              {cardsTotal}
             </span>
-            <span className="text-[14px] opacity-80 font-bold">/ {total} mastered</span>
+            <span className="text-[18px] opacity-90 font-bold">cards</span>
           </div>
-          <div className="mt-3">
+          <p className="mt-2 text-center text-[13px] font-bold opacity-90 inline-flex items-center justify-center gap-1.5 w-full">
+            <Sparkles className="h-3.5 w-3.5" />
+            {reviewCount} review · {newCount} new
+          </p>
+          <div className="mt-4">
             <ProgressBar
               value={pct}
               color="var(--wordie-accent)"
@@ -85,58 +79,18 @@ function MyWordiePage() {
             </span>
           </div>
 
-          {/* Start word card CTA — entry to today's review */}
+          {/* Start word card — white pill (matches home pink pill style) */}
           <Link
             to="/word-card"
-            className="mt-4 flex items-center gap-3 rounded-2xl bg-white/15 hover:bg-white/20 px-4 py-3 backdrop-blur-sm active:scale-[0.99] transition-all"
+            className="mt-5 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold active:scale-[0.98] transition-transform"
+            style={{
+              color: "var(--wordie)",
+              fontFamily: "var(--font-sans)",
+              fontSize: "17.25px",
+            }}
           >
-            <div className="h-10 w-10 rounded-xl grid place-items-center bg-white/25 shrink-0">
-              <BookOpen className="h-5 w-5" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-bold uppercase tracking-wide opacity-80">
-                Start word card
-              </p>
-              <p className="font-bold text-[14px] leading-tight mt-0.5">
-                {reviewDue} words ready · 3 min
-              </p>
-            </div>
-            <ChevronRight className="h-5 w-5 opacity-80 shrink-0" />
-          </Link>
-        </section>
-
-        {/* Assigned pack */}
-        <section className="mt-5">
-          <SectionTitle action={<span className="text-[11px] font-bold text-[color:var(--wordie)]">View all</span>}>
-            Assigned pack
-          </SectionTitle>
-          <Link
-            to="/wordie-bank"
-            className="block rounded-3xl bg-white border border-border p-4 active:scale-[0.99] transition-transform"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-                  Teacher pack · A2
-                </p>
-                <p className="font-bold text-[15px] mt-0.5">{pack.name}</p>
-              </div>
-              <span
-                className="text-[12px] font-bold rounded-full px-2.5 py-1"
-                style={{
-                  background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                  color: "var(--wordie)",
-                }}
-              >
-                {packPct}%
-              </span>
-            </div>
-            <div className="mt-3">
-              <ProgressBar value={packPct} />
-            </div>
-            <p className="mt-2 text-[12px] text-muted-foreground">
-              {pack.done} of {pack.total} words · {pack.total - pack.done} to go
-            </p>
+            <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
+            <span>Start Word Card</span>
           </Link>
         </section>
 
