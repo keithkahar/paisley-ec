@@ -286,7 +286,7 @@ function ChatPage() {
           </Link>
           <h1
             className="text-[15px] font-bold tracking-tight"
-            style={{ color: PINK, letterSpacing: "-0.01em" }}
+            style={{ color: PINK, letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
           >
             {title}
           </h1>
@@ -297,8 +297,8 @@ function ChatPage() {
         <div className="flex-1 overflow-y-auto scroll-hide px-4 pt-4 pb-40">
           {/* Hero opening — shown once at top */}
           <div className="flex flex-col items-center text-center pb-4">
-            <img src={shirinGirl} alt="Shirin" className="h-20 w-20 object-contain" />
-            <p className="mt-1 text-[12px] font-bold" style={{ color: PINK }}>
+            <img src={shirinHero.url} alt="Shirin" className="h-40 w-40 object-contain" />
+            <p className="mt-1 text-[12px] font-bold" style={{ color: PINK, fontFamily: "var(--font-sans)" }}>
               Shirin
             </p>
           </div>
