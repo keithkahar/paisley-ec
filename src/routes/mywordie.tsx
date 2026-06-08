@@ -61,10 +61,18 @@ function MyWordiePage() {
             aria-hidden
           />
           <div className="flex items-baseline justify-center gap-2 mt-2">
-            <span className="text-[56px] font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>
+            <span
+              className="text-[56px] font-bold leading-none"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+            >
               {cardsTotal}
             </span>
-            <span className="text-[18px] opacity-90 font-bold">cards</span>
+            <span
+              className="text-[18px] opacity-90 font-bold"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            >
+              cards
+            </span>
           </div>
           <p className="mt-2 text-center text-[13px] font-bold opacity-90 inline-flex items-center justify-center gap-1.5 w-full">
             <Sparkles className="h-3.5 w-3.5" />
