@@ -53,24 +53,12 @@ function MyWordiePage() {
             style={{ background: "radial-gradient(circle, white, transparent 70%)" }}
             aria-hidden
           />
-          <div className="flex items-baseline justify-center gap-2 mt-2">
-            <span
-              className="text-[56px] font-bold leading-none"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
-            >
-              {cardsTotal}
-            </span>
-            <span
-              className="text-[18px] opacity-90 font-bold"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-            >
-              cards
-            </span>
-          </div>
-          <p className="mt-2 text-center text-[13px] font-bold opacity-90 inline-flex items-center justify-center gap-1.5 w-full">
-            <Sparkles className="h-3.5 w-3.5" />
-            {reviewCount} review · {newCount} new
-          </p>
+          <h2
+            className="text-center text-[22px] font-bold leading-none"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Today's Practice
+          </h2>
           <div className="mt-4">
             <ProgressBar
               value={pct}
@@ -79,26 +67,29 @@ function MyWordiePage() {
               height={10}
             />
           </div>
-
-          <div className="mt-4 flex items-center justify-center gap-2 text-[13px] font-bold">
+          <div className="flex items-baseline justify-center gap-2 mt-4">
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 bg-transparent text-white"
-              style={{ border: "1px solid rgba(255,255,255,0.9)" }}
+              className="text-[56px] font-bold leading-none"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
             >
-              <Flame className="h-3.5 w-3.5" />7
+              {cardsTotal}
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 bg-transparent text-white"
-              style={{ border: "1px solid rgba(255,255,255,0.9)" }}
+              className="text-[28px] opacity-90 font-bold leading-none"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
-              1,240 Bp
+              cards
             </span>
           </div>
+          <p className="mt-3 text-center text-[13px] font-bold opacity-90 inline-flex items-center justify-center gap-1.5 w-full">
+            <Sparkles className="h-3.5 w-3.5" />
+            {reviewCount} review · {newCount} new
+          </p>
 
           {/* Start word card — white pill (matches home pink pill style) */}
           <Link
             to="/word-card"
-            className="mt-5 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold active:scale-[0.98] transition-transform"
+            className="mt-6 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold active:scale-[0.98] transition-transform"
             style={{
               color: "var(--wordie)",
               fontFamily: "var(--font-sans)",
@@ -110,8 +101,24 @@ function MyWordiePage() {
           </Link>
         </section>
 
+        {/* Streak + Bp pills — match ShirinTalk */}
+        <section className="mt-4 flex items-center justify-center gap-2">
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+          >
+            <Flame className="h-3.5 w-3.5" />7
+          </span>
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+          >
+            1,240 Bp
+          </span>
+        </section>
+
         {/* Week calendar */}
-        <section className="mt-5 px-2">
+        <section className="mt-4 px-2">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
