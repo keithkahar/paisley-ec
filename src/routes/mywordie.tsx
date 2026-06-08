@@ -2,9 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { AppHeader } from "@/components/app/AppHeader";
-import { BpPill, StreakPill } from "@/components/app/Pills";
 import logo from "@/assets/brand/myWordie.png";
-import { Layers, PlusCircle, ClipboardCheck, Play } from "lucide-react";
+import {
+  Layers,
+  Zap,
+  ClipboardCheck,
+  ChevronRight,
+  Sparkles,
+  Flame,
+  BookOpen,
+} from "lucide-react";
+import type { ReactNode } from "react";
+import { ProgressBar, SectionTitle, StatTile } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/mywordie")({
   head: () => ({ meta: [{ title: "myWordie — Paisley EC" }] }),
@@ -12,93 +21,241 @@ export const Route = createFileRoute("/mywordie")({
 });
 
 function MyWordiePage() {
-  const done = 6;
-  const total = 12;
-  const pct = Math.round((done / total) * 100);
+  const mastered = 420;
+  const total = 500;
+  const learning = 38;
+  const reviewDue = 12;
+  const pct = Math.round((mastered / total) * 100);
+
+  // Assigned pack progress
+  const pack = { name: "Animal Friends · Pack 4", done: 18, total: 25 };
+  const packPct = Math.round((pack.done / pack.total) * 100);
 
   return (
     <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
-      <AppHeader title={<img src={logo} alt="myWordie" className="h-6 mx-auto" />} />
+      <AppHeader
+        title={<img src={logo} alt="myWordie" className="h-6 mx-auto" />}
+        bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
+      />
 
-      {/* Today's practice card */}
-      <section className="mx-5 mt-2 rounded-3xl p-5 text-white relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, var(--wordie), oklch(0.48 0.22 273))" }}>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider opacity-80">Today's Practice</p>
-            <h2
-              className="mt-1 text-[28px] leading-[1.2] font-semibold tracking-tight"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-            >
-              {done} of {total} words
-            </h2>
-          </div>
-          <div className="h-16 w-16 rounded-full grid place-items-center text-sm font-bold"
-            style={{ background: "color-mix(in oklab, var(--wordie-accent) 60%, white)", color: "var(--wordie)" }}>
-            {pct}%
-          </div>
-        </div>
-        <div className="mt-4 h-2.5 rounded-full bg-white/25 overflow-hidden">
-          <div className="h-full rounded-full" style={{ width: `${pct}%`, background: "var(--wordie-accent)" }} />
-        </div>
-        <div className="mt-3 flex items-center gap-2">
-          <StreakPill days={7} />
-          <BpPill value={1240} />
-        </div>
+      <div className="px-5 pb-6">
+        {/* Hero progress card */}
+        <section
+          className="relative rounded-[28px] p-5 text-white overflow-hidden"
+          style={{
+            background:
+              "linear-gradient(140deg, var(--wordie) 0%, oklch(0.48 0.22 273) 60%, oklch(0.42 0.20 280) 100%)",
+          }}
+        >
+          {/* soft glow */}
+          <div
+            className="absolute -top-12 -right-10 h-40 w-40 rounded-full opacity-40"
+            style={{ background: "radial-gradient(circle, white, transparent 70%)" }}
+            aria-hidden
+          />
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] opacity-80">Your word world</p>
+          <h2
+            className="mt-1 text-[24px] leading-[1.15] font-semibold tracking-tight"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Almost there — keep growing.
+          </h2>
 
-        <Link to="/word-card"
-          className="mt-5 relative isolate flex items-center justify-center gap-[8px] w-full rounded-full bg-white text-[color:var(--wordie)] py-4 font-bold shadow-lg active:scale-[0.98] transition-transform"
-          style={{ fontFamily: "var(--font-sans)", fontSize: "17.25px" }}>
-          <Play className="shrink-0 fill-current" style={{ width: "1.15em", height: "1.15em" }} />
-          <span className="leading-none">Start Word Card</span>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="text-[34px] font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>
+              {mastered}
+            </span>
+            <span className="text-[14px] opacity-80 font-bold">/ {total} mastered</span>
+          </div>
+          <div className="mt-3">
+            <ProgressBar
+              value={pct}
+              color="var(--wordie-accent)"
+              track="rgba(255,255,255,0.22)"
+              height={10}
+            />
+          </div>
+
+          <div className="mt-4 flex items-center gap-3 text-[12px] font-bold">
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/18 px-2.5 py-1">
+              <Flame className="h-3.5 w-3.5" />
+              7-day streak
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/18 px-2.5 py-1">
+              <Sparkles className="h-3.5 w-3.5" />
+              1,240 Bp
+            </span>
+          </div>
+        </section>
+
+        {/* Next-best-action card */}
+        <Link
+          to="/word-card"
+          className="mt-3 flex items-center gap-3 rounded-3xl bg-white border border-border px-4 py-4 active:scale-[0.99] transition-transform"
+        >
+          <div
+            className="h-12 w-12 rounded-2xl grid place-items-center shrink-0"
+            style={{
+              background: "color-mix(in oklab, var(--wordie-accent) 22%, white)",
+              color: "var(--wordie-accent)",
+            }}
+          >
+            <BookOpen className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Review today</p>
+            <p className="font-bold text-[15px] leading-tight mt-0.5">
+              {reviewDue} words ready · 3 min
+            </p>
+          </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
         </Link>
-      </section>
 
-      {/* Tools */}
-      <section className="px-5 mt-5">
-        <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Tools</p>
-        <div className="grid grid-cols-3 gap-3">
-          <ToolCard to="/wordie-bank" label="Wordie Bank" icon={<Layers />} tint="var(--paisley)" />
-          <ToolCard to="/wordie-x" label="Wordie‑X" icon={<PlusCircle />} tint="var(--wordie-accent)" />
-          <ToolCard to="/wordie-test" label="Wordie Test" icon={<ClipboardCheck />} tint="var(--shirin)" />
+        {/* Mini stats */}
+        <div className="mt-4 grid grid-cols-3 gap-2.5">
+          <StatTile label="Mastered" value={mastered} color="var(--bloxia)" />
+          <StatTile label="Learning" value={learning} color="var(--wordie)" />
+          <StatTile label="Due" value={reviewDue} color="var(--wordie-accent)" />
         </div>
-      </section>
 
-      {/* Recent words */}
-      <section className="px-5 mt-5">
-        <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Recent words</p>
-        <div className="rounded-2xl bg-white border border-border divide-y divide-border">
-          {[
-            { w: "garden", t: "noun", l: "A2" },
-            { w: "whisper", t: "verb", l: "B1" },
-            { w: "curious", t: "adj", l: "B1" },
-          ].map((row) => (
-            <div key={row.w} className="flex items-center justify-between px-4 py-3">
+        {/* Assigned pack */}
+        <section className="mt-5">
+          <SectionTitle action={<span className="text-[11px] font-bold text-[color:var(--wordie)]">View all</span>}>
+            Assigned pack
+          </SectionTitle>
+          <Link
+            to="/wordie-bank"
+            className="block rounded-3xl bg-white border border-border p-4 active:scale-[0.99] transition-transform"
+          >
+            <div className="flex items-center justify-between">
               <div>
-                <p className="font-bold text-sm">{row.w}</p>
-                <p className="text-[11px] text-muted-foreground">{row.t}</p>
+                <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                  Teacher pack · A2
+                </p>
+                <p className="font-bold text-[15px] mt-0.5">{pack.name}</p>
               </div>
-              <span className="text-[10px] font-bold rounded-full px-2 py-0.5"
-                style={{ background: "color-mix(in oklab, var(--wordie) 12%, white)", color: "var(--wordie)" }}>
-                {row.l}
+              <span
+                className="text-[12px] font-bold rounded-full px-2.5 py-1"
+                style={{
+                  background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                  color: "var(--wordie)",
+                }}
+              >
+                {packPct}%
               </span>
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="mt-3">
+              <ProgressBar value={packPct} />
+            </div>
+            <p className="mt-2 text-[12px] text-muted-foreground">
+              {pack.done} of {pack.total} words · {pack.total - pack.done} to go
+            </p>
+          </Link>
+        </section>
+
+        {/* Three feature cards */}
+        <section className="mt-5">
+          <SectionTitle>Practice</SectionTitle>
+          <div className="space-y-2.5">
+            <FeatureCard
+              to="/wordie-bank"
+              icon={<Layers className="h-5 w-5" />}
+              title="Wordie Bank"
+              desc="Browse your growing collection"
+              tint="var(--paisley)"
+            />
+            <FeatureCard
+              to="/wordie-x"
+              icon={<Zap className="h-5 w-5" />}
+              title="Wordie-X"
+              desc="Power up tricky words"
+              tint="var(--wordie-accent)"
+              badge="12 to do"
+            />
+            <FeatureCard
+              to="/wordie-test"
+              icon={<ClipboardCheck className="h-5 w-5" />}
+              title="Wordie Test"
+              desc="Quick check, friendly feedback"
+              tint="var(--shirin)"
+            />
+          </div>
+        </section>
+
+        {/* Bloxia hook */}
+        <Link
+          to="/bloxia"
+          className="mt-5 flex items-center gap-3 rounded-3xl p-4 active:scale-[0.99] transition-transform"
+          style={{
+            background: "color-mix(in oklab, var(--bloxia) 12%, white)",
+            border: "1px solid color-mix(in oklab, var(--bloxia) 22%, white)",
+          }}
+        >
+          <div
+            className="h-11 w-11 rounded-2xl grid place-items-center text-white shrink-0"
+            style={{ background: "var(--bloxia)" }}
+          >
+            <Sparkles className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-bold text-[14px]">80 words to next Bloxia unlock</p>
+            <p className="text-[12px] text-muted-foreground mt-0.5">
+              Master more words to grow your pixel world.
+            </p>
+          </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
+        </Link>
+      </div>
 
       <BottomTabBar />
     </PhoneFrame>
   );
 }
 
-function ToolCard({ to, label, icon, tint }: { to: string; label: string; icon: React.ReactNode; tint: string }) {
+function FeatureCard({
+  to,
+  icon,
+  title,
+  desc,
+  tint,
+  badge,
+}: {
+  to: string;
+  icon: ReactNode;
+  title: string;
+  desc: string;
+  tint: string;
+  badge?: string;
+}) {
   return (
-    <Link to={to} className="rounded-2xl bg-white border border-border p-3 flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
-      <div className="h-10 w-10 rounded-xl grid place-items-center text-white" style={{ background: tint }}>
+    <Link
+      to={to}
+      className="flex items-center gap-3 rounded-3xl bg-white border border-border px-4 py-3.5 active:scale-[0.99] transition-transform"
+    >
+      <div
+        className="h-12 w-12 rounded-2xl grid place-items-center text-white shrink-0"
+        style={{ background: tint }}
+      >
         {icon}
       </div>
-      <span className="text-[11px] font-bold text-center leading-tight">{label}</span>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <p className="font-bold text-[15px]">{title}</p>
+          {badge && (
+            <span
+              className="text-[10px] font-bold rounded-full px-2 py-0.5"
+              style={{
+                background: `color-mix(in oklab, ${tint} 18%, white)`,
+                color: tint,
+              }}
+            >
+              {badge}
+            </span>
+          )}
+        </div>
+        <p className="text-[12.5px] text-muted-foreground mt-0.5">{desc}</p>
+      </div>
+      <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
     </Link>
   );
 }
