@@ -107,32 +107,18 @@ function TopicsPage() {
             const byId = Object.fromEntries(TOPICS.map((t) => [t.topic_id, t])) as Record<string, Topic>;
 
             return (
-              <div className="flex flex-col gap-2.5">
-                {/* Opening solo: Pet Talk landscape banner — sets the tone */}
-                <HeroCard t={byId.pet_talk} ratio="aspect-[5/3]" />
-
-                {/* Pair: Football Talk + Free Talk */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <HeroCard t={byId.football_talk} ratio="aspect-square" />
-                  <HeroCard t={byId.free_talk} ratio="aspect-square" />
-                </div>
-
-                {/* Solo banner: Nature Explorer landscape */}
-                <HeroCard t={byId.nature_explorer} ratio="aspect-[5/3]" />
-
-                {/* Pair: Magic Adventure + Smart Reading */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
-                  <HeroCard t={byId.smart_reading} ratio="aspect-square" />
-                </div>
-
-                {/* Solo banner: Minecraft Adventure pixel landscape */}
-                <HeroCard t={byId.minecraft_adventure} ratio="aspect-[5/3]" />
-
-                {/* Pair: Food Talk + myWordie */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <HeroCard t={byId.food_talk} ratio="aspect-square" />
-                  <HeroCard t={byId.mywordie} ratio="aspect-square" />
+              <div className="grid grid-cols-2 gap-2.5">
+                <HeroCard t={byId.pet_talk} ratio="aspect-square" />
+                <HeroCard t={byId.football_talk} ratio="aspect-square" />
+                <HeroCard t={byId.free_talk} ratio="aspect-square" />
+                <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
+                <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
+                <HeroCard t={byId.smart_reading} ratio="aspect-square" />
+                <HeroCard t={byId.food_talk} ratio="aspect-square" />
+                <HeroCard t={byId.mywordie} ratio="aspect-square" />
+                {/* Minecraft Adventure spans both columns as a closing pixel banner so its long title fits comfortably */}
+                <div className="col-span-2">
+                  <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1]" />
                 </div>
               </div>
             );
