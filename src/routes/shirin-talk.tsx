@@ -61,27 +61,27 @@ function ShirinTalkPage() {
             Let's practise English together.
           </p>
           <div className="mt-3 flex items-center justify-between">
-            <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold"
-              style={{ background: `color-mix(in oklab, ${PINK} 14%, white)`, color: PINK }}
+          <span
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               7 days
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold"
-              style={{ background: `color-mix(in oklab, ${PINK} 14%, white)`, color: PINK }}
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               116 words
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold"
-              style={{ background: `color-mix(in oklab, ${PINK} 14%, white)`, color: PINK }}
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               318 min
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold"
-              style={{ background: `color-mix(in oklab, ${PINK} 14%, white)`, color: PINK }}
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               1,240 Bp
             </span>
