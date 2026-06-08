@@ -19,7 +19,7 @@ function ShirinTalkPage() {
   ];
   return (
     <PhoneFrame bg="bg-card">
-      <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-[color:var(--shirin-soft)]">
+      <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-card">
         {/* Back button */}
         <div className="absolute top-4 left-4 z-30">
           <Link
@@ -31,11 +31,8 @@ function ShirinTalkPage() {
           </Link>
         </div>
 
-        {/* PINK sky hero */}
+        {/* White hero */}
         <section className="relative px-6 pt-[4.5rem] pb-0 text-center">
-          <Cloud className="absolute top-10 right-6 w-24 opacity-90" />
-          <Cloud className="absolute top-28 left-4 w-16 opacity-80" />
-          <Cloud className="absolute top-44 right-16 w-20 opacity-70" />
 
           <img
             src={shirinHero.url}
@@ -60,13 +57,13 @@ function ShirinTalkPage() {
           </div>
         </section>
 
-        {/* Stacked white folder cards */}
+        {/* Stacked pink folder cards */}
         <section className="relative flex-1 flex flex-col bg-card">
           {folders.map((f, i) => (
             <Link
               key={f.title}
               to={f.to}
-              className="relative block bg-card px-7 pt-6 pb-6 flex-1 active:scale-[0.995] transition-transform"
+              className="relative block px-7 pt-6 pb-6 flex-1 active:scale-[0.995] transition-transform"
               style={{
                 borderTopLeftRadius: "28px",
                 borderTopRightRadius: "28px",
