@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
-import { BpPill } from "@/components/app/Pills";
 import shirinIcon from "@/assets/brand/Shirin.png.asset.json";
 import { Mic, Send, Volume2, Sparkles } from "lucide-react";
 
@@ -82,14 +81,7 @@ function ChatPage() {
       {/* Header */}
       <AppHeader
         back="/shirin-talk"
-        title={
-          <div className="flex items-center justify-center gap-2">
-            <img src={shirinIcon.url} alt="" className="h-6 w-6 rounded-lg" />
-            <span className="text-[15px] font-bold">ShirinTalk</span>
-            <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
-          </div>
-        }
-        right={<BpPill value={1255} />}
+        title={null}
         tone={SHIRIN_COLOR}
         bg="white"
       />
@@ -166,25 +158,6 @@ function ChatPage() {
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pointer-events-none">
         <div className="w-full max-w-[420px] pointer-events-auto">
           <div className="px-4 pb-5 pt-2 bg-white/90 backdrop-blur border-t border-border">
-            {/* Quick chips */}
-            <div className="flex gap-2 overflow-x-auto scroll-hide pb-2">
-              {["🐼 Animals", "🍕 Food", "🏫 School", "🎮 Games"].map(
-                (chip) => (
-                  <button
-                    key={chip}
-                    className="shrink-0 rounded-full px-3 py-1 text-xs font-semibold border"
-                    style={{
-                      borderColor: SHIRIN_COLOR,
-                      color: SHIRIN_COLOR,
-                      background: SHIRIN_SOFT,
-                    }}
-                  >
-                    {chip}
-                  </button>
-                )
-              )}
-            </div>
-
             <div className="flex items-center gap-2">
               <button
                 className="h-10 w-10 rounded-full grid place-items-center text-white shadow-md shrink-0"
