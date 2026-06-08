@@ -323,9 +323,6 @@ function ChatPage() {
           {/* Hero opening — shown once at top */}
           <div className="flex flex-col items-center text-center pb-4">
             <img src={shirinHero.url} alt="Shirin" className="h-40 w-40 object-contain" />
-            <p className="mt-1 text-[12px] font-bold" style={{ color: PINK, fontFamily: "var(--font-sans)" }}>
-              Shirin
-            </p>
           </div>
 
           {/* Messages */}
