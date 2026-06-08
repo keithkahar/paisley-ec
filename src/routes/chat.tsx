@@ -600,6 +600,9 @@ function ChatPage() {
             {toast}
           </div>
         )}
+
+        {/* Voice hold overlay */}
+        {holding && <VoiceHoldOverlay />}
       </div>
     </PhoneFrame>
   );
