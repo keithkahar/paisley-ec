@@ -55,13 +55,13 @@ function ShirinTalkPage() {
   ];
 
   return (
-    <PhoneFrame bg="bg-card">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-card">
+    <PhoneFrame bg="bg-[oklch(0.99_0.015_10)]">
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-[oklch(0.99_0.015_10)]">
         <div className="absolute top-4 left-4 z-30">
           <Link
             to="/"
             aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
@@ -123,16 +123,6 @@ function ShirinTalkPage() {
           </div>
         </section>
 
-        {/* Section heading */}
-        <section className="px-6 pt-6 pb-2">
-          <h3
-            className="text-[17px] font-semibold tracking-tight"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-          >
-            Talk Modes
-          </h3>
-        </section>
-
         {/* Mini cards grid */}
         <section className="px-6 pb-6 grid grid-cols-2 gap-3">
           {cards.map((c) => {
@@ -141,23 +131,23 @@ function ShirinTalkPage() {
               <Link
                 key={c.title}
                 to={c.to}
-                className="rounded-2xl p-4 flex flex-col gap-2.5 active:scale-[0.98] transition-transform"
+                className="rounded-2xl p-3 flex flex-col gap-2 active:scale-[0.98] transition-transform"
                 style={{ background: c.bg }}
               >
                 <span
-                  className="h-10 w-10 grid place-items-center rounded-xl bg-white"
+                  className="h-9 w-9 grid place-items-center rounded-xl bg-white"
                   style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}
                 >
-                  <Icon className="h-5 w-5" style={{ color: PINK }} />
+                  <Icon className="h-4.5 w-4.5" style={{ color: PINK }} />
                 </span>
                 <div>
                   <div
-                    className="text-[17px] font-semibold leading-tight tracking-tight text-foreground"
+                    className="text-[13px] font-bold leading-tight tracking-tight text-foreground whitespace-nowrap"
                     style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                   >
                     {c.title}
                   </div>
-                  <div className="mt-0.5 text-[12px] text-foreground/60">{c.sub}</div>
+                  <div className="mt-0.5 text-[11px] text-foreground/60">{c.sub}</div>
                 </div>
               </Link>
             );
