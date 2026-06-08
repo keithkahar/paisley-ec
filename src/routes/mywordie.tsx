@@ -42,17 +42,8 @@ function MyWordiePage() {
         {/* Hero progress card */}
         <section
           className="relative rounded-[28px] p-5 text-white overflow-hidden"
-          style={{
-            background:
-              "linear-gradient(140deg, var(--wordie) 0%, oklch(0.48 0.22 273) 60%, oklch(0.42 0.20 280) 100%)",
-          }}
+          style={{ background: "var(--wordie)" }}
         >
-          {/* soft glow */}
-          <div
-            className="absolute -top-12 -right-10 h-40 w-40 rounded-full opacity-40"
-            style={{ background: "radial-gradient(circle, white, transparent 70%)" }}
-            aria-hidden
-          />
           <h2
             className="text-center text-[22px] font-bold leading-none"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
@@ -64,7 +55,7 @@ function MyWordiePage() {
               value={pct}
               color="var(--wordie-accent)"
               track="rgba(255,255,255,0.22)"
-              height={10}
+              height={6}
             />
           </div>
           <div className="flex items-baseline justify-center gap-2 mt-4">
@@ -81,17 +72,17 @@ function MyWordiePage() {
               cards
             </span>
           </div>
-          <p className="mt-3 text-center text-[13px] font-bold opacity-90 inline-flex items-center justify-center gap-1.5 w-full">
-            <Sparkles className="h-3.5 w-3.5" />
+          <p className="mt-3 text-center text-[13px] font-bold opacity-90">
             {reviewCount} review · {newCount} new
           </p>
 
           {/* Start word card — white pill (matches home pink pill style) */}
           <Link
             to="/word-card"
-            className="mt-6 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold active:scale-[0.98] transition-transform"
+            className="mt-6 flex items-center justify-center gap-2 rounded-full py-4 font-bold active:scale-[0.98] transition-transform"
             style={{
               color: "var(--wordie)",
+              background: "var(--wordie-accent)",
               fontFamily: "var(--font-sans)",
               fontSize: "17.25px",
             }}
@@ -103,6 +94,12 @@ function MyWordiePage() {
 
         {/* Streak + Bp pills — match ShirinTalk */}
         <section className="mt-4 flex items-center justify-center gap-2">
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+          >
+            230 cards
+          </span>
           <span
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
