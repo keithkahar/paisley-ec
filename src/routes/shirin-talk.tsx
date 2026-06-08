@@ -24,34 +24,10 @@ function ShirinTalkPage() {
   ];
 
   const cards = [
-    {
-      to: "/chat",
-      title: "Free Talk",
-      sub: "Chat about anything",
-      icon: MessageCircle,
-      bg: "oklch(0.95 0.03 12)",
-    },
-    {
-      to: "/smart-reading",
-      title: "Smart Reading Talk",
-      sub: "Read & discuss",
-      icon: BookOpen,
-      bg: "oklch(0.93 0.05 20)",
-    },
-    {
-      to: "/mywordie",
-      title: "myWordie Talk",
-      sub: "Practise your words",
-      icon: Notebook,
-      bg: "oklch(0.95 0.04 5)",
-    },
-    {
-      to: "/topics",
-      title: "Topic Talk",
-      sub: "Guided conversations",
-      icon: Lightbulb,
-      bg: "oklch(0.93 0.06 15)",
-    },
+    { to: "/chat", title: "Free Talk", sub: "Chat about anything", icon: MessageCircle },
+    { to: "/smart-reading", title: "Smart Reading Talk", sub: "Read & discuss", icon: BookOpen },
+    { to: "/mywordie", title: "myWordie Talk", sub: "Practise your words", icon: Notebook },
+    { to: "/topics", title: "Topic Talk", sub: "Guided conversations", icon: Lightbulb },
   ];
 
   return (
@@ -123,32 +99,26 @@ function ShirinTalkPage() {
           </div>
         </section>
 
-        {/* Mini cards grid */}
-        <section className="px-6 pt-2 pb-6 grid grid-cols-2 gap-3">
+        {/* Pill actions */}
+        <section className="px-6 pt-2 pb-6 flex flex-col gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
               <Link
                 key={c.title}
                 to={c.to}
-                className="rounded-2xl p-3 flex flex-col gap-2 active:scale-[0.98] transition-transform"
-                style={{ background: c.bg }}
+                className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 text-white active:scale-[0.98] transition-transform"
+                style={{ background: PINK, fontFamily: "var(--font-sans)" }}
               >
-                <span
-                  className="h-9 w-9 grid place-items-center rounded-xl bg-white"
-                  style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}
-                >
-                  <Icon className="h-4.5 w-4.5" style={{ color: PINK }} />
+                <span className="h-9 w-9 shrink-0 grid place-items-center rounded-full bg-white/20">
+                  <Icon className="h-5 w-5 text-white" />
                 </span>
-                <div>
-                  <div
-                    className="text-[13px] font-bold leading-tight tracking-tight text-foreground whitespace-nowrap"
-                    style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-                  >
+                <span className="flex flex-col leading-tight">
+                  <span className="text-[15px] font-bold tracking-tight" style={{ letterSpacing: "-0.01em" }}>
                     {c.title}
-                  </div>
-                  <div className="mt-0.5 text-[11px] text-foreground/60">{c.sub}</div>
-                </div>
+                  </span>
+                  <span className="text-[12px] text-white/80 font-medium">{c.sub}</span>
+                </span>
               </Link>
             );
           })}
