@@ -715,13 +715,13 @@ function AssistantActions({
   onNext: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between -mt-1">
-      <div className="flex items-center gap-0.5 pl-10">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-1.5">
         <ActionBtn onClick={onCopy} label="Copy"><Copy className="h-3.5 w-3.5" /></ActionBtn>
         <ActionBtn onClick={onSpeaker} label="Play"><Volume2 className="h-3.5 w-3.5" /></ActionBtn>
         <ActionBtn onClick={onShare} label="Share"><Share2 className="h-3.5 w-3.5" /></ActionBtn>
       </div>
-      <div className="flex items-center gap-0.5 pr-1">
+      <div className="flex items-center gap-1">
         {hasVariants && (
           <div className="flex items-center gap-0.5 mr-1 rounded-full px-1.5 py-0.5 border border-[oklch(0.94_0.02_10)]">
             <button onClick={onPrev} disabled={!canPrev} aria-label="Previous variant" className="text-muted-foreground disabled:opacity-30">
@@ -735,10 +735,10 @@ function AssistantActions({
         <button
           onClick={onRegenerate}
           aria-label="Regenerate"
-          className="h-7 w-7 rounded-full grid place-items-center text-white shadow-sm transition-transform hover:scale-105 active:scale-95"
+          className="h-8 w-8 rounded-full grid place-items-center text-white shadow-sm transition-transform hover:scale-105 active:scale-95"
           style={{ background: `linear-gradient(135deg, var(--shirin), color-mix(in oklab, var(--shirin) 60%, white))` }}
         >
-          <RotateCw className="h-3.5 w-3.5" />
+          <RotateCw className="h-4 w-4" />
         </button>
       </div>
     </div>
@@ -761,7 +761,8 @@ function ActionBtn({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="h-7 w-7 rounded-full grid place-items-center text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-30"
+      className="h-8 w-8 rounded-full grid place-items-center disabled:opacity-30 transition-transform active:scale-95"
+      style={{ background: PINK_SOFT, color: "var(--shirin)" }}
     >
       {children}
     </button>
