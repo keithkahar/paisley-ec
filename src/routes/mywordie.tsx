@@ -33,47 +33,52 @@ function MyWordiePage() {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
-        <section className="px-5 pt-10 pb-1">
+        <section className="px-5 pt-12 pb-1">
           <div
-            className="relative rounded-[28px] p-4 text-white overflow-hidden flex flex-col"
+            className="relative h-[228px] rounded-[28px] p-4 text-white overflow-hidden flex flex-col justify-between"
             style={{ background: "var(--wordie)" }}
           >
-          <h2
-            className="text-center text-[22px] font-bold leading-none"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-          >
-            Today's Practice
-          </h2>
-          <div className="mt-3">
-            <ProgressBar
-              value={pct}
-              color="var(--wordie-accent)"
-              track="rgba(255,255,255,0.22)"
-              height={6}
-            />
-          </div>
-          <div className="flex items-baseline justify-center gap-2 mt-3">
-            <span
-              className="text-[48px] font-bold leading-none"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
-            >
-              {cardsTotal}
-            </span>
-            <span
-              className="text-[24px] opacity-90 font-bold leading-none"
+          <div>
+            <h2
+              className="text-center text-[22px] font-bold leading-none"
               style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
-              cards
-            </span>
+              Today's Practice
+            </h2>
+            <div className="mt-2">
+              <ProgressBar
+                value={pct}
+                color="var(--wordie-accent)"
+                track="rgba(255,255,255,0.22)"
+                height={4}
+              />
+            </div>
           </div>
-          <p className="mt-2 text-center text-[13px] font-bold opacity-90">
-            {reviewCount} review · {newCount} new
-          </p>
+
+          <div>
+            <div className="flex items-baseline justify-center gap-2">
+              <span
+                className="text-[46px] font-bold leading-none"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+              >
+                {cardsTotal}
+              </span>
+              <span
+                className="text-[24px] opacity-90 font-bold leading-none"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              >
+                cards
+              </span>
+            </div>
+            <p className="mt-1 text-center text-[13px] font-bold opacity-90">
+              {reviewCount} review · {newCount} new
+            </p>
+          </div>
 
           {/* Start word card — white pill */}
           <Link
             to="/word-card"
-            className="mt-4 flex items-center justify-center gap-2 rounded-full py-3.5 font-bold active:scale-[0.98] transition-transform"
+            className="flex items-center justify-center gap-2 rounded-full py-3 font-bold active:scale-[0.98] transition-transform"
             style={{
               color: "var(--wordie)",
               background: "white",
@@ -109,7 +114,7 @@ function MyWordiePage() {
           </div>
         </section>
 
-        {/* Week calendar — matches ShirinTalk (px-6 pt-3) */}
+        {/* Week calendar — locked to ShirinTalk's same hero stack: pt-12 + 220px card + mt-3 stats + pb-1 + pt-3 */}
         <section className="px-6 pt-3">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
