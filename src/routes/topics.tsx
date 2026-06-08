@@ -82,7 +82,7 @@ function TopicsPage() {
                 className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
                 style={cardStyle}
               >
-                <div className={`relative bg-white ${ratio ?? ""}`} style={imgStyle}>
+                <div className={`relative overflow-hidden bg-white ${ratio ?? ""}`} style={imgStyle}>
                   <img
                     src={t.art}
                     alt={t.title}
