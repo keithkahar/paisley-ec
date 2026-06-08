@@ -725,14 +725,9 @@ function AssistantActions({
             </button>
           </div>
         )}
-        <button
-          onClick={onRegenerate}
-          aria-label="Regenerate"
-          className="h-7 w-7 rounded-full grid place-items-center transition-transform active:scale-95"
-          style={{ background: PINK_SOFT, color: "var(--shirin)" }}
-        >
+        <ActionBtn onClick={onRegenerate} label="Regenerate">
           <RotateCw className="h-3.5 w-3.5" />
-        </button>
+        </ActionBtn>
       </div>
     </div>
   );
@@ -755,7 +750,7 @@ function ActionBtn({
       disabled={disabled}
       aria-label={label}
       className="h-7 w-7 rounded-full grid place-items-center disabled:opacity-30 transition-transform active:scale-95"
-      style={{ background: PINK_SOFT, color: "var(--shirin)" }}
+      style={{ color: "var(--shirin)" }}
     >
       {children}
     </button>
