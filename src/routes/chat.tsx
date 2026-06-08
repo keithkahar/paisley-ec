@@ -3,6 +3,7 @@ import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { z } from "zod";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import shirinGirl from "@/assets/brand/shirin-girl.png";
+import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import {
   ChevronLeft,
   Camera,
@@ -58,10 +59,12 @@ const ALBUM_COLORS = [
 ];
 
 const MOCK_COMMENTS = [
-  { name: "Alice", text: "Shirin helped my child speak more English after class.", date: "2d", likes: 12, liked: false },
-  { name: "Ben", text: "The questions are simple and useful for practice.", date: "1d", likes: 5, liked: false },
-  { name: "Cindy", text: "I like the Smart Reading chat.", date: "5h", likes: 8, liked: true },
+  { name: "Alice", text: "Shirin helped my child speak more English after class.", date: "2d", likes: 12, liked: false, replies: [] as Reply[] },
+  { name: "Ben", text: "The questions are simple and useful for practice.", date: "1d", likes: 5, liked: false, replies: [] as Reply[] },
+  { name: "Cindy", text: "I like the Smart Reading chat.", date: "5h", likes: 8, liked: true, replies: [] as Reply[] },
 ];
+
+type Reply = { name: string; text: string; date: string; likes: number; liked: boolean };
 
 export const Route = createFileRoute("/chat")({
   head: () => ({ meta: [{ title: "Chat with Shirin — Paisley EC" }] }),
@@ -110,16 +113,16 @@ function ChatPage() {
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(24);
-  const [comments, setComments] = useState(MOCK_COMMENTS);
+  const [comments, setComments] = useState<typeof MOCK_COMMENTS>(MOCK_COMMENTS);
   const [commentInput, setCommentInput] = useState("");
-  const [replyTo, setReplyTo] = useState<string | null>(null);
+  const [replyTo, setReplyTo] = useState<{ index: number; name: string } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [holding, setHolding] = useState(false);
   const [longPressId, setLongPressId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const commentCount = comments.length;
+  const commentCount = comments.reduce((n, c) => n + 1 + c.replies.length, 0);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -249,10 +252,22 @@ function ChatPage() {
   function sendComment() {
     const t = commentInput.trim();
     if (!t) return;
-    setComments((c) => [
-      ...c,
-      { name: "You", text: replyTo ? `@${replyTo} ${t}` : t, date: "now", likes: 0, liked: false },
-    ]);
+    if (replyTo) {
+      const idx = replyTo.index;
+      const target = replyTo.name;
+      setComments((c) =>
+        c.map((cc, k) =>
+          k === idx
+            ? { ...cc, replies: [...cc.replies, { name: "You", text: `@${target} ${t}`, date: "now", likes: 0, liked: false }] }
+            : cc,
+        ),
+      );
+    } else {
+      setComments((c) => [
+        ...c,
+        { name: "You", text: t, date: "now", likes: 0, liked: false, replies: [] },
+      ]);
+    }
     setCommentInput("");
     setReplyTo(null);
   }
@@ -271,7 +286,7 @@ function ChatPage() {
           </Link>
           <h1
             className="text-[15px] font-bold tracking-tight"
-            style={{ color: PINK, letterSpacing: "-0.01em" }}
+            style={{ color: PINK, letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
           >
             {title}
           </h1>
@@ -282,8 +297,8 @@ function ChatPage() {
         <div className="flex-1 overflow-y-auto scroll-hide px-4 pt-4 pb-40">
           {/* Hero opening — shown once at top */}
           <div className="flex flex-col items-center text-center pb-4">
-            <img src={shirinGirl} alt="Shirin" className="h-20 w-20 object-contain" />
-            <p className="mt-1 text-[12px] font-bold" style={{ color: PINK }}>
+            <img src={shirinHero.url} alt="Shirin" className="h-40 w-40 object-contain" />
+            <p className="mt-1 text-[12px] font-bold" style={{ color: PINK, fontFamily: "var(--font-sans)" }}>
               Shirin
             </p>
           </div>
@@ -458,7 +473,7 @@ function ChatPage() {
             ) : (
               <>
                 {/* Social row (like / comment) */}
-                <div className="px-4 pb-1 flex items-center justify-center gap-2">
+                <div className="px-4 pb-1 flex items-center justify-start gap-2">
                   <button
                     onClick={() => {
                       setLiked((v) => !v);
@@ -498,7 +513,6 @@ function ChatPage() {
                       <button
                         onPointerDown={() => {
                           setHolding(true);
-                          showToast("Voice input ready soon");
                         }}
                         onPointerUp={() => setHolding(false)}
                         onPointerLeave={() => setHolding(false)}
@@ -569,7 +583,7 @@ function ChatPage() {
             replyTo={replyTo}
             commentInput={commentInput}
             onCommentInput={setCommentInput}
-            onReply={(name) => setReplyTo(name)}
+            onReply={(index, name) => setReplyTo({ index, name })}
             onCancelReply={() => setReplyTo(null)}
             onSend={sendComment}
             onClose={() => { setCommentsOpen(false); setReplyTo(null); }}
@@ -585,6 +599,9 @@ function ChatPage() {
             {toast}
           </div>
         )}
+
+        {/* Voice hold overlay */}
+        {holding && <VoiceHoldOverlay />}
       </div>
     </PhoneFrame>
   );
@@ -611,6 +628,37 @@ function Dot({ delay }: { delay: number }) {
       className="h-1.5 w-1.5 rounded-full animate-bounce"
       style={{ background: PINK, animationDelay: `${delay}ms` }}
     />
+  );
+}
+
+function VoiceHoldOverlay() {
+  const bars = Array.from({ length: 56 });
+  return (
+    <div
+      className="absolute inset-0 z-50 pointer-events-none flex flex-col items-center justify-end pb-8"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(15,30,80,0) 0%, rgba(28,68,200,0.55) 45%, rgba(56,130,255,0.85) 100%)",
+        backdropFilter: "blur(2px)",
+      }}
+    >
+      <p className="text-white/90 text-[13px] font-semibold mb-4 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
+        Release to send · slide up to cancel
+      </p>
+      <div className="flex items-end gap-[3px] h-12 px-6">
+        {bars.map((_, i) => (
+          <span
+            key={i}
+            className="w-[3px] rounded-full bg-white/85"
+            style={{
+              height: `${20 + Math.abs(Math.sin((i + 1) * 0.6)) * 70}%`,
+              animation: `voiceWave 900ms ease-in-out ${i * 28}ms infinite alternate`,
+            }}
+          />
+        ))}
+      </div>
+      <style>{`@keyframes voiceWave { from { transform: scaleY(0.4); } to { transform: scaleY(1.1); } }`}</style>
+    </div>
   );
 }
 
@@ -662,30 +710,32 @@ function AssistantActions({
   onNext: () => void;
 }) {
   return (
-    <div className="flex items-center gap-1 pl-10 -mt-1">
-      <ActionBtn onClick={onCopy} label="Copy"><Copy className="h-3.5 w-3.5" /></ActionBtn>
-      <ActionBtn onClick={onSpeaker} label="Play"><Volume2 className="h-3.5 w-3.5" /></ActionBtn>
-      <ActionBtn onClick={onShare} label="Share"><Share2 className="h-3.5 w-3.5" /></ActionBtn>
-      {hasVariants ? (
-        <>
-          <ActionBtn onClick={onPrev} label="Previous" disabled={!canPrev}>
-            <ChevLeft className="h-3.5 w-3.5" />
-          </ActionBtn>
-          {canNext ? (
-            <ActionBtn onClick={onNext} label="Next">
-              <ChevronRight className="h-3.5 w-3.5" />
-            </ActionBtn>
-          ) : (
-            <ActionBtn onClick={onRegenerate} label="Regenerate">
-              <RotateCw className="h-3.5 w-3.5" />
-            </ActionBtn>
-          )}
-        </>
-      ) : (
-        <ActionBtn onClick={onRegenerate} label="Regenerate">
+    <div className="flex items-center justify-between -mt-1">
+      <div className="flex items-center gap-0.5 pl-10">
+        <ActionBtn onClick={onCopy} label="Copy"><Copy className="h-3.5 w-3.5" /></ActionBtn>
+        <ActionBtn onClick={onSpeaker} label="Play"><Volume2 className="h-3.5 w-3.5" /></ActionBtn>
+        <ActionBtn onClick={onShare} label="Share"><Share2 className="h-3.5 w-3.5" /></ActionBtn>
+      </div>
+      <div className="flex items-center gap-0.5 pr-1">
+        {hasVariants && (
+          <div className="flex items-center gap-0.5 mr-1 rounded-full px-1.5 py-0.5 border border-[oklch(0.94_0.02_10)]">
+            <button onClick={onPrev} disabled={!canPrev} aria-label="Previous variant" className="text-muted-foreground disabled:opacity-30">
+              <ChevLeft className="h-3 w-3" />
+            </button>
+            <button onClick={onNext} disabled={!canNext} aria-label="Next variant" className="text-muted-foreground disabled:opacity-30">
+              <ChevronRight className="h-3 w-3" />
+            </button>
+          </div>
+        )}
+        <button
+          onClick={onRegenerate}
+          aria-label="Regenerate"
+          className="h-7 w-7 rounded-full grid place-items-center text-white shadow-sm transition-transform hover:scale-105 active:scale-95"
+          style={{ background: `linear-gradient(135deg, var(--shirin), color-mix(in oklab, var(--shirin) 60%, white))` }}
+        >
           <RotateCw className="h-3.5 w-3.5" />
-        </ActionBtn>
-      )}
+        </button>
+      </div>
     </div>
   );
 }
@@ -727,10 +777,10 @@ function CommentsSheet({
 }: {
   count: number;
   comments: typeof MOCK_COMMENTS;
-  replyTo: string | null;
+  replyTo: { index: number; name: string } | null;
   commentInput: string;
   onCommentInput: (v: string) => void;
-  onReply: (name: string) => void;
+  onReply: (index: number, name: string) => void;
   onCancelReply: () => void;
   onSend: () => void;
   onClose: () => void;
@@ -741,7 +791,7 @@ function CommentsSheet({
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
         <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-[oklch(0.95_0.02_10)]">
-          <h3 className="text-[15px] font-bold">Comments {count}</h3>
+          <h3 className="text-[15px] font-bold" style={{ fontFamily: "var(--font-sans)" }}>Comments {count}</h3>
           <button onClick={onClose} className="h-8 w-8 rounded-full grid place-items-center" aria-label="Close">
             <X className="h-4 w-4" />
           </button>
@@ -776,8 +826,27 @@ function CommentsSheet({
                   <p className="text-[13px] mt-0.5">{c.text}</p>
                   <div className="mt-1 flex items-center gap-3 text-[11px] text-muted-foreground">
                     <span>{c.date}</span>
-                    <button onClick={() => onReply(c.name)} className="font-semibold">Reply</button>
+                    <button onClick={() => onReply(i, c.name)} className="font-semibold">Reply</button>
                   </div>
+                  {c.replies.length > 0 && (
+                    <div className="mt-2 space-y-2 border-l-2 pl-3" style={{ borderColor: PINK_SOFT }}>
+                      {c.replies.map((r, j) => (
+                        <div key={j} className="flex gap-2">
+                          <div
+                            className="h-6 w-6 rounded-full grid place-items-center text-[10px] font-bold text-white shrink-0"
+                            style={{ background: PINK }}
+                          >
+                            {r.name.charAt(0)}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-[12px] font-bold">{r.name}</p>
+                            <p className="text-[12px] mt-0.5">{r.text}</p>
+                            <p className="text-[10px] text-muted-foreground mt-0.5">{r.date}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))
@@ -787,7 +856,7 @@ function CommentsSheet({
           {replyTo && (
             <div className="mb-1.5 flex items-center justify-between px-2 py-1 rounded-md" style={{ background: PINK_SOFT }}>
               <span className="text-[11px] font-semibold" style={{ color: PINK }}>
-                Replying to {replyTo}
+                Replying to {replyTo.name}
               </span>
               <button onClick={onCancelReply} aria-label="Cancel reply">
                 <X className="h-3 w-3" style={{ color: PINK }} />
