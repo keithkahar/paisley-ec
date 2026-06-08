@@ -123,16 +123,6 @@ function ShirinTalkPage() {
           </div>
         </section>
 
-        {/* Section heading */}
-        <section className="px-6 pt-6 pb-2">
-          <h3
-            className="text-[17px] font-semibold tracking-tight"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-          >
-            Talk Modes
-          </h3>
-        </section>
-
         {/* Mini cards grid */}
         <section className="px-6 pb-6 grid grid-cols-2 gap-3">
           {cards.map((c) => {
