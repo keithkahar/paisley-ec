@@ -63,13 +63,13 @@ function ShirinTalkPage() {
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PINK, border: `1px solid ${PINK}` }}
+              style={{ color: PINK, border: `1.5px solid ${PINK}` }}
             >
               <Flame className="h-3.5 w-3.5" />7
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PINK, border: `1px solid ${PINK}` }}
+              style={{ color: PINK, border: `1.5px solid ${PINK}` }}
             >
               1,240 Bp
             </span>
@@ -113,10 +113,7 @@ function ShirinTalkPage() {
                 className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
               >
-                <span
-                  className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white"
-                  style={{ border: `1.5px solid ${PINK}` }}
-                >
+                <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
                   {Icon ? (
                     <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PINK }} />
                   ) : (
