@@ -500,8 +500,8 @@ function ChatPage() {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => showToast("Camera ready soon")}
-                      className="h-10 w-10 rounded-full grid place-items-center bg-white border border-[oklch(0.94_0.02_10)] shrink-0"
-                      style={{ color: PINK }}
+                      className="h-10 w-10 rounded-full grid place-items-center shrink-0"
+                      style={{ color: PINK, background: PINK_SOFT }}
                       aria-label="Camera"
                     >
                       <Camera className="h-4 w-4" />
@@ -552,8 +552,8 @@ function ChatPage() {
                         setVoiceMode((v) => !v);
                         if (!voiceMode) showToast("Voice input ready soon");
                       }}
-                      className="h-10 w-10 rounded-full grid place-items-center bg-white border border-[oklch(0.94_0.02_10)] shrink-0"
-                      style={{ color: PINK }}
+                      className="h-10 w-10 rounded-full grid place-items-center shrink-0"
+                      style={{ color: PINK, background: PINK_SOFT }}
                       aria-label={voiceMode ? "Keyboard" : "Voice"}
                     >
                       {voiceMode ? <Keyboard className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
@@ -561,7 +561,7 @@ function ChatPage() {
                     <button
                       onClick={() => setAttachmentOpen((v) => !v)}
                       className="h-10 w-10 rounded-full grid place-items-center shrink-0"
-                      style={{ background: attachmentOpen ? PINK : "white", color: attachmentOpen ? "white" : PINK, border: `1px solid ${attachmentOpen ? PINK : "oklch(0.94 0.02 10)"}` }}
+                      style={{ background: attachmentOpen ? PINK : PINK_SOFT, color: attachmentOpen ? "white" : PINK }}
                       aria-label={attachmentOpen ? "Close attachments" : "Open attachments"}
                     >
                       {attachmentOpen ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
@@ -638,6 +638,8 @@ function VoiceHoldOverlay() {
         height: "190px",
         background:
           "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 50%, transparent) 55%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
+        borderTopLeftRadius: "50% 36px",
+        borderTopRightRadius: "50% 36px",
       }}
     >
       <p className="text-white text-[12px] font-semibold mb-3 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
@@ -714,20 +716,21 @@ function AssistantActions({
         <ActionBtn onClick={onSpeaker} label="Play"><Volume2 className="h-3.5 w-3.5" /></ActionBtn>
         <ActionBtn onClick={onShare} label="Share"><Share2 className="h-3.5 w-3.5" /></ActionBtn>
       </div>
-      <div className="flex items-center gap-1">
-        {hasVariants && (
-          <div className="flex items-center gap-0.5 mr-1 rounded-full px-1.5 py-0.5 border border-[oklch(0.94_0.02_10)]">
-            <button onClick={onPrev} disabled={!canPrev} aria-label="Previous variant" className="text-muted-foreground disabled:opacity-30">
-              <ChevLeft className="h-3 w-3" />
-            </button>
-            <button onClick={onNext} disabled={!canNext} aria-label="Next variant" className="text-muted-foreground disabled:opacity-30">
-              <ChevronRight className="h-3 w-3" />
-            </button>
-          </div>
+      <div className="flex items-center gap-1.5">
+        {canPrev && (
+          <ActionBtn onClick={onPrev} label="Previous variant">
+            <ChevLeft className="h-3.5 w-3.5" />
+          </ActionBtn>
         )}
-        <ActionBtn onClick={onRegenerate} label="Regenerate">
-          <RotateCw className="h-3.5 w-3.5" />
-        </ActionBtn>
+        {hasVariants && canNext ? (
+          <ActionBtn onClick={onNext} label="Next variant">
+            <ChevronRight className="h-3.5 w-3.5" />
+          </ActionBtn>
+        ) : (
+          <ActionBtn onClick={onRegenerate} label="Regenerate">
+            <RotateCw className="h-3.5 w-3.5" />
+          </ActionBtn>
+        )}
       </div>
     </div>
   );
