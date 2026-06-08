@@ -20,14 +20,14 @@ export const Route = createFileRoute("/")({
 function Home() {
   const name = "Danielle";
   return (
-    <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
-      <div className="relative h-[100dvh] overflow-hidden flex flex-col">
+    <PhoneFrame bg="bg-card">
+      <div className="relative h-[100dvh] overflow-hidden flex flex-col bg-[color:var(--paisley-soft)]">
         {/* App logo top-left */}
         <div className="absolute top-7 left-5 z-20">
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </div>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-[10.5rem] pb-0">
+        <section className="relative px-6 pt-[6.5rem] pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -60,10 +60,9 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="mt-10 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
+            className="mt-10 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
-              boxShadow: "0 10px 25px -8px color-mix(in oklab, var(--shirin) 55%, transparent)",
               fontFamily: "var(--font-sans)",
             }}
           >
@@ -72,7 +71,7 @@ function Home() {
             <img
               src={shirinTalkText.url}
               alt="ShirinTalk"
-              className="h-5 w-auto object-contain"
+              className="h-4 w-auto object-contain"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </Link>
