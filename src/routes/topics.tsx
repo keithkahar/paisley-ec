@@ -40,38 +40,29 @@ export const Route = createFileRoute("/topics")({
 function TopicsPage() {
   return (
     <PhoneFrame bg="bg-white">
-      <div
-        className="relative min-h-[100dvh] flex flex-col"
-        style={{ background: "color-mix(in oklab, var(--shirin) 5%, white)" }}
-      >
-        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 backdrop-blur"
-          style={{ background: "color-mix(in oklab, var(--shirin) 5%, white)" }}>
+      <div className="relative min-h-[100dvh] flex flex-col bg-white">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
           <Link to="/shirin-talk" aria-label="Back" className="h-9 w-9 grid place-items-center rounded-full">
             <ChevronLeft className="h-5 w-5" />
           </Link>
-          <span
-            className="text-[12px] font-bold tracking-[0.22em] uppercase"
-            style={{ color: PINK, fontFamily: "var(--font-sans)" }}
-          >
-            Gallery
-          </span>
+          <span aria-hidden />
           <div className="h-9 w-9" />
         </header>
 
-        <div className="flex-1 overflow-y-auto scroll-hide px-4 pb-16 pt-1">
-          <div className="mb-5 px-1 text-center">
+        <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-1">
+          <div className="mb-4 px-1">
             <h1
-              className="text-[26px] font-black tracking-tight leading-none"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+              className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+              style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
-              The <span style={{ color: PINK, fontStyle: "italic", fontWeight: 900 }}>Shirin</span> Gallery
+              Choose a topic
             </h1>
-            <p className="mt-2 text-[12px] font-semibold tracking-wide text-foreground/55">
-              Nine little paintings · pick one to talk about
+            <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
+              Pick a painting · let's talk about it.
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {TOPICS.map((t) => {
               const linkProps =
                 t.topic_id === "smart_reading"
@@ -84,33 +75,27 @@ function TopicsPage() {
                 <Link
                   key={t.topic_id}
                   {...linkProps}
-                  className="group flex flex-col items-stretch active:scale-[0.97] transition-transform"
+                  className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform"
+                  style={{
+                    background: "color-mix(in oklab, var(--shirin) 8%, white)",
+                    border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
+                  }}
                 >
-                  {/* Painting in a thin gallery frame */}
-                  <div
-                    className="relative aspect-square rounded-[3px] overflow-hidden bg-white"
-                    style={{
-                      padding: "4px",
-                      border: "1px solid color-mix(in oklab, var(--shirin) 22%, white)",
-                      boxShadow:
-                        "0 1px 0 rgba(0,0,0,0.04), 0 10px 22px -14px color-mix(in oklab, var(--shirin) 45%, transparent)",
-                    }}
-                  >
+                  <div className="relative aspect-square bg-white">
                     <img
                       src={t.art}
                       alt={t.title}
                       loading="lazy"
                       width={1024}
                       height={1024}
-                      className="block h-full w-full object-cover rounded-[1px]"
+                      className="block h-full w-full object-cover"
                       draggable={false}
                     />
                   </div>
-                  {/* Plaque */}
-                  <div className="mt-1.5 text-center">
+                  <div className="px-3 py-2.5">
                     <p
-                      className="text-[10.5px] font-black tracking-[0.1em] uppercase leading-tight"
-                      style={{ fontFamily: "var(--font-sans)", color: "var(--foreground)" }}
+                      className="text-[14px] font-bold tracking-tight leading-tight"
+                      style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                     >
                       {t.title}
                     </p>
@@ -119,13 +104,6 @@ function TopicsPage() {
               );
             })}
           </div>
-
-          <p
-            className="mt-6 text-center text-[10px] font-semibold tracking-[0.25em] uppercase"
-            style={{ color: "color-mix(in oklab, var(--shirin) 55%, var(--foreground))" }}
-          >
-            — Shirin · No. 001 / 009 —
-          </p>
         </div>
       </div>
     </PhoneFrame>
