@@ -278,7 +278,7 @@ function ChatPage() {
         {/* Header */}
         <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
           <Link
-            to="/shirin-talk"
+            to={mode === "topic" ? "/topics" : mode === "reading" ? "/smart-reading" : "/shirin-talk"}
             aria-label="Back"
             className="h-9 w-9 grid place-items-center rounded-full"
           >
