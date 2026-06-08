@@ -111,11 +111,11 @@ function TopicsPage() {
                 <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                 <HeroCard t={byId.football_talk} ratio="aspect-square" />
                 {/* Minecraft Adventure spans both columns right under Pet Talk & Football Talk */}
-                <div className="col-span-2">
-                  {/* Image aspect makes minecraft card height equal a square card's height (image is square-col-width, plus identical title bar). */}
+                <div className="col-span-2" style={{ containerType: "inline-size" }}>
+                  {/* Image height = (grid width - gap) / 2 = single-column width, so the minecraft card matches a square card's total height exactly. */}
                   <HeroCard
                     t={byId.minecraft_adventure}
-                    imgStyle={{ aspectRatio: "calc(2 * 100cqw / (100cqw - 10px))" }}
+                    imgStyle={{ height: "calc((100cqw - 10px) / 2)" }}
                   />
                 </div>
                 <HeroCard t={byId.free_talk} ratio="aspect-square" />
