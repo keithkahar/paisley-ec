@@ -473,7 +473,7 @@ function ChatPage() {
             ) : (
               <>
                 {/* Social row (like / comment) */}
-                <div className="px-4 pb-1 flex items-center justify-center gap-2">
+                <div className="px-4 pb-1 flex items-center justify-start gap-2">
                   <button
                     onClick={() => {
                       setLiked((v) => !v);
