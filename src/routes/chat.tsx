@@ -638,6 +638,8 @@ function VoiceHoldOverlay() {
         height: "190px",
         background:
           "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 50%, transparent) 55%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
+        borderTopLeftRadius: "50% 36px",
+        borderTopRightRadius: "50% 36px",
       }}
     >
       <p className="text-white text-[12px] font-semibold mb-3 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
