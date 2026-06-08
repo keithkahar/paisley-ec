@@ -23,7 +23,7 @@ export function BottomTabBar() {
       {/* spacer so content isn't hidden under the bar */}
       <div className="h-24" aria-hidden />
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-4 pb-4">
-        <div className="relative h-16 rounded-full bg-white/95 backdrop-blur border border-border shadow-[0_10px_30px_-10px_rgba(1,70,185,0.25)] flex items-stretch">
+        <div className="relative h-20 rounded-full bg-white/95 backdrop-blur border border-border shadow-[0_10px_30px_-10px_rgba(1,70,185,0.25)] flex items-stretch">
           {tabs.map((t, i) => {
             const active = pathname.startsWith(t.to);
             const isFirst = i === 0;
@@ -32,7 +32,8 @@ export function BottomTabBar() {
               <Link
                 key={t.to}
                 to={t.to}
-                className="relative flex-1 flex flex-col items-center justify-center gap-0.5"
+                aria-label={t.label}
+                className="relative flex-1 flex items-center justify-center"
               >
                 {active && (
                   <span
@@ -49,14 +50,8 @@ export function BottomTabBar() {
                 <img
                   src={active ? t.filled : t.outline}
                   alt=""
-                  className="relative z-10 h-9 w-9 object-contain"
+                  className="relative z-10 h-12 w-12 object-contain"
                 />
-                <span
-                  className="relative z-10 text-[11px] font-bold tracking-wide"
-                  style={{ color: active ? t.color : "#111" }}
-                >
-                  {t.label}
-                </span>
               </Link>
             );
           })}
