@@ -62,7 +62,7 @@ function TopicsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-2.5">
             {TOPICS.map((t) => {
               const linkProps =
                 t.topic_id === "smart_reading"
