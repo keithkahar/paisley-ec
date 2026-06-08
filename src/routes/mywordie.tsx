@@ -12,7 +12,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { ProgressBar, SectionTitle, StatTile } from "@/components/app/WordieKit";
+import { ProgressBar, SectionTitle } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/mywordie")({
   head: () => ({ meta: [{ title: "myWordie — Paisley EC" }] }),
