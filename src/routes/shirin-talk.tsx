@@ -55,13 +55,13 @@ function ShirinTalkPage() {
   ];
 
   return (
-    <PhoneFrame bg="bg-card">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-card">
+    <PhoneFrame bg="bg-[oklch(0.99_0.015_10)]">
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-[oklch(0.99_0.015_10)]">
         <div className="absolute top-4 left-4 z-30">
           <Link
             to="/"
             aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
