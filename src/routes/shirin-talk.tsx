@@ -3,7 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { BpPill, StreakPill } from "@/components/app/Pills";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
-import { ChevronLeft, ArrowRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
@@ -12,10 +12,10 @@ export const Route = createFileRoute("/shirin-talk")({
 
 function ShirinTalkPage() {
   const folders = [
-    { to: "/chat", title: "Free Talk", bg: "var(--shirin)", fg: "white" },
-    { to: "/smart-reading", title: "Smart Reading Talk", bg: "oklch(0.82 0.14 50)", fg: "oklch(0.25 0.08 40)" },
-    { to: "/mywordie", title: "myWordie Talk", bg: "var(--wordie)", fg: "white" },
-    { to: "/topics", title: "Topic Talk", bg: "var(--paisley)", fg: "white" },
+    { to: "/chat", title: "Free Talk" },
+    { to: "/smart-reading", title: "Smart Reading Talk" },
+    { to: "/mywordie", title: "myWordie Talk" },
+    { to: "/topics", title: "Topic Talk" },
   ];
   return (
     <PhoneFrame bg="bg-card">
@@ -60,34 +60,29 @@ function ShirinTalkPage() {
           </div>
         </section>
 
-        {/* White curved panel with folder stack */}
-        <section
-          className="relative -mt-3 flex-1 bg-card px-5 pt-7 pb-4 overflow-hidden"
-          style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
-        >
-          <div className="flex flex-col gap-3">
-            {folders.map((f) => (
-              <Link
-                key={f.title}
-                to={f.to}
-                className="group relative rounded-3xl px-5 py-4 flex items-center justify-between active:scale-[0.99] transition-transform shadow-[0_6px_14px_-8px_rgba(0,0,0,0.25)]"
-                style={{ background: f.bg, color: f.fg }}
+        {/* Stacked white folder cards */}
+        <section className="relative -mt-3 flex-1 px-0 pb-4">
+          {folders.map((f, i) => (
+            <Link
+              key={f.title}
+              to={f.to}
+              className="relative block bg-card px-7 pt-6 pb-10 active:scale-[0.995] transition-transform"
+              style={{
+                borderTopLeftRadius: "60% 60px",
+                borderTopRightRadius: "60% 60px",
+                marginTop: i === 0 ? 0 : "-32px",
+                zIndex: i + 1,
+                boxShadow: "0 -6px 18px -10px rgba(0,0,0,0.18)",
+              }}
+            >
+              <h3
+                className="text-center text-[22px] font-semibold tracking-tight text-foreground"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
               >
-                <span
-                  className="text-[22px] font-bold leading-none"
-                  style={{ fontFamily: "var(--font-sans)" }}
-                >
-                  {f.title}
-                </span>
-                <span
-                  className="h-9 w-9 grid place-items-center rounded-full"
-                  style={{ background: "rgba(0,0,0,0.25)", color: "white" }}
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-            ))}
-          </div>
+                {f.title}
+              </h3>
+            </Link>
+          ))}
         </section>
       </div>
 
