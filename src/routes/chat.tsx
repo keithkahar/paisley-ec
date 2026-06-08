@@ -310,7 +310,7 @@ function ChatPage() {
               const isLastAssistant = i === lastAssistantIdx;
               const canShare = m.shareable !== false;
               return (
-                <div key={m.id} className={`flex items-start ${isUser ? "justify-end" : "justify-start"} gap-2`}>
+                <div key={m.id} className="flex items-start gap-2">
                   {shareMode && (
                     <SelectDot
                       enabled={canShare}
@@ -318,6 +318,7 @@ function ChatPage() {
                       onClick={() => canShare && toggleSelect(m.id)}
                     />
                   )}
+                  {isUser && <div className="flex-1" />}
                   {!isUser && (
                     <img src={shirinGirl} alt="Shirin" className="h-8 w-8 mt-0.5 object-contain shrink-0" />
                   )}
