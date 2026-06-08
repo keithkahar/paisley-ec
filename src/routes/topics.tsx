@@ -107,30 +107,36 @@ function TopicsPage() {
 
             return (
               <div className="flex flex-col gap-2.5">
-                {/* Row 1: featured hero (Free Talk) + 2 stacked */}
+                {/* Row 1: Pet Talk hero + small stack */}
                 <div className="grid grid-cols-3 gap-2.5">
                   <div className="col-span-2">
-                    <Card t={byId.free_talk} ratio="aspect-square" />
+                    <Card t={byId.pet_talk} ratio="aspect-square" />
                   </div>
                   <div className="flex flex-col gap-2.5">
+                    <Card t={byId.free_talk} ratio="aspect-square" />
                     <Card t={byId.smart_reading} ratio="aspect-square" />
-                    <Card t={byId.mywordie} ratio="aspect-square" />
                   </div>
                 </div>
 
-                {/* Row 2: 2-column pairs */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <Card t={byId.pet_talk} ratio="aspect-square" />
-                  <Card t={byId.minecraft_adventure} ratio="aspect-square" />
-                  <Card t={byId.food_talk} ratio="aspect-square" />
-                  <Card t={byId.football_talk} ratio="aspect-square" />
+                {/* Row 2: small stack + Football hero */}
+                <div className="grid grid-cols-3 gap-2.5">
+                  <div className="flex flex-col gap-2.5">
+                    <Card t={byId.food_talk} ratio="aspect-square" />
+                    <Card t={byId.minecraft_adventure} ratio="aspect-square" />
+                  </div>
+                  <div className="col-span-2">
+                    <Card t={byId.football_talk} ratio="aspect-square" />
+                  </div>
                 </div>
 
-                {/* Row 3: 2-column pair */}
+                {/* Row 3: Magic + Nature, two heroes side by side */}
                 <div className="grid grid-cols-2 gap-2.5">
                   <Card t={byId.magic_adventure} ratio="aspect-square" />
                   <Card t={byId.nature_explorer} ratio="aspect-square" />
                 </div>
+
+                {/* Row 4: myWordie full-width banner */}
+                <Card t={byId.mywordie} ratio="aspect-[16/9]" />
               </div>
             );
           })()}
