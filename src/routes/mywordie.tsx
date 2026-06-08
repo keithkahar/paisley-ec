@@ -110,7 +110,7 @@ function MyWordiePage() {
         </section>
 
         {/* Week calendar — matches ShirinTalk (px-6 pt-3) */}
-        <section className="px-6 pt-3 -mt-[33px]">
+        <section className="px-6 pt-3">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
