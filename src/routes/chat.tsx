@@ -113,16 +113,16 @@ function ChatPage() {
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(24);
-  const [comments, setComments] = useState(MOCK_COMMENTS);
+  const [comments, setComments] = useState<typeof MOCK_COMMENTS>(MOCK_COMMENTS);
   const [commentInput, setCommentInput] = useState("");
-  const [replyTo, setReplyTo] = useState<string | null>(null);
+  const [replyTo, setReplyTo] = useState<{ index: number; name: string } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [holding, setHolding] = useState(false);
   const [longPressId, setLongPressId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const commentCount = comments.length;
+  const commentCount = comments.reduce((n, c) => n + 1 + c.replies.length, 0);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -252,10 +252,22 @@ function ChatPage() {
   function sendComment() {
     const t = commentInput.trim();
     if (!t) return;
-    setComments((c) => [
-      ...c,
-      { name: "You", text: replyTo ? `@${replyTo} ${t}` : t, date: "now", likes: 0, liked: false },
-    ]);
+    if (replyTo) {
+      const idx = replyTo.index;
+      const target = replyTo.name;
+      setComments((c) =>
+        c.map((cc, k) =>
+          k === idx
+            ? { ...cc, replies: [...cc.replies, { name: "You", text: `@${target} ${t}`, date: "now", likes: 0, liked: false }] }
+            : cc,
+        ),
+      );
+    } else {
+      setComments((c) => [
+        ...c,
+        { name: "You", text: t, date: "now", likes: 0, liked: false, replies: [] },
+      ]);
+    }
     setCommentInput("");
     setReplyTo(null);
   }
