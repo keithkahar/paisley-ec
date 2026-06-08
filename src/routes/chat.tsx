@@ -500,8 +500,8 @@ function ChatPage() {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => showToast("Camera ready soon")}
-                      className="h-10 w-10 rounded-full grid place-items-center bg-white border border-[oklch(0.94_0.02_10)] shrink-0"
-                      style={{ color: PINK }}
+                      className="h-10 w-10 rounded-full grid place-items-center shrink-0"
+                      style={{ color: PINK, background: PINK_SOFT }}
                       aria-label="Camera"
                     >
                       <Camera className="h-4 w-4" />
@@ -552,8 +552,8 @@ function ChatPage() {
                         setVoiceMode((v) => !v);
                         if (!voiceMode) showToast("Voice input ready soon");
                       }}
-                      className="h-10 w-10 rounded-full grid place-items-center bg-white border border-[oklch(0.94_0.02_10)] shrink-0"
-                      style={{ color: PINK }}
+                      className="h-10 w-10 rounded-full grid place-items-center shrink-0"
+                      style={{ color: PINK, background: PINK_SOFT }}
                       aria-label={voiceMode ? "Keyboard" : "Voice"}
                     >
                       {voiceMode ? <Keyboard className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
@@ -561,7 +561,7 @@ function ChatPage() {
                     <button
                       onClick={() => setAttachmentOpen((v) => !v)}
                       className="h-10 w-10 rounded-full grid place-items-center shrink-0"
-                      style={{ background: attachmentOpen ? PINK : "white", color: attachmentOpen ? "white" : PINK, border: `1px solid ${attachmentOpen ? PINK : "oklch(0.94 0.02 10)"}` }}
+                      style={{ background: attachmentOpen ? PINK : PINK_SOFT, color: attachmentOpen ? "white" : PINK }}
                       aria-label={attachmentOpen ? "Close attachments" : "Open attachments"}
                     >
                       {attachmentOpen ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
