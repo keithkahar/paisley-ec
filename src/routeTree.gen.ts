@@ -9,15 +9,60 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WordieXRouteImport } from './routes/wordie-x'
+import { Route as WordieTestRouteImport } from './routes/wordie-test'
+import { Route as WordieBankRouteImport } from './routes/wordie-bank'
+import { Route as WordCardRouteImport } from './routes/word-card'
+import { Route as TopicsRouteImport } from './routes/topics'
+import { Route as SmartReadingRouteImport } from './routes/smart-reading'
 import { Route as ShirinTalkRouteImport } from './routes/shirin-talk'
+import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MywordieRouteImport } from './routes/mywordie'
+import { Route as ChatRouteImport } from './routes/chat'
+import { Route as CefrTestRouteImport } from './routes/cefr-test'
 import { Route as BloxiaRouteImport } from './routes/bloxia'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WordieXRoute = WordieXRouteImport.update({
+  id: '/wordie-x',
+  path: '/wordie-x',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordieTestRoute = WordieTestRouteImport.update({
+  id: '/wordie-test',
+  path: '/wordie-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordieBankRoute = WordieBankRouteImport.update({
+  id: '/wordie-bank',
+  path: '/wordie-bank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordCardRoute = WordCardRouteImport.update({
+  id: '/word-card',
+  path: '/word-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopicsRoute = TopicsRouteImport.update({
+  id: '/topics',
+  path: '/topics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmartReadingRoute = SmartReadingRouteImport.update({
+  id: '/smart-reading',
+  path: '/smart-reading',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShirinTalkRoute = ShirinTalkRouteImport.update({
   id: '/shirin-talk',
   path: '/shirin-talk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -30,9 +75,24 @@ const MywordieRoute = MywordieRouteImport.update({
   path: '/mywordie',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CefrTestRoute = CefrTestRouteImport.update({
+  id: '/cefr-test',
+  path: '/cefr-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BloxiaRoute = BloxiaRouteImport.update({
   id: '/bloxia',
   path: '/bloxia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,49 +103,184 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bloxia': typeof BloxiaRoute
+  '/cefr-test': typeof CefrTestRoute
+  '/chat': typeof ChatRoute
   '/mywordie': typeof MywordieRoute
   '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
   '/shirin-talk': typeof ShirinTalkRoute
+  '/smart-reading': typeof SmartReadingRoute
+  '/topics': typeof TopicsRoute
+  '/word-card': typeof WordCardRoute
+  '/wordie-bank': typeof WordieBankRoute
+  '/wordie-test': typeof WordieTestRoute
+  '/wordie-x': typeof WordieXRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bloxia': typeof BloxiaRoute
+  '/cefr-test': typeof CefrTestRoute
+  '/chat': typeof ChatRoute
   '/mywordie': typeof MywordieRoute
   '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
   '/shirin-talk': typeof ShirinTalkRoute
+  '/smart-reading': typeof SmartReadingRoute
+  '/topics': typeof TopicsRoute
+  '/word-card': typeof WordCardRoute
+  '/wordie-bank': typeof WordieBankRoute
+  '/wordie-test': typeof WordieTestRoute
+  '/wordie-x': typeof WordieXRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bloxia': typeof BloxiaRoute
+  '/cefr-test': typeof CefrTestRoute
+  '/chat': typeof ChatRoute
   '/mywordie': typeof MywordieRoute
   '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
   '/shirin-talk': typeof ShirinTalkRoute
+  '/smart-reading': typeof SmartReadingRoute
+  '/topics': typeof TopicsRoute
+  '/word-card': typeof WordCardRoute
+  '/wordie-bank': typeof WordieBankRoute
+  '/wordie-test': typeof WordieTestRoute
+  '/wordie-x': typeof WordieXRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bloxia' | '/mywordie' | '/profile' | '/shirin-talk'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/bloxia'
+    | '/cefr-test'
+    | '/chat'
+    | '/mywordie'
+    | '/profile'
+    | '/progress'
+    | '/shirin-talk'
+    | '/smart-reading'
+    | '/topics'
+    | '/word-card'
+    | '/wordie-bank'
+    | '/wordie-test'
+    | '/wordie-x'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bloxia' | '/mywordie' | '/profile' | '/shirin-talk'
-  id: '__root__' | '/' | '/bloxia' | '/mywordie' | '/profile' | '/shirin-talk'
+  to:
+    | '/'
+    | '/about'
+    | '/bloxia'
+    | '/cefr-test'
+    | '/chat'
+    | '/mywordie'
+    | '/profile'
+    | '/progress'
+    | '/shirin-talk'
+    | '/smart-reading'
+    | '/topics'
+    | '/word-card'
+    | '/wordie-bank'
+    | '/wordie-test'
+    | '/wordie-x'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/bloxia'
+    | '/cefr-test'
+    | '/chat'
+    | '/mywordie'
+    | '/profile'
+    | '/progress'
+    | '/shirin-talk'
+    | '/smart-reading'
+    | '/topics'
+    | '/word-card'
+    | '/wordie-bank'
+    | '/wordie-test'
+    | '/wordie-x'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BloxiaRoute: typeof BloxiaRoute
+  CefrTestRoute: typeof CefrTestRoute
+  ChatRoute: typeof ChatRoute
   MywordieRoute: typeof MywordieRoute
   ProfileRoute: typeof ProfileRoute
+  ProgressRoute: typeof ProgressRoute
   ShirinTalkRoute: typeof ShirinTalkRoute
+  SmartReadingRoute: typeof SmartReadingRoute
+  TopicsRoute: typeof TopicsRoute
+  WordCardRoute: typeof WordCardRoute
+  WordieBankRoute: typeof WordieBankRoute
+  WordieTestRoute: typeof WordieTestRoute
+  WordieXRoute: typeof WordieXRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wordie-x': {
+      id: '/wordie-x'
+      path: '/wordie-x'
+      fullPath: '/wordie-x'
+      preLoaderRoute: typeof WordieXRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wordie-test': {
+      id: '/wordie-test'
+      path: '/wordie-test'
+      fullPath: '/wordie-test'
+      preLoaderRoute: typeof WordieTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wordie-bank': {
+      id: '/wordie-bank'
+      path: '/wordie-bank'
+      fullPath: '/wordie-bank'
+      preLoaderRoute: typeof WordieBankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/word-card': {
+      id: '/word-card'
+      path: '/word-card'
+      fullPath: '/word-card'
+      preLoaderRoute: typeof WordCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topics': {
+      id: '/topics'
+      path: '/topics'
+      fullPath: '/topics'
+      preLoaderRoute: typeof TopicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/smart-reading': {
+      id: '/smart-reading'
+      path: '/smart-reading'
+      fullPath: '/smart-reading'
+      preLoaderRoute: typeof SmartReadingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shirin-talk': {
       id: '/shirin-talk'
       path: '/shirin-talk'
       fullPath: '/shirin-talk'
       preLoaderRoute: typeof ShirinTalkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -102,11 +297,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MywordieRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cefr-test': {
+      id: '/cefr-test'
+      path: '/cefr-test'
+      fullPath: '/cefr-test'
+      preLoaderRoute: typeof CefrTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bloxia': {
       id: '/bloxia'
       path: '/bloxia'
       fullPath: '/bloxia'
       preLoaderRoute: typeof BloxiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -121,11 +337,31 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BloxiaRoute: BloxiaRoute,
+  CefrTestRoute: CefrTestRoute,
+  ChatRoute: ChatRoute,
   MywordieRoute: MywordieRoute,
   ProfileRoute: ProfileRoute,
+  ProgressRoute: ProgressRoute,
   ShirinTalkRoute: ShirinTalkRoute,
+  SmartReadingRoute: SmartReadingRoute,
+  TopicsRoute: TopicsRoute,
+  WordCardRoute: WordCardRoute,
+  WordieBankRoute: WordieBankRoute,
+  WordieTestRoute: WordieTestRoute,
+  WordieXRoute: WordieXRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
