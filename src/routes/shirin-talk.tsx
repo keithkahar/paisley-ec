@@ -55,8 +55,8 @@ function ShirinTalkPage() {
   ];
 
   return (
-    <PhoneFrame bg="bg-[oklch(0.99_0.015_10)]">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-[oklch(0.99_0.015_10)]">
+    <PhoneFrame bg="bg-white">
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         <div className="absolute top-4 left-4 z-30">
           <Link
             to="/"
@@ -93,7 +93,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Week calendar */}
-        <section className="px-6 pt-5">
+        <section className="px-6 pt-6 pb-5">
           <div className="flex items-center justify-between">
             {week.map((w) => {
               const active = w.today;
@@ -124,7 +124,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Mini cards grid */}
-        <section className="px-6 pb-6 grid grid-cols-2 gap-3">
+        <section className="px-6 pt-2 pb-6 grid grid-cols-2 gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
