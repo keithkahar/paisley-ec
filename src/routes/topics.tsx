@@ -137,36 +137,36 @@ function TopicsPage() {
 
             return (
               <div className="flex flex-col gap-2.5">
-                {/* Row 1: Pet Talk hero + small stack */}
-                <div className="grid grid-cols-3 gap-2.5">
+                {/* Row 1: Pet Talk hero (2/3) + stack of 2 minis (1/3) */}
+                <div className="grid grid-cols-3 gap-2.5 items-stretch">
                   <div className="col-span-2">
-                    <Card t={byId.pet_talk} ratio="aspect-square" />
+                    <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                   </div>
-                  <div className="flex flex-col gap-2.5">
-                    <Card t={byId.free_talk} ratio="aspect-square" />
-                    <Card t={byId.smart_reading} ratio="aspect-square" />
+                  <div className="flex flex-col gap-2.5 min-h-0">
+                    <MiniCard t={byId.free_talk} />
+                    <MiniCard t={byId.food_talk} />
                   </div>
                 </div>
 
-                {/* Row 2: small stack + Football hero */}
-                <div className="grid grid-cols-3 gap-2.5">
-                  <div className="flex flex-col gap-2.5">
-                    <Card t={byId.food_talk} ratio="aspect-square" />
-                    <Card t={byId.minecraft_adventure} ratio="aspect-square" />
+                {/* Row 2: stack of 2 minis (1/3) + Football Talk hero (2/3) */}
+                <div className="grid grid-cols-3 gap-2.5 items-stretch">
+                  <div className="flex flex-col gap-2.5 min-h-0">
+                    <MiniCard t={byId.mywordie} />
+                    <MiniCard t={byId.smart_reading} />
                   </div>
                   <div className="col-span-2">
-                    <Card t={byId.football_talk} ratio="aspect-square" />
+                    <HeroCard t={byId.football_talk} ratio="aspect-square" />
                   </div>
                 </div>
 
-                {/* Row 3: Magic + Nature, two heroes side by side */}
+                {/* Row 3: Magic Adventure + Nature Explorer, twin heroes (1/2 each) */}
                 <div className="grid grid-cols-2 gap-2.5">
-                  <Card t={byId.magic_adventure} ratio="aspect-square" />
-                  <Card t={byId.nature_explorer} ratio="aspect-square" />
+                  <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
+                  <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
                 </div>
 
-                {/* Row 4: myWordie full-width banner */}
-                <Card t={byId.mywordie} ratio="aspect-[16/9]" />
+                {/* Row 4: Minecraft Adventure full-width banner */}
+                <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1]" />
               </div>
             );
           })()}
