@@ -75,10 +75,11 @@ function TopicsPage() {
               border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
             } as const;
 
-            const Card = ({ t, ratio }: { t: Topic; ratio: string }) => (
+            // Hero card: aspect drives height.
+            const HeroCard = ({ t, ratio }: { t: Topic; ratio: string }) => (
               <Link
                 {...getLinkProps(t)}
-                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform"
+                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
                 style={cardStyle}
               >
                 <div className={`relative ${ratio} bg-white`}>
@@ -94,7 +95,36 @@ function TopicsPage() {
                 </div>
                 <div className="px-3 py-2.5">
                   <p
-                    className="text-[14px] font-bold tracking-tight leading-tight"
+                    className="text-[14px] font-bold tracking-tight leading-tight whitespace-nowrap"
+                    style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                  >
+                    {t.title}
+                  </p>
+                </div>
+              </Link>
+            );
+
+            // Mini card: image flexes to fill remaining height inside its parent stack column.
+            const MiniCard = ({ t, size = "sm" }: { t: Topic; size?: "sm" | "md" }) => (
+              <Link
+                {...getLinkProps(t)}
+                className="group flex flex-col flex-1 min-h-0 rounded-2xl overflow-hidden active:scale-[0.98] transition-transform"
+                style={cardStyle}
+              >
+                <div className="relative flex-1 min-h-0 bg-white">
+                  <img
+                    src={t.art}
+                    alt={t.title}
+                    loading="lazy"
+                    width={1024}
+                    height={1024}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    draggable={false}
+                  />
+                </div>
+                <div className="px-2 py-1.5">
+                  <p
+                    className={`${size === "md" ? "text-[13px]" : "text-[11.5px]"} font-bold tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis`}
                     style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                   >
                     {t.title}
@@ -107,36 +137,36 @@ function TopicsPage() {
 
             return (
               <div className="flex flex-col gap-2.5">
-                {/* Row 1: Pet Talk hero + small stack */}
-                <div className="grid grid-cols-3 gap-2.5">
+                {/* Row 1: Pet Talk hero (2/3) + stack of 2 minis (1/3) */}
+                <div className="grid grid-cols-3 gap-2.5 items-stretch">
                   <div className="col-span-2">
-                    <Card t={byId.pet_talk} ratio="aspect-square" />
+                    <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                   </div>
-                  <div className="flex flex-col gap-2.5">
-                    <Card t={byId.free_talk} ratio="aspect-square" />
-                    <Card t={byId.smart_reading} ratio="aspect-square" />
+                  <div className="flex flex-col gap-2.5 min-h-0">
+                    <MiniCard t={byId.free_talk} />
+                    <MiniCard t={byId.food_talk} />
                   </div>
                 </div>
 
-                {/* Row 2: small stack + Football hero */}
-                <div className="grid grid-cols-3 gap-2.5">
-                  <div className="flex flex-col gap-2.5">
-                    <Card t={byId.food_talk} ratio="aspect-square" />
-                    <Card t={byId.minecraft_adventure} ratio="aspect-square" />
+                {/* Row 2: stack of 2 minis (1/3) + Football Talk hero (2/3) */}
+                <div className="grid grid-cols-3 gap-2.5 items-stretch">
+                  <div className="flex flex-col gap-2.5 min-h-0">
+                    <MiniCard t={byId.mywordie} />
+                    <MiniCard t={byId.smart_reading} />
                   </div>
                   <div className="col-span-2">
-                    <Card t={byId.football_talk} ratio="aspect-square" />
+                    <HeroCard t={byId.football_talk} ratio="aspect-square" />
                   </div>
                 </div>
 
-                {/* Row 3: Magic + Nature, two heroes side by side */}
+                {/* Row 3: Magic Adventure + Nature Explorer, twin heroes (1/2 each) */}
                 <div className="grid grid-cols-2 gap-2.5">
-                  <Card t={byId.magic_adventure} ratio="aspect-square" />
-                  <Card t={byId.nature_explorer} ratio="aspect-square" />
+                  <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
+                  <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
                 </div>
 
-                {/* Row 4: myWordie full-width banner */}
-                <Card t={byId.mywordie} ratio="aspect-[16/9]" />
+                {/* Row 4: Minecraft Adventure full-width banner */}
+                <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2/1]" />
               </div>
             );
           })()}
