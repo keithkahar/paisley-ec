@@ -126,14 +126,10 @@ function TopicsPage() {
                   <Card t={byId.football_talk} ratio="aspect-square" />
                 </div>
 
-                {/* Row 3: 1 + 2 stacked (mirror of row 1) */}
-                <div className="grid grid-cols-3 gap-2.5">
-                  <div className="col-span-1 flex">
-                    <Card t={byId.magic_adventure} ratio="aspect-square" />
-                  </div>
-                  <div className="col-span-2">
-                    <Card t={byId.nature_explorer} ratio="aspect-[2/1]" />
-                  </div>
+                {/* Row 3: 2-column pair */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <Card t={byId.magic_adventure} ratio="aspect-square" />
+                  <Card t={byId.nature_explorer} ratio="aspect-square" />
                 </div>
               </div>
             );
