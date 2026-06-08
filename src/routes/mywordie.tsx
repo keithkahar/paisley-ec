@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { AppHeader } from "@/components/app/AppHeader";
-import logo from "@/assets/brand/myWordie.png";
 import {
   Layers,
   Zap,
@@ -23,7 +22,6 @@ export const Route = createFileRoute("/mywordie")({
 function MyWordiePage() {
   const mastered = 420;
   const total = 500;
-  const learning = 38;
   const reviewDue = 12;
   const pct = Math.round((mastered / total) * 100);
 
@@ -34,7 +32,7 @@ function MyWordiePage() {
   return (
     <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
       <AppHeader
-        title={<img src={logo} alt="myWordie" className="h-6 mx-auto" />}
+        title="myWordie"
         bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
       />
 
@@ -86,37 +84,26 @@ function MyWordiePage() {
               1,240 Bp
             </span>
           </div>
-        </section>
 
-        {/* Next-best-action card */}
-        <Link
-          to="/word-card"
-          className="mt-3 flex items-center gap-3 rounded-3xl bg-white border border-border px-4 py-4 active:scale-[0.99] transition-transform"
-        >
-          <div
-            className="h-12 w-12 rounded-2xl grid place-items-center shrink-0"
-            style={{
-              background: "color-mix(in oklab, var(--wordie-accent) 22%, white)",
-              color: "var(--wordie-accent)",
-            }}
+          {/* Start word card CTA — entry to today's review */}
+          <Link
+            to="/word-card"
+            className="mt-4 flex items-center gap-3 rounded-2xl bg-white/15 hover:bg-white/20 px-4 py-3 backdrop-blur-sm active:scale-[0.99] transition-all"
           >
-            <BookOpen className="h-5 w-5" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Review today</p>
-            <p className="font-bold text-[15px] leading-tight mt-0.5">
-              {reviewDue} words ready · 3 min
-            </p>
-          </div>
-          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
-        </Link>
-
-        {/* Mini stats */}
-        <div className="mt-4 grid grid-cols-3 gap-2.5">
-          <StatTile label="Mastered" value={mastered} color="var(--bloxia)" />
-          <StatTile label="Learning" value={learning} color="var(--wordie)" />
-          <StatTile label="Due" value={reviewDue} color="var(--wordie-accent)" />
-        </div>
+            <div className="h-10 w-10 rounded-xl grid place-items-center bg-white/25 shrink-0">
+              <BookOpen className="h-5 w-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[11px] font-bold uppercase tracking-wide opacity-80">
+                Start word card
+              </p>
+              <p className="font-bold text-[14px] leading-tight mt-0.5">
+                {reviewDue} words ready · 3 min
+              </p>
+            </div>
+            <ChevronRight className="h-5 w-5 opacity-80 shrink-0" />
+          </Link>
+        </section>
 
         {/* Assigned pack */}
         <section className="mt-5">
@@ -182,29 +169,6 @@ function MyWordiePage() {
           </div>
         </section>
 
-        {/* Bloxia hook */}
-        <Link
-          to="/bloxia"
-          className="mt-5 flex items-center gap-3 rounded-3xl p-4 active:scale-[0.99] transition-transform"
-          style={{
-            background: "color-mix(in oklab, var(--bloxia) 12%, white)",
-            border: "1px solid color-mix(in oklab, var(--bloxia) 22%, white)",
-          }}
-        >
-          <div
-            className="h-11 w-11 rounded-2xl grid place-items-center text-white shrink-0"
-            style={{ background: "var(--bloxia)" }}
-          >
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="font-bold text-[14px]">80 words to next Bloxia unlock</p>
-            <p className="text-[12px] text-muted-foreground mt-0.5">
-              Master more words to grow your pixel world.
-            </p>
-          </div>
-          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
-        </Link>
       </div>
 
       <BottomTabBar />
