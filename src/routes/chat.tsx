@@ -199,8 +199,7 @@ function ChatPage() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Type or speak to Shirin..."
-                  className="w-full rounded-full border border-border bg-muted/50 px-4 py-2.5 pr-10 text-sm outline-none focus:ring-2"
-                  style={{ focusRingColor: SHIRIN_COLOR }}
+                  className="w-full rounded-full border border-border bg-muted/50 px-4 py-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-[color:var(--shirin)]"
                 />
                 <button
                   className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full grid place-items-center"
