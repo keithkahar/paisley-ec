@@ -107,17 +107,17 @@ function ShirinTalkPage() {
               <Link
                 key={c.title}
                 to={c.to}
-                className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 text-white active:scale-[0.98] transition-transform"
-                style={{ background: PINK, fontFamily: "var(--font-sans)" }}
+                className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 active:scale-[0.98] transition-transform"
+                style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
               >
-                <span className="h-9 w-9 shrink-0 grid place-items-center rounded-full bg-white/20">
-                  <Icon className="h-5 w-5 text-white" />
+                <span className="h-9 w-9 shrink-0 grid place-items-center rounded-full" style={{ background: "color-mix(in oklab, var(--shirin) 22%, white)" }}>
+                  <Icon className="h-5 w-5" style={{ color: PINK }} />
                 </span>
                 <span className="flex flex-col leading-tight">
-                  <span className="text-[15px] font-bold tracking-tight" style={{ letterSpacing: "-0.01em" }}>
+                  <span className="text-[15px] font-bold tracking-tight" style={{ letterSpacing: "-0.01em", color: PINK }}>
                     {c.title}
                   </span>
-                  <span className="text-[12px] text-white/80 font-medium">{c.sub}</span>
+                  <span className="text-[12px] font-medium" style={{ color: "color-mix(in oklab, var(--shirin) 70%, white)" }}>{c.sub}</span>
                 </span>
               </Link>
             );
