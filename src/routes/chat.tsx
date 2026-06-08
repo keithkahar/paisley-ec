@@ -341,6 +341,25 @@ function ChatPage() {
                           ))}
                         </div>
                       )}
+                      {!isUser && isLastAssistant && !shareMode && !sending && m.text && (
+                        <div className="px-3.5 pb-2">
+                          <div className="h-px bg-[oklch(0.94_0.02_10)] mb-1.5" />
+                          <AssistantActions
+                            hasVariants={!!m.variants}
+                            canPrev={(m.variantIndex ?? 0) > 0}
+                            canNext={
+                              !!m.variants &&
+                              (m.variantIndex ?? 0) < (m.variants!.length - 1)
+                            }
+                            onCopy={copyLast}
+                            onSpeaker={() => showToast("Voice playback soon")}
+                            onShare={startShare}
+                            onRegenerate={regenerate}
+                            onPrev={() => switchVariant(-1)}
+                            onNext={() => switchVariant(1)}
+                          />
+                        </div>
+                      )}
                     </div>
                     <p className={`text-[10px] text-muted-foreground mt-1 ${isUser ? "text-right" : "text-left"}`}>
                       {m.time}
@@ -349,30 +368,6 @@ function ChatPage() {
                 </div>
               );
             })}
-
-            {/* Last-assistant action row — aligned to the shirin bubble */}
-            {!shareMode && lastAssistantIdx >= 0 && !sending && (
-              <div className="flex items-start gap-2 -mt-1">
-                <div className="h-8 w-8 shrink-0" />
-                <div className="max-w-[76%] w-full">
-                  <AssistantActions
-                    hasVariants={!!messages[lastAssistantIdx].variants}
-                    canPrev={(messages[lastAssistantIdx].variantIndex ?? 0) > 0}
-                    canNext={
-                      !!messages[lastAssistantIdx].variants &&
-                      (messages[lastAssistantIdx].variantIndex ?? 0) <
-                        (messages[lastAssistantIdx].variants!.length - 1)
-                    }
-                    onCopy={copyLast}
-                    onSpeaker={() => showToast("Voice playback soon")}
-                    onShare={startShare}
-                    onRegenerate={regenerate}
-                    onPrev={() => switchVariant(-1)}
-                    onNext={() => switchVariant(1)}
-                  />
-                </div>
-              </div>
-            )}
 
             {sending && (
               <div className="flex items-start gap-2">
