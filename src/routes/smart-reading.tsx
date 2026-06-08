@@ -1,33 +1,77 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { ChevronLeft, Search, BookOpen, Check } from "lucide-react";
+import { ChevronLeft, Search, BookOpen, Check, ChevronDown } from "lucide-react";
 
 const PINK = "var(--shirin)";
 const PINK_SOFT = "color-mix(in oklab, var(--shirin) 14%, white)";
+const LAST_BOOK_KEY = "smart_reading_last_selected_book_code_v1";
 
-type Lesson = {
-  id: string;
-  title: string;
-  level: "A1" | "A2" | "B1" | "B2";
-  minutes: number;
-  words: number;
-  blurb: string;
-  cover: string;
+type Unit = {
+  lesson_id: string;
+  unit_number: number;
+  story_title: string;
+  cover_question: string;
   emoji: string;
+  cover: string;
   done?: boolean;
 };
 
-const LESSONS: Lesson[] = [
-  { id: "l1", title: "The Friendly Fox", level: "A1", minutes: 4, words: 120, blurb: "A little fox makes a new friend in the forest.", cover: "linear-gradient(135deg,#FFD1DC,#FFA8C5)", emoji: "🦊", done: true },
-  { id: "l2", title: "My First Trip to the Zoo", level: "A2", minutes: 5, words: 180, blurb: "Lila and Dad see the lion, panda and parrot.", cover: "linear-gradient(135deg,#FDE68A,#FCA5A5)", emoji: "🐼" },
-  { id: "l3", title: "Rain on the Roof", level: "A2", minutes: 6, words: 210, blurb: "What can you do on a rainy Saturday at home?", cover: "linear-gradient(135deg,#BFDBFE,#C4B5FD)", emoji: "🌧️" },
-  { id: "l4", title: "The Brave Little Boat", level: "B1", minutes: 7, words: 260, blurb: "A small boat learns to sail through a big storm.", cover: "linear-gradient(135deg,#A7F3D0,#67E8F9)", emoji: "⛵" },
-  { id: "l5", title: "Lina's Birthday Plan", level: "B1", minutes: 6, words: 240, blurb: "Lina plans a birthday surprise for her best friend.", cover: "linear-gradient(135deg,#FBCFE8,#FCD34D)", emoji: "🎂" },
-  { id: "l6", title: "Letters from the Moon", level: "B2", minutes: 9, words: 320, blurb: "An astronaut writes home about life in space.", cover: "linear-gradient(135deg,#C7D2FE,#A78BFA)", emoji: "🌙" },
+type Pack = {
+  pack_id: string;
+  series_name: string;
+  book_code: string;
+  title: string;
+  CEFR: string;
+  Lexile: string;
+  wordCount: string;
+  units: Unit[];
+};
+
+const UNITS_2_1: Unit[] = [
+  { lesson_id: "smart_reading_2_1_unit_1", unit_number: 1, story_title: "My Cat Bob", cover_question: "Bob has many feelings. How does Bob feel?", emoji: "🐱", cover: "linear-gradient(135deg,#FFD1DC,#FFA8C5)", done: true },
+  { lesson_id: "smart_reading_2_1_unit_2", unit_number: 2, story_title: "I Can Run", cover_question: "What can you do at the park?", emoji: "🏃", cover: "linear-gradient(135deg,#FDE68A,#FCA5A5)", done: true },
+  { lesson_id: "smart_reading_2_1_unit_3", unit_number: 3, story_title: "A Big Red Bus", cover_question: "Where does the red bus go?", emoji: "🚌", cover: "linear-gradient(135deg,#BFDBFE,#C4B5FD)" },
+  { lesson_id: "smart_reading_2_1_unit_4", unit_number: 4, story_title: "My Mom and Me", cover_question: "What do you and your mom do together?", emoji: "👩‍👧", cover: "linear-gradient(135deg,#FBCFE8,#FCD34D)" },
+  { lesson_id: "smart_reading_2_1_unit_5", unit_number: 5, story_title: "The Little Duck", cover_question: "Why is the little duck happy?", emoji: "🦆", cover: "linear-gradient(135deg,#A7F3D0,#67E8F9)" },
+  { lesson_id: "smart_reading_2_1_unit_6", unit_number: 6, story_title: "At the Farm", cover_question: "Which animal do you like at the farm?", emoji: "🐮", cover: "linear-gradient(135deg,#FEF3C7,#FBBF24)" },
+  { lesson_id: "smart_reading_2_1_unit_7", unit_number: 7, story_title: "Rainy Day Fun", cover_question: "What do you do on a rainy day?", emoji: "🌧️", cover: "linear-gradient(135deg,#C7D2FE,#A78BFA)" },
+  { lesson_id: "smart_reading_2_1_unit_8", unit_number: 8, story_title: "My New Shoes", cover_question: "What color are your favorite shoes?", emoji: "👟", cover: "linear-gradient(135deg,#FECACA,#FB7185)" },
 ];
 
-const LEVELS = ["All", "A1", "A2", "B1", "B2"] as const;
+const UNITS_2_2: Unit[] = [
+  { lesson_id: "smart_reading_2_2_unit_1", unit_number: 1, story_title: "A Day at the Zoo", cover_question: "Which animal do you want to see first?", emoji: "🦁", cover: "linear-gradient(135deg,#FDE68A,#FCA5A5)" },
+  { lesson_id: "smart_reading_2_2_unit_2", unit_number: 2, story_title: "My Best Friend", cover_question: "Who is your best friend? Why?", emoji: "🤝", cover: "linear-gradient(135deg,#FBCFE8,#FCD34D)" },
+  { lesson_id: "smart_reading_2_2_unit_3", unit_number: 3, story_title: "The Lost Kite", cover_question: "Where did the kite go?", emoji: "🪁", cover: "linear-gradient(135deg,#BFDBFE,#C4B5FD)" },
+  { lesson_id: "smart_reading_2_2_unit_4", unit_number: 4, story_title: "Bedtime Story", cover_question: "What story do you like before bed?", emoji: "🌙", cover: "linear-gradient(135deg,#C7D2FE,#A78BFA)" },
+  { lesson_id: "smart_reading_2_2_unit_5", unit_number: 5, story_title: "Lunch with Grandma", cover_question: "What is your favorite lunch?", emoji: "🥪", cover: "linear-gradient(135deg,#FECACA,#FB7185)" },
+  { lesson_id: "smart_reading_2_2_unit_6", unit_number: 6, story_title: "The Brave Little Boat", cover_question: "How does the boat feel in the storm?", emoji: "⛵", cover: "linear-gradient(135deg,#A7F3D0,#67E8F9)" },
+  { lesson_id: "smart_reading_2_2_unit_7", unit_number: 7, story_title: "My Birthday Party", cover_question: "Who do you want at your party?", emoji: "🎂", cover: "linear-gradient(135deg,#FFD1DC,#FFA8C5)" },
+  { lesson_id: "smart_reading_2_2_unit_8", unit_number: 8, story_title: "Snowy Morning", cover_question: "What do you do when it snows?", emoji: "⛄", cover: "linear-gradient(135deg,#E0E7FF,#BFDBFE)" },
+];
+
+const PACKS: Pack[] = [
+  {
+    pack_id: "smart_reading_2_1_units_1_16",
+    series_name: "Smart Reading",
+    book_code: "2.1",
+    title: "Smart Reading 2.1",
+    CEFR: "PreA1-A1",
+    Lexile: "150L-350L",
+    wordCount: "50",
+    units: UNITS_2_1,
+  },
+  {
+    pack_id: "smart_reading_2_2_units_1_16",
+    series_name: "Smart Reading",
+    book_code: "2.2",
+    title: "Smart Reading 2.2",
+    CEFR: "PreA1-A1",
+    Lexile: "150L-350L",
+    wordCount: "60",
+    units: UNITS_2_2,
+  },
+];
 
 export const Route = createFileRoute("/smart-reading")({
   head: () => ({ meta: [{ title: "Smart Reading Talk — Paisley EC" }] }),
@@ -36,14 +80,50 @@ export const Route = createFileRoute("/smart-reading")({
 
 function SmartReadingPage() {
   const [query, setQuery] = useState("");
-  const [level, setLevel] = useState<(typeof LEVELS)[number]>("All");
+  const [bookCode, setBookCode] = useState<string>(PACKS[0].book_code);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
 
-  const lessons = useMemo(() => {
+  // restore last selected book
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(LAST_BOOK_KEY);
+      if (saved && PACKS.some((p) => p.book_code === saved)) setBookCode(saved);
+    } catch {}
+  }, []);
+
+  // close picker on outside click
+  useEffect(() => {
+    if (!pickerOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setPickerOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [pickerOpen]);
+
+  const currentPack = useMemo(
+    () => PACKS.find((p) => p.book_code === bookCode) ?? PACKS[0],
+    [bookCode],
+  );
+
+  const selectBook = (code: string) => {
+    setBookCode(code);
+    setPickerOpen(false);
+    try {
+      localStorage.setItem(LAST_BOOK_KEY, code);
+    } catch {}
+  };
+
+  const units = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return LESSONS.filter((l) => (level === "All" ? true : l.level === level)).filter(
-      (l) => (q ? l.title.toLowerCase().includes(q) || l.blurb.toLowerCase().includes(q) : true),
+    if (!q) return currentPack.units;
+    return currentPack.units.filter(
+      (u) =>
+        u.story_title.toLowerCase().includes(q) ||
+        u.cover_question.toLowerCase().includes(q),
     );
-  }, [query, level]);
+  }, [query, currentPack]);
 
   return (
     <PhoneFrame bg="bg-white">
@@ -62,6 +142,61 @@ function SmartReadingPage() {
         </header>
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-2">
+          {/* Book picker */}
+          <div className="relative mb-3" ref={pickerRef}>
+            <button
+              type="button"
+              onClick={() => setPickerOpen((v) => !v)}
+              className="w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left active:scale-[0.99] transition-transform"
+              style={{ background: PINK_SOFT }}
+            >
+              <div className="min-w-0">
+                <p
+                  className="text-[17px] font-bold tracking-tight leading-tight"
+                  style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                >
+                  {currentPack.title}
+                </p>
+                <p className="mt-0.5 text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
+                  CEFR {currentPack.CEFR} · Lexile {currentPack.Lexile} · {currentPack.wordCount} words
+                </p>
+              </div>
+              <ChevronDown
+                className="h-5 w-5 shrink-0 transition-transform"
+                style={{ color: PINK, transform: pickerOpen ? "rotate(180deg)" : "none" }}
+              />
+            </button>
+            {pickerOpen && (
+              <div
+                className="absolute z-40 left-0 right-0 mt-1.5 rounded-2xl bg-white border overflow-hidden"
+                style={{ borderColor: "oklch(0.94 0.02 10)", boxShadow: "0 12px 32px -8px rgba(0,0,0,0.12)" }}
+              >
+                {PACKS.map((p) => {
+                  const active = p.book_code === bookCode;
+                  return (
+                    <button
+                      key={p.pack_id}
+                      type="button"
+                      onClick={() => selectBook(p.book_code)}
+                      className="w-full text-left px-4 py-3 flex items-center justify-between gap-3 hover:bg-[color:var(--muted)]"
+                      style={active ? { background: PINK_SOFT } : undefined}
+                    >
+                      <div className="min-w-0">
+                        <p className="text-[14px] font-bold tracking-tight" style={{ color: active ? PINK : "var(--foreground)" }}>
+                          {p.title}
+                        </p>
+                        <p className="text-[10px] font-semibold mt-0.5" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                          CEFR {p.CEFR} · Lexile {p.Lexile} · {p.wordCount} words
+                        </p>
+                      </div>
+                      {active && <Check className="h-4 w-4 shrink-0" strokeWidth={3} style={{ color: PINK }} />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           {/* Search */}
           <div className="relative">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: PINK }} />
@@ -74,60 +209,36 @@ function SmartReadingPage() {
             />
           </div>
 
-          {/* Level chips */}
-          <div className="mt-3 flex items-center gap-1.5 overflow-x-auto scroll-hide -mx-1 px-1">
-            {LEVELS.map((l) => {
-              const active = l === level;
-              return (
-                <button
-                  key={l}
-                  onClick={() => setLevel(l)}
-                  className="shrink-0 px-3.5 py-1.5 rounded-full text-[12px] font-bold tracking-tight transition-colors"
-                  style={
-                    active
-                      ? { background: PINK, color: "white" }
-                      : { background: PINK_SOFT, color: "var(--shirin)" }
-                  }
-                >
-                  {l}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Lessons list */}
-          <section className="mt-5">
-            <p className="text-[11px] font-bold uppercase tracking-wider mb-2" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-              {level === "All" ? "All stories" : `${level} stories`}
-            </p>
-            {lessons.length === 0 ? (
+          {/* Unit list */}
+          <section className="mt-4">
+            {units.length === 0 ? (
               <div className="text-center py-12 text-[13px] text-muted-foreground">
                 <BookOpen className="h-5 w-5 mx-auto mb-1.5" style={{ color: PINK }} />
-                No stories match — try another level.
+                No stories match.
               </div>
             ) : (
               <div className="space-y-2.5">
-                {lessons.map((l) => (
+                {units.map((u) => (
                   <Link
-                    key={l.id}
+                    key={u.lesson_id}
                     to="/chat"
-                    search={{ mode: "smart_reading", lesson_id: l.id }}
+                    search={{ mode: "smart_reading", lesson_id: u.lesson_id }}
                     className="flex items-stretch rounded-2xl bg-white border border-[oklch(0.94_0.02_10)] overflow-hidden active:scale-[0.99] transition-transform"
                   >
                     <div
                       className="w-16 shrink-0 grid place-items-center text-2xl"
-                      style={{ background: l.cover }}
+                      style={{ background: u.cover }}
                       aria-hidden
                     >
-                      {l.emoji}
+                      {u.emoji}
                     </div>
                     <div className="flex-1 px-3 py-2.5 flex flex-col justify-center min-w-0">
                       <p className="text-[14px] font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-sans)" }}>
-                        {l.title}
+                        {u.story_title}
                       </p>
-                      <p className="mt-0.5 text-[11px] text-foreground/60 line-clamp-2">{l.blurb}</p>
+                      <p className="mt-0.5 text-[11px] text-foreground/60 line-clamp-2">{u.cover_question}</p>
                     </div>
-                    {l.done && (
+                    {u.done && (
                       <div className="shrink-0 px-3 flex items-center">
                         <span
                           className="h-6 w-6 grid place-items-center rounded-full"
