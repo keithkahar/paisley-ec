@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
+import myWordieText from "@/assets/brand/mywordie-text.png.asset.json";
 import { Mic } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -20,22 +21,12 @@ function Home() {
     <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
       <div className="relative min-h-screen flex flex-col">
         {/* PRIMARY: Shirin hero — pushed down for better visual balance */}
-        <section className="relative px-6 pt-20 pb-0">
+        <section className="relative px-6 pt-10 pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
 
           <div className="relative flex justify-center">
-            <div
-              className="absolute right-3 top-4 z-20 rounded-2xl px-4 py-2 text-white text-sm font-semibold italic shadow-md"
-              style={{ background: "var(--shirin)", fontFamily: "var(--font-sans)" }}
-            >
-              Let's Talk!
-              <span
-                className="absolute -bottom-1.5 left-6 h-3 w-3 rotate-45"
-                style={{ background: "var(--shirin)" }}
-              />
-            </div>
             <img
               src={shirinHero.url}
               alt="Shirin"
@@ -51,11 +42,11 @@ function Home() {
         >
           {/* SECONDARY: greeting + question, one refined block */}
           <h1
-            className="text-[26px] leading-[1.25] font-semibold tracking-tight text-foreground"
+            className="text-[28px] leading-[1.2] font-semibold tracking-tight text-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
-            <span className="block mt-4 text-[22px] text-foreground/80 font-normal leading-[1.35]">
+            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.3]">
               Are you ready for today's <span className="font-semibold text-foreground">English adventure?</span>
             </span>
           </h1>
@@ -78,10 +69,12 @@ function Home() {
           <div className="mt-3 text-center">
             <Link
               to="/mywordie"
-              className="text-xs text-muted-foreground font-medium underline-offset-4 hover:underline"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground font-medium underline-offset-4 hover:underline"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              or practice with myWordie →
+              or practice with
+              <img src={myWordieText.url} alt="myWordie" className="h-4 object-contain" />
+              →
             </Link>
           </div>
         </section>
