@@ -61,15 +61,15 @@ function ShirinTalkPage() {
             Let's practise English together.
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
-            <span
+          <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PINK, border: `1.5px solid ${PINK}` }}
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               <Flame className="h-3.5 w-3.5" />7
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PINK, border: `1.5px solid ${PINK}` }}
+              style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               1,240 Bp
             </span>
