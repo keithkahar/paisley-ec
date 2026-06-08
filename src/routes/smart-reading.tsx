@@ -7,13 +7,31 @@ const PINK = "var(--shirin)";
 const PINK_SOFT = "color-mix(in oklab, var(--shirin) 14%, white)";
 const LAST_BOOK_KEY = "smart_reading_last_selected_book_code_v1";
 
+// Emoji cover circle — pastel gradients deterministically picked by lesson_id.
+// To change the palette: edit COVER_PALETTE. To change selection rule: edit coverFor().
+const COVER_PALETTE: string[] = [
+  "linear-gradient(135deg,#FFD1DC,#FFA8C5)", // pink
+  "linear-gradient(135deg,#FDE68A,#FCA5A5)", // peach
+  "linear-gradient(135deg,#BFDBFE,#C4B5FD)", // periwinkle
+  "linear-gradient(135deg,#FBCFE8,#FCD34D)", // pink-gold
+  "linear-gradient(135deg,#A7F3D0,#67E8F9)", // mint
+  "linear-gradient(135deg,#FEF3C7,#FBBF24)", // sunshine
+  "linear-gradient(135deg,#C7D2FE,#A78BFA)", // lavender
+  "linear-gradient(135deg,#FECACA,#FB7185)", // coral
+  "linear-gradient(135deg,#E0E7FF,#BFDBFE)", // sky
+];
+function coverFor(id: string): string {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  return COVER_PALETTE[h % COVER_PALETTE.length];
+}
+
 type Unit = {
   lesson_id: string;
   unit_number: number;
   story_title: string;
   cover_question: string;
   emoji: string;
-  cover: string;
   done?: boolean;
 };
 
