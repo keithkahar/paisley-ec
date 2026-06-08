@@ -88,13 +88,3 @@ function ShirinTalkPage() {
     </PhoneFrame>
   );
 }
-
-function Cloud({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 100 60" className={className} fill="white" aria-hidden>
-      <ellipse cx="30" cy="40" rx="25" ry="18" />
-      <ellipse cx="55" cy="32" rx="22" ry="20" />
-      <ellipse cx="75" cy="42" rx="20" ry="15" />
-    </svg>
-  );
-}
