@@ -12,9 +12,9 @@ export function PhoneFrame({
   bg?: string;
 }) {
   return (
-    <div className="min-h-screen w-full bg-muted/40 flex justify-center">
+    <div className="min-h-[100dvh] w-full bg-muted/40 flex justify-center">
       <div
-        className={`relative w-full max-w-[420px] min-h-screen ${bg} shadow-[0_0_60px_-30px_rgba(1,70,185,0.25)] overflow-hidden`}
+        className={`relative w-full max-w-[420px] min-h-[100dvh] ${bg} shadow-[0_0_60px_-30px_rgba(1,70,185,0.25)] overflow-hidden`}
       >
         {children}
       </div>
