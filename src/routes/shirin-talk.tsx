@@ -122,7 +122,7 @@ function ShirinTalkPage() {
                   ) : (
                     <span
                       aria-hidden
-                      className="block h-4 w-4"
+                      className="block h-[18px] w-[18px]"
                       style={{
                         background: PINK,
                         WebkitMaskImage: `url(${mywordieIcon.url})`,
