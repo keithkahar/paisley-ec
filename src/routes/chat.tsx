@@ -3,6 +3,7 @@ import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { z } from "zod";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import shirinGirl from "@/assets/brand/shirin-girl.png";
+import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import {
   ChevronLeft,
   Camera,
@@ -58,10 +59,12 @@ const ALBUM_COLORS = [
 ];
 
 const MOCK_COMMENTS = [
-  { name: "Alice", text: "Shirin helped my child speak more English after class.", date: "2d", likes: 12, liked: false },
-  { name: "Ben", text: "The questions are simple and useful for practice.", date: "1d", likes: 5, liked: false },
-  { name: "Cindy", text: "I like the Smart Reading chat.", date: "5h", likes: 8, liked: true },
+  { name: "Alice", text: "Shirin helped my child speak more English after class.", date: "2d", likes: 12, liked: false, replies: [] as Reply[] },
+  { name: "Ben", text: "The questions are simple and useful for practice.", date: "1d", likes: 5, liked: false, replies: [] as Reply[] },
+  { name: "Cindy", text: "I like the Smart Reading chat.", date: "5h", likes: 8, liked: true, replies: [] as Reply[] },
 ];
+
+type Reply = { name: string; text: string; date: string; likes: number; liked: boolean };
 
 export const Route = createFileRoute("/chat")({
   head: () => ({ meta: [{ title: "Chat with Shirin — Paisley EC" }] }),
