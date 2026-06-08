@@ -742,10 +742,10 @@ function CommentsSheet({
 }: {
   count: number;
   comments: typeof MOCK_COMMENTS;
-  replyTo: string | null;
+  replyTo: { index: number; name: string } | null;
   commentInput: string;
   onCommentInput: (v: string) => void;
-  onReply: (name: string) => void;
+  onReply: (index: number, name: string) => void;
   onCancelReply: () => void;
   onSend: () => void;
   onClose: () => void;
@@ -756,7 +756,7 @@ function CommentsSheet({
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
         <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-[oklch(0.95_0.02_10)]">
-          <h3 className="text-[15px] font-bold">Comments {count}</h3>
+          <h3 className="text-[15px] font-bold" style={{ fontFamily: "var(--font-sans)" }}>Comments {count}</h3>
           <button onClick={onClose} className="h-8 w-8 rounded-full grid place-items-center" aria-label="Close">
             <X className="h-4 w-4" />
           </button>
@@ -791,8 +791,27 @@ function CommentsSheet({
                   <p className="text-[13px] mt-0.5">{c.text}</p>
                   <div className="mt-1 flex items-center gap-3 text-[11px] text-muted-foreground">
                     <span>{c.date}</span>
-                    <button onClick={() => onReply(c.name)} className="font-semibold">Reply</button>
+                    <button onClick={() => onReply(i, c.name)} className="font-semibold">Reply</button>
                   </div>
+                  {c.replies.length > 0 && (
+                    <div className="mt-2 space-y-2 border-l-2 pl-3" style={{ borderColor: PINK_SOFT }}>
+                      {c.replies.map((r, j) => (
+                        <div key={j} className="flex gap-2">
+                          <div
+                            className="h-6 w-6 rounded-full grid place-items-center text-[10px] font-bold text-white shrink-0"
+                            style={{ background: PINK }}
+                          >
+                            {r.name.charAt(0)}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-[12px] font-bold">{r.name}</p>
+                            <p className="text-[12px] mt-0.5">{r.text}</p>
+                            <p className="text-[10px] text-muted-foreground mt-0.5">{r.date}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))
@@ -802,7 +821,7 @@ function CommentsSheet({
           {replyTo && (
             <div className="mb-1.5 flex items-center justify-between px-2 py-1 rounded-md" style={{ background: PINK_SOFT }}>
               <span className="text-[11px] font-semibold" style={{ color: PINK }}>
-                Replying to {replyTo}
+                Replying to {replyTo.name}
               </span>
               <button onClick={onCancelReply} aria-label="Cancel reply">
                 <X className="h-3 w-3" style={{ color: PINK }} />
