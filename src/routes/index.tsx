@@ -3,6 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import myWordieText from "@/assets/brand/mywordie-text.png.asset.json";
+import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
 import { Mic } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -20,8 +21,12 @@ function Home() {
   return (
     <PhoneFrame bg="bg-[color:var(--paisley-soft)]">
       <div className="relative min-h-screen flex flex-col">
+        {/* App logo top-left */}
+        <div className="absolute top-5 left-5 z-20">
+          <img src={paisleyLogo.url} alt="Paisley EC" className="h-7 w-auto object-contain" />
+        </div>
         {/* PRIMARY: Shirin hero — pushed down for better visual balance */}
-        <section className="relative px-6 pt-10 pb-0">
+        <section className="relative px-6 pt-24 pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -37,7 +42,7 @@ function Home() {
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-6 flex-1 bg-card px-7 pt-10 pb-10 flex flex-col justify-center"
+          className="relative -mt-2 flex-1 bg-card px-7 pt-10 pb-10 flex flex-col justify-center"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
