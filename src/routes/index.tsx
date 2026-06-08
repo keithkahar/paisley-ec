@@ -59,7 +59,7 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="mt-7 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
+            className="mt-10 flex items-center justify-center gap-2 rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               boxShadow: "0 10px 25px -8px color-mix(in oklab, var(--shirin) 55%, transparent)",
