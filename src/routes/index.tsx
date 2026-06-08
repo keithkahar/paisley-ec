@@ -60,7 +60,7 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="relative isolate mt-10 flex items-end justify-center gap-2 rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
+            className="relative isolate mt-10 flex items-baseline justify-center gap-[6.4px] rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               fontFamily: "var(--font-sans)",
