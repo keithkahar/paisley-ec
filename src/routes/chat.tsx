@@ -276,7 +276,7 @@ function ChatPage() {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
         {/* Header */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur border-b border-[oklch(0.95_0.02_10)]">
+        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
           <Link
             to="/shirin-talk"
             aria-label="Back"
@@ -284,12 +284,7 @@ function ChatPage() {
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
-          <h1
-            className="text-[15px] font-bold tracking-tight"
-            style={{ color: PINK, letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
-          >
-            {title}
-          </h1>
+          <span aria-hidden />
           <div className="h-9 w-9" />
         </header>
 
