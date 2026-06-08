@@ -61,22 +61,22 @@ function ShirinTalkPage() {
         </section>
 
         {/* Stacked white folder cards */}
-        <section className="relative -mt-3 flex-1 px-0 pb-4">
+        <section className="relative flex-1 flex flex-col bg-card">
           {folders.map((f, i) => (
             <Link
               key={f.title}
               to={f.to}
-              className="relative block bg-card px-7 pt-6 pb-10 active:scale-[0.995] transition-transform"
+              className="relative block bg-card px-7 pt-6 pb-6 flex-1 active:scale-[0.995] transition-transform"
               style={{
-                borderTopLeftRadius: "60% 60px",
-                borderTopRightRadius: "60% 60px",
-                marginTop: i === 0 ? 0 : "-32px",
+                borderTopLeftRadius: "28px",
+                borderTopRightRadius: "28px",
+                marginTop: i === 0 ? "-16px" : "-20px",
                 zIndex: i + 1,
-                boxShadow: "0 -6px 18px -10px rgba(0,0,0,0.18)",
+                boxShadow: "0 -8px 18px -12px rgba(0,0,0,0.18)",
               }}
             >
               <h3
-                className="text-center text-[22px] font-semibold tracking-tight text-foreground"
+                className="text-[22px] font-semibold tracking-tight text-foreground"
                 style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
               >
                 {f.title}
