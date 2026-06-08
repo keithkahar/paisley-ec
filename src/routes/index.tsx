@@ -71,7 +71,7 @@ function Home() {
             <img
               src={shirinTalkText.url}
               alt="ShirinTalk"
-              className="h-[14px] w-auto object-contain"
+              className="h-6 w-auto object-contain"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </Link>
