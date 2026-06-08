@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { ChevronLeft, Search, BookOpen, Check, ChevronDown } from "lucide-react";
+import { ChevronLeft, Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
 
 const PINK = "var(--shirin)";
 const PINK_SOFT = "color-mix(in oklab, var(--shirin) 14%, white)";
@@ -147,19 +147,19 @@ function SmartReadingPage() {
             <button
               type="button"
               onClick={() => setPickerOpen((v) => !v)}
-              className="w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left active:scale-[0.99] transition-transform"
+              className="w-full flex items-center justify-between gap-3 rounded-full px-4 py-4 text-left active:scale-[0.98] transition-transform"
               style={{ background: PINK_SOFT }}
             >
-              <div className="min-w-0">
+              <div className="min-w-0 flex items-center gap-2 flex-wrap">
                 <p
-                  className="text-[17px] font-bold tracking-tight leading-tight"
+                  className="text-[17px] font-bold tracking-tight leading-none"
                   style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                 >
                   {currentPack.title}
                 </p>
-                <p className="mt-0.5 text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
-                  CEFR {currentPack.CEFR} · Lexile {currentPack.Lexile} · {currentPack.wordCount} words
-                </p>
+                <MiniPill>{currentPack.CEFR}</MiniPill>
+                <MiniPill>{currentPack.Lexile}</MiniPill>
+                <MiniPill>{currentPack.wordCount} Words</MiniPill>
               </div>
               <ChevronDown
                 className="h-5 w-5 shrink-0 transition-transform"
@@ -168,7 +168,7 @@ function SmartReadingPage() {
             </button>
             {pickerOpen && (
               <div
-                className="absolute z-40 left-0 right-0 mt-1.5 rounded-2xl bg-white border overflow-hidden"
+                className="absolute z-40 left-0 right-0 mt-1.5 rounded-3xl bg-white border overflow-hidden"
                 style={{ borderColor: "oklch(0.94 0.02 10)", boxShadow: "0 12px 32px -8px rgba(0,0,0,0.12)" }}
               >
                 {PACKS.map((p) => {
@@ -181,13 +181,13 @@ function SmartReadingPage() {
                       className="w-full text-left px-4 py-3 flex items-center justify-between gap-3 hover:bg-[color:var(--muted)]"
                       style={active ? { background: PINK_SOFT } : undefined}
                     >
-                      <div className="min-w-0">
-                        <p className="text-[14px] font-bold tracking-tight" style={{ color: active ? PINK : "var(--foreground)" }}>
+                      <div className="min-w-0 flex items-center gap-2 flex-wrap">
+                        <p className="text-[15px] font-bold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
                           {p.title}
                         </p>
-                        <p className="text-[10px] font-semibold mt-0.5" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                          CEFR {p.CEFR} · Lexile {p.Lexile} · {p.wordCount} words
-                        </p>
+                        <MiniPill>{p.CEFR}</MiniPill>
+                        <MiniPill>{p.Lexile}</MiniPill>
+                        <MiniPill>{p.wordCount} Words</MiniPill>
                       </div>
                       {active && <Check className="h-4 w-4 shrink-0" strokeWidth={3} style={{ color: PINK }} />}
                     </button>
@@ -199,12 +199,12 @@ function SmartReadingPage() {
 
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: PINK }} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: PINK }} />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search stories"
-              className="w-full rounded-full pl-10 pr-4 py-2.5 text-[13px] outline-none focus:ring-2 focus:ring-[color:var(--shirin)]"
+              className="w-full rounded-full pl-11 pr-4 py-3.5 text-[15px] font-semibold outline-none focus:ring-2 focus:ring-[color:var(--shirin)] placeholder:font-semibold"
               style={{ background: PINK_SOFT, color: "var(--foreground)" }}
             />
           </div>
@@ -217,38 +217,42 @@ function SmartReadingPage() {
                 No stories match.
               </div>
             ) : (
-              <div className="space-y-2.5">
+              <div className="space-y-3">
                 {units.map((u) => (
                   <Link
                     key={u.lesson_id}
                     to="/chat"
                     search={{ mode: "smart_reading", lesson_id: u.lesson_id }}
-                    className="flex items-stretch rounded-2xl bg-white border border-[oklch(0.94_0.02_10)] overflow-hidden active:scale-[0.99] transition-transform"
+                    className="flex items-stretch rounded-full overflow-hidden active:scale-[0.98] transition-transform"
+                    style={{ background: PINK_SOFT }}
                   >
                     <div
-                      className="w-16 shrink-0 grid place-items-center text-2xl"
-                      style={{ background: u.cover }}
+                      className="w-14 shrink-0 grid place-items-center text-2xl my-1 ml-1 rounded-full bg-white"
                       aria-hidden
                     >
                       {u.emoji}
                     </div>
-                    <div className="flex-1 px-3 py-2.5 flex flex-col justify-center min-w-0">
-                      <p className="text-[14px] font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-sans)" }}>
+                    <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
+                      <p className="text-[15px] font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-sans)", color: PINK, letterSpacing: "-0.01em" }}>
                         {u.story_title}
                       </p>
-                      <p className="mt-0.5 text-[11px] text-foreground/60 line-clamp-2">{u.cover_question}</p>
+                      <p className="mt-0.5 text-[11px] font-semibold line-clamp-1" style={{ color: "color-mix(in oklab, var(--shirin) 75%, black)" }}>
+                        {u.cover_question}
+                      </p>
                     </div>
-                    {u.done && (
-                      <div className="shrink-0 px-3 flex items-center">
+                    <div className="shrink-0 pr-4 pl-1 flex items-center">
+                      {u.done ? (
                         <span
                           className="h-6 w-6 grid place-items-center rounded-full"
-                          style={{ background: PINK_SOFT }}
+                          style={{ background: "white" }}
                           aria-label="Read"
                         >
                           <Check className="h-3.5 w-3.5" strokeWidth={3} style={{ color: PINK }} />
                         </span>
-                      </div>
-                    )}
+                      ) : (
+                        <ChevronRight className="h-5 w-5" style={{ color: PINK }} />
+                      )}
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -257,5 +261,16 @@ function SmartReadingPage() {
         </div>
       </div>
     </PhoneFrame>
+  );
+}
+
+function MiniPill({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold leading-none bg-white"
+      style={{ color: PINK }}
+    >
+      {children}
+    </span>
   );
 }
