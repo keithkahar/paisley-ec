@@ -114,7 +114,7 @@ function MyWordiePage() {
           </div>
         </section>
 
-        {/* Week calendar — matches ShirinTalk (px-6 pt-3) */}
+        {/* Week calendar — locked to ShirinTalk's same hero stack: pt-12 + 220px card + mt-3 stats + pb-1 + pt-3 */}
         <section className="px-6 pt-3">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
