@@ -75,14 +75,14 @@ function TopicsPage() {
               border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
             } as const;
 
-            // Hero card: aspect drives height.
-            const HeroCard = ({ t, ratio }: { t: Topic; ratio: string }) => (
+            // Hero card: aspect drives height, or an explicit style override.
+            const HeroCard = ({ t, ratio, imgStyle }: { t: Topic; ratio?: string; imgStyle?: React.CSSProperties }) => (
               <Link
                 {...getLinkProps(t)}
                 className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
                 style={cardStyle}
               >
-                <div className={`relative ${ratio} bg-white`}>
+                <div className={`relative bg-white ${ratio ?? ""}`} style={imgStyle}>
                   <img
                     src={t.art}
                     alt={t.title}
@@ -111,8 +111,12 @@ function TopicsPage() {
                 <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                 <HeroCard t={byId.football_talk} ratio="aspect-square" />
                 {/* Minecraft Adventure spans both columns right under Pet Talk & Football Talk */}
-                <div className="col-span-2">
-                  <HeroCard t={byId.minecraft_adventure} ratio="aspect-[2.057/1]" />
+                <div className="col-span-2" style={{ containerType: "inline-size" }}>
+                  {/* Image height = (grid width - gap) / 2 = single-column width, so the minecraft card matches a square card's total height exactly. */}
+                  <HeroCard
+                    t={byId.minecraft_adventure}
+                    imgStyle={{ height: "calc((100cqw - 10px) / 2)" }}
+                  />
                 </div>
                 <HeroCard t={byId.free_talk} ratio="aspect-square" />
                 <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
