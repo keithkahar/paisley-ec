@@ -76,7 +76,7 @@ function TopicsPage() {
             } as const;
 
             // Hero card: aspect drives height, or an explicit style override.
-            const HeroCard = ({ t, ratio, imgStyle }: { t: Topic; ratio?: string; imgStyle?: React.CSSProperties }) => (
+            const HeroCard = ({ t, ratio, imgStyle, fit = "cover" }: { t: Topic; ratio?: string; imgStyle?: React.CSSProperties; fit?: "cover" | "contain" }) => (
               <Link
                 {...getLinkProps(t)}
                 className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
@@ -89,7 +89,7 @@ function TopicsPage() {
                     loading="lazy"
                     width={1024}
                     height={1024}
-                    className="block h-full w-full object-cover"
+                    className={`block h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
                     draggable={false}
                   />
                 </div>
@@ -116,6 +116,7 @@ function TopicsPage() {
                   <HeroCard
                     t={byId.minecraft_adventure}
                     imgStyle={{ height: "calc((100cqw - 10px) / 2)" }}
+                    fit="contain"
                   />
                 </div>
                 <HeroCard t={byId.free_talk} ratio="aspect-square" />
