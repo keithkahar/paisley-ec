@@ -311,7 +311,7 @@ function ChatPage() {
               const canShare = m.shareable !== false;
               return (
                 <div key={m.id} className={`flex items-start ${isUser ? "justify-end" : "justify-start"} gap-2`}>
-                  {shareMode && !isUser && (
+                  {shareMode && (
                     <SelectDot
                       enabled={canShare}
                       selected={!!selected[m.id]}
@@ -351,13 +351,6 @@ function ChatPage() {
                       {m.time}
                     </p>
                   </div>
-                  {shareMode && isUser && (
-                    <SelectDot
-                      enabled={canShare}
-                      selected={!!selected[m.id]}
-                      onClick={() => canShare && toggleSelect(m.id)}
-                    />
-                  )}
                 </div>
               );
             })}
