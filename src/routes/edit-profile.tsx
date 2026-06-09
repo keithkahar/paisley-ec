@@ -393,38 +393,71 @@ function AvatarDraggable({
   initials,
   posX,
   posY,
+  scale,
   onChangePos,
+  onChangeScale,
 }: {
   src: string;
   initials: string;
   posX: number;
   posY: number;
+  scale: number;
   onChangePos: (x: number, y: number) => void;
+  onChangeScale: (s: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const draggingRef = useRef<{ startX: number; startY: number; startPx: number; startPy: number } | null>(null);
 
-  function onPointerDown(e: React.PointerEvent) {
-    if (!src) return;
-    e.preventDefault();
-    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
-    draggingRef.current = { startX: e.clientX, startY: e.clientY, startPx: posX, startPy: posY };
-  }
-  function onPointerMove(e: React.PointerEvent) {
-    const d = draggingRef.current;
-    if (!d || !ref.current) return;
-    e.preventDefault();
-    const rect = ref.current.getBoundingClientRect();
-    // moving 1 frame-width should shift roughly 100% — feel
-    const dx = ((e.clientX - d.startX) / rect.width) * 100;
-    const dy = ((e.clientY - d.startY) / rect.height) * 100;
-    const nx = Math.max(0, Math.min(100, d.startPx - dx));
-    const ny = Math.max(0, Math.min(100, d.startPy - dy));
-    onChangePos(nx, ny);
-  }
-  function onPointerUp() {
-    draggingRef.current = null;
-  }
+  // Use refs + global window listeners — survives re-renders and dpr quirks.
+  const stateRef = useRef({ posX, posY, scale });
+  stateRef.current = { posX, posY, scale };
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !src) return;
+
+    let dragging: { sx: number; sy: number; px: number; py: number } | null = null;
+
+    const onDown = (e: MouseEvent) => {
+      // ignore clicks that hit overlay buttons
+      if ((e.target as HTMLElement).closest("button")) return;
+      e.preventDefault();
+      dragging = { sx: e.clientX, sy: e.clientY, px: stateRef.current.posX, py: stateRef.current.posY };
+      el.style.cursor = "grabbing";
+    };
+    const onMove = (e: MouseEvent) => {
+      if (!dragging) return;
+      e.preventDefault();
+      const rect = el.getBoundingClientRect();
+      const s = Math.max(stateRef.current.scale, 1);
+      // Range of meaningful object-position depends on overflow (scale-1)
+      const span = Math.max(s - 1, 0.0001);
+      const dx = ((e.clientX - dragging.sx) / rect.width) * (100 / span);
+      const dy = ((e.clientY - dragging.sy) / rect.height) * (100 / span);
+      const nx = Math.max(0, Math.min(100, dragging.px - dx));
+      const ny = Math.max(0, Math.min(100, dragging.py - dy));
+      onChangePos(nx, ny);
+    };
+    const onUp = () => {
+      dragging = null;
+      el.style.cursor = "grab";
+    };
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const next = Math.max(1, Math.min(3, stateRef.current.scale - e.deltaY * 0.003));
+      onChangeScale(next);
+    };
+
+    el.addEventListener("mousedown", onDown);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      el.removeEventListener("wheel", onWheel);
+    };
+  }, [src, onChangePos, onChangeScale]);
 
   return (
     <div
@@ -435,10 +468,6 @@ function AvatarDraggable({
         touchAction: src ? "none" : "auto",
         cursor: src ? "grab" : "default",
       }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
     >
       {src ? (
         <img
@@ -446,7 +475,11 @@ function AvatarDraggable({
           alt=""
           draggable={false}
           className="h-full w-full object-cover pointer-events-none"
-          style={{ objectPosition: `${posX}% ${posY}%` }}
+          style={{
+            objectPosition: `${posX}% ${posY}%`,
+            transform: `scale(${scale})`,
+            transformOrigin: `${posX}% ${posY}%`,
+          }}
         />
       ) : (
         <span
