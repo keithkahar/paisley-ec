@@ -545,7 +545,7 @@ function FilterDropdown({
     >
       <span className="flex items-baseline gap-1 min-w-0">
         <span
-          className="text-[11px] font-bold uppercase tracking-wide opacity-70"
+          className="text-[11px] font-bold opacity-70"
         >
           {label}
         </span>
@@ -631,8 +631,14 @@ function PreviewFull({
       </div>
       <div className="flex-1 overflow-y-auto px-6 pb-6">
         <div className="flex items-center gap-2">
-          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-muted text-muted-foreground">
-            {word.partOfSpeech}
+          <span
+            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+            style={{
+              background: "color-mix(in oklab, var(--wordie) 12%, white)",
+              color: "var(--wordie)",
+            }}
+          >
+            {capitalize(word.partOfSpeech)}
           </span>
           <button type="button" className="text-muted-foreground" aria-label="Copy">
             <Copy className="h-3.5 w-3.5" />
