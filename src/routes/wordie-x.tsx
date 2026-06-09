@@ -172,7 +172,7 @@ type Note = {
   isFocus?: boolean;
 };
 
-const NOTES_KEY = "pec_my_notes_v1";
+const NOTES_KEY = "pec_my_notes_v2";
 const FOCUS_KEY = "pec_user_words_focus_v1";
 
 function loadNotes(): Note[] {
@@ -213,6 +213,8 @@ function WordieXPage() {
   const [isAutoFilling, setIsAutoFilling] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
 
   // Load notes on mount
   useEffect(() => {
@@ -346,7 +348,7 @@ function WordieXPage() {
             Wordie-X
           </h1>
           <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
-            Words you added or can add.
+            Words to add &amp; added.
           </p>
         </div>
 
@@ -499,19 +501,85 @@ function WordieXPage() {
           )}
         </section>
 
+        {/* Resource filter */}
+        <section className="mt-5">
+          <p className="mb-2 text-[11px] font-bold tracking-wide text-muted-foreground">
+            Resource
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {SOURCE_FILTERS.map((f) => {
+              const active = sourceFilter === f.key;
+              const color = f.key === "all" ? "var(--wordie)" : getSourceColor(f.key);
+              return (
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => setSourceFilter(f.key)}
+                  className="rounded-full px-3 py-1.5 text-[12px] font-bold border transition-colors active:scale-95"
+                  style={
+                    active
+                      ? { background: color, color: "white", borderColor: color }
+                      : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
+                  }
+                >
+                  {f.label}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Quick status filters */}
+        <section className="mt-4">
+          <div className="flex flex-wrap gap-2">
+            {STATUS_FILTERS.map((f) => {
+              const active = statusFilter === f.key;
+              const n =
+                f.key === "all"
+                  ? notes.length
+                  : f.key === "focus"
+                    ? notes.filter((x) => x.isFocus).length
+                    : notes.filter((x) => (x.status as string) === f.key).length;
+              return (
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => setStatusFilter(f.key)}
+                  className="rounded-full px-3 py-1.5 text-[12px] font-bold border transition-colors active:scale-95 inline-flex items-center gap-1.5"
+                  style={
+                    active
+                      ? { background: "white", color: "var(--wordie)", borderColor: "var(--wordie)" }
+                      : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
+                  }
+                >
+                  <span>{f.label}</span>
+                  <span
+                    className="text-[11px] font-bold"
+                    style={{ color: active ? "var(--wordie)" : "var(--muted-foreground)" }}
+                  >
+                    {n}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Added Words */}
         <section className="mt-7">
-          <p className="mb-2 text-[12px] font-bold text-muted-foreground">{count} cards</p>
+          <p className="mb-2 text-[12px] font-bold text-muted-foreground">{filteredNotes.length} cards</p>
 
-          {count === 0 ? (
+          {filteredNotes.length === 0 ? (
             <div className="rounded-3xl bg-muted/40 border border-dashed border-border p-8 text-center">
               <p className="text-[13px] text-muted-foreground">
-                No saved words yet. Add words you want to remember later.
+                {notes.length === 0
+                  ? "No saved words yet. Add words you want to remember later."
+                  : "No words match this filter."}
               </p>
             </div>
           ) : (
             <ul className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
-              {notes.map((n) => (
+              {filteredNotes.map((n) => (
                 <SavedCard
                   key={n._id}
                   note={n}
