@@ -729,7 +729,7 @@ function SavedCard({
       >
         <div className="min-w-0 flex-1">
           <p
-            className="font-semibold text-[16px] truncate leading-tight lowercase"
+            className="font-semibold text-[16px] truncate leading-tight"
             style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
           >
             {note.word}
