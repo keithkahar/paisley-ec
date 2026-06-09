@@ -14,10 +14,9 @@ const PINK = "var(--shirin)";
 
 function ShirinTalkPage() {
   const cards = [
-    { to: "/chat", title: "Free Talk", icon: MessageCircle, search: { mode: "topic", topic_id: "free_talk", from: "shirin-talk" } as const },
+    { to: "/topics", title: "Topic Talk", icon: Lightbulb },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen, search: { from: "shirin-talk" } as const },
     { to: "/chat", title: "myWordie Talk", icon: null, search: { mode: "mywordie", from: "shirin-talk" } as const },
-    { to: "/topics", title: "Topic Talk", icon: Lightbulb },
   ];
 
   const today = new Date();
