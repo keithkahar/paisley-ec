@@ -18,11 +18,10 @@ export function StatusBadge({ status }: { status: WordStatus }) {
   const m = STATUS_META[status];
   return (
     <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold border"
+      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
       style={{
-        background: "transparent",
+        background: `color-mix(in oklab, ${m.color} 22%, white)`,
         color: `color-mix(in oklab, ${m.color} 70%, black)`,
-        borderColor: `color-mix(in oklab, ${m.color} 70%, black)`,
       }}
     >
       {m.label}
@@ -52,9 +51,9 @@ export function FilterChip({
         active
           ? tone === "tint"
             ? {
-                background: `color-mix(in oklab, ${color} 22%, white)`,
+                background: "transparent",
                 color: `color-mix(in oklab, ${color} 70%, black)`,
-                borderColor: `color-mix(in oklab, ${color} 35%, white)`,
+                borderColor: `color-mix(in oklab, ${color} 70%, black)`,
               }
             : { background: color, color: "white", borderColor: color }
           : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
