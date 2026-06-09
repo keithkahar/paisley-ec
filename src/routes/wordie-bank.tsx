@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Volume2, Copy, Check, Circle } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Volume2, Check, Circle } from "lucide-react";
 import {
   FilterChip,
   EmptyState,
