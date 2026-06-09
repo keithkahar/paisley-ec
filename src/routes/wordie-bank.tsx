@@ -242,9 +242,6 @@ function WordieBankPage() {
           >
             Wordie Bank
           </h1>
-          <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
-            Your saved words.
-          </p>
         </div>
 
         {/* Toolbar: Select / Done · Preview */}
