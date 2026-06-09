@@ -106,7 +106,7 @@ function computeInitials(given: string, family: string) {
   const g = given.trim()[0] ?? "";
   const f = family.trim()[0] ?? "";
   const initials = (g + f).toUpperCase();
-  return initials || "ME";
+  return initials || "me";
 }
 
 function formatBirthday(birthday: string) {
@@ -387,12 +387,14 @@ function AvatarDraggable({
 
   function onPointerDown(e: React.PointerEvent) {
     if (!src) return;
-    (e.target as Element).setPointerCapture?.(e.pointerId);
+    e.preventDefault();
+    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
     draggingRef.current = { startX: e.clientX, startY: e.clientY, startPx: posX, startPy: posY };
   }
   function onPointerMove(e: React.PointerEvent) {
     const d = draggingRef.current;
     if (!d || !ref.current) return;
+    e.preventDefault();
     const rect = ref.current.getBoundingClientRect();
     // moving 1 frame-width should shift roughly 100% — feel
     const dx = ((e.clientX - d.startX) / rect.width) * 100;
@@ -535,15 +537,15 @@ function BirthdaySheet({
                 style={
                   active
                     ? {
-                        background: CHIP_BLUE,
-                        color: PAISLEY,
-                        border: `1px solid ${CHIP_BLUE}`,
+                        background: YELLOW_SOFT,
+                        color: YELLOW,
+                        border: `1px solid ${YELLOW_SOFT}`,
                         fontFamily: "var(--font-sans)",
                       }
                     : {
                         background: "white",
-                        color: PAISLEY,
-                        border: `1px solid ${CHIP_BLUE}`,
+                        color: YELLOW,
+                        border: `1px solid color-mix(in oklab, ${YELLOW} 45%, white)`,
                         fontFamily: "var(--font-sans)",
                       }
                 }
@@ -630,15 +632,15 @@ function ChipGrid({
             style={
               active
                 ? {
-                    background: CHIP_BLUE,
-                    color: PAISLEY,
-                    border: `1px solid ${CHIP_BLUE}`,
+                    background: YELLOW_SOFT,
+                    color: YELLOW,
+                    border: `1px solid ${YELLOW_SOFT}`,
                     fontFamily: "var(--font-sans)",
                   }
                 : {
                     background: "white",
                     color: "var(--foreground)",
-                    border: `1px solid ${CHIP_BLUE}`,
+                    border: `1px solid color-mix(in oklab, ${YELLOW} 45%, white)`,
                     fontFamily: "var(--font-sans)",
                   }
             }
