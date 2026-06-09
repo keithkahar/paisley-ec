@@ -82,7 +82,7 @@ const STAGE_META: Record<
     subtitle: "Choose what kind of word it is.",
     note: "Each option is different.",
     points: 2,
-    color: "var(--shirin)",
+    color: "var(--bloxia)",
   },
 };
 
