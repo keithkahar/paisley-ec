@@ -55,12 +55,8 @@ function WordieBankPage() {
   const pct = Math.round((mastered / total) * 100);
 
   return (
-    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
-      <AppHeader
-        title="Wordie Bank"
-        back="/mywordie"
-        bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
-      />
+    <PhoneFrame bg="bg-white">
+      <AppHeader title="" back="/mywordie" bg="white" />
 
       <div className="px-5 pb-10">
         {/* Summary strip */}
