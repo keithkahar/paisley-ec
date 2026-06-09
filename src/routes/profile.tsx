@@ -8,7 +8,7 @@ import {
   UserCog,
   Users,
   ChevronLeft,
-  CalendarDays,
+  Pencil,
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
@@ -28,6 +28,8 @@ const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim();
 const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase();
 
 const PAISLEY = "var(--paisley)";
+// darker yellow ink for legible text/icons on yellow tints
+const PAISLEY_YELLOW_INK = "oklch(0.48 0.14 88)";
 
 function ProfilePage() {
   const today = new Date();
@@ -57,23 +59,34 @@ function ProfilePage() {
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-12 pb-1 text-center">
-          <div
-            className="mx-auto h-40 w-40 rounded-full grid place-items-center overflow-hidden"
-            style={{
-              background: "color-mix(in oklab, var(--paisley) 12%, white)",
-              border: `2px solid ${PAISLEY}`,
-            }}
-          >
-            {PROFILE.avatarPath ? (
-              <img src={PROFILE.avatarPath} alt="" className="h-full w-full object-cover" />
-            ) : (
-              <span
-                className="text-[56px] font-bold leading-none"
-                style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
-              >
-                {INITIALS}
-              </span>
-            )}
+          <div className="relative mx-auto h-40 w-40">
+            <div
+              className="h-40 w-40 rounded-full grid place-items-center overflow-hidden"
+              style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
+            >
+              {PROFILE.avatarPath ? (
+                <img src={PROFILE.avatarPath} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <span
+                  className="text-[56px] font-bold leading-none"
+                  style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+                >
+                  {INITIALS}
+                </span>
+              )}
+            </div>
+            {/* Edit profile entry — top-left of avatar */}
+            <Link
+              to="/edit-profile"
+              aria-label="Edit profile"
+              className="absolute top-1 left-1 h-9 w-9 grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              style={{
+                border: `1px solid ${PAISLEY}`,
+                boxShadow: "0 2px 6px -2px rgba(0,0,0,0.15)",
+              }}
+            >
+              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
+            </Link>
           </div>
           <h2
             className="mt-3 text-[26px] leading-[1.2] font-semibold tracking-tight"
@@ -143,18 +156,6 @@ function ProfilePage() {
               );
             })}
           </div>
-
-          {/* Open full calendar button */}
-          <div className="mt-3 flex justify-center">
-            <Link
-              to="/calendar"
-              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] font-bold bg-white active:scale-[0.98] transition-transform"
-              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
-            >
-              <CalendarDays className="h-3.5 w-3.5" />
-              Open full calendar
-            </Link>
-          </div>
         </section>
 
         {/* Pill actions — mirrors ShirinTalk pill style */}
@@ -187,14 +188,14 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: "color-mix(in oklab, var(--paisley-yellow) 32%, white)", fontFamily: "var(--font-sans)" }}
     >
       <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
-        <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
+        <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY_YELLOW_INK }} />
       </span>
       <span
         className="text-[17px] font-bold tracking-tight leading-none"
-        style={{ letterSpacing: "-0.01em", color: PAISLEY }}
+        style={{ letterSpacing: "-0.01em", color: PAISLEY_YELLOW_INK }}
       >
         {title}
       </span>
