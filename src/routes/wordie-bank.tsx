@@ -468,8 +468,14 @@ function WordieBankPage() {
             </p>
             <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
               <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
-              <SheetBtn label="Add to Focus" onClick={addToFocus} />
-              <SheetBtn label="Move to Review" onClick={moveToReview} />
+              <SheetBtn
+                label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
+                onClick={allSelectedFocus ? removeFromFocus : addToFocus}
+              />
+              <SheetBtn
+                label={allSelectedReview ? "Remove from Review" : "Move to Review"}
+                onClick={allSelectedReview ? removeFromReview : moveToReview}
+              />
               <SheetBtn label="Reset Progress" danger onClick={() => { setBatchOpen(false); setResetConfirm(true); }} />
               <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
             </div>
