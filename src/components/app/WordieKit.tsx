@@ -6,11 +6,11 @@ import { Search, Lock, Sparkles, Inbox } from "lucide-react";
 export type WordStatus = "new" | "learning" | "review" | "mastered" | "difficult" | "favorite";
 
 const STATUS_META: Record<WordStatus, { label: string; color: string }> = {
-  new: { label: "New", color: "var(--paisley)" },
-  learning: { label: "Learning", color: "var(--wordie)" },
-  review: { label: "Review", color: "var(--bloxia)" },
+  new: { label: "New", color: "oklch(0.66 0.24 280)" },
+  learning: { label: "Learning", color: "oklch(0.7 0.18 195)" },
+  review: { label: "Review", color: "oklch(0.68 0.2 145)" },
   mastered: { label: "Mastered", color: "var(--wordie-accent)" },
-  difficult: { label: "Tricky", color: "var(--shirin)" },
+  difficult: { label: "Tricky", color: "oklch(0.68 0.26 35)" },
   favorite: { label: "Favorite", color: "var(--shirin)" },
 };
 
