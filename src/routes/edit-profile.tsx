@@ -384,15 +384,33 @@ function NamePill({
   onFamilyNameChange: (value: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const hasFullName = givenName.trim().length > 0 && familyName.trim().length > 0;
+
+  useEffect(() => {
+    if (!editing) return;
+    const onDocDown = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node | null;
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        if (givenName.trim() && familyName.trim()) setEditing(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocDown);
+    document.addEventListener("touchstart", onDocDown);
+    return () => {
+      document.removeEventListener("mousedown", onDocDown);
+      document.removeEventListener("touchstart", onDocDown);
+    };
+  }, [editing, givenName, familyName]);
 
   return (
     <RowPill label="Name">
+      <div ref={containerRef}>
       {hasFullName && !editing ? (
         <button
           type="button"
           onClick={() => setEditing(true)}
-          className="w-full truncate text-right text-[15px] font-bold text-foreground"
+          className="w-full truncate text-right text-[14px] font-bold text-foreground"
           style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
           {givenName.trim()} {familyName.trim()}
@@ -401,19 +419,13 @@ function NamePill({
         <div
           className="grid grid-cols-2 gap-2"
           onFocus={() => setEditing(true)}
-          onBlur={(e) => {
-            const nextFocus = e.relatedTarget instanceof Node ? e.relatedTarget : null;
-            if (!e.currentTarget.contains(nextFocus) && givenName.trim() && familyName.trim()) {
-              setEditing(false);
-            }
-          }}
         >
           <input
             type="text"
             value={givenName}
             onChange={(e) => onGivenNameChange(e.target.value)}
             placeholder="Given Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[14px] font-bold text-foreground placeholder:text-muted-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           />
           <input
@@ -421,11 +433,12 @@ function NamePill({
             value={familyName}
             onChange={(e) => onFamilyNameChange(e.target.value)}
             placeholder="Family Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[14px] font-bold text-foreground placeholder:text-muted-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           />
         </div>
       )}
+      </div>
     </RowPill>
   );
 }
