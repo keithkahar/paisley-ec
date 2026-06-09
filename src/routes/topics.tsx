@@ -50,14 +50,14 @@ function TopicsPage() {
         </header>
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-1">
-          <div className="mb-4">
+          <div className="mb-4 text-center">
             <h1
               className="text-[26px] leading-[1.2] font-semibold tracking-tight"
               style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
-              Choose A Topic
+              Pick A Topic
             </h1>
-            <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
+            <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
               Let's talk about it.
             </p>
           </div>
