@@ -423,8 +423,8 @@ function WordieBankPage() {
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <span className="w-12" />
               <p
-                className="text-[17px] font-bold"
-                style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
+                className="text-[17px] font-bold tracking-tight leading-none"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 Batch Actions
               </p>
@@ -467,8 +467,8 @@ function WordieBankPage() {
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <span className="w-12" />
               <p
-                className="text-[17px] font-bold"
-                style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
+                className="text-[17px] font-bold tracking-tight leading-none"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 {openSheet === "level"
                   ? "Choose Level"
