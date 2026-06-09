@@ -508,7 +508,7 @@ function BirthdaySheet({
           </button>
           <p
             className="text-[17px] font-bold tracking-tight leading-none"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: PAISLEY }}
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: YELLOW }}
           >
             Birthday
           </p>
@@ -516,7 +516,7 @@ function BirthdaySheet({
             type="button"
             onClick={confirm}
             className="text-[13px] font-bold w-12 text-right"
-            style={{ color: PAISLEY }}
+            style={{ color: YELLOW }}
           >
             Done
           </button>
@@ -535,15 +535,15 @@ function BirthdaySheet({
                 style={
                   active
                     ? {
-                        background: "var(--paisley-soft)",
+                        background: CHIP_BLUE,
                         color: PAISLEY,
-                        border: `1px solid color-mix(in oklab, ${PAISLEY} 45%, white)`,
+                        border: `1px solid ${CHIP_BLUE}`,
                         fontFamily: "var(--font-sans)",
                       }
                     : {
                         background: "white",
                         color: PAISLEY,
-                        border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                        border: `1px solid ${CHIP_BLUE}`,
                         fontFamily: "var(--font-sans)",
                       }
                 }
@@ -630,15 +630,15 @@ function ChipGrid({
             style={
               active
                 ? {
-                    background: "var(--paisley-soft)",
+                    background: CHIP_BLUE,
                     color: PAISLEY,
-                    border: `1px solid color-mix(in oklab, ${PAISLEY} 45%, white)`,
+                    border: `1px solid ${CHIP_BLUE}`,
                     fontFamily: "var(--font-sans)",
                   }
                 : {
                     background: "white",
                     color: "var(--foreground)",
-                    border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                    border: `1px solid ${CHIP_BLUE}`,
                     fontFamily: "var(--font-sans)",
                   }
             }
