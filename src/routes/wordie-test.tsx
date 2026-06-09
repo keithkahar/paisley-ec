@@ -484,9 +484,8 @@ function InfoView({ onStart }: { onStart: () => void }) {
   return (
     <div>
       <section className="rounded-3xl bg-white border border-border p-5">
-        <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Next test</p>
         <p
-          className="mt-1 text-[24px] font-bold leading-none"
+          className="text-[20px] font-bold leading-none"
           style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
           Wordie Test #03
@@ -511,19 +510,13 @@ function InfoView({ onStart }: { onStart: () => void }) {
         </ul>
       </section>
 
-      <div className="mt-4 grid grid-cols-3 gap-2.5">
-        <Stat label="Questions" value="20" />
-        <Stat label="Stages" value="6" />
-        <Stat label="Bp reward" value="≤20" />
-      </div>
-
       <button
         onClick={onStart}
-        className="mt-5 w-full rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
-        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "16px" }}
+        className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "17.25px" }}
       >
-        Start Test
-        <ChevronRight className="h-4 w-4" />
+        <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
+        <span>Start Test</span>
       </button>
     </div>
   );
