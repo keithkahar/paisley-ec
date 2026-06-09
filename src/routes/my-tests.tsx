@@ -111,6 +111,36 @@ const WORDIE_TESTS: WordieTest[] = [
   },
 ];
 
+// extend demo to 20 entries for the trend chart
+const EXTRA_SCORES = [80, 75, 85, 70, 80, 78, 72, 82, 76, 74, 80, 78, 70, 72];
+const EXTRA_DATES = [
+  "Mar 12 2026", "Feb 26 2026", "Feb 12 2026", "Jan 29 2026", "Jan 15 2026",
+  "Jan 2 2026", "Dec 18 2025", "Dec 4 2025", "Nov 20 2025", "Nov 6 2025",
+  "Oct 23 2025", "Oct 9 2025", "Sep 25 2025", "Sep 11 2025",
+];
+for (let i = 0; i < EXTRA_SCORES.length; i++) {
+  const n = 12 - i;
+  const score = EXTRA_SCORES[i];
+  const correct = Math.round((score / 100) * 20);
+  WORDIE_TESTS.push({
+    id: `w${n}`,
+    code: `#${n}`,
+    date: EXTRA_DATES[i],
+    correct,
+    total: 20,
+    score,
+    summary: `L 3/4 · P 3/4 · S 3/4 · D 3/4 · U 2/2 · POS 2/2`,
+    dimensions: [
+      { key: "pronunciation", label: "Pronunciation", correct: 3, total: 4 },
+      { key: "spelling", label: "Spelling", correct: 3, total: 4 },
+      { key: "pos", label: "Part of Speech", correct: 2, total: 2 },
+      { key: "meaning", label: "Example", correct: 3, total: 4 },
+      { key: "usage", label: "Usage", correct: 2, total: 2 },
+    ],
+    reviews: [],
+  });
+}
+
 const CEFR_ACCENT = "var(--paisley)";
 const WORDIE_ACCENT = "var(--wordie)";
 
