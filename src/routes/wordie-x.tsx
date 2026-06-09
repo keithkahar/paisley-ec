@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Plus, ChevronDown, Star, Trash2, X } from "lucide-react";
+import { Plus, ChevronDown, Star, Trash2, X, ChevronRight } from "lucide-react";
+import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [{ title: "Wordie-X — Paisley EC" }] }),
@@ -48,6 +49,32 @@ const SOURCE_LABEL: Record<string, string> = {
   iMade: "iMade",
 };
 const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "Wordie-X";
+
+const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
+
+// Seed notes — shown on first visit for testing
+const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
+  { word: "sunshine", content: "the light and warmth from the sun",
+    definitionEn: "the light and warmth from the sun",
+    exampleSentence: "We played in the sunshine all afternoon.",
+    partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈsʌnʃaɪn/",
+    source: "iMade", targetWordId: "wordie_x_sunshine", status: "saved" },
+  { word: "giggle", content: "to laugh in a soft, silly way",
+    definitionEn: "to laugh in a soft, silly way",
+    exampleSentence: "The kids giggle when they hear the joke.",
+    partOfSpeech: "verb", cefrLevel: "A2", pronunciation: "/ˈɡɪɡ.əl/",
+    source: "iMade", targetWordId: "wordie_x_giggle", status: "saved" },
+  { word: "puppy", content: "a baby dog",
+    definitionEn: "a baby dog",
+    exampleSentence: "My puppy loves to chase the ball.",
+    partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈpʌp.i/",
+    source: "iMade", targetWordId: "wordie_x_puppy", status: "saved" },
+  { word: "rainbow", content: "colorful arc in the sky after rain",
+    definitionEn: "colorful arc in the sky after rain",
+    exampleSentence: "Look at the rainbow over the hill!",
+    partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈreɪn.boʊ/",
+    source: "iMade", targetWordId: "wordie_x_rainbow", status: "saved" },
+];
 
 // ---------- Normalize ----------
 function normalizeDraftWord(value: string): string {
