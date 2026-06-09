@@ -714,6 +714,7 @@ function WordieXPage() {
                           <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                             {getSourceLabel(n.source)}
                           </span>
+                          {n.isFocus && <FocusPill />}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 self-center">
@@ -826,8 +827,14 @@ function WordieXPage() {
             </p>
             <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
               <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
-              <SheetBtn label="Add to Focus" onClick={batchAddFocus} />
-              <SheetBtn label="Move to Review" onClick={batchMoveReview} />
+              <SheetBtn
+                label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
+                onClick={allSelectedFocus ? batchRemoveFocus : batchAddFocus}
+              />
+              <SheetBtn
+                label={allSelectedReview ? "Remove from Review" : "Move to Review"}
+                onClick={allSelectedReview ? batchRemoveReview : batchMoveReview}
+              />
               <SheetBtn label="Delete" danger onClick={batchDelete} />
               <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
             </div>
