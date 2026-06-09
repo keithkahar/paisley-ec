@@ -11,7 +11,6 @@ import {
   Sparkles,
   Clock,
   Lock,
-  RotateCcw,
   ChevronRight,
   Play,
 } from "lucide-react";
@@ -48,42 +47,42 @@ const STAGE_META: Record<
     subtitle: "Click play to listen.",
     note: "Each question will be read 2 times.",
     points: 3,
-    color: "oklch(0.66 0.24 280)",
+    color: "var(--wordie)",
   },
   pronunciationSpeak: {
     label: "Pronunciation",
     subtitle: "Read the word, then say it clearly.",
     note: "Hold Record and release when finished.",
     points: 3,
-    color: "oklch(0.7 0.18 195)",
+    color: "var(--wordie)",
   },
   spelling: {
     label: "Spelling",
     subtitle: "Choose the correct spelling.",
-    note: "Look carefully at the letter sounds.",
+    note: "Look at every word carefully",
     points: 4,
-    color: "oklch(0.68 0.2 145)",
+    color: "var(--wordie)",
   },
   meaning: {
     label: "Definition",
     subtitle: "Choose the matching definition.",
     note: "Read every choice carefully.",
     points: 4,
-    color: "var(--wordie-accent)",
+    color: "var(--wordie)",
   },
   usage: {
     label: "Usage",
     subtitle: "Choose the sentence that uses the word correctly.",
-    note: "Each choice uses the target word.",
+    note: "Which sentence uses the word correctly?",
     points: 4,
-    color: "oklch(0.68 0.26 35)",
+    color: "var(--wordie)",
   },
   partOfSpeech: {
     label: "Part of Speech",
     subtitle: "Choose what kind of word it is.",
-    note: "Each option is different.",
+    note: "Choose the correct part of speech for the word",
     points: 2,
-    color: "var(--bloxia)",
+    color: "var(--wordie)",
   },
 };
 
@@ -192,8 +191,11 @@ function fmtTime(sec: number) {
 type Mode = "locked" | "info" | "quiz" | "result";
 type Answer = { choiceId?: string; record?: { scorable: boolean; score: number; band: "great" | "good" | "retry" } };
 
+// Toggle to preview the locked state in the prototype.
+const START_LOCKED = false;
+
 function WordieTestPage() {
-  const [mode, setMode] = useState<Mode>("info");
+  const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
   const [stageIdx, setStageIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [seconds, setSeconds] = useState(0);
@@ -370,31 +372,6 @@ function WordieTestPage() {
           </h1>
         )}
 
-        {/* Prototype state switcher */}
-        <div className="px-5 pt-3">
-          <div className="flex gap-1 rounded-full bg-white border border-border p-1 text-[11px] font-bold">
-            {(["locked", "info", "quiz", "result"] as Mode[]).map((s) => (
-              <button
-                key={s}
-                onClick={() => {
-                  if (s === "quiz") {
-                    setStageIdx(0);
-                  }
-                  setMode(s);
-                }}
-                className="flex-1 rounded-full py-1.5 capitalize"
-                style={
-                  mode === s
-                    ? { background: "var(--wordie)", color: "white" }
-                    : { color: "var(--muted-foreground)" }
-                }
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Body */}
         <div className="px-5 pt-4 pb-10">
           {mode === "locked" && <LockedView />}
@@ -425,7 +402,6 @@ function WordieTestPage() {
               dims={grading.dims}
               results={grading.results}
               bp={bp}
-              onRetake={startTest}
               onReview={(id) => setReviewId(id)}
             />
           )}
@@ -458,8 +434,8 @@ function LockedView() {
       <div
         className="mx-auto h-14 w-14 rounded-2xl grid place-items-center mb-3"
         style={{
-          background: "color-mix(in oklab, var(--wordie-accent) 18%, white)",
-          color: "var(--wordie-accent)",
+          background: "color-mix(in oklab, var(--wordie) 14%, white)",
+          color: "var(--wordie)",
         }}
       >
         <Lock className="h-6 w-6" />
@@ -468,11 +444,11 @@ function LockedView() {
       <p className="text-[13px] text-muted-foreground mt-1">Available in 4 days</p>
       <div className="mt-4 grid grid-cols-2 gap-2 text-left">
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
-          <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground">Last Wordie Test</p>
+          <p className="text-[12px] font-bold text-muted-foreground">Last Wordie Test</p>
           <p className="text-[13px] font-bold mt-1">Jun 5 · #02</p>
         </div>
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
-          <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground">Next Wordie Test</p>
+          <p className="text-[12px] font-bold text-muted-foreground">Next Wordie Test</p>
           <p className="text-[13px] font-bold mt-1">Jun 12 · #03</p>
         </div>
       </div>
@@ -774,7 +750,6 @@ function ResultView({
   dims,
   results,
   bp,
-  onRetake,
   onReview,
 }: {
   score: number;
@@ -784,7 +759,6 @@ function ResultView({
   dims: Record<Stage, { correct: number; total: number }>;
   results: { q: Question; correct: boolean }[];
   bp: number;
-  onRetake: () => void;
   onReview: (id: string) => void;
 }) {
   const isHigh = score >= 70;
@@ -798,10 +772,28 @@ function ResultView({
             : "linear-gradient(140deg, var(--wordie-accent) 0%, oklch(0.70 0.18 50) 100%)",
         }}
       >
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide">
-          <Trophy className="h-3.5 w-3.5" /> Test Completed!
+        <div className="flex items-center justify-center gap-2 flex-wrap">
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
+            style={{ color: "var(--wordie-accent)" }}
+          >
+            <Trophy className="h-3.5 w-3.5" /> Test Completed!
+          </span>
         </div>
-        <p className="mt-2 text-[12px] font-bold opacity-90">Test Time {timeText}</p>
+        <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
+            style={{ color: "var(--wordie-accent)" }}
+          >
+            <Clock className="h-3.5 w-3.5" /> Test Time {timeText}
+          </span>
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
+            style={{ color: "var(--bloxia)" }}
+          >
+            <Sparkles className="h-3.5 w-3.5" /> +{bp} Bp
+          </span>
+        </div>
         <p className="mt-3 text-[13px] font-bold opacity-95">Your Wordie Test Score</p>
         <p
           className="mt-1 text-[56px] font-bold leading-none"
@@ -815,33 +807,8 @@ function ResultView({
         </p>
       </section>
 
-      {/* Bp */}
-      <section
-        className="mt-4 rounded-3xl p-4 flex items-center gap-3"
-        style={{
-          background: "color-mix(in oklab, var(--bloxia) 10%, white)",
-          border: "1px solid color-mix(in oklab, var(--bloxia) 20%, white)",
-        }}
-      >
-        <div
-          className="h-11 w-11 rounded-2xl grid place-items-center text-white shrink-0"
-          style={{ background: "var(--bloxia)" }}
-        >
-          <Sparkles className="h-5 w-5" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="font-bold text-[14px]">+{bp} Bp earned</p>
-          <p className="text-[12px] text-muted-foreground mt-0.5">
-            Wordie Test reward
-          </p>
-        </div>
-      </section>
-
       {/* Dimension rows */}
       <section className="mt-5">
-        <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground mb-2 px-1">
-          By Dimension
-        </p>
         <div className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden">
           {STAGE_ORDER.map((s) => {
             const d = dims[s];
@@ -855,7 +822,7 @@ function ResultView({
                   </p>
                 </div>
                 <div className="mt-1.5 h-1.5 rounded-full overflow-hidden" style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}>
-                  <div className="h-full" style={{ width: `${pct}%`, background: STAGE_META[s].color }} />
+                  <div className="h-full" style={{ width: `${pct}%`, background: "var(--wordie)" }} />
                 </div>
               </div>
             );
@@ -865,7 +832,7 @@ function ResultView({
 
       {/* Answer review */}
       <section className="mt-5">
-        <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground mb-2 px-1">
+        <p className="text-[14px] font-bold text-foreground mb-2 px-1">
           Answer Review
         </p>
         <div className="space-y-4">
@@ -889,7 +856,7 @@ function ResultView({
                       <span className="flex-1 text-[13px] font-bold">{r.q.word}</span>
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: r.correct ? "var(--bloxia)" : "var(--wordie-accent)" }}
+                        style={{ background: r.correct ? "var(--wordie-accent)" : "var(--wordie)" }}
                       >
                         {r.correct ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
                       </span>
@@ -902,22 +869,13 @@ function ResultView({
         </div>
       </section>
 
-      <div className="mt-5 grid grid-cols-2 gap-2.5">
-        <button
-          onClick={onRetake}
-          className="rounded-full py-3.5 font-bold border border-border bg-white inline-flex items-center justify-center gap-2 text-[14px]"
-          style={{ color: "var(--wordie)" }}
-        >
-          <RotateCcw className="h-4 w-4" /> Retest
-        </button>
-        <Link
-          to="/wordie-bank"
-          className="rounded-full py-3.5 font-bold text-white inline-flex items-center justify-center gap-2 text-[14px]"
-          style={{ background: "var(--wordie)" }}
-        >
-          Open Bank
-        </Link>
-      </div>
+      <Link
+        to="/mywordie"
+        className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "17.25px" }}
+      >
+        <span>Back to myWordie</span>
+      </Link>
     </div>
   );
 }
@@ -938,7 +896,7 @@ function ReviewOverlay({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-[360px] bg-white rounded-3xl p-5 max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+          <p className="text-[13px] font-bold text-muted-foreground">
             {STAGE_META[question.stage].label}
           </p>
           <button onClick={onClose} className="h-7 w-7 grid place-items-center rounded-full bg-muted/40">
@@ -978,27 +936,33 @@ function ReviewOverlay({
                   className="rounded-2xl border px-3 py-2.5 text-[13px] font-bold flex items-center justify-between"
                   style={{
                     background: isRight
-                      ? "color-mix(in oklab, var(--bloxia) 10%, white)"
+                      ? "color-mix(in oklab, var(--wordie-accent) 12%, white)"
                       : isMine
-                      ? "color-mix(in oklab, var(--wordie-accent) 10%, white)"
+                      ? "color-mix(in oklab, var(--wordie) 10%, white)"
                       : "white",
                     borderColor: isRight
-                      ? "var(--bloxia)"
-                      : isMine
                       ? "var(--wordie-accent)"
+                      : isMine
+                      ? "var(--wordie)"
                       : "var(--border)",
                   }}
                 >
                   <span>{c.label}</span>
                   <span className="flex gap-1">
                     {isRight && (
-                      <span className="text-[10px] font-bold uppercase rounded-full px-2 py-0.5 text-white" style={{ background: "var(--bloxia)" }}>
-                        Right
+                      <span
+                        className="h-6 w-6 rounded-full grid place-items-center text-white"
+                        style={{ background: "var(--wordie-accent)" }}
+                      >
+                        <Check className="h-3.5 w-3.5" />
                       </span>
                     )}
                     {isMine && !isRight && (
-                      <span className="text-[10px] font-bold uppercase rounded-full px-2 py-0.5 text-white" style={{ background: "var(--wordie-accent)" }}>
-                        Mine
+                      <span
+                        className="h-6 w-6 rounded-full grid place-items-center text-white"
+                        style={{ background: "var(--wordie)" }}
+                      >
+                        <X className="h-3.5 w-3.5" />
                       </span>
                     )}
                   </span>
