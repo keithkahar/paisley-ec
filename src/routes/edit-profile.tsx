@@ -139,14 +139,16 @@ function EditProfilePage() {
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = typeof reader.result === "string" ? reader.result : "";
-      if (dataUrl) update("avatarPath", dataUrl);
+      if (dataUrl) {
+        setForm((f) => ({ ...f, avatarPath: dataUrl, avatarPosX: 50, avatarPosY: 50 }));
+      }
     };
     reader.readAsDataURL(file);
     e.target.value = "";
   }
 
   function onClearAvatar() {
-    update("avatarPath", "");
+    setForm((f) => ({ ...f, avatarPath: "", avatarPosX: 50, avatarPosY: 50 }));
   }
 
   function onGenderChange(key: Gender) {
