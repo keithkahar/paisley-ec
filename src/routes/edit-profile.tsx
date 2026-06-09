@@ -297,7 +297,7 @@ function EditProfilePage() {
             <button
               type="button"
               onClick={() => setShowBirthdayPicker(true)}
-              className="w-full inline-flex items-center justify-end gap-1 text-[14px] font-bold"
+              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-bold"
               style={{
                 fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.01em",
@@ -362,7 +362,7 @@ function RowPill({ label, children }: { label: string; children: React.ReactNode
       }}
     >
       <span
-        className="shrink-0 text-[14px] font-bold leading-none"
+        className="shrink-0 text-[15px] font-bold leading-none"
         style={{ color: YELLOW, letterSpacing: "-0.01em" }}
       >
         {label}
@@ -410,7 +410,7 @@ function NamePill({
         <button
           type="button"
           onClick={() => setEditing(true)}
-          className="w-full truncate text-right text-[14px] font-bold text-foreground"
+          className="w-full truncate text-right text-[15px] font-bold text-foreground"
           style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
           {givenName.trim()} {familyName.trim()}
@@ -425,7 +425,7 @@ function NamePill({
             value={givenName}
             onChange={(e) => onGivenNameChange(e.target.value)}
             placeholder="Given Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[14px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           />
           <input
@@ -433,7 +433,7 @@ function NamePill({
             value={familyName}
             onChange={(e) => onFamilyNameChange(e.target.value)}
             placeholder="Family Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[14px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           />
         </div>
