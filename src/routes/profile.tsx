@@ -29,6 +29,8 @@ const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim();
 const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase();
 
 const PAISLEY = "var(--paisley)";
+const PAISLEY_YELLOW = "var(--paisley-yellow)";
+const PAISLEY_YELLOW_INK = "oklch(0.42 0.13 88)";
 
 function ProfilePage() {
   const today = new Date();
@@ -78,7 +80,7 @@ function ProfilePage() {
             <Link
               to="/edit-profile"
               aria-label="Edit profile"
-              className="absolute top-2 left-2 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white z-10 active:scale-95 transition-transform"
               style={{
                 border: `1px solid color-mix(in oklab, ${PAISLEY} 25%, white)`,
               }}
@@ -94,14 +96,14 @@ function ProfilePage() {
           </h2>
           <div className="mt-2 flex items-center justify-center gap-2">
             <span
-              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold"
+              style={{ color: PAISLEY_YELLOW_INK, background: PAISLEY_YELLOW }}
             >
               Age {PROFILE.age}
             </span>
             <span
-              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold"
+              style={{ color: PAISLEY_YELLOW_INK, background: PAISLEY_YELLOW }}
             >
               CEFR {PROFILE.cefr}
             </span>
@@ -128,7 +130,9 @@ function ProfilePage() {
                     className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
                     style={
                       isToday
-                        ? { color: PAISLEY, border: `1.5px solid ${PAISLEY}` }
+                        ? { color: PAISLEY_YELLOW_INK, background: PAISLEY_YELLOW }
+                        : (hasTalk || hasWordie)
+                        ? { color: PAISLEY_YELLOW_INK, border: `1.5px solid ${PAISLEY_YELLOW}` }
                         : { color: "var(--foreground)" }
                     }
                   >
