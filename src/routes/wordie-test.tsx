@@ -372,12 +372,17 @@ function WordieTestPage() {
 
         {/* Title — only show in info/locked */}
         {(mode === "info" || mode === "locked") && (
-          <h1
-            className="px-5 pt-3 text-[34px] font-bold leading-none"
-            style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-          >
-            Wordie Test
-          </h1>
+          <div className="px-5 pt-3 text-center">
+            <h1
+              className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+              style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            >
+              Wordie Test
+            </h1>
+            <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
+              Test your words.
+            </p>
+          </div>
         )}
 
         {/* Body */}
