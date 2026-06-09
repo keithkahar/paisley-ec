@@ -601,7 +601,7 @@ function FilterDropdown({
             }
           : {
               background: "color-mix(in oklab, var(--paisley) 10%, white)",
-              color: "var(--paisley)",
+              color: "var(--foreground)",
               border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
             }
       }
@@ -612,7 +612,12 @@ function FilterDropdown({
         >
           {label}
         </span>
-        <span className="text-[12px] font-bold truncate">{value}</span>
+        <span
+          className="text-[12px] font-bold truncate"
+          style={!active ? { color: "var(--paisley)" } : undefined}
+        >
+          {value}
+        </span>
       </span>
       <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-80" />
     </button>
