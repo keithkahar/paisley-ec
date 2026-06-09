@@ -414,13 +414,16 @@ function MyTestsPage() {
 function SectionHeader({ title, actionLabel, accent }: { title: string; actionLabel: string; accent: string }) {
   return (
     <div className="flex items-center justify-between">
-      <h2 className="text-[16px] font-bold" style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}>
+      <h2
+        className="text-[16px] font-bold"
+        style={{ color: "var(--foreground)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+      >
         {title}
       </h2>
       <button
         type="button"
         className="text-[12px] font-bold px-3 h-7 rounded-full"
-        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
+        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent, fontFamily: "var(--font-sans)" }}
       >
         {actionLabel}
       </button>
