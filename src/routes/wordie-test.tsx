@@ -13,6 +13,7 @@ import {
   Lock,
   RotateCcw,
   ChevronRight,
+  Play,
 } from "lucide-react";
 
 export const Route = createFileRoute("/wordie-test")({
