@@ -15,7 +15,7 @@ const PAISLEY = "var(--paisley)";
 const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
 const YELLOW = "var(--paisley-yellow)";
-const YELLOW_SOFT = "var(--paisley-yellow-soft)";
+const YELLOW_SOFT = `color-mix(in oklab, var(--paisley-yellow) 18%, white)`;
 const CHIP_BLUE = "#E8EDFA";
 
 type Gender = "" | "male" | "female";
@@ -23,6 +23,7 @@ type ProfileForm = {
   avatarPath: string;
   avatarPosX: number; // 0-100 (object-position %)
   avatarPosY: number; // 0-100
+  avatarScale: number; // 1-3
   givenName: string;
   familyName: string;
   birthday: string; // YYYY-MM-DD
@@ -33,6 +34,7 @@ const DEFAULT_FORM: ProfileForm = {
   avatarPath: "",
   avatarPosX: 50,
   avatarPosY: 50,
+  avatarScale: 1,
   givenName: "",
   familyName: "",
   birthday: "",
@@ -73,6 +75,7 @@ function loadProfile(): ProfileForm {
       avatarPath: typeof obj.avatarPath === "string" ? obj.avatarPath : "",
       avatarPosX: clamp(obj.avatarPosX),
       avatarPosY: clamp(obj.avatarPosY),
+      avatarScale: typeof obj.avatarScale === "number" ? Math.max(1, Math.min(3, obj.avatarScale)) : 1,
       givenName: typeof obj.givenName === "string" ? obj.givenName.trim() : "",
       familyName: typeof obj.familyName === "string" ? obj.familyName.trim() : "",
       birthday,
@@ -89,6 +92,7 @@ function saveProfile(form: ProfileForm): ProfileForm {
     avatarPath: typeof form.avatarPath === "string" ? form.avatarPath : "",
     avatarPosX: clamp(form.avatarPosX),
     avatarPosY: clamp(form.avatarPosY),
+    avatarScale: Math.max(1, Math.min(3, form.avatarScale ?? 1)),
     givenName: form.givenName.trim(),
     familyName: form.familyName.trim(),
     birthday: /^\d{4}-\d{2}-\d{2}$/.test(form.birthday) ? form.birthday : "",
@@ -143,7 +147,7 @@ function EditProfilePage() {
     reader.onload = () => {
       const dataUrl = typeof reader.result === "string" ? reader.result : "";
       if (dataUrl) {
-        setForm((f) => ({ ...f, avatarPath: dataUrl, avatarPosX: 50, avatarPosY: 50 }));
+        setForm((f) => ({ ...f, avatarPath: dataUrl, avatarPosX: 50, avatarPosY: 50, avatarScale: 1 }));
       }
     };
     reader.readAsDataURL(file);
@@ -151,7 +155,7 @@ function EditProfilePage() {
   }
 
   function onClearAvatar() {
-    setForm((f) => ({ ...f, avatarPath: "", avatarPosX: 50, avatarPosY: 50 }));
+    setForm((f) => ({ ...f, avatarPath: "", avatarPosX: 50, avatarPosY: 50, avatarScale: 1 }));
   }
 
   function onGenderChange(key: Gender) {
@@ -203,7 +207,9 @@ function EditProfilePage() {
                 initials={initials}
                 posX={form.avatarPosX}
                 posY={form.avatarPosY}
+                scale={form.avatarScale}
                 onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+                onChangeScale={(s) => setForm((f) => ({ ...f, avatarScale: s }))}
               />
               <button
                 type="button"
@@ -225,10 +231,23 @@ function EditProfilePage() {
               ) : null}
             </div>
             {form.avatarPath ? (
-              <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
-                <Move className="h-3 w-3" strokeWidth={2.25} />
-                Drag the photo to reposition.
-              </p>
+              <>
+                <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
+                  <Move className="h-3 w-3" strokeWidth={2.25} />
+                  Drag to reposition · scroll to zoom
+                </p>
+                <input
+                  type="range"
+                  min={1}
+                  max={3}
+                  step={0.01}
+                  value={form.avatarScale}
+                  onChange={(e) => update("avatarScale", Number(e.target.value))}
+                  className="mt-2 w-40 accent-current"
+                  style={{ color: YELLOW }}
+                  aria-label="Zoom"
+                />
+              </>
             ) : null}
             <input
               ref={fileRef}
@@ -374,38 +393,70 @@ function AvatarDraggable({
   initials,
   posX,
   posY,
+  scale,
   onChangePos,
+  onChangeScale,
 }: {
   src: string;
   initials: string;
   posX: number;
   posY: number;
+  scale: number;
   onChangePos: (x: number, y: number) => void;
+  onChangeScale: (s: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const draggingRef = useRef<{ startX: number; startY: number; startPx: number; startPy: number } | null>(null);
 
-  function onPointerDown(e: React.PointerEvent) {
-    if (!src) return;
-    e.preventDefault();
-    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
-    draggingRef.current = { startX: e.clientX, startY: e.clientY, startPx: posX, startPy: posY };
-  }
-  function onPointerMove(e: React.PointerEvent) {
-    const d = draggingRef.current;
-    if (!d || !ref.current) return;
-    e.preventDefault();
-    const rect = ref.current.getBoundingClientRect();
-    // moving 1 frame-width should shift roughly 100% — feel
-    const dx = ((e.clientX - d.startX) / rect.width) * 100;
-    const dy = ((e.clientY - d.startY) / rect.height) * 100;
-    const nx = Math.max(0, Math.min(100, d.startPx - dx));
-    const ny = Math.max(0, Math.min(100, d.startPy - dy));
-    onChangePos(nx, ny);
-  }
-  function onPointerUp() {
-    draggingRef.current = null;
-  }
+  // Use refs + global window listeners — survives re-renders and dpr quirks.
+  const stateRef = useRef({ posX, posY, scale });
+  stateRef.current = { posX, posY, scale };
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !src) return;
+
+    let dragging: { sx: number; sy: number; px: number; py: number } | null = null;
+
+    const onDown = (e: MouseEvent) => {
+      // ignore clicks that hit overlay buttons
+      if ((e.target as HTMLElement).closest("button")) return;
+      e.preventDefault();
+      dragging = { sx: e.clientX, sy: e.clientY, px: stateRef.current.posX, py: stateRef.current.posY };
+      el.style.cursor = "grabbing";
+    };
+    const onMove = (e: MouseEvent) => {
+      if (!dragging) return;
+      e.preventDefault();
+      const rect = el.getBoundingClientRect();
+      const s = Math.max(stateRef.current.scale, 1);
+      // Drag feel: 1 frame-width sweep ≈ full range. Divide by scale so zoomed-in drags feel proportional.
+      const dx = ((e.clientX - dragging.sx) / rect.width) * (100 / s);
+      const dy = ((e.clientY - dragging.sy) / rect.height) * (100 / s);
+      const nx = Math.max(0, Math.min(100, dragging.px - dx));
+      const ny = Math.max(0, Math.min(100, dragging.py - dy));
+      onChangePos(nx, ny);
+    };
+    const onUp = () => {
+      dragging = null;
+      el.style.cursor = "grab";
+    };
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const next = Math.max(1, Math.min(3, stateRef.current.scale - e.deltaY * 0.003));
+      onChangeScale(next);
+    };
+
+    el.addEventListener("mousedown", onDown);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      el.removeEventListener("wheel", onWheel);
+    };
+  }, [src, onChangePos, onChangeScale]);
 
   return (
     <div
@@ -416,10 +467,6 @@ function AvatarDraggable({
         touchAction: src ? "none" : "auto",
         cursor: src ? "grab" : "default",
       }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
     >
       {src ? (
         <img
@@ -427,7 +474,11 @@ function AvatarDraggable({
           alt=""
           draggable={false}
           className="h-full w-full object-cover pointer-events-none"
-          style={{ objectPosition: `${posX}% ${posY}%` }}
+          style={{
+            objectPosition: `${posX}% ${posY}%`,
+            transform: `scale(${scale})`,
+            transformOrigin: `${posX}% ${posY}%`,
+          }}
         />
       ) : (
         <span
