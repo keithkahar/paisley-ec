@@ -1,14 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { AppHeader } from "@/components/app/AppHeader";
 import {
   TrendingUp,
   ClipboardList,
   UserCog,
   Users,
-  ChevronRight,
+  ChevronLeft,
+  CalendarDays,
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
@@ -16,230 +16,188 @@ export const Route = createFileRoute("/profile")({
   component: ProfilePage,
 });
 
-// ---- mock data (mirrors WeChat utils/profile.js + profileLearningSummary.js) ----
+// ---- mock profile data ----
 const PROFILE = {
   avatarPath: "" as string,
-  givenName: "Lily",
+  givenName: "Daniella",
   familyName: "Wang",
   age: 9,
   cefr: "A2",
 };
-const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim() || "Paisley Learner";
-const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase() || "PL";
+const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim();
+const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase();
 
-const WEEK_LABELS = ["M", "T", "W", "T", "F", "S", "S"];
-// today index in this mocked week
-const TODAY_IDX = 3;
-const WEEK_DAYS = [
-  { day: 2,  hasTalk: true,  hasWordie: false },
-  { day: 3,  hasTalk: false, hasWordie: true  },
-  { day: 4,  hasTalk: true,  hasWordie: true  },
-  { day: 5,  hasTalk: true,  hasWordie: true  }, // today + selected
-  { day: 6,  hasTalk: false, hasWordie: false },
-  { day: 7,  hasTalk: false, hasWordie: false },
-  { day: 8,  hasTalk: false, hasWordie: false },
-].map((d, i) => ({
-  ...d,
-  label: WEEK_LABELS[i],
-  isToday: i === TODAY_IDX,
-  isSelected: i === TODAY_IDX,
-}));
-
-const MENU: Array<{
-  key: string;
-  title: string;
-  subtitle: string;
-  to: string;
-  icon: ReactNode;
-  tint: string;
-}> = [
-  { key: "progress", title: "My Progress", subtitle: "Streak, words & weekly activity", to: "/progress",     icon: <TrendingUp className="h-5 w-5" />,     tint: "var(--paisley)" },
-  { key: "cefr",     title: "My Tests",    subtitle: "CEFR Test & Wordie Test history",  to: "/my-tests",     icon: <ClipboardList className="h-5 w-5" />,  tint: "var(--paisley-yellow)" },
-  { key: "edit",     title: "Edit Profile",subtitle: "Avatar, name, birthday, gender",   to: "/edit-profile", icon: <UserCog className="h-5 w-5" />,        tint: "var(--paisley)" },
-  { key: "parent",   title: "Parent Page", subtitle: "Manage learning & settings",       to: "/parent",       icon: <Users className="h-5 w-5" />,          tint: "var(--paisley-yellow)" },
-];
+const PAISLEY = "var(--paisley)";
 
 function ProfilePage() {
+  const today = new Date();
+  const week = Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() - today.getDay() + i);
+    return d;
+  });
+  const dayLabels = ["S", "M", "T", "W", "T", "F", "S"];
+  // mocked practice days within this week (day-of-week index 0=Sun..6=Sat)
+  const talkDays = new Set([1, 2, 3, today.getDay()]);
+  const wordieDays = new Set([2, 3, today.getDay()]);
+
   return (
-    <PhoneFrame bg="bg-[color:var(--sand-soft)]">
-      <AppHeader title="My Profile" back={false} />
+    <PhoneFrame bg="bg-white">
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
+        {/* Back button → home */}
+        <div className="absolute top-4 left-4 z-30">
+          <Link
+            to="/"
+            aria-label="Back to home"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Link>
+        </div>
 
-      {/* Hero */}
-      <ProfileHero />
+        {/* Hero — mirrors ShirinTalk hero shape */}
+        <section className="px-6 pt-12 pb-1 text-center">
+          <div
+            className="mx-auto h-40 w-40 rounded-full grid place-items-center overflow-hidden"
+            style={{
+              background: "color-mix(in oklab, var(--paisley) 12%, white)",
+              border: `2px solid ${PAISLEY}`,
+            }}
+          >
+            {PROFILE.avatarPath ? (
+              <img src={PROFILE.avatarPath} alt="" className="h-full w-full object-cover" />
+            ) : (
+              <span
+                className="text-[56px] font-bold leading-none"
+                style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+              >
+                {INITIALS}
+              </span>
+            )}
+          </div>
+          <h2
+            className="mt-3 text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            {DISPLAY_NAME}
+          </h2>
+          <div className="mt-2 flex items-center justify-center gap-2">
+            <span
+              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+            >
+              Age {PROFILE.age}
+            </span>
+            <span
+              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+            >
+              CEFR {PROFILE.cefr}
+            </span>
+          </div>
+        </section>
 
-      {/* Week strip */}
-      <WeekStrip />
+        {/* Week calendar — matches ShirinTalk/myWordie pattern, with practice dots */}
+        <section className="px-6 pt-4">
+          <div className="flex items-center justify-between">
+            {week.map((d, i) => {
+              const isToday = d.toDateString() === today.toDateString();
+              const dow = d.getDay();
+              const hasTalk = talkDays.has(dow);
+              const hasWordie = wordieDays.has(dow);
+              return (
+                <div key={i} className="flex flex-col items-center gap-1">
+                  <span
+                    className="text-[11px] font-medium"
+                    style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+                  >
+                    {dayLabels[i]}
+                  </span>
+                  <span
+                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
+                    style={
+                      isToday
+                        ? { color: PAISLEY, border: `1.5px solid ${PAISLEY}` }
+                        : { color: "var(--foreground)" }
+                    }
+                  >
+                    {d.getDate()}
+                  </span>
+                  <span className="h-1.5 flex items-center gap-0.5">
+                    {hasTalk && (
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ background: "var(--shirin)" }}
+                        aria-label="ShirinTalk"
+                      />
+                    )}
+                    {hasWordie && (
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ background: "var(--wordie)" }}
+                        aria-label="myWordie"
+                      />
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
 
-      {/* Action cards */}
-      <section className="px-5 mt-5 space-y-3">
-        {MENU.map(({ key, ...m }) => (
-          <ActionCard key={key} {...m} />
-        ))}
-      </section>
+          {/* Open full calendar button */}
+          <div className="mt-3 flex justify-center">
+            <Link
+              to="/calendar"
+              className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] font-bold bg-white active:scale-[0.98] transition-transform"
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+            >
+              <CalendarDays className="h-3.5 w-3.5" />
+              Open full calendar
+            </Link>
+          </div>
+        </section>
 
-      {/* Version (hidden admin entry) */}
-      <VersionTap />
+        {/* Pill actions — mirrors ShirinTalk pill style */}
+        <section className="px-6 pt-5 pb-10 flex-1 flex flex-col justify-end gap-3">
+          <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
+          <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
+          <PillLink to="/edit-profile" title="Edit Profile" Icon={UserCog} />
+          <PillLink to="/parent" title="Parent Page" Icon={Users} />
+        </section>
+
+        {/* Hidden admin entry */}
+        <VersionTap />
+      </div>
 
       <BottomTabBar />
     </PhoneFrame>
   );
 }
 
-function ProfileHero() {
-  return (
-    <section
-      className="relative mx-5 mt-2 rounded-[28px] px-6 pt-7 pb-6 text-white overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, var(--paisley) 0%, oklch(0.55 0.20 258) 60%, oklch(0.62 0.18 250) 100%)",
-      }}
-    >
-      {/* decorative orbs */}
-      <span
-        className="absolute -top-10 -right-8 h-36 w-36 rounded-full opacity-30"
-        style={{ background: "var(--paisley-yellow)", filter: "blur(2px)" }}
-        aria-hidden
-      />
-      <span
-        className="absolute -bottom-12 -left-10 h-32 w-32 rounded-full opacity-20"
-        style={{ background: "#ffffff", filter: "blur(2px)" }}
-        aria-hidden
-      />
-
-      <div className="relative flex flex-col items-center text-center">
-        <div
-          className="h-24 w-24 rounded-full grid place-items-center text-[34px] font-bold tracking-tight"
-          style={{
-            background: "rgba(255,255,255,0.16)",
-            border: "2px solid rgba(255,255,255,0.55)",
-            color: "white",
-            fontFamily: "var(--font-sans)",
-          }}
-        >
-          {PROFILE.avatarPath ? (
-            <img src={PROFILE.avatarPath} alt="" className="h-full w-full rounded-full object-cover" />
-          ) : (
-            INITIALS
-          )}
-        </div>
-
-        <h2
-          className="mt-4 text-[26px] leading-none font-bold"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-        >
-          {DISPLAY_NAME}
-        </h2>
-
-        <div className="mt-3 flex items-center gap-2">
-          <span
-            className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold"
-            style={{ background: "rgba(255,255,255,0.18)", color: "white" }}
-          >
-            Age {PROFILE.age}
-          </span>
-          <span
-            className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold"
-            style={{ background: "var(--paisley-yellow)", color: "oklch(0.32 0.10 90)" }}
-          >
-            CEFR {PROFILE.cefr}
-          </span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WeekStrip() {
-  const navigate = useNavigate();
-  return (
-    <section className="px-5 mt-4">
-      <button
-        type="button"
-        onClick={() => navigate({ to: "/calendar" })}
-        className="w-full rounded-3xl bg-white border border-border p-4 active:scale-[0.99] transition-transform text-left"
-      >
-        <div className="grid grid-cols-7 gap-1.5">
-          {WEEK_DAYS.map((d, i) => {
-            const selected = d.isSelected;
-            return (
-              <div
-                key={i}
-                className="rounded-2xl flex flex-col items-center py-2 gap-1"
-                style={
-                  selected
-                    ? { background: "var(--paisley)", color: "white" }
-                    : d.isToday
-                    ? { background: "var(--paisley-yellow-soft)", color: "var(--foreground)" }
-                    : { color: "var(--foreground)" }
-                }
-              >
-                <span
-                  className="text-[10px] font-bold opacity-80"
-                  style={{ color: selected ? "rgba(255,255,255,0.85)" : "var(--muted-foreground)" }}
-                >
-                  {d.label}
-                </span>
-                <span className="text-[15px] font-bold leading-none">{d.day}</span>
-                <span className="h-1.5 flex items-center gap-0.5">
-                  {d.hasTalk && (
-                    <span
-                      className="h-1.5 w-1.5 rounded-full"
-                      style={{ background: selected ? "white" : "var(--shirin)" }}
-                      aria-label="ShirinTalk"
-                    />
-                  )}
-                  {d.hasWordie && (
-                    <span
-                      className="h-1.5 w-1.5 rounded-full"
-                      style={{ background: selected ? "var(--paisley-yellow)" : "var(--wordie)" }}
-                      aria-label="myWordie"
-                    />
-                  )}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-3 text-center text-[11px] text-muted-foreground">
-          Tap the week strip to open the full month calendar.
-        </p>
-      </button>
-    </section>
-  );
-}
-
-function ActionCard({
+function PillLink({
   to,
   title,
-  subtitle,
-  icon,
-  tint,
+  Icon,
 }: {
   to: string;
   title: string;
-  subtitle: string;
-  icon: ReactNode;
-  tint: string;
+  Icon: React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>;
 }) {
   return (
     <Link
       to={to}
-      className="flex items-center gap-3 rounded-2xl bg-white border border-border px-4 py-3.5 active:scale-[0.99] transition-transform"
+      className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
+      style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)", fontFamily: "var(--font-sans)" }}
     >
-      <div
-        className="h-11 w-11 rounded-2xl grid place-items-center shrink-0"
-        style={{
-          background: `color-mix(in oklab, ${tint} 18%, white)`,
-          color: tint,
-        }}
+      <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
+        <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
+      </span>
+      <span
+        className="text-[17px] font-bold tracking-tight leading-none"
+        style={{ letterSpacing: "-0.01em", color: PAISLEY }}
       >
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="font-bold text-[15px] leading-tight">{title}</p>
-        <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{subtitle}</p>
-      </div>
-      <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        {title}
+      </span>
     </Link>
   );
 }
@@ -257,18 +215,18 @@ function VersionTap() {
       setFlash(true);
       setTimeout(() => {
         setFlash(false);
-        navigate({ to: "/about" }); // admin-console placeholder
+        navigate({ to: "/about" });
       }, 400);
     }
   }
 
   return (
-    <div className="mt-6 mb-2 flex justify-center">
+    <div className="pb-4 flex justify-center">
       <button
         type="button"
         onClick={onTap}
         className="text-[11px] font-semibold tracking-wide"
-        style={{ color: flash ? "var(--paisley)" : "var(--muted-foreground)" }}
+        style={{ color: flash ? PAISLEY : "var(--muted-foreground)" }}
       >
         Version 1.0.0
       </button>

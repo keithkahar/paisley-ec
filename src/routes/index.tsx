@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const name = "Danielle";
+  const name = "Daniella Wang";
   return (
     <PhoneFrame bg="bg-card">
       <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-[color:var(--paisley-soft)]">
