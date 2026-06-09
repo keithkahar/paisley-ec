@@ -152,6 +152,15 @@ function ShirinTalkPage() {
               </Link>
             );
           })}
+          {/* Invisible spacer (matches pill dimensions) so the 3 pills align
+              vertically with mywordie/profile's pill stack. */}
+          <div
+            aria-hidden
+            className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 invisible"
+          >
+            <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full" />
+            <span className="text-[17px] font-bold tracking-tight leading-none">.</span>
+          </div>
         </section>
       </div>
 
