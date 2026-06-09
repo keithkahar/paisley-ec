@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, Volume2, Copy, Check, Circle } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Volume2, Copy, Check, Circle } from "lucide-react";
 import {
   FilterChip,
   SearchBar,
@@ -58,6 +58,10 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
 function WordieBankPage() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterKey>("all");
+  const [levelSel, setLevelSel] = useState<string>("all");
+  const [categorySel, setCategorySel] = useState<string>("all");
+  const [statusSel, setStatusSel] = useState<string>("all");
+  const [openSheet, setOpenSheet] = useState<null | "level" | "category" | "status">(null);
   const [selectMode, setSelectMode] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [batchOpen, setBatchOpen] = useState(false);
@@ -87,13 +91,38 @@ function WordieBankPage() {
         filter === "all" ||
         (filter === "focus" ? w.focus : w.status === filter);
       if (!matchesFilter) return false;
+      if (levelSel !== "all" && w.cefrLevel !== levelSel) return false;
+      if (categorySel !== "all" && w.theme !== categorySel) return false;
+      if (statusSel !== "all") {
+        if (statusSel === "focus") {
+          if (!w.focus) return false;
+        } else if (w.status !== statusSel) return false;
+      }
       if (!q) return true;
       return [
         w.word, w.definitionEn, w.exampleSentence, w.partOfSpeech,
         w.theme, w.cefrLevel, w.status, w.focus ? "focus" : "", w.packTitle,
       ].some((s) => s.toLowerCase().includes(q));
     });
-  }, [words, query, filter]);
+  }, [words, query, filter, levelSel, categorySel, statusSel]);
+
+  const levelOptions = useMemo(() => {
+    const map = new Map<string, number>();
+    words.forEach((w) => map.set(w.cefrLevel, (map.get(w.cefrLevel) ?? 0) + 1));
+    return Array.from(map.entries()).sort();
+  }, [words]);
+  const categoryOptions = useMemo(() => {
+    const map = new Map<string, number>();
+    words.forEach((w) => map.set(w.theme, (map.get(w.theme) ?? 0) + 1));
+    return Array.from(map.entries()).sort();
+  }, [words]);
+  const statusOptions: { key: string; label: string }[] = [
+    { key: "new", label: "New" },
+    { key: "learning", label: "Learning" },
+    { key: "review", label: "Review" },
+    { key: "focus", label: "Focus" },
+    { key: "mastered", label: "Mastered" },
+  ];
 
   const toggleSelect = (id: string) => {
     const next = new Set(selected);
@@ -111,6 +140,9 @@ function WordieBankPage() {
   const clearFilters = () => {
     setQuery("");
     setFilter("all");
+    setLevelSel("all");
+    setCategorySel("all");
+    setStatusSel("all");
   };
 
   const exitSelect = () => {
@@ -145,7 +177,12 @@ function WordieBankPage() {
   };
 
   const selectedSummary = `${selected.size} selected`;
-  const hasFilters = query.trim() !== "" || filter !== "all";
+  const hasFilters =
+    query.trim() !== "" ||
+    filter !== "all" ||
+    levelSel !== "all" ||
+    categorySel !== "all" ||
+    statusSel !== "all";
 
   return (
     <PhoneFrame bg="bg-white">
@@ -203,6 +240,13 @@ function WordieBankPage() {
               </FilterChip>
             ))}
           </div>
+        </div>
+
+        {/* Level / Category / Status dropdowns */}
+        <div className="mt-3 flex items-center justify-between gap-2 text-[12px]">
+          <FilterDropdown label="Level" value={levelSel === "all" ? "All" : levelSel} onClick={() => setOpenSheet("level")} />
+          <FilterDropdown label="Category" value={categorySel === "all" ? "All" : categorySel} onClick={() => setOpenSheet("category")} />
+          <FilterDropdown label="Status" value={statusSel === "all" ? "All" : capitalize(statusSel)} onClick={() => setOpenSheet("status")} />
         </div>
 
         {/* Count row */}
@@ -300,13 +344,14 @@ function WordieBankPage() {
 
       {/* Batch sheet */}
       {batchOpen && (
-        <div className="absolute inset-0 z-40 flex items-end" onClick={() => setBatchOpen(false)}>
+        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
           <div className="absolute inset-0 bg-black/40" />
           <div
-            className="relative w-full bg-white rounded-t-3xl p-5 pb-8"
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl p-5 pb-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-[13px] font-bold text-muted-foreground text-center mb-3">
+            <p className="text-[16px] font-bold text-center">Batch Actions</p>
+            <p className="text-[12px] text-muted-foreground text-center mt-0.5 mb-4">
               {selectedSummary}
             </p>
             <div className="space-y-2">
@@ -320,11 +365,52 @@ function WordieBankPage() {
         </div>
       )}
 
+      {/* Filter sheets */}
+      {openSheet && (
+        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setOpenSheet(null)}>
+          <div className="absolute inset-0 bg-black/40" />
+          <div
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl p-5 pb-8 max-h-[70vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="w-12" />
+              <p className="text-[16px] font-bold">
+                {openSheet === "level" ? "Choose Level" : openSheet === "category" ? "Choose Category" : "Choose Status"}
+              </p>
+              <button type="button" onClick={() => setOpenSheet(null)} className="text-[13px] font-bold" style={{ color: "var(--wordie)" }}>Done</button>
+            </div>
+            <div className="divide-y divide-border">
+              <SheetRow label={`All (${words.length})`} active={
+                (openSheet === "level" && levelSel === "all") ||
+                (openSheet === "category" && categorySel === "all") ||
+                (openSheet === "status" && statusSel === "all")
+              } onClick={() => {
+                if (openSheet === "level") setLevelSel("all");
+                else if (openSheet === "category") setCategorySel("all");
+                else setStatusSel("all");
+                setOpenSheet(null);
+              }} />
+              {openSheet === "level" && levelOptions.map(([k, n]) => (
+                <SheetRow key={k} label={`${k} (${n})`} active={levelSel === k} onClick={() => { setLevelSel(k); setOpenSheet(null); }} />
+              ))}
+              {openSheet === "category" && categoryOptions.map(([k, n]) => (
+                <SheetRow key={k} label={`${k} (${n})`} active={categorySel === k} onClick={() => { setCategorySel(k); setOpenSheet(null); }} />
+              ))}
+              {openSheet === "status" && statusOptions.map((s) => {
+                const n = s.key === "focus" ? words.filter((w) => w.focus).length : words.filter((w) => w.status === s.key).length;
+                return <SheetRow key={s.key} label={`${s.label} (${n})`} active={statusSel === s.key} onClick={() => { setStatusSel(s.key); setOpenSheet(null); }} />;
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Reset confirm */}
       {resetConfirm && (
-        <div className="absolute inset-0 z-50 grid place-items-center px-8">
+        <div className="fixed inset-0 z-50 grid place-items-center px-8">
           <div className="absolute inset-0 bg-black/40" onClick={() => setResetConfirm(false)} />
-          <div className="relative w-full bg-white rounded-2xl p-5 text-center">
+          <div className="relative w-full max-w-[360px] bg-white rounded-2xl p-5 text-center">
             <p className="font-bold text-[15px]">Reset Progress?</p>
             <p className="text-[12px] text-muted-foreground mt-1">
               Selected cards will become New again.
@@ -366,12 +452,44 @@ function WordieBankPage() {
 
       {/* Toast */}
       {toast && (
-        <div className="absolute left-1/2 bottom-10 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-bold">
+        <div className="fixed left-1/2 bottom-10 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-bold">
           {toast}
         </div>
       )}
     </PhoneFrame>
   );
+}
+
+function FilterDropdown({ label, value, onClick }: { label: string; value: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex-1 inline-flex items-center justify-center gap-1 text-muted-foreground"
+    >
+      <span>{label}:</span>
+      <span className="font-bold text-foreground">{value}</span>
+      <ChevronDown className="h-3.5 w-3.5" />
+    </button>
+  );
+}
+
+function SheetRow({ label, active, onClick }: { label: string; active?: boolean; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full flex items-center justify-between py-3 text-left text-[14px] font-bold"
+      style={{ color: active ? "var(--wordie)" : "var(--foreground)" }}
+    >
+      <span>{label}</span>
+      {active && <Check className="h-4 w-4" />}
+    </button>
+  );
+}
+
+function capitalize(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 function SheetBtn({
@@ -419,7 +537,7 @@ function PreviewFull({
   const prevDisabled = index === 0;
   const nextDisabled = index >= total - 1;
   return (
-    <div className="absolute inset-0 z-50 bg-white flex flex-col">
+    <div className="fixed inset-0 z-50 bg-white flex flex-col max-w-[420px] mx-auto">
       <div className="flex items-center justify-between px-5 py-4">
         <button type="button" onClick={onClose} aria-label="Close">
           <X className="h-5 w-5" />
