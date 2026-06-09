@@ -11,7 +11,6 @@ import {
   Sparkles,
   Clock,
   Lock,
-  RotateCcw,
   ChevronRight,
   Play,
 } from "lucide-react";
