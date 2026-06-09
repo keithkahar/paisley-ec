@@ -101,13 +101,13 @@ function ProfilePage() {
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
-              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
               Age {PROFILE.age}
             </span>
             <span
-              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
               CEFR {PROFILE.cefr}
@@ -170,10 +170,20 @@ function ProfilePage() {
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
+          {/* Invisible spacer — keeps the first action pill at the same Y as ShirinTalk's 4-pill stack */}
+          <div
+            aria-hidden
+            className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 invisible"
+          >
+            <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full" />
+            <span className="text-[17px] font-bold tracking-tight leading-none">.</span>
+          </div>
         </section>
 
-        {/* Hidden admin entry */}
-        <VersionTap />
+        {/* Hidden admin entry — absolutely positioned so it doesn't push action pills upward */}
+        <div className="absolute bottom-1 left-0 right-0 z-20">
+          <VersionTap />
+        </div>
       </div>
 
       <BottomTabBar />
