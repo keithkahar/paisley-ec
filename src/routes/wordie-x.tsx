@@ -907,11 +907,11 @@ function FilterDropdown({
       className="inline-flex items-center justify-between gap-1 rounded-full pl-3.5 pr-2.5 py-2 active:scale-[0.97] transition-transform"
       style={
         active
-          ? { background: "var(--paisley)", color: "white", border: "1px solid var(--paisley)" }
+          ? { background: "var(--wordie)", color: "white", border: "1px solid var(--wordie)" }
           : {
-              background: "color-mix(in oklab, var(--paisley) 10%, white)",
+              background: "color-mix(in oklab, var(--wordie) 10%, white)",
               color: "var(--foreground)",
-              border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+              border: "1px solid color-mix(in oklab, var(--wordie) 25%, white)",
             }
       }
     >
@@ -919,13 +919,32 @@ function FilterDropdown({
         <span className="text-xs font-bold opacity-70">{label}</span>
         <span
           className="text-[12px] font-bold truncate"
-          style={!active ? { color: "var(--paisley)" } : undefined}
+          style={!active ? { color: "var(--wordie)" } : undefined}
         >
           {value}
         </span>
       </span>
       <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-80" />
     </button>
+  );
+}
+
+// Vibrant "F" pill for cards/preview marked as Focus.
+// Same depth as other card pills (22% bg / 70% text mix).
+export const FOCUS_PILL_COLOR = "oklch(0.7 0.24 340)";
+function FocusPill() {
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+      style={{
+        background: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 22%, white)`,
+        color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`,
+      }}
+      aria-label="Focus"
+      title="Focus"
+    >
+      F
+    </span>
   );
 }
 
