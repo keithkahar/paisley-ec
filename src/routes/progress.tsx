@@ -52,6 +52,13 @@ function ProgressPage() {
   const accentSoft = source === "talk" ? "color-mix(in oklab, var(--shirin) 12%, white)" : "color-mix(in oklab, var(--wordie) 12%, white)";
   const data = source === "talk" ? TALK_STATS : WORDIE_STATS;
 
+  // Goal ring tones: base brand color + two lighter tints of the same hue
+  const goalTones = {
+    week: accent,
+    month: `color-mix(in oklab, ${accent} 55%, white)`,
+    year: `color-mix(in oklab, ${accent} 28%, white)`,
+  };
+
   const trendSeries = data.trend[mode];
   const axisLabels = useMemo(() => {
     if (mode === "week") return WEEK_LABELS.map((d) => d[0]);
@@ -201,11 +208,12 @@ function ProgressPage() {
                 year={data.goals.year}
                 month={data.goals.month}
                 week={data.goals.week}
+                tones={goalTones}
               />
               <div className="flex-1 space-y-2">
-                <GoalRow tone="var(--shirin)" label="Week" done={data.goals.week.done} total={data.goals.week.total} unit={data.goals.week.unit} />
-                <GoalRow tone="var(--wordie)" label="Month" done={data.goals.month.done} total={data.goals.month.total} unit={data.goals.month.unit} />
-                <GoalRow tone="var(--paisley)" label="Year" done={data.goals.year.done} total={data.goals.year.total} unit={data.goals.year.unit} />
+                <GoalRow tone={goalTones.week} label="Week" done={data.goals.week.done} total={data.goals.week.total} unit={data.goals.week.unit} />
+                <GoalRow tone={goalTones.month} label="Month" done={data.goals.month.done} total={data.goals.month.total} unit={data.goals.month.unit} />
+                <GoalRow tone={goalTones.year} label="Year" done={data.goals.year.done} total={data.goals.year.total} unit={data.goals.year.unit} />
                 <div className="pt-1 text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
                   Up to Now · {data.goals.total}
                 </div>
@@ -286,18 +294,20 @@ function GoalRing({
   year,
   month,
   week,
+  tones,
 }: {
   year: { done: number; total: number };
   month: { done: number; total: number };
   week: { done: number; total: number };
+  tones: { week: string; month: string; year: string };
 }) {
   const SIZE = 112;
   const cx = SIZE / 2;
   const cy = SIZE / 2;
   const rings = [
-    { r: 48, tone: "var(--paisley)", pct: clampPct(year.done / year.total) },   // outer = year
-    { r: 36, tone: "var(--wordie)", pct: clampPct(month.done / month.total) },  // middle = month
-    { r: 24, tone: "var(--shirin)", pct: clampPct(week.done / week.total) },    // inner = week
+    { r: 48, tone: tones.year, pct: clampPct(year.done / year.total) },   // outer = year (lightest)
+    { r: 36, tone: tones.month, pct: clampPct(month.done / month.total) }, // middle = month
+    { r: 24, tone: tones.week, pct: clampPct(week.done / week.total) },    // inner = week (base)
   ];
   const STROKE = 8;
   return (
