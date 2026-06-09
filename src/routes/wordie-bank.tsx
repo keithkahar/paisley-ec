@@ -822,11 +822,11 @@ function PreviewFull({
           <div className="mt-10 space-y-6">
             <div>
               <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
-                Example
+                Definition
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  className="flex-1 text-xs font-bold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {word.definitionEn}
@@ -842,11 +842,11 @@ function PreviewFull({
             </div>
             <div>
               <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
-                Word in use
+                Example
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  className="flex-1 text-xs font-bold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(word.exampleSentence, word.word)}
@@ -921,7 +921,6 @@ function renderExample(sentence: string, word: string) {
   const parts = sentence.split(re);
   return (
     <>
-      "
       {parts.map((p, i) =>
         p.toLowerCase() === word.toLowerCase() ? (
           <span key={i} style={{ color: "var(--wordie)" }}>
@@ -931,7 +930,6 @@ function renderExample(sentence: string, word: string) {
           <span key={i}>{p}</span>
         ),
       )}
-      "
     </>
   );
 }
