@@ -452,6 +452,7 @@ function BirthdaySheet({
   const [year, setYear] = useState(init.y);
   const [month, setMonth] = useState(init.m);
   const [day, setDay] = useState(init.d);
+  const [tab, setTab] = useState<"month" | "day" | "year">("month");
 
   const thisYear = new Date().getFullYear();
   const years = useMemo(() => {
@@ -470,89 +471,161 @@ function BirthdaySheet({
     onConfirm(`${year}-${mm}-${dd}`);
   }
 
+  const tabs: { key: "month" | "day" | "year"; label: string; value: string }[] = [
+    { key: "month", label: "Month", value: MONTH_NAMES_SHORT[month - 1] },
+    { key: "day", label: "Day", value: String(day) },
+    { key: "year", label: "Year", value: String(year) },
+  ];
+
   return (
-    <div className="absolute inset-0 z-50 flex items-end" role="dialog" aria-modal="true">
-      <button
-        type="button"
-        aria-label="Close"
-        onClick={onCancel}
-        className="absolute inset-0 bg-black/40"
-      />
-      <div className="relative w-full bg-white rounded-t-3xl pt-3 pb-5 px-5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.2)]">
-        <div className="mx-auto h-1 w-10 rounded-full bg-muted mb-3" />
-        <div className="flex items-center justify-between mb-3">
+    <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" onClick={onCancel}>
+      <div className="absolute inset-0 bg-black/40" />
+      <div
+        className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+        style={{ height: "62vh" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Grabber */}
+        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+          <span className="h-1 w-10 rounded-full bg-border" />
+        </div>
+        <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
           <button
             type="button"
             onClick={onCancel}
-            className="text-[13px] font-bold text-muted-foreground"
+            className="text-[13px] font-bold text-muted-foreground w-12 text-left"
           >
             Cancel
           </button>
-          <p className="text-[13px] font-bold" style={{ color: PAISLEY }}>
+          <p
+            className="text-[17px] font-bold tracking-tight leading-none"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: PAISLEY }}
+          >
             Birthday
           </p>
           <button
             type="button"
             onClick={confirm}
-            className="text-[13px] font-bold"
+            className="text-[13px] font-bold w-12 text-right"
             style={{ color: PAISLEY }}
           >
             Done
           </button>
         </div>
 
-        {/* US order: Month / Day / Year */}
-        <div className="grid grid-cols-3 gap-2">
-          <PickerColumn
-            label="Month"
-            options={MONTH_NAMES_LONG.map((name, i) => ({ value: i + 1, label: name }))}
-            value={month}
-            onChange={setMonth}
-          />
-          <PickerColumn
-            label="Day"
-            options={Array.from({ length: maxDay }, (_, i) => ({ value: i + 1, label: String(i + 1) }))}
-            value={day}
-            onChange={setDay}
-          />
-          <PickerColumn
-            label="Year"
-            options={years.map((y) => ({ value: y, label: String(y) }))}
-            value={year}
-            onChange={setYear}
-          />
+        {/* M / D / Y tabs — each chip shows current value */}
+        <div className="px-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
+          {tabs.map((t) => {
+            const active = tab === t.key;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setTab(t.key)}
+                className="rounded-2xl py-2 px-3 text-center transition-colors"
+                style={
+                  active
+                    ? { background: PAISLEY, color: "white" }
+                    : {
+                        background: "white",
+                        color: PAISLEY,
+                        border: `1px solid color-mix(in oklab, ${PAISLEY} 35%, white)`,
+                      }
+                }
+              >
+                <span
+                  className="block text-[10px] font-bold leading-none opacity-80"
+                  style={{ letterSpacing: "0.06em" }}
+                >
+                  {t.label.toUpperCase()}
+                </span>
+                <span
+                  className="block text-[17px] font-bold leading-tight mt-0.5"
+                  style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                >
+                  {t.value}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Options grid for the active tab */}
+        <div className="flex-1 overflow-y-auto px-5 pb-8">
+          {tab === "month" && (
+            <ChipGrid
+              cols={3}
+              items={MONTH_NAMES_LONG.map((name, i) => ({ key: i + 1, label: name }))}
+              value={month}
+              onPick={(v) => {
+                setMonth(v);
+                setTab("day");
+              }}
+            />
+          )}
+          {tab === "day" && (
+            <ChipGrid
+              cols={7}
+              items={Array.from({ length: maxDay }, (_, i) => ({ key: i + 1, label: String(i + 1) }))}
+              value={day}
+              onPick={(v) => {
+                setDay(v);
+                setTab("year");
+              }}
+            />
+          )}
+          {tab === "year" && (
+            <ChipGrid
+              cols={4}
+              items={years.map((y) => ({ key: y, label: String(y) }))}
+              value={year}
+              onPick={(v) => setYear(v)}
+            />
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-function PickerColumn({
-  label,
-  options,
+function ChipGrid({
+  cols,
+  items,
   value,
-  onChange,
+  onPick,
 }: {
-  label: string;
-  options: { value: number; label: string }[];
+  cols: number;
+  items: { key: number; label: string }[];
   value: number;
-  onChange: (v: number) => void;
+  onPick: (v: number) => void;
 }) {
   return (
-    <label className="flex flex-col gap-1">
-      <span className="text-[10px] font-bold text-muted-foreground px-1">{label}</span>
-      <select
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="h-11 rounded-2xl bg-muted/40 px-3 text-[14px] font-bold text-foreground outline-none appearance-none"
-        style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-      >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </label>
+    <div
+      className="grid gap-2"
+      style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+    >
+      {items.map((it) => {
+        const active = it.key === value;
+        return (
+          <button
+            key={it.key}
+            type="button"
+            onClick={() => onPick(it.key)}
+            className="h-11 rounded-xl text-[13px] font-bold transition-colors"
+            style={
+              active
+                ? { background: PAISLEY, color: "white" }
+                : {
+                    background: "white",
+                    color: "var(--foreground)",
+                    border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                  }
+            }
+          >
+            {it.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
