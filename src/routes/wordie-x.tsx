@@ -464,9 +464,9 @@ function WordieXPage() {
                 )}
               </div>
 
-              {/* Definition */}
+              {/* Example (short meaning) */}
               <label className="block mt-4">
-                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Definition</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Example</span>
                 <textarea
                   value={definition}
                   onChange={(e) => setDefinition(e.target.value)}
@@ -514,35 +514,45 @@ function WordieXPage() {
           )}
         </section>
 
-        {/* Resource filter */}
-        <section className="mt-5">
+        {/* Resource dropdown filter */}
+        <section className="mt-5 relative">
           <p className="mb-2 text-[11px] font-bold tracking-wide text-muted-foreground">
             Resource
           </p>
-          <div className="flex flex-wrap gap-2">
-            {SOURCE_FILTERS.map((f) => {
-              const active = sourceFilter === f.key;
-              const color = f.key === "all" ? "var(--wordie)" : getSourceColor(f.key);
-              return (
-                <button
-                  key={f.key}
-                  type="button"
-                  onClick={() => setSourceFilter(f.key)}
-                  className="rounded-full px-3 py-1.5 text-[12px] font-bold border transition-colors active:scale-95"
-                  style={
-                    active
-                      ? { background: color, color: "white", borderColor: color }
-                      : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
-                  }
-                >
-                  {f.label}
-                </button>
-              );
-            })}
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowSourceMenu((s) => !s)}
+            className="w-full inline-flex items-center justify-between rounded-full px-4 py-2.5 text-[13px] font-bold border bg-white active:scale-[0.99] transition"
+            style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+          >
+            <span>
+              {SOURCE_FILTERS.find((f) => f.key === sourceFilter)?.label ?? "All sources"}
+            </span>
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          </button>
+          {showSourceMenu && (
+            <div
+              className="absolute z-30 left-0 right-0 mt-1 rounded-2xl bg-white border border-border shadow-lg p-1"
+            >
+              {SOURCE_FILTERS.map((f) => {
+                const active = sourceFilter === f.key;
+                return (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => { setSourceFilter(f.key); setShowSourceMenu(false); }}
+                    className="w-full text-left px-3 py-2 text-[13px] font-bold rounded-xl hover:bg-muted"
+                    style={{ color: active ? "var(--wordie)" : "var(--foreground)" }}
+                  >
+                    {f.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </section>
 
-        {/* Quick status filters */}
+        {/* Quick status filters — match Wordie Bank colors */}
         <section className="mt-4">
           <div className="flex flex-wrap gap-2">
             {STATUS_FILTERS.map((f) => {
@@ -554,25 +564,16 @@ function WordieXPage() {
                     ? notes.filter((x) => x.isFocus).length
                     : notes.filter((x) => (x.status as string) === f.key).length;
               return (
-                <button
+                <FilterChip
                   key={f.key}
-                  type="button"
+                  active={active}
                   onClick={() => setStatusFilter(f.key)}
-                  className="rounded-full px-3 py-1.5 text-[12px] font-bold border transition-colors active:scale-95 inline-flex items-center gap-1.5"
-                  style={
-                    active
-                      ? { background: "white", color: "var(--wordie)", borderColor: "var(--wordie)" }
-                      : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
-                  }
+                  color={STATUS_COLOR[f.key] ?? "var(--wordie)"}
+                  tone="tint"
                 >
-                  <span>{f.label}</span>
-                  <span
-                    className="text-[11px] font-bold"
-                    style={{ color: active ? "var(--wordie)" : "var(--muted-foreground)" }}
-                  >
-                    {n}
-                  </span>
-                </button>
+                  {f.label}
+                  <span className="ml-1.5 opacity-70">{n}</span>
+                </FilterChip>
               );
             })}
           </div>
