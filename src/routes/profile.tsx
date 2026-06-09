@@ -72,8 +72,8 @@ function ProfilePage() {
 
       {/* Action cards */}
       <section className="px-5 mt-5 space-y-3">
-        {MENU.map((m) => (
-          <ActionCard key={m.key} {...m} />
+        {MENU.map(({ key, ...m }) => (
+          <ActionCard key={key} {...m} />
         ))}
       </section>
 
