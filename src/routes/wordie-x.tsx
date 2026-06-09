@@ -3,7 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Plus, ChevronDown, Star, Trash2, X, ChevronRight } from "lucide-react";
-import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
+import { StatusBadge, FilterChip, type WordStatus } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [{ title: "Wordie-X — Paisley EC" }] }),
@@ -43,39 +43,29 @@ const KNOWN_WORDS: Array<{
 ];
 
 const SOURCE_LABEL: Record<string, string> = {
-  "wordie-x": "Wordie-X", wordie_x: "Wordie-X",
-  definition: "Definition", meaning: "Definition",
-  example: "Word In Use",
-  shirintalk: "ShirinTalk", ShirinTalk: "ShirinTalk",
-  smart_reading: "Smart Reading", "smart-reading": "Smart Reading",
-  topic_talk: "Topic Talk", "topic-talk": "Topic Talk",
-  wordie_bank: "Wordie Bank", "wordie-bank": "Wordie Bank",
-  iMade: "Wordie-X",
+  iAdded: "iAdded",
+  definition: "Definition",
+  example: "Example",
+  shirintalk: "ShirinTalk",
 };
-const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "Wordie-X";
+const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "iAdded";
 
-// Filter dropdown order — keep stable
+// Source filter dropdown options
 const SOURCE_FILTERS: Array<{ key: string; label: string }> = [
-  { key: "all", label: "All" },
-  { key: "iMade", label: "Wordie-X" },
-  { key: "shirintalk", label: "ShirinTalk" },
-  { key: "smart_reading", label: "Smart Reading" },
-  { key: "topic_talk", label: "Topic Talk" },
-  { key: "wordie_bank", label: "Wordie Bank" },
+  { key: "all", label: "All sources" },
+  { key: "iAdded", label: "iAdded" },
   { key: "definition", label: "Definition" },
+  { key: "example", label: "Example" },
+  { key: "shirintalk", label: "ShirinTalk" },
 ];
 
-// Per-source pill colors (distinct hues for quick scanning)
-const SOURCE_COLOR: Record<string, string> = {
-  iMade: "var(--wordie)",
-  shirintalk: "var(--shirin)",
-  smart_reading: "oklch(0.7 0.18 195)",
-  topic_talk: "oklch(0.68 0.2 145)",
-  wordie_bank: "oklch(0.66 0.24 280)",
-  definition: "oklch(0.68 0.26 35)",
-};
-const getSourceColor = (s?: string) => (s && SOURCE_COLOR[s]) || "var(--wordie)";
+// Words already in Wordie Bank — used to block duplicates from Wordie-X
+const BANK_WORDS: Set<string> = new Set([
+  "dog", "cat", "bird", "fish", "rabbit",
+  "book", "chair", "pencil", "window", "teacher",
+]);
 
+// Match wordie-bank pill colors exactly
 const STATUS_FILTERS: Array<{ key: string; label: string }> = [
   { key: "all", label: "All" },
   { key: "new", label: "New" },
@@ -85,6 +75,15 @@ const STATUS_FILTERS: Array<{ key: string; label: string }> = [
   { key: "mastered", label: "Mastered" },
   { key: "relearning", label: "Relearning" },
 ];
+const STATUS_COLOR: Record<string, string> = {
+  all: "var(--wordie)",
+  new: "oklch(0.66 0.24 280)",
+  learning: "oklch(0.7 0.18 195)",
+  review: "oklch(0.68 0.2 145)",
+  focus: "oklch(0.75 0.12 305)",
+  mastered: "var(--wordie-accent)",
+  relearning: "oklch(0.8 0.1 350)",
+};
 
 const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
@@ -94,7 +93,7 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "the light and warmth from the sun",
     exampleSentence: "We played in the sunshine all afternoon.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈsʌnʃaɪn/",
-    source: "smart_reading", targetWordId: "wordie_x_sunshine", status: "saved" },
+    source: "definition", targetWordId: "wordie_x_sunshine", status: "saved" },
   { word: "giggle", content: "to laugh in a soft, silly way",
     definitionEn: "to laugh in a soft, silly way",
     exampleSentence: "The kids giggle when they hear the joke.",
@@ -104,12 +103,12 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "a baby dog",
     exampleSentence: "My puppy loves to chase the ball.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈpʌp.i/",
-    source: "topic_talk", targetWordId: "wordie_x_puppy", status: "saved" },
+    source: "example", targetWordId: "wordie_x_puppy", status: "saved" },
   { word: "rainbow", content: "colorful arc in the sky after rain",
     definitionEn: "colorful arc in the sky after rain",
     exampleSentence: "Look at the rainbow over the hill!",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈreɪn.boʊ/",
-    source: "wordie_bank", targetWordId: "wordie_x_rainbow", status: "saved" },
+    source: "iAdded", targetWordId: "wordie_x_rainbow", status: "saved" },
   { word: "butterfly", content: "an insect with big colorful wings",
     definitionEn: "an insect with big colorful wings",
     exampleSentence: "A butterfly landed on the flower.",
@@ -119,7 +118,7 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "an exciting or unusual experience",
     exampleSentence: "Our trip to the forest was a big adventure.",
     partOfSpeech: "noun", cefrLevel: "B1", pronunciation: "/ədˈven.tʃər/",
-    source: "iMade", targetWordId: "wordie_x_adventure", status: "saved" },
+    source: "shirintalk", targetWordId: "wordie_x_adventure", status: "saved" },
 ];
 
 // ---------- Normalize ----------
@@ -173,6 +172,7 @@ type Note = {
 };
 
 const NOTES_KEY = "pec_my_notes_v2";
+const SOURCE_DROPDOWN_KEY = "pec_my_notes_v3"; // bump to refresh seed
 const FOCUS_KEY = "pec_user_words_focus_v1";
 
 function loadNotes(): Note[] {
