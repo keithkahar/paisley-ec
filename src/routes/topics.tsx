@@ -109,7 +109,7 @@ function TopicsPage() {
 
             return (
               <div className="grid grid-cols-2 gap-2.5">
-                <HeroCard t={byId.pet_talk} ratio="aspect-square" />
+                <HeroCard t={byId.free_talk} ratio="aspect-square" />
                 <HeroCard t={byId.football_talk} ratio="aspect-square" />
                 {/* Minecraft Adventure spans both columns right under Pet Talk & Football Talk */}
                 <div className="col-span-2" style={{ containerType: "inline-size" }}>
@@ -121,7 +121,7 @@ function TopicsPage() {
                     imgScale={1.2}
                   />
                 </div>
-                <HeroCard t={byId.free_talk} ratio="aspect-square" />
+                <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                 <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
                 <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
                 <HeroCard t={byId.smart_reading} ratio="aspect-square" />
