@@ -608,7 +608,7 @@ function FilterDropdown({
     >
       <span className="flex items-baseline gap-1 min-w-0">
         <span
-          className="text-[11px] font-bold opacity-70"
+          className="text-xs font-bold opacity-70"
         >
           {label}
         </span>
