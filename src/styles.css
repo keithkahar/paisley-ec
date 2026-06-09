@@ -108,6 +108,8 @@
   /* Brand exacts (mapped from hex) */
   --paisley: oklch(0.46 0.21 261);        /* #0146b9 */
   --paisley-soft: oklch(0.93 0.05 250);
+  --paisley-yellow: oklch(0.84 0.16 88);   /* #f5c451 — Paisley EC accent yellow */
+  --paisley-yellow-soft: oklch(0.97 0.06 95);
   --sand: oklch(0.78 0.06 75);             /* #cdae8d */
   --sand-soft: oklch(0.95 0.03 80);
   --shirin: oklch(0.66 0.24 9);            /* #f93e6b */
