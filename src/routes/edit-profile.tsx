@@ -243,8 +243,8 @@ function EditProfilePage() {
                   step={0.01}
                   value={form.avatarScale}
                   onChange={(e) => update("avatarScale", Number(e.target.value))}
-                  className="mt-2 w-40 accent-current"
-                  style={{ color: YELLOW }}
+                  className="mt-2 w-40 accent-current opacity-70"
+                  style={{ color: "#B8BDC6" }}
                   aria-label="Zoom"
                 />
               </>
@@ -260,29 +260,13 @@ function EditProfilePage() {
 
           <div className="space-y-3">
 
-          {/* Given Name */}
-          <RowPill label="Given Name">
-            <input
-              type="text"
-              value={form.givenName}
-              onChange={(e) => update("givenName", e.target.value)}
-              placeholder="Daniella"
-              className="w-full bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-            />
-          </RowPill>
-
-          {/* Family Name */}
-          <RowPill label="Family Name">
-            <input
-              type="text"
-              value={form.familyName}
-              onChange={(e) => update("familyName", e.target.value)}
-              placeholder="Wang"
-              className="w-full bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-            />
-          </RowPill>
+          {/* Name */}
+          <NamePill
+            givenName={form.givenName}
+            familyName={form.familyName}
+            onGivenNameChange={(value) => update("givenName", value)}
+            onFamilyNameChange={(value) => update("familyName", value)}
+          />
 
           {/* Gender */}
           <RowPill label="Gender">
