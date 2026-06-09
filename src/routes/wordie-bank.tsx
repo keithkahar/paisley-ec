@@ -371,7 +371,7 @@ function WordieBankPage() {
                     )}
                     <div className="min-w-0 flex-1">
                       <p
-                        className="font-bold text-[16px] truncate leading-tight"
+                        className="font-semibold text-[16px] truncate leading-tight"
                         style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
                       >
                         {capitalize(w.word)}
@@ -379,27 +379,27 @@ function WordieBankPage() {
                       <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                         {w.definitionEn}
                       </p>
-                      <div className="flex items-center justify-between gap-2 mt-1.5">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span
-                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-                            style={{
-                              background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                              color: "var(--wordie)",
-                            }}
-                          >
-                            {capitalize(w.partOfSpeech)}
-                          </span>
-                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
-                            {w.cefrLevel}
-                          </span>
-                        </div>
-                        <StatusBadge status={w.status} />
+                      <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                        <span
+                          className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                          style={{
+                            background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                            color: "var(--wordie)",
+                          }}
+                        >
+                          {capitalize(w.partOfSpeech)}
+                        </span>
+                        <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                          {w.cefrLevel}
+                        </span>
                       </div>
                     </div>
-                    {!selectMode && (
-                      <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 self-center" />
-                    )}
+                    <div className="flex items-center gap-2 shrink-0 self-center">
+                      <StatusBadge status={w.status} />
+                      {!selectMode && (
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      )}
+                    </div>
                   </button>
                 );
               })}
@@ -413,14 +413,34 @@ function WordieBankPage() {
         <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
           <div className="absolute inset-0 bg-black/40" />
           <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl p-5 pb-8"
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+            style={{ height: "62vh" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-[16px] font-bold text-center">Batch Actions</p>
-            <p className="text-[12px] text-muted-foreground text-center mt-0.5 mb-4">
+            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+              <span className="h-1 w-10 rounded-full bg-border" />
+            </div>
+            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
+              <span className="w-12" />
+              <p
+                className="text-[17px] font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
+              >
+                Batch Actions
+              </p>
+              <button
+                type="button"
+                onClick={() => setBatchOpen(false)}
+                className="text-[13px] font-bold w-12 text-right"
+                style={{ color: "var(--wordie)" }}
+              >
+                Done
+              </button>
+            </div>
+            <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">
               {selectedSummary}
             </p>
-            <div className="space-y-2">
+            <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
               <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
               <SheetBtn label="Add to Focus" onClick={addToFocus} />
               <SheetBtn label="Move to Review" onClick={moveToReview} />
@@ -612,7 +632,12 @@ function FilterDropdown({
         >
           {label}
         </span>
-        <span className="text-[12px] font-bold truncate">{value}</span>
+        <span
+          className="text-[12px] font-bold truncate"
+          style={!active ? { color: "var(--paisley)" } : undefined}
+        >
+          {value}
+        </span>
       </span>
       <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-80" />
     </button>
@@ -693,25 +718,29 @@ function PreviewFull({
         <div className="w-5" />
       </div>
       <div className="flex-1 overflow-y-auto px-5 pb-6">
-        {/* Word card — single-side, mywordie-themed surface */}
+        {/* Word card — white surface with soft wordie border */}
         <div
-          className="rounded-[2rem] p-6"
+          className="rounded-[2rem] p-6 bg-white"
           style={{
-            background:
-              "linear-gradient(160deg, white 0%, color-mix(in oklab, var(--wordie) 8%, white) 100%)",
-            border: "1px solid color-mix(in oklab, var(--wordie) 20%, transparent)",
+            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)",
           }}
         >
           <div className="flex items-center justify-between">
-            <span
-              className="inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold"
-              style={{
-                background: "color-mix(in oklab, var(--wordie) 14%, white)",
-                color: "var(--wordie)",
-              }}
-            >
-              {word.cefrLevel} · {capitalize(word.partOfSpeech)}
-            </span>
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span
+                className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                style={{
+                  background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                  color: "var(--wordie)",
+                }}
+              >
+                {capitalize(word.partOfSpeech)}
+              </span>
+              <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                {word.cefrLevel}
+              </span>
+              <StatusBadge status={word.status} />
+            </div>
             <button
               type="button"
               className="h-9 w-9 rounded-full grid place-items-center"
@@ -724,7 +753,7 @@ function PreviewFull({
 
           <div className="mt-5 text-center">
             <h2
-              className="font-bold text-[40px] leading-none"
+              className="font-semibold text-[40px] leading-none"
               style={{
                 color: "var(--wordie)",
                 fontFamily: "var(--font-display)",
@@ -738,32 +767,28 @@ function PreviewFull({
             </p>
           </div>
 
-          {/* Definition + Example grouped, differentiated by type */}
+          {/* Definition + Word in use — both left-aligned */}
           <div className="mt-6 space-y-4">
             <div>
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
-              >
+              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
               <p
-                className="mt-1.5 text-[17px] font-bold leading-snug"
+                className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 {word.definitionEn}
               </p>
             </div>
-            <div
-              className="rounded-2xl px-4 py-3"
-              style={{ background: "color-mix(in oklab, var(--wordie) 6%, white)" }}
-            >
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
-              >
-                Example
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+                Word in use
               </p>
-              <p className="mt-1 text-[14px] italic leading-relaxed text-foreground/85">
-                "{word.exampleSentence}"
+              <p
+                className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
+                style={{ letterSpacing: "-0.01em" }}
+              >
+                {renderExample(word.exampleSentence, word.word)}
               </p>
             </div>
           </div>
@@ -809,15 +834,35 @@ function MiniStat({ label, value }: { label: string; value: string }) {
       className="rounded-2xl px-3 py-2 text-center"
       style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
     >
-      <p className="text-[9.5px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+      <p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
       <p
-        className="text-[12px] font-bold mt-0.5 truncate"
+        className="text-xs font-bold mt-0.5 truncate"
         style={{ color: "var(--wordie)" }}
       >
         {value}
       </p>
     </div>
+  );
+}
+
+function renderExample(sentence: string, word: string) {
+  const re = new RegExp(`(${word})`, "ig");
+  const parts = sentence.split(re);
+  return (
+    <>
+      "
+      {parts.map((p, i) =>
+        p.toLowerCase() === word.toLowerCase() ? (
+          <span key={i} style={{ color: "var(--wordie)" }}>
+            {p}
+          </span>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
+      "
+    </>
   );
 }
