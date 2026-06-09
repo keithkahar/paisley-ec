@@ -58,10 +58,10 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
 const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
   all: "var(--wordie)",
   new: "oklch(0.66 0.24 280)",
-  learning: "oklch(0.7 0.22 200)",
-  review: "oklch(0.68 0.26 35)",
+  learning: "oklch(0.7 0.18 195)",
+  review: "oklch(0.68 0.2 145)",
   focus: "oklch(0.6 0.26 305)",
-  mastered: "oklch(0.78 0.2 80)",
+  mastered: "var(--wordie-accent)",
   relearning: "oklch(0.72 0.26 350)",
 };
 
