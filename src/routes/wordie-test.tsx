@@ -775,7 +775,6 @@ function ResultView({
   bp: number;
   onReview: (id: string) => void;
 }) {
-  const isHigh = score >= 70;
   return (
     <div>
       <section
@@ -872,7 +871,7 @@ function ResultView({
                       <span className="flex-1 text-[13px] font-bold">{r.q.word}</span>
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: r.correct ? "var(--wordie-accent)" : "var(--wordie)" }}
+                        style={{ background: r.correct ? "var(--wordie)" : "var(--wordie-accent)" }}
                       >
                         {r.correct ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
                       </span>
