@@ -563,7 +563,7 @@ function WordieBankPage() {
                   {statusOptions.map((s) => (
                     <SheetRow
                       key={s.key}
-                      label={s.label}
+                      label={`${s.label} (${counts[s.key] ?? 0})`}
                       active={statusSel.includes(s.key)}
                       onClick={() => toggleIn(statusSel, setStatusSel, s.key)}
                     />
