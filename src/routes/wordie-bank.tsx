@@ -55,6 +55,15 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
   { key: "mastered", label: "Mastered" },
 ];
 
+const FILTER_COLOR: Record<FilterKey, string> = {
+  all: "var(--paisley)",
+  new: "var(--paisley)",
+  learning: "var(--wordie)",
+  review: "var(--wordie-accent)",
+  focus: "var(--wordie-accent)",
+  mastered: "var(--bloxia)",
+};
+
 function WordieBankPage() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterKey>("all");
