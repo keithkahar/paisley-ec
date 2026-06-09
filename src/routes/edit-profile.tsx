@@ -387,12 +387,14 @@ function AvatarDraggable({
 
   function onPointerDown(e: React.PointerEvent) {
     if (!src) return;
-    (e.target as Element).setPointerCapture?.(e.pointerId);
+    e.preventDefault();
+    (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
     draggingRef.current = { startX: e.clientX, startY: e.clientY, startPx: posX, startPy: posY };
   }
   function onPointerMove(e: React.PointerEvent) {
     const d = draggingRef.current;
     if (!d || !ref.current) return;
+    e.preventDefault();
     const rect = ref.current.getBoundingClientRect();
     // moving 1 frame-width should shift roughly 100% — feel
     const dx = ((e.clientX - d.startX) / rect.width) * 100;
