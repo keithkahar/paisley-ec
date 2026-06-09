@@ -233,38 +233,34 @@ function MyTestsPage() {
           </button>
 
           {openCefr && (
-            <ul className="mt-1 space-y-2">
+            <div className="mt-2 rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
               {CEFR_HISTORY.map((h) => (
-                <li
-                  key={h.id}
-                  className="rounded-2xl p-3 border border-[oklch(0.94_0.01_240)]"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 min-w-0">
+                <div key={h.id} className="w-full flex items-center gap-3 px-4 py-3">
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className="font-bold text-[20px] truncate leading-tight text-foreground"
+                      style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                    >
+                      {h.level}
+                    </p>
+                    <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                      {h.summary}
+                    </p>
+                    <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
                       <span
-                        className="text-[11px] font-bold px-2 py-0.5 rounded-full"
+                        className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                         style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
                       >
                         {h.code}
                       </span>
-                      <span className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-                        {h.level}
+                      <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                        {h.date}
                       </span>
                     </div>
-                    <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                      {h.date}
-                    </span>
                   </div>
-                  <p
-                    className="mt-1 text-[11px] font-medium truncate"
-                    style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
-                    title={h.summary}
-                  >
-                    {h.summary}
-                  </p>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </section>
 
