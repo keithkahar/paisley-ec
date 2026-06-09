@@ -355,14 +355,14 @@ function EditProfilePage() {
 function RowPill({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div
-      className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 min-h-[56px] bg-white border"
+      className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[64px] bg-white border"
       style={{
         borderColor: `color-mix(in oklab, ${YELLOW} 55%, white)`,
         fontFamily: "var(--font-sans)",
       }}
     >
       <span
-        className="shrink-0 text-[13px] font-bold leading-none"
+        className="shrink-0 text-[14px] font-bold leading-none"
         style={{ color: YELLOW, letterSpacing: "-0.01em" }}
       >
         {label}
