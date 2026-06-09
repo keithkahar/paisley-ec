@@ -55,7 +55,7 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
   { key: "mastered", label: "Mastered" },
 ];
 
-const FILTER_COLOR: Record<FilterKey, string> = {
+const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
   all: "var(--paisley)",
   new: "var(--paisley)",
   learning: "var(--wordie)",
