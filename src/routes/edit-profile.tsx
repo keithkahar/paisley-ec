@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, X, Check, ChevronRight, Move, Camera } from "lucide-react";
+import { ChevronLeft, X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/edit-profile")({
@@ -166,7 +166,7 @@ function EditProfilePage() {
   function onSave() {
     const normalized = saveProfile(form);
     setForm(normalized);
-    setToast("Profile saved");
+    setToast("Profile Saved");
     setTimeout(() => {
       setToast("");
       navigate({ to: "/profile" });
@@ -198,7 +198,7 @@ function EditProfilePage() {
         </section>
 
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-2 pb-28 overflow-y-auto">
+        <div className="flex-1 px-6 pt-2 pb-40 overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
           <div className="flex flex-col items-center pt-2 pb-5">
             <div className="relative h-40 w-40">
@@ -232,8 +232,7 @@ function EditProfilePage() {
             </div>
             {form.avatarPath ? (
               <>
-              <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
-                  <Move className="h-3 w-3" strokeWidth={2.25} />
+                <p className="mt-2 text-[11px] font-bold text-muted-foreground">
                   Drag and scroll to adjust
                 </p>
                 <input
@@ -258,7 +257,7 @@ function EditProfilePage() {
             />
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 mt-auto">
 
           {/* Name */}
           <NamePill
@@ -323,9 +322,9 @@ function EditProfilePage() {
           </button>
         </div>
 
-        {/* Toast */}
+        {/* Toast — above the Save pill */}
         {toast && (
-          <div className="pointer-events-none absolute inset-x-0 top-20 z-40 flex justify-center">
+          <div className="pointer-events-none absolute inset-x-0 bottom-24 z-40 flex justify-center">
             <div
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold shadow-lg"
               style={{ background: YELLOW, color: "white" }}
