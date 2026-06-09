@@ -1,6 +1,773 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ComingSoon } from "@/components/app/ComingSoon";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { ChevronLeft, ChevronDown, HelpCircle } from "lucide-react";
+import { PhoneFrame } from "@/components/app/PhoneFrame";
+
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [{ title: "Parent Page — Paisley EC" }] }),
-  component: () => <ComingSoon title="Parent Page" back="/profile" bg="bg-background" accent="var(--paisley)" />,
+  component: ParentPage,
 });
+
+// ---- Mock data (local, no persistence) ----
+const TALK_PROGRESS = [
+  { key: "minutes", label: "本周对话时长", value: "37", unit: "min" },
+  { key: "sessions", label: "本周对话轮次", value: "5", unit: "次" },
+  { key: "streak", label: "连续练习", value: "4", unit: "天" },
+  { key: "turns", label: "本周发言轮次", value: "42", unit: "次" },
+  { key: "questions", label: "本周主动提问", value: "8", unit: "次" },
+  { key: "long_answers", label: "本周完整表达", value: "3", unit: "次" },
+  { key: "talk_words", label: "本周对话用词", value: "186", unit: "词" },
+  { key: "target_words", label: "本周目标词使用", value: "12", unit: "次" },
+] as const;
+
+const WORDIE_PROGRESS = [
+  { key: "week_minutes", label: "本周练习时长", value: "18", unit: "min" },
+  { key: "week_cards", label: "本周练习卡片", value: "64", unit: "张" },
+  { key: "streak", label: "连续练习", value: "3", unit: "天" },
+  { key: "transfer", label: "本周 myWordie Talk 使用词", value: "9", unit: "次" },
+  { key: "mastered", label: "已掌握", value: "166", unit: "词" },
+  { key: "review", label: "复习", value: "42", unit: "词" },
+  { key: "learning", label: "Learning 学习中", value: "28", unit: "词" },
+  { key: "new", label: "New 新词", value: "24", unit: "词" },
+  { key: "wordie_x", label: "Wordie-X 收录", value: "11", unit: "词" },
+  { key: "wordietest_average", label: "Wordie Test 平均分", value: "86", unit: "%" },
+] as const;
+
+const VOICE_OPTIONS = [
+  { id: "monica-standard", name: "Mónica Standard", group: "current" },
+  { id: "jorge-enhanced", name: "Jorge Enhanced", group: "recommended" },
+  { id: "marisol-premium", name: "Marisol Premium", group: "recommended" },
+  { id: "monica-enhanced", name: "Mónica Enhanced", group: "recommended" },
+  { id: "eddy-standard", name: "Eddy Standard", group: "installed" },
+  { id: "flo-standard", name: "Flo Standard", group: "installed" },
+];
+
+const THEME_OPTIONS = [
+  { id: "system", label: "跟随系统" },
+  { id: "light", label: "浅色" },
+  { id: "dark", label: "深色" },
+];
+
+const PAISLEY = "var(--paisley)";
+const SHIRIN = "var(--shirin)";
+const WORDIE = "var(--wordie)";
+
+type ProgressTab = "talk" | "wordie";
+type SheetType = "" | "voice" | "theme" | "speechRate";
+
+function ParentPage() {
+  const [tab, setTab] = useState<ProgressTab>("talk");
+  const [open, setOpen] = useState({
+    settingTalk: true,
+    settingWordie: true,
+    wordieX: true,
+    wordieXList: false,
+    general: true,
+  });
+  const toggle = (k: keyof typeof open) => setOpen((s) => ({ ...s, [k]: !s[k] }));
+
+  // Mock editable values
+  const [talkGoals, setTalkGoals] = useState({ week: 100, month: 400, year: 1000 });
+  const [dailyPlan, setDailyPlan] = useState({ dailyCards: 5, dailyMinutes: 10 });
+  const [wordieGoals, setWordieGoals] = useState({ week: 20, month: 200, year: 1000 });
+
+  const [prefs, setPrefs] = useState({
+    voiceName: "Mónica Standard",
+    voiceId: "monica-standard",
+    speechRate: 0.8,
+    theme: "light",
+    autoPlayWordAudio: true,
+    autoPlayExampleAudio: true,
+    hapticFeedback: true,
+    dailyStudyReminder: false,
+    reminderTime: "20:00",
+    streakReminder: false,
+  });
+
+  const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
+
+  const progress = tab === "talk" ? TALK_PROGRESS : WORDIE_PROGRESS;
+  const accent = tab === "talk" ? SHIRIN : WORDIE;
+
+  return (
+    <PhoneFrame bg="bg-white">
+      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white pb-24">
+        {/* Back */}
+        <div className="absolute top-4 left-4 z-30">
+          <Link
+            to="/profile"
+            aria-label="Back"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Link>
+        </div>
+
+        {/* Header */}
+        <section className="px-6 pt-12 pb-2 text-center">
+          <h1
+            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: PAISLEY, fontFamily: "var(--font-sans)" }}
+          >
+            Parent Page
+          </h1>
+        </section>
+
+        {/* Progress folder */}
+        <section className="px-5 pt-4">
+          <div className="flex gap-1 px-2">
+            {(["talk", "wordie"] as const).map((k) => {
+              const active = tab === k;
+              const c = k === "talk" ? SHIRIN : WORDIE;
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setTab(k)}
+                  className="px-4 h-9 rounded-t-2xl text-[13px] font-bold transition-colors"
+                  style={{
+                    background: active ? "white" : "color-mix(in oklab, var(--foreground) 6%, white)",
+                    color: active ? c : "color-mix(in oklab, var(--foreground) 50%, white)",
+                    border: active ? `1px solid color-mix(in oklab, ${c} 25%, white)` : "1px solid transparent",
+                    borderBottom: active ? "1px solid white" : "1px solid transparent",
+                    marginBottom: -1,
+                  }}
+                >
+                  {k === "talk" ? "ShirinTalk" : "myWordie"}
+                </button>
+              );
+            })}
+          </div>
+          <div
+            className="rounded-2xl rounded-tl-none p-3"
+            style={{
+              background: "white",
+              border: `1px solid color-mix(in oklab, ${accent} 22%, white)`,
+            }}
+          >
+            <div className="grid grid-cols-2 gap-2">
+              {progress.map((p) => (
+                <MiniCard key={p.key} label={p.label} value={p.value} unit={p.unit} accent={accent} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 管理 */}
+        <SectionTitle>管理</SectionTitle>
+
+        {/* ShirinTalk 目标 */}
+        <Collapsible
+          open={open.settingTalk}
+          onToggle={() => toggle("settingTalk")}
+          title="ShirinTalk 目标"
+          accent={SHIRIN}
+        >
+          <div className="space-y-2">
+            {(["week", "month", "year"] as const).map((k) => (
+              <NumberRow
+                key={k}
+                label={k === "week" ? "本周" : k === "month" ? "本月" : "今年"}
+                value={talkGoals[k]}
+                unit="min"
+                onChange={(v) => setTalkGoals((g) => ({ ...g, [k]: v }))}
+              />
+            ))}
+          </div>
+        </Collapsible>
+
+        {/* myWordie 每日计划 + 目标 */}
+        <Collapsible
+          open={open.settingWordie}
+          onToggle={() => toggle("settingWordie")}
+          title="myWordie 每日计划 / 目标"
+          accent={WORDIE}
+        >
+          <p className="text-[12px] font-bold mb-2" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+            每日计划
+          </p>
+          <div className="space-y-2 mb-3">
+            <NumberRow
+              label="每天卡片"
+              value={dailyPlan.dailyCards}
+              unit="cards"
+              onChange={(v) => setDailyPlan((p) => ({ ...p, dailyCards: v }))}
+            />
+            <NumberRow
+              label="每天时长"
+              value={dailyPlan.dailyMinutes}
+              unit="min"
+              onChange={(v) => setDailyPlan((p) => ({ ...p, dailyMinutes: v }))}
+            />
+          </div>
+          <p className="text-[12px] font-bold mb-2" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+            周/月/年目标
+          </p>
+          <div className="space-y-2">
+            {(["week", "month", "year"] as const).map((k) => (
+              <NumberRow
+                key={k}
+                label={k === "week" ? "本周" : k === "month" ? "本月" : "今年"}
+                value={wordieGoals[k]}
+                unit="cards"
+                onChange={(v) => setWordieGoals((g) => ({ ...g, [k]: v }))}
+              />
+            ))}
+          </div>
+        </Collapsible>
+
+        {/* Wordie-X */}
+        <Collapsible
+          open={open.wordieX}
+          onToggle={() => toggle("wordieX")}
+          title="Wordie-X"
+          accent={WORDIE}
+        >
+          <WordieXCard
+            word="serendipity"
+            status="Focus"
+            focus
+            partOfSpeech="n."
+            cefrLevel="C1"
+            source="ShirinTalk"
+            mastery={62}
+            nextReview="明天 20:00"
+          />
+          {open.wordieXList && (
+            <div className="mt-2 space-y-2">
+              <WordieXCard
+                word="meticulous"
+                status="Review"
+                partOfSpeech="adj."
+                cefrLevel="B2"
+                source="iAdded"
+                mastery={48}
+                nextReview="今天 20:00"
+              />
+              <WordieXCard
+                word="resilient"
+                status="Learning"
+                partOfSpeech="adj."
+                cefrLevel="B2"
+                source="Example"
+                mastery={28}
+                nextReview="2 天后"
+              />
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => toggle("wordieXList")}
+            className="mt-3 w-full h-9 rounded-full text-[12px] font-bold"
+            style={{
+              color: WORDIE,
+              background: "color-mix(in oklab, var(--wordie) 8%, white)",
+            }}
+          >
+            {open.wordieXList ? "收起列表" : "展开全部"}
+          </button>
+        </Collapsible>
+
+        {/* 设置 */}
+        <SectionTitle>设置</SectionTitle>
+
+        <Collapsible
+          open={open.general}
+          onToggle={() => toggle("general")}
+          title="偏好设置"
+          accent={PAISLEY}
+        >
+          <div className="space-y-1">
+            <PrefRow
+              label="音色"
+              value={prefs.voiceName}
+              onClick={() => setSheet({ type: "voice", title: "音色" })}
+            />
+            <PrefRow
+              label="语速"
+              value={prefs.speechRate.toFixed(1) + "×"}
+              onClick={() => setSheet({ type: "speechRate", title: "语速" })}
+            />
+            <PrefRow
+              label="主题"
+              value={THEME_OPTIONS.find((t) => t.id === prefs.theme)?.label ?? "浅色"}
+              onClick={() => setSheet({ type: "theme", title: "主题" })}
+            />
+            <SwitchRow
+              label="自动播放音频"
+              checked={prefs.autoPlayWordAudio}
+              onChange={(v) => setPrefs((p) => ({ ...p, autoPlayWordAudio: v }))}
+            />
+            <SwitchRow
+              label="自动播放例句"
+              checked={prefs.autoPlayExampleAudio}
+              onChange={(v) => setPrefs((p) => ({ ...p, autoPlayExampleAudio: v }))}
+            />
+            <SwitchRow
+              label="触感反馈"
+              info
+              checked={prefs.hapticFeedback}
+              onChange={(v) => setPrefs((p) => ({ ...p, hapticFeedback: v }))}
+            />
+            <SwitchRow
+              label="每日学习提醒"
+              checked={prefs.dailyStudyReminder}
+              onChange={(v) => setPrefs((p) => ({ ...p, dailyStudyReminder: v }))}
+            />
+            {prefs.dailyStudyReminder && (
+              <div className="flex items-center justify-between py-2.5 px-1">
+                <span className="text-[14px] font-bold">提醒时间</span>
+                <input
+                  type="time"
+                  value={prefs.reminderTime}
+                  onChange={(e) => setPrefs((p) => ({ ...p, reminderTime: e.target.value }))}
+                  className="bg-transparent text-[14px] font-bold outline-none"
+                  style={{ color: PAISLEY }}
+                />
+              </div>
+            )}
+            <SwitchRow
+              label="连续天数提醒"
+              checked={prefs.streakReminder}
+              onChange={(v) => setPrefs((p) => ({ ...p, streakReminder: v }))}
+            />
+            <PrefRow label="评价应用" value="" onClick={() => {}} />
+            <div className="flex items-center justify-between py-2.5 px-1">
+              <span className="text-[14px] font-bold">版本</span>
+              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+                1.0.0
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-2.5 px-1">
+              <span className="text-[14px] font-bold">Admin Rules</span>
+              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+                —
+              </span>
+            </div>
+          </div>
+        </Collapsible>
+
+        {/* Bottom sheet */}
+        {sheet.type && (
+          <BottomSheet title={sheet.title} onClose={() => setSheet({ type: "", title: "" })}>
+            {sheet.type === "voice" && (
+              <VoiceSheet
+                currentId={prefs.voiceId}
+                onPick={(v) => {
+                  setPrefs((p) => ({ ...p, voiceId: v.id, voiceName: v.name }));
+                  setSheet({ type: "", title: "" });
+                }}
+              />
+            )}
+            {sheet.type === "theme" && (
+              <ThemeSheet
+                value={prefs.theme}
+                onPick={(id) => {
+                  setPrefs((p) => ({ ...p, theme: id }));
+                  setSheet({ type: "", title: "" });
+                }}
+              />
+            )}
+            {sheet.type === "speechRate" && (
+              <SpeechRateSheet
+                value={prefs.speechRate}
+                onChange={(v) => setPrefs((p) => ({ ...p, speechRate: v }))}
+              />
+            )}
+          </BottomSheet>
+        )}
+      </div>
+    </PhoneFrame>
+  );
+}
+
+// ============ small components ============
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2
+      className="px-6 pt-6 pb-2 text-[13px] font-bold uppercase tracking-wide"
+      style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function MiniCard({ label, value, unit, accent }: { label: string; value: string; unit: string; accent: string }) {
+  return (
+    <div
+      className="relative rounded-2xl p-3 min-h-[78px] flex flex-col justify-between"
+      style={{ background: `color-mix(in oklab, ${accent} 8%, white)` }}
+    >
+      <button
+        type="button"
+        aria-label="说明"
+        className="absolute top-2 right-2 h-5 w-5 grid place-items-center rounded-full"
+        style={{ color: `color-mix(in oklab, ${accent} 70%, white)` }}
+      >
+        <HelpCircle className="h-3.5 w-3.5" />
+      </button>
+      <p className="text-[11px] font-bold leading-tight pr-5" style={{ color: accent }}>
+        {label}
+      </p>
+      <div className="flex items-baseline gap-1">
+        <span className="text-[22px] font-bold leading-none" style={{ color: accent, letterSpacing: "-0.02em" }}>
+          {value}
+        </span>
+        {unit && (
+          <span className="text-[11px] font-bold leading-none" style={{ color: accent }}>
+            {unit}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Collapsible({
+  open,
+  onToggle,
+  title,
+  accent,
+  children,
+}: {
+  open: boolean;
+  onToggle: () => void;
+  title: string;
+  accent: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="px-5 pt-3">
+      <div
+        className="rounded-2xl"
+        style={{ background: "white", border: `1px solid color-mix(in oklab, ${accent} 18%, white)` }}
+      >
+        <button
+          type="button"
+          onClick={onToggle}
+          className="w-full flex items-center justify-between px-4 py-3"
+        >
+          <span className="text-[14px] font-bold" style={{ color: accent }}>
+            {title}
+          </span>
+          <ChevronDown
+            className="h-4 w-4 transition-transform"
+            style={{ transform: open ? "rotate(180deg)" : "none", color: accent }}
+          />
+        </button>
+        {open && <div className="px-4 pb-4 pt-1">{children}</div>}
+      </div>
+    </section>
+  );
+}
+
+function NumberRow({
+  label,
+  value,
+  unit,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  unit: string;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 py-1.5">
+      <span className="text-[13px] font-bold">{label}</span>
+      <div className="flex items-baseline gap-1">
+        <input
+          type="number"
+          min={0}
+          value={value}
+          onChange={(e) => {
+            const n = Math.max(0, Math.round(Number(e.target.value) || 0));
+            onChange(n);
+          }}
+          className="w-20 bg-transparent text-right text-[15px] font-bold outline-none border-b border-border focus:border-[color:var(--paisley)] py-0.5"
+        />
+        <span className="text-[12px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+          {unit}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function PrefRow({ label, value, onClick }: { label: string; value: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full flex items-center justify-between py-2.5 px-1 text-left"
+    >
+      <span className="text-[14px] font-bold">{label}</span>
+      <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+        {value}
+        <ChevronDown className="inline h-4 w-4 -rotate-90 ml-1 align-[-2px]" />
+      </span>
+    </button>
+  );
+}
+
+function SwitchRow({
+  label,
+  checked,
+  onChange,
+  info,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+  info?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between py-2.5 px-1">
+      <span className="text-[14px] font-bold flex items-center gap-1">
+        {label}
+        {info && <HelpCircle className="h-3.5 w-3.5 opacity-50" />}
+      </span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        onClick={() => onChange(!checked)}
+        className="relative h-6 w-11 rounded-full transition-colors"
+        style={{ background: checked ? PAISLEY : "color-mix(in oklab, var(--foreground) 18%, white)" }}
+      >
+        <span
+          className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all"
+          style={{ left: checked ? 22 : 2 }}
+        />
+      </button>
+    </div>
+  );
+}
+
+function WordieXCard({
+  word,
+  status,
+  focus,
+  partOfSpeech,
+  cefrLevel,
+  source,
+  mastery,
+  nextReview,
+}: {
+  word: string;
+  status: "New" | "Learning" | "Review" | "Focus" | "Mastered" | "Relearning";
+  focus?: boolean;
+  partOfSpeech: string;
+  cefrLevel: string;
+  source: "iAdded" | "Example" | "ShirinTalk";
+  mastery: number;
+  nextReview: string;
+}) {
+  const [isFocus, setIsFocus] = useState(!!focus);
+  const [isReview, setIsReview] = useState(status === "Review");
+  const statusLabel: Record<string, string> = {
+    New: "新词",
+    Learning: "学习中",
+    Review: "复习",
+    Focus: "重点",
+    Mastered: "已掌握",
+    Relearning: "重新学",
+  };
+  return (
+    <div
+      className="rounded-2xl p-3"
+      style={{ background: "color-mix(in oklab, var(--wordie) 6%, white)", border: "1px solid color-mix(in oklab, var(--wordie) 18%, white)" }}
+    >
+      <div className="flex items-baseline justify-between">
+        <span className="text-[18px] font-bold" style={{ color: WORDIE }}>
+          {word}
+        </span>
+        <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+          {partOfSpeech} · {cefrLevel} · {source}
+        </span>
+      </div>
+      <div className="flex gap-1.5 mt-1.5">
+        <Pill color="var(--wordie)">{statusLabel[status]}</Pill>
+        {isFocus && <Pill color="var(--paisley)">重点</Pill>}
+      </div>
+      <div className="mt-2 flex items-center justify-between text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+        <span>掌握度 {mastery}%</span>
+        <span>下次复习 · {nextReview}</span>
+      </div>
+      <div className="mt-2 grid grid-cols-3 gap-1.5">
+        <ActionPill onClick={() => setIsFocus((v) => !v)} active={isFocus} color="var(--paisley)">
+          {isFocus ? "移除重点" : "加入重点"}
+        </ActionPill>
+        <ActionPill onClick={() => setIsReview((v) => !v)} active={isReview} color="var(--wordie)">
+          {isReview ? "移除复习" : "移入复习"}
+        </ActionPill>
+        <ActionPill onClick={() => {}} color="var(--shirin)">
+          重置
+        </ActionPill>
+      </div>
+    </div>
+  );
+}
+
+function Pill({ color, children }: { color: string; children: React.ReactNode }) {
+  return (
+    <span
+      className="px-2 h-5 rounded-full text-[10px] font-bold inline-flex items-center"
+      style={{ background: `color-mix(in oklab, ${color} 14%, white)`, color }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ActionPill({
+  active,
+  color,
+  children,
+  onClick,
+}: {
+  active?: boolean;
+  color: string;
+  children: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="h-7 rounded-full text-[11px] font-bold"
+      style={{
+        background: active ? color : `color-mix(in oklab, ${color} 10%, white)`,
+        color: active ? "white" : color,
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function BottomSheet({
+  title,
+  onClose,
+  children,
+}: {
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center">
+      <button
+        type="button"
+        aria-label="关闭"
+        onClick={onClose}
+        className="absolute inset-0 bg-black/40"
+      />
+      <div className="relative w-full max-w-md bg-white rounded-t-3xl p-5 pb-8 shadow-2xl">
+        <div className="mx-auto w-10 h-1.5 rounded-full bg-[oklch(0.9_0.01_240)] mb-3" />
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-[16px] font-bold">{title}</h3>
+          <button type="button" onClick={onClose} className="text-[13px] font-bold" style={{ color: PAISLEY }}>
+            完成
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function VoiceSheet({ currentId, onPick }: { currentId: string; onPick: (v: { id: string; name: string }) => void }) {
+  const groups: { key: string; label: string }[] = [
+    { key: "current", label: "当前音色" },
+    { key: "recommended", label: "推荐音色" },
+    { key: "installed", label: "已安装音色" },
+  ];
+  return (
+    <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+      {groups.map((g) => (
+        <div key={g.key}>
+          <p className="text-[11px] font-bold uppercase mb-1.5" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+            {g.label}
+          </p>
+          <div className="space-y-1">
+            {VOICE_OPTIONS.filter((v) => v.group === g.key).map((v) => {
+              const active = v.id === currentId;
+              return (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => onPick({ id: v.id, name: v.name })}
+                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left"
+                  style={{
+                    background: active ? "color-mix(in oklab, var(--paisley) 10%, white)" : "transparent",
+                    color: active ? PAISLEY : "var(--foreground)",
+                  }}
+                >
+                  <span className="text-[14px] font-bold">{v.name}</span>
+                  {active && <span className="text-[12px] font-bold">✓</span>}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ThemeSheet({ value, onPick }: { value: string; onPick: (id: string) => void }) {
+  return (
+    <div className="space-y-1">
+      {THEME_OPTIONS.map((t) => {
+        const active = t.id === value;
+        return (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => onPick(t.id)}
+            className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-left"
+            style={{
+              background: active ? "color-mix(in oklab, var(--paisley) 10%, white)" : "transparent",
+              color: active ? PAISLEY : "var(--foreground)",
+            }}
+          >
+            <span className="text-[14px] font-bold">{t.label}</span>
+            {active && <span className="text-[12px] font-bold">✓</span>}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function SpeechRateSheet({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  return (
+    <div className="py-2">
+      <div className="flex items-baseline justify-between mb-3">
+        <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+          当前
+        </span>
+        <span className="text-[20px] font-bold" style={{ color: PAISLEY }}>
+          {value.toFixed(1)}×
+        </span>
+      </div>
+      <input
+        type="range"
+        min={0.6}
+        max={1.4}
+        step={0.1}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full accent-[color:var(--paisley)]"
+      />
+      <div className="flex justify-between text-[11px] font-bold mt-1" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+        <span>0.6×</span>
+        <span>1.0×</span>
+        <span>1.4×</span>
+      </div>
+    </div>
+  );
+}
