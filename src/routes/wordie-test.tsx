@@ -207,6 +207,7 @@ function WordieTestPage() {
   const [audioPlaying, setAudioPlaying] = useState<string | null>(null);
   const [recordingId, setRecordingId] = useState<string | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const activeRecordingRef = useRef<string | null>(null);
 
   // Timer: runs only in quiz mode
   useEffect(() => {
@@ -266,10 +267,13 @@ function WordieTestPage() {
   };
 
   const startRecording = (q: Question) => {
+    activeRecordingRef.current = q.id;
     setRecordingId(q.id);
   };
 
   const stopRecording = (q: Question) => {
+    if (activeRecordingRef.current !== q.id) return;
+    activeRecordingRef.current = null;
     setRecordingId(null);
     // mock: 70% great, 20% good, 10% retry
     const r = Math.random();
