@@ -140,32 +140,6 @@ function WordieXPage() {
           </section>
         )}
 
-        {/* Reward strip */}
-        {state !== "all-clear" && (
-          <section
-            className="mt-4 rounded-3xl p-4 flex items-center gap-3"
-            style={{
-              background: "color-mix(in oklab, var(--bloxia) 10%, white)",
-              border: "1px solid color-mix(in oklab, var(--bloxia) 20%, white)",
-            }}
-          >
-            <div
-              className="h-11 w-11 rounded-2xl grid place-items-center text-white shrink-0"
-              style={{ background: "var(--bloxia)" }}
-            >
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-bold text-[14px]">Finish to earn a Bloxia tile</p>
-              <p className="text-[12px] text-muted-foreground mt-0.5">
-                +150 Bp on completion · unlocks pixel reward
-              </p>
-            </div>
-            {state === "completed" && (
-              <CheckCircle2 className="h-6 w-6 shrink-0" style={{ color: "var(--bloxia)" }} />
-            )}
-          </section>
-        )}
 
         {/* Tricky words list */}
         <section className="mt-5">
