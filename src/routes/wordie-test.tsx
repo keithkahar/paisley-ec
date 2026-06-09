@@ -602,7 +602,7 @@ function QuizView({
             {meta.points} Pt
           </span>
         </div>
-        <p className="mt-2 text-[12px] opacity-80">{meta.note}</p>
+        <p className="mt-2 text-[13px] font-bold opacity-95">{meta.note}</p>
       </section>
 
       {/* Questions */}
