@@ -14,6 +14,9 @@ const DEFAULT_BIRTHDAY = "2017-01-01";
 const PAISLEY = "var(--paisley)";
 const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
+const YELLOW = "var(--paisley-yellow)";
+const YELLOW_SOFT = "var(--paisley-yellow-soft)";
+const CHIP_BLUE = "#E8EDFA";
 
 type Gender = "" | "male" | "female";
 type ProfileForm = {
@@ -184,7 +187,7 @@ function EditProfilePage() {
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: YELLOW, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Edit Profile
           </h1>
@@ -306,12 +309,12 @@ function EditProfilePage() {
         </div>
 
         {/* Sticky save bar */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 pt-3 pb-5 bg-white border-t border-border">
+        <div className="absolute bottom-0 left-0 right-0 px-6 pt-3 pb-5 bg-white">
           <button
             type="button"
             onClick={onSave}
             className="w-full h-12 rounded-full text-[15px] font-bold active:scale-[0.99] transition-transform"
-            style={{ background: PAISLEY, color: "white", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ background: YELLOW, color: "white", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Save
           </button>
@@ -322,7 +325,7 @@ function EditProfilePage() {
           <div className="pointer-events-none absolute inset-x-0 top-20 z-40 flex justify-center">
             <div
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold shadow-lg"
-              style={{ background: PAISLEY, color: "white" }}
+              style={{ background: YELLOW, color: "white" }}
             >
               <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
               {toast}
