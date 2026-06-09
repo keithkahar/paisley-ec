@@ -29,9 +29,9 @@ const TALK_STATS = {
 
 const WORDIE_STATS = {
   cards: [
-    { key: "time_spent", title: "Cards Done", value: "438", unit: "cards", meta: "12 this week" },
+    { key: "time_spent", title: "Time Spent", value: "320", unit: "min", meta: "18 this week" },
     { key: "words", title: "Word Cards", value: "260", unit: "", meta: "64% mastered" },
-    { key: "tests", title: "Wordie Tests", value: "18", unit: "", meta: "Avg 86" },
+    { key: "tests", title: "Wordie Tests", value: "18", unit: "", meta: "Avg 86%" },
   ],
   goals: { week: { done: 12, total: 20, unit: "cards" }, month: { done: 86, total: 200, unit: "cards" }, year: { done: 340, total: 1000, unit: "cards" }, total: "438 cards" },
   trend: {
