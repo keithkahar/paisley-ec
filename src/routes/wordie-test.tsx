@@ -514,7 +514,8 @@ function QuizView({
   audioPlaying,
   recordingId,
   onPlay,
-  onRecord,
+  onRecordStart,
+  onRecordStop,
   onPick,
   onPrev,
   onNext,
@@ -528,7 +529,8 @@ function QuizView({
   audioPlaying: string | null;
   recordingId: string | null;
   onPlay: (q: Question) => void;
-  onRecord: (q: Question) => void;
+  onRecordStart: (q: Question) => void;
+  onRecordStop: (q: Question) => void;
   onPick: (q: Question, choiceId: string) => void;
   onPrev: () => void;
   onNext: () => void;
@@ -587,7 +589,8 @@ function QuizView({
             audioPlaying={audioPlaying === q.id}
             recording={recordingId === q.id}
             onPlay={() => onPlay(q)}
-            onRecord={() => onRecord(q)}
+              onRecordStart={() => onRecordStart(q)}
+              onRecordStop={() => onRecordStop(q)}
             onPick={(cid) => onPick(q, cid)}
           />
         ))}
