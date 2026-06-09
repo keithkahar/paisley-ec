@@ -111,25 +111,30 @@ const WORDIE_TESTS: WordieTest[] = [
   },
 ];
 
-// extend demo to 20 entries for the trend chart
-const EXTRA_SCORES = [80, 75, 85, 70, 80, 78, 72, 82, 76, 74, 80, 78, 70, 72];
-const EXTRA_DATES = [
-  "Mar 12 2026", "Feb 26 2026", "Feb 12 2026", "Jan 29 2026", "Jan 15 2026",
-  "Jan 2 2026", "Dec 18 2025", "Dec 4 2025", "Nov 20 2025", "Nov 6 2025",
-  "Oct 23 2025", "Oct 9 2025", "Sep 25 2025", "Sep 11 2025",
+const EXTRA_SEEDS: { n: number; date: string; score: number }[] = [
+  { n: 12, date: "Mar 12 2026", score: 80 },
+  { n: 11, date: "Feb 26 2026", score: 75 },
+  { n: 10, date: "Feb 12 2026", score: 85 },
+  { n: 9, date: "Jan 29 2026", score: 70 },
+  { n: 8, date: "Jan 15 2026", score: 80 },
+  { n: 7, date: "Jan 2 2026", score: 78 },
+  { n: 6, date: "Dec 18 2025", score: 72 },
+  { n: 5, date: "Dec 4 2025", score: 82 },
+  { n: 4, date: "Nov 20 2025", score: 76 },
+  { n: 3, date: "Nov 6 2025", score: 74 },
+  { n: 2, date: "Oct 23 2025", score: 80 },
+  { n: 1, date: "Oct 9 2025", score: 70 },
 ];
-for (let i = 0; i < EXTRA_SCORES.length; i++) {
-  const n = 12 - i;
-  const score = EXTRA_SCORES[i];
-  const correct = Math.round((score / 100) * 20);
-  WORDIE_TESTS.push({
+const ALL_WORDIE_TESTS: WordieTest[] = [
+  ...WORDIE_TESTS,
+  ...EXTRA_SEEDS.map(({ n, date, score }) => ({
     id: `w${n}`,
     code: `#${n}`,
-    date: EXTRA_DATES[i],
-    correct,
+    date,
+    correct: Math.round((score / 100) * 20),
     total: 20,
     score,
-    summary: `L 3/4 · P 3/4 · S 3/4 · D 3/4 · U 2/2 · POS 2/2`,
+    summary: "L 3/4 · P 3/4 · S 3/4 · D 3/4 · U 2/2 · POS 2/2",
     dimensions: [
       { key: "pronunciation", label: "Pronunciation", correct: 3, total: 4 },
       { key: "spelling", label: "Spelling", correct: 3, total: 4 },
@@ -138,8 +143,8 @@ for (let i = 0; i < EXTRA_SCORES.length; i++) {
       { key: "usage", label: "Usage", correct: 2, total: 2 },
     ],
     reviews: [],
-  });
-}
+  })),
+];
 
 const CEFR_ACCENT = "var(--paisley)";
 const WORDIE_ACCENT = "var(--wordie)";
