@@ -94,11 +94,10 @@ function ProfilePage() {
           </h2>
           {/* Registration date — mirrors ShirinTalk subtitle position */}
           <p
-            className="mt-1 text-[15px] font-bold tracking-tight"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            className="mt-1 text-[13px] leading-none font-bold"
+            style={{ color: PAISLEY_YELLOW, fontFamily: "var(--font-sans)" }}
           >
-            Reg.{"  "}
-            {`${PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })}/${String(PROFILE.registeredAt.getDate()).padStart(2, "0")}/${String(PROFILE.registeredAt.getFullYear()).slice(-2)}`}
+            Reg. {PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })} {PROFILE.registeredAt.getDate()} {PROFILE.registeredAt.getFullYear()}
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
