@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Plus, ChevronDown, Star, Trash2, X } from "lucide-react";
+import { Plus, ChevronDown, Star, Trash2, X, ChevronRight } from "lucide-react";
+import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [{ title: "Wordie-X — Paisley EC" }] }),
@@ -48,6 +49,32 @@ const SOURCE_LABEL: Record<string, string> = {
   iMade: "iMade",
 };
 const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "Wordie-X";
+
+const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
+
+// Seed notes — shown on first visit for testing
+const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
+  { word: "sunshine", content: "the light and warmth from the sun",
+    definitionEn: "the light and warmth from the sun",
+    exampleSentence: "We played in the sunshine all afternoon.",
+    partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈsʌnʃaɪn/",
+    source: "iMade", targetWordId: "wordie_x_sunshine", status: "saved" },
+  { word: "giggle", content: "to laugh in a soft, silly way",
+    definitionEn: "to laugh in a soft, silly way",
+    exampleSentence: "The kids giggle when they hear the joke.",
+    partOfSpeech: "verb", cefrLevel: "A2", pronunciation: "/ˈɡɪɡ.əl/",
+    source: "iMade", targetWordId: "wordie_x_giggle", status: "saved" },
+  { word: "puppy", content: "a baby dog",
+    definitionEn: "a baby dog",
+    exampleSentence: "My puppy loves to chase the ball.",
+    partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈpʌp.i/",
+    source: "iMade", targetWordId: "wordie_x_puppy", status: "saved" },
+  { word: "rainbow", content: "colorful arc in the sky after rain",
+    definitionEn: "colorful arc in the sky after rain",
+    exampleSentence: "Look at the rainbow over the hill!",
+    partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈreɪn.boʊ/",
+    source: "iMade", targetWordId: "wordie_x_rainbow", status: "saved" },
+];
 
 // ---------- Normalize ----------
 function normalizeDraftWord(value: string): string {
@@ -142,7 +169,22 @@ function WordieXPage() {
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
 
   // Load notes on mount
-  useEffect(() => { setNotes(loadNotes()); }, []);
+  useEffect(() => {
+    const existing = loadNotes();
+    if (existing.length === 0 && typeof window !== "undefined" && !localStorage.getItem(NOTES_KEY)) {
+      const now = Date.now();
+      const seeded: Note[] = SEED_NOTES.map((n, i) => ({
+        ...n,
+        _id: n.targetWordId,
+        createdAt: now - i * 1000,
+        updatedAt: now - i * 1000,
+      }));
+      saveNotes(seeded);
+      setNotes(seeded);
+    } else {
+      setNotes(existing);
+    }
+  }, []);
 
   // Toast auto-dismiss
   useEffect(() => {
@@ -249,33 +291,39 @@ function WordieXPage() {
       <AppHeader title="" back="/mywordie" bg="white" />
 
       <div className="px-5 pb-12">
-        {/* Title — match mywordie/wordie-bank style */}
-        <h1
-          className="text-[26px] font-bold tracking-tight leading-none mb-5"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em", color: WORDIE }}
-        >
-          Wordie-X
-        </h1>
+        {/* Title + subtitle — match topics/Choose A Topic style */}
+        <div className="mb-5">
+          <h1
+            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Wordie-X
+          </h1>
+          <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
+            Words you added or can add.
+          </p>
+        </div>
 
-        {/* Add Words */}
+        {/* Add a new word */}
         <section>
-          <h2 className="text-[13px] font-bold text-muted-foreground mb-2">Add Words</h2>
-
           {!showEditor ? (
             <button
               type="button"
               onClick={openNewWord}
-              className="w-full rounded-3xl bg-white border-2 border-dashed py-7 grid place-items-center active:scale-[0.99] transition-transform"
-              style={{ borderColor: "color-mix(in oklab, var(--wordie) 35%, white)" }}
+              className="w-full rounded-full py-3 px-4 flex items-center justify-center gap-3 active:scale-[0.99] transition-transform"
+              style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)" }}
             >
               <span
-                className="h-11 w-11 rounded-full grid place-items-center"
-                style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", color: WORDIE }}
+                className="h-9 w-9 rounded-full grid place-items-center bg-white shrink-0"
+                style={{ color: WORDIE, boxShadow: "0 1px 2px rgba(0,0,0,0.04)" }}
               >
-                <Plus className="h-6 w-6" strokeWidth={2.5} />
+                <Plus className="h-5 w-5" strokeWidth={2.75} />
               </span>
-              <span className="mt-2 text-[13px] font-bold" style={{ color: WORDIE }}>
-                Add a new word
+              <span
+                className="text-[17px] font-bold tracking-tight"
+                style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              >
+                Add A New Word
               </span>
             </button>
           ) : (
@@ -285,7 +333,7 @@ function WordieXPage() {
             >
               {/* Word input */}
               <label className="block">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Word</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word</span>
                 <input
                   type="text"
                   value={draftWord}
@@ -357,7 +405,7 @@ function WordieXPage() {
 
               {/* Definition */}
               <label className="block mt-4">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Definition</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Definition</span>
                 <textarea
                   value={definition}
                   onChange={(e) => setDefinition(e.target.value)}
@@ -371,7 +419,7 @@ function WordieXPage() {
 
               {/* Example */}
               <label className="block mt-3">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Example</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word In Use</span>
                 <textarea
                   value={example}
                   onChange={(e) => setExample(e.target.value)}
@@ -407,10 +455,7 @@ function WordieXPage() {
 
         {/* Added Words */}
         <section className="mt-7">
-          <div className="flex items-baseline justify-between mb-2">
-            <h2 className="text-[13px] font-bold text-muted-foreground">Added Words</h2>
-            <span className="text-[12px] font-bold text-muted-foreground">{count} words</span>
-          </div>
+          <p className="mb-2 text-[12px] font-bold text-muted-foreground">{count} cards</p>
 
           {count === 0 ? (
             <div className="rounded-3xl bg-muted/40 border border-dashed border-border p-8 text-center">
@@ -419,7 +464,7 @@ function WordieXPage() {
               </p>
             </div>
           ) : (
-            <ul className="space-y-2">
+            <ul className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
               {notes.map((n) => (
                 <SavedCard
                   key={n._id}
@@ -520,7 +565,7 @@ function SavedCard({
   }), [note]);
 
   return (
-    <li className="relative rounded-2xl overflow-hidden bg-white border border-border">
+    <li className="relative overflow-hidden bg-white">
       {/* Left action (revealed on swipe right) */}
       <button
         type="button"
@@ -548,43 +593,62 @@ function SavedCard({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className="relative bg-white p-3 touch-pan-y select-none"
+        className="relative bg-white px-4 py-3 touch-pan-y select-none flex items-center gap-3"
         style={{
           transform: `translateX(${offset}px)`,
           transition: startX.current == null ? "transform 200ms ease" : "none",
         }}
       >
-        <div className="flex items-baseline justify-between gap-2">
-          <span
-            className="text-[18px] font-bold tracking-tight leading-none"
-            style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        <div className="min-w-0 flex-1">
+          <p
+            className="font-semibold text-[16px] truncate leading-tight"
+            style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
           >
-            {note.word}
-          </span>
-          {note.isFocus && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: WORDIE }}>
-              <Star className="h-3 w-3 fill-current" /> Focus
+            {capitalize(note.word)}
+          </p>
+          {note.content && (
+            <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+              {note.content}
+            </p>
+          )}
+          <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+            <span
+              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+              style={{
+                background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                color: WORDIE,
+              }}
+            >
+              {capitalize(meta.pos)}
             </span>
+            <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+              {meta.cefr}
+            </span>
+            {note.isFocus && (
+              <span
+                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", color: WORDIE }}
+              >
+                <Star className="h-3 w-3 fill-current" /> Focus
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="flex items-center gap-2 shrink-0 self-center">
+          <StatusBadge status={(["new","learning","review","mastered"].includes(note.status as string) ? note.status : "new") as WordStatus} />
+          {offset === 0 ? (
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setOffset(0)}
+              className="h-6 w-6 grid place-items-center rounded-full bg-muted"
+              aria-label="Close actions"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
           )}
         </div>
-        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          <Pill bg="color-mix(in oklab, var(--wordie) 12%, white)" color={WORDIE}>{meta.pos}</Pill>
-          <Pill bg="color-mix(in oklab, var(--wordie-accent) 14%, white)" color="var(--wordie-accent)">{meta.cefr}</Pill>
-          <Pill bg="oklch(0.96 0.01 240)" color="var(--muted-foreground)">{meta.source}</Pill>
-        </div>
-        {note.content && (
-          <p className="mt-2 text-[13px] text-foreground/80 leading-snug">{note.content}</p>
-        )}
-        {offset !== 0 && (
-          <button
-            type="button"
-            onClick={() => setOffset(0)}
-            className="absolute top-2 right-2 h-6 w-6 grid place-items-center rounded-full bg-muted"
-            aria-label="Close actions"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        )}
       </div>
     </li>
   );
