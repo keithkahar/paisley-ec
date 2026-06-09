@@ -586,7 +586,7 @@ function WordieXPage() {
               </div>
 
               <label className="block mt-4">
-                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Example</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Definition</span>
                 <textarea
                   value={definition}
                   onChange={(e) => setDefinition(e.target.value)}
@@ -599,7 +599,7 @@ function WordieXPage() {
               </label>
 
               <label className="block mt-3">
-                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word In Use</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Example</span>
                 <textarea
                   value={example}
                   onChange={(e) => setExample(e.target.value)}
@@ -1072,10 +1072,10 @@ function PreviewFull({
 
           <div className="mt-10 space-y-6">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">Example</p>
+              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">Definition</p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  className="flex-1 text-xs font-bold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {note.definitionEn || note.content}
@@ -1090,10 +1090,10 @@ function PreviewFull({
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">Word in use</p>
+              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">Example</p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  className="flex-1 text-xs font-bold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(note.exampleSentence, note.word)}
@@ -1163,7 +1163,6 @@ function renderExample(sentence: string, word: string) {
   const parts = sentence.split(re);
   return (
     <>
-      "
       {parts.map((p, i) =>
         p.toLowerCase() === word.toLowerCase() ? (
           <span key={i} style={{ color: "var(--wordie)" }}>{p}</span>
@@ -1171,7 +1170,6 @@ function renderExample(sentence: string, word: string) {
           <span key={i}>{p}</span>
         ),
       )}
-      "
     </>
   );
 }
