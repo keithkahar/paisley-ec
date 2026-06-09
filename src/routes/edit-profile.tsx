@@ -429,10 +429,9 @@ function AvatarDraggable({
       e.preventDefault();
       const rect = el.getBoundingClientRect();
       const s = Math.max(stateRef.current.scale, 1);
-      // Range of meaningful object-position depends on overflow (scale-1)
-      const span = Math.max(s - 1, 0.0001);
-      const dx = ((e.clientX - dragging.sx) / rect.width) * (100 / span);
-      const dy = ((e.clientY - dragging.sy) / rect.height) * (100 / span);
+      // Drag feel: 1 frame-width sweep ≈ full range. Divide by scale so zoomed-in drags feel proportional.
+      const dx = ((e.clientX - dragging.sx) / rect.width) * (100 / s);
+      const dy = ((e.clientY - dragging.sy) / rect.height) * (100 / s);
       const nx = Math.max(0, Math.min(100, dragging.px - dx));
       const ny = Math.max(0, Math.min(100, dragging.py - dy));
       onChangePos(nx, ny);
