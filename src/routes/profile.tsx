@@ -5,7 +5,6 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import {
   TrendingUp,
   ClipboardList,
-  UserCog,
   Users,
   ChevronLeft,
   Pencil,
@@ -30,7 +29,7 @@ const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_YELLOW = "var(--paisley-yellow)";
-const PAISLEY_YELLOW_INK = "#7a5a3a";
+const PAISLEY_YELLOW_INK = "#cdae8d";
 const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
@@ -95,13 +94,13 @@ function ProfilePage() {
           <div className="mt-2 flex items-center justify-center gap-2">
             <span
               className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PAISLEY_YELLOW_INK, border: `1px solid ${PAISLEY_YELLOW}` }}
+              style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
               Age {PROFILE.age}
             </span>
             <span
               className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PAISLEY_YELLOW_INK, border: `1px solid ${PAISLEY_YELLOW}` }}
+              style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
               CEFR {PROFILE.cefr}
             </span>
@@ -128,9 +127,9 @@ function ProfilePage() {
                     className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
                     style={
                       isToday
-                        ? { color: PAISLEY_YELLOW_INK, border: `1.5px solid ${PAISLEY_YELLOW}` }
+                        ? { color: PAISLEY_YELLOW, border: `1.5px solid ${PAISLEY_YELLOW}` }
                         : (hasTalk || hasWordie)
-                        ? { color: PAISLEY_YELLOW_INK, background: PAISLEY_YELLOW_SOFT }
+                        ? { color: "var(--foreground)", background: PAISLEY_YELLOW_SOFT }
                         : { color: "var(--foreground)" }
                     }
                   >
@@ -162,7 +161,6 @@ function ProfilePage() {
         <section className="px-6 pt-5 pb-10 flex-1 flex flex-col justify-end gap-3">
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
-          <PillLink to="/edit-profile" title="Edit Profile" Icon={UserCog} />
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
         </section>
 
@@ -198,7 +196,7 @@ function PillLink({
       </span>
       <span
         className="text-[17px] font-bold tracking-tight leading-none"
-        style={{ letterSpacing: "-0.01em", color: PAISLEY }}
+        style={{ letterSpacing: "-0.01em", color: PAISLEY_YELLOW }}
       >
         {title}
       </span>
