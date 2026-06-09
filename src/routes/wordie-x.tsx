@@ -1042,6 +1042,7 @@ function PreviewFull({
                 {note.cefrLevel}
               </span>
               <LearnBadge status={note.learnStatus} />
+              {note.isFocus && <FocusPill />}
             </div>
             <button
               type="button"
