@@ -308,61 +308,60 @@ function MyTestsPage() {
           </button>
 
           {openWordie && (
-            <ul className="mt-1 space-y-2">
+            <div className="mt-2 rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
               {ALL_WORDIE_TESTS.map((t) => {
                 const expanded = expandedWordie === t.id;
                 return (
-                  <li
-                    key={t.id}
-                    className="rounded-2xl border border-[oklch(0.94_0.01_240)] overflow-hidden"
-                  >
+                  <div key={t.id}>
                     <button
                       type="button"
                       onClick={() => setExpandedWordie(expanded ? "" : t.id)}
-                      className="w-full p-3 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left active:bg-muted/40 transition-colors"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 min-w-0">
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="font-bold text-[20px] truncate leading-tight text-foreground"
+                          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                        >
+                          {t.score}%
                           <span
-                            className="text-[11px] font-bold px-2 py-0.5 rounded-full"
+                            className="ml-2 text-[13px] font-bold align-baseline"
+                            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                          >
+                            {t.correct}/{t.total}
+                          </span>
+                        </p>
+                        <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                          {t.summary}
+                        </p>
+                        <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                          <span
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                             style={{ background: `color-mix(in oklab, ${WORDIE_ACCENT} 12%, white)`, color: WORDIE_ACCENT }}
                           >
                             {t.code}
                           </span>
-                          <span className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-                            {t.score}%
-                          </span>
-                          <span
-                            className="text-[13px] font-bold"
-                            style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
-                          >
-                            {t.correct}/{t.total}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                             {t.date}
                           </span>
-                          <ChevronRight
-                            className="h-4 w-4 transition-transform"
-                            style={{
-                              color: "color-mix(in oklab, var(--foreground) 50%, white)",
-                              transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-                            }}
-                          />
+                          {t.reviews.length > 0 && (
+                            <span
+                              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                              style={{ background: "color-mix(in oklab, var(--shirin) 12%, white)", color: "var(--shirin)" }}
+                            >
+                              {t.reviews.length} to review
+                            </span>
+                          )}
                         </div>
                       </div>
-                      <p
-                        className="mt-1 text-[11px] font-medium truncate"
-                        style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
-                        title={t.summary}
-                      >
-                        {t.summary}
-                      </p>
+                      <ChevronRight
+                        className="h-4 w-4 text-muted-foreground transition-transform shrink-0 self-center"
+                        style={{ transform: expanded ? "rotate(90deg)" : "rotate(0deg)" }}
+                      />
                     </button>
 
                     {expanded && (
-                      <div className="px-3 pb-3 pt-1 border-t border-[oklch(0.95_0.01_240)]">
+                      <div className="px-4 pb-4 pt-1 bg-muted/30">
                         <p className="mt-2 text-[11px] font-bold" style={{ color: WORDIE_ACCENT }}>
                           Result
                         </p>
@@ -398,7 +397,7 @@ function MyTestsPage() {
                                 <li
                                   key={r.idx}
                                   className="rounded-xl p-2.5"
-                                  style={{ background: "oklch(0.97 0.01 240)" }}
+                                  style={{ background: "white" }}
                                 >
                                   <div className="flex items-center justify-between">
                                     <span className="text-[11px] font-bold" style={{ color: "var(--foreground)" }}>
@@ -429,10 +428,10 @@ function MyTestsPage() {
                         )}
                       </div>
                     )}
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           )}
         </section>
       </div>
