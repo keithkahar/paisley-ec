@@ -243,8 +243,8 @@ function EditProfilePage() {
                   step={0.01}
                   value={form.avatarScale}
                   onChange={(e) => update("avatarScale", Number(e.target.value))}
-                  className="mt-2 w-40 accent-current opacity-70"
-                  style={{ color: "#B8BDC6" }}
+                  className="mt-2 w-20 h-1 accent-current opacity-60"
+                  style={{ color: "#C8CCD3" }}
                   aria-label="Zoom"
                 />
               </>
@@ -278,7 +278,7 @@ function EditProfilePage() {
                     key={opt.key}
                     type="button"
                     onClick={() => onGenderChange(opt.key)}
-                    className="h-8 px-4 rounded-full text-[12px] font-bold transition-colors"
+                    className="h-8 px-4 rounded-full text-[14px] font-bold transition-colors"
                     style={
                       active
                         ? { background: opt.color, color: "white" }
@@ -297,7 +297,7 @@ function EditProfilePage() {
             <button
               type="button"
               onClick={() => setShowBirthdayPicker(true)}
-              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-bold"
+              className="w-full inline-flex items-center justify-end gap-1 text-[14px] font-bold"
               style={{
                 fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.01em",
@@ -355,14 +355,14 @@ function EditProfilePage() {
 function RowPill({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div
-      className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 min-h-[56px] bg-white border"
+      className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[64px] bg-white border"
       style={{
         borderColor: `color-mix(in oklab, ${YELLOW} 55%, white)`,
         fontFamily: "var(--font-sans)",
       }}
     >
       <span
-        className="shrink-0 text-[13px] font-bold leading-none"
+        className="shrink-0 text-[14px] font-bold leading-none"
         style={{ color: YELLOW, letterSpacing: "-0.01em" }}
       >
         {label}
@@ -384,15 +384,33 @@ function NamePill({
   onFamilyNameChange: (value: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const hasFullName = givenName.trim().length > 0 && familyName.trim().length > 0;
+
+  useEffect(() => {
+    if (!editing) return;
+    const onDocDown = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node | null;
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        if (givenName.trim() && familyName.trim()) setEditing(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocDown);
+    document.addEventListener("touchstart", onDocDown);
+    return () => {
+      document.removeEventListener("mousedown", onDocDown);
+      document.removeEventListener("touchstart", onDocDown);
+    };
+  }, [editing, givenName, familyName]);
 
   return (
     <RowPill label="Name">
+      <div ref={containerRef}>
       {hasFullName && !editing ? (
         <button
           type="button"
           onClick={() => setEditing(true)}
-          className="w-full truncate text-right text-[15px] font-bold text-foreground"
+          className="w-full truncate text-right text-[14px] font-bold text-foreground"
           style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
           {givenName.trim()} {familyName.trim()}
@@ -401,19 +419,13 @@ function NamePill({
         <div
           className="grid grid-cols-2 gap-2"
           onFocus={() => setEditing(true)}
-          onBlur={(e) => {
-            const nextFocus = e.relatedTarget instanceof Node ? e.relatedTarget : null;
-            if (!e.currentTarget.contains(nextFocus) && givenName.trim() && familyName.trim()) {
-              setEditing(false);
-            }
-          }}
         >
           <input
             type="text"
             value={givenName}
             onChange={(e) => onGivenNameChange(e.target.value)}
             placeholder="Given Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[14px] font-bold text-foreground placeholder:text-muted-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           />
           <input
@@ -421,11 +433,12 @@ function NamePill({
             value={familyName}
             onChange={(e) => onFamilyNameChange(e.target.value)}
             placeholder="Family Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[14px] font-bold text-foreground placeholder:text-muted-foreground"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           />
         </div>
       )}
+      </div>
     </RowPill>
   );
 }
@@ -649,10 +662,10 @@ function BirthdaySheet({
                 }
               >
                 <span
-                  className="block text-[10px] font-bold leading-none opacity-80"
-                  style={{ letterSpacing: "0.06em", fontFamily: "var(--font-sans)" }}
+                  className="block text-[11px] font-bold leading-none opacity-80"
+                  style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
                 >
-                  {t.label.toUpperCase()}
+                  {t.label}
                 </span>
                 <span
                   className="block text-[17px] font-bold leading-tight mt-0.5"
