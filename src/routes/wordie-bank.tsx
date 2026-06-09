@@ -447,7 +447,11 @@ function WordieBankPage() {
                 className="text-[17px] font-bold"
                 style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
               >
-                {openSheet === "level" ? "Level" : openSheet === "category" ? "Category" : "Status"}
+                {openSheet === "level"
+                  ? "Choose Level"
+                  : openSheet === "category"
+                    ? "Choose Category"
+                    : "Choose Status"}
               </p>
               <button
                 type="button"
@@ -459,26 +463,57 @@ function WordieBankPage() {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-5 pb-8 divide-y divide-border">
-              <SheetRow label={`All (${words.length})`} active={
-                (openSheet === "level" && levelSel === "all") ||
-                (openSheet === "category" && categorySel === "all") ||
-                (openSheet === "status" && statusSel === "all")
-              } onClick={() => {
-                if (openSheet === "level") setLevelSel("all");
-                else if (openSheet === "category") setCategorySel("all");
-                else setStatusSel("all");
-                setOpenSheet(null);
-              }} />
-              {openSheet === "level" && levelOptions.map(([k, n]) => (
-                <SheetRow key={k} label={`${k} (${n})`} active={levelSel === k} onClick={() => { setLevelSel(k); setOpenSheet(null); }} />
-              ))}
-              {openSheet === "category" && categoryOptions.map(([k, n]) => (
-                <SheetRow key={k} label={`${k} (${n})`} active={categorySel === k} onClick={() => { setCategorySel(k); setOpenSheet(null); }} />
-              ))}
-              {openSheet === "status" && statusOptions.map((s) => {
-                const n = s.key === "focus" ? words.filter((w) => w.focus).length : words.filter((w) => w.status === s.key).length;
-                return <SheetRow key={s.key} label={`${s.label} (${n})`} active={statusSel === s.key} onClick={() => { setStatusSel(s.key); setOpenSheet(null); }} />;
-              })}
+              {openSheet === "level" && (
+                <>
+                  <SheetRow
+                    label="Clear all"
+                    active={levelSel.length === 0}
+                    onClick={() => setLevelSel([])}
+                  />
+                  {levelOptions.map(([k, n]) => (
+                    <SheetRow
+                      key={k}
+                      label={`${k} (${n})`}
+                      active={levelSel.includes(k)}
+                      onClick={() => toggleIn(levelSel, setLevelSel, k)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "category" && (
+                <>
+                  <SheetRow
+                    label="Clear all"
+                    active={categorySel.length === 0}
+                    onClick={() => setCategorySel([])}
+                  />
+                  {categoryOptions.map(([k, n]) => (
+                    <SheetRow
+                      key={k}
+                      label={`${k} (${n})`}
+                      active={categorySel.includes(k)}
+                      onClick={() => toggleIn(categorySel, setCategorySel, k)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "status" && (
+                <>
+                  <SheetRow
+                    label="Clear all"
+                    active={statusSel.length === 0}
+                    onClick={() => setStatusSel([])}
+                  />
+                  {statusOptions.map((s) => (
+                    <SheetRow
+                      key={s.key}
+                      label={s.label}
+                      active={statusSel.includes(s.key)}
+                      onClick={() => toggleIn(statusSel, setStatusSel, s.key)}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
