@@ -127,9 +127,9 @@ function ProfilePage() {
                     className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
                     style={
                       isToday
-                        ? { color: PAISLEY_YELLOW, border: `1.5px solid ${PAISLEY_YELLOW}` }
+                        ? { color: PAISLEY, border: `1.5px solid ${PAISLEY}` }
                         : (hasTalk || hasWordie)
-                        ? { color: "var(--foreground)", background: PAISLEY_YELLOW_SOFT }
+                        ? { color: PAISLEY, background: "color-mix(in oklab, var(--paisley) 12%, white)" }
                         : { color: "var(--foreground)" }
                     }
                   >
@@ -186,7 +186,7 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: PAISLEY_YELLOW, fontFamily: "var(--font-sans)" }}
     >
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"
@@ -196,7 +196,7 @@ function PillLink({
       </span>
       <span
         className="text-[17px] font-bold tracking-tight leading-none"
-        style={{ letterSpacing: "-0.01em", color: PAISLEY_YELLOW }}
+        style={{ letterSpacing: "-0.01em", color: PAISLEY }}
       >
         {title}
       </span>
