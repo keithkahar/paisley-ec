@@ -66,9 +66,9 @@ const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
 function WordieBankPage() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [levelSel, setLevelSel] = useState<string>("all");
-  const [categorySel, setCategorySel] = useState<string>("all");
-  const [statusSel, setStatusSel] = useState<string>("all");
+  const [levelSel, setLevelSel] = useState<string[]>([]);
+  const [categorySel, setCategorySel] = useState<string[]>([]);
+  const [statusSel, setStatusSel] = useState<string[]>([]);
   const [openSheet, setOpenSheet] = useState<null | "level" | "category" | "status">(null);
   const [selectMode, setSelectMode] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -99,12 +99,13 @@ function WordieBankPage() {
         filter === "all" ||
         (filter === "focus" ? w.focus : w.status === filter);
       if (!matchesFilter) return false;
-      if (levelSel !== "all" && w.cefrLevel !== levelSel) return false;
-      if (categorySel !== "all" && w.theme !== categorySel) return false;
-      if (statusSel !== "all") {
-        if (statusSel === "focus") {
-          if (!w.focus) return false;
-        } else if (w.status !== statusSel) return false;
+      if (levelSel.length > 0 && !levelSel.includes(w.cefrLevel)) return false;
+      if (categorySel.length > 0 && !categorySel.includes(w.theme)) return false;
+      if (statusSel.length > 0) {
+        const hit =
+          statusSel.includes(w.status) ||
+          (w.focus && statusSel.includes("focus"));
+        if (!hit) return false;
       }
       if (!q) return true;
       return [
@@ -130,6 +131,7 @@ function WordieBankPage() {
     { key: "review", label: "Review" },
     { key: "focus", label: "Focus" },
     { key: "mastered", label: "Mastered" },
+    { key: "relearning", label: "Relearning" },
   ];
 
   const toggleSelect = (id: string) => {
@@ -148,9 +150,9 @@ function WordieBankPage() {
   const clearFilters = () => {
     setQuery("");
     setFilter("all");
-    setLevelSel("all");
-    setCategorySel("all");
-    setStatusSel("all");
+    setLevelSel([]);
+    setCategorySel([]);
+    setStatusSel([]);
   };
 
   const exitSelect = () => {
@@ -188,9 +190,26 @@ function WordieBankPage() {
   const hasFilters =
     query.trim() !== "" ||
     filter !== "all" ||
-    levelSel !== "all" ||
-    categorySel !== "all" ||
-    statusSel !== "all";
+    levelSel.length > 0 ||
+    categorySel.length > 0 ||
+    statusSel.length > 0;
+
+  const labelFor = (sel: string[], lookup?: (k: string) => string) => {
+    if (sel.length === 0) return "All";
+    if (sel.length === 1) return lookup ? lookup(sel[0]) : sel[0];
+    return `${sel.length} sel.`;
+  };
+  const statusLabelLookup = (k: string) =>
+    statusOptions.find((o) => o.key === k)?.label ?? k;
+
+  const toggleIn = (
+    sel: string[],
+    setter: (v: string[]) => void,
+    value: string,
+  ) => {
+    if (sel.includes(value)) setter(sel.filter((v) => v !== value));
+    else setter([...sel, value]);
+  };
 
   return (
     <PhoneFrame bg="bg-white">
@@ -268,19 +287,25 @@ function WordieBankPage() {
           </div>
         </div>
 
-        {/* Level / Category — paisley filter pills */}
-        <div className="mt-3 grid grid-cols-2 gap-2">
+        {/* Level / Category / Status — paisley filter pills (multi-select) */}
+        <div className="mt-3 grid grid-cols-3 gap-2">
           <FilterDropdown
             label="Level"
-            value={levelSel === "all" ? "All" : levelSel}
-            active={levelSel !== "all"}
+            value={labelFor(levelSel)}
+            active={levelSel.length > 0}
             onClick={() => setOpenSheet("level")}
           />
           <FilterDropdown
             label="Category"
-            value={categorySel === "all" ? "All" : categorySel}
-            active={categorySel !== "all"}
+            value={labelFor(categorySel)}
+            active={categorySel.length > 0}
             onClick={() => setOpenSheet("category")}
+          />
+          <FilterDropdown
+            label="Status"
+            value={labelFor(statusSel, statusLabelLookup)}
+            active={statusSel.length > 0}
+            onClick={() => setOpenSheet("status")}
           />
         </div>
 
@@ -422,7 +447,11 @@ function WordieBankPage() {
                 className="text-[17px] font-bold"
                 style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
               >
-                {openSheet === "level" ? "Level" : openSheet === "category" ? "Category" : "Status"}
+                {openSheet === "level"
+                  ? "Choose Level"
+                  : openSheet === "category"
+                    ? "Choose Category"
+                    : "Choose Status"}
               </p>
               <button
                 type="button"
@@ -434,26 +463,57 @@ function WordieBankPage() {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-5 pb-8 divide-y divide-border">
-              <SheetRow label={`All (${words.length})`} active={
-                (openSheet === "level" && levelSel === "all") ||
-                (openSheet === "category" && categorySel === "all") ||
-                (openSheet === "status" && statusSel === "all")
-              } onClick={() => {
-                if (openSheet === "level") setLevelSel("all");
-                else if (openSheet === "category") setCategorySel("all");
-                else setStatusSel("all");
-                setOpenSheet(null);
-              }} />
-              {openSheet === "level" && levelOptions.map(([k, n]) => (
-                <SheetRow key={k} label={`${k} (${n})`} active={levelSel === k} onClick={() => { setLevelSel(k); setOpenSheet(null); }} />
-              ))}
-              {openSheet === "category" && categoryOptions.map(([k, n]) => (
-                <SheetRow key={k} label={`${k} (${n})`} active={categorySel === k} onClick={() => { setCategorySel(k); setOpenSheet(null); }} />
-              ))}
-              {openSheet === "status" && statusOptions.map((s) => {
-                const n = s.key === "focus" ? words.filter((w) => w.focus).length : words.filter((w) => w.status === s.key).length;
-                return <SheetRow key={s.key} label={`${s.label} (${n})`} active={statusSel === s.key} onClick={() => { setStatusSel(s.key); setOpenSheet(null); }} />;
-              })}
+              {openSheet === "level" && (
+                <>
+                  <SheetRow
+                    label="Clear all"
+                    active={levelSel.length === 0}
+                    onClick={() => setLevelSel([])}
+                  />
+                  {levelOptions.map(([k, n]) => (
+                    <SheetRow
+                      key={k}
+                      label={`${k} (${n})`}
+                      active={levelSel.includes(k)}
+                      onClick={() => toggleIn(levelSel, setLevelSel, k)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "category" && (
+                <>
+                  <SheetRow
+                    label="Clear all"
+                    active={categorySel.length === 0}
+                    onClick={() => setCategorySel([])}
+                  />
+                  {categoryOptions.map(([k, n]) => (
+                    <SheetRow
+                      key={k}
+                      label={`${k} (${n})`}
+                      active={categorySel.includes(k)}
+                      onClick={() => toggleIn(categorySel, setCategorySel, k)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "status" && (
+                <>
+                  <SheetRow
+                    label="Clear all"
+                    active={statusSel.length === 0}
+                    onClick={() => setStatusSel([])}
+                  />
+                  {statusOptions.map((s) => (
+                    <SheetRow
+                      key={s.key}
+                      label={s.label}
+                      active={statusSel.includes(s.key)}
+                      onClick={() => toggleIn(statusSel, setStatusSel, s.key)}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
