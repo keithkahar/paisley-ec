@@ -425,17 +425,46 @@ function WordieXPage() {
       <AppHeader title="" back="/mywordie" bg="white" />
 
       <div className="px-5 pb-12">
-        {/* Title + subtitle */}
-        <div className="mb-5">
+        {/* Title */}
+        <div className="mb-4">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Wordie-X
           </h1>
-          <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
-            Words to add &amp; added.
-          </p>
+        </div>
+
+        {/* Toolbar: Select / Done · Preview (top, like Wordie Bank) */}
+        <div className="mb-4 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => (selectMode ? exitSelect() : setSelectMode(true))}
+            className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+            style={{ color: selectMode ? "var(--wordie)" : "var(--foreground)" }}
+          >
+            {selectMode ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
+            {selectMode ? "Done" : "Select"}
+          </button>
+          {selectMode ? (
+            <button
+              type="button"
+              onClick={openBatch}
+              className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+              style={{ color: "var(--wordie)" }}
+            >
+              {selected.size} selected •••
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => filtered.length > 0 && setPreviewIdx(0)}
+              className="text-[13px] font-bold"
+              style={{ color: "var(--wordie)" }}
+            >
+              Preview
+            </button>
+          )}
         </div>
 
         {/* Add a new word */}
