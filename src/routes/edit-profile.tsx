@@ -292,7 +292,7 @@ function EditProfilePage() {
                     style={
                       active
                         ? { background: opt.color, color: "white" }
-                        : { background: `color-mix(in oklab, ${opt.color} 12%, white)`, color: opt.color }
+                        : { background: "white", color: opt.color, border: `1px solid color-mix(in oklab, ${opt.color} 35%, white)` }
                     }
                   >
                     {opt.label}
