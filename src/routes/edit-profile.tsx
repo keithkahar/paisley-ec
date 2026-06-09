@@ -147,7 +147,7 @@ function EditProfilePage() {
     reader.onload = () => {
       const dataUrl = typeof reader.result === "string" ? reader.result : "";
       if (dataUrl) {
-        setForm((f) => ({ ...f, avatarPath: dataUrl, avatarPosX: 50, avatarPosY: 50 }));
+        setForm((f) => ({ ...f, avatarPath: dataUrl, avatarPosX: 50, avatarPosY: 50, avatarScale: 1 }));
       }
     };
     reader.readAsDataURL(file);
@@ -155,7 +155,7 @@ function EditProfilePage() {
   }
 
   function onClearAvatar() {
-    setForm((f) => ({ ...f, avatarPath: "", avatarPosX: 50, avatarPosY: 50 }));
+    setForm((f) => ({ ...f, avatarPath: "", avatarPosX: 50, avatarPosY: 50, avatarScale: 1 }));
   }
 
   function onGenderChange(key: Gender) {
