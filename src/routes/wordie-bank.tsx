@@ -235,13 +235,16 @@ function WordieBankPage() {
 
       <div className="px-5 pb-10">
         {/* Title */}
-        <div className="mb-4">
+        <div className="mb-4 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Wordie Bank
           </h1>
+          <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
+            Your saved words.
+          </p>
         </div>
 
         {/* Toolbar: Select / Done · Preview */}
