@@ -18,7 +18,8 @@ export const Route = createFileRoute("/profile")({
 
 // ---- mock profile data ----
 const PROFILE = {
-  avatarPath: "" as string,
+  avatarPath:
+    "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniella&backgroundColor=ffd5dc,c0aede,b6e3f4&radius=50",
   givenName: "Daniella",
   familyName: "Wang",
   age: 9,
@@ -30,6 +31,7 @@ const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).
 const PAISLEY = "var(--paisley)";
 // darker yellow ink for legible text/icons on yellow tints
 const PAISLEY_YELLOW_INK = "oklch(0.48 0.14 88)";
+const PAISLEY_YELLOW = "var(--paisley-yellow)";
 
 function ProfilePage() {
   const today = new Date();
@@ -65,7 +67,7 @@ function ProfilePage() {
               style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
             >
               {PROFILE.avatarPath ? (
-                <img src={PROFILE.avatarPath} alt="" className="h-full w-full object-cover" />
+                <img src={PROFILE.avatarPath} alt={DISPLAY_NAME} className="h-full w-full object-cover" />
               ) : (
                 <span
                   className="text-[56px] font-bold leading-none"
@@ -75,24 +77,24 @@ function ProfilePage() {
                 </span>
               )}
             </div>
-            {/* Edit profile entry — top-left of avatar */}
+            {/* Edit profile entry — small badge tucked at avatar's upper-left */}
             <Link
               to="/edit-profile"
               aria-label="Edit profile"
-              className="absolute top-1 left-1 h-9 w-9 grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              className="absolute -top-0.5 -left-0.5 h-7 w-7 grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
               style={{
-                border: `1px solid ${PAISLEY}`,
-                boxShadow: "0 2px 6px -2px rgba(0,0,0,0.15)",
+                border: `1px solid color-mix(in oklab, ${PAISLEY} 25%, white)`,
+                boxShadow: "0 2px 6px -2px rgba(0,0,0,0.18)",
               }}
             >
-              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: PAISLEY }} />
             </Link>
           </div>
           <h2
             className="mt-3 text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
-            {DISPLAY_NAME}
+            Hi, {DISPLAY_NAME}
           </h2>
           <div className="mt-2 flex items-center justify-center gap-2">
             <span
@@ -102,8 +104,8 @@ function ProfilePage() {
               Age {PROFILE.age}
             </span>
             <span
-              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
-              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold"
+              style={{ color: PAISLEY_YELLOW_INK, background: PAISLEY_YELLOW }}
             >
               CEFR {PROFILE.cefr}
             </span>
@@ -188,14 +190,17 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--paisley-yellow) 32%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", fontFamily: "var(--font-sans)" }}
     >
-      <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
+      <span
+        className="h-7 w-7 shrink-0 grid place-items-center rounded-full"
+        style={{ background: PAISLEY_YELLOW }}
+      >
         <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY_YELLOW_INK }} />
       </span>
       <span
         className="text-[17px] font-bold tracking-tight leading-none"
-        style={{ letterSpacing: "-0.01em", color: PAISLEY_YELLOW_INK }}
+        style={{ letterSpacing: "-0.01em", color: PAISLEY }}
       >
         {title}
       </span>
