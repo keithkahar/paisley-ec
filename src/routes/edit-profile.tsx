@@ -243,8 +243,8 @@ function EditProfilePage() {
                   step={0.01}
                   value={form.avatarScale}
                   onChange={(e) => update("avatarScale", Number(e.target.value))}
-                  className="mt-2 w-40 accent-current opacity-70"
-                  style={{ color: "#B8BDC6" }}
+                  className="mt-2 w-20 h-1 accent-current opacity-60"
+                  style={{ color: "#C8CCD3" }}
                   aria-label="Zoom"
                 />
               </>
@@ -278,7 +278,7 @@ function EditProfilePage() {
                     key={opt.key}
                     type="button"
                     onClick={() => onGenderChange(opt.key)}
-                    className="h-8 px-4 rounded-full text-[12px] font-bold transition-colors"
+                    className="h-8 px-4 rounded-full text-[14px] font-bold transition-colors"
                     style={
                       active
                         ? { background: opt.color, color: "white" }
@@ -297,7 +297,7 @@ function EditProfilePage() {
             <button
               type="button"
               onClick={() => setShowBirthdayPicker(true)}
-              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-bold"
+              className="w-full inline-flex items-center justify-end gap-1 text-[14px] font-bold"
               style={{
                 fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.01em",
@@ -662,10 +662,10 @@ function BirthdaySheet({
                 }
               >
                 <span
-                  className="block text-[10px] font-bold leading-none opacity-80"
-                  style={{ letterSpacing: "0.06em", fontFamily: "var(--font-sans)" }}
+                  className="block text-[11px] font-bold leading-none opacity-80"
+                  style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
                 >
-                  {t.label.toUpperCase()}
+                  {t.label}
                 </span>
                 <span
                   className="block text-[17px] font-bold leading-tight mt-0.5"
