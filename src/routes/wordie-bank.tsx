@@ -695,6 +695,23 @@ function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+const FOCUS_PILL_COLOR = "oklch(0.7 0.24 340)";
+function FocusPill() {
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+      style={{
+        background: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 22%, white)`,
+        color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`,
+      }}
+      aria-label="Focus"
+      title="Focus"
+    >
+      F
+    </span>
+  );
+}
+
 function SheetBtn({
   label,
   onClick,
