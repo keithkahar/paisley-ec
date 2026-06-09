@@ -170,8 +170,15 @@ function WordieBankPage() {
   };
 
   const addToFocus = () => applyUpdate((w) => ({ ...w, focus: true }), "Added to Focus");
+  const removeFromFocus = () =>
+    applyUpdate((w) => ({ ...w, focus: false }), "Removed from Focus");
   const moveToReview = () =>
     applyUpdate((w) => ({ ...w, status: "review", nextReviewLabel: "Today" }), "Moved to Review");
+  const removeFromReview = () =>
+    applyUpdate(
+      (w) => ({ ...w, status: "new", nextReviewLabel: "Not started" }),
+      "Removed from Review",
+    );
   const resetProgress = () => {
     applyUpdate(
       (w) => ({ ...w, status: "new", focus: false, nextReviewLabel: "Not started" }),
@@ -187,6 +194,15 @@ function WordieBankPage() {
     }
     setBatchOpen(true);
   };
+
+  const selectedWords = useMemo(
+    () => words.filter((w) => selected.has(w.wordId)),
+    [words, selected],
+  );
+  const allSelectedFocus =
+    selectedWords.length > 0 && selectedWords.every((w) => w.focus);
+  const allSelectedReview =
+    selectedWords.length > 0 && selectedWords.every((w) => w.status === "review");
 
   const selectedSummary = `${selected.size} selected`;
   const hasFilters =
@@ -218,6 +234,16 @@ function WordieBankPage() {
       <AppHeader title="" back="/mywordie" bg="transparent" />
 
       <div className="px-5 pb-10">
+        {/* Title */}
+        <div className="mb-4">
+          <h1
+            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Wordie Bank
+          </h1>
+        </div>
+
         {/* Toolbar: Select / Done · Preview */}
         <div className="flex items-center justify-between">
           <button
@@ -392,6 +418,7 @@ function WordieBankPage() {
                         <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                           {w.cefrLevel}
                         </span>
+                        {w.focus && <FocusPill />}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0 self-center">
@@ -442,8 +469,14 @@ function WordieBankPage() {
             </p>
             <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
               <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
-              <SheetBtn label="Add to Focus" onClick={addToFocus} />
-              <SheetBtn label="Move to Review" onClick={moveToReview} />
+              <SheetBtn
+                label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
+                onClick={allSelectedFocus ? removeFromFocus : addToFocus}
+              />
+              <SheetBtn
+                label={allSelectedReview ? "Remove from Review" : "Move to Review"}
+                onClick={allSelectedReview ? removeFromReview : moveToReview}
+              />
               <SheetBtn label="Reset Progress" danger onClick={() => { setBatchOpen(false); setResetConfirm(true); }} />
               <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
             </div>
@@ -615,14 +648,14 @@ function FilterDropdown({
       style={
         active
           ? {
-              background: "var(--paisley)",
+              background: "var(--wordie)",
               color: "white",
-              border: "1px solid var(--paisley)",
+              border: "1px solid var(--wordie)",
             }
           : {
-              background: "color-mix(in oklab, var(--paisley) 10%, white)",
+              background: "color-mix(in oklab, var(--wordie) 10%, white)",
               color: "var(--foreground)",
-              border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+              border: "1px solid color-mix(in oklab, var(--wordie) 25%, white)",
             }
       }
     >
@@ -634,7 +667,7 @@ function FilterDropdown({
         </span>
         <span
           className="text-[12px] font-bold truncate"
-          style={!active ? { color: "var(--paisley)" } : undefined}
+          style={!active ? { color: "var(--wordie)" } : undefined}
         >
           {value}
         </span>
@@ -660,6 +693,23 @@ function SheetRow({ label, active, onClick }: { label: string; active?: boolean;
 
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+const FOCUS_PILL_COLOR = "oklch(0.7 0.24 340)";
+function FocusPill() {
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+      style={{
+        background: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 22%, white)`,
+        color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`,
+      }}
+      aria-label="Focus"
+      title="Focus"
+    >
+      F
+    </span>
+  );
 }
 
 function SheetBtn({
@@ -740,6 +790,7 @@ function PreviewFull({
                 {word.cefrLevel}
               </span>
               <StatusBadge status={word.status} />
+              {word.focus && <FocusPill />}
             </div>
             <button
               type="button"

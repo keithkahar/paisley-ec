@@ -393,8 +393,20 @@ function WordieXPage() {
     });
     applyUpdate((n) => ({ ...n, isFocus: true }), "Added to Focus");
   };
+  const batchRemoveFocus = () => {
+    selected.forEach((id) => {
+      const n = notes.find((x) => x._id === id);
+      if (n) toggleFocusStore(n.targetWordId || n.word, false);
+    });
+    applyUpdate((n) => ({ ...n, isFocus: false }), "Removed from Focus");
+  };
   const batchMoveReview = () =>
     applyUpdate((n) => ({ ...n, learnStatus: "review", nextReviewLabel: "Today" }), "Moved to Review");
+  const batchRemoveReview = () =>
+    applyUpdate(
+      (n) => ({ ...n, learnStatus: "new", nextReviewLabel: "Not started" }),
+      "Removed from Review",
+    );
   const batchDelete = () => {
     selected.forEach((id) => {
       const n = notes.find((x) => x._id === id);
@@ -408,6 +420,15 @@ function WordieXPage() {
     if (selected.size === 0) { setToast("Select cards first"); return; }
     setBatchOpen(true);
   };
+
+  const selectedNotes = useMemo(
+    () => notes.filter((n) => selected.has(n._id)),
+    [notes, selected],
+  );
+  const allSelectedFocus =
+    selectedNotes.length > 0 && selectedNotes.every((n) => n.isFocus);
+  const allSelectedReview =
+    selectedNotes.length > 0 && selectedNotes.every((n) => n.learnStatus === "review");
 
   const labelFor = (sel: string[], lookup: (k: string) => string) => {
     if (sel.length === 0) return "All";
@@ -425,17 +446,46 @@ function WordieXPage() {
       <AppHeader title="" back="/mywordie" bg="white" />
 
       <div className="px-5 pb-12">
-        {/* Title + subtitle */}
-        <div className="mb-5">
+        {/* Title */}
+        <div className="mb-4">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Wordie-X
           </h1>
-          <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
-            Words to add &amp; added.
-          </p>
+        </div>
+
+        {/* Toolbar: Select / Done · Preview (top, like Wordie Bank) */}
+        <div className="mb-4 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => (selectMode ? exitSelect() : setSelectMode(true))}
+            className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+            style={{ color: selectMode ? "var(--wordie)" : "var(--foreground)" }}
+          >
+            {selectMode ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
+            {selectMode ? "Done" : "Select"}
+          </button>
+          {selectMode ? (
+            <button
+              type="button"
+              onClick={openBatch}
+              className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+              style={{ color: "var(--wordie)" }}
+            >
+              {selected.size} selected •••
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => filtered.length > 0 && setPreviewIdx(0)}
+              className="text-[13px] font-bold"
+              style={{ color: "var(--wordie)" }}
+            >
+              Preview
+            </button>
+          )}
         </div>
 
         {/* Add a new word */}
@@ -598,38 +648,6 @@ function WordieXPage() {
           />
         </div>
 
-        {/* Toolbar: Select / Done · Preview */}
-        <div className="mt-4 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => (selectMode ? exitSelect() : setSelectMode(true))}
-            className="inline-flex items-center gap-1.5 text-[13px] font-bold"
-            style={{ color: selectMode ? "var(--wordie)" : "var(--foreground)" }}
-          >
-            {selectMode ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-            {selectMode ? "Done" : "Select"}
-          </button>
-          {selectMode ? (
-            <button
-              type="button"
-              onClick={openBatch}
-              className="inline-flex items-center gap-1.5 text-[13px] font-bold"
-              style={{ color: "var(--wordie)" }}
-            >
-              {selected.size} selected •••
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => filtered.length > 0 && setPreviewIdx(0)}
-              className="text-[13px] font-bold"
-              style={{ color: "var(--wordie)" }}
-            >
-              Preview
-            </button>
-          )}
-        </div>
-
         {/* List */}
         <section className="mt-3">
           <p className="mb-2 text-[12px] font-bold text-muted-foreground">{filtered.length} cards</p>
@@ -696,6 +714,7 @@ function WordieXPage() {
                           <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                             {getSourceLabel(n.source)}
                           </span>
+                          {n.isFocus && <FocusPill />}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 self-center">
@@ -808,8 +827,14 @@ function WordieXPage() {
             </p>
             <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
               <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
-              <SheetBtn label="Add to Focus" onClick={batchAddFocus} />
-              <SheetBtn label="Move to Review" onClick={batchMoveReview} />
+              <SheetBtn
+                label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
+                onClick={allSelectedFocus ? batchRemoveFocus : batchAddFocus}
+              />
+              <SheetBtn
+                label={allSelectedReview ? "Remove from Review" : "Move to Review"}
+                onClick={allSelectedReview ? batchRemoveReview : batchMoveReview}
+              />
               <SheetBtn label="Delete" danger onClick={batchDelete} />
               <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
             </div>
@@ -882,11 +907,11 @@ function FilterDropdown({
       className="inline-flex items-center justify-between gap-1 rounded-full pl-3.5 pr-2.5 py-2 active:scale-[0.97] transition-transform"
       style={
         active
-          ? { background: "var(--paisley)", color: "white", border: "1px solid var(--paisley)" }
+          ? { background: "var(--wordie)", color: "white", border: "1px solid var(--wordie)" }
           : {
-              background: "color-mix(in oklab, var(--paisley) 10%, white)",
+              background: "color-mix(in oklab, var(--wordie) 10%, white)",
               color: "var(--foreground)",
-              border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+              border: "1px solid color-mix(in oklab, var(--wordie) 25%, white)",
             }
       }
     >
@@ -894,13 +919,32 @@ function FilterDropdown({
         <span className="text-xs font-bold opacity-70">{label}</span>
         <span
           className="text-[12px] font-bold truncate"
-          style={!active ? { color: "var(--paisley)" } : undefined}
+          style={!active ? { color: "var(--wordie)" } : undefined}
         >
           {value}
         </span>
       </span>
       <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-80" />
     </button>
+  );
+}
+
+// Vibrant "F" pill for cards/preview marked as Focus.
+// Same depth as other card pills (22% bg / 70% text mix).
+export const FOCUS_PILL_COLOR = "oklch(0.7 0.24 340)";
+function FocusPill() {
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+      style={{
+        background: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 22%, white)`,
+        color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`,
+      }}
+      aria-label="Focus"
+      title="Focus"
+    >
+      F
+    </span>
   );
 }
 
@@ -998,6 +1042,7 @@ function PreviewFull({
                 {note.cefrLevel}
               </span>
               <LearnBadge status={note.learnStatus} />
+              {note.isFocus && <FocusPill />}
             </div>
             <button
               type="button"
