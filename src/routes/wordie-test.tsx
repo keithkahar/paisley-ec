@@ -50,9 +50,9 @@ function WordieTestPage() {
   };
 
   return (
-    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
+    <PhoneFrame bg="bg-white">
       <AppHeader
-        title="Wordie Test"
+        title=""
         back={state === "intro" ? "/mywordie" : false}
         right={
           state !== "intro" ? (
@@ -67,7 +67,7 @@ function WordieTestPage() {
             </button>
           ) : undefined
         }
-        bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
+        bg="white"
       />
 
       <div className="px-5 pb-10">

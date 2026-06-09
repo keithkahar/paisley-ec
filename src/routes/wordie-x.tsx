@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useState } from "react";
-import { Zap, Flame, Trophy, CheckCircle2, Sparkles } from "lucide-react";
+import { Zap, Flame, Trophy, CheckCircle2 } from "lucide-react";
 import {
   MOCK_WORDS,
   ProgressBar,
@@ -25,11 +25,11 @@ function WordieXPage() {
   const tricky = MOCK_WORDS.filter((w) => w.status === "difficult" || w.status === "review");
 
   return (
-    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
+    <PhoneFrame bg="bg-white">
       <AppHeader
-        title="Wordie-X"
+        title=""
         back="/mywordie"
-        bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
+        bg="white"
       />
 
       <div className="px-5 pb-10">
@@ -140,32 +140,6 @@ function WordieXPage() {
           </section>
         )}
 
-        {/* Reward strip */}
-        {state !== "all-clear" && (
-          <section
-            className="mt-4 rounded-3xl p-4 flex items-center gap-3"
-            style={{
-              background: "color-mix(in oklab, var(--bloxia) 10%, white)",
-              border: "1px solid color-mix(in oklab, var(--bloxia) 20%, white)",
-            }}
-          >
-            <div
-              className="h-11 w-11 rounded-2xl grid place-items-center text-white shrink-0"
-              style={{ background: "var(--bloxia)" }}
-            >
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-bold text-[14px]">Finish to earn a Bloxia tile</p>
-              <p className="text-[12px] text-muted-foreground mt-0.5">
-                +150 Bp on completion · unlocks pixel reward
-              </p>
-            </div>
-            {state === "completed" && (
-              <CheckCircle2 className="h-6 w-6 shrink-0" style={{ color: "var(--bloxia)" }} />
-            )}
-          </section>
-        )}
 
         {/* Tricky words list */}
         <section className="mt-5">
