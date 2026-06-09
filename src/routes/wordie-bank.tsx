@@ -261,7 +261,7 @@ function WordieBankPage() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search word, definition, topic, level, status"
+              placeholder="Search word, definition, level, category, status"
               className="w-full rounded-full pl-10 pr-4 py-2.5 text-sm font-medium outline-none transition-colors"
               style={{
                 background: "color-mix(in oklab, var(--paisley) 10%, white)",
@@ -270,22 +270,6 @@ function WordieBankPage() {
               }}
             />
           </div>
-        </div>
-
-        {/* Filter chips (Status incl. Focus) */}
-        <div className="mt-3 flex flex-wrap gap-2">
-          {STATUS_FILTERS.map((f) => (
-            <FilterChip
-              key={f.key}
-              active={filter === f.key}
-              onClick={() => setFilter(f.key)}
-              color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
-              tone="tint"
-            >
-              {f.label}
-              <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
-            </FilterChip>
-          ))}
         </div>
 
         {/* Level / Category / Status — paisley filter pills (multi-select) */}
@@ -308,6 +292,22 @@ function WordieBankPage() {
             active={statusSel.length > 0}
             onClick={() => setOpenSheet("status")}
           />
+        </div>
+
+        {/* Filter chips (Status incl. Focus) */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {STATUS_FILTERS.map((f) => (
+            <FilterChip
+              key={f.key}
+              active={filter === f.key}
+              onClick={() => setFilter(f.key)}
+              color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
+              tone="tint"
+            >
+              {f.label}
+              <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
+            </FilterChip>
+          ))}
         </div>
 
         {/* Count row */}
@@ -608,7 +608,7 @@ function FilterDropdown({
     >
       <span className="flex items-baseline gap-1 min-w-0">
         <span
-          className="text-[11px] font-bold opacity-70"
+          className="text-xs font-bold opacity-70"
         >
           {label}
         </span>
