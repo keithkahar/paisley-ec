@@ -967,14 +967,14 @@ function ReviewOverlay({
                   className="rounded-2xl border px-3 py-2.5 text-[13px] font-bold flex items-center justify-between"
                   style={{
                     background: isRight
-                      ? "color-mix(in oklab, var(--wordie-accent) 12%, white)"
-                      : isMine
                       ? "color-mix(in oklab, var(--wordie) 10%, white)"
+                      : isMine
+                      ? "color-mix(in oklab, var(--wordie-accent) 12%, white)"
                       : "white",
                     borderColor: isRight
-                      ? "var(--wordie-accent)"
-                      : isMine
                       ? "var(--wordie)"
+                      : isMine
+                      ? "var(--wordie-accent)"
                       : "var(--border)",
                   }}
                 >
@@ -983,7 +983,7 @@ function ReviewOverlay({
                     {isRight && (
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: "var(--wordie-accent)" }}
+                        style={{ background: "var(--wordie)" }}
                       >
                         <Check className="h-3.5 w-3.5" />
                       </span>
@@ -991,7 +991,7 @@ function ReviewOverlay({
                     {isMine && !isRight && (
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: "var(--wordie)" }}
+                        style={{ background: "var(--wordie-accent)" }}
                       >
                         <X className="h-3.5 w-3.5" />
                       </span>
