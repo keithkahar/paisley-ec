@@ -303,11 +303,13 @@ function ChatPage() {
             to={
               (search.from as string) === "shirin-talk"
                 ? "/shirin-talk"
-                : mode === "topic"
+                : (search.from as string) === "topics"
                   ? "/topics"
-                  : mode === "smart_reading"
-                    ? "/smart-reading"
-                    : "/shirin-talk"
+                  : mode === "topic"
+                    ? "/topics"
+                    : mode === "smart_reading"
+                      ? "/smart-reading"
+                      : "/shirin-talk"
             }
             aria-label="Back"
             className="h-9 w-9 grid place-items-center rounded-full"
