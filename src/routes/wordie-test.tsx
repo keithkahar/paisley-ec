@@ -8,7 +8,6 @@ import {
   Check,
   X,
   Trophy,
-  Sparkles,
   Clock,
   Lock,
   ChevronRight,
@@ -266,19 +265,21 @@ function WordieTestPage() {
     setAnswers((a) => ({ ...a, [q.id]: { choiceId } }));
   };
 
-  const recordAnswer = (q: Question) => {
+  const startRecording = (q: Question) => {
     setRecordingId(q.id);
-    setTimeout(() => {
-      setRecordingId(null);
-      // mock: 70% great, 20% good, 10% retry
-      const r = Math.random();
-      const band: "great" | "good" | "retry" = r < 0.7 ? "great" : r < 0.9 ? "good" : "retry";
-      const score = band === "great" ? 92 : band === "good" ? 78 : 55;
-      setAnswers((a) => ({
-        ...a,
-        [q.id]: { record: { scorable: true, score, band } },
-      }));
-    }, 600);
+  };
+
+  const stopRecording = (q: Question) => {
+    if (recordingId !== q.id) return;
+    setRecordingId(null);
+    // mock: 70% great, 20% good, 10% retry
+    const r = Math.random();
+    const band: "great" | "good" | "retry" = r < 0.7 ? "great" : r < 0.9 ? "good" : "retry";
+    const score = band === "great" ? 92 : band === "good" ? 78 : 55;
+    setAnswers((a) => ({
+      ...a,
+      [q.id]: { record: { scorable: true, score, band } },
+    }));
   };
 
   const playAudio = (q: Question) => {
@@ -389,7 +390,8 @@ function WordieTestPage() {
               audioPlaying={audioPlaying}
               recordingId={recordingId}
               onPlay={playAudio}
-              onRecord={recordAnswer}
+              onRecordStart={startRecording}
+              onRecordStop={stopRecording}
               onPick={pickChoice}
               onPrev={goPrev}
               onNext={goNext}
