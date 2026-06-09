@@ -80,10 +80,9 @@ function ProfilePage() {
             <Link
               to="/edit-profile"
               aria-label="Edit profile"
-              className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
-              style={{ background: "#9CA3AF" }}
+              className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
             >
-              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "white" }} />
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
             </Link>
           </div>
           <h2
