@@ -273,21 +273,19 @@ function WordieBankPage() {
         </div>
 
         {/* Filter chips (Status incl. Focus) */}
-        <div className="mt-3 -mx-5 px-5 overflow-x-auto scroll-hide">
-          <div className="flex gap-2 w-max">
-            {STATUS_FILTERS.map((f) => (
-              <FilterChip
-                key={f.key}
-                active={filter === f.key}
-                onClick={() => setFilter(f.key)}
-                color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
-                tone={f.key === "all" ? "solid" : "tint"}
-              >
-                {f.label}
-                <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
-              </FilterChip>
-            ))}
-          </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {STATUS_FILTERS.map((f) => (
+            <FilterChip
+              key={f.key}
+              active={filter === f.key}
+              onClick={() => setFilter(f.key)}
+              color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
+              tone="tint"
+            >
+              {f.label}
+              <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
+            </FilterChip>
+          ))}
         </div>
 
         {/* Level / Category / Status — paisley filter pills (multi-select) */}
