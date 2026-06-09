@@ -372,6 +372,63 @@ function RowPill({ label, children }: { label: string; children: React.ReactNode
   );
 }
 
+function NamePill({
+  givenName,
+  familyName,
+  onGivenNameChange,
+  onFamilyNameChange,
+}: {
+  givenName: string;
+  familyName: string;
+  onGivenNameChange: (value: string) => void;
+  onFamilyNameChange: (value: string) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const hasFullName = givenName.trim().length > 0 && familyName.trim().length > 0;
+
+  return (
+    <RowPill label="Name">
+      {hasFullName && !editing ? (
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          className="w-full truncate text-right text-[15px] font-bold text-foreground"
+          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        >
+          {givenName.trim()} {familyName.trim()}
+        </button>
+      ) : (
+        <div
+          className="grid grid-cols-2 gap-2"
+          onFocus={() => setEditing(true)}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget) && givenName.trim() && familyName.trim()) {
+              setEditing(false);
+            }
+          }}
+        >
+          <input
+            type="text"
+            value={givenName}
+            onChange={(e) => onGivenNameChange(e.target.value)}
+            placeholder="Given Name"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          />
+          <input
+            type="text"
+            value={familyName}
+            onChange={(e) => onFamilyNameChange(e.target.value)}
+            placeholder="Family Name"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          />
+        </div>
+      )}
+    </RowPill>
+  );
+}
+
 function AvatarDraggable({
   src,
   initials,
