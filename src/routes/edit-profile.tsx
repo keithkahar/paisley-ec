@@ -451,6 +451,8 @@ function AvatarDraggable({
   // Use refs + global window listeners — survives re-renders and dpr quirks.
   const stateRef = useRef({ posX, posY, scale });
   stateRef.current = { posX, posY, scale };
+  const callbacksRef = useRef({ onChangePos, onChangeScale });
+  callbacksRef.current = { onChangePos, onChangeScale };
 
   useEffect(() => {
     const el = ref.current;
@@ -458,14 +460,15 @@ function AvatarDraggable({
 
     let dragging: { sx: number; sy: number; px: number; py: number } | null = null;
 
-    const onDown = (e: MouseEvent) => {
+    const onDown = (e: PointerEvent) => {
       // ignore clicks that hit overlay buttons
       if ((e.target as HTMLElement).closest("button")) return;
       e.preventDefault();
       dragging = { sx: e.clientX, sy: e.clientY, px: stateRef.current.posX, py: stateRef.current.posY };
       el.style.cursor = "grabbing";
+      el.setPointerCapture?.(e.pointerId);
     };
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e: PointerEvent) => {
       if (!dragging) return;
       e.preventDefault();
       const rect = el.getBoundingClientRect();
@@ -475,7 +478,7 @@ function AvatarDraggable({
       const dy = ((e.clientY - dragging.sy) / rect.height) * (100 / s);
       const nx = Math.max(0, Math.min(100, dragging.px - dx));
       const ny = Math.max(0, Math.min(100, dragging.py - dy));
-      onChangePos(nx, ny);
+      callbacksRef.current.onChangePos(nx, ny);
     };
     const onUp = () => {
       dragging = null;
@@ -484,20 +487,22 @@ function AvatarDraggable({
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const next = Math.max(1, Math.min(3, stateRef.current.scale - e.deltaY * 0.003));
-      onChangeScale(next);
+      callbacksRef.current.onChangeScale(next);
     };
 
-    el.addEventListener("mousedown", onDown);
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
+    el.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => {
-      el.removeEventListener("mousedown", onDown);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
+      el.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       el.removeEventListener("wheel", onWheel);
     };
-  }, [src, onChangePos, onChangeScale]);
+  }, [src]);
 
   return (
     <div
