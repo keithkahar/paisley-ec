@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import { Search, X, ChevronRight, ChevronDown, Volume2, Copy, Check, Circle } from "lucide-react";
 import {
   FilterChip,
-  SearchBar,
   EmptyState,
   StatusBadge,
   type WordStatus,
@@ -349,7 +348,7 @@ function WordieBankPage() {
                         className="font-bold text-[16px] truncate leading-tight"
                         style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
                       >
-                        {w.word}
+                        {capitalize(w.word)}
                       </p>
                       <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                         {w.definitionEn}
