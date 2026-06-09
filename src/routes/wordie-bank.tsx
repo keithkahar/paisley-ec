@@ -298,7 +298,7 @@ function WordieBankPage() {
               }
             />
           ) : (
-            <div className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden">
+            <div className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
               {filtered.map((w) => {
                 const isSel = selected.has(w.wordId);
                 return (
@@ -324,10 +324,13 @@ function WordieBankPage() {
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="font-bold text-[15px] truncate" style={{ letterSpacing: "-0.01em" }}>
+                      <p
+                        className="font-bold text-[16px] truncate leading-tight"
+                        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
+                      >
                         {w.word}
                       </p>
-                      <p className="text-[12px] text-muted-foreground truncate mt-0.5">
+                      <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                         {w.definitionEn}
                       </p>
                       <div className="flex items-center gap-1.5 mt-1.5">
