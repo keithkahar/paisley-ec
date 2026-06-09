@@ -801,19 +801,19 @@ function ResultView({
               value={100}
               color="#ffffff"
               track="rgba(255,255,255,0.22)"
-              height={2}
+              height={1.6}
             />
           </div>
         </div>
-        <p className="mt-7 text-[12px] font-bold tracking-[0.04em] opacity-80">
+        <p className="mt-7 text-[13px] font-bold opacity-90">
           Your Wordie Test score
         </p>
         <p
-          className="mt-2 text-[64px] font-bold leading-none"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.03em" }}
+          className="mt-2 text-[46px] font-bold leading-none"
+          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
         >
           {score}
-          <span className="text-[26px] opacity-80">%</span>
+          <span className="text-[24px] opacity-90 font-bold ml-1" style={{ letterSpacing: "-0.01em" }}>%</span>
         </p>
         <p className="mt-2 text-[13px] font-bold opacity-90">
           {correct} / {total} correct
