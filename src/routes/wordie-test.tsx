@@ -629,7 +629,8 @@ function QuestionCard({
   audioPlaying,
   recording,
   onPlay,
-  onRecord,
+  onRecordStart,
+  onRecordStop,
   onPick,
 }: {
   q: Question;
@@ -638,7 +639,8 @@ function QuestionCard({
   audioPlaying: boolean;
   recording: boolean;
   onPlay: () => void;
-  onRecord: () => void;
+  onRecordStart: () => void;
+  onRecordStop: () => void;
   onPick: (choiceId: string) => void;
 }) {
   const singleCol = shouldSingleColumn(q.stage, q.choices);
@@ -662,10 +664,10 @@ function QuestionCard({
             type="button"
             onClick={onPlay}
             aria-label={audioPlaying ? "Playing" : "Play audio"}
-            className="h-9 w-9 grid place-items-center rounded-full text-white active:scale-95 shadow"
+            className="h-8 w-8 grid place-items-center rounded-full text-white active:scale-95 shadow"
             style={{ background: "var(--wordie)" }}
           >
-            <Volume2 className="h-4 w-4" />
+            <Volume2 className="h-3.5 w-3.5" />
           </button>
         )}
 
@@ -700,13 +702,17 @@ function QuestionCard({
         <div className="mt-4 flex flex-col items-center gap-2">
           <button
             type="button"
-            onClick={onRecord}
-            className="h-16 w-16 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+            onPointerDown={onRecordStart}
+            onPointerUp={onRecordStop}
+            onPointerLeave={onRecordStop}
+            onPointerCancel={onRecordStop}
+            onContextMenu={(event) => event.preventDefault()}
+            className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform touch-none"
             style={{
               background: recording ? "var(--wordie-accent)" : "var(--wordie)",
             }}
           >
-            <Mic className="h-7 w-7" />
+            <Mic className="h-6 w-6" />
           </button>
           <p className="text-[12px] font-bold text-muted-foreground">
             {recording
