@@ -28,7 +28,6 @@ const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim();
 const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase();
 
 const PAISLEY = "var(--paisley)";
-const PAISLEY_YELLOW = "var(--paisley-yellow)";
 // darker yellow ink for legible text/icons on yellow tints
 const PAISLEY_YELLOW_INK = "oklch(0.48 0.14 88)";
 
