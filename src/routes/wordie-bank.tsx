@@ -397,8 +397,8 @@ function WordieBankPage() {
                     )}
                     <div className="min-w-0 flex-1">
                       <p
-                        className="font-semibold text-[16px] truncate leading-tight"
-                        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
+                        className="font-bold text-[18px] truncate leading-tight text-foreground"
+                        style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                       >
                         {w.word}
                       </p>
@@ -418,11 +418,11 @@ function WordieBankPage() {
                         <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                           {w.cefrLevel}
                         </span>
+                        <StatusBadge status={w.status} />
+                        {w.focus && <FocusPill />}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0 self-center">
-                      <StatusBadge status={w.status} />
-                      {w.focus && <FocusPill />}
                       {!selectMode && (
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       )}
@@ -807,7 +807,7 @@ function PreviewFull({
               className="font-semibold text-[44px] leading-none"
               style={{
                 color: "var(--wordie)",
-                fontFamily: "var(--font-display)",
+                fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.02em",
               }}
             >
