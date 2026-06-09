@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ChevronLeft, Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
+import { z } from "zod";
 
 const PINK = "var(--shirin)";
 const PINK_SOFT = "color-mix(in oklab, var(--shirin) 14%, white)";
@@ -93,10 +94,13 @@ const PACKS: Pack[] = [
 
 export const Route = createFileRoute("/smart-reading")({
   head: () => ({ meta: [{ title: "Smart Reading Talk — Paisley EC" }] }),
+  validateSearch: z.object({ from: z.string().optional() }),
   component: SmartReadingPage,
 });
 
 function SmartReadingPage() {
+  const search = useSearch({ from: "/smart-reading" });
+  const backTo = search.from === "topics" ? "/topics" : "/shirin-talk";
   const [query, setQuery] = useState("");
   const [bookCode, setBookCode] = useState<string>(PACKS[0].book_code);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -149,7 +153,7 @@ function SmartReadingPage() {
         {/* Header */}
         <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
           <Link
-            to="/shirin-talk"
+            to={backTo}
             aria-label="Back"
             className="h-9 w-9 grid place-items-center rounded-full"
           >
@@ -244,7 +248,7 @@ function SmartReadingPage() {
                   <Link
                     key={u.lesson_id}
                     to="/chat"
-                    search={{ mode: "smart_reading", lesson_id: u.lesson_id }}
+                    search={{ mode: "smart_reading", lesson_id: u.lesson_id, from: search.from }}
                     className="flex items-stretch rounded-full overflow-hidden active:scale-[0.98] transition-transform"
                     style={{ background: "white", border: "1px solid oklch(0.94 0.02 10)" }}
                   >
