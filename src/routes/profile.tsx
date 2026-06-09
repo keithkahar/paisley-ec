@@ -86,12 +86,20 @@ function ProfilePage() {
             </Link>
           </div>
           <h2
-            className="mt-3 text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             {DISPLAY_NAME}
           </h2>
-          <div className="mt-2 flex items-center justify-center gap-2">
+          {/* Invisible spacer to mirror ShirinTalk's subtitle line — keeps pill Y position identical across pages */}
+          <p
+            aria-hidden
+            className="mt-1 text-[15px] font-bold tracking-tight invisible"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            .
+          </p>
+          <div className="mt-3 flex items-center justify-center gap-2">
             <span
               className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
@@ -108,7 +116,7 @@ function ProfilePage() {
         </section>
 
         {/* Week calendar — matches ShirinTalk/myWordie pattern, with practice dots */}
-        <section className="px-6 pt-4">
+        <section className="px-6 pt-3">
           <div className="flex items-center justify-between">
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
@@ -158,7 +166,7 @@ function ProfilePage() {
         </section>
 
         {/* Pill actions — mirrors ShirinTalk pill style */}
-        <section className="px-6 pt-5 pb-10 flex-1 flex flex-col justify-end gap-3">
+        <section className="px-6 pt-4 pb-10 flex-1 flex flex-col justify-end gap-3">
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
