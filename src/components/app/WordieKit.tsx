@@ -8,8 +8,8 @@ export type WordStatus = "new" | "learning" | "review" | "mastered" | "difficult
 const STATUS_META: Record<WordStatus, { label: string; color: string }> = {
   new: { label: "New", color: "var(--paisley)" },
   learning: { label: "Learning", color: "var(--wordie)" },
-  review: { label: "Review", color: "var(--wordie-accent)" },
-  mastered: { label: "Mastered", color: "var(--bloxia)" },
+  review: { label: "Review", color: "var(--bloxia)" },
+  mastered: { label: "Mastered", color: "var(--wordie-accent)" },
   difficult: { label: "Tricky", color: "var(--shirin)" },
   favorite: { label: "Favorite", color: "var(--shirin)" },
 };
@@ -18,10 +18,10 @@ export function StatusBadge({ status }: { status: WordStatus }) {
   const m = STATUS_META[status];
   return (
     <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide"
+      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
       style={{
-        background: `color-mix(in oklab, ${m.color} 14%, white)`,
-        color: m.color,
+        background: `color-mix(in oklab, ${m.color} 28%, white)`,
+        color: `color-mix(in oklab, ${m.color} 80%, black)`,
       }}
     >
       {m.label}
