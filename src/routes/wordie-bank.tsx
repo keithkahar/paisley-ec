@@ -751,9 +751,9 @@ function PreviewFull({
             </button>
           </div>
 
-          <div className="mt-5 text-center">
+          <div className="mt-8 text-center">
             <h2
-              className="font-semibold text-[40px] leading-none"
+              className="font-semibold text-[44px] leading-none"
               style={{
                 color: "var(--wordie)",
                 fontFamily: "var(--font-display)",
@@ -762,18 +762,18 @@ function PreviewFull({
             >
               {capitalize(word.word)}
             </h2>
-            <p className="text-[13px] text-muted-foreground mt-2 font-mono">
+            <p className="text-[13px] text-muted-foreground mt-3 font-mono">
               {word.pronunciation}
             </p>
           </div>
 
           {/* Definition + Word in use — both left-aligned */}
-          <div className="mt-6 space-y-4">
+          <div className="mt-10 space-y-6">
             <div>
               <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
-              <div className="mt-1.5 flex items-start gap-2">
+              <div className="mt-2 flex items-start gap-3">
                 <p
                   className="flex-1 text-[17px] font-bold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
@@ -782,11 +782,10 @@ function PreviewFull({
                 </p>
                 <button
                   type="button"
-                  className="shrink-0 h-7 w-7 rounded-full grid place-items-center mt-0.5"
-                  style={{ background: "var(--wordie)", color: "white" }}
+                  className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Listen to definition"
                 >
-                  <Volume2 className="h-3 w-3" />
+                  <Volume2 className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -794,7 +793,7 @@ function PreviewFull({
               <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
                 Word in use
               </p>
-              <div className="mt-1.5 flex items-start gap-2">
+              <div className="mt-2 flex items-start gap-3">
                 <p
                   className="flex-1 text-[17px] font-bold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
@@ -803,25 +802,24 @@ function PreviewFull({
                 </p>
                 <button
                   type="button"
-                  className="shrink-0 h-7 w-7 rounded-full grid place-items-center mt-0.5"
-                  style={{ background: "var(--wordie)", color: "white" }}
+                  className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Listen to example"
                 >
-                  <Volume2 className="h-3 w-3" />
+                  <Volume2 className="h-4 w-4" />
                 </button>
               </div>
             </div>
           </div>
 
           {/* Three pills below example */}
-          <div className="grid grid-cols-3 gap-2 mt-8">
+          <div className="grid grid-cols-3 gap-2 mt-12">
             <MiniStat label="Status" value={capitalize(word.status)} />
             <MiniStat label="Level" value={word.cefrLevel} />
             <MiniStat label="Next" value={word.nextReviewLabel} />
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between px-5 py-4 border-t border-border">
+      <div className="flex items-center justify-between px-5 py-4">
         <button
           type="button"
           onClick={onPrev}
