@@ -13,6 +13,7 @@ import {
   Lock,
   RotateCcw,
   ChevronRight,
+  Play,
 } from "lucide-react";
 
 export const Route = createFileRoute("/wordie-test")({
@@ -47,42 +48,42 @@ const STAGE_META: Record<
     subtitle: "Click play to listen.",
     note: "Each question will be read 2 times.",
     points: 3,
-    color: "var(--wordie)",
+    color: "oklch(0.66 0.24 280)",
   },
   pronunciationSpeak: {
     label: "Pronunciation",
     subtitle: "Read the word, then say it clearly.",
     note: "Hold Record and release when finished.",
     points: 3,
-    color: "var(--shirin)",
+    color: "oklch(0.7 0.18 195)",
   },
   spelling: {
     label: "Spelling",
     subtitle: "Choose the correct spelling.",
     note: "Look carefully at the letter sounds.",
     points: 4,
-    color: "var(--paisley)",
+    color: "oklch(0.68 0.2 145)",
   },
   meaning: {
     label: "Definition",
     subtitle: "Choose the matching definition.",
     note: "Read every choice carefully.",
     points: 4,
-    color: "var(--bloxia)",
+    color: "var(--wordie-accent)",
   },
   usage: {
     label: "Usage",
     subtitle: "Choose the sentence that uses the word correctly.",
     note: "Each choice uses the target word.",
     points: 4,
-    color: "oklch(0.66 0.24 280)",
+    color: "oklch(0.68 0.26 35)",
   },
   partOfSpeech: {
     label: "Part of Speech",
     subtitle: "Choose what kind of word it is.",
     note: "Each option is different.",
     points: 2,
-    color: "var(--wordie-accent)",
+    color: "var(--bloxia)",
   },
 };
 
@@ -271,7 +272,7 @@ function WordieTestPage() {
         ...a,
         [q.id]: { record: { scorable: true, score, band } },
       }));
-    }, 900);
+    }, 600);
   };
 
   const playAudio = (q: Question) => {
@@ -484,9 +485,8 @@ function InfoView({ onStart }: { onStart: () => void }) {
   return (
     <div>
       <section className="rounded-3xl bg-white border border-border p-5">
-        <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Next test</p>
         <p
-          className="mt-1 text-[24px] font-bold leading-none"
+          className="text-[20px] font-bold leading-none"
           style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
           Wordie Test #03
@@ -511,31 +511,14 @@ function InfoView({ onStart }: { onStart: () => void }) {
         </ul>
       </section>
 
-      <div className="mt-4 grid grid-cols-3 gap-2.5">
-        <Stat label="Questions" value="20" />
-        <Stat label="Stages" value="6" />
-        <Stat label="Bp reward" value="≤20" />
-      </div>
-
       <button
         onClick={onStart}
-        className="mt-5 w-full rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
-        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "16px" }}
+        className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "17.25px" }}
       >
-        Start Test
-        <ChevronRight className="h-4 w-4" />
+        <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
+        <span>Start Test</span>
       </button>
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-white border border-border px-3 py-3 text-center">
-      <p className="text-[20px] font-bold leading-none" style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)" }}>
-        {value}
-      </p>
-      <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground mt-1">{label}</p>
     </div>
   );
 }
@@ -598,21 +581,17 @@ function QuizView({
         style={{ background: meta.color }}
       >
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-wide opacity-90">
-            Stage {stageIdx + 1} of {STAGE_ORDER.length}
-          </p>
+          <h2
+            className="text-[24px] font-bold leading-none"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            {meta.label}
+          </h2>
           <span className="text-[11px] font-bold uppercase tracking-wide rounded-full bg-white/22 px-2 py-0.5">
-            {meta.points} Pts
+            {meta.points} Pt
           </span>
         </div>
-        <h2
-          className="mt-2 text-[24px] font-bold leading-none"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-        >
-          {meta.label}
-        </h2>
-        <p className="mt-1.5 text-[13px] font-bold opacity-95">{meta.subtitle}</p>
-        <p className="mt-1 text-[12px] opacity-80">{meta.note}</p>
+        <p className="mt-2 text-[13px] font-bold opacity-95">{meta.note}</p>
       </section>
 
       {/* Questions */}
@@ -697,11 +676,11 @@ function QuestionCard({
           <button
             type="button"
             onClick={onPlay}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-bold text-white active:scale-95"
+            aria-label={audioPlaying ? "Playing" : "Play audio"}
+            className="h-9 w-9 grid place-items-center rounded-full text-white active:scale-95 shadow"
             style={{ background: "var(--wordie)" }}
           >
-            <Volume2 className="h-3.5 w-3.5" />
-            {audioPlaying ? "Playing…" : "Play Audio"}
+            <Volume2 className="h-4 w-4" />
           </button>
         )}
 
@@ -737,10 +716,9 @@ function QuestionCard({
           <button
             type="button"
             onClick={onRecord}
-            disabled={recording}
             className="h-16 w-16 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
             style={{
-              background: recording ? "var(--wordie-accent)" : "var(--shirin)",
+              background: recording ? "var(--wordie-accent)" : "var(--wordie)",
             }}
           >
             <Mic className="h-7 w-7" />
