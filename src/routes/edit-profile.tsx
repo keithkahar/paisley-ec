@@ -192,57 +192,67 @@ function EditProfilePage() {
 
         {/* Scroll body */}
         <div className="flex-1 px-6 pt-4 pb-28 overflow-y-auto space-y-3">
-          {/* Avatar pill (taller) */}
+          {/* Avatar pill — mimics bottom tab bar */}
           <div
-            className="relative isolate rounded-[28px] py-4 px-4"
-            style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)", fontFamily: "var(--font-sans)" }}
+            className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
+            style={{
+              fontFamily: "var(--font-sans)",
+              boxShadow:
+                "0 -10px 30px -8px rgba(255,255,255,0.95), 0 12px 28px -10px rgba(0,0,0,0.15), 0 4px 10px -4px rgba(0,0,0,0.08)",
+            }}
           >
-            <div className="flex items-center gap-4">
-              <AvatarDraggable
-                src={form.avatarPath}
-                initials={initials}
-                posX={form.avatarPosX}
-                posY={form.avatarPosY}
-                onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
-              />
-              <div className="flex flex-col gap-2">
+            {/* Left circle = avatar frame, anchored like the first tab */}
+            <div className="relative flex-1">
+              <span
+                className="absolute top-0 bottom-0 left-0 aspect-square rounded-full flex items-center justify-center"
+                style={{ background: `color-mix(in oklab, ${PAISLEY} 14%, white)` }}
+              >
+                <AvatarDraggable
+                  src={form.avatarPath}
+                  initials={initials}
+                  posX={form.avatarPosX}
+                  posY={form.avatarPosY}
+                  onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+                />
+              </span>
+            </div>
+            {/* Right side actions */}
+            <div className="flex-[2] flex items-center justify-end gap-2 pr-4">
+              <button
+                type="button"
+                onClick={onChooseAvatar}
+                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold border bg-white"
+                style={{ color: PAISLEY, borderColor: `color-mix(in oklab, ${PAISLEY} 35%, white)` }}
+              >
+                <Camera className="h-3.5 w-3.5" strokeWidth={2.25} />
+                Choose
+              </button>
+              {form.avatarPath ? (
                 <button
                   type="button"
-                  onClick={onChooseAvatar}
-                  className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold bg-white"
-                  style={{ color: PAISLEY }}
+                  onClick={onClearAvatar}
+                  aria-label="Remove photo"
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-full border bg-white text-muted-foreground"
+                  style={{ borderColor: "var(--border)" }}
                 >
-                  <Camera className="h-3.5 w-3.5" strokeWidth={2.25} />
-                  Choose Photo
+                  <X className="h-4 w-4" strokeWidth={2.25} />
                 </button>
-                {form.avatarPath ? (
-                  <button
-                    type="button"
-                    onClick={onClearAvatar}
-                    className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold bg-white/70 text-muted-foreground"
-                  >
-                    <X className="h-3.5 w-3.5" strokeWidth={2.25} />
-                    Remove
-                  </button>
-                ) : null}
-              </div>
-              <input
-                ref={fileRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={onAvatarFile}
-              />
+              ) : null}
             </div>
-            {form.avatarPath ? (
-              <p
-                className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground"
-              >
-                <Move className="h-3 w-3" strokeWidth={2.25} />
-                Drag the photo to reposition, then save.
-              </p>
-            ) : null}
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={onAvatarFile}
+            />
           </div>
+          {form.avatarPath ? (
+            <p className="px-2 -mt-1 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
+              <Move className="h-3 w-3" strokeWidth={2.25} />
+              Drag the photo to reposition, then save.
+            </p>
+          ) : null}
 
           {/* Given Name */}
           <RowPill label="Given Name">
@@ -282,7 +292,7 @@ function EditProfilePage() {
                     style={
                       active
                         ? { background: opt.color, color: "white" }
-                        : { background: `color-mix(in oklab, ${opt.color} 12%, white)`, color: opt.color }
+                        : { background: "white", color: opt.color, border: `1px solid color-mix(in oklab, ${opt.color} 35%, white)` }
                     }
                   >
                     {opt.label}
@@ -354,8 +364,11 @@ function EditProfilePage() {
 function RowPill({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div
-      className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 min-h-[56px]"
-      style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)", fontFamily: "var(--font-sans)" }}
+      className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 min-h-[56px] bg-white border"
+      style={{
+        borderColor: `color-mix(in oklab, ${PAISLEY} 35%, white)`,
+        fontFamily: "var(--font-sans)",
+      }}
     >
       <span
         className="shrink-0 text-[13px] font-bold leading-none"
