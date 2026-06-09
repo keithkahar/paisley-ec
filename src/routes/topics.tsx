@@ -65,9 +65,9 @@ function TopicsPage() {
           {(() => {
             const getLinkProps = (t: Topic) =>
               t.topic_id === "smart_reading"
-                ? ({ to: "/smart-reading" } as const)
+                ? ({ to: "/smart-reading", search: { from: "topics" } } as const)
                 : t.topic_id === "mywordie"
-                  ? ({ to: "/chat", search: { mode: "mywordie" } } as const)
+                  ? ({ to: "/chat", search: { mode: "mywordie", from: "topics" } } as const)
                   : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
 
             const cardStyle = {
