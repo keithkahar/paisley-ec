@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, Camera, X, Check } from "lucide-react";
+import { ChevronLeft, Camera, X, Check, ChevronRight, Move } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/edit-profile")({
@@ -12,10 +12,14 @@ export const Route = createFileRoute("/edit-profile")({
 const PROFILE_STORAGE_KEY = "my_profile_v1";
 const DEFAULT_BIRTHDAY = "2017-01-01";
 const PAISLEY = "var(--paisley)";
+const SHIRIN = "var(--shirin)";
+const WORDIE = "var(--wordie)";
 
 type Gender = "" | "male" | "female";
 type ProfileForm = {
   avatarPath: string;
+  avatarPosX: number; // 0-100 (object-position %)
+  avatarPosY: number; // 0-100
   givenName: string;
   familyName: string;
   birthday: string; // YYYY-MM-DD
@@ -24,15 +28,17 @@ type ProfileForm = {
 
 const DEFAULT_FORM: ProfileForm = {
   avatarPath: "",
+  avatarPosX: 50,
+  avatarPosY: 50,
   givenName: "",
   familyName: "",
   birthday: "",
   gender: "",
 };
 
-const GENDER_OPTIONS: { key: Exclude<Gender, "">; label: string }[] = [
-  { key: "female", label: "Girl" },
-  { key: "male", label: "Boy" },
+const GENDER_OPTIONS: { key: Exclude<Gender, "">; label: string; color: string }[] = [
+  { key: "female", label: "Girl", color: SHIRIN },
+  { key: "male", label: "Boy", color: WORDIE },
 ];
 
 const MONTH_NAMES_LONG = [
@@ -56,8 +62,14 @@ function loadProfile(): ProfileForm {
     const obj = JSON.parse(raw) as Partial<ProfileForm>;
     const gender = obj.gender === "male" || obj.gender === "female" ? obj.gender : "";
     const birthday = typeof obj.birthday === "string" && /^\d{4}-\d{2}-\d{2}$/.test(obj.birthday) ? obj.birthday : "";
+    const clamp = (n: unknown) => {
+      const v = typeof n === "number" ? n : 50;
+      return Math.max(0, Math.min(100, v));
+    };
     return {
       avatarPath: typeof obj.avatarPath === "string" ? obj.avatarPath : "",
+      avatarPosX: clamp(obj.avatarPosX),
+      avatarPosY: clamp(obj.avatarPosY),
       givenName: typeof obj.givenName === "string" ? obj.givenName.trim() : "",
       familyName: typeof obj.familyName === "string" ? obj.familyName.trim() : "",
       birthday,
@@ -69,8 +81,11 @@ function loadProfile(): ProfileForm {
 }
 
 function saveProfile(form: ProfileForm): ProfileForm {
+  const clamp = (n: number) => Math.max(0, Math.min(100, n));
   const normalized: ProfileForm = {
     avatarPath: typeof form.avatarPath === "string" ? form.avatarPath : "",
+    avatarPosX: clamp(form.avatarPosX),
+    avatarPosY: clamp(form.avatarPosY),
     givenName: form.givenName.trim(),
     familyName: form.familyName.trim(),
     birthday: /^\d{4}-\d{2}-\d{2}$/.test(form.birthday) ? form.birthday : "",
