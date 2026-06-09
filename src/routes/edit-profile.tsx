@@ -198,7 +198,7 @@ function EditProfilePage() {
         </section>
 
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-2 pb-[184px] overflow-y-auto flex flex-col">
+        <div className="flex-1 px-6 pt-2 pb-[172px] overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
           <div className="flex flex-col items-center pt-2 pb-5">
             <div className="relative h-40 w-40">
