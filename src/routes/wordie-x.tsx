@@ -685,6 +685,7 @@ function SavedCard({
     pos: note.partOfSpeech || "noun",
     cefr: note.cefrLevel || "New",
     source: getSourceLabel(note.source),
+    sourceColor: getSourceColor(note.source),
   }), [note]);
 
   return (
@@ -746,6 +747,15 @@ function SavedCard({
             </span>
             <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
               {meta.cefr}
+            </span>
+            <span
+              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+              style={{
+                background: `color-mix(in oklab, ${meta.sourceColor} 14%, white)`,
+                color: `color-mix(in oklab, ${meta.sourceColor} 70%, black)`,
+              }}
+            >
+              {meta.source}
             </span>
             {note.isFocus && (
               <span
