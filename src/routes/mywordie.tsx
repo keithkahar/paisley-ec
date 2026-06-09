@@ -42,7 +42,7 @@ function MyWordiePage() {
           </Link>
         </div>
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
-        <section className="px-5 pt-16 pb-1">
+        <section className="px-5 pt-12 pb-1">
           <div
             className="relative h-[228px] rounded-[28px] p-4 text-white overflow-hidden flex flex-col justify-between"
             style={{ background: "var(--wordie)" }}
