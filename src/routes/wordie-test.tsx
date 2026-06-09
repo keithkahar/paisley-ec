@@ -403,7 +403,6 @@ function WordieTestPage() {
               dims={grading.dims}
               results={grading.results}
               bp={bp}
-              onRetake={startTest}
               onReview={(id) => setReviewId(id)}
             />
           )}
