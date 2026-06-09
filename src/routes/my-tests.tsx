@@ -299,13 +299,13 @@ function MyTestsPage() {
                             {t.code}
                           </span>
                           <span className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-                            {t.correct}/{t.total}
+                            {t.score}%
                           </span>
                           <span
-                            className="text-[11px] font-bold px-2 py-0.5 rounded-full"
-                            style={{ background: `color-mix(in oklab, ${WORDIE_ACCENT} 12%, white)`, color: WORDIE_ACCENT }}
+                            className="text-[13px] font-bold"
+                            style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
                           >
-                            {t.score}%
+                            {t.correct}/{t.total}
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
