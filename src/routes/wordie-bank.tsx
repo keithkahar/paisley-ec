@@ -371,7 +371,7 @@ function WordieBankPage() {
                     )}
                     <div className="min-w-0 flex-1">
                       <p
-                        className="font-bold text-[16px] truncate leading-tight"
+                        className="font-semibold text-[16px] truncate leading-tight"
                         style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
                       >
                         {capitalize(w.word)}
@@ -379,27 +379,27 @@ function WordieBankPage() {
                       <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                         {w.definitionEn}
                       </p>
-                      <div className="flex items-center justify-between gap-2 mt-1.5">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span
-                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-                            style={{
-                              background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                              color: "var(--wordie)",
-                            }}
-                          >
-                            {capitalize(w.partOfSpeech)}
-                          </span>
-                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
-                            {w.cefrLevel}
-                          </span>
-                        </div>
-                        <StatusBadge status={w.status} />
+                      <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                        <span
+                          className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                          style={{
+                            background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                            color: "var(--wordie)",
+                          }}
+                        >
+                          {capitalize(w.partOfSpeech)}
+                        </span>
+                        <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                          {w.cefrLevel}
+                        </span>
                       </div>
                     </div>
-                    {!selectMode && (
-                      <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 self-center" />
-                    )}
+                    <div className="flex items-center gap-2 shrink-0 self-center">
+                      <StatusBadge status={w.status} />
+                      {!selectMode && (
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                      )}
+                    </div>
                   </button>
                 );
               })}
