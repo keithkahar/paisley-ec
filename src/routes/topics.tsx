@@ -121,7 +121,7 @@ function TopicsPage() {
                     imgScale={1.2}
                   />
                 </div>
-                <HeroCard t={byId.free_talk} ratio="aspect-square" />
+                <HeroCard t={byId.pet_talk} ratio="aspect-square" />
                 <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
                 <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
                 <HeroCard t={byId.smart_reading} ratio="aspect-square" />
