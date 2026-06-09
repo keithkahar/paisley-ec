@@ -785,15 +785,27 @@ function ResultView({
         className="relative rounded-[28px] p-5 text-white text-center overflow-hidden"
         style={{ background: "var(--wordie)" }}
       >
-        <div className="flex items-center justify-center gap-2 flex-wrap">
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold"
-            style={{ color: "var(--wordie-accent)" }}
+        <div>
+          <h2
+            className="text-center text-[22px] font-bold leading-none"
+            style={{
+              fontFamily: "var(--font-sans)",
+              letterSpacing: "-0.01em",
+              color: "var(--wordie-accent)",
+            }}
           >
-            <Trophy className="h-3.5 w-3.5" /> Test Completed!
-          </span>
+            Test Completed!
+          </h2>
+          <div className="mt-2">
+            <ProgressBar
+              value={100}
+              color="var(--wordie-accent)"
+              track="rgba(255,255,255,0.22)"
+              height={4}
+            />
+          </div>
         </div>
-        <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
+        <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
             style={{
