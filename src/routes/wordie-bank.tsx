@@ -418,11 +418,11 @@ function WordieBankPage() {
                         <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                           {w.cefrLevel}
                         </span>
-                        {w.focus && <FocusPill />}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0 self-center">
                       <StatusBadge status={w.status} />
+                      {w.focus && <FocusPill />}
                       {!selectMode && (
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       )}

@@ -498,10 +498,10 @@ function WordieXPage() {
               style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)" }}
             >
               <span
-                className="h-9 w-9 rounded-full grid place-items-center bg-white shrink-0"
+                className="h-7 w-7 rounded-full grid place-items-center bg-white shrink-0"
                 style={{ color: WORDIE, boxShadow: "0 1px 2px rgba(0,0,0,0.04)" }}
               >
-                <Plus className="h-5 w-5" strokeWidth={2.75} />
+                <Plus className="h-4 w-4" strokeWidth={2.75} />
               </span>
               <span
                 className="text-[17px] font-bold tracking-tight"
@@ -714,11 +714,11 @@ function WordieXPage() {
                           <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                             {getSourceLabel(n.source)}
                           </span>
-                          {n.isFocus && <FocusPill />}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 self-center">
                         <LearnBadge status={n.learnStatus} />
+                        {n.isFocus && <FocusPill />}
                         {!selectMode && (
                           <ChevronRight className="h-4 w-4 text-muted-foreground" />
                         )}
