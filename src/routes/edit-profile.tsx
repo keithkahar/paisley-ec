@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, Camera, X, Check, ChevronRight, Move } from "lucide-react";
+import { ChevronLeft, X, Check, ChevronRight, Move, Pencil } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/edit-profile")({
@@ -191,54 +191,42 @@ function EditProfilePage() {
         </section>
 
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-4 pb-28 overflow-y-auto space-y-3">
-          {/* Avatar pill — mimics bottom tab bar */}
-          <div
-            className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
-            style={{
-              fontFamily: "var(--font-sans)",
-              boxShadow:
-                "0 -10px 30px -8px rgba(255,255,255,0.95), 0 12px 28px -10px rgba(0,0,0,0.15), 0 4px 10px -4px rgba(0,0,0,0.08)",
-            }}
-          >
-            {/* Left circle = avatar frame, anchored like the first tab */}
-            <div className="relative flex-1">
-              <span
-                className="absolute top-0 bottom-0 left-0 aspect-square rounded-full flex items-center justify-center"
-                style={{ background: `color-mix(in oklab, ${PAISLEY} 14%, white)` }}
-              >
-                <AvatarDraggable
-                  src={form.avatarPath}
-                  initials={initials}
-                  posX={form.avatarPosX}
-                  posY={form.avatarPosY}
-                  onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
-                />
-              </span>
-            </div>
-            {/* Right side actions */}
-            <div className="flex-[2] flex items-center justify-end gap-2 pr-4">
+        <div className="flex-1 px-6 pt-2 pb-28 overflow-y-auto">
+          {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
+          <div className="flex flex-col items-center pt-2 pb-5">
+            <div className="relative h-40 w-40">
+              <AvatarDraggable
+                src={form.avatarPath}
+                initials={initials}
+                posX={form.avatarPosX}
+                posY={form.avatarPosY}
+                onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+              />
               <button
                 type="button"
                 onClick={onChooseAvatar}
-                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold border bg-white"
-                style={{ color: PAISLEY, borderColor: `color-mix(in oklab, ${PAISLEY} 35%, white)` }}
+                aria-label="Choose photo"
+                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <Camera className="h-3.5 w-3.5" strokeWidth={2.25} />
-                Choose
+                <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
               </button>
               {form.avatarPath ? (
                 <button
                   type="button"
                   onClick={onClearAvatar}
                   aria-label="Remove photo"
-                  className="inline-flex items-center justify-center h-9 w-9 rounded-full border bg-white text-muted-foreground"
-                  style={{ borderColor: "var(--border)" }}
+                  className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
                 >
-                  <X className="h-4 w-4" strokeWidth={2.25} />
+                  <X className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
                 </button>
               ) : null}
             </div>
+            {form.avatarPath ? (
+              <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
+                <Move className="h-3 w-3" strokeWidth={2.25} />
+                Drag the photo to reposition.
+              </p>
+            ) : null}
             <input
               ref={fileRef}
               type="file"
@@ -247,12 +235,8 @@ function EditProfilePage() {
               onChange={onAvatarFile}
             />
           </div>
-          {form.avatarPath ? (
-            <p className="px-2 -mt-1 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
-              <Move className="h-3 w-3" strokeWidth={2.25} />
-              Drag the photo to reposition, then save.
-            </p>
-          ) : null}
+
+          <div className="space-y-3">
 
           {/* Given Name */}
           <RowPill label="Given Name">
@@ -318,6 +302,7 @@ function EditProfilePage() {
               <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2.25} />
             </button>
           </RowPill>
+          </div>
         </div>
 
         {/* Sticky save bar */}
