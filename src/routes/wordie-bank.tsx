@@ -261,7 +261,7 @@ function WordieBankPage() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search word, definition, level, category, status"
+              placeholder="Search word, example, level, category, status"
               className="w-full rounded-full pl-10 pr-4 py-2.5 text-sm font-medium outline-none transition-colors"
               style={{
                 background: "color-mix(in oklab, var(--paisley) 10%, white)",
@@ -374,7 +374,7 @@ function WordieBankPage() {
                         className="font-semibold text-[16px] truncate leading-tight"
                         style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
                       >
-                        {capitalize(w.word)}
+                        {w.word}
                       </p>
                       <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                         {w.definitionEn}
@@ -767,11 +767,11 @@ function PreviewFull({
             </p>
           </div>
 
-          {/* Definition + Word in use — both left-aligned */}
+          {/* Example + Word in use — both left-aligned */}
           <div className="mt-10 space-y-6">
             <div>
               <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
-                Definition
+                Example
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
@@ -783,7 +783,7 @@ function PreviewFull({
                 <button
                   type="button"
                   className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label="Listen to definition"
+                  aria-label="Listen to example"
                 >
                   <Volume2 className="h-4 w-4" />
                 </button>
