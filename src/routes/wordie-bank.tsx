@@ -15,7 +15,7 @@ export const Route = createFileRoute("/wordie-bank")({
   component: WordieBankPage,
 });
 
-type FilterKey = "all" | WordStatus | "focus";
+type FilterKey = "all" | WordStatus | "focus" | "relearning";
 
 type BankWord = {
   wordId: string;
@@ -52,15 +52,17 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
   { key: "review", label: "Review" },
   { key: "focus", label: "Focus" },
   { key: "mastered", label: "Mastered" },
+  { key: "relearning", label: "Relearning" },
 ];
 
 const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
-  all: "var(--paisley)",
+  all: "var(--wordie)",
   new: "var(--paisley)",
-  learning: "var(--wordie)",
-  review: "var(--bloxia)",
-  focus: "var(--shirin)",
+  learning: "var(--bloxia)",
+  review: "oklch(0.62 0.2 30)",
+  focus: "oklch(0.52 0.18 295)",
   mastered: "var(--wordie-accent)",
+  relearning: "var(--shirin)",
 };
 
 function WordieBankPage() {
