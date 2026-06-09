@@ -58,9 +58,9 @@ const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
   all: "var(--paisley)",
   new: "var(--paisley)",
   learning: "var(--wordie)",
-  review: "var(--wordie-accent)",
-  focus: "var(--wordie-accent)",
-  mastered: "var(--bloxia)",
+  review: "var(--bloxia)",
+  focus: "var(--shirin)",
+  mastered: "var(--wordie-accent)",
 };
 
 function WordieBankPage() {
@@ -354,9 +354,6 @@ function WordieBankPage() {
                         {w.definitionEn}
                       </p>
                       <div className="flex items-center gap-1.5 mt-1.5">
-                        <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-muted text-muted-foreground">
-                          {w.partOfSpeech}
-                        </span>
                         <span
                           className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                           style={{
@@ -364,6 +361,9 @@ function WordieBankPage() {
                             color: "var(--wordie)",
                           }}
                         >
+                          {capitalize(w.partOfSpeech)}
+                        </span>
+                        <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                           {w.cefrLevel}
                         </span>
                       </div>
