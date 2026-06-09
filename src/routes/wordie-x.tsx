@@ -333,6 +333,15 @@ function WordieXPage() {
   }
 
   const count = notes.length;
+  const filteredNotes = useMemo(() => {
+    return notes.filter((n) => {
+      if (sourceFilter !== "all" && n.source !== sourceFilter) return false;
+      if (statusFilter === "all") return true;
+      if (statusFilter === "focus") return !!n.isFocus;
+      return (n.status as string) === statusFilter;
+    });
+  }, [notes, sourceFilter, statusFilter]);
+  void count;
 
   return (
     <PhoneFrame bg="bg-white">
