@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, X, Check, ChevronRight, Move, Pencil } from "lucide-react";
+import { ChevronLeft, X, Check, ChevronRight, Move, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/edit-profile")({
