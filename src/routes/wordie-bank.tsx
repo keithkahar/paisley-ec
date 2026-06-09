@@ -647,14 +647,14 @@ function FilterDropdown({
       style={
         active
           ? {
-              background: "var(--paisley)",
+              background: "var(--wordie)",
               color: "white",
-              border: "1px solid var(--paisley)",
+              border: "1px solid var(--wordie)",
             }
           : {
-              background: "color-mix(in oklab, var(--paisley) 10%, white)",
+              background: "color-mix(in oklab, var(--wordie) 10%, white)",
               color: "var(--foreground)",
-              border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+              border: "1px solid color-mix(in oklab, var(--wordie) 25%, white)",
             }
       }
     >
@@ -666,7 +666,7 @@ function FilterDropdown({
         </span>
         <span
           className="text-[12px] font-bold truncate"
-          style={!active ? { color: "var(--paisley)" } : undefined}
+          style={!active ? { color: "var(--wordie)" } : undefined}
         >
           {value}
         </span>
