@@ -48,6 +48,8 @@
   /* Paisley EC brand */
   --color-paisley: var(--paisley);
   --color-paisley-soft: var(--paisley-soft);
+  --color-paisley-yellow: var(--paisley-yellow);
+  --color-paisley-yellow-soft: var(--paisley-yellow-soft);
   --color-sand: var(--sand);
   --color-sand-soft: var(--sand-soft);
   /* ShirinTalk */
