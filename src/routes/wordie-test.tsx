@@ -195,7 +195,11 @@ type Answer = { choiceId?: string; record?: { scorable: boolean; score: number; 
 const START_LOCKED = false;
 
 function WordieTestPage() {
-  const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
+  const initialLocked =
+    START_LOCKED ||
+    (typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("locked") === "1");
+  const [mode, setMode] = useState<Mode>(initialLocked ? "locked" : "info");
   const [stageIdx, setStageIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [seconds, setSeconds] = useState(0);
