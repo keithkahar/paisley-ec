@@ -418,6 +418,7 @@ function WordieBankPage() {
                         <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                           {w.cefrLevel}
                         </span>
+                        {w.focus && <FocusPill />}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0 self-center">
@@ -772,6 +773,7 @@ function PreviewFull({
                 {word.cefrLevel}
               </span>
               <StatusBadge status={word.status} />
+              {word.focus && <FocusPill />}
             </div>
             <button
               type="button"
