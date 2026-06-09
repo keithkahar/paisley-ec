@@ -687,11 +687,11 @@ function QuestionCard({
           <button
             type="button"
             onClick={onPlay}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-bold text-white active:scale-95"
+            aria-label={audioPlaying ? "Playing" : "Play audio"}
+            className="h-9 w-9 grid place-items-center rounded-full text-white active:scale-95 shadow"
             style={{ background: "var(--wordie)" }}
           >
-            <Volume2 className="h-3.5 w-3.5" />
-            {audioPlaying ? "Playing…" : "Play Audio"}
+            <Volume2 className="h-4 w-4" />
           </button>
         )}
 
