@@ -34,11 +34,13 @@ export function FilterChip({
   onClick,
   children,
   color = "var(--wordie)",
+  tone = "solid",
 }: {
   active?: boolean;
   onClick?: () => void;
   children: ReactNode;
   color?: string;
+  tone?: "solid" | "tint";
 }) {
   return (
     <button
@@ -47,7 +49,13 @@ export function FilterChip({
       className="shrink-0 rounded-full px-3.5 py-1.5 text-xs font-bold border transition-colors active:scale-95"
       style={
         active
-          ? { background: color, color: "white", borderColor: color }
+          ? tone === "tint"
+            ? {
+                background: `color-mix(in oklab, ${color} 22%, white)`,
+                color: `color-mix(in oklab, ${color} 70%, black)`,
+                borderColor: `color-mix(in oklab, ${color} 35%, white)`,
+              }
+            : { background: color, color: "white", borderColor: color }
           : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
       }
     >
