@@ -3,7 +3,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Plus, ChevronDown, Star, Trash2, X, ChevronRight } from "lucide-react";
-import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
+import { StatusBadge, FilterChip, type WordStatus } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [{ title: "Wordie-X — Paisley EC" }] }),
@@ -43,39 +43,29 @@ const KNOWN_WORDS: Array<{
 ];
 
 const SOURCE_LABEL: Record<string, string> = {
-  "wordie-x": "Wordie-X", wordie_x: "Wordie-X",
-  definition: "Definition", meaning: "Definition",
-  example: "Word In Use",
-  shirintalk: "ShirinTalk", ShirinTalk: "ShirinTalk",
-  smart_reading: "Smart Reading", "smart-reading": "Smart Reading",
-  topic_talk: "Topic Talk", "topic-talk": "Topic Talk",
-  wordie_bank: "Wordie Bank", "wordie-bank": "Wordie Bank",
-  iMade: "Wordie-X",
+  iAdded: "iAdded",
+  definition: "Definition",
+  example: "Example",
+  shirintalk: "ShirinTalk",
 };
-const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "Wordie-X";
+const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "iAdded";
 
-// Filter dropdown order — keep stable
+// Source filter dropdown options
 const SOURCE_FILTERS: Array<{ key: string; label: string }> = [
-  { key: "all", label: "All" },
-  { key: "iMade", label: "Wordie-X" },
-  { key: "shirintalk", label: "ShirinTalk" },
-  { key: "smart_reading", label: "Smart Reading" },
-  { key: "topic_talk", label: "Topic Talk" },
-  { key: "wordie_bank", label: "Wordie Bank" },
+  { key: "all", label: "All sources" },
+  { key: "iAdded", label: "iAdded" },
   { key: "definition", label: "Definition" },
+  { key: "example", label: "Example" },
+  { key: "shirintalk", label: "ShirinTalk" },
 ];
 
-// Per-source pill colors (distinct hues for quick scanning)
-const SOURCE_COLOR: Record<string, string> = {
-  iMade: "var(--wordie)",
-  shirintalk: "var(--shirin)",
-  smart_reading: "oklch(0.7 0.18 195)",
-  topic_talk: "oklch(0.68 0.2 145)",
-  wordie_bank: "oklch(0.66 0.24 280)",
-  definition: "oklch(0.68 0.26 35)",
-};
-const getSourceColor = (s?: string) => (s && SOURCE_COLOR[s]) || "var(--wordie)";
+// Words already in Wordie Bank — used to block duplicates from Wordie-X
+const BANK_WORDS: Set<string> = new Set([
+  "dog", "cat", "bird", "fish", "rabbit",
+  "book", "chair", "pencil", "window", "teacher",
+]);
 
+// Match wordie-bank pill colors exactly
 const STATUS_FILTERS: Array<{ key: string; label: string }> = [
   { key: "all", label: "All" },
   { key: "new", label: "New" },
@@ -85,6 +75,15 @@ const STATUS_FILTERS: Array<{ key: string; label: string }> = [
   { key: "mastered", label: "Mastered" },
   { key: "relearning", label: "Relearning" },
 ];
+const STATUS_COLOR: Record<string, string> = {
+  all: "var(--wordie)",
+  new: "oklch(0.66 0.24 280)",
+  learning: "oklch(0.7 0.18 195)",
+  review: "oklch(0.68 0.2 145)",
+  focus: "oklch(0.75 0.12 305)",
+  mastered: "var(--wordie-accent)",
+  relearning: "oklch(0.8 0.1 350)",
+};
 
 const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
@@ -94,7 +93,7 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "the light and warmth from the sun",
     exampleSentence: "We played in the sunshine all afternoon.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈsʌnʃaɪn/",
-    source: "smart_reading", targetWordId: "wordie_x_sunshine", status: "saved" },
+    source: "definition", targetWordId: "wordie_x_sunshine", status: "saved" },
   { word: "giggle", content: "to laugh in a soft, silly way",
     definitionEn: "to laugh in a soft, silly way",
     exampleSentence: "The kids giggle when they hear the joke.",
@@ -104,12 +103,12 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "a baby dog",
     exampleSentence: "My puppy loves to chase the ball.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈpʌp.i/",
-    source: "topic_talk", targetWordId: "wordie_x_puppy", status: "saved" },
+    source: "example", targetWordId: "wordie_x_puppy", status: "saved" },
   { word: "rainbow", content: "colorful arc in the sky after rain",
     definitionEn: "colorful arc in the sky after rain",
     exampleSentence: "Look at the rainbow over the hill!",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈreɪn.boʊ/",
-    source: "wordie_bank", targetWordId: "wordie_x_rainbow", status: "saved" },
+    source: "iAdded", targetWordId: "wordie_x_rainbow", status: "saved" },
   { word: "butterfly", content: "an insect with big colorful wings",
     definitionEn: "an insect with big colorful wings",
     exampleSentence: "A butterfly landed on the flower.",
@@ -119,7 +118,7 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "an exciting or unusual experience",
     exampleSentence: "Our trip to the forest was a big adventure.",
     partOfSpeech: "noun", cefrLevel: "B1", pronunciation: "/ədˈven.tʃər/",
-    source: "iMade", targetWordId: "wordie_x_adventure", status: "saved" },
+    source: "shirintalk", targetWordId: "wordie_x_adventure", status: "saved" },
 ];
 
 // ---------- Normalize ----------
@@ -172,7 +171,7 @@ type Note = {
   isFocus?: boolean;
 };
 
-const NOTES_KEY = "pec_my_notes_v2";
+const NOTES_KEY = "pec_my_notes_v3";
 const FOCUS_KEY = "pec_user_words_focus_v1";
 
 function loadNotes(): Note[] {
@@ -215,6 +214,7 @@ function WordieXPage() {
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
   const [sourceFilter, setSourceFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [showSourceMenu, setShowSourceMenu] = useState(false);
 
   // Load notes on mount
   useEffect(() => {
@@ -287,7 +287,11 @@ function WordieXPage() {
   function addWordToWordieX() {
     const word = normalizedWord;
     const def = definition.trim();
-    if (!word || !def) { setToast("Add word and definition"); return; }
+    if (!word || !def) { setToast("Add word and example"); return; }
+    if (BANK_WORDS.has(word.toLowerCase())) {
+      setToast("Already in Wordie Bank");
+      return;
+    }
     const targetWordId = `wordie_x_${word.toLowerCase()}`;
     const existing = notes.find((n) => n.targetWordId === targetWordId);
     const now = Date.now();
@@ -300,7 +304,7 @@ function WordieXPage() {
       partOfSpeech: PART_OF_SPEECH_OPTIONS[posIndex],
       cefrLevel: cefr,
       pronunciation: pronunciation || `/${word}/`,
-      source: "iMade",
+      source: "iAdded",
       targetWordId,
       status: "saved",
       createdAt: existing?.createdAt || now,
@@ -460,9 +464,9 @@ function WordieXPage() {
                 )}
               </div>
 
-              {/* Definition */}
+              {/* Example (short meaning) */}
               <label className="block mt-4">
-                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Definition</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Example</span>
                 <textarea
                   value={definition}
                   onChange={(e) => setDefinition(e.target.value)}
@@ -510,35 +514,45 @@ function WordieXPage() {
           )}
         </section>
 
-        {/* Resource filter */}
-        <section className="mt-5">
+        {/* Resource dropdown filter */}
+        <section className="mt-5 relative">
           <p className="mb-2 text-[11px] font-bold tracking-wide text-muted-foreground">
             Resource
           </p>
-          <div className="flex flex-wrap gap-2">
-            {SOURCE_FILTERS.map((f) => {
-              const active = sourceFilter === f.key;
-              const color = f.key === "all" ? "var(--wordie)" : getSourceColor(f.key);
-              return (
-                <button
-                  key={f.key}
-                  type="button"
-                  onClick={() => setSourceFilter(f.key)}
-                  className="rounded-full px-3 py-1.5 text-[12px] font-bold border transition-colors active:scale-95"
-                  style={
-                    active
-                      ? { background: color, color: "white", borderColor: color }
-                      : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
-                  }
-                >
-                  {f.label}
-                </button>
-              );
-            })}
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowSourceMenu((s) => !s)}
+            className="w-full inline-flex items-center justify-between rounded-full px-4 py-2.5 text-[13px] font-bold border bg-white active:scale-[0.99] transition"
+            style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+          >
+            <span>
+              {SOURCE_FILTERS.find((f) => f.key === sourceFilter)?.label ?? "All sources"}
+            </span>
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          </button>
+          {showSourceMenu && (
+            <div
+              className="absolute z-30 left-0 right-0 mt-1 rounded-2xl bg-white border border-border shadow-lg p-1"
+            >
+              {SOURCE_FILTERS.map((f) => {
+                const active = sourceFilter === f.key;
+                return (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => { setSourceFilter(f.key); setShowSourceMenu(false); }}
+                    className="w-full text-left px-3 py-2 text-[13px] font-bold rounded-xl hover:bg-muted"
+                    style={{ color: active ? "var(--wordie)" : "var(--foreground)" }}
+                  >
+                    {f.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </section>
 
-        {/* Quick status filters */}
+        {/* Quick status filters — match Wordie Bank colors */}
         <section className="mt-4">
           <div className="flex flex-wrap gap-2">
             {STATUS_FILTERS.map((f) => {
@@ -550,25 +564,16 @@ function WordieXPage() {
                     ? notes.filter((x) => x.isFocus).length
                     : notes.filter((x) => (x.status as string) === f.key).length;
               return (
-                <button
+                <FilterChip
                   key={f.key}
-                  type="button"
+                  active={active}
                   onClick={() => setStatusFilter(f.key)}
-                  className="rounded-full px-3 py-1.5 text-[12px] font-bold border transition-colors active:scale-95 inline-flex items-center gap-1.5"
-                  style={
-                    active
-                      ? { background: "white", color: "var(--wordie)", borderColor: "var(--wordie)" }
-                      : { background: "white", color: "var(--foreground)", borderColor: "var(--border)" }
-                  }
+                  color={STATUS_COLOR[f.key] ?? "var(--wordie)"}
+                  tone="tint"
                 >
-                  <span>{f.label}</span>
-                  <span
-                    className="text-[11px] font-bold"
-                    style={{ color: active ? "var(--wordie)" : "var(--muted-foreground)" }}
-                  >
-                    {n}
-                  </span>
-                </button>
+                  {f.label}
+                  <span className="ml-1.5 opacity-70">{n}</span>
+                </FilterChip>
               );
             })}
           </div>
@@ -685,7 +690,6 @@ function SavedCard({
     pos: note.partOfSpeech || "noun",
     cefr: note.cefrLevel || "New",
     source: getSourceLabel(note.source),
-    sourceColor: getSourceColor(note.source),
   }), [note]);
 
   return (
@@ -728,7 +732,7 @@ function SavedCard({
             className="font-semibold text-[16px] truncate leading-tight"
             style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
           >
-            {capitalize(note.word)}
+            {note.word}
           </p>
           {note.content && (
             <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
@@ -748,13 +752,7 @@ function SavedCard({
             <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
               {meta.cefr}
             </span>
-            <span
-              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-              style={{
-                background: `color-mix(in oklab, ${meta.sourceColor} 14%, white)`,
-                color: `color-mix(in oklab, ${meta.sourceColor} 70%, black)`,
-              }}
-            >
+            <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
               {meta.source}
             </span>
             {note.isFocus && (
