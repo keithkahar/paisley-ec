@@ -464,7 +464,7 @@ function WordieXPage() {
               </p>
             </div>
           ) : (
-            <ul className="space-y-2">
+            <ul className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
               {notes.map((n) => (
                 <SavedCard
                   key={n._id}
@@ -565,7 +565,7 @@ function SavedCard({
   }), [note]);
 
   return (
-    <li className="relative rounded-2xl overflow-hidden bg-white border border-border">
+    <li className="relative overflow-hidden bg-white">
       {/* Left action (revealed on swipe right) */}
       <button
         type="button"
@@ -593,43 +593,62 @@ function SavedCard({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className="relative bg-white p-3 touch-pan-y select-none"
+        className="relative bg-white px-4 py-3 touch-pan-y select-none flex items-center gap-3"
         style={{
           transform: `translateX(${offset}px)`,
           transition: startX.current == null ? "transform 200ms ease" : "none",
         }}
       >
-        <div className="flex items-baseline justify-between gap-2">
-          <span
-            className="text-[18px] font-bold tracking-tight leading-none"
-            style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        <div className="min-w-0 flex-1">
+          <p
+            className="font-semibold text-[16px] truncate leading-tight"
+            style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
           >
-            {note.word}
-          </span>
-          {note.isFocus && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: WORDIE }}>
-              <Star className="h-3 w-3 fill-current" /> Focus
+            {capitalize(note.word)}
+          </p>
+          {note.content && (
+            <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+              {note.content}
+            </p>
+          )}
+          <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+            <span
+              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+              style={{
+                background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                color: WORDIE,
+              }}
+            >
+              {capitalize(meta.pos)}
             </span>
+            <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+              {meta.cefr}
+            </span>
+            {note.isFocus && (
+              <span
+                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", color: WORDIE }}
+              >
+                <Star className="h-3 w-3 fill-current" /> Focus
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="flex items-center gap-2 shrink-0 self-center">
+          <StatusBadge status={(["new","learning","review","mastered"].includes(note.status as string) ? note.status : "new") as WordStatus} />
+          {offset === 0 ? (
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setOffset(0)}
+              className="h-6 w-6 grid place-items-center rounded-full bg-muted"
+              aria-label="Close actions"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
           )}
         </div>
-        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          <Pill bg="color-mix(in oklab, var(--wordie) 12%, white)" color={WORDIE}>{meta.pos}</Pill>
-          <Pill bg="color-mix(in oklab, var(--wordie-accent) 14%, white)" color="var(--wordie-accent)">{meta.cefr}</Pill>
-          <Pill bg="oklch(0.96 0.01 240)" color="var(--muted-foreground)">{meta.source}</Pill>
-        </div>
-        {note.content && (
-          <p className="mt-2 text-[13px] text-foreground/80 leading-snug">{note.content}</p>
-        )}
-        {offset !== 0 && (
-          <button
-            type="button"
-            onClick={() => setOffset(0)}
-            className="absolute top-2 right-2 h-6 w-6 grid place-items-center rounded-full bg-muted"
-            aria-label="Close actions"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        )}
       </div>
     </li>
   );
