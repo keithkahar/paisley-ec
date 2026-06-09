@@ -760,7 +760,7 @@ function PreviewFull({
                 letterSpacing: "-0.02em",
               }}
             >
-              {capitalize(word.word)}
+              {word.word}
             </h2>
             <p className="text-[13px] text-muted-foreground mt-3 font-mono">
               {word.pronunciation}
