@@ -688,8 +688,8 @@ function WordieXPage() {
                       )}
                       <div className="min-w-0 flex-1">
                         <p
-                          className="font-semibold text-[16px] truncate leading-tight"
-                          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
+                          className="font-bold text-[18px] truncate leading-tight text-foreground"
+                          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                         >
                           {n.word}
                         </p>
@@ -714,11 +714,11 @@ function WordieXPage() {
                           <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                             {getSourceLabel(n.source)}
                           </span>
+                          <LearnBadge status={n.learnStatus} />
+                          {n.isFocus && <FocusPill />}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 self-center">
-                        <LearnBadge status={n.learnStatus} />
-                        {n.isFocus && <FocusPill />}
                         {!selectMode && (
                           <ChevronRight className="h-4 w-4 text-muted-foreground" />
                         )}
@@ -1059,7 +1059,7 @@ function PreviewFull({
               className="font-semibold text-[44px] leading-none"
               style={{
                 color: "var(--wordie)",
-                fontFamily: "var(--font-display)",
+                fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.02em",
               }}
             >
