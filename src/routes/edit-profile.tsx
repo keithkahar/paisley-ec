@@ -354,13 +354,13 @@ function RowPill({ label, children }: { label: string; children: React.ReactNode
     <div
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 min-h-[56px] bg-white border"
       style={{
-        borderColor: `color-mix(in oklab, ${PAISLEY} 35%, white)`,
+        borderColor: `color-mix(in oklab, ${YELLOW} 55%, white)`,
         fontFamily: "var(--font-sans)",
       }}
     >
       <span
         className="shrink-0 text-[13px] font-bold leading-none"
-        style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
+        style={{ color: YELLOW, letterSpacing: "-0.01em" }}
       >
         {label}
       </span>
