@@ -370,12 +370,15 @@ function WordieBankPage() {
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p
-                        className="font-bold text-[16px] truncate leading-tight"
-                        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
-                      >
-                        {capitalize(w.word)}
-                      </p>
+                      <div className="flex items-center gap-2">
+                        <p
+                          className="font-bold text-[16px] truncate leading-tight"
+                          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
+                        >
+                          {capitalize(w.word)}
+                        </p>
+                        <StatusBadge status={w.status} />
+                      </div>
                       <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                         {w.definitionEn}
                       </p>
@@ -394,10 +397,9 @@ function WordieBankPage() {
                         </span>
                       </div>
                     </div>
-                    <div className="flex flex-col items-end gap-1 shrink-0">
-                      <StatusBadge status={w.status} />
-                      {!selectMode && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
-                    </div>
+                    {!selectMode && (
+                      <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 self-center" />
+                    )}
                   </button>
                 );
               })}
