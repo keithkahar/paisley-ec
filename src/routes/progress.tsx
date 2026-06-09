@@ -203,9 +203,9 @@ function ProgressPage() {
                 week={data.goals.week}
               />
               <div className="flex-1 space-y-2">
-                <GoalRow tone="#FF7A62" label="Week" done={data.goals.week.done} total={data.goals.week.total} unit={data.goals.week.unit} />
-                <GoalRow tone="#5D56B1" label="Month" done={data.goals.month.done} total={data.goals.month.total} unit={data.goals.month.unit} />
-                <GoalRow tone="#9AC7C1" label="Year" done={data.goals.year.done} total={data.goals.year.total} unit={data.goals.year.unit} />
+                <GoalRow tone="var(--shirin)" label="Week" done={data.goals.week.done} total={data.goals.week.total} unit={data.goals.week.unit} />
+                <GoalRow tone="var(--wordie)" label="Month" done={data.goals.month.done} total={data.goals.month.total} unit={data.goals.month.unit} />
+                <GoalRow tone="var(--paisley)" label="Year" done={data.goals.year.done} total={data.goals.year.total} unit={data.goals.year.unit} />
                 <div className="pt-1 text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
                   Up to Now · {data.goals.total}
                 </div>
@@ -295,9 +295,9 @@ function GoalRing({
   const cx = SIZE / 2;
   const cy = SIZE / 2;
   const rings = [
-    { r: 48, tone: "#9AC7C1", pct: clampPct(year.done / year.total) },   // outer = year
-    { r: 36, tone: "#5D56B1", pct: clampPct(month.done / month.total) }, // middle = month
-    { r: 24, tone: "#FF7A62", pct: clampPct(week.done / week.total) },   // inner = week
+    { r: 48, tone: "var(--paisley)", pct: clampPct(year.done / year.total) },   // outer = year
+    { r: 36, tone: "var(--wordie)", pct: clampPct(month.done / month.total) },  // middle = month
+    { r: 24, tone: "var(--shirin)", pct: clampPct(week.done / week.total) },    // inner = week
   ];
   const STROKE = 8;
   return (
@@ -339,10 +339,7 @@ function GoalRow({ tone, label, done, total, unit }: { tone: string; label: stri
   return (
     <div>
       <div className="flex items-center justify-between text-[11px] font-bold">
-        <div className="flex items-center gap-1.5" style={{ color: "var(--foreground)" }}>
-          <span className="h-2 w-2 rounded-full" style={{ background: tone }} />
-          {label}
-        </div>
+        <span style={{ color: tone }}>{label}</span>
         <span style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
           {done} / {total} {unit}
         </span>
