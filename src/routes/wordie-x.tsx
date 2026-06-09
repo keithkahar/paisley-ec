@@ -45,10 +45,46 @@ const KNOWN_WORDS: Array<{
 const SOURCE_LABEL: Record<string, string> = {
   "wordie-x": "Wordie-X", wordie_x: "Wordie-X",
   definition: "Definition", meaning: "Definition",
-  example: "Example", shirintalk: "ShirinTalk", ShirinTalk: "ShirinTalk",
-  iMade: "iMade",
+  example: "Word In Use",
+  shirintalk: "ShirinTalk", ShirinTalk: "ShirinTalk",
+  smart_reading: "Smart Reading", "smart-reading": "Smart Reading",
+  topic_talk: "Topic Talk", "topic-talk": "Topic Talk",
+  wordie_bank: "Wordie Bank", "wordie-bank": "Wordie Bank",
+  iMade: "Wordie-X",
 };
 const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "Wordie-X";
+
+// Filter dropdown order — keep stable
+const SOURCE_FILTERS: Array<{ key: string; label: string }> = [
+  { key: "all", label: "All" },
+  { key: "iMade", label: "Wordie-X" },
+  { key: "shirintalk", label: "ShirinTalk" },
+  { key: "smart_reading", label: "Smart Reading" },
+  { key: "topic_talk", label: "Topic Talk" },
+  { key: "wordie_bank", label: "Wordie Bank" },
+  { key: "definition", label: "Definition" },
+];
+
+// Per-source pill colors (distinct hues for quick scanning)
+const SOURCE_COLOR: Record<string, string> = {
+  iMade: "var(--wordie)",
+  shirintalk: "var(--shirin)",
+  smart_reading: "oklch(0.7 0.18 195)",
+  topic_talk: "oklch(0.68 0.2 145)",
+  wordie_bank: "oklch(0.66 0.24 280)",
+  definition: "oklch(0.68 0.26 35)",
+};
+const getSourceColor = (s?: string) => (s && SOURCE_COLOR[s]) || "var(--wordie)";
+
+const STATUS_FILTERS: Array<{ key: string; label: string }> = [
+  { key: "all", label: "All" },
+  { key: "new", label: "New" },
+  { key: "learning", label: "Learning" },
+  { key: "review", label: "Review" },
+  { key: "focus", label: "Focus" },
+  { key: "mastered", label: "Mastered" },
+  { key: "relearning", label: "Relearning" },
+];
 
 const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
@@ -58,22 +94,32 @@ const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
     definitionEn: "the light and warmth from the sun",
     exampleSentence: "We played in the sunshine all afternoon.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈsʌnʃaɪn/",
-    source: "iMade", targetWordId: "wordie_x_sunshine", status: "saved" },
+    source: "smart_reading", targetWordId: "wordie_x_sunshine", status: "saved" },
   { word: "giggle", content: "to laugh in a soft, silly way",
     definitionEn: "to laugh in a soft, silly way",
     exampleSentence: "The kids giggle when they hear the joke.",
     partOfSpeech: "verb", cefrLevel: "A2", pronunciation: "/ˈɡɪɡ.əl/",
-    source: "iMade", targetWordId: "wordie_x_giggle", status: "saved" },
+    source: "shirintalk", targetWordId: "wordie_x_giggle", status: "saved" },
   { word: "puppy", content: "a baby dog",
     definitionEn: "a baby dog",
     exampleSentence: "My puppy loves to chase the ball.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈpʌp.i/",
-    source: "iMade", targetWordId: "wordie_x_puppy", status: "saved" },
+    source: "topic_talk", targetWordId: "wordie_x_puppy", status: "saved" },
   { word: "rainbow", content: "colorful arc in the sky after rain",
     definitionEn: "colorful arc in the sky after rain",
     exampleSentence: "Look at the rainbow over the hill!",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈreɪn.boʊ/",
-    source: "iMade", targetWordId: "wordie_x_rainbow", status: "saved" },
+    source: "wordie_bank", targetWordId: "wordie_x_rainbow", status: "saved" },
+  { word: "butterfly", content: "an insect with big colorful wings",
+    definitionEn: "an insect with big colorful wings",
+    exampleSentence: "A butterfly landed on the flower.",
+    partOfSpeech: "noun", cefrLevel: "A2", pronunciation: "/ˈbʌt.ə.flaɪ/",
+    source: "definition", targetWordId: "wordie_x_butterfly", status: "saved" },
+  { word: "adventure", content: "an exciting or unusual experience",
+    definitionEn: "an exciting or unusual experience",
+    exampleSentence: "Our trip to the forest was a big adventure.",
+    partOfSpeech: "noun", cefrLevel: "B1", pronunciation: "/ədˈven.tʃər/",
+    source: "iMade", targetWordId: "wordie_x_adventure", status: "saved" },
 ];
 
 // ---------- Normalize ----------
