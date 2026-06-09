@@ -402,7 +402,8 @@ function NamePill({
           className="grid grid-cols-2 gap-2"
           onFocus={() => setEditing(true)}
           onBlur={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget) && givenName.trim() && familyName.trim()) {
+            const nextFocus = e.relatedTarget instanceof Node ? e.relatedTarget : null;
+            if (!e.currentTarget.contains(nextFocus) && givenName.trim() && familyName.trim()) {
               setEditing(false);
             }
           }}
