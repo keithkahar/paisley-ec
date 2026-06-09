@@ -799,14 +799,14 @@ function ResultView({
           <div className="mt-3">
             <ProgressBar
               value={100}
-              color="var(--wordie-accent)"
+              color="#ffffff"
               track="rgba(255,255,255,0.22)"
               height={2}
             />
           </div>
         </div>
-        <p className="mt-7 text-[12px] font-bold uppercase tracking-[0.12em] opacity-80">
-          Your Wordie Test Score
+        <p className="mt-7 text-[12px] font-bold tracking-[0.04em] opacity-80">
+          Your Wordie Test score
         </p>
         <p
           className="mt-2 text-[64px] font-bold leading-none"
