@@ -627,38 +627,6 @@ function WordieXPage() {
           />
         </div>
 
-        {/* Toolbar: Select / Done · Preview */}
-        <div className="mt-4 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => (selectMode ? exitSelect() : setSelectMode(true))}
-            className="inline-flex items-center gap-1.5 text-[13px] font-bold"
-            style={{ color: selectMode ? "var(--wordie)" : "var(--foreground)" }}
-          >
-            {selectMode ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-            {selectMode ? "Done" : "Select"}
-          </button>
-          {selectMode ? (
-            <button
-              type="button"
-              onClick={openBatch}
-              className="inline-flex items-center gap-1.5 text-[13px] font-bold"
-              style={{ color: "var(--wordie)" }}
-            >
-              {selected.size} selected •••
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => filtered.length > 0 && setPreviewIdx(0)}
-              className="text-[13px] font-bold"
-              style={{ color: "var(--wordie)" }}
-            >
-              Preview
-            </button>
-          )}
-        </div>
-
         {/* List */}
         <section className="mt-3">
           <p className="mb-2 text-[12px] font-bold text-muted-foreground">{filtered.length} cards</p>
