@@ -291,33 +291,39 @@ function WordieXPage() {
       <AppHeader title="" back="/mywordie" bg="white" />
 
       <div className="px-5 pb-12">
-        {/* Title — match mywordie/wordie-bank style */}
-        <h1
-          className="text-[26px] font-bold tracking-tight leading-none mb-5"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em", color: WORDIE }}
-        >
-          Wordie-X
-        </h1>
+        {/* Title + subtitle — match topics/Choose A Topic style */}
+        <div className="mb-5">
+          <h1
+            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Wordie-X
+          </h1>
+          <p className="mt-1 text-[14px] font-bold tracking-tight text-foreground/65">
+            Words you added or can add.
+          </p>
+        </div>
 
-        {/* Add Words */}
+        {/* Add a new word */}
         <section>
-          <h2 className="text-[13px] font-bold text-muted-foreground mb-2">Add Words</h2>
-
           {!showEditor ? (
             <button
               type="button"
               onClick={openNewWord}
-              className="w-full rounded-3xl bg-white border-2 border-dashed py-7 grid place-items-center active:scale-[0.99] transition-transform"
-              style={{ borderColor: "color-mix(in oklab, var(--wordie) 35%, white)" }}
+              className="w-full rounded-full py-3 px-4 flex items-center justify-center gap-3 active:scale-[0.99] transition-transform"
+              style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)" }}
             >
               <span
-                className="h-11 w-11 rounded-full grid place-items-center"
-                style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", color: WORDIE }}
+                className="h-9 w-9 rounded-full grid place-items-center bg-white shrink-0"
+                style={{ color: WORDIE, boxShadow: "0 1px 2px rgba(0,0,0,0.04)" }}
               >
-                <Plus className="h-6 w-6" strokeWidth={2.5} />
+                <Plus className="h-5 w-5" strokeWidth={2.75} />
               </span>
-              <span className="mt-2 text-[13px] font-bold" style={{ color: WORDIE }}>
-                Add a new word
+              <span
+                className="text-[17px] font-bold tracking-tight"
+                style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              >
+                Add A New Word
               </span>
             </button>
           ) : (
@@ -327,7 +333,7 @@ function WordieXPage() {
             >
               {/* Word input */}
               <label className="block">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Word</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word</span>
                 <input
                   type="text"
                   value={draftWord}
@@ -399,7 +405,7 @@ function WordieXPage() {
 
               {/* Definition */}
               <label className="block mt-4">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Definition</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Definition</span>
                 <textarea
                   value={definition}
                   onChange={(e) => setDefinition(e.target.value)}
@@ -413,7 +419,7 @@ function WordieXPage() {
 
               {/* Example */}
               <label className="block mt-3">
-                <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Example</span>
+                <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word In Use</span>
                 <textarea
                   value={example}
                   onChange={(e) => setExample(e.target.value)}
@@ -449,10 +455,7 @@ function WordieXPage() {
 
         {/* Added Words */}
         <section className="mt-7">
-          <div className="flex items-baseline justify-between mb-2">
-            <h2 className="text-[13px] font-bold text-muted-foreground">Added Words</h2>
-            <span className="text-[12px] font-bold text-muted-foreground">{count} words</span>
-          </div>
+          <p className="mb-2 text-[12px] font-bold text-muted-foreground">{count} cards</p>
 
           {count === 0 ? (
             <div className="rounded-3xl bg-muted/40 border border-dashed border-border p-8 text-center">
