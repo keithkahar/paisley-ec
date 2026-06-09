@@ -347,7 +347,7 @@ function MyTestsPage() {
                           {t.reviews.length > 0 && (
                             <span
                               className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-                              style={{ background: "color-mix(in oklab, var(--shirin) 12%, white)", color: "var(--shirin)" }}
+                              style={{ background: "color-mix(in oklab, var(--wordie-accent) 14%, white)", color: "var(--wordie-accent)" }}
                             >
                               {t.reviews.length} to review
                             </span>
