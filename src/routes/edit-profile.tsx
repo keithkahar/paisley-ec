@@ -243,8 +243,8 @@ function EditProfilePage() {
                   step={0.01}
                   value={form.avatarScale}
                   onChange={(e) => update("avatarScale", Number(e.target.value))}
-                  className="mt-2 w-40 accent-current"
-                  style={{ color: YELLOW }}
+                  className="mt-2 w-40 accent-current opacity-70"
+                  style={{ color: "#B8BDC6" }}
                   aria-label="Zoom"
                 />
               </>
@@ -260,29 +260,13 @@ function EditProfilePage() {
 
           <div className="space-y-3">
 
-          {/* Given Name */}
-          <RowPill label="Given Name">
-            <input
-              type="text"
-              value={form.givenName}
-              onChange={(e) => update("givenName", e.target.value)}
-              placeholder="Daniella"
-              className="w-full bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-            />
-          </RowPill>
-
-          {/* Family Name */}
-          <RowPill label="Family Name">
-            <input
-              type="text"
-              value={form.familyName}
-              onChange={(e) => update("familyName", e.target.value)}
-              placeholder="Wang"
-              className="w-full bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-            />
-          </RowPill>
+          {/* Name */}
+          <NamePill
+            givenName={form.givenName}
+            familyName={form.familyName}
+            onGivenNameChange={(value) => update("givenName", value)}
+            onFamilyNameChange={(value) => update("familyName", value)}
+          />
 
           {/* Gender */}
           <RowPill label="Gender">
@@ -388,6 +372,64 @@ function RowPill({ label, children }: { label: string; children: React.ReactNode
   );
 }
 
+function NamePill({
+  givenName,
+  familyName,
+  onGivenNameChange,
+  onFamilyNameChange,
+}: {
+  givenName: string;
+  familyName: string;
+  onGivenNameChange: (value: string) => void;
+  onFamilyNameChange: (value: string) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const hasFullName = givenName.trim().length > 0 && familyName.trim().length > 0;
+
+  return (
+    <RowPill label="Name">
+      {hasFullName && !editing ? (
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          className="w-full truncate text-right text-[15px] font-bold text-foreground"
+          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        >
+          {givenName.trim()} {familyName.trim()}
+        </button>
+      ) : (
+        <div
+          className="grid grid-cols-2 gap-2"
+          onFocus={() => setEditing(true)}
+          onBlur={(e) => {
+            const nextFocus = e.relatedTarget instanceof Node ? e.relatedTarget : null;
+            if (!e.currentTarget.contains(nextFocus) && givenName.trim() && familyName.trim()) {
+              setEditing(false);
+            }
+          }}
+        >
+          <input
+            type="text"
+            value={givenName}
+            onChange={(e) => onGivenNameChange(e.target.value)}
+            placeholder="Given Name"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          />
+          <input
+            type="text"
+            value={familyName}
+            onChange={(e) => onFamilyNameChange(e.target.value)}
+            placeholder="Family Name"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          />
+        </div>
+      )}
+    </RowPill>
+  );
+}
+
 function AvatarDraggable({
   src,
   initials,
@@ -410,6 +452,8 @@ function AvatarDraggable({
   // Use refs + global window listeners — survives re-renders and dpr quirks.
   const stateRef = useRef({ posX, posY, scale });
   stateRef.current = { posX, posY, scale };
+  const callbacksRef = useRef({ onChangePos, onChangeScale });
+  callbacksRef.current = { onChangePos, onChangeScale };
 
   useEffect(() => {
     const el = ref.current;
@@ -417,14 +461,15 @@ function AvatarDraggable({
 
     let dragging: { sx: number; sy: number; px: number; py: number } | null = null;
 
-    const onDown = (e: MouseEvent) => {
+    const onDown = (e: PointerEvent) => {
       // ignore clicks that hit overlay buttons
       if ((e.target as HTMLElement).closest("button")) return;
       e.preventDefault();
       dragging = { sx: e.clientX, sy: e.clientY, px: stateRef.current.posX, py: stateRef.current.posY };
       el.style.cursor = "grabbing";
+      el.setPointerCapture?.(e.pointerId);
     };
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e: PointerEvent) => {
       if (!dragging) return;
       e.preventDefault();
       const rect = el.getBoundingClientRect();
@@ -434,7 +479,7 @@ function AvatarDraggable({
       const dy = ((e.clientY - dragging.sy) / rect.height) * (100 / s);
       const nx = Math.max(0, Math.min(100, dragging.px - dx));
       const ny = Math.max(0, Math.min(100, dragging.py - dy));
-      onChangePos(nx, ny);
+      callbacksRef.current.onChangePos(nx, ny);
     };
     const onUp = () => {
       dragging = null;
@@ -443,20 +488,22 @@ function AvatarDraggable({
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const next = Math.max(1, Math.min(3, stateRef.current.scale - e.deltaY * 0.003));
-      onChangeScale(next);
+      callbacksRef.current.onChangeScale(next);
     };
 
-    el.addEventListener("mousedown", onDown);
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
+    el.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => {
-      el.removeEventListener("mousedown", onDown);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
+      el.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       el.removeEventListener("wheel", onWheel);
     };
-  }, [src, onChangePos, onChangeScale]);
+  }, [src]);
 
   return (
     <div
