@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, Camera, X, Check, ChevronRight, Move } from "lucide-react";
+import { ChevronLeft, X, Check, ChevronRight, Move, Pencil } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/edit-profile")({
@@ -191,54 +191,42 @@ function EditProfilePage() {
         </section>
 
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-4 pb-28 overflow-y-auto space-y-3">
-          {/* Avatar pill — mimics bottom tab bar */}
-          <div
-            className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
-            style={{
-              fontFamily: "var(--font-sans)",
-              boxShadow:
-                "0 -10px 30px -8px rgba(255,255,255,0.95), 0 12px 28px -10px rgba(0,0,0,0.15), 0 4px 10px -4px rgba(0,0,0,0.08)",
-            }}
-          >
-            {/* Left circle = avatar frame, anchored like the first tab */}
-            <div className="relative flex-1">
-              <span
-                className="absolute top-0 bottom-0 left-0 aspect-square rounded-full flex items-center justify-center"
-                style={{ background: `color-mix(in oklab, ${PAISLEY} 14%, white)` }}
-              >
-                <AvatarDraggable
-                  src={form.avatarPath}
-                  initials={initials}
-                  posX={form.avatarPosX}
-                  posY={form.avatarPosY}
-                  onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
-                />
-              </span>
-            </div>
-            {/* Right side actions */}
-            <div className="flex-[2] flex items-center justify-end gap-2 pr-4">
+        <div className="flex-1 px-6 pt-2 pb-28 overflow-y-auto">
+          {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
+          <div className="flex flex-col items-center pt-2 pb-5">
+            <div className="relative h-40 w-40">
+              <AvatarDraggable
+                src={form.avatarPath}
+                initials={initials}
+                posX={form.avatarPosX}
+                posY={form.avatarPosY}
+                onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+              />
               <button
                 type="button"
                 onClick={onChooseAvatar}
-                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold border bg-white"
-                style={{ color: PAISLEY, borderColor: `color-mix(in oklab, ${PAISLEY} 35%, white)` }}
+                aria-label="Choose photo"
+                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <Camera className="h-3.5 w-3.5" strokeWidth={2.25} />
-                Choose
+                <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
               </button>
               {form.avatarPath ? (
                 <button
                   type="button"
                   onClick={onClearAvatar}
                   aria-label="Remove photo"
-                  className="inline-flex items-center justify-center h-9 w-9 rounded-full border bg-white text-muted-foreground"
-                  style={{ borderColor: "var(--border)" }}
+                  className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
                 >
-                  <X className="h-4 w-4" strokeWidth={2.25} />
+                  <X className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
                 </button>
               ) : null}
             </div>
+            {form.avatarPath ? (
+              <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
+                <Move className="h-3 w-3" strokeWidth={2.25} />
+                Drag the photo to reposition.
+              </p>
+            ) : null}
             <input
               ref={fileRef}
               type="file"
@@ -247,12 +235,8 @@ function EditProfilePage() {
               onChange={onAvatarFile}
             />
           </div>
-          {form.avatarPath ? (
-            <p className="px-2 -mt-1 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
-              <Move className="h-3 w-3" strokeWidth={2.25} />
-              Drag the photo to reposition, then save.
-            </p>
-          ) : null}
+
+          <div className="space-y-3">
 
           {/* Given Name */}
           <RowPill label="Given Name">
@@ -318,6 +302,7 @@ function EditProfilePage() {
               <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2.25} />
             </button>
           </RowPill>
+          </div>
         </div>
 
         {/* Sticky save bar */}
@@ -420,9 +405,9 @@ function AvatarDraggable({
   return (
     <div
       ref={ref}
-      className="relative h-20 w-20 rounded-full overflow-hidden shrink-0 grid place-items-center select-none"
+      className="relative h-full w-full rounded-full overflow-hidden grid place-items-center select-none"
       style={{
-        background: src ? "transparent" : "color-mix(in oklab, var(--paisley) 18%, white)",
+        background: src ? "transparent" : "color-mix(in oklab, var(--paisley) 12%, white)",
         touchAction: src ? "none" : "auto",
         cursor: src ? "grab" : "default",
       }}
@@ -441,7 +426,7 @@ function AvatarDraggable({
         />
       ) : (
         <span
-          className="text-[28px] font-bold leading-none"
+          className="text-[56px] font-bold leading-none"
           style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
         >
           {initials}
@@ -467,6 +452,7 @@ function BirthdaySheet({
   const [year, setYear] = useState(init.y);
   const [month, setMonth] = useState(init.m);
   const [day, setDay] = useState(init.d);
+  const [tab, setTab] = useState<"month" | "day" | "year">("month");
 
   const thisYear = new Date().getFullYear();
   const years = useMemo(() => {
@@ -485,89 +471,161 @@ function BirthdaySheet({
     onConfirm(`${year}-${mm}-${dd}`);
   }
 
+  const tabs: { key: "month" | "day" | "year"; label: string; value: string }[] = [
+    { key: "month", label: "Month", value: MONTH_NAMES_SHORT[month - 1] },
+    { key: "day", label: "Day", value: String(day) },
+    { key: "year", label: "Year", value: String(year) },
+  ];
+
   return (
-    <div className="absolute inset-0 z-50 flex items-end" role="dialog" aria-modal="true">
-      <button
-        type="button"
-        aria-label="Close"
-        onClick={onCancel}
-        className="absolute inset-0 bg-black/40"
-      />
-      <div className="relative w-full bg-white rounded-t-3xl pt-3 pb-5 px-5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.2)]">
-        <div className="mx-auto h-1 w-10 rounded-full bg-muted mb-3" />
-        <div className="flex items-center justify-between mb-3">
+    <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" onClick={onCancel}>
+      <div className="absolute inset-0 bg-black/40" />
+      <div
+        className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+        style={{ height: "62vh" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Grabber */}
+        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+          <span className="h-1 w-10 rounded-full bg-border" />
+        </div>
+        <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
           <button
             type="button"
             onClick={onCancel}
-            className="text-[13px] font-bold text-muted-foreground"
+            className="text-[13px] font-bold text-muted-foreground w-12 text-left"
           >
             Cancel
           </button>
-          <p className="text-[13px] font-bold" style={{ color: PAISLEY }}>
+          <p
+            className="text-[17px] font-bold tracking-tight leading-none"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: PAISLEY }}
+          >
             Birthday
           </p>
           <button
             type="button"
             onClick={confirm}
-            className="text-[13px] font-bold"
+            className="text-[13px] font-bold w-12 text-right"
             style={{ color: PAISLEY }}
           >
             Done
           </button>
         </div>
 
-        {/* US order: Month / Day / Year */}
-        <div className="grid grid-cols-3 gap-2">
-          <PickerColumn
-            label="Month"
-            options={MONTH_NAMES_LONG.map((name, i) => ({ value: i + 1, label: name }))}
-            value={month}
-            onChange={setMonth}
-          />
-          <PickerColumn
-            label="Day"
-            options={Array.from({ length: maxDay }, (_, i) => ({ value: i + 1, label: String(i + 1) }))}
-            value={day}
-            onChange={setDay}
-          />
-          <PickerColumn
-            label="Year"
-            options={years.map((y) => ({ value: y, label: String(y) }))}
-            value={year}
-            onChange={setYear}
-          />
+        {/* M / D / Y tabs — each chip shows current value */}
+        <div className="px-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
+          {tabs.map((t) => {
+            const active = tab === t.key;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setTab(t.key)}
+                className="rounded-2xl py-2 px-3 text-center transition-colors"
+                style={
+                  active
+                    ? { background: PAISLEY, color: "white" }
+                    : {
+                        background: "white",
+                        color: PAISLEY,
+                        border: `1px solid color-mix(in oklab, ${PAISLEY} 35%, white)`,
+                      }
+                }
+              >
+                <span
+                  className="block text-[10px] font-bold leading-none opacity-80"
+                  style={{ letterSpacing: "0.06em" }}
+                >
+                  {t.label.toUpperCase()}
+                </span>
+                <span
+                  className="block text-[17px] font-bold leading-tight mt-0.5"
+                  style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                >
+                  {t.value}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Options grid for the active tab */}
+        <div className="flex-1 overflow-y-auto px-5 pb-8">
+          {tab === "month" && (
+            <ChipGrid
+              cols={3}
+              items={MONTH_NAMES_LONG.map((name, i) => ({ key: i + 1, label: name }))}
+              value={month}
+              onPick={(v) => {
+                setMonth(v);
+                setTab("day");
+              }}
+            />
+          )}
+          {tab === "day" && (
+            <ChipGrid
+              cols={7}
+              items={Array.from({ length: maxDay }, (_, i) => ({ key: i + 1, label: String(i + 1) }))}
+              value={day}
+              onPick={(v) => {
+                setDay(v);
+                setTab("year");
+              }}
+            />
+          )}
+          {tab === "year" && (
+            <ChipGrid
+              cols={4}
+              items={years.map((y) => ({ key: y, label: String(y) }))}
+              value={year}
+              onPick={(v) => setYear(v)}
+            />
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-function PickerColumn({
-  label,
-  options,
+function ChipGrid({
+  cols,
+  items,
   value,
-  onChange,
+  onPick,
 }: {
-  label: string;
-  options: { value: number; label: string }[];
+  cols: number;
+  items: { key: number; label: string }[];
   value: number;
-  onChange: (v: number) => void;
+  onPick: (v: number) => void;
 }) {
   return (
-    <label className="flex flex-col gap-1">
-      <span className="text-[10px] font-bold text-muted-foreground px-1">{label}</span>
-      <select
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="h-11 rounded-2xl bg-muted/40 px-3 text-[14px] font-bold text-foreground outline-none appearance-none"
-        style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-      >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </label>
+    <div
+      className="grid gap-2"
+      style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+    >
+      {items.map((it) => {
+        const active = it.key === value;
+        return (
+          <button
+            key={it.key}
+            type="button"
+            onClick={() => onPick(it.key)}
+            className="h-11 rounded-xl text-[13px] font-bold transition-colors"
+            style={
+              active
+                ? { background: PAISLEY, color: "white" }
+                : {
+                    background: "white",
+                    color: "var(--foreground)",
+                    border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                  }
+            }
+          >
+            {it.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
