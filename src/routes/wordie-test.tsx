@@ -47,42 +47,42 @@ const STAGE_META: Record<
     subtitle: "Click play to listen.",
     note: "Each question will be read 2 times.",
     points: 3,
-    color: "var(--wordie)",
+    color: "oklch(0.66 0.24 280)",
   },
   pronunciationSpeak: {
     label: "Pronunciation",
     subtitle: "Read the word, then say it clearly.",
     note: "Hold Record and release when finished.",
     points: 3,
-    color: "var(--shirin)",
+    color: "oklch(0.7 0.18 195)",
   },
   spelling: {
     label: "Spelling",
     subtitle: "Choose the correct spelling.",
     note: "Look carefully at the letter sounds.",
     points: 4,
-    color: "var(--paisley)",
+    color: "oklch(0.68 0.2 145)",
   },
   meaning: {
     label: "Definition",
     subtitle: "Choose the matching definition.",
     note: "Read every choice carefully.",
     points: 4,
-    color: "var(--bloxia)",
+    color: "var(--wordie-accent)",
   },
   usage: {
     label: "Usage",
     subtitle: "Choose the sentence that uses the word correctly.",
     note: "Each choice uses the target word.",
     points: 4,
-    color: "oklch(0.66 0.24 280)",
+    color: "oklch(0.68 0.26 35)",
   },
   partOfSpeech: {
     label: "Part of Speech",
     subtitle: "Choose what kind of word it is.",
     note: "Each option is different.",
     points: 2,
-    color: "var(--wordie-accent)",
+    color: "var(--shirin)",
   },
 };
 
@@ -271,7 +271,7 @@ function WordieTestPage() {
         ...a,
         [q.id]: { record: { scorable: true, score, band } },
       }));
-    }, 900);
+    }, 600);
   };
 
   const playAudio = (q: Question) => {
