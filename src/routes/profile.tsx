@@ -23,6 +23,7 @@ const PROFILE = {
   familyName: "Wang",
   age: 9,
   cefr: "A2",
+  registeredAt: new Date("2025-03-14"),
 };
 const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim();
 const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase();
@@ -91,13 +92,13 @@ function ProfilePage() {
           >
             {DISPLAY_NAME}
           </h2>
-          {/* Invisible spacer to mirror ShirinTalk's subtitle line — keeps pill Y position identical across pages */}
+          {/* Registration date — mirrors ShirinTalk subtitle position */}
           <p
-            aria-hidden
-            className="mt-1 text-[15px] font-bold tracking-tight invisible"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            className="mt-1 text-[15px] font-bold tracking-tight"
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
-            .
+            Reg.{"  "}
+            {`${PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })}/${String(PROFILE.registeredAt.getDate()).padStart(2, "0")}/${String(PROFILE.registeredAt.getFullYear()).slice(-2)}`}
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
