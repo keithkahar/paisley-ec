@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useState } from "react";
-import { Zap, Flame, Trophy, CheckCircle2, Sparkles } from "lucide-react";
+import { Zap, Flame, Trophy, CheckCircle2 } from "lucide-react";
 import {
   MOCK_WORDS,
   ProgressBar,
