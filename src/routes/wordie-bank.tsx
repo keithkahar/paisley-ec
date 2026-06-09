@@ -770,31 +770,51 @@ function PreviewFull({
           {/* Definition + Word in use — both left-aligned */}
           <div className="mt-6 space-y-4">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
-              <p
-                className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
-                style={{ letterSpacing: "-0.01em" }}
-              >
-                {word.definitionEn}
-              </p>
+              <div className="mt-1.5 flex items-start gap-2">
+                <p
+                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  {word.definitionEn}
+                </p>
+                <button
+                  type="button"
+                  className="shrink-0 h-7 w-7 rounded-full grid place-items-center mt-0.5"
+                  style={{ background: "var(--wordie)", color: "white" }}
+                  aria-label="Listen to definition"
+                >
+                  <Volume2 className="h-3 w-3" />
+                </button>
+              </div>
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
                 Word in use
               </p>
-              <p
-                className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
-                style={{ letterSpacing: "-0.01em" }}
-              >
-                {renderExample(word.exampleSentence, word.word)}
-              </p>
+              <div className="mt-1.5 flex items-start gap-2">
+                <p
+                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  {renderExample(word.exampleSentence, word.word)}
+                </p>
+                <button
+                  type="button"
+                  className="shrink-0 h-7 w-7 rounded-full grid place-items-center mt-0.5"
+                  style={{ background: "var(--wordie)", color: "white" }}
+                  aria-label="Listen to example"
+                >
+                  <Volume2 className="h-3 w-3" />
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Three pills below example */}
-          <div className="grid grid-cols-3 gap-2 mt-5">
+          <div className="grid grid-cols-3 gap-2 mt-8">
             <MiniStat label="Status" value={capitalize(word.status)} />
             <MiniStat label="Level" value={word.cefrLevel} />
             <MiniStat label="Next" value={word.nextReviewLabel} />
@@ -834,7 +854,7 @@ function MiniStat({ label, value }: { label: string; value: string }) {
       className="rounded-2xl px-3 py-2 text-center"
       style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
     >
-      <p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
+      <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
       <p
