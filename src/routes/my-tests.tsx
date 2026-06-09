@@ -111,25 +111,30 @@ const WORDIE_TESTS: WordieTest[] = [
   },
 ];
 
-// extend demo to 20 entries for the trend chart
-const EXTRA_SCORES = [80, 75, 85, 70, 80, 78, 72, 82, 76, 74, 80, 78, 70, 72];
-const EXTRA_DATES = [
-  "Mar 12 2026", "Feb 26 2026", "Feb 12 2026", "Jan 29 2026", "Jan 15 2026",
-  "Jan 2 2026", "Dec 18 2025", "Dec 4 2025", "Nov 20 2025", "Nov 6 2025",
-  "Oct 23 2025", "Oct 9 2025", "Sep 25 2025", "Sep 11 2025",
+const EXTRA_SEEDS: { n: number; date: string; score: number }[] = [
+  { n: 12, date: "Mar 12 2026", score: 80 },
+  { n: 11, date: "Feb 26 2026", score: 75 },
+  { n: 10, date: "Feb 12 2026", score: 85 },
+  { n: 9, date: "Jan 29 2026", score: 70 },
+  { n: 8, date: "Jan 15 2026", score: 80 },
+  { n: 7, date: "Jan 2 2026", score: 78 },
+  { n: 6, date: "Dec 18 2025", score: 72 },
+  { n: 5, date: "Dec 4 2025", score: 82 },
+  { n: 4, date: "Nov 20 2025", score: 76 },
+  { n: 3, date: "Nov 6 2025", score: 74 },
+  { n: 2, date: "Oct 23 2025", score: 80 },
+  { n: 1, date: "Oct 9 2025", score: 70 },
 ];
-for (let i = 0; i < EXTRA_SCORES.length; i++) {
-  const n = 12 - i;
-  const score = EXTRA_SCORES[i];
-  const correct = Math.round((score / 100) * 20);
-  WORDIE_TESTS.push({
+const ALL_WORDIE_TESTS: WordieTest[] = [
+  ...WORDIE_TESTS,
+  ...EXTRA_SEEDS.map(({ n, date, score }) => ({
     id: `w${n}`,
     code: `#${n}`,
-    date: EXTRA_DATES[i],
-    correct,
+    date,
+    correct: Math.round((score / 100) * 20),
     total: 20,
     score,
-    summary: `L 3/4 · P 3/4 · S 3/4 · D 3/4 · U 2/2 · POS 2/2`,
+    summary: "L 3/4 · P 3/4 · S 3/4 · D 3/4 · U 2/2 · POS 2/2",
     dimensions: [
       { key: "pronunciation", label: "Pronunciation", correct: 3, total: 4 },
       { key: "spelling", label: "Spelling", correct: 3, total: 4 },
@@ -138,8 +143,8 @@ for (let i = 0; i < EXTRA_SCORES.length; i++) {
       { key: "usage", label: "Usage", correct: 2, total: 2 },
     ],
     reviews: [],
-  });
-}
+  })),
+];
 
 const CEFR_ACCENT = "var(--paisley)";
 const WORDIE_ACCENT = "var(--wordie)";
@@ -151,7 +156,7 @@ function MyTestsPage() {
 
   const latestCefr = CEFR_HISTORY[0];
   const wordieAvg = useMemo(
-    () => Math.round(WORDIE_TESTS.reduce((a, b) => a + b.score, 0) / WORDIE_TESTS.length),
+    () => Math.round(ALL_WORDIE_TESTS.reduce((a, b) => a + b.score, 0) / ALL_WORDIE_TESTS.length),
     [],
   );
 
@@ -228,38 +233,34 @@ function MyTestsPage() {
           </button>
 
           {openCefr && (
-            <ul className="mt-1 space-y-2">
+            <div className="mt-2 rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
               {CEFR_HISTORY.map((h) => (
-                <li
-                  key={h.id}
-                  className="rounded-2xl p-3 border border-[oklch(0.94_0.01_240)]"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 min-w-0">
+                <div key={h.id} className="w-full flex items-center gap-3 px-4 py-3">
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className="font-bold text-[20px] truncate leading-tight text-foreground"
+                      style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                    >
+                      {h.level}
+                    </p>
+                    <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                      {h.summary}
+                    </p>
+                    <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
                       <span
-                        className="text-[11px] font-bold px-2 py-0.5 rounded-full"
+                        className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                         style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
                       >
                         {h.code}
                       </span>
-                      <span className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-                        {h.level}
+                      <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                        {h.date}
                       </span>
                     </div>
-                    <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                      {h.date}
-                    </span>
                   </div>
-                  <p
-                    className="mt-1 text-[11px] font-medium truncate"
-                    style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
-                    title={h.summary}
-                  >
-                    {h.summary}
-                  </p>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </section>
 
@@ -282,10 +283,10 @@ function MyTestsPage() {
                 </p>
               </div>
               <p className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                Last {WORDIE_TESTS.length} tests
+                Last {ALL_WORDIE_TESTS.length} tests
               </p>
             </div>
-            <TrendChart values={WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
+            <TrendChart values={ALL_WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={ALL_WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
           </div>
 
           {/* History toggle */}
@@ -295,7 +296,7 @@ function MyTestsPage() {
             className="mt-3 w-full flex items-center justify-between py-1.5"
           >
             <span className="text-[12px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
-              History · {WORDIE_TESTS.length}
+              History · {ALL_WORDIE_TESTS.length}
             </span>
             <ChevronDown
               className="h-4 w-4 transition-transform"
@@ -307,61 +308,60 @@ function MyTestsPage() {
           </button>
 
           {openWordie && (
-            <ul className="mt-1 space-y-2">
-              {WORDIE_TESTS.map((t) => {
+            <div className="mt-2 rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
+              {ALL_WORDIE_TESTS.map((t) => {
                 const expanded = expandedWordie === t.id;
                 return (
-                  <li
-                    key={t.id}
-                    className="rounded-2xl border border-[oklch(0.94_0.01_240)] overflow-hidden"
-                  >
+                  <div key={t.id}>
                     <button
                       type="button"
                       onClick={() => setExpandedWordie(expanded ? "" : t.id)}
-                      className="w-full p-3 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left active:bg-muted/40 transition-colors"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 min-w-0">
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="font-bold text-[20px] truncate leading-tight text-foreground"
+                          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                        >
+                          {t.score}%
                           <span
-                            className="text-[11px] font-bold px-2 py-0.5 rounded-full"
+                            className="ml-2 text-[13px] font-bold align-baseline"
+                            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                          >
+                            {t.correct}/{t.total}
+                          </span>
+                        </p>
+                        <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                          {t.summary}
+                        </p>
+                        <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                          <span
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                             style={{ background: `color-mix(in oklab, ${WORDIE_ACCENT} 12%, white)`, color: WORDIE_ACCENT }}
                           >
                             {t.code}
                           </span>
-                          <span className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-                            {t.score}%
-                          </span>
-                          <span
-                            className="text-[13px] font-bold"
-                            style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
-                          >
-                            {t.correct}/{t.total}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
                             {t.date}
                           </span>
-                          <ChevronRight
-                            className="h-4 w-4 transition-transform"
-                            style={{
-                              color: "color-mix(in oklab, var(--foreground) 50%, white)",
-                              transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-                            }}
-                          />
+                          {t.reviews.length > 0 && (
+                            <span
+                              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                              style={{ background: "color-mix(in oklab, var(--shirin) 12%, white)", color: "var(--shirin)" }}
+                            >
+                              {t.reviews.length} to review
+                            </span>
+                          )}
                         </div>
                       </div>
-                      <p
-                        className="mt-1 text-[11px] font-medium truncate"
-                        style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
-                        title={t.summary}
-                      >
-                        {t.summary}
-                      </p>
+                      <ChevronRight
+                        className="h-4 w-4 text-muted-foreground transition-transform shrink-0 self-center"
+                        style={{ transform: expanded ? "rotate(90deg)" : "rotate(0deg)" }}
+                      />
                     </button>
 
                     {expanded && (
-                      <div className="px-3 pb-3 pt-1 border-t border-[oklch(0.95_0.01_240)]">
+                      <div className="px-4 pb-4 pt-1 bg-muted/30">
                         <p className="mt-2 text-[11px] font-bold" style={{ color: WORDIE_ACCENT }}>
                           Result
                         </p>
@@ -397,7 +397,7 @@ function MyTestsPage() {
                                 <li
                                   key={r.idx}
                                   className="rounded-xl p-2.5"
-                                  style={{ background: "oklch(0.97 0.01 240)" }}
+                                  style={{ background: "white" }}
                                 >
                                   <div className="flex items-center justify-between">
                                     <span className="text-[11px] font-bold" style={{ color: "var(--foreground)" }}>
@@ -428,10 +428,10 @@ function MyTestsPage() {
                         )}
                       </div>
                     )}
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           )}
         </section>
       </div>
