@@ -897,7 +897,7 @@ function ReviewOverlay({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-[360px] bg-white rounded-3xl p-5 max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+          <p className="text-[13px] font-bold text-muted-foreground">
             {STAGE_META[question.stage].label}
           </p>
           <button onClick={onClose} className="h-7 w-7 grid place-items-center rounded-full bg-muted/40">
@@ -937,27 +937,33 @@ function ReviewOverlay({
                   className="rounded-2xl border px-3 py-2.5 text-[13px] font-bold flex items-center justify-between"
                   style={{
                     background: isRight
-                      ? "color-mix(in oklab, var(--bloxia) 10%, white)"
+                      ? "color-mix(in oklab, var(--wordie-accent) 12%, white)"
                       : isMine
-                      ? "color-mix(in oklab, var(--wordie-accent) 10%, white)"
+                      ? "color-mix(in oklab, var(--wordie) 10%, white)"
                       : "white",
                     borderColor: isRight
-                      ? "var(--bloxia)"
-                      : isMine
                       ? "var(--wordie-accent)"
+                      : isMine
+                      ? "var(--wordie)"
                       : "var(--border)",
                   }}
                 >
                   <span>{c.label}</span>
                   <span className="flex gap-1">
                     {isRight && (
-                      <span className="text-[10px] font-bold uppercase rounded-full px-2 py-0.5 text-white" style={{ background: "var(--bloxia)" }}>
-                        Right
+                      <span
+                        className="h-6 w-6 rounded-full grid place-items-center text-white"
+                        style={{ background: "var(--wordie-accent)" }}
+                      >
+                        <Check className="h-3.5 w-3.5" />
                       </span>
                     )}
                     {isMine && !isRight && (
-                      <span className="text-[10px] font-bold uppercase rounded-full px-2 py-0.5 text-white" style={{ background: "var(--wordie-accent)" }}>
-                        Mine
+                      <span
+                        className="h-6 w-6 rounded-full grid place-items-center text-white"
+                        style={{ background: "var(--wordie)" }}
+                      >
+                        <X className="h-3.5 w-3.5" />
                       </span>
                     )}
                   </span>
