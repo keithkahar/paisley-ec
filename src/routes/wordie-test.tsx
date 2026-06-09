@@ -782,7 +782,7 @@ function ResultView({
   return (
     <div>
       <section
-        className="relative rounded-[28px] p-5 text-white text-center overflow-hidden"
+        className="relative rounded-[28px] px-5 pt-6 pb-7 text-white text-center overflow-hidden"
         style={{ background: "var(--wordie)" }}
       >
         <div>
@@ -791,21 +791,34 @@ function ResultView({
             style={{
               fontFamily: "var(--font-sans)",
               letterSpacing: "-0.01em",
-              color: "var(--wordie-accent)",
+              color: "white",
             }}
           >
             Test Completed!
           </h2>
-          <div className="mt-2">
+          <div className="mt-3">
             <ProgressBar
               value={100}
               color="var(--wordie-accent)"
               track="rgba(255,255,255,0.22)"
-              height={4}
+              height={2}
             />
           </div>
         </div>
-        <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+        <p className="mt-7 text-[12px] font-bold uppercase tracking-[0.12em] opacity-80">
+          Your Wordie Test Score
+        </p>
+        <p
+          className="mt-2 text-[64px] font-bold leading-none"
+          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.03em" }}
+        >
+          {score}
+          <span className="text-[26px] opacity-80">%</span>
+        </p>
+        <p className="mt-2 text-[13px] font-bold opacity-90">
+          {correct} / {total} correct
+        </p>
+        <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
             style={{
@@ -825,17 +838,6 @@ function ResultView({
             +{bp} Bp
           </span>
         </div>
-        <p className="mt-3 text-[13px] font-bold opacity-95">Your Wordie Test Score</p>
-        <p
-          className="mt-1 text-[56px] font-bold leading-none"
-          style={{ fontFamily: "var(--font-sans)" }}
-        >
-          {score}
-          <span className="text-[24px] opacity-80">%</span>
-        </p>
-        <p className="mt-2 text-[13px] font-bold opacity-90">
-          {correct} / {total} correct
-        </p>
       </section>
 
       {/* Dimension rows */}
