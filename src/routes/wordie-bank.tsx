@@ -194,7 +194,7 @@ function WordieBankPage() {
     statusSel !== "all";
 
   return (
-    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
+    <PhoneFrame bg="bg-white">
       <AppHeader title="" back="/mywordie" bg="transparent" />
 
       <div className="px-5 pb-10">
@@ -232,18 +232,36 @@ function WordieBankPage() {
 
         {/* Search */}
         <div className="mt-3">
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search word, definition, topic, level, status"
-          />
+          <div className="relative">
+            <Search
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4"
+              style={{ color: "var(--paisley)" }}
+            />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search word, definition, topic, level, status"
+              className="w-full rounded-full pl-10 pr-4 py-2.5 text-sm font-medium outline-none transition-colors"
+              style={{
+                background: "color-mix(in oklab, var(--paisley) 10%, white)",
+                border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+                color: "var(--foreground)",
+              }}
+            />
+          </div>
         </div>
 
         {/* Filter chips (Status incl. Focus) */}
         <div className="mt-3 -mx-5 px-5 overflow-x-auto scroll-hide">
           <div className="flex gap-2 w-max">
             {STATUS_FILTERS.map((f) => (
-              <FilterChip key={f.key} active={filter === f.key} onClick={() => setFilter(f.key)}>
+              <FilterChip
+                key={f.key}
+                active={filter === f.key}
+                onClick={() => setFilter(f.key)}
+                color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
+              >
                 {f.label}
                 <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
               </FilterChip>
@@ -251,8 +269,8 @@ function WordieBankPage() {
           </div>
         </div>
 
-        {/* Level / Category / Status — wordie brand filter pills */}
-        <div className="mt-3 grid grid-cols-3 gap-2">
+        {/* Level / Category — paisley filter pills */}
+        <div className="mt-3 grid grid-cols-2 gap-2">
           <FilterDropdown
             label="Level"
             value={levelSel === "all" ? "All" : levelSel}
@@ -264,12 +282,6 @@ function WordieBankPage() {
             value={categorySel === "all" ? "All" : categorySel}
             active={categorySel !== "all"}
             onClick={() => setOpenSheet("category")}
-          />
-          <FilterDropdown
-            label="Status"
-            value={statusSel === "all" ? "All" : capitalize(statusSel)}
-            active={statusSel !== "all"}
-            onClick={() => setOpenSheet("status")}
           />
         </div>
 
