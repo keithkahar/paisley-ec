@@ -163,7 +163,7 @@ function MyTestsPage() {
                 Current CEFR Level
               </p>
               <p
-                className="mt-2 text-[34px] leading-none font-bold tracking-tight"
+                className="mt-2 text-[32px] leading-none font-bold tracking-tight"
                 style={{ color: CEFR_ACCENT, letterSpacing: "-0.02em" }}
               >
                 {latestCefr.level}
@@ -245,17 +245,17 @@ function MyTestsPage() {
                   Average Score
                 </p>
                 <p
-                  className="mt-2 text-[28px] leading-none font-bold tracking-tight"
+                  className="mt-2 text-[32px] leading-none font-bold tracking-tight"
                   style={{ color: WORDIE_ACCENT, letterSpacing: "-0.02em" }}
                 >
                   {wordieAvg}%
                 </p>
               </div>
               <p className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                Last 6 tests
+                Last {WORDIE_TESTS.length} tests
               </p>
             </div>
-            <TrendChart values={WORDIE_TESTS.slice(0, 6).slice().reverse().map((t) => t.score)} labels={WORDIE_TESTS.slice(0, 6).slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
+            <TrendChart values={WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
           </div>
 
           {/* History toggle */}
