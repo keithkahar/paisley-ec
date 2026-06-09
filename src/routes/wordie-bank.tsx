@@ -788,7 +788,7 @@ function PreviewFull({
                 className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
                 style={{ letterSpacing: "-0.01em" }}
               >
-                "{renderExample(word.exampleSentence, word.word)}"
+                {renderExample(word.exampleSentence, word.word)}
               </p>
             </div>
           </div>
@@ -834,15 +834,35 @@ function MiniStat({ label, value }: { label: string; value: string }) {
       className="rounded-2xl px-3 py-2 text-center"
       style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
     >
-      <p className="text-[9.5px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+      <p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
       <p
-        className="text-[12px] font-bold mt-0.5 truncate"
+        className="text-xs font-bold mt-0.5 truncate"
         style={{ color: "var(--wordie)" }}
       >
         {value}
       </p>
     </div>
+  );
+}
+
+function renderExample(sentence: string, word: string) {
+  const re = new RegExp(`(${word})`, "ig");
+  const parts = sentence.split(re);
+  return (
+    <>
+      "
+      {parts.map((p, i) =>
+        p.toLowerCase() === word.toLowerCase() ? (
+          <span key={i} style={{ color: "var(--wordie)" }}>
+            {p}
+          </span>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
+      "
+    </>
   );
 }
