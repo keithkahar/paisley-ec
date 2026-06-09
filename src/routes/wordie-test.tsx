@@ -523,17 +523,6 @@ function InfoView({ onStart }: { onStart: () => void }) {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-white border border-border px-3 py-3 text-center">
-      <p className="text-[20px] font-bold leading-none" style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)" }}>
-        {value}
-      </p>
-      <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground mt-1">{label}</p>
-    </div>
-  );
-}
-
 // ───────── Quiz ─────────
 function QuizView({
   stageKey,
