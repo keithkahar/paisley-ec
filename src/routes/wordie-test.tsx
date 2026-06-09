@@ -592,21 +592,17 @@ function QuizView({
         style={{ background: meta.color }}
       >
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-wide opacity-90">
-            Stage {stageIdx + 1} of {STAGE_ORDER.length}
-          </p>
+          <h2
+            className="text-[24px] font-bold leading-none"
+            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            {meta.label}
+          </h2>
           <span className="text-[11px] font-bold uppercase tracking-wide rounded-full bg-white/22 px-2 py-0.5">
-            {meta.points} Pts
+            {meta.points} Pt
           </span>
         </div>
-        <h2
-          className="mt-2 text-[24px] font-bold leading-none"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-        >
-          {meta.label}
-        </h2>
-        <p className="mt-1.5 text-[13px] font-bold opacity-95">{meta.subtitle}</p>
-        <p className="mt-1 text-[12px] opacity-80">{meta.note}</p>
+        <p className="mt-2 text-[12px] opacity-80">{meta.note}</p>
       </section>
 
       {/* Questions */}
