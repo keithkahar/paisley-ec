@@ -185,8 +185,8 @@ function WordieBankPage() {
     statusSel !== "all";
 
   return (
-    <PhoneFrame bg="bg-white">
-      <AppHeader title="" back="/mywordie" bg="white" />
+    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
+      <AppHeader title="" back="/mywordie" bg="transparent" />
 
       <div className="px-5 pb-10">
         {/* Toolbar: Select / Done · Preview */}
@@ -242,11 +242,26 @@ function WordieBankPage() {
           </div>
         </div>
 
-        {/* Level / Category / Status dropdowns */}
-        <div className="mt-3 flex items-center justify-between gap-2 text-[12px]">
-          <FilterDropdown label="Level" value={levelSel === "all" ? "All" : levelSel} onClick={() => setOpenSheet("level")} />
-          <FilterDropdown label="Category" value={categorySel === "all" ? "All" : categorySel} onClick={() => setOpenSheet("category")} />
-          <FilterDropdown label="Status" value={statusSel === "all" ? "All" : capitalize(statusSel)} onClick={() => setOpenSheet("status")} />
+        {/* Level / Category / Status — wordie brand filter pills */}
+        <div className="mt-3 grid grid-cols-3 gap-2">
+          <FilterDropdown
+            label="Level"
+            value={levelSel === "all" ? "All" : levelSel}
+            active={levelSel !== "all"}
+            onClick={() => setOpenSheet("level")}
+          />
+          <FilterDropdown
+            label="Category"
+            value={categorySel === "all" ? "All" : categorySel}
+            active={categorySel !== "all"}
+            onClick={() => setOpenSheet("category")}
+          />
+          <FilterDropdown
+            label="Status"
+            value={statusSel === "all" ? "All" : capitalize(statusSel)}
+            active={statusSel !== "all"}
+            onClick={() => setOpenSheet("status")}
+          />
         </div>
 
         {/* Count row */}
@@ -370,17 +385,32 @@ function WordieBankPage() {
         <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setOpenSheet(null)}>
           <div className="absolute inset-0 bg-black/40" />
           <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl p-5 pb-8 max-h-[70vh] overflow-y-auto"
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+            style={{ height: "62vh" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="w-12" />
-              <p className="text-[16px] font-bold">
-                {openSheet === "level" ? "Choose Level" : openSheet === "category" ? "Choose Category" : "Choose Status"}
-              </p>
-              <button type="button" onClick={() => setOpenSheet(null)} className="text-[13px] font-bold" style={{ color: "var(--wordie)" }}>Done</button>
+            {/* Grabber */}
+            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+              <span className="h-1 w-10 rounded-full bg-border" />
             </div>
-            <div className="divide-y divide-border">
+            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
+              <span className="w-12" />
+              <p
+                className="text-[17px] font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
+              >
+                {openSheet === "level" ? "Level" : openSheet === "category" ? "Category" : "Status"}
+              </p>
+              <button
+                type="button"
+                onClick={() => setOpenSheet(null)}
+                className="text-[13px] font-bold w-12 text-right"
+                style={{ color: "var(--wordie)" }}
+              >
+                Done
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-5 pb-8 divide-y divide-border">
               <SheetRow label={`All (${words.length})`} active={
                 (openSheet === "level" && levelSel === "all") ||
                 (openSheet === "category" && categorySel === "all") ||
@@ -460,16 +490,45 @@ function WordieBankPage() {
   );
 }
 
-function FilterDropdown({ label, value, onClick }: { label: string; value: string; onClick: () => void }) {
+function FilterDropdown({
+  label,
+  value,
+  active,
+  onClick,
+}: {
+  label: string;
+  value: string;
+  active?: boolean;
+  onClick: () => void;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="flex-1 inline-flex items-center justify-center gap-1 text-muted-foreground"
+      className="inline-flex items-center justify-between gap-1 rounded-full pl-3.5 pr-2.5 py-2 active:scale-[0.97] transition-transform"
+      style={
+        active
+          ? {
+              background: "var(--wordie)",
+              color: "white",
+              border: "1px solid var(--wordie)",
+            }
+          : {
+              background: "white",
+              color: "var(--foreground)",
+              border: "1px solid color-mix(in oklab, var(--wordie) 18%, white)",
+            }
+      }
     >
-      <span>{label}:</span>
-      <span className="font-bold text-foreground">{value}</span>
-      <ChevronDown className="h-3.5 w-3.5" />
+      <span className="flex items-baseline gap-1 min-w-0">
+        <span
+          className="text-[11px] font-bold uppercase tracking-wide opacity-70"
+        >
+          {label}
+        </span>
+        <span className="text-[12px] font-bold truncate">{value}</span>
+      </span>
+      <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-80" />
     </button>
   );
 }
