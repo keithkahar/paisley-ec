@@ -20,8 +20,8 @@ export function StatusBadge({ status }: { status: WordStatus }) {
     <span
       className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
       style={{
-        background: `color-mix(in oklab, ${m.color} 28%, white)`,
-        color: `color-mix(in oklab, ${m.color} 80%, black)`,
+        background: m.color,
+        color: "white",
       }}
     >
       {m.label}
