@@ -2,8 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Plus, ChevronDown, Star, Trash2, X, ChevronRight } from "lucide-react";
-import { StatusBadge, FilterChip, type WordStatus } from "@/components/app/WordieKit";
+import {
+  Plus,
+  ChevronDown,
+  ChevronRight,
+  Check,
+  Circle,
+  X,
+  Volume2,
+} from "lucide-react";
+import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [{ title: "Wordie-X — Paisley EC" }] }),
@@ -16,8 +24,6 @@ const PART_OF_SPEECH_OPTIONS = [
   "preposition", "conjunction", "interjection", "determiner", "numeral",
 ] as const;
 
-const CEFR_OPTIONS = ["Pre A1", "A1", "A2", "B1", "B2", "C1", "C2"] as const;
-
 const PROPER_NOUNS = new Set(["China", "English", "Shirin", "Paisley", "Wordie", "Bloxia"]);
 
 const COMMON_POS_MAP: Record<string, string> = {
@@ -26,7 +32,6 @@ const COMMON_POS_MAP: Record<string, string> = {
   one: "numeral", two: "numeral", three: "numeral",
 };
 
-// Mock "known words" — stands in for getUserWords()
 const KNOWN_WORDS: Array<{
   word: string; partOfSpeech: string; cefrLevel: string;
   definitionEn: string; exampleSentence: string; pronunciation: string;
@@ -42,32 +47,21 @@ const KNOWN_WORDS: Array<{
     exampleSentence: "She is happy with her gift.", pronunciation: "/ˈhæp.i/" },
 ];
 
-const SOURCE_LABEL: Record<string, string> = {
-  iAdded: "iAdded",
-  definition: "Definition",
-  example: "Example",
-  shirintalk: "ShirinTalk",
-};
-const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "iAdded";
+// ---------- Filters ----------
+type LearnStatus = "new" | "learning" | "review" | "mastered" | "relearning";
 
-// Source filter dropdown options
-const SOURCE_FILTERS: Array<{ key: string; label: string }> = [
-  { key: "all", label: "All sources" },
+const SOURCE_OPTIONS: { key: string; label: string }[] = [
   { key: "iAdded", label: "iAdded" },
   { key: "definition", label: "Definition" },
   { key: "example", label: "Example" },
   { key: "shirintalk", label: "ShirinTalk" },
 ];
+const SOURCE_LABEL: Record<string, string> = Object.fromEntries(
+  SOURCE_OPTIONS.map((o) => [o.key, o.label]),
+);
+const getSourceLabel = (s?: string) => (s && SOURCE_LABEL[s]) || "iAdded";
 
-// Words already in Wordie Bank — used to block duplicates from Wordie-X
-const BANK_WORDS: Set<string> = new Set([
-  "dog", "cat", "bird", "fish", "rabbit",
-  "book", "chair", "pencil", "window", "teacher",
-]);
-
-// Match wordie-bank pill colors exactly
-const STATUS_FILTERS: Array<{ key: string; label: string }> = [
-  { key: "all", label: "All" },
+const STATUS_OPTIONS: { key: LearnStatus | "focus"; label: string }[] = [
   { key: "new", label: "New" },
   { key: "learning", label: "Learning" },
   { key: "review", label: "Review" },
@@ -75,8 +69,8 @@ const STATUS_FILTERS: Array<{ key: string; label: string }> = [
   { key: "mastered", label: "Mastered" },
   { key: "relearning", label: "Relearning" },
 ];
+
 const STATUS_COLOR: Record<string, string> = {
-  all: "var(--wordie)",
   new: "oklch(0.66 0.24 280)",
   learning: "oklch(0.7 0.18 195)",
   review: "oklch(0.68 0.2 145)",
@@ -85,43 +79,97 @@ const STATUS_COLOR: Record<string, string> = {
   relearning: "oklch(0.8 0.1 350)",
 };
 
+// Words already in Wordie Bank — block duplicates
+const BANK_WORDS: Set<string> = new Set([
+  "dog", "cat", "bird", "fish", "rabbit",
+  "book", "chair", "pencil", "window", "teacher",
+]);
+
 const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
-// Seed notes — shown on first visit for testing
+// ---------- Types & storage ----------
+type Note = {
+  _id: string;
+  word: string;
+  content: string;
+  definitionEn: string;
+  exampleSentence: string;
+  partOfSpeech: string;
+  cefrLevel: string;
+  pronunciation: string;
+  source: string;
+  targetWordId: string;
+  learnStatus: LearnStatus;
+  nextReviewLabel: string;
+  createdAt: number;
+  updatedAt: number;
+  isFocus?: boolean;
+};
+
+const NOTES_KEY = "pec_my_notes_v4";
+const FOCUS_KEY = "pec_user_words_focus_v1";
+
 const SEED_NOTES: Array<Omit<Note, "_id" | "createdAt" | "updatedAt">> = [
   { word: "sunshine", content: "the light and warmth from the sun",
     definitionEn: "the light and warmth from the sun",
     exampleSentence: "We played in the sunshine all afternoon.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈsʌnʃaɪn/",
-    source: "definition", targetWordId: "wordie_x_sunshine", status: "saved" },
+    source: "definition", targetWordId: "wordie_x_sunshine",
+    learnStatus: "new", nextReviewLabel: "Not started", isFocus: false },
   { word: "giggle", content: "to laugh in a soft, silly way",
     definitionEn: "to laugh in a soft, silly way",
     exampleSentence: "The kids giggle when they hear the joke.",
     partOfSpeech: "verb", cefrLevel: "A2", pronunciation: "/ˈɡɪɡ.əl/",
-    source: "shirintalk", targetWordId: "wordie_x_giggle", status: "saved" },
+    source: "shirintalk", targetWordId: "wordie_x_giggle",
+    learnStatus: "learning", nextReviewLabel: "Today", isFocus: false },
   { word: "puppy", content: "a baby dog",
     definitionEn: "a baby dog",
     exampleSentence: "My puppy loves to chase the ball.",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈpʌp.i/",
-    source: "example", targetWordId: "wordie_x_puppy", status: "saved" },
+    source: "example", targetWordId: "wordie_x_puppy",
+    learnStatus: "review", nextReviewLabel: "Tomorrow", isFocus: false },
   { word: "rainbow", content: "colorful arc in the sky after rain",
     definitionEn: "colorful arc in the sky after rain",
     exampleSentence: "Look at the rainbow over the hill!",
     partOfSpeech: "noun", cefrLevel: "A1", pronunciation: "/ˈreɪn.boʊ/",
-    source: "iAdded", targetWordId: "wordie_x_rainbow", status: "saved" },
+    source: "iAdded", targetWordId: "wordie_x_rainbow",
+    learnStatus: "mastered", nextReviewLabel: "In 7 days", isFocus: false },
   { word: "butterfly", content: "an insect with big colorful wings",
     definitionEn: "an insect with big colorful wings",
     exampleSentence: "A butterfly landed on the flower.",
     partOfSpeech: "noun", cefrLevel: "A2", pronunciation: "/ˈbʌt.ə.flaɪ/",
-    source: "definition", targetWordId: "wordie_x_butterfly", status: "saved" },
+    source: "definition", targetWordId: "wordie_x_butterfly",
+    learnStatus: "learning", nextReviewLabel: "Today", isFocus: true },
   { word: "adventure", content: "an exciting or unusual experience",
     definitionEn: "an exciting or unusual experience",
     exampleSentence: "Our trip to the forest was a big adventure.",
     partOfSpeech: "noun", cefrLevel: "B1", pronunciation: "/ədˈven.tʃər/",
-    source: "shirintalk", targetWordId: "wordie_x_adventure", status: "saved" },
+    source: "shirintalk", targetWordId: "wordie_x_adventure",
+    learnStatus: "relearning", nextReviewLabel: "Today", isFocus: false },
 ];
 
-// ---------- Normalize ----------
+function loadNotes(): Note[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(NOTES_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw) as Note[];
+    const focus = JSON.parse(localStorage.getItem(FOCUS_KEY) || "{}") as Record<string, boolean>;
+    return arr.map((n) => ({ ...n, isFocus: !!focus[n.targetWordId || n.word] || !!n.isFocus }));
+  } catch { return []; }
+}
+function saveNotes(arr: Note[]) {
+  try { localStorage.setItem(NOTES_KEY, JSON.stringify(arr)); } catch { /* noop */ }
+}
+function toggleFocusStore(key: string, next: boolean) {
+  try {
+    const focus = JSON.parse(localStorage.getItem(FOCUS_KEY) || "{}") as Record<string, boolean>;
+    if (next) focus[key] = true; else delete focus[key];
+    localStorage.setItem(FOCUS_KEY, JSON.stringify(focus));
+  } catch { /* noop */ }
+}
+
+// ---------- Helpers ----------
 function normalizeDraftWord(value: string): string {
   const trimmed = (value || "").trim().replace(/\s+/g, " ");
   if (!trimmed) return "";
@@ -153,52 +201,18 @@ function buildSuggestion(word: string): string {
   return "";
 }
 
-// ---------- Types & storage ----------
-type Note = {
-  _id: string;
-  word: string;
-  content: string;
-  definitionEn: string;
-  exampleSentence: string;
-  partOfSpeech: string;
-  cefrLevel: string;
-  pronunciation: string;
-  source: string;
-  targetWordId: string;
-  status: "saved";
-  createdAt: number;
-  updatedAt: number;
-  isFocus?: boolean;
-};
-
-const NOTES_KEY = "pec_my_notes_v3";
-const FOCUS_KEY = "pec_user_words_focus_v1";
-
-function loadNotes(): Note[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(NOTES_KEY);
-    if (!raw) return [];
-    const arr = JSON.parse(raw) as Note[];
-    const focus = JSON.parse(localStorage.getItem(FOCUS_KEY) || "{}") as Record<string, boolean>;
-    return arr.map((n) => ({ ...n, isFocus: !!focus[n.targetWordId || n.word] }));
-  } catch { return []; }
-}
-function saveNotes(arr: Note[]) {
-  try { localStorage.setItem(NOTES_KEY, JSON.stringify(arr)); } catch { /* noop */ }
-}
-function toggleFocusStore(key: string, next: boolean) {
-  try {
-    const focus = JSON.parse(localStorage.getItem(FOCUS_KEY) || "{}") as Record<string, boolean>;
-    if (next) focus[key] = true; else delete focus[key];
-    localStorage.setItem(FOCUS_KEY, JSON.stringify(focus));
-  } catch { /* noop */ }
+// Map our LearnStatus → WordieKit StatusBadge status
+function toBadgeStatus(s: LearnStatus): WordStatus {
+  if (s === "relearning") return "learning";
+  return s;
 }
 
 // ---------- Page ----------
 function WordieXPage() {
   const WORDIE = "var(--wordie)";
   const [notes, setNotes] = useState<Note[]>([]);
+
+  // Editor
   const [showEditor, setShowEditor] = useState(false);
   const [draftWord, setDraftWord] = useState("");
   const [normalizedWord, setNormalizedWord] = useState("");
@@ -210,13 +224,21 @@ function WordieXPage() {
   const [example, setExample] = useState("");
   const [pronunciation, setPronunciation] = useState("");
   const [isAutoFilling, setIsAutoFilling] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
-  const [sourceFilter, setSourceFilter] = useState<string>("all");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [showSourceMenu, setShowSourceMenu] = useState(false);
 
-  // Load notes on mount
+  // Filters
+  const [sourceSel, setSourceSel] = useState<string[]>([]);
+  const [statusSel, setStatusSel] = useState<string[]>([]);
+  const [openSheet, setOpenSheet] = useState<null | "source" | "status">(null);
+
+  // Select / preview / batch
+  const [selectMode, setSelectMode] = useState(false);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [batchOpen, setBatchOpen] = useState(false);
+  const [previewIdx, setPreviewIdx] = useState<number | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  // Load seed/notes
   useEffect(() => {
     const existing = loadNotes();
     if (existing.length === 0 && typeof window !== "undefined" && !localStorage.getItem(NOTES_KEY)) {
@@ -227,6 +249,8 @@ function WordieXPage() {
         createdAt: now - i * 1000,
         updatedAt: now - i * 1000,
       }));
+      // mirror focus seeds into focus store
+      seeded.forEach((n) => { if (n.isFocus) toggleFocusStore(n.targetWordId, true); });
       saveNotes(seeded);
       setNotes(seeded);
     } else {
@@ -234,14 +258,13 @@ function WordieXPage() {
     }
   }, []);
 
-  // Toast auto-dismiss
   useEffect(() => {
     if (!toast) return;
     const t = setTimeout(() => setToast(null), 1600);
     return () => clearTimeout(t);
   }, [toast]);
 
-  // Autofill on word change (debounced 450ms)
+  // Autofill on word change
   const autoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     if (autoTimer.current) clearTimeout(autoTimer.current);
@@ -250,7 +273,6 @@ function WordieXPage() {
       const known = KNOWN_WORDS.find((k) => k.word.toLowerCase() === normalizedWord.toLowerCase());
       const meta = known || buildFallbackMeta(normalizedWord);
       setIsAutoFilling(true);
-      // Only fill empty fields (don't overwrite user edits)
       setPosIndex((idx) => {
         const i = PART_OF_SPEECH_OPTIONS.indexOf(meta.partOfSpeech as typeof PART_OF_SPEECH_OPTIONS[number]);
         return i >= 0 ? i : idx;
@@ -306,7 +328,8 @@ function WordieXPage() {
       pronunciation: pronunciation || `/${word}/`,
       source: "iAdded",
       targetWordId,
-      status: "saved",
+      learnStatus: existing?.learnStatus || "new",
+      nextReviewLabel: existing?.nextReviewLabel || "Not started",
       createdAt: existing?.createdAt || now,
       updatedAt: now,
       isFocus: existing?.isFocus,
@@ -319,15 +342,6 @@ function WordieXPage() {
     setToast(existing ? "Updated" : "Added to Wordie-X");
   }
 
-  function toggleFocus(note: Note) {
-    const key = note.targetWordId || note.word;
-    const next = !note.isFocus;
-    toggleFocusStore(key, next);
-    const updated = notes.map((n) => (n._id === note._id ? { ...n, isFocus: next } : n));
-    setNotes(updated); saveNotes(updated);
-    setToast(next ? "Added to Focus" : "Removed from Focus");
-  }
-
   function performDelete(note: Note) {
     toggleFocusStore(note.targetWordId || note.word, false);
     const next = notes.filter((n) => n._id !== note._id);
@@ -336,23 +350,82 @@ function WordieXPage() {
     setToast("Deleted");
   }
 
-  const count = notes.length;
-  const filteredNotes = useMemo(() => {
+  const filtered = useMemo(() => {
     return notes.filter((n) => {
-      if (sourceFilter !== "all" && n.source !== sourceFilter) return false;
-      if (statusFilter === "all") return true;
-      if (statusFilter === "focus") return !!n.isFocus;
-      return (n.status as string) === statusFilter;
+      if (sourceSel.length > 0 && !sourceSel.includes(n.source)) return false;
+      if (statusSel.length > 0) {
+        const hit = statusSel.includes(n.learnStatus) || (n.isFocus && statusSel.includes("focus"));
+        if (!hit) return false;
+      }
+      return true;
     });
-  }, [notes, sourceFilter, statusFilter]);
-  void count;
+  }, [notes, sourceSel, statusSel]);
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { focus: 0 };
+    for (const n of notes) {
+      c[n.learnStatus] = (c[n.learnStatus] ?? 0) + 1;
+      if (n.isFocus) c.focus += 1;
+    }
+    return c;
+  }, [notes]);
+
+  // Select helpers
+  const toggleSelect = (id: string) => {
+    const next = new Set(selected);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    setSelected(next);
+  };
+  const exitSelect = () => {
+    setSelectMode(false);
+    setSelected(new Set());
+    setBatchOpen(false);
+  };
+  const applyUpdate = (updater: (n: Note) => Note, msg: string) => {
+    const next = notes.map((n) => (selected.has(n._id) ? updater(n) : n));
+    setNotes(next); saveNotes(next);
+    setToast(msg); exitSelect();
+  };
+  const batchAddFocus = () => {
+    selected.forEach((id) => {
+      const n = notes.find((x) => x._id === id);
+      if (n) toggleFocusStore(n.targetWordId || n.word, true);
+    });
+    applyUpdate((n) => ({ ...n, isFocus: true }), "Added to Focus");
+  };
+  const batchMoveReview = () =>
+    applyUpdate((n) => ({ ...n, learnStatus: "review", nextReviewLabel: "Today" }), "Moved to Review");
+  const batchDelete = () => {
+    selected.forEach((id) => {
+      const n = notes.find((x) => x._id === id);
+      if (n) toggleFocusStore(n.targetWordId || n.word, false);
+    });
+    const next = notes.filter((n) => !selected.has(n._id));
+    setNotes(next); saveNotes(next);
+    setToast("Deleted"); exitSelect();
+  };
+  const openBatch = () => {
+    if (selected.size === 0) { setToast("Select cards first"); return; }
+    setBatchOpen(true);
+  };
+
+  const labelFor = (sel: string[], lookup: (k: string) => string) => {
+    if (sel.length === 0) return "All";
+    if (sel.length === 1) return lookup(sel[0]);
+    return `${sel.length} sel.`;
+  };
+
+  const toggleIn = (sel: string[], setter: (v: string[]) => void, value: string) => {
+    if (sel.includes(value)) setter(sel.filter((v) => v !== value));
+    else setter([...sel, value]);
+  };
 
   return (
     <PhoneFrame bg="bg-white">
       <AppHeader title="" back="/mywordie" bg="white" />
 
       <div className="px-5 pb-12">
-        {/* Title + subtitle — match topics/Choose A Topic style */}
+        {/* Title + subtitle */}
         <div className="mb-5">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
@@ -392,7 +465,6 @@ function WordieXPage() {
               className="rounded-3xl bg-white border p-4"
               style={{ borderColor: "color-mix(in oklab, var(--wordie) 25%, white)" }}
             >
-              {/* Word input */}
               <label className="block">
                 <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word</span>
                 <input
@@ -416,7 +488,6 @@ function WordieXPage() {
                 </button>
               )}
 
-              {/* POS + CEFR row */}
               <div className="mt-4 flex items-center gap-2">
                 <div className="relative">
                   <button
@@ -464,7 +535,6 @@ function WordieXPage() {
                 )}
               </div>
 
-              {/* Example (short meaning) */}
               <label className="block mt-4">
                 <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Example</span>
                 <textarea
@@ -478,7 +548,6 @@ function WordieXPage() {
                 />
               </label>
 
-              {/* Example */}
               <label className="block mt-3">
                 <span className="text-[11px] font-bold tracking-wide text-muted-foreground">Word In Use</span>
                 <textarea
@@ -492,7 +561,6 @@ function WordieXPage() {
                 />
               </label>
 
-              {/* Actions */}
               <div className="mt-4 flex items-center gap-2">
                 <button
                   type="button"
@@ -514,76 +582,59 @@ function WordieXPage() {
           )}
         </section>
 
-        {/* Resource dropdown filter */}
-        <section className="mt-5 relative">
-          <p className="mb-2 text-[11px] font-bold tracking-wide text-muted-foreground">
-            Resource
-          </p>
+        {/* Filters: Resource + Status (bank-style) */}
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <FilterDropdown
+            label="Resource"
+            value={labelFor(sourceSel, (k) => SOURCE_LABEL[k] || k)}
+            active={sourceSel.length > 0}
+            onClick={() => setOpenSheet("source")}
+          />
+          <FilterDropdown
+            label="Status"
+            value={labelFor(statusSel, (k) => STATUS_OPTIONS.find((o) => o.key === k)?.label || k)}
+            active={statusSel.length > 0}
+            onClick={() => setOpenSheet("status")}
+          />
+        </div>
+
+        {/* Toolbar: Select / Done · Preview */}
+        <div className="mt-4 flex items-center justify-between">
           <button
             type="button"
-            onClick={() => setShowSourceMenu((s) => !s)}
-            className="w-full inline-flex items-center justify-between rounded-full px-4 py-2.5 text-[13px] font-bold border bg-white active:scale-[0.99] transition"
-            style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+            onClick={() => (selectMode ? exitSelect() : setSelectMode(true))}
+            className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+            style={{ color: selectMode ? "var(--wordie)" : "var(--foreground)" }}
           >
-            <span>
-              {SOURCE_FILTERS.find((f) => f.key === sourceFilter)?.label ?? "All sources"}
-            </span>
-            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+            {selectMode ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
+            {selectMode ? "Done" : "Select"}
           </button>
-          {showSourceMenu && (
-            <div
-              className="absolute z-30 left-0 right-0 mt-1 rounded-2xl bg-white border border-border shadow-lg p-1"
+          {selectMode ? (
+            <button
+              type="button"
+              onClick={openBatch}
+              className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+              style={{ color: "var(--wordie)" }}
             >
-              {SOURCE_FILTERS.map((f) => {
-                const active = sourceFilter === f.key;
-                return (
-                  <button
-                    key={f.key}
-                    type="button"
-                    onClick={() => { setSourceFilter(f.key); setShowSourceMenu(false); }}
-                    className="w-full text-left px-3 py-2 text-[13px] font-bold rounded-xl hover:bg-muted"
-                    style={{ color: active ? "var(--wordie)" : "var(--foreground)" }}
-                  >
-                    {f.label}
-                  </button>
-                );
-              })}
-            </div>
+              {selected.size} selected •••
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => filtered.length > 0 && setPreviewIdx(0)}
+              className="text-[13px] font-bold"
+              style={{ color: "var(--wordie)" }}
+            >
+              Preview
+            </button>
           )}
-        </section>
+        </div>
 
-        {/* Quick status filters — match Wordie Bank colors */}
-        <section className="mt-4">
-          <div className="flex flex-wrap gap-2">
-            {STATUS_FILTERS.map((f) => {
-              const active = statusFilter === f.key;
-              const n =
-                f.key === "all"
-                  ? notes.length
-                  : f.key === "focus"
-                    ? notes.filter((x) => x.isFocus).length
-                    : notes.filter((x) => (x.status as string) === f.key).length;
-              return (
-                <FilterChip
-                  key={f.key}
-                  active={active}
-                  onClick={() => setStatusFilter(f.key)}
-                  color={STATUS_COLOR[f.key] ?? "var(--wordie)"}
-                  tone="tint"
-                >
-                  {f.label}
-                  <span className="ml-1.5 opacity-70">{n}</span>
-                </FilterChip>
-              );
-            })}
-          </div>
-        </section>
+        {/* List */}
+        <section className="mt-3">
+          <p className="mb-2 text-[12px] font-bold text-muted-foreground">{filtered.length} cards</p>
 
-        {/* Added Words */}
-        <section className="mt-7">
-          <p className="mb-2 text-[12px] font-bold text-muted-foreground">{filteredNotes.length} cards</p>
-
-          {filteredNotes.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="rounded-3xl bg-muted/40 border border-dashed border-border p-8 text-center">
               <p className="text-[13px] text-muted-foreground">
                 {notes.length === 0
@@ -593,18 +644,178 @@ function WordieXPage() {
             </div>
           ) : (
             <ul className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
-              {filteredNotes.map((n) => (
-                <SavedCard
-                  key={n._id}
-                  note={n}
-                  onToggleFocus={() => toggleFocus(n)}
-                  onAskDelete={() => setConfirmDelete(n)}
-                />
-              ))}
+              {filtered.map((n, idx) => {
+                const isSel = selected.has(n._id);
+                return (
+                  <li key={n._id}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (selectMode) toggleSelect(n._id);
+                        else setPreviewIdx(idx);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left active:bg-muted/40 transition-colors"
+                    >
+                      {selectMode && (
+                        <div
+                          className="h-5 w-5 rounded-full border-2 grid place-items-center shrink-0"
+                          style={{
+                            borderColor: isSel ? "var(--wordie)" : "var(--border)",
+                            background: isSel ? "var(--wordie)" : "transparent",
+                            color: "white",
+                          }}
+                        >
+                          {isSel && <Check className="h-3 w-3" strokeWidth={3} />}
+                        </div>
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="font-semibold text-[16px] truncate leading-tight"
+                          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
+                        >
+                          {n.word}
+                        </p>
+                        {n.content && (
+                          <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                            {n.content}
+                          </p>
+                        )}
+                        <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                          <span
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                            style={{
+                              background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                              color: WORDIE,
+                            }}
+                          >
+                            {capitalize(n.partOfSpeech || "noun")}
+                          </span>
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                            {n.cefrLevel}
+                          </span>
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                            {getSourceLabel(n.source)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0 self-center">
+                        <LearnBadge status={n.learnStatus} />
+                        {!selectMode && (
+                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        )}
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </section>
       </div>
+
+      {/* Resource / Status sheet */}
+      {openSheet && (
+        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setOpenSheet(null)}>
+          <div className="absolute inset-0 bg-black/40" />
+          <div
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+            style={{ height: "62vh" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+              <span className="h-1 w-10 rounded-full bg-border" />
+            </div>
+            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
+              <span className="w-12" />
+              <p
+                className="text-[17px] font-bold tracking-tight leading-none"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: "var(--wordie)" }}
+              >
+                {openSheet === "source" ? "Choose Resource" : "Choose Status"}
+              </p>
+              <button
+                type="button"
+                onClick={() => setOpenSheet(null)}
+                className="text-[13px] font-bold w-12 text-right"
+                style={{ color: "var(--wordie)" }}
+              >
+                Done
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-5 pb-8 divide-y divide-border">
+              {openSheet === "source" && (
+                <>
+                  <SheetRow label="Clear all" active={sourceSel.length === 0} onClick={() => setSourceSel([])} />
+                  {SOURCE_OPTIONS.map((o) => (
+                    <SheetRow
+                      key={o.key}
+                      label={o.label}
+                      active={sourceSel.includes(o.key)}
+                      onClick={() => toggleIn(sourceSel, setSourceSel, o.key)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "status" && (
+                <>
+                  <SheetRow label="Clear all" active={statusSel.length === 0} onClick={() => setStatusSel([])} />
+                  {STATUS_OPTIONS.map((o) => (
+                    <SheetRow
+                      key={o.key}
+                      label={`${o.label} (${counts[o.key] ?? 0})`}
+                      active={statusSel.includes(o.key)}
+                      onClick={() => toggleIn(statusSel, setStatusSel, o.key)}
+                    />
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Batch sheet */}
+      {batchOpen && (
+        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
+          <div className="absolute inset-0 bg-black/40" />
+          <div
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+            style={{ height: "58vh" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+              <span className="h-1 w-10 rounded-full bg-border" />
+            </div>
+            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
+              <span className="w-12" />
+              <p
+                className="text-[17px] font-bold tracking-tight leading-none"
+                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: "var(--wordie)" }}
+              >
+                Batch Actions
+              </p>
+              <button
+                type="button"
+                onClick={() => setBatchOpen(false)}
+                className="text-[13px] font-bold w-12 text-right"
+                style={{ color: "var(--wordie)" }}
+              >
+                Done
+              </button>
+            </div>
+            <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">
+              {selected.size} selected
+            </p>
+            <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
+              <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
+              <SheetBtn label="Add to Focus" onClick={batchAddFocus} />
+              <SheetBtn label="Move to Review" onClick={batchMoveReview} />
+              <SheetBtn label="Delete" danger onClick={batchDelete} />
+              <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Delete confirm */}
       {confirmDelete && (
@@ -612,10 +823,7 @@ function WordieXPage() {
           className="fixed inset-0 z-50 grid place-items-center bg-black/40 px-6"
           onClick={() => setConfirmDelete(null)}
         >
-          <div
-            className="w-full max-w-[320px] rounded-3xl bg-white p-5"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="w-full max-w-[320px] rounded-3xl bg-white p-5" onClick={(e) => e.stopPropagation()}>
             <p className="text-[16px] font-bold">Delete word?</p>
             <p className="mt-1 text-[13px] text-muted-foreground">
               This word will be removed from Wordie-X.
@@ -641,6 +849,18 @@ function WordieXPage() {
         </div>
       )}
 
+      {/* Full-screen preview */}
+      {previewIdx !== null && filtered[previewIdx] && (
+        <PreviewFull
+          note={filtered[previewIdx]}
+          index={previewIdx}
+          total={filtered.length}
+          onClose={() => setPreviewIdx(null)}
+          onPrev={() => setPreviewIdx((i) => (i !== null && i > 0 ? i - 1 : i))}
+          onNext={() => setPreviewIdx((i) => (i !== null && i < filtered.length - 1 ? i + 1 : i))}
+        />
+      )}
+
       {/* Toast */}
       {toast && (
         <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 rounded-full bg-black/85 text-white px-4 py-2 text-[12px] font-bold">
@@ -651,147 +871,262 @@ function WordieXPage() {
   );
 }
 
-// ---------- Saved card with swipe ----------
-function SavedCard({
-  note,
-  onToggleFocus,
-  onAskDelete,
-}: {
-  note: Note;
-  onToggleFocus: () => void;
-  onAskDelete: () => void;
-}) {
-  const WORDIE = "var(--wordie)";
-  const ACTION_W = 96; // px revealed per side
-  const [offset, setOffset] = useState(0);
-  const startX = useRef<number | null>(null);
-  const startOffset = useRef(0);
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    startX.current = e.clientX;
-    startOffset.current = offset;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (startX.current == null) return;
-    const dx = e.clientX - startX.current;
-    let next = startOffset.current + dx;
-    next = Math.max(-ACTION_W, Math.min(ACTION_W, next));
-    setOffset(next);
-  };
-  const onPointerUp = () => {
-    startX.current = null;
-    if (offset > ACTION_W / 2) setOffset(ACTION_W);
-    else if (offset < -ACTION_W / 2) setOffset(-ACTION_W);
-    else setOffset(0);
-  };
-
-  const meta = useMemo(() => ({
-    pos: note.partOfSpeech || "noun",
-    cefr: note.cefrLevel || "New",
-    source: getSourceLabel(note.source),
-  }), [note]);
-
+// ---------- Reusable bits ----------
+function FilterDropdown({
+  label, value, active, onClick,
+}: { label: string; value: string; active?: boolean; onClick: () => void }) {
   return (
-    <li className="relative overflow-hidden bg-white">
-      {/* Left action (revealed on swipe right) */}
-      <button
-        type="button"
-        onClick={() => { onToggleFocus(); setOffset(0); }}
-        className="absolute inset-y-0 left-0 grid place-items-center text-white text-[12px] font-bold"
-        style={{ width: ACTION_W, background: WORDIE }}
-      >
-        <Star className={`h-5 w-5 ${note.isFocus ? "fill-current" : ""}`} />
-        <span className="mt-1">{note.isFocus ? "Remove" : "Add Focus"}</span>
-      </button>
-      {/* Right action (revealed on swipe left) */}
-      <button
-        type="button"
-        onClick={() => { onAskDelete(); setOffset(0); }}
-        className="absolute inset-y-0 right-0 grid place-items-center text-white text-[12px] font-bold"
-        style={{ width: ACTION_W, background: "#D85A45" }}
-      >
-        <Trash2 className="h-5 w-5" />
-        <span className="mt-1">Delete</span>
-      </button>
-
-      {/* Foreground draggable card */}
-      <div
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-        className="relative bg-white px-4 py-3 touch-pan-y select-none flex items-center gap-3"
-        style={{
-          transform: `translateX(${offset}px)`,
-          transition: startX.current == null ? "transform 200ms ease" : "none",
-        }}
-      >
-        <div className="min-w-0 flex-1">
-          <p
-            className="font-semibold text-[16px] truncate leading-tight"
-            style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
-          >
-            {note.word}
-          </p>
-          {note.content && (
-            <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
-              {note.content}
-            </p>
-          )}
-          <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
-            <span
-              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-              style={{
-                background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                color: WORDIE,
-              }}
-            >
-              {capitalize(meta.pos)}
-            </span>
-            <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
-              {meta.cefr}
-            </span>
-            <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
-              {meta.source}
-            </span>
-            {note.isFocus && (
-              <span
-                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-                style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", color: WORDIE }}
-              >
-                <Star className="h-3 w-3 fill-current" /> Focus
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="flex items-center gap-2 shrink-0 self-center">
-          <StatusBadge status={(["new","learning","review","mastered"].includes(note.status as string) ? note.status : "new") as WordStatus} />
-          {offset === 0 ? (
-            <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          ) : (
-            <button
-              type="button"
-              onClick={() => setOffset(0)}
-              className="h-6 w-6 grid place-items-center rounded-full bg-muted"
-              aria-label="Close actions"
-            >
-              <X className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </div>
-      </div>
-    </li>
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex items-center justify-between gap-1 rounded-full pl-3.5 pr-2.5 py-2 active:scale-[0.97] transition-transform"
+      style={
+        active
+          ? { background: "var(--paisley)", color: "white", border: "1px solid var(--paisley)" }
+          : {
+              background: "color-mix(in oklab, var(--paisley) 10%, white)",
+              color: "var(--foreground)",
+              border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+            }
+      }
+    >
+      <span className="flex items-baseline gap-1 min-w-0">
+        <span className="text-xs font-bold opacity-70">{label}</span>
+        <span
+          className="text-[12px] font-bold truncate"
+          style={!active ? { color: "var(--paisley)" } : undefined}
+        >
+          {value}
+        </span>
+      </span>
+      <ChevronDown className="h-3.5 w-3.5 shrink-0 opacity-80" />
+    </button>
   );
 }
 
-function Pill({ children, bg, color }: { children: React.ReactNode; bg: string; color: string }) {
+function SheetRow({ label, active, onClick }: { label: string; active?: boolean; onClick: () => void }) {
   return (
-    <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
-      style={{ background: bg, color }}
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full flex items-center justify-between py-3 text-left text-[14px] font-bold"
+      style={{ color: active ? "var(--wordie)" : "var(--foreground)" }}
     >
-      {children}
-    </span>
+      <span>{label}</span>
+      {active && <Check className="h-4 w-4" />}
+    </button>
+  );
+}
+
+function SheetBtn({
+  label, onClick, danger, muted,
+}: { label: string; onClick?: () => void; danger?: boolean; muted?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full rounded-2xl py-3 text-[14px] font-bold text-center"
+      style={{
+        background: muted ? "var(--muted)" : "white",
+        color: danger ? "#E64A4A" : muted ? "var(--foreground)" : "var(--wordie)",
+        border: muted ? "none" : "1px solid var(--border)",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+function LearnBadge({ status }: { status: LearnStatus }) {
+  if (status === "relearning") {
+    const color = STATUS_COLOR.relearning;
+    return (
+      <span
+        className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
+        style={{
+          background: `color-mix(in oklab, ${color} 22%, white)`,
+          color: `color-mix(in oklab, ${color} 70%, black)`,
+        }}
+      >
+        Relearning
+      </span>
+    );
+  }
+  return <StatusBadge status={toBadgeStatus(status)} />;
+}
+
+function PreviewFull({
+  note, index, total, onClose, onPrev, onNext,
+}: {
+  note: Note;
+  index: number;
+  total: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const prevDisabled = index === 0;
+  const nextDisabled = index >= total - 1;
+  return (
+    <div className="fixed inset-0 z-50 bg-white flex flex-col max-w-[420px] mx-auto">
+      <div className="flex items-center justify-between px-5 py-4">
+        <button type="button" onClick={onClose} aria-label="Close">
+          <X className="h-5 w-5" />
+        </button>
+        <p className="text-[12px] font-bold text-muted-foreground">
+          {index + 1}/{total} cards
+        </p>
+        <div className="w-5" />
+      </div>
+      <div className="flex-1 overflow-y-auto px-5 pb-6">
+        <div
+          className="rounded-[2rem] p-6 bg-white"
+          style={{ border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)" }}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span
+                className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                style={{
+                  background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                  color: "var(--wordie)",
+                }}
+              >
+                {capitalize(note.partOfSpeech || "noun")}
+              </span>
+              <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                {note.cefrLevel}
+              </span>
+              <LearnBadge status={note.learnStatus} />
+            </div>
+            <button
+              type="button"
+              className="h-9 w-9 rounded-full grid place-items-center"
+              style={{ background: "var(--wordie)", color: "white" }}
+              aria-label="Listen"
+            >
+              <Volume2 className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div className="mt-8 text-center">
+            <h2
+              className="font-semibold text-[44px] leading-none"
+              style={{
+                color: "var(--wordie)",
+                fontFamily: "var(--font-display)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              {note.word}
+            </h2>
+            <p className="text-[13px] text-muted-foreground mt-3 font-mono">
+              {note.pronunciation}
+            </p>
+          </div>
+
+          <div className="mt-10 space-y-6">
+            <div>
+              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">Example</p>
+              <div className="mt-2 flex items-start gap-3">
+                <p
+                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  {note.definitionEn || note.content}
+                </p>
+                <button
+                  type="button"
+                  className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Listen to example"
+                >
+                  <Volume2 className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">Word in use</p>
+              <div className="mt-2 flex items-start gap-3">
+                <p
+                  className="flex-1 text-[17px] font-bold leading-snug text-foreground"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  {renderExample(note.exampleSentence, note.word)}
+                </p>
+                <button
+                  type="button"
+                  className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Listen to example"
+                >
+                  <Volume2 className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 mt-12">
+            <MiniStat label="Status" value={capitalize(note.learnStatus)} />
+            <MiniStat label="Level" value={note.cefrLevel} />
+            <MiniStat label="Next" value={note.nextReviewLabel} />
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-5 py-4">
+        <button
+          type="button"
+          onClick={onPrev}
+          disabled={prevDisabled}
+          className="text-[13px] font-bold disabled:opacity-30"
+          style={{ color: "var(--wordie)" }}
+        >
+          Previous
+        </button>
+        <span className="text-[12px] font-bold text-muted-foreground">
+          {index + 1} / {total}
+        </span>
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={nextDisabled}
+          className="text-[13px] font-bold disabled:opacity-30"
+          style={{ color: "var(--wordie)" }}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function MiniStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div
+      className="rounded-2xl px-3 py-2 text-center"
+      style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
+    >
+      <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground">{label}</p>
+      <p className="text-xs font-bold mt-0.5 truncate" style={{ color: "var(--wordie)" }}>
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function renderExample(sentence: string, word: string) {
+  if (!sentence) return null;
+  const re = new RegExp(`(${word})`, "ig");
+  const parts = sentence.split(re);
+  return (
+    <>
+      "
+      {parts.map((p, i) =>
+        p.toLowerCase() === word.toLowerCase() ? (
+          <span key={i} style={{ color: "var(--wordie)" }}>{p}</span>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
+      "
+    </>
   );
 }
