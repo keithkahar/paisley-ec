@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
@@ -8,30 +8,47 @@ export const Route = createFileRoute("/parent")({
   component: ParentPage,
 });
 
-// ---- Mock data (local, no persistence) ----
-const TALK_PROGRESS = [
-  { key: "minutes", label: "本周对话时长", value: "37", unit: "min" },
-  { key: "sessions", label: "本周对话轮次", value: "5", unit: "次" },
-  { key: "streak", label: "连续练习", value: "4", unit: "天" },
-  { key: "turns", label: "本周发言轮次", value: "42", unit: "次" },
-  { key: "questions", label: "本周主动提问", value: "8", unit: "次" },
-  { key: "long_answers", label: "本周完整表达", value: "3", unit: "次" },
-  { key: "talk_words", label: "本周对话用词", value: "186", unit: "词" },
-  { key: "target_words", label: "本周目标词使用", value: "12", unit: "次" },
-] as const;
+// ---- Mock data (mirrors /progress) ----
+const TALK_STATS = {
+  cards: [
+    { key: "time_spent", title: "Time Spent", value: "908", unit: "min", meta: "37 this week" },
+    { key: "sessions", title: "Sessions", value: "62", unit: "", meta: "5 this week" },
+    { key: "talk_words", title: "Talk Words", value: "4,210", unit: "", meta: "186 this week" },
+  ],
+  goals: {
+    week: { done: 37, total: 100, unit: "min" },
+    month: { done: 168, total: 400, unit: "min" },
+    year: { done: 640, total: 1000, unit: "min" },
+    total: "908 min",
+  },
+  trend: {
+    week: [12, 0, 18, 9, 22, 0, 37],
+    month: Array.from({ length: 30 }, (_, i) => Math.round(8 + 12 * Math.sin(i / 2.3) + (i % 4 === 0 ? 6 : 0))),
+    year: [40, 55, 72, 60, 80, 95, 70, 88, 110, 130, 120, 168],
+  },
+};
 
-const WORDIE_PROGRESS = [
-  { key: "week_minutes", label: "本周练习时长", value: "18", unit: "min" },
-  { key: "week_cards", label: "本周练习卡片", value: "64", unit: "张" },
-  { key: "streak", label: "连续练习", value: "3", unit: "天" },
-  { key: "transfer", label: "本周 myWordie Talk 使用词", value: "9", unit: "次" },
-  { key: "mastered", label: "已掌握", value: "166", unit: "词" },
-  { key: "review", label: "复习", value: "42", unit: "词" },
-  { key: "learning", label: "Learning 学习中", value: "28", unit: "词" },
-  { key: "new", label: "New 新词", value: "24", unit: "词" },
-  { key: "wordie_x", label: "Wordie-X 收录", value: "11", unit: "词" },
-  { key: "wordietest_average", label: "Wordie Test 平均分", value: "86", unit: "%" },
-] as const;
+const WORDIE_STATS = {
+  cards: [
+    { key: "time_spent", title: "Time Spent", value: "320", unit: "min", meta: "18 this week" },
+    { key: "words", title: "Word Cards", value: "260", unit: "", meta: "64% mastered" },
+    { key: "tests", title: "Wordie Tests", value: "18", unit: "", meta: "Avg 86%" },
+  ],
+  goals: {
+    week: { done: 12, total: 20, unit: "cards" },
+    month: { done: 86, total: 200, unit: "cards" },
+    year: { done: 340, total: 1000, unit: "cards" },
+    total: "438 cards",
+  },
+  trend: {
+    week: [3, 0, 2, 4, 0, 1, 2],
+    month: Array.from({ length: 30 }, (_, i) => Math.max(0, Math.round(4 + 3 * Math.cos(i / 1.8)))),
+    year: [18, 22, 30, 28, 36, 40, 32, 38, 45, 52, 48, 86],
+  },
+};
+
+const WEEK_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const VOICE_OPTIONS = [
   { id: "monica-standard", name: "Mónica Standard", group: "current" },
@@ -53,10 +70,12 @@ const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
 
 type ProgressTab = "talk" | "wordie";
+type TrendMode = "week" | "month" | "year";
 type SheetType = "" | "voice" | "theme" | "speechRate";
 
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
+  const [trendMode, setTrendMode] = useState<TrendMode>("week");
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
@@ -86,8 +105,26 @@ function ParentPage() {
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
 
-  const progress = tab === "talk" ? TALK_PROGRESS : WORDIE_PROGRESS;
+  const stats = tab === "talk" ? TALK_STATS : WORDIE_STATS;
   const accent = tab === "talk" ? SHIRIN : WORDIE;
+  const accentSoft =
+    tab === "talk"
+      ? "color-mix(in oklab, var(--shirin) 12%, white)"
+      : "color-mix(in oklab, var(--wordie) 12%, white)";
+  const goalTones = {
+    week: accent,
+    month: `color-mix(in oklab, ${accent} 70%, white)`,
+    year: `color-mix(in oklab, ${accent} 45%, white)`,
+  };
+  const trendSeries = stats.trend[trendMode];
+  const axisLabels =
+    trendMode === "week"
+      ? WEEK_LABELS.map((d) => d[0])
+      : trendMode === "year"
+        ? MONTH_LABELS.map((m) => m[0])
+        : Array.from({ length: trendSeries.length }, (_, i) =>
+            [0, 7, 14, 21, 28].includes(i) ? String(i + 1) : "",
+          );
 
   return (
     <PhoneFrame bg="bg-white">
@@ -113,9 +150,9 @@ function ParentPage() {
           </h1>
         </section>
 
-        {/* Progress folder */}
-        <section className="px-5 pt-4">
-          <div className="flex gap-1 px-2">
+        {/* Source tabs (segmented pill, same as /progress) */}
+        <section className="px-6 pt-4">
+          <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[oklch(0.96_0.01_240)]">
             {(["talk", "wordie"] as const).map((k) => {
               const active = tab === k;
               const c = k === "talk" ? SHIRIN : WORDIE;
@@ -124,13 +161,11 @@ function ParentPage() {
                   key={k}
                   type="button"
                   onClick={() => setTab(k)}
-                  className="px-4 h-9 rounded-t-2xl text-[13px] font-bold transition-colors"
+                  className="h-9 rounded-full text-[13px] font-bold transition-colors"
                   style={{
-                    background: active ? "white" : "color-mix(in oklab, var(--foreground) 6%, white)",
-                    color: active ? c : "color-mix(in oklab, var(--foreground) 50%, white)",
-                    border: active ? `1px solid color-mix(in oklab, ${c} 25%, white)` : "1px solid transparent",
-                    borderBottom: active ? "1px solid white" : "1px solid transparent",
-                    marginBottom: -1,
+                    background: active ? "white" : "transparent",
+                    color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
+                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
                   }}
                 >
                   {k === "talk" ? "ShirinTalk" : "myWordie"}
@@ -138,17 +173,101 @@ function ParentPage() {
               );
             })}
           </div>
-          <div
-            className="rounded-2xl rounded-tl-none p-3"
-            style={{
-              background: "white",
-              border: `1px solid color-mix(in oklab, ${accent} 22%, white)`,
-            }}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {progress.map((p) => (
-                <MiniCard key={p.key} label={p.label} value={p.value} unit={p.unit} accent={accent} />
-              ))}
+        </section>
+
+        {/* Stat cards */}
+        <section className="px-6 pt-4">
+          <div className="grid grid-cols-3 gap-2">
+            {stats.cards.map((c) => (
+              <div
+                key={c.key}
+                className="rounded-2xl p-3 flex flex-col justify-between min-h-[88px]"
+                style={{ background: accentSoft }}
+              >
+                <p
+                  className="text-[11px] font-bold leading-none"
+                  style={{ color: accent, letterSpacing: "-0.01em" }}
+                >
+                  {c.title}
+                </p>
+                <div>
+                  <div className="flex items-baseline gap-1">
+                    <span
+                      className="text-[22px] font-bold leading-none"
+                      style={{ color: accent, letterSpacing: "-0.02em" }}
+                    >
+                      {c.value}
+                    </span>
+                    {c.unit && (
+                      <span className="text-[11px] font-bold leading-none" style={{ color: accent }}>
+                        {c.unit}
+                      </span>
+                    )}
+                  </div>
+                  <p
+                    className="mt-1 text-[10px] font-medium leading-none"
+                    style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+                  >
+                    {c.meta}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Trend panel */}
+        <section className="px-6 pt-4">
+          <div className="rounded-2xl p-4 border border-[oklch(0.94_0.01_240)]">
+            <div className="flex items-center justify-between">
+              <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
+                Trend
+              </p>
+              <div className="flex gap-1 p-0.5 rounded-full bg-[oklch(0.96_0.01_240)]">
+                {(["week", "month", "year"] as const).map((m) => {
+                  const active = trendMode === m;
+                  return (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setTrendMode(m)}
+                      className="px-2.5 h-6 rounded-full text-[11px] font-bold transition-colors"
+                      style={{
+                        background: active ? "white" : "transparent",
+                        color: active ? accent : "color-mix(in oklab, var(--foreground) 55%, white)",
+                      }}
+                    >
+                      {m === "week" ? "Week" : m === "month" ? "Month" : "Year"}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <TrendChart values={trendSeries} labels={axisLabels} accent={accent} />
+          </div>
+        </section>
+
+        {/* Goal rings */}
+        <section className="px-6 pt-4">
+          <div className="rounded-2xl p-4 border border-[oklch(0.94_0.01_240)]">
+            <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
+              Goals
+            </p>
+            <div className="mt-3 flex items-center gap-4">
+              <GoalRing
+                year={stats.goals.year}
+                month={stats.goals.month}
+                week={stats.goals.week}
+                tones={goalTones}
+              />
+              <div className="flex-1 space-y-2">
+                <GoalRow tone={goalTones.week} label="Week" done={stats.goals.week.done} total={stats.goals.week.total} unit={stats.goals.week.unit} />
+                <GoalRow tone={goalTones.month} label="Month" done={stats.goals.month.done} total={stats.goals.month.total} unit={stats.goals.month.unit} />
+                <GoalRow tone={goalTones.year} label="Year" done={stats.goals.year.done} total={stats.goals.year.total} unit={stats.goals.year.unit} />
+                <div className="pt-1 text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                  Up to Now · {stats.goals.total}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -394,35 +513,132 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function MiniCard({ label, value, unit, accent }: { label: string; value: string; unit: string; accent: string }) {
+// ---- Trend chart (mirrors /progress) ----
+function TrendChart({ values, labels, accent }: { values: number[]; labels: string[]; accent: string }) {
+  const W = 300;
+  const H = 120;
+  const PAD_X = 8;
+  const PAD_TOP = 10;
+  const PAD_BOTTOM = 22;
+  const max = Math.max(1, ...values);
+  const stepX = values.length > 1 ? (W - PAD_X * 2) / (values.length - 1) : 0;
+  const points = values.map((v, i) => {
+    const x = PAD_X + i * stepX;
+    const y = PAD_TOP + (1 - v / max) * (H - PAD_TOP - PAD_BOTTOM);
+    return { x, y, v };
+  });
+  const path = points.reduce((acc, p, i, arr) => {
+    if (i === 0) return `M ${p.x} ${p.y}`;
+    const prev = arr[i - 1];
+    const cx = (prev.x + p.x) / 2;
+    return `${acc} Q ${cx} ${prev.y} ${cx} ${(prev.y + p.y) / 2} T ${p.x} ${p.y}`;
+  }, "");
+  const areaPath = `${path} L ${points[points.length - 1].x} ${H - PAD_BOTTOM} L ${points[0].x} ${H - PAD_BOTTOM} Z`;
+  const guideYs = [0.25, 0.5, 0.75].map((p) => PAD_TOP + p * (H - PAD_TOP - PAD_BOTTOM));
+  const gradId = useMemo(() => `parentTrendFill-${Math.random().toString(36).slice(2, 8)}`, []);
   return (
-    <div
-      className="relative rounded-2xl p-3 min-h-[78px] flex flex-col justify-between"
-      style={{ background: `color-mix(in oklab, ${accent} 8%, white)` }}
-    >
-      <button
-        type="button"
-        aria-label="说明"
-        className="absolute top-2 right-2 h-5 w-5 grid place-items-center rounded-full"
-        style={{ color: `color-mix(in oklab, ${accent} 70%, white)` }}
-      >
-        <HelpCircle className="h-3.5 w-3.5" />
-      </button>
-      <p className="text-[11px] font-bold leading-tight pr-5" style={{ color: accent }}>
-        {label}
-      </p>
-      <div className="flex items-baseline gap-1">
-        <span className="text-[22px] font-bold leading-none" style={{ color: accent, letterSpacing: "-0.02em" }}>
-          {value}
+    <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 w-full h-[120px]" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={accent} stopOpacity="0.25" />
+          <stop offset="100%" stopColor={accent} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      {guideYs.map((y, i) => (
+        <line key={i} x1={PAD_X} x2={W - PAD_X} y1={y} y2={y} stroke="oklch(0.94 0.01 240)" strokeWidth={1} />
+      ))}
+      <path d={areaPath} fill={`url(#${gradId})`} />
+      <path d={path} fill="none" stroke={accent} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+      {points.map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r={2} fill={accent} />
+      ))}
+      {labels.map((lab, i) =>
+        lab ? (
+          <text
+            key={i}
+            x={PAD_X + i * stepX}
+            y={H - 6}
+            textAnchor="middle"
+            fontSize={9}
+            fontWeight={600}
+            fill="color-mix(in oklab, currentColor 55%, white)"
+            style={{ color: "var(--foreground)" }}
+          >
+            {lab}
+          </text>
+        ) : null,
+      )}
+    </svg>
+  );
+}
+
+function GoalRing({
+  year,
+  month,
+  week,
+  tones,
+}: {
+  year: { done: number; total: number };
+  month: { done: number; total: number };
+  week: { done: number; total: number };
+  tones: { week: string; month: string; year: string };
+}) {
+  const SIZE = 112;
+  const cx = SIZE / 2;
+  const cy = SIZE / 2;
+  const rings = [
+    { r: 48, tone: tones.year, pct: clampPct(year.done / year.total) },
+    { r: 36, tone: tones.month, pct: clampPct(month.done / month.total) },
+    { r: 24, tone: tones.week, pct: clampPct(week.done / week.total) },
+  ];
+  const STROKE = 8;
+  return (
+    <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="shrink-0">
+      {rings.map((r, i) => {
+        const C = 2 * Math.PI * r.r;
+        return (
+          <g key={i} transform={`rotate(-90 ${cx} ${cy})`}>
+            <circle cx={cx} cy={cy} r={r.r} fill="none" stroke="oklch(0.95 0.01 240)" strokeWidth={STROKE} />
+            <circle
+              cx={cx}
+              cy={cy}
+              r={r.r}
+              fill="none"
+              stroke={r.tone}
+              strokeWidth={STROKE}
+              strokeLinecap="round"
+              strokeDasharray={`${C * r.pct} ${C}`}
+            />
+          </g>
+        );
+      })}
+      <text x={cx} y={cy + 4} textAnchor="middle" fontSize={14} fontWeight={800} fill="var(--foreground)">
+        {Math.round(clampPct(week.done / week.total) * 100)}%
+      </text>
+    </svg>
+  );
+}
+
+function GoalRow({ tone, label, done, total, unit }: { tone: string; label: string; done: number; total: number; unit: string }) {
+  const pct = Math.round(clampPct(done / total) * 100);
+  return (
+    <div>
+      <div className="flex items-center justify-between text-[11px] font-bold">
+        <span style={{ color: tone }}>{label}</span>
+        <span style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+          {done} / {total} {unit}
         </span>
-        {unit && (
-          <span className="text-[11px] font-bold leading-none" style={{ color: accent }}>
-            {unit}
-          </span>
-        )}
+      </div>
+      <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "oklch(0.95 0.01 240)" }}>
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: tone }} />
       </div>
     </div>
   );
+}
+
+function clampPct(n: number) {
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(1, n));
 }
 
 function Collapsible({
