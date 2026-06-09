@@ -502,7 +502,10 @@ function TrendChart({ values, labels, accent }: { values: number[]; labels: stri
       {points.map((p, i) => (
         <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={accent} />
       ))}
-      {labels.map((lab, i) => (
+      {labels.map((lab, i) => {
+        const stride = Math.max(1, Math.ceil(labels.length / 6));
+        if (i % stride !== 0 && i !== labels.length - 1) return null;
+        return (
         <text
           key={i}
           x={PAD_X + i * stepX}
@@ -515,7 +518,8 @@ function TrendChart({ values, labels, accent }: { values: number[]; labels: stri
         >
           {lab}
         </text>
-      ))}
+        );
+      })}
     </svg>
   );
 }
