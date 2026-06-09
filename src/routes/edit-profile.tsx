@@ -410,7 +410,7 @@ function AvatarDraggable({
       ref={ref}
       className="relative h-full w-full rounded-full overflow-hidden grid place-items-center select-none"
       style={{
-        background: src ? "transparent" : "color-mix(in oklab, var(--paisley) 12%, white)",
+        background: src ? "transparent" : `color-mix(in oklab, ${YELLOW} 22%, white)`,
         touchAction: src ? "none" : "auto",
         cursor: src ? "grab" : "default",
       }}
