@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Volume2, Copy, Check, Circle } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Volume2, Check, Circle } from "lucide-react";
 import {
   FilterChip,
   EmptyState,
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/wordie-bank")({
   component: WordieBankPage,
 });
 
-type FilterKey = "all" | WordStatus | "focus";
+type FilterKey = "all" | WordStatus | "focus" | "relearning";
 
 type BankWord = {
   wordId: string;
@@ -52,15 +52,17 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
   { key: "review", label: "Review" },
   { key: "focus", label: "Focus" },
   { key: "mastered", label: "Mastered" },
+  { key: "relearning", label: "Relearning" },
 ];
 
 const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
-  all: "var(--paisley)",
+  all: "var(--wordie)",
   new: "var(--paisley)",
-  learning: "var(--wordie)",
-  review: "var(--bloxia)",
-  focus: "var(--shirin)",
+  learning: "var(--bloxia)",
+  review: "oklch(0.62 0.2 30)",
+  focus: "oklch(0.52 0.18 295)",
   mastered: "var(--wordie-accent)",
+  relearning: "var(--shirin)",
 };
 
 function WordieBankPage() {
@@ -689,33 +691,89 @@ function PreviewFull({
         </p>
         <div className="w-5" />
       </div>
-      <div className="flex-1 overflow-y-auto px-6 pb-6">
-        <div className="flex items-center gap-2">
-          <span
-            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-            style={{
-              background: "color-mix(in oklab, var(--wordie) 12%, white)",
-              color: "var(--wordie)",
-            }}
-          >
-            {capitalize(word.partOfSpeech)}
-          </span>
-          <button type="button" className="text-muted-foreground" aria-label="Copy">
-            <Copy className="h-3.5 w-3.5" />
-          </button>
-        </div>
-        <h2 className="mt-2 font-bold text-[36px] leading-tight" style={{ letterSpacing: "-0.02em" }}>
-          {capitalize(word.word)}
-        </h2>
-        <p className="text-[13px] text-muted-foreground mt-1">{word.pronunciation}</p>
+      <div className="flex-1 overflow-y-auto px-5 pb-6">
+        {/* Word card — single-side, mywordie-themed surface */}
+        <div
+          className="rounded-[2rem] p-6"
+          style={{
+            background:
+              "linear-gradient(160deg, white 0%, color-mix(in oklab, var(--wordie) 8%, white) 100%)",
+            border: "1px solid color-mix(in oklab, var(--wordie) 20%, transparent)",
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <span
+              className="inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold"
+              style={{
+                background: "color-mix(in oklab, var(--wordie) 14%, white)",
+                color: "var(--wordie)",
+              }}
+            >
+              {word.cefrLevel} · {capitalize(word.partOfSpeech)}
+            </span>
+            <button
+              type="button"
+              className="h-9 w-9 rounded-full grid place-items-center"
+              style={{ background: "var(--wordie)", color: "white" }}
+              aria-label="Listen"
+            >
+              <Volume2 className="h-4 w-4" />
+            </button>
+          </div>
 
-        <Section title="Definition">{word.definitionEn}</Section>
-        <div className="grid grid-cols-3 gap-2 mt-3">
-          <MiniStat label="Status" value={word.status} />
-          <MiniStat label="Level" value={word.cefrLevel} />
-          <MiniStat label="Next" value={word.nextReviewLabel} />
+          <div className="mt-5 text-center">
+            <h2
+              className="font-bold text-[40px] leading-none"
+              style={{
+                color: "var(--wordie)",
+                fontFamily: "var(--font-display)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              {capitalize(word.word)}
+            </h2>
+            <p className="text-[13px] text-muted-foreground mt-2 font-mono">
+              {word.pronunciation}
+            </p>
+          </div>
+
+          {/* Definition + Example grouped, differentiated by type */}
+          <div className="mt-6 space-y-4">
+            <div>
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
+              >
+                Definition
+              </p>
+              <p
+                className="mt-1.5 text-[17px] font-bold leading-snug"
+                style={{ letterSpacing: "-0.01em" }}
+              >
+                {word.definitionEn}
+              </p>
+            </div>
+            <div
+              className="rounded-2xl px-4 py-3"
+              style={{ background: "color-mix(in oklab, var(--wordie) 6%, white)" }}
+            >
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
+              >
+                Example
+              </p>
+              <p className="mt-1 text-[14px] italic leading-relaxed text-foreground/85">
+                "{word.exampleSentence}"
+              </p>
+            </div>
+          </div>
+
+          {/* Three pills below example */}
+          <div className="grid grid-cols-3 gap-2 mt-5">
+            <MiniStat label="Status" value={capitalize(word.status)} />
+            <MiniStat label="Level" value={word.cefrLevel} />
+            <MiniStat label="Next" value={word.nextReviewLabel} />
+          </div>
         </div>
-        <Section title="Example">{word.exampleSentence}</Section>
       </div>
       <div className="flex items-center justify-between px-5 py-4 border-t border-border">
         <button
@@ -727,14 +785,9 @@ function PreviewFull({
         >
           Previous
         </button>
-        <button
-          type="button"
-          className="h-10 w-10 rounded-full grid place-items-center"
-          style={{ background: "color-mix(in oklab, var(--wordie) 12%, white)", color: "var(--wordie)" }}
-          aria-label="Play"
-        >
-          <Volume2 className="h-4 w-4" />
-        </button>
+        <span className="text-[12px] font-bold text-muted-foreground">
+          {index + 1} / {total}
+        </span>
         <button
           type="button"
           onClick={onNext}
@@ -749,24 +802,21 @@ function PreviewFull({
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="mt-5">
-      <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-        {title}
-      </p>
-      <p className="text-[14px] mt-1 leading-relaxed">{children}</p>
-    </div>
-  );
-}
-
 function MiniStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-muted/50 px-3 py-2 text-center">
-      <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
+    <div
+      className="rounded-2xl px-3 py-2 text-center"
+      style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
+    >
+      <p className="text-[9.5px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
-      <p className="text-[12px] font-bold mt-0.5 capitalize truncate">{value}</p>
+      <p
+        className="text-[12px] font-bold mt-0.5 truncate"
+        style={{ color: "var(--wordie)" }}
+      >
+        {value}
+      </p>
     </div>
   );
 }
