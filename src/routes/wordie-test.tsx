@@ -436,8 +436,8 @@ function LockedView() {
       <div
         className="mx-auto h-14 w-14 rounded-2xl grid place-items-center mb-3"
         style={{
-          background: "color-mix(in oklab, var(--wordie-accent) 18%, white)",
-          color: "var(--wordie-accent)",
+          background: "color-mix(in oklab, var(--wordie) 14%, white)",
+          color: "var(--wordie)",
         }}
       >
         <Lock className="h-6 w-6" />
@@ -446,11 +446,11 @@ function LockedView() {
       <p className="text-[13px] text-muted-foreground mt-1">Available in 4 days</p>
       <div className="mt-4 grid grid-cols-2 gap-2 text-left">
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
-          <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground">Last Wordie Test</p>
+          <p className="text-[12px] font-bold text-muted-foreground">Last Wordie Test</p>
           <p className="text-[13px] font-bold mt-1">Jun 5 · #02</p>
         </div>
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
-          <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground">Next Wordie Test</p>
+          <p className="text-[12px] font-bold text-muted-foreground">Next Wordie Test</p>
           <p className="text-[13px] font-bold mt-1">Jun 12 · #03</p>
         </div>
       </div>
