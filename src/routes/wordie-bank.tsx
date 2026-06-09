@@ -57,12 +57,12 @@ const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
 
 const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
   all: "var(--wordie)",
-  new: "var(--paisley)",
-  learning: "var(--bloxia)",
-  review: "oklch(0.62 0.2 30)",
-  focus: "oklch(0.52 0.18 295)",
-  mastered: "var(--wordie-accent)",
-  relearning: "var(--shirin)",
+  new: "oklch(0.66 0.24 280)",
+  learning: "oklch(0.7 0.22 200)",
+  review: "oklch(0.68 0.26 35)",
+  focus: "oklch(0.6 0.26 305)",
+  mastered: "oklch(0.78 0.2 80)",
+  relearning: "oklch(0.72 0.26 350)",
 };
 
 function WordieBankPage() {
