@@ -232,9 +232,9 @@ function EditProfilePage() {
             </div>
             {form.avatarPath ? (
               <>
-                <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
+              <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
                   <Move className="h-3 w-3" strokeWidth={2.25} />
-                  Drag to reposition · scroll to zoom
+                  Drag and scroll to adjust
                 </p>
                 <input
                   type="range"
