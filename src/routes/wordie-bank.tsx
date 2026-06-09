@@ -60,9 +60,9 @@ const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
   new: "oklch(0.66 0.24 280)",
   learning: "oklch(0.7 0.18 195)",
   review: "oklch(0.68 0.2 145)",
-  focus: "oklch(0.6 0.26 305)",
+  focus: "oklch(0.75 0.12 305)",
   mastered: "var(--wordie-accent)",
-  relearning: "oklch(0.72 0.26 350)",
+  relearning: "oklch(0.8 0.1 350)",
 };
 
 function WordieBankPage() {
@@ -281,6 +281,7 @@ function WordieBankPage() {
                 active={filter === f.key}
                 onClick={() => setFilter(f.key)}
                 color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
+                tone={f.key === "all" ? "solid" : "tint"}
               >
                 {f.label}
                 <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
