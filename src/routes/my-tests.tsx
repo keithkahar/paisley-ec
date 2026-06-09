@@ -111,6 +111,36 @@ const WORDIE_TESTS: WordieTest[] = [
   },
 ];
 
+// extend demo to 20 entries for the trend chart
+const EXTRA_SCORES = [80, 75, 85, 70, 80, 78, 72, 82, 76, 74, 80, 78, 70, 72];
+const EXTRA_DATES = [
+  "Mar 12 2026", "Feb 26 2026", "Feb 12 2026", "Jan 29 2026", "Jan 15 2026",
+  "Jan 2 2026", "Dec 18 2025", "Dec 4 2025", "Nov 20 2025", "Nov 6 2025",
+  "Oct 23 2025", "Oct 9 2025", "Sep 25 2025", "Sep 11 2025",
+];
+for (let i = 0; i < EXTRA_SCORES.length; i++) {
+  const n = 12 - i;
+  const score = EXTRA_SCORES[i];
+  const correct = Math.round((score / 100) * 20);
+  WORDIE_TESTS.push({
+    id: `w${n}`,
+    code: `#${n}`,
+    date: EXTRA_DATES[i],
+    correct,
+    total: 20,
+    score,
+    summary: `L 3/4 · P 3/4 · S 3/4 · D 3/4 · U 2/2 · POS 2/2`,
+    dimensions: [
+      { key: "pronunciation", label: "Pronunciation", correct: 3, total: 4 },
+      { key: "spelling", label: "Spelling", correct: 3, total: 4 },
+      { key: "pos", label: "Part of Speech", correct: 2, total: 2 },
+      { key: "meaning", label: "Example", correct: 3, total: 4 },
+      { key: "usage", label: "Usage", correct: 2, total: 2 },
+    ],
+    reviews: [],
+  });
+}
+
 const CEFR_ACCENT = "var(--paisley)";
 const WORDIE_ACCENT = "var(--wordie)";
 
@@ -163,7 +193,7 @@ function MyTestsPage() {
                 Current CEFR Level
               </p>
               <p
-                className="mt-2 text-[34px] leading-none font-bold tracking-tight"
+                className="mt-2 text-[32px] leading-none font-bold tracking-tight"
                 style={{ color: CEFR_ACCENT, letterSpacing: "-0.02em" }}
               >
                 {latestCefr.level}
@@ -245,17 +275,17 @@ function MyTestsPage() {
                   Average Score
                 </p>
                 <p
-                  className="mt-2 text-[28px] leading-none font-bold tracking-tight"
+                  className="mt-2 text-[32px] leading-none font-bold tracking-tight"
                   style={{ color: WORDIE_ACCENT, letterSpacing: "-0.02em" }}
                 >
                   {wordieAvg}%
                 </p>
               </div>
               <p className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                Last 6 tests
+                Last {WORDIE_TESTS.length} tests
               </p>
             </div>
-            <TrendChart values={WORDIE_TESTS.slice(0, 6).slice().reverse().map((t) => t.score)} labels={WORDIE_TESTS.slice(0, 6).slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
+            <TrendChart values={WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
           </div>
 
           {/* History toggle */}
@@ -299,13 +329,13 @@ function MyTestsPage() {
                             {t.code}
                           </span>
                           <span className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-                            {t.correct}/{t.total}
+                            {t.score}%
                           </span>
                           <span
-                            className="text-[11px] font-bold px-2 py-0.5 rounded-full"
-                            style={{ background: `color-mix(in oklab, ${WORDIE_ACCENT} 12%, white)`, color: WORDIE_ACCENT }}
+                            className="text-[13px] font-bold"
+                            style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
                           >
-                            {t.score}%
+                            {t.correct}/{t.total}
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -414,13 +444,16 @@ function MyTestsPage() {
 function SectionHeader({ title, actionLabel, accent }: { title: string; actionLabel: string; accent: string }) {
   return (
     <div className="flex items-center justify-between">
-      <h2 className="text-[16px] font-bold" style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}>
+      <h2
+        className="text-[16px] font-bold"
+        style={{ color: "var(--foreground)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+      >
         {title}
       </h2>
       <button
         type="button"
         className="text-[12px] font-bold px-3 h-7 rounded-full"
-        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
+        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent, fontFamily: "var(--font-sans)" }}
       >
         {actionLabel}
       </button>
@@ -469,7 +502,10 @@ function TrendChart({ values, labels, accent }: { values: number[]; labels: stri
       {points.map((p, i) => (
         <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={accent} />
       ))}
-      {labels.map((lab, i) => (
+      {labels.map((lab, i) => {
+        const stride = Math.max(1, Math.ceil(labels.length / 6));
+        if (i % stride !== 0 && i !== labels.length - 1) return null;
+        return (
         <text
           key={i}
           x={PAD_X + i * stepX}
@@ -482,7 +518,8 @@ function TrendChart({ values, labels, accent }: { values: number[]; labels: stri
         >
           {lab}
         </text>
-      ))}
+        );
+      })}
     </svg>
   );
 }
