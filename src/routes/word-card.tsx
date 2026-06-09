@@ -179,7 +179,7 @@ function WordCardPage() {
                 </div>
                 <div className="rounded-2xl bg-white/15 backdrop-blur px-4 py-3">
                   <p className="text-[10px] font-bold uppercase tracking-wider opacity-70">Example</p>
-                  <p className="text-sm italic mt-1">"{card.example}"</p>
+                  <p className="text-sm italic mt-1">{card.example}</p>
                 </div>
               </div>
 
