@@ -106,7 +106,7 @@ function computeInitials(given: string, family: string) {
   const g = given.trim()[0] ?? "";
   const f = family.trim()[0] ?? "";
   const initials = (g + f).toUpperCase();
-  return initials || "ME";
+  return initials || "me";
 }
 
 function formatBirthday(birthday: string) {
