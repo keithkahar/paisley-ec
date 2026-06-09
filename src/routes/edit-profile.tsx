@@ -405,9 +405,9 @@ function AvatarDraggable({
   return (
     <div
       ref={ref}
-      className="relative h-20 w-20 rounded-full overflow-hidden shrink-0 grid place-items-center select-none"
+      className="relative h-full w-full rounded-full overflow-hidden grid place-items-center select-none"
       style={{
-        background: src ? "transparent" : "color-mix(in oklab, var(--paisley) 18%, white)",
+        background: src ? "transparent" : "color-mix(in oklab, var(--paisley) 12%, white)",
         touchAction: src ? "none" : "auto",
         cursor: src ? "grab" : "default",
       }}
@@ -426,7 +426,7 @@ function AvatarDraggable({
         />
       ) : (
         <span
-          className="text-[28px] font-bold leading-none"
+          className="text-[56px] font-bold leading-none"
           style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
         >
           {initials}
