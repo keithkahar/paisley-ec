@@ -197,7 +197,7 @@ function PillLink({
       </span>
       <span
         className="text-[17px] font-bold tracking-tight leading-none"
-        style={{ letterSpacing: "-0.01em", color: PAISLEY_YELLOW }}
+        style={{ letterSpacing: "-0.01em", color: PAISLEY }}
       >
         {title}
       </span>
