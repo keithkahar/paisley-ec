@@ -688,7 +688,7 @@ function WordieXPage() {
                       )}
                       <div className="min-w-0 flex-1">
                         <p
-                          className="font-bold text-[18px] truncate leading-tight text-foreground"
+                          className="font-bold text-[20px] truncate leading-tight text-foreground"
                           style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                         >
                           {n.word}
@@ -943,7 +943,7 @@ function FocusPill() {
       aria-label="Focus"
       title="Focus"
     >
-      F
+      Focus
     </span>
   );
 }
@@ -1056,7 +1056,7 @@ function PreviewFull({
 
           <div className="mt-8 text-center">
             <h2
-              className="font-semibold text-[44px] leading-none"
+              className="font-semibold text-[46px] leading-none"
               style={{
                 color: "var(--wordie)",
                 fontFamily: "var(--font-sans)",
