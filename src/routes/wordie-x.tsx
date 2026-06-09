@@ -447,13 +447,16 @@ function WordieXPage() {
 
       <div className="px-5 pb-12">
         {/* Title */}
-        <div className="mb-4">
+        <div className="mb-4 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: WORDIE, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Wordie-X
           </h1>
+          <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
+            Words to master.
+          </p>
         </div>
 
         {/* Toolbar: Select / Done · Preview (top, like Wordie Bank) */}
