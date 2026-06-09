@@ -478,11 +478,17 @@ function BirthdaySheet({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" onClick={onCancel}>
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center"
+      role="dialog"
+      aria-modal="true"
+      onClick={onCancel}
+      style={{ fontFamily: "var(--font-sans)" }}
+    >
       <div className="absolute inset-0 bg-black/40" />
       <div
         className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-        style={{ height: "62vh" }}
+        style={{ height: "62vh", fontFamily: "var(--font-sans)" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Grabber */}
@@ -525,17 +531,23 @@ function BirthdaySheet({
                 className="rounded-2xl py-2 px-3 text-center transition-colors"
                 style={
                   active
-                    ? { background: PAISLEY, color: "white" }
+                    ? {
+                        background: "var(--paisley-soft)",
+                        color: PAISLEY,
+                        border: `1px solid color-mix(in oklab, ${PAISLEY} 45%, white)`,
+                        fontFamily: "var(--font-sans)",
+                      }
                     : {
                         background: "white",
                         color: PAISLEY,
-                        border: `1px solid color-mix(in oklab, ${PAISLEY} 35%, white)`,
+                        border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                        fontFamily: "var(--font-sans)",
                       }
                 }
               >
                 <span
                   className="block text-[10px] font-bold leading-none opacity-80"
-                  style={{ letterSpacing: "0.06em" }}
+                  style={{ letterSpacing: "0.06em", fontFamily: "var(--font-sans)" }}
                 >
                   {t.label.toUpperCase()}
                 </span>
@@ -614,11 +626,17 @@ function ChipGrid({
             className="h-11 rounded-xl text-[13px] font-bold transition-colors"
             style={
               active
-                ? { background: PAISLEY, color: "white" }
+                ? {
+                    background: "var(--paisley-soft)",
+                    color: PAISLEY,
+                    border: `1px solid color-mix(in oklab, ${PAISLEY} 45%, white)`,
+                    fontFamily: "var(--font-sans)",
+                  }
                 : {
                     background: "white",
                     color: "var(--foreground)",
                     border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                    fontFamily: "var(--font-sans)",
                   }
             }
           >
