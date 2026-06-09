@@ -207,7 +207,9 @@ function EditProfilePage() {
                 initials={initials}
                 posX={form.avatarPosX}
                 posY={form.avatarPosY}
+                scale={form.avatarScale}
                 onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+                onChangeScale={(s) => setForm((f) => ({ ...f, avatarScale: s }))}
               />
               <button
                 type="button"
@@ -229,10 +231,23 @@ function EditProfilePage() {
               ) : null}
             </div>
             {form.avatarPath ? (
-              <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
-                <Move className="h-3 w-3" strokeWidth={2.25} />
-                Drag the photo to reposition.
-              </p>
+              <>
+                <p className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground">
+                  <Move className="h-3 w-3" strokeWidth={2.25} />
+                  Drag to reposition · scroll to zoom
+                </p>
+                <input
+                  type="range"
+                  min={1}
+                  max={3}
+                  step={0.01}
+                  value={form.avatarScale}
+                  onChange={(e) => update("avatarScale", Number(e.target.value))}
+                  className="mt-2 w-40 accent-current"
+                  style={{ color: YELLOW }}
+                  aria-label="Zoom"
+                />
+              </>
             ) : null}
             <input
               ref={fileRef}
