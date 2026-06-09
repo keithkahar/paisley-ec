@@ -1,115 +1,448 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ClipboardCheck,
+  ChevronLeft,
   Volume2,
+  Mic,
   Check,
-  RotateCcw,
+  X,
   Trophy,
-  ChevronRight,
   Sparkles,
+  Clock,
+  Lock,
+  RotateCcw,
+  ChevronRight,
 } from "lucide-react";
-import { ProgressBar, StatusBadge } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-test")({
   head: () => ({ meta: [{ title: "Wordie Test — Paisley EC" }] }),
   component: WordieTestPage,
 });
 
-type TestState = "intro" | "question" | "result";
+// ───────── Stage meta (Listening / Pronunciation / Spelling / Definition / Usage / POS) ─────────
+type Stage =
+  | "pronunciationListen"
+  | "pronunciationSpeak"
+  | "spelling"
+  | "meaning"
+  | "usage"
+  | "partOfSpeech";
 
-const QUESTION = {
-  index: 3,
-  total: 10,
-  prompt: "Which word means 'speak very softly'?",
-  choices: ["thunder", "whisper", "garden", "puzzle"],
-  answerIndex: 1,
-};
-
-const MISSED = [
-  { word: "marvelous", meaning: "wonderful" },
-  { word: "rescue", meaning: "save from danger" },
+const STAGE_ORDER: Stage[] = [
+  "pronunciationListen",
+  "pronunciationSpeak",
+  "spelling",
+  "meaning",
+  "usage",
+  "partOfSpeech",
 ];
 
+const STAGE_META: Record<
+  Stage,
+  { label: string; subtitle: string; note: string; points: number; color: string }
+> = {
+  pronunciationListen: {
+    label: "Listening",
+    subtitle: "Click play to listen.",
+    note: "Each question will be read 2 times.",
+    points: 3,
+    color: "var(--wordie)",
+  },
+  pronunciationSpeak: {
+    label: "Pronunciation",
+    subtitle: "Read the word, then say it clearly.",
+    note: "Hold Record and release when finished.",
+    points: 3,
+    color: "var(--shirin)",
+  },
+  spelling: {
+    label: "Spelling",
+    subtitle: "Choose the correct spelling.",
+    note: "Look carefully at the letter sounds.",
+    points: 4,
+    color: "var(--paisley)",
+  },
+  meaning: {
+    label: "Definition",
+    subtitle: "Choose the matching definition.",
+    note: "Read every choice carefully.",
+    points: 4,
+    color: "var(--bloxia)",
+  },
+  usage: {
+    label: "Usage",
+    subtitle: "Choose the sentence that uses the word correctly.",
+    note: "Each choice uses the target word.",
+    points: 4,
+    color: "oklch(0.66 0.24 280)",
+  },
+  partOfSpeech: {
+    label: "Part of Speech",
+    subtitle: "Choose what kind of word it is.",
+    note: "Each option is different.",
+    points: 2,
+    color: "var(--wordie-accent)",
+  },
+};
+
+// ───────── Mock 20 questions ─────────
+type Choice = { id: string; label: string; isCorrect: boolean };
+type Question = {
+  id: string;
+  stage: Stage;
+  word: string;
+  ipa?: string;
+  pos?: string;
+  choices?: Choice[]; // none for pronunciationSpeak
+};
+
+const mk = (id: string, stage: Stage, word: string, choices: [string, boolean][], extra: Partial<Question> = {}): Question => ({
+  id,
+  stage,
+  word,
+  choices: choices.map(([label, isCorrect], i) => ({ id: `${id}-${i}`, label, isCorrect })),
+  ...extra,
+});
+
+const QUESTIONS: Question[] = [
+  // Listening (3)
+  mk("L1", "pronunciationListen", "garden", [["garden", true], ["harden", false], ["gather", false], ["golden", false]]),
+  mk("L2", "pronunciationListen", "whisper", [["whisper", true], ["wisdom", false], ["whistle", false], ["winter", false]]),
+  mk("L3", "pronunciationListen", "brave", [["brave", true], ["break", false], ["brain", false], ["bread", false]]),
+  // Pronunciation (3) — record, no choices
+  { id: "P1", stage: "pronunciationSpeak", word: "curious", ipa: "ˈkjʊəriəs" },
+  { id: "P2", stage: "pronunciationSpeak", word: "gentle", ipa: "ˈdʒentl" },
+  { id: "P3", stage: "pronunciationSpeak", word: "kite", ipa: "kaɪt" },
+  // Spelling (4)
+  mk("S1", "spelling", "rescue", [["rescue", true], ["rescew", false], ["reskue", false], ["resque", false]]),
+  mk("S2", "spelling", "harvest", [["harvest", true], ["harvist", false], ["harvast", false], ["harvert", false]]),
+  mk("S3", "spelling", "thunder", [["thunder", true], ["thunser", false], ["thander", false], ["thuner", false]]),
+  mk("S4", "spelling", "vacation", [["vacation", true], ["vakation", false], ["vacasion", false], ["vacatoin", false]]),
+  // Definition (4)
+  mk("M1", "meaning", "marvelous", [
+    ["wonderful and impressive", true],
+    ["sad and tired", false],
+    ["small and quiet", false],
+    ["loud and angry", false],
+  ]),
+  mk("M2", "meaning", "puzzle", [
+    ["a game to solve", true],
+    ["a kind of soup", false],
+    ["a small bird", false],
+    ["a heavy box", false],
+  ]),
+  mk("M3", "meaning", "brave", [
+    ["showing courage", true],
+    ["feeling afraid", false],
+    ["being lazy", false],
+    ["talking loudly", false],
+  ]),
+  mk("M4", "meaning", "gentle", [
+    ["kind and soft", true],
+    ["sharp and hard", false],
+    ["dark and cold", false],
+    ["fast and loud", false],
+  ]),
+  // Usage (4)
+  mk("U1", "usage", "whisper", [
+    ["She likes to whisper secrets to her friend.", true],
+    ["He whisper the heavy box up the stairs.", false],
+    ["The cat whisper across the kitchen floor.", false],
+    ["They whisper a pizza for dinner.", false],
+  ]),
+  mk("U2", "usage", "curious", [
+    ["The curious kitten peeked into the box.", true],
+    ["She curious the milk into the cup.", false],
+    ["He runs very curious every morning.", false],
+    ["They built a curious out of bricks.", false],
+  ]),
+  mk("U3", "usage", "rescue", [
+    ["Firefighters rescue the cat from the tree.", true],
+    ["I rescue my lunch in the microwave.", false],
+    ["She rescue a song on the piano.", false],
+    ["The clouds rescue across the sky.", false],
+  ]),
+  mk("U4", "usage", "harvest", [
+    ["Farmers harvest apples in the autumn.", true],
+    ["He harvest the door before leaving.", false],
+    ["She harvest happy when she sings.", false],
+    ["The dog harvest under the table.", false],
+  ]),
+  // POS (2)
+  mk("Q1", "partOfSpeech", "garden", [["Noun", true], ["Verb", false], ["Adjective", false], ["Adverb", false]], { pos: "noun" }),
+  mk("Q2", "partOfSpeech", "brave", [["Adjective", true], ["Noun", false], ["Verb", false], ["Adverb", false]], { pos: "adjective" }),
+];
+
+// ───────── Helpers ─────────
+function shouldSingleColumn(stage: Stage, choices: Choice[] | undefined) {
+  if (stage === "spelling") return true;
+  if (!choices) return false;
+  return choices.some((c) => c.label.length > 16 || c.label.split(/\s+/).length > 2);
+}
+
+function fmtTime(sec: number) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+// ───────── Page ─────────
+type Mode = "locked" | "info" | "quiz" | "result";
+type Answer = { choiceId?: string; record?: { scorable: boolean; score: number; band: "great" | "good" | "retry" } };
+
 function WordieTestPage() {
-  const [state, setState] = useState<TestState>("intro");
-  const [selected, setSelected] = useState<number | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  const [mode, setMode] = useState<Mode>("info");
+  const [stageIdx, setStageIdx] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const [seconds, setSeconds] = useState(0);
+  const [reviewId, setReviewId] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+  const [audioPlaying, setAudioPlaying] = useState<string | null>(null);
+  const [recordingId, setRecordingId] = useState<string | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const handleSelect = (i: number) => {
-    if (revealed) return;
-    setSelected(i);
-    setRevealed(true);
+  // Timer: runs only in quiz mode
+  useEffect(() => {
+    if (mode === "quiz") {
+      intervalRef.current = setInterval(() => setSeconds((s) => s + 1), 1000);
+      return () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+      };
+    } else {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (mode !== "result") setSeconds(0);
+    }
+  }, [mode]);
+
+  const showToast = (m: string) => {
+    setToast(m);
+    setTimeout(() => setToast(null), 1600);
   };
 
-  const reset = () => {
-    setSelected(null);
-    setRevealed(false);
+  const startTest = () => {
+    setAnswers({});
+    setSeconds(0);
+    setStageIdx(0);
+    setMode("quiz");
   };
 
+  const stageKey = STAGE_ORDER[stageIdx];
+  const stageQs = useMemo(
+    () => QUESTIONS.filter((q) => q.stage === stageKey),
+    [stageKey],
+  );
+
+  const stageDone = stageQs.every((q) =>
+    q.stage === "pronunciationSpeak"
+      ? answers[q.id]?.record !== undefined
+      : answers[q.id]?.choiceId !== undefined,
+  );
+
+  const goNext = () => {
+    if (!stageDone) {
+      showToast(`Finish ${STAGE_META[stageKey].label} first`);
+      return;
+    }
+    if (stageIdx < STAGE_ORDER.length - 1) {
+      setStageIdx(stageIdx + 1);
+    } else {
+      setMode("result");
+    }
+  };
+
+  const goPrev = () => {
+    if (stageIdx > 0) setStageIdx(stageIdx - 1);
+  };
+
+  const pickChoice = (q: Question, choiceId: string) => {
+    setAnswers((a) => ({ ...a, [q.id]: { choiceId } }));
+  };
+
+  const recordAnswer = (q: Question) => {
+    setRecordingId(q.id);
+    setTimeout(() => {
+      setRecordingId(null);
+      // mock: 70% great, 20% good, 10% retry
+      const r = Math.random();
+      const band: "great" | "good" | "retry" = r < 0.7 ? "great" : r < 0.9 ? "good" : "retry";
+      const score = band === "great" ? 92 : band === "good" ? 78 : 55;
+      setAnswers((a) => ({
+        ...a,
+        [q.id]: { record: { scorable: true, score, band } },
+      }));
+    }, 900);
+  };
+
+  const playAudio = (q: Question) => {
+    setAudioPlaying(q.id);
+    setTimeout(() => setAudioPlaying(null), 1100);
+  };
+
+  // ───── Grading ─────
+  const grading = useMemo(() => {
+    const results = QUESTIONS.map((q) => {
+      const a = answers[q.id];
+      let correct = false;
+      if (q.stage === "pronunciationSpeak") {
+        correct = !!(a?.record?.scorable && a.record.score >= 70);
+      } else {
+        const c = q.choices?.find((c) => c.id === a?.choiceId);
+        correct = !!c?.isCorrect;
+      }
+      return { q, a, correct };
+    });
+    const correctCount = results.filter((r) => r.correct).length;
+    const score = Math.round((correctCount / QUESTIONS.length) * 100);
+    const dims: Record<Stage, { correct: number; total: number }> = {
+      pronunciationListen: { correct: 0, total: 0 },
+      pronunciationSpeak: { correct: 0, total: 0 },
+      spelling: { correct: 0, total: 0 },
+      meaning: { correct: 0, total: 0 },
+      usage: { correct: 0, total: 0 },
+      partOfSpeech: { correct: 0, total: 0 },
+    };
+    results.forEach((r) => {
+      dims[r.q.stage].total += 1;
+      if (r.correct) dims[r.q.stage].correct += 1;
+    });
+    return { results, correctCount, score, dims };
+  }, [answers]);
+
+  const bp = useMemo(() => {
+    const s = grading.score;
+    let b = 5;
+    if (s >= 90) b += 15;
+    else if (s >= 80) b += 10;
+    else if (s >= 70) b += 6;
+    else if (s >= 60) b += 3;
+    return Math.min(20, b);
+  }, [grading.score]);
+
+  // ───── Render ─────
   return (
     <PhoneFrame bg="bg-white">
-      <AppHeader
-        title=""
-        back={state === "intro" ? "/mywordie" : false}
-        right={
-          state !== "intro" ? (
-            <button
-              onClick={() => {
-                setState("intro");
-                reset();
-              }}
-              className="text-[12px] font-bold text-muted-foreground"
-            >
-              Exit
-            </button>
-          ) : undefined
-        }
-        bg="white"
-      />
-
-      <div className="px-5 pb-10">
-        {/* State switcher (prototype helper) */}
-        <div className="mb-3 flex gap-1 rounded-full bg-white border border-border p-1 text-[11px] font-bold">
-          {(["intro", "question", "result"] as TestState[]).map((s) => (
-            <button
-              key={s}
-              onClick={() => {
-                setState(s);
-                reset();
-              }}
-              className="flex-1 rounded-full py-1.5 transition-colors capitalize"
-              style={
-                state === s
-                  ? { background: "var(--wordie)", color: "white" }
-                  : { color: "var(--muted-foreground)" }
-              }
-            >
-              {s}
-            </button>
-          ))}
+      <div className="relative min-h-[calc(100dvh-6rem)] bg-white">
+        {/* Top bar */}
+        <div className="px-4 pt-4 flex items-center justify-between">
+          <Link
+            to="/mywordie"
+            aria-label="Back"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Link>
+          {mode === "quiz" || mode === "info" ? (
+            <div className="flex items-center gap-2">
+              <span className="text-[12px] font-bold text-muted-foreground">
+                {mode === "info" ? 1 : stageIdx + 2} / 7
+              </span>
+              <span
+                className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold"
+                style={{
+                  background:
+                    mode === "info"
+                      ? "color-mix(in oklab, var(--wordie) 12%, white)"
+                      : `color-mix(in oklab, ${STAGE_META[stageKey].color} 14%, white)`,
+                  color: mode === "info" ? "var(--wordie)" : STAGE_META[stageKey].color,
+                }}
+              >
+                {mode === "info" ? "Info" : STAGE_META[stageKey].label}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[12px] font-bold text-muted-foreground">
+                <Clock className="h-3.5 w-3.5" />
+                {fmtTime(mode === "info" ? 0 : seconds)}
+              </span>
+            </div>
+          ) : (
+            <span />
+          )}
         </div>
 
-        {state === "intro" && <IntroView onStart={() => setState("question")} />}
-        {state === "question" && (
-          <QuestionView
-            selected={selected}
-            revealed={revealed}
-            onSelect={handleSelect}
-            onContinue={() => {
-              reset();
-              setState("result");
-            }}
-          />
+        {/* Title — only show in info/locked */}
+        {(mode === "info" || mode === "locked") && (
+          <h1
+            className="px-5 pt-3 text-[34px] font-bold leading-none"
+            style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Wordie Test
+          </h1>
         )}
-        {state === "result" && (
-          <ResultView
-            onRetake={() => {
-              reset();
-              setState("question");
-            }}
+
+        {/* Prototype state switcher */}
+        <div className="px-5 pt-3">
+          <div className="flex gap-1 rounded-full bg-white border border-border p-1 text-[11px] font-bold">
+            {(["locked", "info", "quiz", "result"] as Mode[]).map((s) => (
+              <button
+                key={s}
+                onClick={() => {
+                  if (s === "quiz") {
+                    setStageIdx(0);
+                  }
+                  setMode(s);
+                }}
+                className="flex-1 rounded-full py-1.5 capitalize"
+                style={
+                  mode === s
+                    ? { background: "var(--wordie)", color: "white" }
+                    : { color: "var(--muted-foreground)" }
+                }
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="px-5 pt-4 pb-10">
+          {mode === "locked" && <LockedView />}
+          {mode === "info" && <InfoView onStart={startTest} />}
+          {mode === "quiz" && (
+            <QuizView
+              stageKey={stageKey}
+              stageIdx={stageIdx}
+              questions={stageQs}
+              answers={answers}
+              audioPlaying={audioPlaying}
+              recordingId={recordingId}
+              onPlay={playAudio}
+              onRecord={recordAnswer}
+              onPick={pickChoice}
+              onPrev={goPrev}
+              onNext={goNext}
+              isLast={stageIdx === STAGE_ORDER.length - 1}
+              stageDone={stageDone}
+            />
+          )}
+          {mode === "result" && (
+            <ResultView
+              score={grading.score}
+              correct={grading.correctCount}
+              total={QUESTIONS.length}
+              timeText={fmtTime(seconds || 222)}
+              dims={grading.dims}
+              results={grading.results}
+              bp={bp}
+              onRetake={startTest}
+              onReview={(id) => setReviewId(id)}
+            />
+          )}
+        </div>
+
+        {/* Toast */}
+        {toast && (
+          <div className="fixed left-1/2 bottom-24 -translate-x-1/2 z-40 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-bold">
+            {toast}
+          </div>
+        )}
+
+        {/* Review overlay */}
+        {reviewId && (
+          <ReviewOverlay
+            question={QUESTIONS.find((q) => q.id === reviewId)!}
+            answer={answers[reviewId]}
+            onClose={() => setReviewId(null)}
           />
         )}
       </div>
@@ -117,234 +450,366 @@ function WordieTestPage() {
   );
 }
 
-function IntroView({ onStart }: { onStart: () => void }) {
+// ───────── Locked ─────────
+function LockedView() {
   return (
-    <div>
-      <section
-        className="relative rounded-[28px] p-5 text-white overflow-hidden"
+    <div className="mt-4 rounded-3xl bg-white border border-border p-5 text-center">
+      <div
+        className="mx-auto h-14 w-14 rounded-2xl grid place-items-center mb-3"
         style={{
-          background:
-            "linear-gradient(140deg, var(--shirin) 0%, oklch(0.62 0.22 8) 60%, oklch(0.55 0.22 5) 100%)",
+          background: "color-mix(in oklab, var(--wordie-accent) 18%, white)",
+          color: "var(--wordie-accent)",
         }}
       >
-        <div
-          className="absolute -top-10 -right-10 h-36 w-36 rounded-full opacity-30"
-          style={{ background: "radial-gradient(circle, white, transparent 70%)" }}
-          aria-hidden
-        />
-        <div className="inline-flex items-center gap-1 rounded-full bg-white/22 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide">
-          <ClipboardCheck className="h-3.5 w-3.5" /> Quick check
-        </div>
-        <h2
-          className="mt-3 text-[26px] leading-[1.15] font-semibold tracking-tight"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
-        >
-          Ready for a quick check?
-        </h2>
-        <p className="mt-1 text-[13px] opacity-90 font-medium">
-          10 questions · about 3 minutes · no pressure.
-        </p>
-      </section>
-
-      <div className="mt-4 grid grid-cols-3 gap-2.5">
-        <IntroStat label="Questions" value="10" />
-        <IntroStat label="Best score" value="8/10" />
-        <IntroStat label="Bp reward" value="+80" />
+        <Lock className="h-6 w-6" />
       </div>
+      <p className="font-bold text-[16px]">Wordie Test is locked for now</p>
+      <p className="text-[13px] text-muted-foreground mt-1">Available in 4 days</p>
+      <div className="mt-4 grid grid-cols-2 gap-2 text-left">
+        <div className="rounded-2xl bg-muted/30 px-3 py-3">
+          <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground">Last Wordie Test</p>
+          <p className="text-[13px] font-bold mt-1">Jun 5 · #02</p>
+        </div>
+        <div className="rounded-2xl bg-muted/30 px-3 py-3">
+          <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground">Next Wordie Test</p>
+          <p className="text-[13px] font-bold mt-1">Jun 12 · #03</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-      <section className="mt-5 rounded-3xl bg-white border border-border p-4">
-        <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-          Test types today
+// ───────── Info ─────────
+function InfoView({ onStart }: { onStart: () => void }) {
+  return (
+    <div>
+      <section className="rounded-3xl bg-white border border-border p-5">
+        <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">Next test</p>
+        <p
+          className="mt-1 text-[24px] font-bold leading-none"
+          style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        >
+          Wordie Test #03
         </p>
-        <ul className="mt-3 space-y-2 text-[13px] font-bold">
+        <ul className="mt-4 space-y-2 text-[13px] font-bold">
           {[
-            "Choose the meaning",
-            "Listen and pick",
-            "Match word and meaning",
+            "Finish the test to see your result.",
+            "Each audio can be played 2 times.",
+            "Read all choices carefully.",
+            "Try to repeat the words clearly.",
           ].map((t) => (
-            <li key={t} className="flex items-center gap-2">
+            <li key={t} className="flex items-start gap-2">
               <span
-                className="h-5 w-5 rounded-full grid place-items-center"
+                className="mt-0.5 h-5 w-5 shrink-0 rounded-full grid place-items-center"
                 style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)" }}
               >
                 <Check className="h-3 w-3" style={{ color: "var(--wordie)" }} />
               </span>
-              {t}
+              <span>{t}</span>
             </li>
           ))}
         </ul>
       </section>
 
+      <div className="mt-4 grid grid-cols-3 gap-2.5">
+        <Stat label="Questions" value="20" />
+        <Stat label="Stages" value="6" />
+        <Stat label="Bp reward" value="≤20" />
+      </div>
+
       <button
         onClick={onStart}
         className="mt-5 w-full rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
-        style={{ background: "var(--shirin)", fontFamily: "var(--font-sans)", fontSize: "16px" }}
+        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "16px" }}
       >
-        Start test
+        Start Test
         <ChevronRight className="h-4 w-4" />
       </button>
     </div>
   );
 }
 
-function IntroStat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl bg-white border border-border px-3 py-3 text-center">
-      <p className="text-[18px] font-bold leading-none" style={{ fontFamily: "var(--font-display)" }}>
+      <p className="text-[20px] font-bold leading-none" style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)" }}>
         {value}
       </p>
-      <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground mt-1">
-        {label}
-      </p>
+      <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground mt-1">{label}</p>
     </div>
   );
 }
 
-function QuestionView({
-  selected,
-  revealed,
-  onSelect,
-  onContinue,
+// ───────── Quiz ─────────
+function QuizView({
+  stageKey,
+  stageIdx,
+  questions,
+  answers,
+  audioPlaying,
+  recordingId,
+  onPlay,
+  onRecord,
+  onPick,
+  onPrev,
+  onNext,
+  isLast,
+  stageDone,
 }: {
-  selected: number | null;
-  revealed: boolean;
-  onSelect: (i: number) => void;
-  onContinue: () => void;
+  stageKey: Stage;
+  stageIdx: number;
+  questions: Question[];
+  answers: Record<string, Answer>;
+  audioPlaying: string | null;
+  recordingId: string | null;
+  onPlay: (q: Question) => void;
+  onRecord: (q: Question) => void;
+  onPick: (q: Question, choiceId: string) => void;
+  onPrev: () => void;
+  onNext: () => void;
+  isLast: boolean;
+  stageDone: boolean;
 }) {
-  const isCorrect = selected === QUESTION.answerIndex;
+  const meta = STAGE_META[stageKey];
 
   return (
     <div>
-      {/* Progress */}
-      <div className="flex items-center justify-between mb-2">
-        <p className="text-[12px] font-bold text-muted-foreground">
-          Question {QUESTION.index} of {QUESTION.total}
-        </p>
-        <p className="text-[12px] font-bold" style={{ color: "var(--wordie)" }}>
-          {Math.round((QUESTION.index / QUESTION.total) * 100)}%
-        </p>
+      {/* Progress segments */}
+      <div className="flex gap-1 mb-4">
+        {STAGE_ORDER.map((_, i) => (
+          <div
+            key={i}
+            className="flex-1 h-1.5 rounded-full"
+            style={{
+              background:
+                i < stageIdx
+                  ? "var(--wordie)"
+                  : i === stageIdx
+                  ? meta.color
+                  : "color-mix(in oklab, var(--wordie) 10%, white)",
+            }}
+          />
+        ))}
       </div>
-      <ProgressBar value={(QUESTION.index / QUESTION.total) * 100} />
 
-      {/* Question card */}
-      <section className="mt-4 rounded-3xl bg-white border border-border p-5">
+      {/* Stage banner */}
+      <section
+        className="rounded-3xl p-5 text-white"
+        style={{ background: meta.color }}
+      >
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-            Choose the meaning
+          <p className="text-[11px] font-bold uppercase tracking-wide opacity-90">
+            Stage {stageIdx + 1} of {STAGE_ORDER.length}
           </p>
-          <button
-            type="button"
-            className="h-9 w-9 rounded-full grid place-items-center text-white active:scale-95 transition-transform"
-            style={{ background: "var(--wordie)" }}
-            aria-label="Play pronunciation"
-          >
-            <Volume2 className="h-4 w-4" />
-          </button>
+          <span className="text-[11px] font-bold uppercase tracking-wide rounded-full bg-white/22 px-2 py-0.5">
+            {meta.points} Pts
+          </span>
         </div>
         <h2
-          className="mt-3 text-[22px] leading-[1.2] font-semibold"
+          className="mt-2 text-[24px] font-bold leading-none"
           style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
-          {QUESTION.prompt}
+          {meta.label}
         </h2>
+        <p className="mt-1.5 text-[13px] font-bold opacity-95">{meta.subtitle}</p>
+        <p className="mt-1 text-[12px] opacity-80">{meta.note}</p>
+      </section>
 
-        <div className="mt-4 space-y-2.5">
-          {QUESTION.choices.map((c, i) => {
-            const isSelected = selected === i;
-            const isAnswer = i === QUESTION.answerIndex;
-            let style: React.CSSProperties = {
-              background: "white",
-              borderColor: "var(--border)",
-              color: "var(--foreground)",
-            };
-            if (revealed && isAnswer) {
-              style = {
-                background: "color-mix(in oklab, var(--bloxia) 12%, white)",
-                borderColor: "var(--bloxia)",
-                color: "var(--bloxia-deep)",
-              };
-            } else if (revealed && isSelected && !isAnswer) {
-              style = {
-                background: "color-mix(in oklab, var(--shirin) 10%, white)",
-                borderColor: "var(--shirin)",
-                color: "var(--shirin)",
-              };
-            } else if (isSelected) {
-              style = {
-                background: "color-mix(in oklab, var(--wordie) 10%, white)",
-                borderColor: "var(--wordie)",
-                color: "var(--wordie)",
-              };
-            }
+      {/* Questions */}
+      <div className="mt-4 space-y-3">
+        {questions.map((q, i) => (
+          <QuestionCard
+            key={q.id}
+            q={q}
+            qNum={i + 1}
+            answer={answers[q.id]}
+            audioPlaying={audioPlaying === q.id}
+            recording={recordingId === q.id}
+            onPlay={() => onPlay(q)}
+            onRecord={() => onRecord(q)}
+            onPick={(cid) => onPick(q, cid)}
+          />
+        ))}
+      </div>
 
+      {/* Nav */}
+      <div className="mt-5 flex gap-2.5">
+        {stageIdx > 0 && (
+          <button
+            onClick={onPrev}
+            className="flex-1 rounded-full py-3.5 font-bold border border-border bg-white text-[14px]"
+            style={{ color: "var(--wordie)" }}
+          >
+            Previous
+          </button>
+        )}
+        <button
+          onClick={onNext}
+          className="flex-[2] rounded-full py-3.5 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
+          style={{
+            background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)",
+          }}
+        >
+          {isLast ? "Submit" : "Next"}
+          {!isLast && <ChevronRight className="h-4 w-4" />}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function QuestionCard({
+  q,
+  qNum,
+  answer,
+  audioPlaying,
+  recording,
+  onPlay,
+  onRecord,
+  onPick,
+}: {
+  q: Question;
+  qNum: number;
+  answer?: Answer;
+  audioPlaying: boolean;
+  recording: boolean;
+  onPlay: () => void;
+  onRecord: () => void;
+  onPick: (choiceId: string) => void;
+}) {
+  const singleCol = shouldSingleColumn(q.stage, q.choices);
+
+  return (
+    <section className="rounded-3xl bg-white border border-border p-4">
+      {/* Header row */}
+      <div className="flex items-center gap-3">
+        <span
+          className="h-7 w-7 grid place-items-center rounded-full text-[12px] font-bold shrink-0"
+          style={{
+            background: "color-mix(in oklab, var(--wordie) 12%, white)",
+            color: "var(--wordie)",
+          }}
+        >
+          {qNum}
+        </span>
+
+        {q.stage === "pronunciationListen" && (
+          <button
+            type="button"
+            onClick={onPlay}
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-bold text-white active:scale-95"
+            style={{ background: "var(--wordie)" }}
+          >
+            <Volume2 className="h-3.5 w-3.5" />
+            {audioPlaying ? "Playing…" : "Play Audio"}
+          </button>
+        )}
+
+        {q.stage === "pronunciationSpeak" && (
+          <div className="flex items-baseline gap-2">
+            <span
+              className="text-[20px] font-bold"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            >
+              {q.word}
+            </span>
+            {q.ipa && (
+              <span className="text-[11px] text-muted-foreground font-medium">/{q.ipa}/</span>
+            )}
+          </div>
+        )}
+
+        {q.stage !== "pronunciationListen" &&
+          q.stage !== "pronunciationSpeak" &&
+          q.stage !== "spelling" && (
+            <span
+              className="text-[20px] font-bold"
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            >
+              {q.word}
+            </span>
+          )}
+      </div>
+
+      {/* Body */}
+      {q.stage === "pronunciationSpeak" ? (
+        <div className="mt-4 flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={onRecord}
+            disabled={recording}
+            className="h-16 w-16 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+            style={{
+              background: recording ? "var(--wordie-accent)" : "var(--shirin)",
+            }}
+          >
+            <Mic className="h-7 w-7" />
+          </button>
+          <p className="text-[12px] font-bold text-muted-foreground">
+            {recording
+              ? "Recording…"
+              : answer?.record
+              ? answer.record.band === "great"
+                ? "Clear voice"
+                : answer.record.band === "good"
+                ? "Checked"
+                : "Needs review"
+              : "Tap to record"}
+          </p>
+        </div>
+      ) : (
+        <div
+          className={`mt-3 ${singleCol ? "space-y-2" : "grid grid-cols-2 gap-2"}`}
+        >
+          {q.choices?.map((c) => {
+            const selected = answer?.choiceId === c.id;
             return (
               <button
-                key={c}
+                key={c.id}
                 type="button"
-                onClick={() => onSelect(i)}
-                className="w-full flex items-center justify-between rounded-2xl border px-4 py-3.5 text-left font-bold transition-colors"
-                style={style}
+                onClick={() => onPick(c.id)}
+                className="rounded-2xl border px-3 py-2.5 text-left text-[14px] font-bold transition-colors"
+                style={{
+                  background: selected
+                    ? "color-mix(in oklab, var(--wordie) 10%, white)"
+                    : "white",
+                  borderColor: selected ? "var(--wordie)" : "var(--border)",
+                  color: selected ? "var(--wordie)" : "var(--foreground)",
+                }}
               >
-                <span>{c}</span>
-                {revealed && isAnswer && <Check className="h-4 w-4" />}
+                {c.label}
               </button>
             );
           })}
         </div>
-      </section>
-
-      {/* Feedback + continue */}
-      {revealed && (
-        <div
-          className="mt-4 rounded-3xl p-4 flex items-center gap-3"
-          style={{
-            background: isCorrect
-              ? "color-mix(in oklab, var(--bloxia) 10%, white)"
-              : "color-mix(in oklab, var(--wordie-accent) 14%, white)",
-            border: `1px solid ${
-              isCorrect
-                ? "color-mix(in oklab, var(--bloxia) 25%, white)"
-                : "color-mix(in oklab, var(--wordie-accent) 30%, white)"
-            }`,
-          }}
-        >
-          <div
-            className="h-10 w-10 rounded-2xl grid place-items-center text-white shrink-0"
-            style={{ background: isCorrect ? "var(--bloxia)" : "var(--wordie-accent)" }}
-          >
-            {isCorrect ? <Check className="h-5 w-5" /> : <RotateCcw className="h-5 w-5" />}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="font-bold text-[14px]">
-              {isCorrect ? "Nice work" : "Try this one again"}
-            </p>
-            <p className="text-[12px] text-muted-foreground mt-0.5">
-              {isCorrect
-                ? "Whisper means to speak very softly."
-                : `Correct answer: ${QUESTION.choices[QUESTION.answerIndex]}`}
-            </p>
-          </div>
-        </div>
       )}
-
-      <button
-        onClick={onContinue}
-        disabled={!revealed}
-        className="mt-4 w-full rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform disabled:opacity-40 disabled:active:scale-100"
-        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "16px" }}
-      >
-        Continue
-      </button>
-    </div>
+    </section>
   );
 }
 
-function ResultView({ onRetake }: { onRetake: () => void }) {
-  const score = 8;
-  const total = 10;
-  const pct = Math.round((score / total) * 100);
-  const isHigh = pct >= 70;
-
+// ───────── Result ─────────
+function ResultView({
+  score,
+  correct,
+  total,
+  timeText,
+  dims,
+  results,
+  bp,
+  onRetake,
+  onReview,
+}: {
+  score: number;
+  correct: number;
+  total: number;
+  timeText: string;
+  dims: Record<Stage, { correct: number; total: number }>;
+  results: { q: Question; correct: boolean }[];
+  bp: number;
+  onRetake: () => void;
+  onReview: (id: string) => void;
+}) {
+  const isHigh = score >= 70;
   return (
     <div>
       <section
@@ -355,25 +820,24 @@ function ResultView({ onRetake }: { onRetake: () => void }) {
             : "linear-gradient(140deg, var(--wordie-accent) 0%, oklch(0.70 0.18 50) 100%)",
         }}
       >
-        <div
-          className="absolute -top-10 left-1/2 -translate-x-1/2 h-40 w-40 rounded-full opacity-30"
-          style={{ background: "radial-gradient(circle, white, transparent 70%)" }}
-          aria-hidden
-        />
         <div className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide">
-          <Trophy className="h-3.5 w-3.5" /> Test complete
+          <Trophy className="h-3.5 w-3.5" /> Test Completed!
         </div>
+        <p className="mt-2 text-[12px] font-bold opacity-90">Test Time {timeText}</p>
+        <p className="mt-3 text-[13px] font-bold opacity-95">Your Wordie Test Score</p>
         <p
-          className="mt-3 text-[56px] font-bold leading-none"
-          style={{ fontFamily: "var(--font-display)" }}
+          className="mt-1 text-[56px] font-bold leading-none"
+          style={{ fontFamily: "var(--font-sans)" }}
         >
           {score}
-          <span className="text-[24px] opacity-80">/{total}</span>
+          <span className="text-[24px] opacity-80">%</span>
         </p>
-        <p className="mt-2 text-[15px] font-bold">{isHigh ? "Great work!" : "Good try — keep going!"}</p>
+        <p className="mt-2 text-[13px] font-bold opacity-90">
+          {correct} / {total} correct
+        </p>
       </section>
 
-      {/* Reward */}
+      {/* Bp */}
       <section
         className="mt-4 rounded-3xl p-4 flex items-center gap-3"
         style={{
@@ -388,46 +852,188 @@ function ResultView({ onRetake }: { onRetake: () => void }) {
           <Sparkles className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="font-bold text-[14px]">+80 Bp earned</p>
+          <p className="font-bold text-[14px]">+{bp} Bp earned</p>
           <p className="text-[12px] text-muted-foreground mt-0.5">
-            Bloxia reward unlocked · view in pixel world
+            Wordie Test reward
           </p>
         </div>
       </section>
 
-      {/* Review missed */}
+      {/* Dimension rows */}
       <section className="mt-5">
         <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground mb-2 px-1">
-          Review missed words
+          By Dimension
         </p>
         <div className="rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden">
-          {MISSED.map((m) => (
-            <div key={m.word} className="flex items-center justify-between px-4 py-3">
-              <div className="min-w-0">
-                <p className="font-bold text-[15px]">{m.word}</p>
-                <p className="text-[12px] text-muted-foreground mt-0.5 truncate">{m.meaning}</p>
+          {STAGE_ORDER.map((s) => {
+            const d = dims[s];
+            const pct = d.total ? Math.round((d.correct / d.total) * 100) : 0;
+            return (
+              <div key={s} className="px-4 py-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-[13px] font-bold">{STAGE_META[s].label}</p>
+                  <p className="text-[12px] font-bold text-muted-foreground">
+                    {d.correct} / {d.total}
+                  </p>
+                </div>
+                <div className="mt-1.5 h-1.5 rounded-full overflow-hidden" style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}>
+                  <div className="h-full" style={{ width: `${pct}%`, background: STAGE_META[s].color }} />
+                </div>
               </div>
-              <StatusBadge status="review" />
-            </div>
-          ))}
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Answer review */}
+      <section className="mt-5">
+        <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground mb-2 px-1">
+          Answer Review
+        </p>
+        <div className="space-y-4">
+          {STAGE_ORDER.map((s) => {
+            const items = results.filter((r) => r.q.stage === s);
+            return (
+              <div key={s}>
+                <p className="text-[11px] font-bold text-muted-foreground px-1 mb-1.5">
+                  {STAGE_META[s].label}
+                </p>
+                <div className="rounded-2xl bg-white border border-border divide-y divide-border overflow-hidden">
+                  {items.map((r, idx) => (
+                    <button
+                      key={r.q.id}
+                      onClick={() => onReview(r.q.id)}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-left active:bg-muted/40"
+                    >
+                      <span className="text-[11px] font-bold text-muted-foreground w-5">
+                        Q{idx + 1}
+                      </span>
+                      <span className="flex-1 text-[13px] font-bold">{r.q.word}</span>
+                      <span
+                        className="h-6 w-6 rounded-full grid place-items-center text-white"
+                        style={{ background: r.correct ? "var(--bloxia)" : "var(--wordie-accent)" }}
+                      >
+                        {r.correct ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       <div className="mt-5 grid grid-cols-2 gap-2.5">
         <button
           onClick={onRetake}
-          className="rounded-full py-3.5 font-bold border border-border bg-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2 text-[14px]"
+          className="rounded-full py-3.5 font-bold border border-border bg-white inline-flex items-center justify-center gap-2 text-[14px]"
           style={{ color: "var(--wordie)" }}
         >
           <RotateCcw className="h-4 w-4" /> Retest
         </button>
         <Link
           to="/wordie-bank"
-          className="rounded-full py-3.5 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2 text-[14px]"
+          className="rounded-full py-3.5 font-bold text-white inline-flex items-center justify-center gap-2 text-[14px]"
           style={{ background: "var(--wordie)" }}
         >
           Open Bank
         </Link>
+      </div>
+    </div>
+  );
+}
+
+// ───────── Review Overlay ─────────
+function ReviewOverlay({
+  question,
+  answer,
+  onClose,
+}: {
+  question: Question;
+  answer?: Answer;
+  onClose: () => void;
+}) {
+  const correctChoice = question.choices?.find((c) => c.isCorrect);
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center px-5">
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className="relative w-full max-w-[360px] bg-white rounded-3xl p-5 max-h-[80vh] overflow-y-auto">
+        <div className="flex items-center justify-between">
+          <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+            {STAGE_META[question.stage].label}
+          </p>
+          <button onClick={onClose} className="h-7 w-7 grid place-items-center rounded-full bg-muted/40">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <p
+          className="mt-2 text-[22px] font-bold"
+          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        >
+          {question.word}
+        </p>
+
+        {question.stage === "pronunciationSpeak" ? (
+          <div className="mt-4 rounded-2xl bg-muted/30 p-3 text-[13px]">
+            <p className="font-bold">Pronunciation score</p>
+            <p className="text-muted-foreground mt-0.5">
+              {answer?.record
+                ? `${answer.record.score} · ${
+                    answer.record.band === "great"
+                      ? "Clear voice"
+                      : answer.record.band === "good"
+                      ? "Checked"
+                      : "Needs review"
+                  }`
+                : "Not recorded"}
+            </p>
+          </div>
+        ) : (
+          <div className="mt-3 space-y-2">
+            {question.choices?.map((c) => {
+              const isMine = answer?.choiceId === c.id;
+              const isRight = c.isCorrect;
+              return (
+                <div
+                  key={c.id}
+                  className="rounded-2xl border px-3 py-2.5 text-[13px] font-bold flex items-center justify-between"
+                  style={{
+                    background: isRight
+                      ? "color-mix(in oklab, var(--bloxia) 10%, white)"
+                      : isMine
+                      ? "color-mix(in oklab, var(--wordie-accent) 10%, white)"
+                      : "white",
+                    borderColor: isRight
+                      ? "var(--bloxia)"
+                      : isMine
+                      ? "var(--wordie-accent)"
+                      : "var(--border)",
+                  }}
+                >
+                  <span>{c.label}</span>
+                  <span className="flex gap-1">
+                    {isRight && (
+                      <span className="text-[10px] font-bold uppercase rounded-full px-2 py-0.5 text-white" style={{ background: "var(--bloxia)" }}>
+                        Right
+                      </span>
+                    )}
+                    {isMine && !isRight && (
+                      <span className="text-[10px] font-bold uppercase rounded-full px-2 py-0.5 text-white" style={{ background: "var(--wordie-accent)" }}>
+                        Mine
+                      </span>
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+            {correctChoice && (
+              <p className="text-[12px] text-muted-foreground mt-1">
+                Correct: {correctChoice.label}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
