@@ -384,13 +384,19 @@ function WordieBankPage() {
                           <span
                             className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                             style={{
-                              background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                              color: "var(--wordie)",
+                              background: "color-mix(in oklab, var(--wordie-accent) 18%, white)",
+                              color: "var(--wordie-accent)",
                             }}
                           >
                             {capitalize(w.partOfSpeech)}
                           </span>
-                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                          <span
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                            style={{
+                              background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                              color: "var(--wordie)",
+                            }}
+                          >
                             {w.cefrLevel}
                           </span>
                         </div>
