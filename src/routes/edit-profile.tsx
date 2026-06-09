@@ -535,15 +535,15 @@ function BirthdaySheet({
                 style={
                   active
                     ? {
-                        background: CHIP_BLUE,
-                        color: PAISLEY,
-                        border: `1px solid ${CHIP_BLUE}`,
+                        background: YELLOW_SOFT,
+                        color: YELLOW,
+                        border: `1px solid ${YELLOW_SOFT}`,
                         fontFamily: "var(--font-sans)",
                       }
                     : {
                         background: "white",
-                        color: PAISLEY,
-                        border: `1px solid ${CHIP_BLUE}`,
+                        color: YELLOW,
+                        border: `1px solid color-mix(in oklab, ${YELLOW} 45%, white)`,
                         fontFamily: "var(--font-sans)",
                       }
                 }
@@ -630,15 +630,15 @@ function ChipGrid({
             style={
               active
                 ? {
-                    background: CHIP_BLUE,
-                    color: PAISLEY,
-                    border: `1px solid ${CHIP_BLUE}`,
+                    background: YELLOW_SOFT,
+                    color: YELLOW,
+                    border: `1px solid ${YELLOW_SOFT}`,
                     fontFamily: "var(--font-sans)",
                   }
                 : {
                     background: "white",
                     color: "var(--foreground)",
-                    border: `1px solid ${CHIP_BLUE}`,
+                    border: `1px solid color-mix(in oklab, ${YELLOW} 45%, white)`,
                     fontFamily: "var(--font-sans)",
                   }
             }
