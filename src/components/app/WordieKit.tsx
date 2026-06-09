@@ -18,10 +18,11 @@ export function StatusBadge({ status }: { status: WordStatus }) {
   const m = STATUS_META[status];
   return (
     <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
+      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold border"
       style={{
-        background: `color-mix(in oklab, ${m.color} 22%, white)`,
+        background: "transparent",
         color: `color-mix(in oklab, ${m.color} 70%, black)`,
+        borderColor: `color-mix(in oklab, ${m.color} 70%, black)`,
       }}
     >
       {m.label}
