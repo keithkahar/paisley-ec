@@ -379,9 +379,6 @@ function WordieTestPage() {
             >
               Wordie Test
             </h1>
-            <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
-              Test your words.
-            </p>
           </div>
         )}
 
@@ -479,7 +476,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
           className="text-[20px] font-bold leading-none"
           style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
         >
-          Wordie Test #03
+          #03
         </p>
         <ul className="mt-4 space-y-2 text-[13px] font-bold">
           {[

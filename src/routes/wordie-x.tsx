@@ -454,9 +454,6 @@ function WordieXPage() {
           >
             Wordie-X
           </h1>
-          <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
-            Words to master.
-          </p>
         </div>
 
         {/* Toolbar: Select / Done · Preview (top, like Wordie Bank) */}
