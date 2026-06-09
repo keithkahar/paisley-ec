@@ -532,14 +532,14 @@ function FilterDropdown({
       style={
         active
           ? {
-              background: "var(--wordie)",
+              background: "var(--paisley)",
               color: "white",
-              border: "1px solid var(--wordie)",
+              border: "1px solid var(--paisley)",
             }
           : {
-              background: "white",
+              background: "color-mix(in oklab, var(--paisley) 10%, white)",
               color: "var(--foreground)",
-              border: "1px solid color-mix(in oklab, var(--wordie) 18%, white)",
+              border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
             }
       }
     >
