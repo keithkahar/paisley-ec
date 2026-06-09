@@ -718,25 +718,29 @@ function PreviewFull({
         <div className="w-5" />
       </div>
       <div className="flex-1 overflow-y-auto px-5 pb-6">
-        {/* Word card — single-side, mywordie-themed surface */}
+        {/* Word card — white surface with soft wordie border */}
         <div
-          className="rounded-[2rem] p-6"
+          className="rounded-[2rem] p-6 bg-white"
           style={{
-            background:
-              "linear-gradient(160deg, white 0%, color-mix(in oklab, var(--wordie) 8%, white) 100%)",
-            border: "1px solid color-mix(in oklab, var(--wordie) 20%, transparent)",
+            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)",
           }}
         >
           <div className="flex items-center justify-between">
-            <span
-              className="inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold"
-              style={{
-                background: "color-mix(in oklab, var(--wordie) 14%, white)",
-                color: "var(--wordie)",
-              }}
-            >
-              {word.cefrLevel} · {capitalize(word.partOfSpeech)}
-            </span>
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span
+                className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                style={{
+                  background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                  color: "var(--wordie)",
+                }}
+              >
+                {capitalize(word.partOfSpeech)}
+              </span>
+              <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                {word.cefrLevel}
+              </span>
+              <StatusBadge status={word.status} />
+            </div>
             <button
               type="button"
               className="h-9 w-9 rounded-full grid place-items-center"
@@ -749,7 +753,7 @@ function PreviewFull({
 
           <div className="mt-5 text-center">
             <h2
-              className="font-bold text-[40px] leading-none"
+              className="font-semibold text-[40px] leading-none"
               style={{
                 color: "var(--wordie)",
                 fontFamily: "var(--font-display)",
@@ -763,32 +767,28 @@ function PreviewFull({
             </p>
           </div>
 
-          {/* Definition + Example grouped, differentiated by type */}
+          {/* Definition + Word in use — both left-aligned */}
           <div className="mt-6 space-y-4">
             <div>
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
-              >
+              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
               <p
-                className="mt-1.5 text-[17px] font-bold leading-snug"
+                className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 {word.definitionEn}
               </p>
             </div>
-            <div
-              className="rounded-2xl px-4 py-3"
-              style={{ background: "color-mix(in oklab, var(--wordie) 6%, white)" }}
-            >
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground"
-              >
-                Example
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+                Word in use
               </p>
-              <p className="mt-1 text-[14px] italic leading-relaxed text-foreground/85">
-                "{word.exampleSentence}"
+              <p
+                className="mt-1.5 text-[17px] font-bold leading-snug text-foreground"
+                style={{ letterSpacing: "-0.01em" }}
+              >
+                "{renderExample(word.exampleSentence, word.word)}"
               </p>
             </div>
           </div>
