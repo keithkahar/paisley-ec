@@ -854,7 +854,7 @@ function MiniStat({ label, value }: { label: string; value: string }) {
       className="rounded-2xl px-3 py-2 text-center"
       style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
     >
-      <p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
+      <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
       <p
