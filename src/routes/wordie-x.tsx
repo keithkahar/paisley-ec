@@ -690,7 +690,6 @@ function SavedCard({
     pos: note.partOfSpeech || "noun",
     cefr: note.cefrLevel || "New",
     source: getSourceLabel(note.source),
-    sourceColor: getSourceColor(note.source),
   }), [note]);
 
   return (
@@ -730,10 +729,10 @@ function SavedCard({
       >
         <div className="min-w-0 flex-1">
           <p
-            className="font-semibold text-[16px] truncate leading-tight"
+            className="font-semibold text-[16px] truncate leading-tight lowercase"
             style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em" }}
           >
-            {capitalize(note.word)}
+            {note.word}
           </p>
           {note.content && (
             <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
@@ -753,13 +752,7 @@ function SavedCard({
             <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
               {meta.cefr}
             </span>
-            <span
-              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
-              style={{
-                background: `color-mix(in oklab, ${meta.sourceColor} 14%, white)`,
-                color: `color-mix(in oklab, ${meta.sourceColor} 70%, black)`,
-              }}
-            >
+            <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
               {meta.source}
             </span>
             {note.isFocus && (
