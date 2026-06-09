@@ -191,45 +191,40 @@ function EditProfilePage() {
         </section>
 
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-4 pb-28 overflow-y-auto space-y-4">
-          {/* Avatar card */}
-          <Card>
+        <div className="flex-1 px-6 pt-4 pb-28 overflow-y-auto space-y-3">
+          {/* Avatar pill (taller) */}
+          <div
+            className="relative isolate rounded-[28px] py-4 px-4"
+            style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)", fontFamily: "var(--font-sans)" }}
+          >
             <div className="flex items-center gap-4">
-              <div
-                className="h-20 w-20 rounded-full grid place-items-center overflow-hidden shrink-0"
-                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
-              >
-                {form.avatarPath ? (
-                  <img src={form.avatarPath} alt="" className="h-full w-full object-cover" />
-                ) : (
-                  <span
-                    className="text-[28px] font-bold leading-none"
-                    style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
-                  >
-                    {initials}
-                  </span>
-                )}
-              </div>
+              <AvatarDraggable
+                src={form.avatarPath}
+                initials={initials}
+                posX={form.avatarPosX}
+                posY={form.avatarPosY}
+                onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+              />
               <div className="flex flex-col gap-2">
                 <button
                   type="button"
                   onClick={onChooseAvatar}
-                  className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px] font-bold"
-                  style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
+                  className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold bg-white"
+                  style={{ color: PAISLEY }}
                 >
                   <Camera className="h-3.5 w-3.5" strokeWidth={2.25} />
                   Choose Photo
                 </button>
-                {form.avatarPath && (
+                {form.avatarPath ? (
                   <button
                     type="button"
                     onClick={onClearAvatar}
-                    className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px] font-bold bg-muted text-muted-foreground"
+                    className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-bold bg-white/70 text-muted-foreground"
                   >
                     <X className="h-3.5 w-3.5" strokeWidth={2.25} />
                     Remove
                   </button>
-                )}
+                ) : null}
               </div>
               <input
                 ref={fileRef}
@@ -239,35 +234,43 @@ function EditProfilePage() {
                 onChange={onAvatarFile}
               />
             </div>
-          </Card>
+            {form.avatarPath ? (
+              <p
+                className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-muted-foreground"
+              >
+                <Move className="h-3 w-3" strokeWidth={2.25} />
+                Drag the photo to reposition, then save.
+              </p>
+            ) : null}
+          </div>
 
           {/* Given Name */}
-          <FieldCard label="Given Name">
+          <RowPill label="Given Name">
             <input
               type="text"
               value={form.givenName}
               onChange={(e) => update("givenName", e.target.value)}
               placeholder="Daniella"
-              className="w-full bg-transparent outline-none text-[15px] font-semibold text-foreground placeholder:text-muted-foreground"
+              className="w-full bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
               style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             />
-          </FieldCard>
+          </RowPill>
 
           {/* Family Name */}
-          <FieldCard label="Family Name">
+          <RowPill label="Family Name">
             <input
               type="text"
               value={form.familyName}
               onChange={(e) => update("familyName", e.target.value)}
               placeholder="Wang"
-              className="w-full bg-transparent outline-none text-[15px] font-semibold text-foreground placeholder:text-muted-foreground"
+              className="w-full bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
               style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             />
-          </FieldCard>
+          </RowPill>
 
           {/* Gender */}
-          <FieldCard label="Gender">
-            <div className="flex gap-2">
+          <RowPill label="Gender">
+            <div className="flex gap-1.5 justify-end">
               {GENDER_OPTIONS.map((opt) => {
                 const active = form.gender === opt.key;
                 return (
@@ -275,11 +278,11 @@ function EditProfilePage() {
                     key={opt.key}
                     type="button"
                     onClick={() => onGenderChange(opt.key)}
-                    className="flex-1 h-10 rounded-full text-[13px] font-bold transition-colors"
+                    className="h-8 px-4 rounded-full text-[12px] font-bold transition-colors"
                     style={
                       active
-                        ? { background: PAISLEY, color: "white" }
-                        : { background: "color-mix(in oklab, var(--paisley) 8%, white)", color: PAISLEY }
+                        ? { background: opt.color, color: "white" }
+                        : { background: `color-mix(in oklab, ${opt.color} 12%, white)`, color: opt.color }
                     }
                   >
                     {opt.label}
@@ -287,14 +290,14 @@ function EditProfilePage() {
                 );
               })}
             </div>
-          </FieldCard>
+          </RowPill>
 
           {/* Birthday */}
-          <FieldCard label="Birthday">
+          <RowPill label="Birthday">
             <button
               type="button"
               onClick={() => setShowBirthdayPicker(true)}
-              className="w-full text-left text-[15px] font-semibold"
+              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-bold"
               style={{
                 fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.01em",
@@ -302,8 +305,9 @@ function EditProfilePage() {
               }}
             >
               {formatBirthday(form.birthday)}
+              <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2.25} />
             </button>
-          </FieldCard>
+          </RowPill>
         </div>
 
         {/* Sticky save bar */}
