@@ -727,10 +727,9 @@ function QuestionCard({
           <button
             type="button"
             onClick={onRecord}
-            disabled={recording}
             className="h-16 w-16 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
             style={{
-              background: recording ? "var(--wordie-accent)" : "var(--shirin)",
+              background: recording ? "var(--wordie-accent)" : "var(--wordie)",
             }}
           >
             <Mic className="h-7 w-7" />
