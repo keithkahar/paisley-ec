@@ -413,14 +413,34 @@ function WordieBankPage() {
         <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
           <div className="absolute inset-0 bg-black/40" />
           <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl p-5 pb-8"
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+            style={{ height: "62vh" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-[16px] font-bold text-center">Batch Actions</p>
-            <p className="text-[12px] text-muted-foreground text-center mt-0.5 mb-4">
+            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+              <span className="h-1 w-10 rounded-full bg-border" />
+            </div>
+            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
+              <span className="w-12" />
+              <p
+                className="text-[17px] font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "var(--wordie)" }}
+              >
+                Batch Actions
+              </p>
+              <button
+                type="button"
+                onClick={() => setBatchOpen(false)}
+                className="text-[13px] font-bold w-12 text-right"
+                style={{ color: "var(--wordie)" }}
+              >
+                Done
+              </button>
+            </div>
+            <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">
               {selectedSummary}
             </p>
-            <div className="space-y-2">
+            <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
               <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
               <SheetBtn label="Add to Focus" onClick={addToFocus} />
               <SheetBtn label="Move to Review" onClick={moveToReview} />
