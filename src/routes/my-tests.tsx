@@ -178,7 +178,7 @@ function MyTestsPage() {
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: "var(--foreground)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: "var(--paisley)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             My Tests
           </h1>
