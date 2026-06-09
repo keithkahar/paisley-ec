@@ -78,10 +78,9 @@ function ProfilePage() {
             <Link
               to="/edit-profile"
               aria-label="Edit profile"
-              className="absolute -top-0.5 -left-0.5 h-7 w-7 grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              className="absolute top-2 left-2 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
               style={{
                 border: `1px solid color-mix(in oklab, ${PAISLEY} 25%, white)`,
-                boxShadow: "0 2px 6px -2px rgba(0,0,0,0.18)",
               }}
             >
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: PAISLEY }} />
@@ -91,7 +90,7 @@ function ProfilePage() {
             className="mt-3 text-[26px] leading-[1.2] font-semibold tracking-tight"
             style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
-            Hi, {DISPLAY_NAME}
+            {DISPLAY_NAME}
           </h2>
           <div className="mt-2 flex items-center justify-center gap-2">
             <span
@@ -101,8 +100,8 @@ function ProfilePage() {
               Age {PROFILE.age}
             </span>
             <span
-              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold"
-              style={{ color: PAISLEY_YELLOW_INK, background: PAISLEY_YELLOW }}
+              className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[13px] font-bold bg-white"
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
             >
               CEFR {PROFILE.cefr}
             </span>
@@ -191,9 +190,9 @@ function PillLink({
     >
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"
-        style={{ background: PAISLEY_YELLOW }}
+        style={{ background: "white" }}
       >
-        <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY_YELLOW_INK }} />
+        <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
       </span>
       <span
         className="text-[17px] font-bold tracking-tight leading-none"
