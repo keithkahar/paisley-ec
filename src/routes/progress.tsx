@@ -55,8 +55,8 @@ function ProgressPage() {
   // Goal ring tones: base brand color + two lighter tints of the same hue
   const goalTones = {
     week: accent,
-    month: `color-mix(in oklab, ${accent} 55%, white)`,
-    year: `color-mix(in oklab, ${accent} 28%, white)`,
+    month: `color-mix(in oklab, ${accent} 70%, white)`,
+    year: `color-mix(in oklab, ${accent} 45%, white)`,
   };
 
   const trendSeries = data.trend[mode];
