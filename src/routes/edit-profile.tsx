@@ -23,6 +23,7 @@ type ProfileForm = {
   avatarPath: string;
   avatarPosX: number; // 0-100 (object-position %)
   avatarPosY: number; // 0-100
+  avatarScale: number; // 1-3
   givenName: string;
   familyName: string;
   birthday: string; // YYYY-MM-DD
@@ -33,6 +34,7 @@ const DEFAULT_FORM: ProfileForm = {
   avatarPath: "",
   avatarPosX: 50,
   avatarPosY: 50,
+  avatarScale: 1,
   givenName: "",
   familyName: "",
   birthday: "",
@@ -73,6 +75,7 @@ function loadProfile(): ProfileForm {
       avatarPath: typeof obj.avatarPath === "string" ? obj.avatarPath : "",
       avatarPosX: clamp(obj.avatarPosX),
       avatarPosY: clamp(obj.avatarPosY),
+      avatarScale: typeof obj.avatarScale === "number" ? Math.max(1, Math.min(3, obj.avatarScale)) : 1,
       givenName: typeof obj.givenName === "string" ? obj.givenName.trim() : "",
       familyName: typeof obj.familyName === "string" ? obj.familyName.trim() : "",
       birthday,
@@ -89,6 +92,7 @@ function saveProfile(form: ProfileForm): ProfileForm {
     avatarPath: typeof form.avatarPath === "string" ? form.avatarPath : "",
     avatarPosX: clamp(form.avatarPosX),
     avatarPosY: clamp(form.avatarPosY),
+    avatarScale: Math.max(1, Math.min(3, form.avatarScale ?? 1)),
     givenName: form.givenName.trim(),
     familyName: form.familyName.trim(),
     birthday: /^\d{4}-\d{2}-\d{2}$/.test(form.birthday) ? form.birthday : "",
