@@ -156,7 +156,7 @@ function MyTestsPage() {
 
   const latestCefr = CEFR_HISTORY[0];
   const wordieAvg = useMemo(
-    () => Math.round(WORDIE_TESTS.reduce((a, b) => a + b.score, 0) / WORDIE_TESTS.length),
+    () => Math.round(ALL_WORDIE_TESTS.reduce((a, b) => a + b.score, 0) / ALL_WORDIE_TESTS.length),
     [],
   );
 
@@ -287,10 +287,10 @@ function MyTestsPage() {
                 </p>
               </div>
               <p className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                Last {WORDIE_TESTS.length} tests
+                Last {ALL_WORDIE_TESTS.length} tests
               </p>
             </div>
-            <TrendChart values={WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
+            <TrendChart values={ALL_WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={ALL_WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
           </div>
 
           {/* History toggle */}
@@ -300,7 +300,7 @@ function MyTestsPage() {
             className="mt-3 w-full flex items-center justify-between py-1.5"
           >
             <span className="text-[12px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
-              History · {WORDIE_TESTS.length}
+              History · {ALL_WORDIE_TESTS.length}
             </span>
             <ChevronDown
               className="h-4 w-4 transition-transform"
@@ -313,7 +313,7 @@ function MyTestsPage() {
 
           {openWordie && (
             <ul className="mt-1 space-y-2">
-              {WORDIE_TESTS.map((t) => {
+              {ALL_WORDIE_TESTS.map((t) => {
                 const expanded = expandedWordie === t.id;
                 return (
                   <li
