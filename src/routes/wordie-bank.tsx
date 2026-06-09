@@ -639,7 +639,7 @@ function PreviewFull({
           </button>
         </div>
         <h2 className="mt-2 font-bold text-[36px] leading-tight" style={{ letterSpacing: "-0.02em" }}>
-          {word.word}
+          {capitalize(word.word)}
         </h2>
         <p className="text-[13px] text-muted-foreground mt-1">{word.pronunciation}</p>
 
