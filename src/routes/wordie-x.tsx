@@ -393,8 +393,20 @@ function WordieXPage() {
     });
     applyUpdate((n) => ({ ...n, isFocus: true }), "Added to Focus");
   };
+  const batchRemoveFocus = () => {
+    selected.forEach((id) => {
+      const n = notes.find((x) => x._id === id);
+      if (n) toggleFocusStore(n.targetWordId || n.word, false);
+    });
+    applyUpdate((n) => ({ ...n, isFocus: false }), "Removed from Focus");
+  };
   const batchMoveReview = () =>
     applyUpdate((n) => ({ ...n, learnStatus: "review", nextReviewLabel: "Today" }), "Moved to Review");
+  const batchRemoveReview = () =>
+    applyUpdate(
+      (n) => ({ ...n, learnStatus: "new", nextReviewLabel: "Not started" }),
+      "Removed from Review",
+    );
   const batchDelete = () => {
     selected.forEach((id) => {
       const n = notes.find((x) => x._id === id);
@@ -408,6 +420,15 @@ function WordieXPage() {
     if (selected.size === 0) { setToast("Select cards first"); return; }
     setBatchOpen(true);
   };
+
+  const selectedNotes = useMemo(
+    () => notes.filter((n) => selected.has(n._id)),
+    [notes, selected],
+  );
+  const allSelectedFocus =
+    selectedNotes.length > 0 && selectedNotes.every((n) => n.isFocus);
+  const allSelectedReview =
+    selectedNotes.length > 0 && selectedNotes.every((n) => n.learnStatus === "review");
 
   const labelFor = (sel: string[], lookup: (k: string) => string) => {
     if (sel.length === 0) return "All";
