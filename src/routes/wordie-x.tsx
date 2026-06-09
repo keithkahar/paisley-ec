@@ -169,7 +169,22 @@ function WordieXPage() {
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
 
   // Load notes on mount
-  useEffect(() => { setNotes(loadNotes()); }, []);
+  useEffect(() => {
+    const existing = loadNotes();
+    if (existing.length === 0 && typeof window !== "undefined" && !localStorage.getItem(NOTES_KEY)) {
+      const now = Date.now();
+      const seeded: Note[] = SEED_NOTES.map((n, i) => ({
+        ...n,
+        _id: n.targetWordId,
+        createdAt: now - i * 1000,
+        updatedAt: now - i * 1000,
+      }));
+      saveNotes(seeded);
+      setNotes(seeded);
+    } else {
+      setNotes(existing);
+    }
+  }, []);
 
   // Toast auto-dismiss
   useEffect(() => {
