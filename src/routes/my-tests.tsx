@@ -238,7 +238,7 @@ function MyTestsPage() {
                 <div key={h.id} className="w-full flex items-center gap-3 px-4 py-3">
                   <div className="min-w-0 flex-1">
                     <p
-                      className="font-bold text-[20px] truncate leading-tight text-foreground"
+                      className="font-bold text-[15px] truncate leading-tight text-foreground"
                       style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                     >
                       {h.level}
@@ -320,7 +320,7 @@ function MyTestsPage() {
                     >
                       <div className="min-w-0 flex-1">
                         <p
-                          className="font-bold text-[20px] truncate leading-tight text-foreground"
+                          className="font-bold text-[15px] truncate leading-tight text-foreground"
                           style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
                         >
                           {t.score}%
