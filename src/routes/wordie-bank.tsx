@@ -170,8 +170,15 @@ function WordieBankPage() {
   };
 
   const addToFocus = () => applyUpdate((w) => ({ ...w, focus: true }), "Added to Focus");
+  const removeFromFocus = () =>
+    applyUpdate((w) => ({ ...w, focus: false }), "Removed from Focus");
   const moveToReview = () =>
     applyUpdate((w) => ({ ...w, status: "review", nextReviewLabel: "Today" }), "Moved to Review");
+  const removeFromReview = () =>
+    applyUpdate(
+      (w) => ({ ...w, status: "new", nextReviewLabel: "Not started" }),
+      "Removed from Review",
+    );
   const resetProgress = () => {
     applyUpdate(
       (w) => ({ ...w, status: "new", focus: false, nextReviewLabel: "Not started" }),
@@ -187,6 +194,15 @@ function WordieBankPage() {
     }
     setBatchOpen(true);
   };
+
+  const selectedWords = useMemo(
+    () => words.filter((w) => selected.has(w.wordId)),
+    [words, selected],
+  );
+  const allSelectedFocus =
+    selectedWords.length > 0 && selectedWords.every((w) => w.focus);
+  const allSelectedReview =
+    selectedWords.length > 0 && selectedWords.every((w) => w.status === "review");
 
   const selectedSummary = `${selected.size} selected`;
   const hasFilters =
