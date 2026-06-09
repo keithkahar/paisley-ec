@@ -430,7 +430,7 @@ function AvatarDraggable({
       ) : (
         <span
           className="text-[56px] font-bold leading-none"
-          style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+          style={{ color: YELLOW, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
         >
           {initials}
         </span>
