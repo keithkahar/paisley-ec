@@ -25,11 +25,11 @@ function WordieXPage() {
   const tricky = MOCK_WORDS.filter((w) => w.status === "difficult" || w.status === "review");
 
   return (
-    <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
+    <PhoneFrame bg="bg-white">
       <AppHeader
-        title="Wordie-X"
+        title=""
         back="/mywordie"
-        bg="color-mix(in oklab, var(--wordie-soft) 70%, white)"
+        bg="white"
       />
 
       <div className="px-5 pb-10">
