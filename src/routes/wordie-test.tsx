@@ -270,7 +270,6 @@ function WordieTestPage() {
   };
 
   const stopRecording = (q: Question) => {
-    if (recordingId !== q.id) return;
     setRecordingId(null);
     // mock: 70% great, 20% good, 10% retry
     const r = Math.random();
@@ -571,7 +570,7 @@ function QuizView({
           >
             {meta.label}
           </h2>
-          <span className="text-[11px] font-bold uppercase tracking-wide rounded-full bg-white/22 px-2 py-0.5">
+          <span className="text-[11px] font-bold rounded-full bg-white/22 px-2 py-0.5">
             {meta.points} Pt
           </span>
         </div>
@@ -781,15 +780,11 @@ function ResultView({
     <div>
       <section
         className="relative rounded-[28px] p-5 text-white text-center overflow-hidden"
-        style={{
-          background: isHigh
-            ? "linear-gradient(140deg, var(--bloxia) 0%, oklch(0.55 0.20 145) 60%, oklch(0.42 0.16 150) 100%)"
-            : "linear-gradient(140deg, var(--wordie-accent) 0%, oklch(0.70 0.18 50) 100%)",
-        }}
+        style={{ background: "var(--wordie)" }}
       >
         <div className="flex items-center justify-center gap-2 flex-wrap">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold"
             style={{ color: "var(--wordie-accent)" }}
           >
             <Trophy className="h-3.5 w-3.5" /> Test Completed!
@@ -797,16 +792,22 @@ function ResultView({
         </div>
         <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
-            style={{ color: "var(--wordie-accent)" }}
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+            style={{
+              background: "color-mix(in oklab, var(--wordie) 14%, white)",
+              color: "var(--wordie)",
+            }}
           >
-            <Clock className="h-3.5 w-3.5" /> Test Time {timeText}
+            Test Time {timeText}
           </span>
           <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
-            style={{ color: "var(--bloxia)" }}
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+            style={{
+              background: "color-mix(in oklab, var(--bloxia) 14%, white)",
+              color: "var(--bloxia)",
+            }}
           >
-            <Sparkles className="h-3.5 w-3.5" /> +{bp} Bp
+            +{bp} Bp
           </span>
         </div>
         <p className="mt-3 text-[13px] font-bold opacity-95">Your Wordie Test Score</p>
