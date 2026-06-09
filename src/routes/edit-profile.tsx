@@ -351,24 +351,89 @@ function EditProfilePage() {
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
+function RowPill({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl bg-white border border-border p-4">
-      {children}
+    <div
+      className="relative isolate flex items-center gap-3 rounded-full py-4 px-5 min-h-[56px]"
+      style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)", fontFamily: "var(--font-sans)" }}
+    >
+      <span
+        className="shrink-0 text-[13px] font-bold leading-none"
+        style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
+      >
+        {label}
+      </span>
+      <div className="flex-1 min-w-0">{children}</div>
     </div>
   );
 }
 
-function FieldCard({ label, children }: { label: string; children: React.ReactNode }) {
+function AvatarDraggable({
+  src,
+  initials,
+  posX,
+  posY,
+  onChangePos,
+}: {
+  src: string;
+  initials: string;
+  posX: number;
+  posY: number;
+  onChangePos: (x: number, y: number) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef<{ startX: number; startY: number; startPx: number; startPy: number } | null>(null);
+
+  function onPointerDown(e: React.PointerEvent) {
+    if (!src) return;
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    draggingRef.current = { startX: e.clientX, startY: e.clientY, startPx: posX, startPy: posY };
+  }
+  function onPointerMove(e: React.PointerEvent) {
+    const d = draggingRef.current;
+    if (!d || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    // moving 1 frame-width should shift roughly 100% — feel
+    const dx = ((e.clientX - d.startX) / rect.width) * 100;
+    const dy = ((e.clientY - d.startY) / rect.height) * 100;
+    const nx = Math.max(0, Math.min(100, d.startPx - dx));
+    const ny = Math.max(0, Math.min(100, d.startPy - dy));
+    onChangePos(nx, ny);
+  }
+  function onPointerUp() {
+    draggingRef.current = null;
+  }
+
   return (
-    <div className="rounded-2xl bg-white border border-border p-4">
-      <p
-        className="text-[11px] font-bold leading-none mb-2"
-        style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-      >
-        {label}
-      </p>
-      {children}
+    <div
+      ref={ref}
+      className="relative h-20 w-20 rounded-full overflow-hidden shrink-0 grid place-items-center select-none"
+      style={{
+        background: src ? "transparent" : "color-mix(in oklab, var(--paisley) 18%, white)",
+        touchAction: src ? "none" : "auto",
+        cursor: src ? "grab" : "default",
+      }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
+      {src ? (
+        <img
+          src={src}
+          alt=""
+          draggable={false}
+          className="h-full w-full object-cover pointer-events-none"
+          style={{ objectPosition: `${posX}% ${posY}%` }}
+        />
+      ) : (
+        <span
+          className="text-[28px] font-bold leading-none"
+          style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+        >
+          {initials}
+        </span>
+      )}
     </div>
   );
 }
