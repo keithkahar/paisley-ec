@@ -601,7 +601,7 @@ function FilterDropdown({
             }
           : {
               background: "color-mix(in oklab, var(--paisley) 10%, white)",
-              color: "var(--foreground)",
+              color: "var(--paisley)",
               border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
             }
       }
