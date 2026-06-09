@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, X, Check, ChevronRight, Move, Pencil } from "lucide-react";
+import { ChevronLeft, X, Check, ChevronRight, Move, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/edit-profile")({
@@ -208,7 +208,7 @@ function EditProfilePage() {
                 aria-label="Choose photo"
                 className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
+                <Camera className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
               </button>
               {form.avatarPath ? (
                 <button
@@ -478,11 +478,17 @@ function BirthdaySheet({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true" onClick={onCancel}>
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center"
+      role="dialog"
+      aria-modal="true"
+      onClick={onCancel}
+      style={{ fontFamily: "var(--font-sans)" }}
+    >
       <div className="absolute inset-0 bg-black/40" />
       <div
         className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-        style={{ height: "62vh" }}
+        style={{ height: "62vh", fontFamily: "var(--font-sans)" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Grabber */}
@@ -525,17 +531,23 @@ function BirthdaySheet({
                 className="rounded-2xl py-2 px-3 text-center transition-colors"
                 style={
                   active
-                    ? { background: PAISLEY, color: "white" }
+                    ? {
+                        background: "var(--paisley-soft)",
+                        color: PAISLEY,
+                        border: `1px solid color-mix(in oklab, ${PAISLEY} 45%, white)`,
+                        fontFamily: "var(--font-sans)",
+                      }
                     : {
                         background: "white",
                         color: PAISLEY,
-                        border: `1px solid color-mix(in oklab, ${PAISLEY} 35%, white)`,
+                        border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                        fontFamily: "var(--font-sans)",
                       }
                 }
               >
                 <span
                   className="block text-[10px] font-bold leading-none opacity-80"
-                  style={{ letterSpacing: "0.06em" }}
+                  style={{ letterSpacing: "0.06em", fontFamily: "var(--font-sans)" }}
                 >
                   {t.label.toUpperCase()}
                 </span>
@@ -614,11 +626,17 @@ function ChipGrid({
             className="h-11 rounded-xl text-[13px] font-bold transition-colors"
             style={
               active
-                ? { background: PAISLEY, color: "white" }
+                ? {
+                    background: "var(--paisley-soft)",
+                    color: PAISLEY,
+                    border: `1px solid color-mix(in oklab, ${PAISLEY} 45%, white)`,
+                    fontFamily: "var(--font-sans)",
+                  }
                 : {
                     background: "white",
                     color: "var(--foreground)",
                     border: `1px solid color-mix(in oklab, ${PAISLEY} 22%, white)`,
+                    fontFamily: "var(--font-sans)",
                   }
             }
           >
