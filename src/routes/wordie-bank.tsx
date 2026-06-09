@@ -218,6 +218,16 @@ function WordieBankPage() {
       <AppHeader title="" back="/mywordie" bg="transparent" />
 
       <div className="px-5 pb-10">
+        {/* Title */}
+        <div className="mb-4">
+          <h1
+            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          >
+            Wordie Bank
+          </h1>
+        </div>
+
         {/* Toolbar: Select / Done · Preview */}
         <div className="flex items-center justify-between">
           <button
