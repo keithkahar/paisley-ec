@@ -8,7 +8,6 @@ import {
   Check,
   X,
   Trophy,
-  Sparkles,
   Clock,
   Lock,
   ChevronRight,
@@ -208,6 +207,7 @@ function WordieTestPage() {
   const [audioPlaying, setAudioPlaying] = useState<string | null>(null);
   const [recordingId, setRecordingId] = useState<string | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const activeRecordingRef = useRef<string | null>(null);
 
   // Timer: runs only in quiz mode
   useEffect(() => {
@@ -266,19 +266,23 @@ function WordieTestPage() {
     setAnswers((a) => ({ ...a, [q.id]: { choiceId } }));
   };
 
-  const recordAnswer = (q: Question) => {
+  const startRecording = (q: Question) => {
+    activeRecordingRef.current = q.id;
     setRecordingId(q.id);
-    setTimeout(() => {
-      setRecordingId(null);
-      // mock: 70% great, 20% good, 10% retry
-      const r = Math.random();
-      const band: "great" | "good" | "retry" = r < 0.7 ? "great" : r < 0.9 ? "good" : "retry";
-      const score = band === "great" ? 92 : band === "good" ? 78 : 55;
-      setAnswers((a) => ({
-        ...a,
-        [q.id]: { record: { scorable: true, score, band } },
-      }));
-    }, 600);
+  };
+
+  const stopRecording = (q: Question) => {
+    if (activeRecordingRef.current !== q.id) return;
+    activeRecordingRef.current = null;
+    setRecordingId(null);
+    // mock: 70% great, 20% good, 10% retry
+    const r = Math.random();
+    const band: "great" | "good" | "retry" = r < 0.7 ? "great" : r < 0.9 ? "good" : "retry";
+    const score = band === "great" ? 92 : band === "good" ? 78 : 55;
+    setAnswers((a) => ({
+      ...a,
+      [q.id]: { record: { scorable: true, score, band } },
+    }));
   };
 
   const playAudio = (q: Question) => {
@@ -389,7 +393,8 @@ function WordieTestPage() {
               audioPlaying={audioPlaying}
               recordingId={recordingId}
               onPlay={playAudio}
-              onRecord={recordAnswer}
+              onRecordStart={startRecording}
+              onRecordStop={stopRecording}
               onPick={pickChoice}
               onPrev={goPrev}
               onNext={goNext}
@@ -512,7 +517,8 @@ function QuizView({
   audioPlaying,
   recordingId,
   onPlay,
-  onRecord,
+  onRecordStart,
+  onRecordStop,
   onPick,
   onPrev,
   onNext,
@@ -526,7 +532,8 @@ function QuizView({
   audioPlaying: string | null;
   recordingId: string | null;
   onPlay: (q: Question) => void;
-  onRecord: (q: Question) => void;
+  onRecordStart: (q: Question) => void;
+  onRecordStop: (q: Question) => void;
   onPick: (q: Question, choiceId: string) => void;
   onPrev: () => void;
   onNext: () => void;
@@ -567,7 +574,7 @@ function QuizView({
           >
             {meta.label}
           </h2>
-          <span className="text-[11px] font-bold uppercase tracking-wide rounded-full bg-white/22 px-2 py-0.5">
+          <span className="text-[11px] font-bold rounded-full bg-white/22 px-2 py-0.5">
             {meta.points} Pt
           </span>
         </div>
@@ -585,7 +592,8 @@ function QuizView({
             audioPlaying={audioPlaying === q.id}
             recording={recordingId === q.id}
             onPlay={() => onPlay(q)}
-            onRecord={() => onRecord(q)}
+              onRecordStart={() => onRecordStart(q)}
+              onRecordStop={() => onRecordStop(q)}
             onPick={(cid) => onPick(q, cid)}
           />
         ))}
@@ -624,7 +632,8 @@ function QuestionCard({
   audioPlaying,
   recording,
   onPlay,
-  onRecord,
+  onRecordStart,
+  onRecordStop,
   onPick,
 }: {
   q: Question;
@@ -633,7 +642,8 @@ function QuestionCard({
   audioPlaying: boolean;
   recording: boolean;
   onPlay: () => void;
-  onRecord: () => void;
+  onRecordStart: () => void;
+  onRecordStop: () => void;
   onPick: (choiceId: string) => void;
 }) {
   const singleCol = shouldSingleColumn(q.stage, q.choices);
@@ -657,10 +667,10 @@ function QuestionCard({
             type="button"
             onClick={onPlay}
             aria-label={audioPlaying ? "Playing" : "Play audio"}
-            className="h-9 w-9 grid place-items-center rounded-full text-white active:scale-95 shadow"
+            className="h-8 w-8 grid place-items-center rounded-full text-white active:scale-95 shadow"
             style={{ background: "var(--wordie)" }}
           >
-            <Volume2 className="h-4 w-4" />
+            <Volume2 className="h-3.5 w-3.5" />
           </button>
         )}
 
@@ -695,13 +705,17 @@ function QuestionCard({
         <div className="mt-4 flex flex-col items-center gap-2">
           <button
             type="button"
-            onClick={onRecord}
-            className="h-16 w-16 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+            onPointerDown={onRecordStart}
+            onPointerUp={onRecordStop}
+            onPointerLeave={onRecordStop}
+            onPointerCancel={onRecordStop}
+            onContextMenu={(event) => event.preventDefault()}
+            className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform touch-none"
             style={{
               background: recording ? "var(--wordie-accent)" : "var(--wordie)",
             }}
           >
-            <Mic className="h-7 w-7" />
+            <Mic className="h-6 w-6" />
           </button>
           <p className="text-[12px] font-bold text-muted-foreground">
             {recording
@@ -765,20 +779,15 @@ function ResultView({
   bp: number;
   onReview: (id: string) => void;
 }) {
-  const isHigh = score >= 70;
   return (
     <div>
       <section
         className="relative rounded-[28px] p-5 text-white text-center overflow-hidden"
-        style={{
-          background: isHigh
-            ? "linear-gradient(140deg, var(--bloxia) 0%, oklch(0.55 0.20 145) 60%, oklch(0.42 0.16 150) 100%)"
-            : "linear-gradient(140deg, var(--wordie-accent) 0%, oklch(0.70 0.18 50) 100%)",
-        }}
+        style={{ background: "var(--wordie)" }}
       >
         <div className="flex items-center justify-center gap-2 flex-wrap">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold"
             style={{ color: "var(--wordie-accent)" }}
           >
             <Trophy className="h-3.5 w-3.5" /> Test Completed!
@@ -786,16 +795,22 @@ function ResultView({
         </div>
         <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
-            style={{ color: "var(--wordie-accent)" }}
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+            style={{
+              background: "color-mix(in oklab, var(--wordie) 14%, white)",
+              color: "var(--wordie)",
+            }}
           >
-            <Clock className="h-3.5 w-3.5" /> Test Time {timeText}
+            Test Time {timeText}
           </span>
           <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
-            style={{ color: "var(--bloxia)" }}
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+            style={{
+              background: "color-mix(in oklab, var(--bloxia) 14%, white)",
+              color: "var(--bloxia)",
+            }}
           >
-            <Sparkles className="h-3.5 w-3.5" /> +{bp} Bp
+            +{bp} Bp
           </span>
         </div>
         <p className="mt-3 text-[13px] font-bold opacity-95">Your Wordie Test Score</p>
@@ -860,7 +875,7 @@ function ResultView({
                       <span className="flex-1 text-[13px] font-bold">{r.q.word}</span>
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: r.correct ? "var(--wordie-accent)" : "var(--wordie)" }}
+                        style={{ background: r.correct ? "var(--wordie)" : "var(--wordie-accent)" }}
                       >
                         {r.correct ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
                       </span>
