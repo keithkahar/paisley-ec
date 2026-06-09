@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
+import { ProgressBar } from "@/components/app/WordieKit";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronLeft,
@@ -7,7 +8,6 @@ import {
   Mic,
   Check,
   X,
-  Trophy,
   Clock,
   Lock,
   ChevronRight,
@@ -785,15 +785,27 @@ function ResultView({
         className="relative rounded-[28px] p-5 text-white text-center overflow-hidden"
         style={{ background: "var(--wordie)" }}
       >
-        <div className="flex items-center justify-center gap-2 flex-wrap">
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11px] font-bold"
-            style={{ color: "var(--wordie-accent)" }}
+        <div>
+          <h2
+            className="text-center text-[22px] font-bold leading-none"
+            style={{
+              fontFamily: "var(--font-sans)",
+              letterSpacing: "-0.01em",
+              color: "var(--wordie-accent)",
+            }}
           >
-            <Trophy className="h-3.5 w-3.5" /> Test Completed!
-          </span>
+            Test Completed!
+          </h2>
+          <div className="mt-2">
+            <ProgressBar
+              value={100}
+              color="var(--wordie-accent)"
+              track="rgba(255,255,255,0.22)"
+              height={4}
+            />
+          </div>
         </div>
-        <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
+        <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
             style={{
@@ -955,14 +967,14 @@ function ReviewOverlay({
                   className="rounded-2xl border px-3 py-2.5 text-[13px] font-bold flex items-center justify-between"
                   style={{
                     background: isRight
-                      ? "color-mix(in oklab, var(--wordie-accent) 12%, white)"
-                      : isMine
                       ? "color-mix(in oklab, var(--wordie) 10%, white)"
+                      : isMine
+                      ? "color-mix(in oklab, var(--wordie-accent) 12%, white)"
                       : "white",
                     borderColor: isRight
-                      ? "var(--wordie-accent)"
-                      : isMine
                       ? "var(--wordie)"
+                      : isMine
+                      ? "var(--wordie-accent)"
                       : "var(--border)",
                   }}
                 >
@@ -971,7 +983,7 @@ function ReviewOverlay({
                     {isRight && (
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: "var(--wordie-accent)" }}
+                        style={{ background: "var(--wordie)" }}
                       >
                         <Check className="h-3.5 w-3.5" />
                       </span>
@@ -979,7 +991,7 @@ function ReviewOverlay({
                     {isMine && !isRight && (
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
-                        style={{ background: "var(--wordie)" }}
+                        style={{ background: "var(--wordie-accent)" }}
                       >
                         <X className="h-3.5 w-3.5" />
                       </span>
