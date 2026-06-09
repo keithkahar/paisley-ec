@@ -192,8 +192,11 @@ function fmtTime(sec: number) {
 type Mode = "locked" | "info" | "quiz" | "result";
 type Answer = { choiceId?: string; record?: { scorable: boolean; score: number; band: "great" | "good" | "retry" } };
 
+// Toggle to preview the locked state in the prototype.
+const START_LOCKED = false;
+
 function WordieTestPage() {
-  const [mode, setMode] = useState<Mode>("info");
+  const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
   const [stageIdx, setStageIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [seconds, setSeconds] = useState(0);
@@ -369,31 +372,6 @@ function WordieTestPage() {
             Wordie Test
           </h1>
         )}
-
-        {/* Prototype state switcher */}
-        <div className="px-5 pt-3">
-          <div className="flex gap-1 rounded-full bg-white border border-border p-1 text-[11px] font-bold">
-            {(["locked", "info", "quiz", "result"] as Mode[]).map((s) => (
-              <button
-                key={s}
-                onClick={() => {
-                  if (s === "quiz") {
-                    setStageIdx(0);
-                  }
-                  setMode(s);
-                }}
-                className="flex-1 rounded-full py-1.5 capitalize"
-                style={
-                  mode === s
-                    ? { background: "var(--wordie)", color: "white" }
-                    : { color: "var(--muted-foreground)" }
-                }
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* Body */}
         <div className="px-5 pt-4 pb-10">
