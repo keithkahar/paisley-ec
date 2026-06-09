@@ -171,8 +171,7 @@ type Note = {
   isFocus?: boolean;
 };
 
-const NOTES_KEY = "pec_my_notes_v2";
-const SOURCE_DROPDOWN_KEY = "pec_my_notes_v3"; // bump to refresh seed
+const NOTES_KEY = "pec_my_notes_v3";
 const FOCUS_KEY = "pec_user_words_focus_v1";
 
 function loadNotes(): Note[] {
@@ -215,6 +214,7 @@ function WordieXPage() {
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
   const [sourceFilter, setSourceFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [showSourceMenu, setShowSourceMenu] = useState(false);
 
   // Load notes on mount
   useEffect(() => {
@@ -287,7 +287,11 @@ function WordieXPage() {
   function addWordToWordieX() {
     const word = normalizedWord;
     const def = definition.trim();
-    if (!word || !def) { setToast("Add word and definition"); return; }
+    if (!word || !def) { setToast("Add word and example"); return; }
+    if (BANK_WORDS.has(word.toLowerCase())) {
+      setToast("Already in Wordie Bank");
+      return;
+    }
     const targetWordId = `wordie_x_${word.toLowerCase()}`;
     const existing = notes.find((n) => n.targetWordId === targetWordId);
     const now = Date.now();
@@ -300,7 +304,7 @@ function WordieXPage() {
       partOfSpeech: PART_OF_SPEECH_OPTIONS[posIndex],
       cefrLevel: cefr,
       pronunciation: pronunciation || `/${word}/`,
-      source: "iMade",
+      source: "iAdded",
       targetWordId,
       status: "saved",
       createdAt: existing?.createdAt || now,
