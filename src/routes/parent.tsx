@@ -12,7 +12,7 @@ export const Route = createFileRoute("/parent")({
 type Cell = { label: string; value: string; unit: string };
 type RingCell = Cell & { pct: number };
 type SeriesLayout = {
-  weekly: { hero: Cell; sides: Cell[] };
+  weekly: { topExtra?: Cell; hero: Cell; sides: Cell[] };
   status?: Cell[];
   misc: Cell[];
   ring: RingCell;
@@ -36,6 +36,7 @@ const TALK_DATA: SeriesLayout = {
 
 const WORDIE_DATA: SeriesLayout = {
   weekly: {
+    topExtra: { label: "连续练习", value: "8", unit: "天" },
     hero: { label: "本周练习时长", value: "18", unit: "min" },
     sides: [
       { label: "本周练习卡片", value: "42", unit: "张" },
@@ -49,7 +50,6 @@ const WORDIE_DATA: SeriesLayout = {
     { label: "新词", value: "14", unit: "词" },
   ],
   misc: [
-    { label: "连续练习", value: "8", unit: "天" },
     { label: "Wordie-X 收录", value: "26", unit: "词" },
   ],
   ring: { label: "Wordie Test 平均分", value: "86", unit: "%", pct: 86 },
@@ -175,6 +175,25 @@ function ParentPage() {
             >
               {/* Left column — 3 weekly cards stacked */}
               <div className="flex flex-col gap-2.5">
+                {/* Optional topExtra (e.g. 连续练习) */}
+                {data.weekly.topExtra && (
+                  <div
+                    className="flex-1 rounded-2xl p-3 flex flex-col justify-between min-h-[72px]"
+                    style={{ background: tint(10), border: `1px solid ${tint(20)}` }}
+                  >
+                    <span className="text-[11px] font-bold leading-tight" style={{ color: tint(70) }}>
+                      {data.weekly.topExtra.label}
+                    </span>
+                    <div className="flex items-baseline">
+                      <span className="text-[22px] font-bold leading-none" style={{ color: accent }}>
+                        {data.weekly.topExtra.value}
+                      </span>
+                      <span className="text-[11px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                        {data.weekly.topExtra.unit}
+                      </span>
+                    </div>
+                  </div>
+                )}
                 {/* Hero */}
                 <div
                   className="flex-1 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[96px]"
