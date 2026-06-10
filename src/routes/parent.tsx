@@ -562,11 +562,11 @@ function VocabFunnel({
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
-  const SIZE = 132;
-  const STROKE = 11;
+  const SIZE = 140;
+  const STROKE = 14;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
-  const GAP = 10; // px gap between arcs (rounded caps need room)
+  const GAP = 12;
   const shades = [22, 42, 62, 95];
   let acc = 0;
   const arcs = stages.map((s, i) => {
@@ -583,18 +583,17 @@ function VocabFunnel({
       </p>
 
       <div className="mt-3 flex items-center gap-4">
-        {/* Left: refined 4-segment donut, My-Progress style */}
-        <div className="relative shrink-0" style={{ width: SIZE, height: SIZE }}>
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
-            {/* base track */}
-            <circle
-              cx={SIZE / 2}
-              cy={SIZE / 2}
-              r={R}
-              fill="none"
-              stroke="oklch(0.95 0.01 240)"
-              strokeWidth={STROKE}
-            />
+        {/* Left: refined 4-segment donut */}
+        <div
+          className="relative shrink-0 grid place-items-center"
+          style={{
+            width: SIZE,
+            height: SIZE,
+            background: `radial-gradient(closest-side, ${tint(8)} 0%, transparent 72%)`,
+            borderRadius: "9999px",
+          }}
+        >
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
             <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
               {arcs.map((a, i) => (
                 <circle
@@ -612,15 +611,15 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center leading-none">
+          <div className="relative flex items-baseline gap-1 leading-none">
             <span
-              className="text-[30px] font-bold tracking-tight"
-              style={{ color: accent, letterSpacing: "-0.02em" }}
+              className="text-[34px] font-bold tracking-tight"
+              style={{ color: accent, letterSpacing: "-0.03em" }}
             >
               {total}
             </span>
             <span
-              className="text-[10px] font-bold mt-1.5"
+              className="text-[13px] font-bold"
               style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
             >
               词
@@ -636,24 +635,21 @@ function VocabFunnel({
               <div key={i}>
                 <div className="flex items-baseline justify-between text-[11px] font-bold">
                   <span style={{ color: tint(shades[i] < 50 ? 80 : shades[i]) }}>{s.label}</span>
-                  <span style={{ color: "var(--foreground)" }}>{s.value}</span>
-                </div>
-                <div className="mt-1 flex items-center gap-1.5">
-                  <div
-                    className="flex-1 h-1.5 rounded-full overflow-hidden"
-                    style={{ background: "oklch(0.95 0.01 240)" }}
-                  >
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: `${pct}%`, background: tint(shades[i]) }}
-                    />
-                  </div>
-                  <span
-                    className="text-[10px] font-bold leading-none tabular-nums shrink-0 w-7 text-right"
-                    style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-                  >
-                    {pct}%
+                  <span className="flex items-baseline gap-1.5 tabular-nums">
+                    <span style={{ color: "var(--foreground)" }}>{s.value}</span>
+                    <span style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+                      {pct}%
+                    </span>
                   </span>
+                </div>
+                <div
+                  className="mt-1 h-1.5 rounded-full overflow-hidden"
+                  style={{ background: "oklch(0.95 0.01 240)" }}
+                >
+                  <div
+                    className="h-full rounded-full"
+                    style={{ width: `${pct}%`, background: tint(shades[i]) }}
+                  />
                 </div>
               </div>
             );
