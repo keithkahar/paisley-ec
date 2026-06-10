@@ -660,18 +660,16 @@ function StatCard({
   label,
   value,
   unit,
-  span = 3,
 }: {
   accent: string;
   tint: (pct: number) => string;
   label: string;
   value: string;
   unit: string;
-  span?: number;
 }) {
   return (
     <div
-      className={`col-span-${span} rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[68px]`}
+      className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[68px]"
       style={{ background: tint(8), border: `1px solid ${tint(16)}` }}
     >
       <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
