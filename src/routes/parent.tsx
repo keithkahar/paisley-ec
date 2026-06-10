@@ -10,42 +10,49 @@ export const Route = createFileRoute("/parent")({
 
 // ---- Mock data (parent-specific mini cards, per spec §7/§8) ----
 type Cell = { label: string; value: string; unit: string };
-type BentoLayout = {
-  hero: Cell;
-  smallA: Cell;
-  smallB: Cell;
-  trend: Cell & { bars: number[] };
-  squareA: Cell;
-  squareB: Cell;
-  tall: Cell & { badge: string };
-  ring: Cell & { pct: number };
-  extra?: Cell[];
+type RingCell = Cell & { pct: number };
+type SeriesLayout = {
+  weekly: { hero: Cell; sides: Cell[] };
+  status?: Cell[];
+  misc: Cell[];
+  ring: RingCell;
 };
 
-const TALK_BENTO: BentoLayout = {
-  hero: { label: "本周对话时长", value: "37", unit: "min" },
-  smallA: { label: "对话轮次", value: "5", unit: "次" },
-  smallB: { label: "连续练习", value: "12", unit: "天" },
-  trend: { label: "本周发言轮次", value: "84", unit: "次", bars: [30, 50, 80, 40, 60] },
-  squareA: { label: "主动提问", value: "11", unit: "次" },
-  squareB: { label: "完整表达", value: "9", unit: "次" },
-  tall: { label: "本周对话用词", value: "186", unit: "词", badge: "Vocab Growth" },
-  ring: { label: "目标词使用", value: "14", unit: "次", pct: 70 },
-};
-
-const WORDIE_BENTO: BentoLayout = {
-  hero: { label: "本周练习时长", value: "18", unit: "min" },
-  smallA: { label: "练习卡片", value: "42", unit: "张" },
-  smallB: { label: "连续练习", value: "8", unit: "天" },
-  trend: { label: "myWordie Talk 用词", value: "23", unit: "次", bars: [20, 45, 70, 35, 55] },
-  squareA: { label: "已掌握", value: "166", unit: "词" },
-  squareB: { label: "复习", value: "38", unit: "词" },
-  tall: { label: "Wordie-X 收录", value: "26", unit: "词", badge: "Wordie-X" },
-  ring: { label: "Wordie Test 平均分", value: "86", unit: "%", pct: 86 },
-  extra: [
-    { label: "Learning 学习中", value: "42", unit: "词" },
-    { label: "New 新词", value: "14", unit: "词" },
+const TALK_DATA: SeriesLayout = {
+  weekly: {
+    hero: { label: "本周对话时长", value: "37", unit: "min" },
+    sides: [
+      { label: "本周发言轮次", value: "84", unit: "次" },
+      { label: "本周对话用词", value: "186", unit: "词" },
+    ],
+  },
+  misc: [
+    { label: "连续练习", value: "12", unit: "天" },
+    { label: "主动提问", value: "11", unit: "次" },
+    { label: "完整表达", value: "9", unit: "次" },
   ],
+  ring: { label: "目标词使用", value: "70", unit: "%", pct: 70 },
+};
+
+const WORDIE_DATA: SeriesLayout = {
+  weekly: {
+    hero: { label: "本周练习时长", value: "18", unit: "min" },
+    sides: [
+      { label: "本周练习卡片", value: "42", unit: "张" },
+      { label: "本周 myWordie Talk 用词", value: "23", unit: "次" },
+    ],
+  },
+  status: [
+    { label: "已掌握", value: "166", unit: "词" },
+    { label: "复习", value: "38", unit: "词" },
+    { label: "学习中", value: "42", unit: "词" },
+    { label: "新词", value: "14", unit: "词" },
+  ],
+  misc: [
+    { label: "连续练习", value: "8", unit: "天" },
+    { label: "Wordie-X 收录", value: "26", unit: "词" },
+  ],
+  ring: { label: "Wordie Test 平均分", value: "86", unit: "%", pct: 86 },
 };
 
 const VOICE_OPTIONS = [
@@ -101,7 +108,7 @@ function ParentPage() {
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
 
-  const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
+  const data = tab === "talk" ? TALK_DATA : WORDIE_DATA;
   const accent = tab === "talk" ? SHIRIN : WORDIE;
   const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
 
