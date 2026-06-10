@@ -175,6 +175,25 @@ function ParentPage() {
             >
               {/* Left column — 3 weekly cards stacked */}
               <div className="flex flex-col gap-2.5">
+                {/* Optional topExtra (e.g. 连续练习) */}
+                {data.weekly.topExtra && (
+                  <div
+                    className="flex-1 rounded-2xl p-3 flex flex-col justify-between min-h-[72px]"
+                    style={{ background: tint(10), border: `1px solid ${tint(20)}` }}
+                  >
+                    <span className="text-[11px] font-bold leading-tight" style={{ color: tint(70) }}>
+                      {data.weekly.topExtra.label}
+                    </span>
+                    <div className="flex items-baseline">
+                      <span className="text-[22px] font-bold leading-none" style={{ color: accent }}>
+                        {data.weekly.topExtra.value}
+                      </span>
+                      <span className="text-[11px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                        {data.weekly.topExtra.unit}
+                      </span>
+                    </div>
+                  </div>
+                )}
                 {/* Hero */}
                 <div
                   className="flex-1 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[96px]"
