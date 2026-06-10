@@ -277,7 +277,7 @@ function ParentPage() {
 
             {/* Tall (3×1) — Wordie-X / Vocab — slim horizontal */}
             <div
-              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[72px]"
+              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(6), border: `1.5px dashed ${tint(25)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
