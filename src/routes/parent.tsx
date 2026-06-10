@@ -557,8 +557,8 @@ function VocabFunnel({
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
-  const SIZE = 140;
-  const STROKE = 14;
+  const SIZE = 104;
+  const STROKE = 12;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
   const GAP = 0;
@@ -572,12 +572,12 @@ function VocabFunnel({
     return { drawLen, offset, color: tint(shades[i]) };
   });
   return (
-    <div className="col-span-6 rounded-3xl p-4 bg-white border border-[oklch(0.94_0.01_240)]">
-      <p className="text-[12px] font-bold" style={{ color: "var(--foreground)" }}>
+    <div className="col-span-6 rounded-2xl px-4 py-3 bg-white border border-[oklch(0.94_0.01_240)]">
+      <p className="text-[11px] font-bold" style={{ color: "var(--foreground)" }}>
         学习词库
       </p>
 
-      <div className="mt-3 flex items-center gap-4">
+      <div className="mt-2 flex items-center gap-4">
         {/* Left: refined 4-segment donut */}
         <div
           className="relative shrink-0 grid place-items-center"
@@ -606,15 +606,15 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex items-baseline gap-1 leading-none">
+          <div className="relative flex items-baseline gap-0.5 leading-none">
             <span
-              className="text-[26px] font-bold tracking-tight"
+              className="text-[22px] font-bold tracking-tight"
               style={{ color: accent, letterSpacing: "-0.03em" }}
             >
               {total}
             </span>
             <span
-              className="text-[11px] font-bold"
+              className="text-[10px] font-bold"
               style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
             >
               词
@@ -623,7 +623,7 @@ function VocabFunnel({
         </div>
 
         {/* Right: 4 progress rows */}
-        <div className="flex-1 min-w-0 space-y-2.5">
+        <div className="flex-1 min-w-0 space-y-1.5">
           {stages.map((s, i) => {
             const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
             return (
