@@ -37,7 +37,7 @@ const WORDIE_BENTO: BentoLayout = {
   hero: { label: "连续练习", value: "8", unit: "天" },
   smallA: { label: "本周练习卡片", value: "42", unit: "张" },
   smallB: { label: "本周练习时长", value: "18", unit: "min" },
-  trend: { label: "myWordie Talk 用词", value: "23", unit: "次", bars: [20, 45, 70, 35, 55] },
+  trend: { label: "本周 myWordie Talk 用词", value: "23", unit: "次", bars: [20, 45, 70, 35, 55] },
   squareA: { label: "已掌握", value: "166", unit: "词" },
   squareB: { label: "复习", value: "38", unit: "词" },
   tall: { label: "Wordie-X 收录", value: "26", unit: "词", badge: "Wordie-X" },
@@ -157,72 +157,66 @@ function ParentPage() {
         {/* Mini cards — Bento layout: hero / trend / ring / tall */}
         <section className="px-6 pt-4">
           <div className="grid grid-cols-6 gap-2.5">
-            {/* Hero (4×2) — primary time metric */}
+            {/* Top row: Hero (4×1, solid accent) + smallA (2×1, tint) */}
             <div
-              className="col-span-4 row-span-2 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[124px]"
+              className="col-span-4 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[100px]"
               style={{ background: accent, boxShadow: `0 10px 24px -12px ${accent}` }}
             >
               <span className="text-[11px] font-bold opacity-90">{bento.hero.label}</span>
               <div className="flex items-baseline">
-                <span className="text-[34px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
+                <span className="text-[30px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
                 <span className="ml-1 text-[12px] font-bold opacity-80">{bento.hero.unit}</span>
               </div>
               <div className="absolute -right-5 -bottom-5 w-24 h-24 rounded-full bg-white/15 blur-xl" />
             </div>
-
-            {/* Two small (2×1 each) */}
-            {[bento.smallA, bento.smallB].map((c, i) => (
-              <div
-                key={i}
-                className="col-span-2 row-span-1 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
-                style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-              >
-                <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
-                  {c.label}
+            <div
+              className="col-span-2 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
+              style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+            >
+              <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
+                {bento.smallA.label}
+              </span>
+              <div className="flex items-baseline">
+                <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                  {bento.smallA.value}
                 </span>
-                <div className="flex items-baseline">
-                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                    {c.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                    {c.unit}
-                  </span>
-                </div>
+                <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                  {bento.smallA.unit}
+                </span>
               </div>
-            ))}
+            </div>
 
-            {/* Trend row (6×1) — with mini bar spark */}
-            <div className="col-span-6 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] shadow-sm flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-xl grid place-items-center text-[11px] font-bold"
-                  style={{ background: tint(12), color: accent }}
-                >
-                  ⌁
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                    {bento.trend.label}
-                  </p>
-                  <p className="text-[16px] font-bold leading-tight" style={{ color: "var(--foreground)" }}>
-                    {bento.trend.value}{" "}
-                    <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                      {bento.trend.unit}
-                    </span>
-                  </p>
-                </div>
+            {/* Bottom row: trend (4×1, tint) + smallB (2×1, tint) */}
+            <div
+              className="col-span-4 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
+              style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+            >
+              <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
+                {bento.trend.label}
+              </span>
+              <div className="flex items-baseline">
+                <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                  {bento.trend.value}
+                </span>
+                <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                  {bento.trend.unit}
+                </span>
               </div>
-              <div className="h-9 w-20 flex items-end gap-1">
-                {bento.trend.bars.map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-t-sm"
-                    style={{
-                      height: `${h}%`,
-                      background: i === bento.trend.bars.length - 1 ? accent : tint(15 + i * 8),
-                    }}
-                  />
-                ))}
+            </div>
+            <div
+              className="col-span-2 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
+              style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+            >
+              <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
+                {bento.smallB.label}
+              </span>
+              <div className="flex items-baseline">
+                <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                  {bento.smallB.value}
+                </span>
+                <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                  {bento.smallB.unit}
+                </span>
               </div>
             </div>
 
