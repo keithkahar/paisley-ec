@@ -562,104 +562,186 @@ function VocabFunnel({
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Shade intensities map progression: 新词(lightest) → 已掌握(deepest)
-  const shades = [22, 38, 58, 95];
+  const shades = [22, 40, 60, 95];
+  const masteredPct = total > 0 ? Math.round((stages[stages.length - 1].value / total) * 100) : 0;
+
+  // Ring geometry for mastery %
+  const SIZE = 68;
+  const STROKE = 7;
+  const R = (SIZE - STROKE) / 2;
+  const C = 2 * Math.PI * R;
+
   return (
     <div
-      className="col-span-6 rounded-3xl p-4 bg-white border border-[oklch(0.94_0.01_240)]"
-      style={{ boxShadow: `0 8px 20px -16px ${accent}` }}
+      className="col-span-6 rounded-3xl p-4 bg-white border border-[oklch(0.94_0.01_240)] relative overflow-hidden"
+      style={{ boxShadow: `0 10px 24px -18px ${accent}` }}
     >
-      {/* Header */}
-      <div className="flex items-end justify-between mb-3">
-        <div>
+      {/* Soft accent wash */}
+      <div
+        aria-hidden
+        className="absolute -top-12 -right-12 h-32 w-32 rounded-full opacity-60 blur-2xl pointer-events-none"
+        style={{ background: tint(14) }}
+      />
+
+      {/* Header: title + mastery ring */}
+      <div className="relative flex items-start justify-between gap-3">
+        <div className="min-w-0">
           <p
-            className="text-[10px] font-bold uppercase tracking-wider"
+            className="text-[10px] font-bold uppercase tracking-[0.14em]"
             style={{ color: accent }}
           >
-            词汇成长
+            Learning Pool
           </p>
+          <div className="mt-1 flex items-baseline gap-1.5">
+            <span
+              className="text-[28px] font-bold leading-none tracking-tight"
+              style={{ color: "var(--foreground)" }}
+            >
+              {total}
+            </span>
+            <span
+              className="text-[12px] font-bold"
+              style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+            >
+              词 · 学习词库
+            </span>
+          </div>
           <p
-            className="text-[10px] font-bold mt-0.5"
-            style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+            className="mt-1 text-[10px] font-bold"
+            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
           >
             从新词到已掌握的旅程
           </p>
         </div>
-        <div className="flex items-baseline">
-          <span
-            className="text-[26px] font-bold leading-none tracking-tight"
-            style={{ color: "var(--foreground)" }}
-          >
-            {total}
-          </span>
-          <span
-            className="text-[11px] ml-1 font-bold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
-          >
-            词
-          </span>
+
+        {/* Mastery ring */}
+        <div className="relative shrink-0" style={{ width: SIZE, height: SIZE }}>
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
+            <circle
+              cx={SIZE / 2}
+              cy={SIZE / 2}
+              r={R}
+              fill="none"
+              stroke={tint(12)}
+              strokeWidth={STROKE}
+            />
+            <circle
+              cx={SIZE / 2}
+              cy={SIZE / 2}
+              r={R}
+              fill="none"
+              stroke={accent}
+              strokeWidth={STROKE}
+              strokeLinecap="round"
+              strokeDasharray={`${(C * masteredPct) / 100} ${C}`}
+              transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center leading-none">
+            <span className="text-[16px] font-bold tracking-tight" style={{ color: accent }}>
+              {masteredPct}%
+            </span>
+            <span
+              className="text-[8px] font-bold mt-0.5"
+              style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+            >
+              掌握率
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Stacked proportional bar */}
-      <div
-        className="flex h-3 w-full overflow-hidden rounded-full gap-[3px]"
-        style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)" }}
-      >
-        {stages.map((s, i) => {
-          const pct = total > 0 ? (s.value / total) * 100 : 0;
-          return (
-            <div
-              key={i}
-              className="h-full first:rounded-l-full last:rounded-r-full"
-              style={{ width: `${pct}%`, background: tint(shades[i]) }}
-            />
-          );
-        })}
+      {/* Stacked proportional bar with floating tick labels */}
+      <div className="relative mt-4">
+        <div
+          className="flex h-3.5 w-full overflow-hidden rounded-full gap-[3px]"
+          style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)" }}
+        >
+          {stages.map((s, i) => {
+            const pct = total > 0 ? (s.value / total) * 100 : 0;
+            return (
+              <div
+                key={i}
+                className="h-full first:rounded-l-full last:rounded-r-full"
+                style={{ width: `${pct}%`, background: tint(shades[i]) }}
+              />
+            );
+          })}
+        </div>
       </div>
 
-      {/* Stage chips — 4 colored entries showing the journey */}
-      <div className="mt-3.5 grid grid-cols-4 gap-2">
+      {/* Stage journey — 4 nodes with chevron connectors */}
+      <div className="mt-4 flex items-stretch gap-1.5">
         {stages.map((s, i) => {
           const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
           const isLast = i === stages.length - 1;
           return (
-            <div key={i} className="flex flex-col gap-1">
-              <div className="flex items-center gap-1">
-                <span
-                  className="h-1.5 w-1.5 rounded-full shrink-0"
-                  style={{ background: tint(shades[i]) }}
-                />
-                <span
-                  className="text-[10px] font-bold leading-none truncate"
-                  style={{
-                    color: isLast
-                      ? accent
-                      : "color-mix(in oklab, var(--foreground) 55%, white)",
-                  }}
-                >
-                  {s.label}
-                </span>
-              </div>
-              <div className="flex items-baseline">
-                <span
-                  className="text-[18px] font-bold leading-none tracking-tight"
-                  style={{ color: isLast ? accent : "var(--foreground)" }}
-                >
-                  {s.value}
-                </span>
-                <span
-                  className="text-[9px] ml-0.5 font-bold"
-                  style={{ color: "color-mix(in oklab, var(--foreground) 40%, white)" }}
-                >
-                  词
-                </span>
-              </div>
-              <span
-                className="text-[9px] font-bold leading-none"
-                style={{ color: "color-mix(in oklab, var(--foreground) 38%, white)" }}
+            <div key={i} className="flex flex-1 items-stretch gap-1.5 min-w-0">
+              <div
+                className="flex-1 min-w-0 rounded-2xl p-2.5 flex flex-col gap-1"
+                style={{
+                  background: isLast ? tint(18) : "color-mix(in oklab, var(--foreground) 3%, white)",
+                  border: `1px solid ${isLast ? tint(35) : "oklch(0.94 0.01 240)"}`,
+                }}
               >
-                {pct}%
-              </span>
+                <div className="flex items-center gap-1">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full shrink-0"
+                    style={{ background: tint(shades[i]) }}
+                  />
+                  <span
+                    className="text-[10px] font-bold leading-none truncate"
+                    style={{
+                      color: isLast
+                        ? accent
+                        : "color-mix(in oklab, var(--foreground) 60%, white)",
+                    }}
+                  >
+                    {s.label}
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-0.5">
+                  <span
+                    className="text-[20px] font-bold leading-none tracking-tight"
+                    style={{ color: isLast ? accent : "var(--foreground)" }}
+                  >
+                    {s.value}
+                  </span>
+                  <span
+                    className="text-[9px] font-bold"
+                    style={{ color: "color-mix(in oklab, var(--foreground) 40%, white)" }}
+                  >
+                    词
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span
+                    className="text-[9px] font-bold leading-none"
+                    style={{ color: "color-mix(in oklab, var(--foreground) 40%, white)" }}
+                  >
+                    {pct}%
+                  </span>
+                  {/* per-stage micro bar */}
+                  <span
+                    className="ml-1.5 h-1 flex-1 rounded-full overflow-hidden"
+                    style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)" }}
+                  >
+                    <span
+                      className="block h-full rounded-full"
+                      style={{ width: `${pct}%`, background: tint(shades[i]) }}
+                    />
+                  </span>
+                </div>
+              </div>
+              {!isLast && (
+                <div
+                  className="flex items-center text-[12px] font-bold shrink-0"
+                  style={{ color: "color-mix(in oklab, var(--foreground) 25%, white)" }}
+                  aria-hidden
+                >
+                  ›
+                </div>
+              )}
             </div>
           );
         })}
