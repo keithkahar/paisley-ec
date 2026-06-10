@@ -161,7 +161,6 @@ function ParentPage() {
             {tab === "wordie" ? (
               <StreakRingCard
                 accent={accent}
-                tint={tint}
                 value={Number(bento.hero.value)}
                 unit={bento.hero.unit}
                 label={bento.hero.label}
@@ -235,7 +234,7 @@ function ParentPage() {
               </div>
             </div>
             {tab === "wordie" && (
-              <RingCard accent={accent} tint={tint} ring={bento.ring} />
+              <RingCard accent={accent} ring={bento.ring} />
             )}
             {tab === "talk" && (
               <div
