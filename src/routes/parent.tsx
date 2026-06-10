@@ -597,7 +597,6 @@ function WordieBento({
           label={bento.trend.label}
           value={bento.trend.value}
           unit={bento.trend.unit}
-          span={3}
         />
         <div
           className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 text-white relative overflow-hidden"
