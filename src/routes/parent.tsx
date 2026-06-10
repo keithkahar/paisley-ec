@@ -544,6 +544,20 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
+function SeriesHeader({ title, accent }: { title: string; accent: string }) {
+  return (
+    <div className="flex items-center gap-2 mb-2 px-1">
+      <span className="w-1 h-3 rounded-full" style={{ background: accent }} />
+      <p
+        className="text-[11px] font-bold uppercase tracking-[0.08em]"
+        style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+      >
+        {title}
+      </p>
+    </div>
+  );
+}
+
 function Collapsible({
   open,
   onToggle,
