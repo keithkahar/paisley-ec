@@ -34,9 +34,9 @@ const TALK_BENTO: BentoLayout = {
 };
 
 const WORDIE_BENTO: BentoLayout = {
-  hero: { label: "本周练习时长", value: "18", unit: "min" },
-  smallA: { label: "练习卡片", value: "42", unit: "张" },
-  smallB: { label: "连续练习", value: "8", unit: "天" },
+  hero: { label: "连续练习", value: "8", unit: "天" },
+  smallA: { label: "本周练习卡片", value: "42", unit: "张" },
+  smallB: { label: "本周练习时长", value: "18", unit: "min" },
   trend: { label: "myWordie Talk 用词", value: "23", unit: "次", bars: [20, 45, 70, 35, 55] },
   squareA: { label: "已掌握", value: "166", unit: "词" },
   squareB: { label: "复习", value: "38", unit: "词" },
