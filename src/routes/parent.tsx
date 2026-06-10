@@ -12,7 +12,7 @@ export const Route = createFileRoute("/parent")({
 type Cell = { label: string; value: string; unit: string };
 type RingCell = Cell & { pct: number };
 type SeriesLayout = {
-  weekly: { hero: Cell; sides: Cell[] };
+  weekly: { topExtra?: Cell; hero: Cell; sides: Cell[] };
   status?: Cell[];
   misc: Cell[];
   ring: RingCell;
@@ -36,6 +36,7 @@ const TALK_DATA: SeriesLayout = {
 
 const WORDIE_DATA: SeriesLayout = {
   weekly: {
+    topExtra: { label: "连续练习", value: "8", unit: "天" },
     hero: { label: "本周练习时长", value: "18", unit: "min" },
     sides: [
       { label: "本周练习卡片", value: "42", unit: "张" },
@@ -49,7 +50,6 @@ const WORDIE_DATA: SeriesLayout = {
     { label: "新词", value: "14", unit: "词" },
   ],
   misc: [
-    { label: "连续练习", value: "8", unit: "天" },
     { label: "Wordie-X 收录", value: "26", unit: "词" },
   ],
   ring: { label: "Wordie Test 平均分", value: "86", unit: "%", pct: 86 },
