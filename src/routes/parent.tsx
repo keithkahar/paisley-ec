@@ -157,23 +157,23 @@ function ParentPage() {
         {/* Mini cards — Bento layout: hero / trend / ring / tall */}
         <section className="px-6 pt-4">
           <div className="grid grid-cols-6 gap-2.5">
-            {/* Top row: Hero (4×1, solid accent) + smallA (2×1, tint) */}
+            {/* Top row: Hero (4×1 solid accent) + smallA (2×1 tint) — uniform compact height */}
             <div
-              className="col-span-4 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[100px]"
-              style={{ background: accent, boxShadow: `0 10px 24px -12px ${accent}` }}
+              className="col-span-4 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[64px]"
+              style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
             >
-              <span className="text-[11px] font-bold opacity-90">{bento.hero.label}</span>
+              <span className="text-[10px] font-bold opacity-90">{bento.hero.label}</span>
               <div className="flex items-baseline">
-                <span className="text-[30px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
-                <span className="ml-1 text-[12px] font-bold opacity-80">{bento.hero.unit}</span>
+                <span className="text-[22px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
+                <span className="ml-1 text-[11px] font-bold opacity-80">{bento.hero.unit}</span>
               </div>
-              <div className="absolute -right-5 -bottom-5 w-24 h-24 rounded-full bg-white/15 blur-xl" />
+              <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-white/15 blur-xl" />
             </div>
             <div
-              className="col-span-2 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
+              className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[64px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
-              <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
+              <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
                 {bento.smallA.label}
               </span>
               <div className="flex items-baseline">
@@ -186,12 +186,12 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Bottom row: trend (4×1, tint) + smallB (2×1, tint) */}
+            {/* Bottom row: trend (4×1 tint) + smallB (2×1 tint) — same compact height */}
             <div
-              className="col-span-4 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
+              className="col-span-4 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
-              <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
+              <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
                 {bento.trend.label}
               </span>
               <div className="flex items-baseline">
@@ -204,10 +204,10 @@ function ParentPage() {
               </div>
             </div>
             <div
-              className="col-span-2 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
+              className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[64px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
-              <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
+              <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
                 {bento.smallB.label}
               </span>
               <div className="flex items-baseline">
@@ -253,57 +253,58 @@ function ParentPage() {
               ))
             )}
 
-            {/* Tall (4×2) — vocab growth */}
+            {/* Tall (3×1) — Wordie-X / Vocab — slim horizontal */}
             <div
-              className="col-span-4 row-span-2 rounded-3xl p-4 flex flex-col justify-between min-h-[124px]"
-              style={{ background: tint(6), border: `2px dashed ${tint(25)}` }}
+              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[72px]"
+              style={{ background: tint(6), border: `1.5px dashed ${tint(25)}` }}
             >
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accent }} />
-                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: accent }}>
-                  {bento.tall.badge}
+              <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                {bento.tall.label}
+              </span>
+              <div className="flex items-baseline">
+                <span className="text-[24px] font-bold tracking-tight leading-none" style={{ color: "var(--foreground)" }}>
+                  {bento.tall.value}
                 </span>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold mb-1" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                  {bento.tall.label}
-                </p>
-                <div className="flex items-baseline">
-                  <span className="text-[34px] font-bold tracking-tight leading-none" style={{ color: "var(--foreground)" }}>
-                    {bento.tall.value}
-                  </span>
-                  <span className="text-[12px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                    {bento.tall.unit}
-                  </span>
-                </div>
+                <span className="text-[11px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
+                  {bento.tall.unit}
+                </span>
               </div>
             </div>
 
-            {/* Ring (2×2) — target / average */}
+            {/* Ring (3×1) — label on left, gauge on right, horizontal */}
             <div
-              className="col-span-2 row-span-2 rounded-2xl p-3 flex flex-col items-center justify-center text-center"
+              className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[72px]"
               style={{ background: tint(10) }}
             >
-              <span className="text-[10px] font-bold mb-1.5" style={{ color: accent }}>
-                {bento.ring.label}
-              </span>
-              <div className="relative w-14 h-14 grid place-items-center">
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold leading-tight" style={{ color: accent }}>
+                  {bento.ring.label}
+                </p>
+                <div className="mt-1 flex items-baseline">
+                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                    {bento.ring.value}
+                  </span>
+                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: accent }}>
+                    {bento.ring.unit}
+                  </span>
+                </div>
+              </div>
+              <div className="relative w-12 h-12 grid place-items-center shrink-0">
                 <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-                  <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="5" fill="none" />
+                  <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="6" fill="none" />
                   <circle
                     cx="28"
                     cy="28"
                     r="24"
                     stroke={accent}
-                    strokeWidth="5"
+                    strokeWidth="6"
                     fill="none"
                     strokeLinecap="round"
                     strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
                   />
                 </svg>
-                <span className="text-[15px] font-bold relative" style={{ color: accent }}>
-                  {bento.ring.value}
-                  <span className="text-[9px] ml-0.5">{bento.ring.unit}</span>
+                <span className="text-[11px] font-bold relative tabular-nums" style={{ color: accent }}>
+                  {bento.ring.pct}%
                 </span>
               </div>
             </div>
