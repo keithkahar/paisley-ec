@@ -161,172 +161,144 @@ function ParentPage() {
           </div>
         </section>
 
-        {/* Mini cards — Bento layout: hero / trend / ring / tall */}
-        <section className="px-6 pt-4">
-          <div className="grid grid-cols-6 gap-2.5">
-            {/* Hero (4×2) — primary time metric */}
-            <div
-              className="col-span-4 row-span-2 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[124px]"
-              style={{ background: accent, boxShadow: `0 10px 24px -12px ${accent}` }}
-            >
-              <span className="text-[11px] font-bold opacity-90">{bento.hero.label}</span>
-              <div className="flex items-baseline">
-                <span className="text-[34px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
-                <span className="ml-1 text-[12px] font-bold opacity-80">{bento.hero.unit}</span>
-              </div>
-              <div className="absolute -right-5 -bottom-5 w-24 h-24 rounded-full bg-white/15 blur-xl" />
-            </div>
-
-            {/* Two small (2×1 each) */}
-            {[bento.smallA, bento.smallB].map((c, i) => (
+        {/* Mini cards — grouped: weekly series · status (wordie) · highlights */}
+        <section className="px-6 pt-4 space-y-4">
+          {/* 本周系列 — hero + 2 sides，同区同样式 */}
+          <div>
+            <SeriesHeader title="本周数据" accent={accent} />
+            <div className="grid grid-cols-3 gap-2.5">
+              {/* Hero (2/3) */}
               <div
-                key={i}
-                className="col-span-2 row-span-1 rounded-2xl p-3 flex flex-col justify-center min-h-[58px]"
-                style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+                className="col-span-2 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[132px]"
+                style={{ background: accent, boxShadow: `0 10px 24px -12px ${accent}` }}
               >
-                <span className="text-[10px] font-bold mb-1" style={{ color: tint(70) }}>
-                  {c.label}
-                </span>
+                <span className="text-[11px] font-bold opacity-90">{data.weekly.hero.label}</span>
                 <div className="flex items-baseline">
-                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                    {c.value}
+                  <span className="text-[38px] font-bold tracking-tight leading-none">
+                    {data.weekly.hero.value}
                   </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                    {c.unit}
+                  <span className="ml-1 text-[13px] font-bold opacity-80">
+                    {data.weekly.hero.unit}
                   </span>
                 </div>
+                <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/15 blur-xl" />
               </div>
-            ))}
-
-            {/* Trend row (6×1) — with mini bar spark */}
-            <div className="col-span-6 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] shadow-sm flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-xl grid place-items-center text-[11px] font-bold"
-                  style={{ background: tint(12), color: accent }}
-                >
-                  ⌁
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                    {bento.trend.label}
-                  </p>
-                  <p className="text-[16px] font-bold leading-tight" style={{ color: "var(--foreground)" }}>
-                    {bento.trend.value}{" "}
-                    <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                      {bento.trend.unit}
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="h-9 w-20 flex items-end gap-1">
-                {bento.trend.bars.map((h, i) => (
+              {/* Sides (1/3 stacked) */}
+              <div className="col-span-1 flex flex-col gap-2.5">
+                {data.weekly.sides.map((c, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-t-sm"
-                    style={{
-                      height: `${h}%`,
-                      background: i === bento.trend.bars.length - 1 ? accent : tint(15 + i * 8),
-                    }}
-                  />
+                    className="flex-1 rounded-2xl p-3 flex flex-col justify-center"
+                    style={{ background: tint(10), border: `1px solid ${tint(20)}` }}
+                  >
+                    <span className="text-[10px] font-bold leading-tight" style={{ color: tint(70) }}>
+                      {c.label}
+                    </span>
+                    <div className="flex items-baseline mt-1">
+                      <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                        {c.value}
+                      </span>
+                      <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                        {c.unit}
+                      </span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Two squares (3×1 each) */}
-            {[bento.squareA, bento.squareB].map((c, i) => (
-              <div
-                key={i}
-                className="col-span-3 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
-              >
-                <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                  {c.label}
-                </span>
-                <div className="flex items-baseline">
-                  <span className="text-[22px] font-bold leading-none" style={{ color: "var(--foreground)" }}>
-                    {c.value}
-                  </span>
-                  <span className="text-[11px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                    {c.unit}
-                  </span>
-                </div>
-              </div>
-            ))}
-
-            {/* Tall (4×2) — vocab growth */}
-            <div
-              className="col-span-4 row-span-2 rounded-3xl p-4 flex flex-col justify-between min-h-[124px]"
-              style={{ background: tint(6), border: `2px dashed ${tint(25)}` }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accent }} />
-                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: accent }}>
-                  {bento.tall.badge}
-                </span>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold mb-1" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                  {bento.tall.label}
-                </p>
-                <div className="flex items-baseline">
-                  <span className="text-[34px] font-bold tracking-tight leading-none" style={{ color: "var(--foreground)" }}>
-                    {bento.tall.value}
-                  </span>
-                  <span className="text-[12px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                    {bento.tall.unit}
-                  </span>
-                </div>
+          {/* 单词状态系列 — 仅 wordie，2×2 同样式 */}
+          {data.status && (
+            <div>
+              <SeriesHeader title="单词状态" accent={accent} />
+              <div className="grid grid-cols-2 gap-2.5">
+                {data.status.map((c, i) => (
+                  <div
+                    key={i}
+                    className="rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[78px]"
+                  >
+                    <span
+                      className="text-[11px] font-bold"
+                      style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+                    >
+                      {c.label}
+                    </span>
+                    <div className="flex items-baseline">
+                      <span
+                        className="text-[26px] font-bold leading-none tracking-tight"
+                        style={{ color: "var(--foreground)" }}
+                      >
+                        {c.value}
+                      </span>
+                      <span
+                        className="text-[11px] ml-1 font-bold"
+                        style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                      >
+                        {c.unit}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
+          )}
 
-            {/* Ring (2×2) — target / average */}
-            <div
-              className="col-span-2 row-span-2 rounded-2xl p-3 flex flex-col items-center justify-center text-center"
-              style={{ background: tint(10) }}
-            >
-              <span className="text-[10px] font-bold mb-1.5" style={{ color: accent }}>
-                {bento.ring.label}
-              </span>
-              <div className="relative w-14 h-14 grid place-items-center">
-                <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-                  <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="5" fill="none" />
-                  <circle
-                    cx="28"
-                    cy="28"
-                    r="24"
-                    stroke={accent}
-                    strokeWidth="5"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
-                  />
-                </svg>
-                <span className="text-[15px] font-bold relative" style={{ color: accent }}>
-                  {bento.ring.value}
-                  <span className="text-[9px] ml-0.5">{bento.ring.unit}</span>
-                </span>
-              </div>
-            </div>
-
-            {/* Extra row (wordie only) */}
-            {bento.extra?.map((c, i) => (
+          {/* 亮点 / 其他 — ring 卡（满意的样式）+ 分散 misc */}
+          <div>
+            <SeriesHeader title="亮点" accent={accent} />
+            <div className="grid grid-cols-2 gap-2.5">
+              {/* Ring card — favorite style */}
               <div
-                key={i}
-                className="col-span-3 rounded-2xl p-3 bg-white border border-[oklch(0.94_0.01_240)] flex items-center justify-between"
+                className="row-span-2 rounded-2xl p-4 flex flex-col items-center justify-center text-center min-h-[164px]"
+                style={{ background: tint(12) }}
               >
-                <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                  {c.label}
+                <span className="text-[11px] font-bold mb-3" style={{ color: accent }}>
+                  {data.ring.label}
                 </span>
-                <div className="flex items-baseline">
-                  <span className="text-[18px] font-bold leading-none" style={{ color: accent }}>
-                    {c.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                    {c.unit}
+                <div className="relative w-[92px] h-[92px] grid place-items-center">
+                  <svg viewBox="0 0 92 92" className="absolute inset-0 -rotate-90">
+                    <circle cx="46" cy="46" r="38" stroke="white" strokeWidth="8" fill="none" />
+                    <circle
+                      cx="46"
+                      cy="46"
+                      r="38"
+                      stroke={accent}
+                      strokeWidth="8"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeDasharray={`${(data.ring.pct / 100) * 2 * Math.PI * 38} ${2 * Math.PI * 38}`}
+                    />
+                  </svg>
+                  <span className="text-[22px] font-bold leading-none relative" style={{ color: accent }}>
+                    {data.ring.value}
+                    <span className="text-[11px] ml-0.5 font-bold">{data.ring.unit}</span>
                   </span>
                 </div>
               </div>
-            ))}
+              {/* Misc tiles stacked */}
+              {data.misc.map((c, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex items-center justify-between"
+                >
+                  <span
+                    className="text-[11px] font-bold"
+                    style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+                  >
+                    {c.label}
+                  </span>
+                  <div className="flex items-baseline">
+                    <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                      {c.value}
+                    </span>
+                    <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                      {c.unit}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
