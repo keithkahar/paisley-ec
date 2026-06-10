@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronLeft, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
 export const Route = createFileRoute("/parent")({
