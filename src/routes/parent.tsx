@@ -784,12 +784,12 @@ function VocabFunnel({
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
-  const SIZE = 104;
-  const STROKE = 12;
+  const SIZE = 116;
+  const STROKE = 10;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
   const GAP = 0;
-  const shades = [22, 42, 62, 95];
+  const shades = [22, 42, 65, 95];
   let acc = 0;
   const arcs = stages.map((s, i) => {
     const segLen = total > 0 ? (s.value / total) * C : 0;
@@ -799,23 +799,30 @@ function VocabFunnel({
     return { drawLen, offset, color: tint(shades[i]) };
   });
   return (
-    <div className="col-span-6 rounded-2xl px-4 py-3 bg-white border border-[oklch(0.94_0.01_240)]">
-      <p className="text-[11px] font-bold" style={{ color: "var(--foreground)" }}>
-        学习词库
-      </p>
-
-      <div className="mt-2 flex items-center gap-4">
+    <div
+      className="col-span-6 rounded-3xl px-5 py-4 bg-white"
+      style={{ border: `1px solid ${tint(14)}`, boxShadow: `0 10px 30px -22px ${accent}` }}
+    >
+      <div className="flex items-center gap-5">
         {/* Left: refined 4-segment donut */}
         <div
           className="relative shrink-0 grid place-items-center"
           style={{
             width: SIZE,
             height: SIZE,
-            background: `radial-gradient(closest-side, ${tint(8)} 0%, transparent 72%)`,
+            background: `radial-gradient(closest-side, ${tint(6)} 0%, transparent 70%)`,
             borderRadius: "9999px",
           }}
         >
           <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
+            <circle
+              cx={SIZE / 2}
+              cy={SIZE / 2}
+              r={R}
+              fill="none"
+              stroke={tint(10)}
+              strokeWidth={STROKE}
+            />
             <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
               {arcs.map((a, i) => (
                 <circle
@@ -833,40 +840,57 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex items-baseline gap-0.5 leading-none">
+          <div className="relative flex flex-col items-center leading-none">
+            <div className="flex items-baseline gap-0.5">
+              <span
+                className="text-[30px] font-semibold tabular-nums"
+                style={{ color: accent, letterSpacing: "-0.04em" }}
+              >
+                {total}
+              </span>
+              <span
+                className="text-[11px] font-medium"
+                style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+              >
+                词
+              </span>
+            </div>
+            <div
+              className="mt-1.5 h-px w-7"
+              style={{ background: `color-mix(in oklab, ${accent} 30%, white)` }}
+            />
             <span
-              className="text-[22px] font-bold tracking-tight"
-              style={{ color: accent, letterSpacing: "-0.03em" }}
+              className="mt-1.5 text-[9px] font-semibold tracking-[0.14em] uppercase"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
-              {total}
-            </span>
-            <span
-              className="text-[10px] font-bold"
-              style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
-            >
-              词
+              Vocab
             </span>
           </div>
         </div>
 
         {/* Right: 4 progress rows */}
-        <div className="flex-1 min-w-0 space-y-1.5">
+        <div className="flex-1 min-w-0 space-y-2">
           {stages.map((s, i) => {
             const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
             return (
               <div key={i}>
-                <div className="flex items-baseline justify-between text-[10px] font-bold">
-                  <span style={{ color: tint(shades[i] < 50 ? 80 : shades[i]) }}>{s.label}</span>
+                <div className="flex items-baseline justify-between text-[10px]">
+                  <span
+                    className="font-semibold tracking-wide"
+                    style={{ color: tint(shades[i] < 50 ? 78 : shades[i]) }}
+                  >
+                    {s.label}
+                  </span>
                   <span className="flex items-baseline gap-1.5 tabular-nums">
-                    <span style={{ color: "var(--foreground)" }}>{s.value}</span>
-                    <span style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+                    <span className="font-semibold" style={{ color: "var(--foreground)" }}>{s.value}</span>
+                    <span className="font-medium" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
                       {pct}%
                     </span>
                   </span>
                 </div>
                 <div
-                  className="mt-1 h-1.5 rounded-full overflow-hidden"
-                  style={{ background: "oklch(0.95 0.01 240)" }}
+                  className="mt-1 h-1 rounded-full overflow-hidden"
+                  style={{ background: tint(10) }}
                 >
                   <div
                     className="h-full rounded-full"
