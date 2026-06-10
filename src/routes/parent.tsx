@@ -156,17 +156,10 @@ function ParentPage() {
 
         {/* Mini cards — Bento layout: hero / trend / ring / tall */}
         <section className="px-6 pt-4">
+          {tab === "wordie" ? (
+            <WordieBento accent={accent} tint={tint} bento={bento} />
+          ) : (
           <div className="grid grid-cols-6 gap-2.5">
-            {/* Top row: wordie → 3 equal cards (hero + smallA + smallB); talk → hero(4) + smallA(2) */}
-            {tab === "wordie" ? (
-              <StreakRingCard
-                accent={accent}
-                value={Number(bento.hero.value)}
-                unit={bento.hero.unit}
-                label={bento.hero.label}
-                goal={14}
-              />
-            ) : (
             <div
               className="col-span-4 rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]"
               style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
@@ -178,7 +171,6 @@ function ParentPage() {
               </div>
               <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-white/15 blur-xl" />
             </div>
-            )}
             <div
               className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
@@ -196,29 +188,9 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* smallB — wordie: joins top row (col-span-2). talk: bottom row alongside trend */}
-            {tab === "wordie" && (
-              <div
-                className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
-                style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-              >
-                <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
-                  {bento.smallB.label}
-                </span>
-                <div className="flex items-baseline">
-                  <span className="text-[18px] font-bold leading-none" style={{ color: accent }}>
-                    {bento.smallB.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                    {bento.smallB.unit}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* trend — wordie: full width (col-span-6); talk: col-span-4 with smallB beside */}
+            {/* trend (talk) */}
             <div
-              className={`${tab === "wordie" ? "col-span-3" : "col-span-4"} rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]`}
+              className="col-span-4 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
@@ -233,11 +205,7 @@ function ParentPage() {
                 </span>
               </div>
             </div>
-            {tab === "wordie" && (
-              <RingCard accent={accent} ring={bento.ring} />
-            )}
-            {tab === "talk" && (
-              <div
+            <div
                 className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
                 style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
               >
@@ -253,22 +221,9 @@ function ParentPage() {
                   </span>
                 </div>
               </div>
-            )}
 
-            {/* Squares — talk: 2 wide cards; wordie: vocabulary growth funnel */}
-            {tab === "wordie" && bento.extra ? (
-              <VocabFunnel
-                accent={accent}
-                tint={tint}
-                stages={[
-                  { label: "新词", value: Number(bento.extra[1].value), weight: 18 },
-                  { label: "学习中", value: Number(bento.extra[0].value), weight: 38 },
-                  { label: "复习", value: Number(bento.squareB.value), weight: 60 },
-                  { label: "已掌握", value: Number(bento.squareA.value), weight: 100 },
-                ]}
-              />
-            ) : (
-              [bento.squareA, bento.squareB].map((c, i) => (
+            {/* Squares (talk only) */}
+            {[bento.squareA, bento.squareB].map((c, i) => (
                 <div
                   key={i}
                   className="col-span-3 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
@@ -285,12 +240,11 @@ function ParentPage() {
                     </span>
                   </div>
                 </div>
-              ))
-            )}
+            ))}
 
-            {/* Tall (3×1) — Wordie-X / Vocab — slim horizontal */}
+            {/* Tall (3×1) — Vocab (talk) */}
             <div
-              className={`${tab === "wordie" ? "col-span-6" : "col-span-3"} rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]`}
+              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(6), border: `1.5px dashed ${tint(25)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
@@ -306,8 +260,7 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Ring — talk tab only here; wordie renders it inline next to trend above */}
-            {tab === "talk" && (
+            {/* Ring (talk) */}
             <div
               className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[60px]"
               style={{ background: tint(10) }}
@@ -344,10 +297,8 @@ function ParentPage() {
                 </span>
               </div>
             </div>
-            )}
-
-            {/* Extra row moved into the 4-card grid above for wordie tab */}
           </div>
+          )}
         </section>
 
         {/* 管理 */}
