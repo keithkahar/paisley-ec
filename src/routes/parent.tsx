@@ -59,7 +59,6 @@ type SheetType = "" | "voice" | "theme" | "speechRate";
 
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
-  const [info, setInfo] = useState<{ label: string; text: string } | null>(null);
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
@@ -154,17 +153,8 @@ function ParentPage() {
                 className="relative rounded-2xl p-3 flex flex-col justify-between min-h-[84px]"
                 style={{ background: accentSoft }}
               >
-                <button
-                  type="button"
-                  aria-label="说明"
-                  onClick={() => setInfo({ label: c.label, text: c.info })}
-                  className="absolute top-1.5 right-1.5 h-5 w-5 grid place-items-center rounded-full"
-                  style={{ color: accent }}
-                >
-                  <HelpCircle className="h-3.5 w-3.5" />
-                </button>
                 <p
-                  className="text-[11px] font-bold leading-tight pr-5"
+                  className="text-[11px] font-bold leading-tight"
                   style={{ color: accent, letterSpacing: "-0.01em" }}
                 >
                   {c.label}
@@ -411,12 +401,6 @@ function ParentPage() {
           </BottomSheet>
         )}
 
-        {/* Info modal for mini-card `?` */}
-        {info && (
-          <BottomSheet title={info.label} onClose={() => setInfo(null)}>
-            <p className="text-[13px] leading-relaxed whitespace-pre-line">{info.text}</p>
-          </BottomSheet>
-        )}
       </div>
     </PhoneFrame>
   );
