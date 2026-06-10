@@ -226,37 +226,18 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Squares — talk: 2 wide cards; wordie: 4 compact cards in one row */}
+            {/* Squares — talk: 2 wide cards; wordie: vocabulary growth funnel */}
             {tab === "wordie" && bento.extra ? (
-              <div className="col-span-6 grid grid-cols-4 gap-2">
-                {[bento.squareA, bento.squareB, ...bento.extra].map((c, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl p-2.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
-                  >
-                    <span
-                      className="text-[10px] font-bold leading-tight"
-                      style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
-                    >
-                      {c.label}
-                    </span>
-                    <div className="flex items-baseline">
-                      <span
-                        className="text-[18px] font-bold leading-none"
-                        style={{ color: "var(--foreground)" }}
-                      >
-                        {c.value}
-                      </span>
-                      <span
-                        className="text-[10px] ml-0.5 font-bold"
-                        style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
-                      >
-                        {c.unit}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <VocabFunnel
+                accent={accent}
+                tint={tint}
+                stages={[
+                  { label: "新词", value: Number(bento.extra[1].value), weight: 18 },
+                  { label: "学习中", value: Number(bento.extra[0].value), weight: 38 },
+                  { label: "复习", value: Number(bento.squareB.value), weight: 60 },
+                  { label: "已掌握", value: Number(bento.squareA.value), weight: 100 },
+                ]}
+              />
             ) : (
               [bento.squareA, bento.squareB].map((c, i) => (
                 <div
