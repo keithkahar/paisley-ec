@@ -34,9 +34,9 @@ const TALK_BENTO: BentoLayout = {
 };
 
 const WORDIE_BENTO: BentoLayout = {
-  hero: { label: "本周练习时长", value: "18", unit: "min" },
-  smallA: { label: "练习卡片", value: "42", unit: "张" },
-  smallB: { label: "连续练习", value: "8", unit: "天" },
+  hero: { label: "连续练习", value: "8", unit: "天" },
+  smallA: { label: "本周练习卡片", value: "42", unit: "张" },
+  smallB: { label: "本周练习时长", value: "18", unit: "min" },
   trend: { label: "myWordie Talk 用词", value: "23", unit: "次", bars: [20, 45, 70, 35, 55] },
   squareA: { label: "已掌握", value: "166", unit: "词" },
   squareB: { label: "复习", value: "38", unit: "词" },
@@ -226,37 +226,18 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Squares — talk: 2 wide cards; wordie: 4 compact cards in one row */}
+            {/* Squares — talk: 2 wide cards; wordie: vocabulary growth funnel */}
             {tab === "wordie" && bento.extra ? (
-              <div className="col-span-6 grid grid-cols-4 gap-2">
-                {[bento.squareA, bento.squareB, ...bento.extra].map((c, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl p-2.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
-                  >
-                    <span
-                      className="text-[10px] font-bold leading-tight"
-                      style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
-                    >
-                      {c.label}
-                    </span>
-                    <div className="flex items-baseline">
-                      <span
-                        className="text-[18px] font-bold leading-none"
-                        style={{ color: "var(--foreground)" }}
-                      >
-                        {c.value}
-                      </span>
-                      <span
-                        className="text-[10px] ml-0.5 font-bold"
-                        style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
-                      >
-                        {c.unit}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <VocabFunnel
+                accent={accent}
+                tint={tint}
+                stages={[
+                  { label: "新词", value: Number(bento.extra[1].value), weight: 18 },
+                  { label: "学习中", value: Number(bento.extra[0].value), weight: 38 },
+                  { label: "复习", value: Number(bento.squareB.value), weight: 60 },
+                  { label: "已掌握", value: Number(bento.squareA.value), weight: 100 },
+                ]}
+              />
             ) : (
               [bento.squareA, bento.squareB].map((c, i) => (
                 <div
@@ -567,6 +548,125 @@ function ParentPage() {
 }
 
 // ============ small components ============
+
+type VocabStage = { label: string; value: number; weight: number };
+
+function VocabFunnel({
+  accent,
+  tint,
+  stages,
+}: {
+  accent: string;
+  tint: (pct: number) => string;
+  stages: VocabStage[];
+}) {
+  const total = stages.reduce((s, x) => s + x.value, 0);
+  // Shade intensities map progression: 新词(lightest) → 已掌握(deepest)
+  const shades = [22, 38, 58, 95];
+  return (
+    <div
+      className="col-span-6 rounded-3xl p-4 bg-white border border-[oklch(0.94_0.01_240)]"
+      style={{ boxShadow: `0 8px 20px -16px ${accent}` }}
+    >
+      {/* Header */}
+      <div className="flex items-end justify-between mb-3">
+        <div>
+          <p
+            className="text-[10px] font-bold uppercase tracking-wider"
+            style={{ color: accent }}
+          >
+            词汇成长
+          </p>
+          <p
+            className="text-[10px] font-bold mt-0.5"
+            style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+          >
+            从新词到已掌握的旅程
+          </p>
+        </div>
+        <div className="flex items-baseline">
+          <span
+            className="text-[26px] font-bold leading-none tracking-tight"
+            style={{ color: "var(--foreground)" }}
+          >
+            {total}
+          </span>
+          <span
+            className="text-[11px] ml-1 font-bold"
+            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+          >
+            词
+          </span>
+        </div>
+      </div>
+
+      {/* Stacked proportional bar */}
+      <div
+        className="flex h-3 w-full overflow-hidden rounded-full gap-[3px]"
+        style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)" }}
+      >
+        {stages.map((s, i) => {
+          const pct = total > 0 ? (s.value / total) * 100 : 0;
+          return (
+            <div
+              key={i}
+              className="h-full first:rounded-l-full last:rounded-r-full"
+              style={{ width: `${pct}%`, background: tint(shades[i]) }}
+            />
+          );
+        })}
+      </div>
+
+      {/* Stage chips — 4 colored entries showing the journey */}
+      <div className="mt-3.5 grid grid-cols-4 gap-2">
+        {stages.map((s, i) => {
+          const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
+          const isLast = i === stages.length - 1;
+          return (
+            <div key={i} className="flex flex-col gap-1">
+              <div className="flex items-center gap-1">
+                <span
+                  className="h-1.5 w-1.5 rounded-full shrink-0"
+                  style={{ background: tint(shades[i]) }}
+                />
+                <span
+                  className="text-[10px] font-bold leading-none truncate"
+                  style={{
+                    color: isLast
+                      ? accent
+                      : "color-mix(in oklab, var(--foreground) 55%, white)",
+                  }}
+                >
+                  {s.label}
+                </span>
+              </div>
+              <div className="flex items-baseline">
+                <span
+                  className="text-[18px] font-bold leading-none tracking-tight"
+                  style={{ color: isLast ? accent : "var(--foreground)" }}
+                >
+                  {s.value}
+                </span>
+                <span
+                  className="text-[9px] ml-0.5 font-bold"
+                  style={{ color: "color-mix(in oklab, var(--foreground) 40%, white)" }}
+                >
+                  词
+                </span>
+              </div>
+              <span
+                className="text-[9px] font-bold leading-none"
+                style={{ color: "color-mix(in oklab, var(--foreground) 38%, white)" }}
+              >
+                {pct}%
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
