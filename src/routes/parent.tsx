@@ -226,25 +226,57 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Two squares (3×1 each) */}
-            {[bento.squareA, bento.squareB].map((c, i) => (
-              <div
-                key={i}
-                className="col-span-3 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
-              >
-                <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                  {c.label}
-                </span>
-                <div className="flex items-baseline">
-                  <span className="text-[22px] font-bold leading-none" style={{ color: "var(--foreground)" }}>
-                    {c.value}
-                  </span>
-                  <span className="text-[11px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                    {c.unit}
-                  </span>
-                </div>
+            {/* Squares — talk: 2 wide cards; wordie: 4 compact cards in one row */}
+            {tab === "wordie" && bento.extra ? (
+              <div className="col-span-6 grid grid-cols-4 gap-2">
+                {[bento.squareA, bento.squareB, ...bento.extra].map((c, i) => (
+                  <div
+                    key={i}
+                    className="rounded-2xl p-2.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
+                  >
+                    <span
+                      className="text-[10px] font-bold leading-tight"
+                      style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+                    >
+                      {c.label}
+                    </span>
+                    <div className="flex items-baseline">
+                      <span
+                        className="text-[18px] font-bold leading-none"
+                        style={{ color: "var(--foreground)" }}
+                      >
+                        {c.value}
+                      </span>
+                      <span
+                        className="text-[10px] ml-0.5 font-bold"
+                        style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                      >
+                        {c.unit}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            ) : (
+              [bento.squareA, bento.squareB].map((c, i) => (
+                <div
+                  key={i}
+                  className="col-span-3 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
+                >
+                  <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+                    {c.label}
+                  </span>
+                  <div className="flex items-baseline">
+                    <span className="text-[22px] font-bold leading-none" style={{ color: "var(--foreground)" }}>
+                      {c.value}
+                    </span>
+                    <span className="text-[11px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
+                      {c.unit}
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
 
             {/* Tall (4×2) — vocab growth */}
             <div
@@ -301,25 +333,7 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Extra row (wordie only) */}
-            {bento.extra?.map((c, i) => (
-              <div
-                key={i}
-                className="col-span-3 rounded-2xl p-3 bg-white border border-[oklch(0.94_0.01_240)] flex items-center justify-between"
-              >
-                <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                  {c.label}
-                </span>
-                <div className="flex items-baseline">
-                  <span className="text-[18px] font-bold leading-none" style={{ color: accent }}>
-                    {c.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                    {c.unit}
-                  </span>
-                </div>
-              </div>
-            ))}
+            {/* Extra row moved into the 4-card grid above for wordie tab */}
           </div>
         </section>
 
