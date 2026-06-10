@@ -532,6 +532,142 @@ function ParentPage() {
 
 // ============ small components ============
 
+function WordieBento({
+  accent,
+  tint,
+  bento,
+}: {
+  accent: string;
+  tint: (pct: number) => string;
+  bento: BentoLayout;
+}) {
+  const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
+  const R = 38;
+  const C = 2 * Math.PI * R;
+  return (
+    <div className="space-y-2.5">
+      {/* Row 1: Streak hero (3 col x 2 row) + 本周卡片 stacked + 本周时长 stacked */}
+      <div className="grid grid-cols-6 grid-rows-2 gap-2.5">
+        {/* Streak — tall hero with big ring */}
+        <div
+          className="col-span-3 row-span-2 rounded-2xl p-3.5 flex flex-col justify-between text-white relative overflow-hidden"
+          style={{ background: accent, boxShadow: `0 12px 28px -16px ${accent}` }}
+        >
+          <span className="text-[11px] font-bold opacity-90">{bento.hero.label}</span>
+          <div className="relative mx-auto w-[104px] h-[104px] grid place-items-center my-1">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
+              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.22)" strokeWidth="8" fill="none" />
+              <circle
+                cx="50"
+                cy="50"
+                r={R}
+                stroke="white"
+                strokeWidth="8"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={`${(ringPct / 100) * C} ${C}`}
+              />
+            </svg>
+            <div className="relative text-center leading-none">
+              <div className="text-[28px] font-bold tracking-tight">{bento.hero.value}</div>
+              <div className="text-[10px] font-bold opacity-85 mt-0.5">{bento.hero.unit}</div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-[10px] font-bold opacity-85">
+            <span>目标 14 {bento.hero.unit}</span>
+            <span className="tabular-nums">{ringPct}%</span>
+          </div>
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
+        </div>
+        {/* 本周卡片 — accent tinted */}
+        <div
+          className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px]"
+          style={{ background: tint(12), border: `1px solid ${tint(20)}` }}
+        >
+          <span className="text-[10px] font-bold" style={{ color: tint(70) }}>{bento.smallA.label}</span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[24px] font-bold leading-none tracking-tight" style={{ color: accent }}>{bento.smallA.value}</span>
+            <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{bento.smallA.unit}</span>
+          </div>
+        </div>
+        {/* 本周时长 — white outlined */}
+        <div
+          className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px] bg-white"
+          style={{ border: `1px solid ${tint(20)}` }}
+        >
+          <span className="text-[10px] font-bold" style={{ color: tint(70) }}>{bento.smallB.label}</span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[24px] font-bold leading-none tracking-tight" style={{ color: accent }}>{bento.smallB.value}</span>
+            <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{bento.smallB.unit}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2: 本周用词 + Wordie Test */}
+      <div className="grid grid-cols-6 gap-2.5">
+        <div
+          className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[68px]"
+          style={{ background: tint(8), border: `1.5px dashed ${tint(28)}` }}
+        >
+          <span className="text-[10px] font-bold leading-tight" style={{ color: tint(70) }}>
+            {bento.trend.label}
+          </span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[24px] font-bold leading-none tracking-tight" style={{ color: accent }}>{bento.trend.value}</span>
+            <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{bento.trend.unit}</span>
+          </div>
+        </div>
+        <div
+          className="col-span-3 rounded-2xl px-3.5 py-2.5 flex items-center justify-between gap-3 min-h-[68px] text-white relative overflow-hidden"
+          style={{ background: accent, boxShadow: `0 10px 22px -16px ${accent}` }}
+        >
+          <div className="min-w-0">
+            <p className="text-[10px] font-bold leading-tight opacity-90">
+              Wordie Test<br />平均分
+            </p>
+            <div className="flex items-baseline gap-0.5 mt-1">
+              <span className="text-[20px] font-bold leading-none tabular-nums">{bento.ring.value}</span>
+              <span className="text-[10px] font-bold opacity-90">{bento.ring.unit}</span>
+            </div>
+          </div>
+          <div className="relative w-12 h-12 grid place-items-center shrink-0">
+            <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
+              <circle cx="28" cy="28" r="24" stroke="rgba(255,255,255,0.25)" strokeWidth="6" fill="none" />
+              <circle
+                cx="28"
+                cy="28"
+                r="24"
+                stroke="white"
+                strokeWidth="6"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
+              />
+            </svg>
+            <span className="text-[11px] font-bold relative tabular-nums">{bento.ring.pct}%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 3: Vocab funnel (full) */}
+      <div className="grid grid-cols-6 gap-2.5">
+        {bento.extra && (
+          <VocabFunnel
+            accent={accent}
+            tint={tint}
+            stages={[
+              { label: "新词", value: Number(bento.extra[1].value), weight: 18 },
+              { label: "学习中", value: Number(bento.extra[0].value), weight: 38 },
+              { label: "复习", value: Number(bento.squareB.value), weight: 60 },
+              { label: "已掌握", value: Number(bento.squareA.value), weight: 100 },
+            ]}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
 function StreakRingCard({
   accent,
   value,
