@@ -566,7 +566,7 @@ function VocabFunnel({
   const STROKE = 12;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
-  const GAP = 4; // px gap between arcs
+  const GAP = 10; // px gap between arcs (rounded caps need room)
   const shades = [22, 42, 62, 95];
   let acc = 0;
   const arcs = stages.map((s, i) => {
@@ -596,7 +596,7 @@ function VocabFunnel({
                   fill="none"
                   stroke={a.color}
                   strokeWidth={STROKE}
-                  strokeLinecap="butt"
+                  strokeLinecap="round"
                   strokeDasharray={`${a.drawLen} ${C}`}
                   strokeDashoffset={a.offset}
                 />
@@ -622,10 +622,15 @@ function VocabFunnel({
             const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
             return (
               <div key={i}>
-                <div className="flex items-center justify-between text-[11px] font-bold">
-                  <span style={{ color: tint(shades[i] < 50 ? 80 : shades[i]) }}>{s.label}</span>
-                  <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
-                    {s.value} 词 · {pct}%
+                <div className="flex items-baseline justify-between text-[11px] font-bold">
+                  <div className="flex items-baseline gap-1.5">
+                    <span style={{ color: tint(shades[i] < 50 ? 80 : shades[i]) }}>{s.label}</span>
+                    <span style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
+                      {pct}%
+                    </span>
+                  </div>
+                  <span style={{ color: "var(--foreground)" }}>
+                    {s.value} 词
                   </span>
                 </div>
                 <div
