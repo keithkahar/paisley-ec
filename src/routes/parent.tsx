@@ -157,27 +157,27 @@ function ParentPage() {
         {/* Mini cards — Bento layout: hero / trend / ring / tall */}
         <section className="px-6 pt-4">
           <div className="grid grid-cols-6 gap-2.5">
-            {/* Top row: Hero (4×1 solid accent) + smallA (2×1 tint) — uniform compact height */}
+            {/* Top row: wordie → 3 equal cards (hero + smallA + smallB); talk → hero(4) + smallA(2) */}
             <div
-              className="col-span-4 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[64px]"
+              className={`${tab === "wordie" ? "col-span-2" : "col-span-4"} rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]`}
               style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
             >
               <span className="text-[10px] font-bold opacity-90">{bento.hero.label}</span>
               <div className="flex items-baseline">
-                <span className="text-[22px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
-                <span className="ml-1 text-[11px] font-bold opacity-80">{bento.hero.unit}</span>
+                <span className="text-[20px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
+                <span className="ml-1 text-[10px] font-bold opacity-80">{bento.hero.unit}</span>
               </div>
               <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-white/15 blur-xl" />
             </div>
             <div
-              className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[64px]"
+              className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
                 {bento.smallA.label}
               </span>
               <div className="flex items-baseline">
-                <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                <span className="text-[18px] font-bold leading-none" style={{ color: accent }}>
                   {bento.smallA.value}
                 </span>
                 <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
@@ -186,9 +186,29 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Bottom row: trend (4×1 tint) + smallB (2×1 tint) — same compact height */}
+            {/* smallB — wordie: joins top row (col-span-2). talk: bottom row alongside trend */}
+            {tab === "wordie" && (
+              <div
+                className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
+                style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+              >
+                <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
+                  {bento.smallB.label}
+                </span>
+                <div className="flex items-baseline">
+                  <span className="text-[18px] font-bold leading-none" style={{ color: accent }}>
+                    {bento.smallB.value}
+                  </span>
+                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                    {bento.smallB.unit}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* trend — wordie: full width (col-span-6); talk: col-span-4 with smallB beside */}
             <div
-              className="col-span-4 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px]"
+              className={`${tab === "wordie" ? "col-span-6" : "col-span-4"} rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]`}
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
@@ -203,22 +223,24 @@ function ParentPage() {
                 </span>
               </div>
             </div>
-            <div
-              className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[64px]"
-              style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-            >
-              <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
-                {bento.smallB.label}
-              </span>
-              <div className="flex items-baseline">
-                <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                  {bento.smallB.value}
+            {tab === "talk" && (
+              <div
+                className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
+                style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+              >
+                <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
+                  {bento.smallB.label}
                 </span>
-                <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                  {bento.smallB.unit}
-                </span>
+                <div className="flex items-baseline">
+                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                    {bento.smallB.value}
+                  </span>
+                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
+                    {bento.smallB.unit}
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Squares — talk: 2 wide cards; wordie: vocabulary growth funnel */}
             {tab === "wordie" && bento.extra ? (
@@ -255,7 +277,7 @@ function ParentPage() {
 
             {/* Tall (3×1) — Wordie-X / Vocab — slim horizontal */}
             <div
-              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[72px]"
+              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(6), border: `1.5px dashed ${tint(25)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
@@ -273,21 +295,31 @@ function ParentPage() {
 
             {/* Ring (3×1) — label on left, gauge on right, horizontal */}
             <div
-              className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[72px]"
+              className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[60px]"
               style={{ background: tint(10) }}
             >
               <div className="min-w-0">
-                <p className="text-[10px] font-bold leading-tight" style={{ color: accent }}>
-                  {bento.ring.label}
-                </p>
-                <div className="mt-1 flex items-baseline">
-                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                    {bento.ring.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: accent }}>
-                    {bento.ring.unit}
-                  </span>
-                </div>
+                {tab === "wordie" ? (
+                  <p className="text-[11px] font-bold leading-tight" style={{ color: accent }}>
+                    Wordie Test
+                    <br />
+                    平均分
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-[10px] font-bold leading-tight" style={{ color: accent }}>
+                      {bento.ring.label}
+                    </p>
+                    <div className="mt-1 flex items-baseline">
+                      <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                        {bento.ring.value}
+                      </span>
+                      <span className="text-[10px] ml-0.5 font-bold" style={{ color: accent }}>
+                        {bento.ring.unit}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
               <div className="relative w-12 h-12 grid place-items-center shrink-0">
                 <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
