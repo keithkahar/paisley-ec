@@ -566,7 +566,7 @@ function VocabFunnel({
   const STROKE = 14;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
-  const GAP = 12;
+  const GAP = 0;
   const shades = [22, 42, 62, 95];
   let acc = 0;
   const arcs = stages.map((s, i) => {
@@ -578,7 +578,7 @@ function VocabFunnel({
   });
   return (
     <div className="col-span-6 rounded-3xl p-4 bg-white border border-[oklch(0.94_0.01_240)]">
-      <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
+      <p className="text-[12px] font-bold" style={{ color: "var(--foreground)" }}>
         学习词库
       </p>
 
@@ -604,7 +604,7 @@ function VocabFunnel({
                   fill="none"
                   stroke={a.color}
                   strokeWidth={STROKE}
-                  strokeLinecap="round"
+                  strokeLinecap="butt"
                   strokeDasharray={`${a.drawLen} ${C}`}
                   strokeDashoffset={a.offset}
                 />
@@ -613,13 +613,13 @@ function VocabFunnel({
           </svg>
           <div className="relative flex items-baseline gap-1 leading-none">
             <span
-              className="text-[34px] font-bold tracking-tight"
+              className="text-[26px] font-bold tracking-tight"
               style={{ color: accent, letterSpacing: "-0.03em" }}
             >
               {total}
             </span>
             <span
-              className="text-[13px] font-bold"
+              className="text-[11px] font-bold"
               style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
             >
               词
@@ -633,7 +633,7 @@ function VocabFunnel({
             const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
             return (
               <div key={i}>
-                <div className="flex items-baseline justify-between text-[11px] font-bold">
+                <div className="flex items-baseline justify-between text-[10px] font-bold">
                   <span style={{ color: tint(shades[i] < 50 ? 80 : shades[i]) }}>{s.label}</span>
                   <span className="flex items-baseline gap-1.5 tabular-nums">
                     <span style={{ color: "var(--foreground)" }}>{s.value}</span>
