@@ -561,54 +561,86 @@ function VocabFunnel({
   stages: VocabStage[];
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
+  // Donut geometry — single ring split into 4 proportional arcs
+  const SIZE = 116;
+  const STROKE = 12;
+  const R = (SIZE - STROKE) / 2;
+  const C = 2 * Math.PI * R;
+  const GAP = 4; // px gap between arcs
+  const shades = [22, 42, 62, 95];
+  let acc = 0;
+  const arcs = stages.map((s, i) => {
+    const segLen = total > 0 ? (s.value / total) * C : 0;
+    const drawLen = Math.max(0, segLen - GAP);
+    const offset = -acc;
+    acc += segLen;
+    return { drawLen, offset, color: tint(shades[i]) };
+  });
   return (
     <div className="col-span-6 rounded-3xl p-4 bg-white border border-[oklch(0.94_0.01_240)]">
-      {/* Header: 词汇成长 + 总数 */}
-      <div className="flex items-baseline justify-between">
-        <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
-          词汇成长
-        </p>
-        <div className="flex items-baseline">
-          <span
-            className="text-[22px] font-bold leading-none tracking-tight"
-            style={{ color: "var(--foreground)" }}
-          >
-            {total}
-          </span>
-          <span
-            className="text-[11px] ml-1 font-bold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
-          >
-            词
-          </span>
-        </div>
-      </div>
+      <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
+        学习词库
+      </p>
 
-      {/* 4 rows: label + count + bar — wordie-test style */}
-      <div className="mt-3 space-y-2.5">
-        {stages.map((s, i) => {
-          const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
-          const isLast = i === stages.length - 1;
-          return (
-            <div key={i}>
-              <div className="flex items-center justify-between text-[11px] font-bold">
-                <span style={{ color: isLast ? accent : "var(--foreground)" }}>{s.label}</span>
-                <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
-                  {s.value} 词 · {pct}%
-                </span>
-              </div>
-              <div
-                className="mt-1 h-1.5 rounded-full overflow-hidden"
-                style={{ background: "oklch(0.95 0.01 240)" }}
-              >
-                <div
-                  className="h-full rounded-full"
-                  style={{ width: `${pct}%`, background: accent }}
+      <div className="mt-3 flex items-center gap-4">
+        {/* Left: 4-segment donut */}
+        <div className="relative shrink-0" style={{ width: SIZE, height: SIZE }}>
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
+            <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
+              {arcs.map((a, i) => (
+                <circle
+                  key={i}
+                  cx={SIZE / 2}
+                  cy={SIZE / 2}
+                  r={R}
+                  fill="none"
+                  stroke={a.color}
+                  strokeWidth={STROKE}
+                  strokeLinecap="butt"
+                  strokeDasharray={`${a.drawLen} ${C}`}
+                  strokeDashoffset={a.offset}
                 />
+              ))}
+            </g>
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center leading-none">
+            <span className="text-[22px] font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
+              {total}
+            </span>
+            <span
+              className="text-[10px] font-bold mt-0.5"
+              style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+            >
+              词
+            </span>
+          </div>
+        </div>
+
+        {/* Right: 4 progress rows */}
+        <div className="flex-1 min-w-0 space-y-2">
+          {stages.map((s, i) => {
+            const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
+            return (
+              <div key={i}>
+                <div className="flex items-center justify-between text-[11px] font-bold">
+                  <span style={{ color: tint(shades[i] < 50 ? 80 : shades[i]) }}>{s.label}</span>
+                  <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
+                    {s.value} 词 · {pct}%
+                  </span>
+                </div>
+                <div
+                  className="mt-1 h-1.5 rounded-full overflow-hidden"
+                  style={{ background: "oklch(0.95 0.01 240)" }}
+                >
+                  <div
+                    className="h-full rounded-full"
+                    style={{ width: `${pct}%`, background: tint(shades[i]) }}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
