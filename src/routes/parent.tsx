@@ -158,8 +158,18 @@ function ParentPage() {
         <section className="px-6 pt-4">
           <div className="grid grid-cols-6 gap-2.5">
             {/* Top row: wordie → 3 equal cards (hero + smallA + smallB); talk → hero(4) + smallA(2) */}
+            {tab === "wordie" ? (
+              <StreakRingCard
+                accent={accent}
+                tint={tint}
+                value={Number(bento.hero.value)}
+                unit={bento.hero.unit}
+                label={bento.hero.label}
+                goal={14}
+              />
+            ) : (
             <div
-              className={`${tab === "wordie" ? "col-span-2" : "col-span-4"} rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]`}
+              className="col-span-4 rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]"
               style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
             >
               <span className="text-[10px] font-bold opacity-90">{bento.hero.label}</span>
@@ -169,6 +179,7 @@ function ParentPage() {
               </div>
               <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-white/15 blur-xl" />
             </div>
+            )}
             <div
               className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
@@ -570,6 +581,53 @@ function ParentPage() {
 }
 
 // ============ small components ============
+
+function StreakRingCard({
+  accent,
+  tint,
+  value,
+  unit,
+  label,
+  goal,
+}: {
+  accent: string;
+  tint: (pct: number) => string;
+  value: number;
+  unit: string;
+  label: string;
+  goal: number;
+}) {
+  const pct = Math.min(100, Math.round((value / goal) * 100));
+  return (
+    <div
+      className="col-span-2 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-2 min-h-[60px]"
+      style={{ background: tint(10) }}
+    >
+      <div className="relative w-12 h-12 grid place-items-center shrink-0">
+        <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
+          <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="6" fill="none" />
+          <circle
+            cx="28"
+            cy="28"
+            r="24"
+            stroke={accent}
+            strokeWidth="6"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray={`${(pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
+          />
+        </svg>
+        <span className="text-[11px] font-bold relative tabular-nums leading-none" style={{ color: accent }}>
+          {value}
+          {unit}
+        </span>
+      </div>
+      <p className="text-[11px] font-bold leading-tight text-right min-w-0 flex-1" style={{ color: accent }}>
+        {label}
+      </p>
+    </div>
+  );
+}
 
 function RingCard({
   accent,
