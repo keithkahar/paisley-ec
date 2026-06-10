@@ -860,10 +860,10 @@ function VocabFunnel({
               style={{ background: `color-mix(in oklab, ${accent} 30%, white)` }}
             />
             <span
-              className="mt-1.5 text-[9px] font-semibold tracking-[0.14em] uppercase"
+              className="mt-1.5 text-[10px] font-semibold tracking-[0.12em]"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
-              Vocab
+              学习词库
             </span>
           </div>
         </div>
