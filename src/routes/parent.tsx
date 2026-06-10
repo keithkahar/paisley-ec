@@ -208,7 +208,7 @@ function ParentPage() {
 
             {/* trend — wordie: full width (col-span-6); talk: col-span-4 with smallB beside */}
             <div
-              className={`${tab === "wordie" ? "col-span-6" : "col-span-4"} rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]`}
+              className={`${tab === "wordie" ? "col-span-3" : "col-span-4"} rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]`}
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
@@ -223,6 +223,9 @@ function ParentPage() {
                 </span>
               </div>
             </div>
+            {tab === "wordie" && (
+              <RingCard accent={accent} tint={tint} ring={bento.ring} />
+            )}
             {tab === "talk" && (
               <div
                 className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
@@ -277,7 +280,7 @@ function ParentPage() {
 
             {/* Tall (3×1) — Wordie-X / Vocab — slim horizontal */}
             <div
-              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
+              className={`${tab === "wordie" ? "col-span-6" : "col-span-3"} rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]`}
               style={{ background: tint(6), border: `1.5px dashed ${tint(25)}` }}
             >
               <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
@@ -293,33 +296,24 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Ring (3×1) — label on left, gauge on right, horizontal */}
+            {/* Ring — talk tab only here; wordie renders it inline next to trend above */}
+            {tab === "talk" && (
             <div
               className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[60px]"
               style={{ background: tint(10) }}
             >
               <div className="min-w-0">
-                {tab === "wordie" ? (
-                  <p className="text-[11px] font-bold leading-tight" style={{ color: accent }}>
-                    Wordie Test
-                    <br />
-                    平均分
-                  </p>
-                ) : (
-                  <>
-                    <p className="text-[10px] font-bold leading-tight" style={{ color: accent }}>
-                      {bento.ring.label}
-                    </p>
-                    <div className="mt-1 flex items-baseline">
-                      <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                        {bento.ring.value}
-                      </span>
-                      <span className="text-[10px] ml-0.5 font-bold" style={{ color: accent }}>
-                        {bento.ring.unit}
-                      </span>
-                    </div>
-                  </>
-                )}
+                <p className="text-[10px] font-bold leading-tight" style={{ color: accent }}>
+                  {bento.ring.label}
+                </p>
+                <div className="mt-1 flex items-baseline">
+                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
+                    {bento.ring.value}
+                  </span>
+                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: accent }}>
+                    {bento.ring.unit}
+                  </span>
+                </div>
               </div>
               <div className="relative w-12 h-12 grid place-items-center shrink-0">
                 <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
@@ -340,6 +334,7 @@ function ParentPage() {
                 </span>
               </div>
             </div>
+            )}
 
             {/* Extra row moved into the 4-card grid above for wordie tab */}
           </div>
@@ -575,6 +570,47 @@ function ParentPage() {
 }
 
 // ============ small components ============
+
+function RingCard({
+  accent,
+  tint,
+  ring,
+}: {
+  accent: string;
+  tint: (pct: number) => string;
+  ring: { label: string; value: string; unit: string; pct: number };
+}) {
+  return (
+    <div
+      className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[60px]"
+      style={{ background: tint(10) }}
+    >
+      <p className="text-[11px] font-bold leading-tight min-w-0" style={{ color: accent }}>
+        Wordie Test
+        <br />
+        平均分
+      </p>
+      <div className="relative w-12 h-12 grid place-items-center shrink-0">
+        <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
+          <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="6" fill="none" />
+          <circle
+            cx="28"
+            cy="28"
+            r="24"
+            stroke={accent}
+            strokeWidth="6"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray={`${(ring.pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
+          />
+        </svg>
+        <span className="text-[11px] font-bold relative tabular-nums" style={{ color: accent }}>
+          {ring.pct}%
+        </span>
+      </div>
+    </div>
+  );
+}
 
 type VocabStage = { label: string; value: number; weight: number };
 
