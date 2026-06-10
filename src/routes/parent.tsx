@@ -43,8 +43,8 @@ const WORDIE_BENTO: BentoLayout = {
   tall: { label: "Wordie-X 收录", value: "26", unit: "词", badge: "Wordie-X" },
   ring: { label: "Wordie Test 平均分", value: "86", unit: "%", pct: 86 },
   extra: [
-    { label: "Learning 学习中", value: "42", unit: "词" },
-    { label: "New 新词", value: "14", unit: "词" },
+    { label: "学习中", value: "42", unit: "词" },
+    { label: "新词", value: "14", unit: "词" },
   ],
 };
 
