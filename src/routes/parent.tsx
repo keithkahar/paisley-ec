@@ -158,6 +158,16 @@ function ParentPage() {
         <section className="px-6 pt-4">
           <div className="grid grid-cols-6 gap-2.5">
             {/* Top row: wordie → 3 equal cards (hero + smallA + smallB); talk → hero(4) + smallA(2) */}
+            {tab === "wordie" ? (
+              <StreakRingCard
+                accent={accent}
+                tint={tint}
+                value={Number(bento.hero.value)}
+                unit={bento.hero.unit}
+                label={bento.hero.label}
+                goal={14}
+              />
+            ) : (
             <div
               className={`${tab === "wordie" ? "col-span-2" : "col-span-4"} rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]`}
               style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
@@ -169,6 +179,7 @@ function ParentPage() {
               </div>
               <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-white/15 blur-xl" />
             </div>
+            )}
             <div
               className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
               style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
