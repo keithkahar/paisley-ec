@@ -579,10 +579,10 @@ function WordieBento({
           </div>
           <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-white/10 blur-2xl" />
         </div>
-        {/* 本周卡片 — accent tinted */}
+        {/* 本周卡片 — unified tinted style */}
         <div
           className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px]"
-          style={{ background: tint(12), border: `1px solid ${tint(20)}` }}
+          style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
         >
           <span className="text-[10px] font-bold" style={{ color: tint(70) }}>{bento.smallA.label}</span>
           <div className="flex items-baseline gap-1">
@@ -590,10 +590,10 @@ function WordieBento({
             <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{bento.smallA.unit}</span>
           </div>
         </div>
-        {/* 本周时长 — white outlined */}
+        {/* 本周时长 — unified tinted style */}
         <div
-          className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px] bg-white"
-          style={{ border: `1px solid ${tint(20)}` }}
+          className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[64px]"
+          style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
         >
           <span className="text-[10px] font-bold" style={{ color: tint(70) }}>{bento.smallB.label}</span>
           <div className="flex items-baseline gap-1">
@@ -607,7 +607,7 @@ function WordieBento({
       <div className="grid grid-cols-6 gap-2.5">
         <div
           className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[68px]"
-          style={{ background: tint(8), border: `1.5px dashed ${tint(28)}` }}
+          style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
         >
           <span className="text-[10px] font-bold leading-tight" style={{ color: tint(70) }}>
             {bento.trend.label}
@@ -622,13 +622,9 @@ function WordieBento({
           style={{ background: accent, boxShadow: `0 10px 22px -16px ${accent}` }}
         >
           <div className="min-w-0">
-            <p className="text-[10px] font-bold leading-tight opacity-90">
+            <p className="text-[11px] font-bold leading-tight opacity-95">
               Wordie Test<br />平均分
             </p>
-            <div className="flex items-baseline gap-0.5 mt-1">
-              <span className="text-[20px] font-bold leading-none tabular-nums">{bento.ring.value}</span>
-              <span className="text-[10px] font-bold opacity-90">{bento.ring.unit}</span>
-            </div>
           </div>
           <div className="relative w-12 h-12 grid place-items-center shrink-0">
             <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
