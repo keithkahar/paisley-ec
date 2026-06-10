@@ -161,88 +161,92 @@ function ParentPage() {
           </div>
         </section>
 
-        {/* Mini cards — grouped: weekly series · status (wordie) · highlights */}
+        {/* Mini cards — grouped: weekly+status combined · highlights */}
         <section className="px-6 pt-4 space-y-4">
-          {/* 本周系列 — hero + 2 sides，同区同样式 */}
+          {/* 本周数据 (left, 3 cards) + 单词状态 (right, 4 cards) — 上下对齐 */}
           <div>
-            <SeriesHeader title="本周数据" accent={accent} />
-            <div className="grid grid-cols-3 gap-2.5">
-              {/* Hero (2/3) */}
-              <div
-                className="col-span-2 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[132px]"
-                style={{ background: accent, boxShadow: `0 10px 24px -12px ${accent}` }}
-              >
-                <span className="text-[11px] font-bold opacity-90">{data.weekly.hero.label}</span>
-                <div className="flex items-baseline">
-                  <span className="text-[38px] font-bold tracking-tight leading-none">
-                    {data.weekly.hero.value}
-                  </span>
-                  <span className="ml-1 text-[13px] font-bold opacity-80">
-                    {data.weekly.hero.unit}
-                  </span>
+            <div className="grid grid-cols-2 gap-3 mb-2">
+              <SeriesHeader title="本周数据" accent={accent} />
+              {data.status && <SeriesHeader title="单词状态" accent={accent} />}
+            </div>
+            <div
+              className="grid gap-2.5 items-stretch"
+              style={{ gridTemplateColumns: data.status ? "3fr 2fr" : "1fr" }}
+            >
+              {/* Left column — 3 weekly cards stacked */}
+              <div className="flex flex-col gap-2.5">
+                {/* Hero */}
+                <div
+                  className="flex-1 rounded-3xl p-4 flex flex-col justify-between text-white relative overflow-hidden min-h-[96px]"
+                  style={{ background: accent, boxShadow: `0 10px 24px -12px ${accent}` }}
+                >
+                  <span className="text-[11px] font-bold opacity-90">{data.weekly.hero.label}</span>
+                  <div className="flex items-baseline">
+                    <span className="text-[32px] font-bold tracking-tight leading-none">
+                      {data.weekly.hero.value}
+                    </span>
+                    <span className="ml-1 text-[13px] font-bold opacity-80">
+                      {data.weekly.hero.unit}
+                    </span>
+                  </div>
+                  <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-white/15 blur-xl" />
                 </div>
-                <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-white/15 blur-xl" />
-              </div>
-              {/* Sides (1/3 stacked) */}
-              <div className="col-span-1 flex flex-col gap-2.5">
+                {/* Sides */}
                 {data.weekly.sides.map((c, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-2xl p-3 flex flex-col justify-center"
+                    className="flex-1 rounded-2xl p-3 flex flex-col justify-between min-h-[72px]"
                     style={{ background: tint(10), border: `1px solid ${tint(20)}` }}
                   >
-                    <span className="text-[10px] font-bold leading-tight" style={{ color: tint(70) }}>
-                      {c.label}
-                    </span>
-                    <div className="flex items-baseline mt-1">
-                      <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                        {c.value}
-                      </span>
-                      <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                        {c.unit}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 单词状态系列 — 仅 wordie，2×2 同样式 */}
-          {data.status && (
-            <div>
-              <SeriesHeader title="单词状态" accent={accent} />
-              <div className="grid grid-cols-2 gap-2.5">
-                {data.status.map((c, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[78px]"
-                  >
-                    <span
-                      className="text-[11px] font-bold"
-                      style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
-                    >
+                    <span className="text-[11px] font-bold leading-tight" style={{ color: tint(70) }}>
                       {c.label}
                     </span>
                     <div className="flex items-baseline">
-                      <span
-                        className="text-[26px] font-bold leading-none tracking-tight"
-                        style={{ color: "var(--foreground)" }}
-                      >
+                      <span className="text-[22px] font-bold leading-none" style={{ color: accent }}>
                         {c.value}
                       </span>
-                      <span
-                        className="text-[11px] ml-1 font-bold"
-                        style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
-                      >
+                      <span className="text-[11px] ml-0.5 font-bold" style={{ color: tint(70) }}>
                         {c.unit}
                       </span>
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* Right column — 4 status cards stacked */}
+              {data.status && (
+                <div className="flex flex-col gap-2.5">
+                  {data.status.map((c, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 rounded-2xl p-3 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[56px]"
+                    >
+                      <span
+                        className="text-[11px] font-bold"
+                        style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}
+                      >
+                        {c.label}
+                      </span>
+                      <div className="flex items-baseline">
+                        <span
+                          className="text-[22px] font-bold leading-none tracking-tight"
+                          style={{ color: "var(--foreground)" }}
+                        >
+                          {c.value}
+                        </span>
+                        <span
+                          className="text-[10px] ml-1 font-bold"
+                          style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                        >
+                          {c.unit}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
+          </div>
 
           {/* 亮点 / 其他 — ring 卡（满意的样式）+ 分散 misc */}
           <div>
