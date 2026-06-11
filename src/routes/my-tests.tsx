@@ -182,7 +182,7 @@ function MyTestsPage() {
 
         {/* CEFR Test section */}
         <section className="px-6 pt-4">
-          <SectionHeader title="CEFR Test" actionLabel="Take CEFR Test" accent={CEFR_ACCENT} />
+          <SectionHeader title="CEFR Test" actionLabel="Take CEFR Test" accent={CEFR_ACCENT} to="/cefr-test" />
 
           {/* Hero card */}
           <div
