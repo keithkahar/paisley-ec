@@ -603,7 +603,13 @@ function TalkBento({
         <StatCard accent={accent} tint={tint} label={bento.smallB.label} value={bento.smallB.value} unit={bento.smallB.unit} />
       </div>
 
-      {/* Row 2: 本周主动提问 (full row, white) */}
+      {/* Row 2: 本周发言轮次 + 本周完整表达 */}
+      <div className="grid grid-cols-6 gap-3">
+        <StatCard accent={accent} tint={tint} label={bento.trend.label} value={bento.trend.value} unit={bento.trend.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
+      </div>
+
+      {/* Row 3: 本周主动提问 (full row, white) */}
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1.5 h-16 justify-center"
@@ -615,8 +621,8 @@ function TalkBento({
             </span>
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
-                className="text-[15px] font-bold leading-none"
-                style={{ color: "var(--foreground)", letterSpacing: "-0.02em" }}
+                className="text-[11px] font-bold leading-none"
+                style={{ color: "var(--foreground)" }}
               >
                 {bento.ring.value}
               </span>
@@ -624,7 +630,13 @@ function TalkBento({
                 className="text-[11px] font-bold leading-none"
                 style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
               >
-                / 目标18次
+                / 18
+              </span>
+              <span
+                className="text-[11px] font-bold leading-none"
+                style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
+              >
+                次(目标)
               </span>
             </span>
           </div>
@@ -640,16 +652,10 @@ function TalkBento({
         </div>
       </div>
 
-      {/* Row 3: 本周对话用词 + 本周目标词使用 */}
+      {/* Row 4: 本周对话用词 + 本周目标词使用 */}
       <div className="grid grid-cols-6 gap-3">
         <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
         <StatCard accent={accent} tint={tint} label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} />
-      </div>
-
-      {/* Row 4: 本周发言轮次 + 本周完整表达 */}
-      <div className="grid grid-cols-6 gap-3">
-        <StatCard accent={accent} tint={tint} label={bento.trend.label} value={bento.trend.value} unit={bento.trend.unit} />
-        <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
       </div>
     </div>
   );
