@@ -196,7 +196,7 @@ function WordCardPage() {
 
             {/* BACK */}
             <div
-              className="absolute inset-0 rounded-[2rem] p-6 flex flex-col text-white"
+              className="absolute inset-0 rounded-[2rem] p-6 flex flex-col text-white overflow-hidden"
               style={{
                 background: "linear-gradient(160deg, var(--wordie) 0%, oklch(0.48 0.22 273) 100%)",
                 backfaceVisibility: "hidden",
@@ -213,7 +213,7 @@ function WordCardPage() {
                 <p className="text-[13px] mt-3 font-mono opacity-80">{card.ipa}</p>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center gap-5 mt-4">
+              <div className="flex-1 flex flex-col justify-center gap-7 mt-4 mb-2">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Meaning</p>
                   <div className="mt-2 flex items-start gap-3">
