@@ -176,74 +176,35 @@ function ParentPage() {
         <SectionTitle>计划管理</SectionTitle>
 
         {/* ShirinTalk */}
-        <Collapsible
+        <GoalCard
           open={open.settingTalk}
           onToggle={() => toggle("settingTalk")}
           title="ShirinTalk"
           accent={SHIRIN}
-        >
-          <div className="space-y-2">
-            <NumberRow
-              label="连续练习"
-              value={talkStreakGoal}
-              unit="天"
-              onChange={setTalkStreakGoal}
-            />
-            <NumberRow
-              label="主动提问"
-              value={talkAskGoal}
-              unit="次"
-              onChange={setTalkAskGoal}
-            />
-            {(["week", "month", "year"] as const).map((k) => (
-              <NumberRow
-                key={k}
-                label={k === "week" ? "本周" : k === "month" ? "本月" : "本年"}
-                value={talkGoals[k]}
-                unit="分钟"
-                onChange={(v) => setTalkGoals((g) => ({ ...g, [k]: v }))}
-              />
-            ))}
-          </div>
-        </Collapsible>
+          rows={[
+            { label: "连续练习", value: talkStreakGoal, unit: "天", step: 1, onChange: setTalkStreakGoal },
+            { label: "主动提问", value: talkAskGoal, unit: "次", step: 1, onChange: setTalkAskGoal },
+            { label: "本周", value: talkGoals.week, unit: "分钟", step: 5, onChange: (v) => setTalkGoals((g) => ({ ...g, week: v })) },
+            { label: "本月", value: talkGoals.month, unit: "分钟", step: 10, onChange: (v) => setTalkGoals((g) => ({ ...g, month: v })) },
+            { label: "本年", value: talkGoals.year, unit: "分钟", step: 50, onChange: (v) => setTalkGoals((g) => ({ ...g, year: v })) },
+          ]}
+        />
 
         {/* myWordie */}
-        <Collapsible
+        <GoalCard
           open={open.settingWordie}
           onToggle={() => toggle("settingWordie")}
           title="myWordie"
           accent={WORDIE}
-        >
-          <div className="space-y-2">
-            <NumberRow
-              label="连续练习"
-              value={wordieStreakGoal}
-              unit="天"
-              onChange={setWordieStreakGoal}
-            />
-            <NumberRow
-              label="每天卡片"
-              value={dailyPlan.dailyCards}
-              unit="卡片"
-              onChange={(v) => setDailyPlan((p) => ({ ...p, dailyCards: v }))}
-            />
-            <NumberRow
-              label="每天时长"
-              value={dailyPlan.dailyMinutes}
-              unit="分钟"
-              onChange={(v) => setDailyPlan((p) => ({ ...p, dailyMinutes: v }))}
-            />
-            {(["week", "month", "year"] as const).map((k) => (
-              <NumberRow
-                key={k}
-                label={k === "week" ? "本周" : k === "month" ? "本月" : "本年"}
-                value={wordieGoals[k]}
-                unit="卡片"
-                onChange={(v) => setWordieGoals((g) => ({ ...g, [k]: v }))}
-              />
-            ))}
-          </div>
-        </Collapsible>
+          rows={[
+            { label: "连续练习", value: wordieStreakGoal, unit: "天", step: 1, onChange: setWordieStreakGoal },
+            { label: "每天卡片", value: dailyPlan.dailyCards, unit: "卡片", step: 1, onChange: (v) => setDailyPlan((p) => ({ ...p, dailyCards: v })) },
+            { label: "每天时长", value: dailyPlan.dailyMinutes, unit: "分钟", step: 5, onChange: (v) => setDailyPlan((p) => ({ ...p, dailyMinutes: v })) },
+            { label: "本周", value: wordieGoals.week, unit: "卡片", step: 5, onChange: (v) => setWordieGoals((g) => ({ ...g, week: v })) },
+            { label: "本月", value: wordieGoals.month, unit: "卡片", step: 10, onChange: (v) => setWordieGoals((g) => ({ ...g, month: v })) },
+            { label: "本年", value: wordieGoals.year, unit: "卡片", step: 50, onChange: (v) => setWordieGoals((g) => ({ ...g, year: v })) },
+          ]}
+        />
 
         {/* 设置 */}
         <SectionTitle>设置</SectionTitle>
