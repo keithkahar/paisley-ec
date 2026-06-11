@@ -544,7 +544,7 @@ function WordieBento({
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
   // Streak ring: 75% of the 260 funnel donut (116px) ≈ 87px, same stroke (10px) as funnel
   const STREAK_SIZE = 87;
-  const STREAK_STROKE = 10;
+  const STREAK_STROKE = 5;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
