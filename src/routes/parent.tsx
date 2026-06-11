@@ -652,7 +652,27 @@ function TalkBento({
       <div className="grid grid-cols-6 gap-3">
         <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
         <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
-        <StatCard accent={accent} tint={tint} label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} />
+      </div>
+      <div className="grid grid-cols-6 gap-3">
+        <div className="col-span-6">
+          <div
+            className="rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
+            style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+          >
+            <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
+              {bento.tall.label}
+            </span>
+            <div className="flex items-baseline gap-1 mt-auto">
+              <span
+                className="text-[22px] font-bold leading-none tabular-nums"
+                style={{ color: accent, letterSpacing: "-0.02em" }}
+              >
+                {bento.tall.value}
+              </span>
+              <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{bento.tall.unit}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
