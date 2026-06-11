@@ -140,6 +140,22 @@ function WordCardPage() {
         </Link>
       </div>
 
+      {/* Progress segments */}
+      <div className="px-5 mt-3 flex gap-1">
+        {DECK.map((_, i) => (
+          <div
+            key={i}
+            className="flex-1 h-1.5 rounded-full"
+            style={{
+              background:
+                i <= idx
+                  ? "var(--wordie)"
+                  : "color-mix(in oklab, var(--wordie) 10%, white)",
+            }}
+          />
+        ))}
+      </div>
+
       {/* Card */}
       <section className="px-5 mt-4">
         <button
@@ -216,7 +232,7 @@ function WordCardPage() {
               <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Meaning</p>
-                  <div className="mt-2 flex items-start gap-3">
+                  <div className="mt-2 flex items-center gap-3">
                     <p
                       className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
@@ -224,7 +240,7 @@ function WordCardPage() {
                       {card.meaning}
                     </p>
                     <span
-                      className="shrink-0 grid place-items-center mt-0.5 opacity-80"
+                      className="shrink-0 grid place-items-center opacity-80"
                       aria-label="Listen to meaning"
                     >
                       <Volume2 className="h-4 w-4" />
@@ -233,7 +249,7 @@ function WordCardPage() {
                 </div>
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
-                  <div className="mt-2 flex items-start gap-3">
+                  <div className="mt-2 flex items-center gap-3">
                     <p
                       className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
@@ -241,7 +257,7 @@ function WordCardPage() {
                       {card.example}
                     </p>
                     <span
-                      className="shrink-0 grid place-items-center mt-0.5 opacity-80"
+                      className="shrink-0 grid place-items-center opacity-80"
                       aria-label="Listen to example"
                     >
                       <Volume2 className="h-4 w-4" />
