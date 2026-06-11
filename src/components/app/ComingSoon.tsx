@@ -1,5 +1,4 @@
 import { PhoneFrame } from "./PhoneFrame";
-import { BottomTabBar } from "./BottomTabBar";
 import { AppHeader } from "./AppHeader";
 import { Hammer } from "lucide-react";
 
@@ -31,7 +30,6 @@ export function ComingSoon({
           {note ?? "This screen is part of the next design wave. The structure is in place — visuals coming next."}
         </p>
       </div>
-      <BottomTabBar />
     </PhoneFrame>
   );
 }
