@@ -339,7 +339,7 @@ function WordieTestPage() {
           <Link
             to="/mywordie"
             aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
