@@ -2,11 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import {
   TrendingUp,
   ClipboardList,
   Users,
-  ChevronLeft,
   Pencil,
 } from "lucide-react";
 
@@ -48,16 +48,7 @@ function ProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        {/* Back button → home */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/"
-            aria-label="Back to home"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/" label="Back to home" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-12 pb-1 text-center">
