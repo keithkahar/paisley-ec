@@ -606,24 +606,37 @@ function TalkBento({
       {/* Row 2: 本周主动提问 (full row, white) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
+          className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1.5 h-16 justify-center"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-baseline justify-between">
             <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
               {bento.ring.label}
             </span>
-            <div className="flex items-baseline gap-1">
+            <span className="flex items-baseline gap-1 tabular-nums">
               <span
-                className="text-[22px] font-bold leading-none tabular-nums"
-                style={{ color: accent, letterSpacing: "-0.02em" }}
+                className="text-[15px] font-bold leading-none"
+                style={{ color: "var(--foreground)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
               </span>
-              <span className="text-[11px] font-bold" style={{ color: tint(70) }}>次</span>
-            </div>
+              <span
+                className="text-[11px] font-bold leading-none"
+                style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
+              >
+                / 目标18次
+              </span>
+            </span>
           </div>
-          <span className="text-[10px] leading-none mt-auto" style={{ color: tint(50) }}>目标18次</span>
+          <div
+            className="h-1.5 rounded-full overflow-hidden"
+            style={{ background: "oklch(0.95 0.01 240)" }}
+          >
+            <div
+              className="h-full rounded-full"
+              style={{ width: `${Math.min(100, Math.round((Number(bento.ring.value) / 18) * 100))}%`, background: tint(95) }}
+            />
+          </div>
         </div>
       </div>
 
