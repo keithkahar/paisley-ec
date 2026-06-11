@@ -610,7 +610,7 @@ function WordieBento({
       {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
+          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 h-16"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
@@ -623,13 +623,13 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="6" fill="none" />
+              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="3" fill="none" />
               <circle
                 cx="25"
                 cy="25"
                 r="22"
                 stroke={tint(95)}
-                strokeWidth="6"
+                strokeWidth="3"
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
