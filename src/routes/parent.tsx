@@ -213,7 +213,7 @@ function ParentPage() {
         <section className="px-5 pt-3">
           <div
             className="rounded-2xl bg-white px-4 py-2 space-y-1"
-            style={{ border: "1px solid color-mix(in oklab, var(--foreground) 14%, white)" }}
+            style={{ border: "1px solid color-mix(in oklab, var(--foreground) 18%, white)" }}
           >
             <PrefRow
               label="语速"
