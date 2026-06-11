@@ -351,7 +351,7 @@ function ChatPage() {
                       onPointerUp={onMessagePressEnd}
                       onPointerLeave={onMessagePressEnd}
                       className={`relative rounded-2xl text-[14px] leading-relaxed shadow-sm transition-transform ${
-                        isUser ? "rounded-tr-sm text-white" : "rounded-tl-sm bg-white border border-[oklch(0.94_0.02_10)] text-foreground"
+                        isUser ? "rounded-tr-sm text-white" : "rounded-tl-sm bg-white border border-border text-foreground"
                       } ${longPressId === m.id ? "scale-[0.98]" : ""}`}
                       style={isUser ? { background: PINK } : undefined}
                     >
@@ -401,7 +401,7 @@ function ChatPage() {
             {sending && (
               <div className="flex items-start gap-2">
                 <img src={shirinGirl} alt="Shirin" className="h-8 w-8 object-contain" />
-                <div className="rounded-2xl rounded-tl-sm px-3.5 py-2 border border-[oklch(0.94_0.02_10)] bg-white shadow-sm inline-flex items-center gap-1.5">
+                <div className="rounded-2xl rounded-tl-sm px-3.5 py-2 border border-border bg-white shadow-sm inline-flex items-center gap-1.5">
                   <span className="text-[12px] text-muted-foreground italic mr-1">Shirin is thinking</span>
                   <Dot delay={0} />
                   <Dot delay={150} />
@@ -419,7 +419,7 @@ function ChatPage() {
           <div className="w-full max-w-[420px] pointer-events-auto">
             {/* Pending image preview */}
             {pendingImage && !shareMode && (
-              <div className="mx-4 mb-2 rounded-2xl bg-white border border-[oklch(0.94_0.02_10)] shadow-sm p-2 flex items-center gap-2">
+              <div className="mx-4 mb-2 rounded-2xl bg-white border border-border shadow-sm p-2 flex items-center gap-2">
                 <div
                   className="h-12 w-12 rounded-lg shrink-0"
                   style={{ background: pendingImage }}
@@ -440,7 +440,7 @@ function ChatPage() {
 
             {/* Attachment panel */}
             {attachmentOpen && !shareMode && (
-              <div className="mx-4 mb-2 rounded-2xl bg-white border border-[oklch(0.94_0.02_10)] shadow-sm p-3">
+              <div className="mx-4 mb-2 rounded-2xl bg-white border border-border shadow-sm p-3">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-[12px] font-bold inline-flex items-center gap-1">
                     <ImageIcon className="h-3.5 w-3.5" style={{ color: PINK }} />
@@ -467,7 +467,7 @@ function ChatPage() {
 
             {/* Share sheet bottom panel */}
             {shareMode ? (
-              <div className="px-4 pb-5 pt-2 bg-white/95 backdrop-blur border-t border-[oklch(0.95_0.02_10)]">
+              <div className="px-4 pb-5 pt-2 bg-white/95 backdrop-blur border-t border-border">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={confirmShare}
@@ -478,7 +478,7 @@ function ChatPage() {
                   </button>
                   <button
                     onClick={() => setShareMode(false)}
-                    className="h-11 px-5 rounded-full font-bold border border-[oklch(0.94_0.02_10)] bg-white text-[14px]"
+                    className="h-11 px-5 rounded-full font-bold border border-border bg-white text-[14px]"
                   >
                     Cancel
                   </button>
@@ -496,7 +496,7 @@ function ChatPage() {
                       setLiked((v) => !v);
                       setLikeCount((n) => n + (liked ? -1 : 1));
                     }}
-                    className="inline-flex items-center gap-1 rounded-full px-3 py-1 bg-white border border-[oklch(0.94_0.02_10)] text-[12px] font-semibold"
+                    className="inline-flex items-center gap-1 rounded-full px-3 py-1 bg-white border border-border text-[12px] font-semibold"
                     style={{ color: liked ? PINK : "var(--foreground)" }}
                   >
                     <Heart
@@ -507,7 +507,7 @@ function ChatPage() {
                   </button>
                   <button
                     onClick={() => setCommentsOpen(true)}
-                    className="inline-flex items-center gap-1 rounded-full px-3 py-1 bg-white border border-[oklch(0.94_0.02_10)] text-[12px] font-semibold"
+                    className="inline-flex items-center gap-1 rounded-full px-3 py-1 bg-white border border-border text-[12px] font-semibold"
                   >
                     <MessageCircle className="h-3.5 w-3.5" />
                     {commentCount}
@@ -515,7 +515,7 @@ function ChatPage() {
                 </div>
 
                 {/* Input bar */}
-                <div className="px-3 pb-5 pt-2 bg-white/95 backdrop-blur border-t border-[oklch(0.95_0.02_10)]">
+                <div className="px-3 pb-5 pt-2 bg-white/95 backdrop-blur border-t border-border">
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => showToast("Camera ready soon")}
@@ -551,7 +551,7 @@ function ChatPage() {
                           onKeyDown={(e) => { if (e.key === "Enter") handleSend(); }}
                           disabled={sending}
                           placeholder="Type or hold to talk"
-                          className="w-full rounded-full border border-[oklch(0.94_0.02_10)] bg-muted/40 px-4 py-2.5 pr-10 text-[13px] outline-none focus:ring-2 focus:ring-[color:var(--shirin)] disabled:opacity-60"
+                          className="w-full rounded-full border border-border bg-muted/40 px-4 py-2.5 pr-10 text-[13px] outline-none focus:ring-2 focus:ring-[color:var(--shirin)] disabled:opacity-60"
                         />
                         {(input.trim() || pendingImage) && (
                           <button
@@ -806,7 +806,7 @@ function CommentsSheet({
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
-        <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-[oklch(0.95_0.02_10)]">
+        <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-border">
           <h3 className="text-[15px] font-bold" style={{ fontFamily: "var(--font-sans)" }}>Comments {count}</h3>
           <button onClick={onClose} className="h-8 w-8 rounded-full grid place-items-center" aria-label="Close">
             <X className="h-4 w-4" />
@@ -868,7 +868,7 @@ function CommentsSheet({
             ))
           )}
         </div>
-        <div className="border-t border-[oklch(0.95_0.02_10)] px-3 pt-2 pb-4">
+        <div className="border-t border-border px-3 pt-2 pb-4">
           {replyTo && (
             <div className="mb-1.5 flex items-center justify-between px-2 py-1 rounded-md" style={{ background: PINK_SOFT }}>
               <span className="text-[11px] font-semibold" style={{ color: PINK }}>
@@ -886,7 +886,7 @@ function CommentsSheet({
               onChange={(e) => onCommentInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") onSend(); }}
               placeholder="Add a kind comment"
-              className="flex-1 rounded-full border border-[oklch(0.94_0.02_10)] bg-muted/40 px-4 py-2 text-[13px] outline-none focus:ring-2 focus:ring-[color:var(--shirin)]"
+              className="flex-1 rounded-full border border-border bg-muted/40 px-4 py-2 text-[13px] outline-none focus:ring-2 focus:ring-[color:var(--shirin)]"
             />
             <button
               onClick={onSend}
