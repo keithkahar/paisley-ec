@@ -981,7 +981,7 @@ function GoalRow({
     >
       <span
         className="text-[11px] font-bold leading-none"
-        style={{ color: `color-mix(in oklab, ${accent} 82%, black)` }}
+        style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
       >
         {label}
       </span>
@@ -993,12 +993,12 @@ function GoalRow({
           const n = Math.max(0, Math.round(Number(e.target.value) || 0));
           onChange(n);
         }}
-        className="absolute left-1/2 -translate-x-1/2 w-14 bg-transparent text-center text-[18px] font-bold leading-none tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 bg-transparent text-center text-[18px] font-bold leading-none tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         style={{ color: accent, letterSpacing: "-0.02em" }}
       />
       <span
         className="text-[11px] font-bold leading-none"
-        style={{ color: `color-mix(in oklab, ${accent} 60%, black)` }}
+        style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
       >
         {unit}
       </span>
