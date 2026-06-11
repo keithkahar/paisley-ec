@@ -229,7 +229,7 @@ function WordCardPage() {
       </section>
 
       {/* Bottom: stats + End session pinned near the bottom */}
-      <section className="mt-auto px-5 pb-6 pt-4 flex flex-col items-center gap-3">
+      <section className="absolute left-0 right-0 bottom-6 px-5 flex flex-col items-center gap-3">
         <p className="text-xs text-muted-foreground">
           <span className="font-semibold text-[color:var(--wordie)]">{easyCount}</span> easy this session
         </p>
