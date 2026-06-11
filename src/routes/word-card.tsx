@@ -152,7 +152,7 @@ function WordCardPage() {
           <div
             className="relative w-full"
             style={{
-              height: "26rem",
+              height: "24rem",
               transformStyle: "preserve-3d",
               transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
               transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -203,23 +203,49 @@ function WordCardPage() {
                 transform: "rotateY(180deg)",
               }}
             >
-              <div className="flex items-center">
-                <p
-                  className="font-semibold text-[20px] text-white leading-tight"
-                  style={{ letterSpacing: "-0.01em" }}
+              <div className="text-center mt-2">
+                <h3
+                  className="font-medium text-[40px] leading-none text-white"
+                  style={{ letterSpacing: "-0.02em" }}
                 >
                   {card.word}
-                </p>
+                </h3>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center gap-5 mt-2">
+              <div className="flex-1 flex flex-col justify-center gap-5 mt-4">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Meaning</p>
-                  <p className="text-lg font-semibold leading-snug mt-1">{card.meaning}</p>
+                  <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Meaning</p>
+                  <div className="mt-2 flex items-start gap-3">
+                    <p
+                      className="flex-1 text-base font-semibold leading-snug"
+                      style={{ letterSpacing: "-0.01em" }}
+                    >
+                      {card.meaning}
+                    </p>
+                    <span
+                      className="shrink-0 grid place-items-center mt-0.5 opacity-80"
+                      aria-label="Listen to meaning"
+                    >
+                      <Volume2 className="h-4 w-4" />
+                    </span>
+                  </div>
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Example</p>
-                  <p className="text-base italic mt-1">{card.example}</p>
+                  <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
+                  <div className="mt-2 flex items-start gap-3">
+                    <p
+                      className="flex-1 text-base font-semibold leading-snug"
+                      style={{ letterSpacing: "-0.01em" }}
+                    >
+                      {card.example}
+                    </p>
+                    <span
+                      className="shrink-0 grid place-items-center mt-0.5 opacity-80"
+                      aria-label="Listen to example"
+                    >
+                      <Volume2 className="h-4 w-4" />
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -232,7 +258,11 @@ function WordCardPage() {
       </section>
 
       {/* Three-emoji rating */}
-      <section className="px-5 mt-6 grid grid-cols-3 gap-3">
+      <section
+        className="px-5 mt-6 grid grid-cols-3 gap-3 transition-opacity"
+        style={{ opacity: flipped ? 1 : 0, pointerEvents: flipped ? "auto" : "none" }}
+        aria-hidden={!flipped}
+      >
         {([
           { key: "forgot", emoji: "😟", label: "Forgot" },
           { key: "hard", emoji: "🙂", label: "Hard" },
