@@ -51,7 +51,7 @@ function TopicsPage() {
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
           <div className="mb-4 text-center">
             <h1
-              className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
               style={{ color: PINK, letterSpacing: "-0.01em" }}
             >
               Pick A Topic

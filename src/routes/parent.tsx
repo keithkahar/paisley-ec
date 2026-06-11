@@ -122,7 +122,7 @@ function ParentPage() {
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: PAISLEY }}
           >
             Parent Page

@@ -242,7 +242,7 @@ function WordieBankPage() {
         {/* Title */}
         <div className="mb-4 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
           >
             Wordie Bank

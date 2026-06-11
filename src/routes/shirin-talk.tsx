@@ -46,7 +46,7 @@ function ShirinTalkPage() {
             className="mx-auto h-40 w-40 object-contain"
           />
           <h2
-            className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="mt-2 text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: PINK, letterSpacing: "-0.01em" }}
           >
             Hi, I'm Shirin!
