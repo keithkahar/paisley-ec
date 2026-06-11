@@ -721,7 +721,11 @@ function QuestionCard({
             onContextMenu={(event) => event.preventDefault()}
             className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform touch-none"
             style={{
-              background: recording ? "var(--wordie-accent)" : "var(--wordie)"
+              background: recording
+                ? "#ef4444"
+                : answer?.record
+                ? "var(--wordie-accent)"
+                : "var(--wordie)",
             }}
           >
             <Mic className="h-6 w-6" />
@@ -735,7 +739,7 @@ function QuestionCard({
                 : answer.record.band === "good"
                 ? "Checked"
                 : "Needs review"
-              : "Tap to record"}
+              : "Hold to record"}
           </p>
         </div>
       ) : (
