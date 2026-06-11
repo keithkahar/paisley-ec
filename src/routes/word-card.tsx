@@ -256,11 +256,11 @@ function WordCardPage() {
       <section className="mt-8 flex flex-col items-center">
         <button
           type="button"
-          className="h-20 w-20 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+          className="h-[72px] w-[72px] rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
           style={{ background: "var(--wordie)" }}
           aria-label="Listen"
         >
-          <Volume2 className="h-9 w-9" />
+          <Volume2 className="h-8 w-8" />
         </button>
       </section>
 
