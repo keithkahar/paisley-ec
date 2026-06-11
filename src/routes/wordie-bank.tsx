@@ -897,8 +897,8 @@ function PreviewFull({
           type="button"
           onClick={onPrev}
           disabled={prevDisabled}
-          className="text-[13px] font-semibold disabled:opacity-30 pointer-events-auto"
-          style={{ color: "var(--wordie)" }}
+          className="text-[15px] font-semibold disabled:opacity-30 pointer-events-auto"
+          style={{ color: "var(--wordie)", fontFamily: "var(--font-display)" }}
         >
           Previous
         </button>
@@ -906,8 +906,8 @@ function PreviewFull({
           type="button"
           onClick={onNext}
           disabled={nextDisabled}
-          className="text-[13px] font-semibold disabled:opacity-30 pointer-events-auto"
-          style={{ color: "var(--wordie)" }}
+          className="text-[15px] font-semibold disabled:opacity-30 pointer-events-auto"
+          style={{ color: "var(--wordie)", fontFamily: "var(--font-display)" }}
         >
           Next
         </button>
@@ -922,12 +922,15 @@ function MiniStat({ label, value }: { label: string; value: string }) {
       className="rounded-2xl px-3 py-2 text-center"
       style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
     >
-      <p className="text-xs font-semibold tracking-[0.08em] text-muted-foreground">
+      <p
+        className="text-xs font-semibold tracking-[0.08em] text-muted-foreground"
+        style={{ fontFamily: "var(--font-display)" }}
+      >
         {label}
       </p>
       <p
         className="text-xs font-semibold mt-0.5 truncate"
-        style={{ color: "var(--wordie)" }}
+        style={{ color: "var(--wordie)", fontFamily: "var(--font-display)" }}
       >
         {value}
       </p>

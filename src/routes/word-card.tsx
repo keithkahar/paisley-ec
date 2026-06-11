@@ -185,15 +185,19 @@ function WordCardPage() {
             >
               <div className="flex items-center gap-1.5 min-w-0">
                 <span
-                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                  className="inline-flex rounded-lg px-[9px] py-[3px] text-[15px] font-semibold"
                   style={{
                     background: "var(--wordie)",
                     color: "white",
+                    fontFamily: "var(--font-display)",
                   }}
                 >
                   {card.pos}
                 </span>
-                <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
+                <span
+                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
                   {card.level}
                 </span>
               </div>
@@ -219,6 +223,14 @@ function WordCardPage() {
                 transform: "rotateY(180deg)",
               }}
             >
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span
+                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{ background: "white", color: "var(--wordie)" }}
+                >
+                  {card.pos}
+                </span>
+              </div>
               <div className="text-center mt-2">
                 <h3
                   className="font-medium text-[40px] leading-none text-white"
