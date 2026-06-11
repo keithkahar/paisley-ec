@@ -782,7 +782,7 @@ function PreviewFull({
           className="rounded-[2rem] p-6 bg-white flex flex-col overflow-hidden"
           style={{
             border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)",
-            height: "24rem"
+            height: "28rem"
           }}
         >
           <div className="flex items-center">
@@ -815,14 +815,14 @@ function PreviewFull({
           </div>
 
           {/* Example + Word in use — both left-aligned */}
-          <div className="flex-1 flex flex-col justify-center gap-7 mt-4 mb-2">
+          <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
             <div>
               <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-base font-semibold leading-snug text-foreground"
+                  className="flex-1 text-[17px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {word.definitionEn}
@@ -842,7 +842,7 @@ function PreviewFull({
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-base font-semibold leading-snug text-foreground"
+                  className="flex-1 text-[17px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(word.exampleSentence, word.word)}
