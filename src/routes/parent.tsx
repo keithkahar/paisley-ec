@@ -556,15 +556,15 @@ function WordieBento({
           <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
             连续练习
           </span>
-          <div className="relative w-[132px] h-[132px] grid place-items-center my-auto">
+          <div className="relative w-[108px] h-[108px] grid place-items-center my-auto">
             <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
-              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.18)" strokeWidth="6" fill="none" />
+              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.18)" strokeWidth="7" fill="none" />
               <circle
                 cx="50"
                 cy="50"
                 r={R}
                 stroke="white"
-                strokeWidth="6"
+                strokeWidth="7"
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(ringPct / 100) * C} ${C}`}
@@ -572,10 +572,10 @@ function WordieBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[40px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
+                <span className="text-[32px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
                   {bento.hero.value}
                 </span>
-                <span className="text-[13px] font-medium opacity-85">{bento.hero.unit}</span>
+                <span className="text-[12px] font-medium opacity-85">{bento.hero.unit}</span>
               </div>
             </div>
           </div>
@@ -598,7 +598,7 @@ function WordieBento({
       {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 min-h-[68px]"
+          className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 min-h-[78px]"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
@@ -675,7 +675,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[68px]"
+      className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[78px]"
       style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
     >
       <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
