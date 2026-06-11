@@ -633,10 +633,12 @@ function TalkBento({
                 次
               </span>
               <span
-                className="text-[11px] font-bold leading-none"
+                className="text-[10px] font-medium leading-none flex items-baseline gap-1"
                 style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
               >
-                目标18次
+                目标
+                <span className="font-bold tabular-nums">18</span>
+                次
               </span>
             </span>
           </div>
