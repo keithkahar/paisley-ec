@@ -1,6 +1,8 @@
 import { PhoneFrame } from "./PhoneFrame";
 import { AppHeader } from "./AppHeader";
-import { Hammer } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Sparkles } from "lucide-react";
+import type { ComponentType, ReactNode } from "react";
 
 export function ComingSoon({
   title,
@@ -8,27 +10,50 @@ export function ComingSoon({
   back = "/",
   bg = "bg-background",
   accent = "var(--paisley)",
+  icon: Icon = Sparkles,
+  cta,
 }: {
   title: string;
   note?: string;
   back?: string;
   bg?: string;
   accent?: string;
+  icon?: ComponentType<{ className?: string }>;
+  cta?: ReactNode;
 }) {
   return (
     <PhoneFrame bg={bg}>
       <AppHeader title={title} back={back} />
-      <div className="px-6 py-16 text-center">
+      <div className="px-6 pt-16 pb-12 text-center flex flex-col items-center">
         <div
-          className="mx-auto h-20 w-20 rounded-3xl grid place-items-center text-white shadow-lg"
+          className="relative h-24 w-24 rounded-[28px] grid place-items-center text-white shadow-lg"
           style={{ background: accent }}
         >
-          <Hammer className="h-9 w-9" />
+          <Icon className="h-10 w-10" />
+          <span
+            className="absolute -top-2 -right-2 rounded-full bg-white border border-border px-2 py-0.5 text-[11px] font-bold"
+            style={{ color: accent }}
+          >
+            Soon
+          </span>
         </div>
-        <h2 className="mt-5 text-xl font-bold">{title}</h2>
-        <p className="mt-2 text-sm text-muted-foreground max-w-[18rem] mx-auto">
-          {note ?? "This screen is part of the next design wave. The structure is in place — visuals coming next."}
+        <h2 className="mt-6 text-2xl font-bold" style={{ color: accent }}>
+          {title}
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground max-w-[18rem]">
+          {note ?? "We're putting the finishing touches here. Check back soon!"}
         </p>
+        <div className="mt-8">
+          {cta ?? (
+            <Link
+              to={back}
+              className="inline-flex items-center rounded-full px-5 py-2.5 text-sm font-bold text-white active:scale-[0.98] transition-transform"
+              style={{ background: accent }}
+            >
+              Got it
+            </Link>
+          )}
+        </div>
       </div>
     </PhoneFrame>
   );
