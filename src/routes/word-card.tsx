@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { Volume2, RotateCw, Sparkles, ChevronLeft, Clock, X } from "lucide-react";
+import { Volume2, RotateCw, ChevronLeft, Clock, X } from "lucide-react";
 
 export const Route = createFileRoute("/word-card")({
   head: () => ({ meta: [
@@ -171,8 +171,8 @@ function WordCardPage() {
                 <span
                   className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                   style={{
-                    background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                    color: "var(--wordie)",
+                    background: "var(--wordie)",
+                    color: "white",
                   }}
                 >
                   {card.pos}
@@ -203,25 +203,23 @@ function WordCardPage() {
                 transform: "rotateY(180deg)",
               }}
             >
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-semibold rounded-full px-2 py-1 bg-white/20">
+              <div className="flex items-center">
+                <p
+                  className="font-semibold text-[20px] text-white leading-tight"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
                   {card.word}
-                </span>
-                <Sparkles className="h-5 w-5 text-[color:var(--wordie-accent)]" />
+                </p>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center gap-4 mt-2">
+              <div className="flex-1 flex flex-col justify-center gap-5 mt-2">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Meaning</p>
                   <p className="text-lg font-semibold leading-snug mt-1">{card.meaning}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Translation</p>
-                  <p className="text-base font-semibold mt-1">{card.translation}</p>
-                </div>
-                <div className="rounded-2xl bg-white/15 backdrop-blur px-4 py-3">
                   <p className="text-[10px] font-semibold uppercase tracking-wider opacity-70">Example</p>
-                  <p className="text-sm italic mt-1">{card.example}</p>
+                  <p className="text-base italic mt-1">{card.example}</p>
                 </div>
               </div>
 

@@ -375,6 +375,7 @@ function WordieTestPage() {
           ) : (
             <span />
           )}
+          <span className="h-9 w-9" aria-hidden />
         </div>
 
         {/* Title — only show in info/locked */}
