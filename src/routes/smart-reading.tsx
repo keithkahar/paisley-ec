@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { ChevronLeft, Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
+import { Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
 import { z } from "zod";
 
 const PINK = "var(--shirin)";

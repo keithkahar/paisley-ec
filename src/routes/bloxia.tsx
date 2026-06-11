@@ -97,7 +97,15 @@ function ResourceChip({ label, value, color }: { label: string; value: number; c
 
 function ActionCard({ label, sub, icon, tint }: { label: string; sub: string; icon: React.ReactNode; tint: string }) {
   return (
-    <button className="rounded-2xl bg-white border border-border p-4 flex flex-col items-start gap-2 active:scale-[0.98] text-left">
+    <button
+      type="button"
+      disabled
+      aria-label={`${label} — coming soon`}
+      className="relative rounded-2xl bg-white border border-border p-4 flex flex-col items-start gap-2 text-left opacity-90 cursor-not-allowed"
+    >
+      <span className="absolute top-2 right-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground leading-none">
+        Soon
+      </span>
       <div className="h-10 w-10 rounded-xl grid place-items-center text-white" style={{ background: tint }}>
         {icon}
       </div>

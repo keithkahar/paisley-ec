@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { ChevronLeft } from "lucide-react";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import freeTalkArt from "@/assets/topics/free_talk.png";
 import smartReadingArt from "@/assets/topics/smart_reading.png";
 import petTalkArt from "@/assets/topics/pet_talk.png";
@@ -46,15 +46,9 @@ function TopicsPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
-          <Link to="/shirin-talk" aria-label="Back" className="h-9 w-9 grid place-items-center rounded-full">
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-          <span aria-hidden />
-          <div className="h-9 w-9" />
-        </header>
+        <FloatingBack to="/shirin-talk" />
 
-        <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-1">
+        <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
           <div className="mb-4 text-center">
             <h1
               className="text-[26px] leading-[1.2] font-semibold tracking-tight"
