@@ -599,8 +599,6 @@ function WordieBento({
           <span className="absolute right-4 bottom-3 text-[10px] font-medium leading-none flex items-baseline gap-1">
             目标
             <span className="font-bold tabular-nums">14</span>
-            <span className="opacity-70">/</span>
-            <span className="opacity-70">{ringPct}%</span>
             {bento.hero.unit}
           </span>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
@@ -907,7 +905,7 @@ function VocabFunnel({
                       className="text-[11px] font-bold leading-none"
                       style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
                     >
-                      {pct}%
+                      / {pct}%
                     </span>
                   </span>
                 </div>
