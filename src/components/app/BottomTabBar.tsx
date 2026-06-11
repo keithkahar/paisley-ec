@@ -59,7 +59,6 @@ export function BottomTabBar() {
                     src={active ? t.filled : t.outline}
                     alt=""
                     className={`relative z-10 object-contain ${isProfile ? "h-9 w-9" : "h-12 w-12"}`}
-                    style={isProfile && !active ? { filter: "brightness(0)" } : undefined}
                   />
                 </span>
               </Link>
