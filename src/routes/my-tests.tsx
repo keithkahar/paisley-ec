@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ChevronDown, ChevronRight, Check, RotateCcw } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
@@ -182,7 +182,7 @@ function MyTestsPage() {
 
         {/* CEFR Test section */}
         <section className="px-6 pt-4">
-          <SectionHeader title="CEFR Test" actionLabel="Take CEFR Test" accent={CEFR_ACCENT} />
+          <SectionHeader title="CEFR Test" actionLabel="Take CEFR Test" accent={CEFR_ACCENT} to="/cefr-test" />
 
           {/* Hero card */}
           <div
@@ -262,7 +262,7 @@ function MyTestsPage() {
 
         {/* Wordie Test section */}
         <section className="px-6 pt-6 pb-8">
-          <SectionHeader title="Wordie Test" actionLabel="Take Wordie Test" accent={WORDIE_ACCENT} />
+          <SectionHeader title="Wordie Test" actionLabel="Take Wordie Test" accent={WORDIE_ACCENT} to="/wordie-test" />
 
           {/* Avg + trend card */}
           <div className="mt-3 rounded-2xl p-4 border border-[var(--input)]">
@@ -435,7 +435,7 @@ function MyTestsPage() {
   );
 }
 
-function SectionHeader({ title, actionLabel, accent }: { title: string; actionLabel: string; accent: string }) {
+function SectionHeader({ title, actionLabel, accent, to }: { title: string; actionLabel: string; accent: string; to?: string }) {
   return (
     <div className="flex items-center justify-between">
       <h2
@@ -444,13 +444,23 @@ function SectionHeader({ title, actionLabel, accent }: { title: string; actionLa
       >
         {title}
       </h2>
-      <button
-        type="button"
-        className="text-[12px] font-bold px-3 h-7 rounded-full"
-        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
-      >
-        {actionLabel}
-      </button>
+      {to ? (
+        <Link
+          to={to}
+          className="inline-flex items-center text-[12px] font-bold px-3 h-7 rounded-full"
+          style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
+        >
+          {actionLabel}
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className="text-[12px] font-bold px-3 h-7 rounded-full"
+          style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
+        >
+          {actionLabel}
+        </button>
+      )}
     </div>
   );
 }
