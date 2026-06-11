@@ -621,8 +621,8 @@ function TalkBento({
             </span>
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
-                className="text-[11px] font-bold leading-none"
-                style={{ color: "var(--foreground)" }}
+                className="text-[22px] font-bold leading-none"
+                style={{ color: "var(--foreground)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
               </span>
@@ -654,8 +654,8 @@ function TalkBento({
 
       {/* Row 4: 本周对话用词 + 本周目标词使用 */}
       <div className="grid grid-cols-6 gap-3">
-        <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
-        <StatCard accent={accent} tint={tint} label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} />
+        <StatCard accentOverride="oklch(0.66 0.22 35)" label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} accent={accent} tint={tint} />
+        <StatCard accentOverride="oklch(0.62 0.18 160)" label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} accent={accent} tint={tint} />
       </div>
     </div>
   );
