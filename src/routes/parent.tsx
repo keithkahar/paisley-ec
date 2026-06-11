@@ -1038,7 +1038,7 @@ function SwitchRow({
         aria-checked={checked}
         onClick={() => onChange(!checked)}
         className="relative h-6 w-11 rounded-full transition-colors"
-        style={{ background: checked ? PAISLEY : "color-mix(in oklab, var(--foreground) 18%, white)" }}
+        style={{ background: checked ? PAISLEY : "var(--input)" }}
       >
         <span
           className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all"
