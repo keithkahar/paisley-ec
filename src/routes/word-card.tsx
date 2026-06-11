@@ -40,9 +40,9 @@ const DECK: Card[] = [
     pos: "Verb",
     level: "B1",
     emoji: "🤫",
-    meaning: "to speak very softly, almost without sound",
+    meaning: "to speak very softly using your breath rather than your full voice, so others nearby can barely hear you",
     translation: "悄悄说 / 低语",
-    example: "She whispered a secret into my ear.",
+    example: "She leaned in close and whispered a long, surprising secret into my ear during the quiet movie scene.",
     status: "learning",
   },
   {
