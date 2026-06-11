@@ -172,26 +172,17 @@ function ParentPage() {
           )}
         </section>
 
-        {/* 管理 */}
-        <SectionTitle>管理</SectionTitle>
+        {/* 计划管理 */}
+        <SectionTitle>计划管理</SectionTitle>
 
-        {/* ShirinTalk 目标 */}
+        {/* ShirinTalk */}
         <Collapsible
           open={open.settingTalk}
           onToggle={() => toggle("settingTalk")}
-          title="ShirinTalk 目标"
+          title="ShirinTalk"
           accent={SHIRIN}
         >
           <div className="space-y-2">
-            {(["week", "month", "year"] as const).map((k) => (
-              <NumberRow
-                key={k}
-                label={k === "week" ? "本周" : k === "month" ? "本月" : "今年"}
-                value={talkGoals[k]}
-                unit="min"
-                onChange={(v) => setTalkGoals((g) => ({ ...g, [k]: v }))}
-              />
-            ))}
             <NumberRow
               label="连续练习"
               value={talkStreakGoal}
@@ -204,20 +195,32 @@ function ParentPage() {
               unit="次"
               onChange={setTalkAskGoal}
             />
+            {(["week", "month", "year"] as const).map((k) => (
+              <NumberRow
+                key={k}
+                label={k === "week" ? "本周" : k === "month" ? "本月" : "本年"}
+                value={talkGoals[k]}
+                unit="min"
+                onChange={(v) => setTalkGoals((g) => ({ ...g, [k]: v }))}
+              />
+            ))}
           </div>
         </Collapsible>
 
-        {/* myWordie 每日计划 + 目标 */}
+        {/* myWordie */}
         <Collapsible
           open={open.settingWordie}
           onToggle={() => toggle("settingWordie")}
-          title="myWordie 每日计划 / 目标"
+          title="myWordie"
           accent={WORDIE}
         >
-          <p className="text-[12px] font-bold mb-2" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-            每日计划
-          </p>
-          <div className="space-y-2 mb-3">
+          <div className="space-y-2">
+            <NumberRow
+              label="连续练习"
+              value={wordieStreakGoal}
+              unit="天"
+              onChange={setWordieStreakGoal}
+            />
             <NumberRow
               label="每天卡片"
               value={dailyPlan.dailyCards}
@@ -230,79 +233,16 @@ function ParentPage() {
               unit="min"
               onChange={(v) => setDailyPlan((p) => ({ ...p, dailyMinutes: v }))}
             />
-          </div>
-          <p className="text-[12px] font-bold mb-2" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-            周/月/年目标
-          </p>
-          <div className="space-y-2">
             {(["week", "month", "year"] as const).map((k) => (
               <NumberRow
                 key={k}
-                label={k === "week" ? "本周" : k === "month" ? "本月" : "今年"}
+                label={k === "week" ? "本周" : k === "month" ? "本月" : "本年"}
                 value={wordieGoals[k]}
                 unit="cards"
                 onChange={(v) => setWordieGoals((g) => ({ ...g, [k]: v }))}
               />
             ))}
-            <NumberRow
-              label="连续练习"
-              value={wordieStreakGoal}
-              unit="天"
-              onChange={setWordieStreakGoal}
-            />
           </div>
-        </Collapsible>
-
-        {/* Wordie-X */}
-        <Collapsible
-          open={open.wordieX}
-          onToggle={() => toggle("wordieX")}
-          title="Wordie-X"
-          accent={WORDIE}
-        >
-          <WordieXCard
-            word="serendipity"
-            status="Focus"
-            focus
-            partOfSpeech="n."
-            cefrLevel="C1"
-            source="ShirinTalk"
-            mastery={62}
-            nextReview="明天 20:00"
-          />
-          {open.wordieXList && (
-            <div className="mt-2 space-y-2">
-              <WordieXCard
-                word="meticulous"
-                status="Review"
-                partOfSpeech="adj."
-                cefrLevel="B2"
-                source="iAdded"
-                mastery={48}
-                nextReview="今天 20:00"
-              />
-              <WordieXCard
-                word="resilient"
-                status="Learning"
-                partOfSpeech="adj."
-                cefrLevel="B2"
-                source="Example"
-                mastery={28}
-                nextReview="2 天后"
-              />
-            </div>
-          )}
-          <button
-            type="button"
-            onClick={() => toggle("wordieXList")}
-            className="mt-3 w-full h-9 rounded-full text-[12px] font-bold"
-            style={{
-              color: WORDIE,
-              background: "color-mix(in oklab, var(--wordie) 8%, white)",
-            }}
-          >
-            {open.wordieXList ? "收起列表" : "展开全部"}
-          </button>
         </Collapsible>
 
         {/* 设置 */}
