@@ -1,8 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
-import { Volume2, Star, RotateCw, Sparkles } from "lucide-react";
+import { Volume2, RotateCw, Sparkles, ChevronLeft, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/word-card")({
   head: () => ({ meta: [
@@ -23,52 +22,78 @@ type Card = {
   meaning: string;
   translation: string;
   example: string;
+  status: "new" | "learning" | "review" | "focus" | "relearning";
+};
+
+const STATUS_META: Record<Card["status"], { label: string; color: string }> = {
+  new: { label: "New", color: "oklch(0.66 0.24 280)" },
+  learning: { label: "Learning", color: "oklch(0.7 0.18 195)" },
+  review: { label: "Review", color: "oklch(0.68 0.2 145)" },
+  focus: { label: "Focus", color: "oklch(0.68 0.26 35)" },
+  relearning: { label: "Relearning", color: "var(--shirin)" },
 };
 
 const DECK: Card[] = [
   {
     word: "whisper",
     ipa: "/ˈwɪs.pər/",
-    pos: "verb",
+    pos: "Verb",
     level: "B1",
     emoji: "🤫",
     meaning: "to speak very softly, almost without sound",
     translation: "悄悄说 / 低语",
     example: "She whispered a secret into my ear.",
+    status: "learning",
   },
   {
     word: "garden",
     ipa: "/ˈɡɑːr.dən/",
-    pos: "noun",
+    pos: "Noun",
     level: "A2",
     emoji: "🌱",
     meaning: "a piece of land where flowers and plants grow",
     translation: "花园",
     example: "We planted tomatoes in the garden.",
+    status: "review",
   },
   {
     word: "curious",
     ipa: "/ˈkjʊər.i.əs/",
-    pos: "adjective",
+    pos: "Adjective",
     level: "B1",
     emoji: "🔍",
     meaning: "wanting to know about something",
     translation: "好奇的",
     example: "The curious cat looked inside the box.",
+    status: "new",
   },
 ];
+
+function fmtTime(sec: number) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
 
 function WordCardPage() {
   const navigate = useNavigate();
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [easyCount, setEasyCount] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const startRef = useRef<number>(Date.now());
   const card = DECK[idx];
   const total = DECK.length;
-  const pct = Math.round(((idx) / total) * 100);
+  const status = STATUS_META[card.status];
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSeconds(Math.floor((Date.now() - startRef.current) / 1000));
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   const next = (rating: "forgot" | "hard" | "easy") => {
-    if (rating === "easy") setEasyCount((k) => k + 1);
+    void rating;
     if (idx + 1 >= total) {
       navigate({ to: "/mywordie" });
       return;
@@ -79,28 +104,37 @@ function WordCardPage() {
 
   return (
     <PhoneFrame bg="bg-[color:var(--wordie-soft)]">
-      <AppHeader
-        back="/mywordie"
-        title={<span className="text-[color:var(--wordie)]">Word Card</span>}
-        right={
-          <span className="text-xs font-semibold text-[color:var(--wordie)]">
-            {idx + 1}/{total}
+      {/* Top bar — mirrors wordie-test */}
+      <div className="px-4 pt-4 flex items-center justify-between">
+        <Link
+          to="/mywordie"
+          aria-label="Back"
+          className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </Link>
+        <div className="flex items-center gap-2">
+          <span className="text-[12px] font-semibold text-muted-foreground">
+            {idx + 1} / {total}
           </span>
-        }
-      />
-
-      {/* Progress */}
-      <div className="px-5">
-        <div className="h-2 rounded-full bg-white overflow-hidden border border-border">
-          <div
-            className="h-full rounded-full transition-all duration-500"
-            style={{ width: `${pct}%`, background: "linear-gradient(90deg,var(--wordie),var(--wordie-accent))" }}
-          />
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold"
+            style={{
+              background: `color-mix(in oklab, ${status.color} 22%, white)`,
+              color: `color-mix(in oklab, ${status.color} 70%, black)`,
+            }}
+          >
+            {status.label}
+          </span>
+          <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
+            <Clock className="h-3.5 w-3.5" />
+            {fmtTime(seconds)}
+          </span>
         </div>
       </div>
 
       {/* Card */}
-      <section className="px-5 mt-5">
+      <section className="px-5 mt-4">
         <button
           type="button"
           onClick={() => setFlipped((f) => !f)}
@@ -126,22 +160,19 @@ function WordCardPage() {
                 border: "1px solid color-mix(in oklab, var(--wordie) 20%, transparent)",
               }}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span
-                    className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                    style={{
-                      background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                      color: "var(--wordie)",
-                    }}
-                  >
-                    {card.pos}
-                  </span>
-                  <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
-                    {card.level}
-                  </span>
-                </div>
-                <Star className="h-5 w-5 text-[color:var(--wordie-accent)]" />
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span
+                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{
+                    background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                    color: "var(--wordie)",
+                  }}
+                >
+                  {card.pos}
+                </span>
+                <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
+                  {card.level}
+                </span>
               </div>
 
               <div className="flex-1 grid place-items-center text-center">
@@ -207,16 +238,16 @@ function WordCardPage() {
             key={r.key}
             type="button"
             onClick={() => next(r.key)}
-            className="rounded-2xl bg-white border border-border py-3 flex flex-col items-center gap-1 active:scale-[0.97] transition-transform"
+            className="py-3 flex flex-col items-center gap-1.5 active:scale-[0.95] transition-transform"
           >
-            <span className="text-3xl leading-none">{r.emoji}</span>
-            <span className="text-[12px] font-semibold text-foreground">{r.label}</span>
+            <span className="text-[44px] leading-none">{r.emoji}</span>
+            <span className="text-[15px] font-medium text-foreground">{r.label}</span>
           </button>
         ))}
       </section>
 
       {/* Speaker — same shape as wordie-test stage 2 record button */}
-      <section className="mt-8 flex flex-col items-center gap-2">
+      <section className="mt-8 flex flex-col items-center">
         <button
           type="button"
           className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
@@ -225,14 +256,10 @@ function WordCardPage() {
         >
           <Volume2 className="h-6 w-6" />
         </button>
-        <p className="text-[11px] font-medium text-muted-foreground">Tap to listen</p>
       </section>
 
-      {/* Bottom: stats + End session pinned near the bottom */}
-      <section className="absolute left-0 right-0 bottom-6 px-5 flex flex-col items-center gap-3">
-        <p className="text-xs text-muted-foreground">
-          <span className="font-semibold text-[color:var(--wordie)]">{easyCount}</span> easy this session
-        </p>
+      {/* End session pinned near the bottom */}
+      <section className="absolute left-0 right-0 bottom-6 px-5 flex flex-col items-center">
         <Link
           to="/mywordie"
           className="rounded-full px-6 py-2.5 text-[13px] font-semibold border border-border bg-white text-foreground active:scale-[0.98] transition-transform"
