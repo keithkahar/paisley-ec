@@ -973,10 +973,11 @@ function GoalRow({
   accent,
   onChange,
 }: GoalRowSpec & { accent: string }) {
+  const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
   return (
     <div
       className="relative flex items-center justify-between px-3 rounded-2xl bg-white h-16"
-      style={{ border: `1px solid color-mix(in oklab, ${accent} 30%, white)` }}
+      style={{ border: `1px solid ${tint(14)}` }}
     >
       <span
         className="text-[11px] font-bold leading-none"
