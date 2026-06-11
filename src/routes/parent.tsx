@@ -181,7 +181,7 @@ function ParentPage() {
           open={open.settingTalk}
           onToggle={() => toggle("settingTalk")}
           title="ShirinTalk"
-          accent={SHIRIN}
+          accent="oklch(0.55 0 0)"
           rows={[
             { label: "连续练习", value: talkStreakGoal, unit: "天", step: 1, onChange: setTalkStreakGoal },
             { label: "主动提问", value: talkAskGoal, unit: "次", step: 1, onChange: setTalkAskGoal },
@@ -195,7 +195,7 @@ function ParentPage() {
           open={open.settingWordie}
           onToggle={() => toggle("settingWordie")}
           title="myWordie"
-          accent={WORDIE}
+          accent="oklch(0.55 0 0)"
           rows={[
             { label: "连续练习", value: wordieStreakGoal, unit: "天", step: 1, onChange: setWordieStreakGoal },
             { label: "每天卡片", value: dailyPlan.dailyCards, unit: "卡片", step: 1, onChange: (v) => setDailyPlan((p) => ({ ...p, dailyCards: v })) },
