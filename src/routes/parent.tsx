@@ -628,6 +628,12 @@ function TalkBento({
               </span>
               <span
                 className="text-[11px] font-bold leading-none"
+                style={{ color: "var(--shirin)" }}
+              >
+                次
+              </span>
+              <span
+                className="text-[11px] font-bold leading-none"
                 style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
               >
                 目标18次
