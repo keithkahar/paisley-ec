@@ -676,9 +676,9 @@ function StatCard({
   return (
     <div
       className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[68px]"
-      style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
+      style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
     >
-      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(75) }}>
+      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
@@ -688,7 +688,7 @@ function StatCard({
         >
           {value}
         </span>
-        <span className="text-[11px] font-medium" style={{ color: tint(65) }}>{unit}</span>
+        <span className="text-[11px] font-medium" style={{ color: tint(70) }}>{unit}</span>
       </div>
     </div>
   );
