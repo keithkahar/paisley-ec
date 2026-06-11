@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { Volume2, RotateCw, Sparkles, ChevronLeft, Clock } from "lucide-react";
+import { Volume2, RotateCw, Sparkles, ChevronLeft, Clock, X } from "lucide-react";
 
 export const Route = createFileRoute("/word-card")({
   head: () => ({ meta: [
@@ -131,6 +131,13 @@ function WordCardPage() {
             {fmtTime(seconds)}
           </span>
         </div>
+        <Link
+          to="/mywordie"
+          aria-label="End session"
+          className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
+        >
+          <X className="h-5 w-5" />
+        </Link>
       </div>
 
       {/* Card */}
@@ -177,8 +184,7 @@ function WordCardPage() {
 
               <div className="flex-1 grid place-items-center text-center">
                 <div>
-                  <div className="text-7xl mb-3 select-none">{card.emoji}</div>
-                  <h2 className="text-4xl font-medium text-[color:var(--wordie)]">{card.word}</h2>
+                  <h2 className="text-5xl font-medium text-[color:var(--wordie)]">{card.word}</h2>
                   <p className="text-sm text-muted-foreground mt-1.5 font-mono">{card.ipa}</p>
                 </div>
               </div>
@@ -238,10 +244,10 @@ function WordCardPage() {
             key={r.key}
             type="button"
             onClick={() => next(r.key)}
-            className="py-3 flex flex-col items-center gap-1.5 active:scale-[0.95] transition-transform"
+            className="py-3 flex flex-col items-center gap-2 active:scale-[0.95] transition-transform font-sans"
           >
-            <span className="text-[44px] leading-none">{r.emoji}</span>
-            <span className="text-[15px] font-medium text-foreground">{r.label}</span>
+            <span className="text-[52px] leading-none">{r.emoji}</span>
+            <span className="text-[17px] font-medium text-foreground font-sans">{r.label}</span>
           </button>
         ))}
       </section>
@@ -250,23 +256,14 @@ function WordCardPage() {
       <section className="mt-8 flex flex-col items-center">
         <button
           type="button"
-          className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+          className="h-20 w-20 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
           style={{ background: "var(--wordie)" }}
           aria-label="Listen"
         >
-          <Volume2 className="h-6 w-6" />
+          <Volume2 className="h-9 w-9" />
         </button>
       </section>
 
-      {/* End session pinned near the bottom */}
-      <section className="absolute left-0 right-0 bottom-6 px-5 flex flex-col items-center">
-        <Link
-          to="/mywordie"
-          className="rounded-full px-6 py-2.5 text-[13px] font-semibold border border-border bg-white text-foreground active:scale-[0.98] transition-transform"
-        >
-          End session
-        </Link>
-      </section>
     </PhoneFrame>
   );
 }
