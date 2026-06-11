@@ -759,8 +759,6 @@ function PreviewFull({
   onPrev: () => void;
   onNext: () => void;
 }) {
-  const prevDisabled = index === 0;
-  const nextDisabled = index >= total - 1;
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col max-w-[420px] mx-auto">
       <div className="flex items-center justify-between px-5 py-4">
