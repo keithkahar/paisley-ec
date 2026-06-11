@@ -978,18 +978,47 @@ function GoalRow({
   const inc = () => onChange(value + step);
   return (
     <div
-      className="flex flex-col gap-2 p-3 rounded-2xl bg-white"
+      className="flex flex-col gap-1.5 p-3 rounded-2xl bg-white"
       style={{ border: `1px solid color-mix(in oklab, ${accent} 30%, white)` }}
     >
-      <div className="flex items-center justify-between">
-        <span
-          className="text-[13px] font-bold"
-          style={{ color: "color-mix(in oklab, var(--foreground) 75%, white)" }}
+      <span
+        className="text-[13px] font-bold"
+        style={{ color: "color-mix(in oklab, var(--foreground) 75%, white)" }}
+      >
+        {label}
+      </span>
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={dec}
+          className="w-6 h-6 flex items-center justify-center rounded-full text-[14px] font-bold leading-none active:scale-90 transition-transform"
+          style={{ color: accent }}
+          aria-label={`减少 ${label}`}
         >
-          {label}
-        </span>
+          −
+        </button>
+        <input
+          type="number"
+          min={0}
+          value={value}
+          onChange={(e) => {
+            const n = Math.max(0, Math.round(Number(e.target.value) || 0));
+            onChange(n);
+          }}
+          className="w-12 bg-transparent text-center text-[16px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          style={{ color: "var(--foreground)" }}
+        />
+        <button
+          type="button"
+          onClick={inc}
+          className="w-6 h-6 flex items-center justify-center rounded-full text-[14px] font-bold leading-none active:scale-90 transition-transform"
+          style={{ color: accent }}
+          aria-label={`增加 ${label}`}
+        >
+          +
+        </button>
         <span
-          className="text-[10px] font-bold px-1.5 py-0.5 rounded-md"
+          className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-md"
           style={{
             color: accent,
             background: `color-mix(in oklab, ${accent} 14%, white)`,
@@ -997,37 +1026,6 @@ function GoalRow({
         >
           {unit}
         </span>
-      </div>
-      <div className="flex items-center justify-between">
-          <button
-            type="button"
-            onClick={dec}
-            className="w-7 h-7 flex items-center justify-center rounded-full text-[16px] font-bold leading-none active:scale-90 transition-transform"
-            style={{ color: accent }}
-            aria-label={`减少 ${label}`}
-          >
-            −
-          </button>
-          <input
-            type="number"
-            min={0}
-            value={value}
-            onChange={(e) => {
-              const n = Math.max(0, Math.round(Number(e.target.value) || 0));
-              onChange(n);
-            }}
-            className="flex-1 min-w-0 bg-transparent text-center text-[18px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            style={{ color: "var(--foreground)" }}
-          />
-          <button
-            type="button"
-            onClick={inc}
-            className="w-7 h-7 flex items-center justify-center rounded-full text-[16px] font-bold leading-none active:scale-90 transition-transform"
-            style={{ color: accent }}
-            aria-label={`增加 ${label}`}
-          >
-            +
-          </button>
       </div>
     </div>
   );
