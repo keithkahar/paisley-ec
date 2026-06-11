@@ -846,27 +846,27 @@ function VocabFunnel({
             </g>
           </svg>
           <div className="relative flex flex-col items-center leading-none">
-            <div className="flex items-baseline gap-0.5">
+            <div className="flex items-baseline gap-1">
               <span
-                className="text-[30px] font-semibold tabular-nums"
+                className="text-[34px] font-semibold tabular-nums"
                 style={{ color: accent, letterSpacing: "-0.04em" }}
               >
                 {total}
               </span>
               <span
-                className="text-[11px] font-medium"
-                style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                className="text-[12px] font-semibold"
+                style={{ color: tint(70) }}
               >
                 词
               </span>
             </div>
             <div
-              className="mt-1.5 h-px w-7"
-              style={{ background: `color-mix(in oklab, ${accent} 30%, white)` }}
+              className="mt-2 h-[2px] w-8 rounded-full"
+              style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
-              className="mt-1.5 text-[10px] font-semibold tracking-[0.12em]"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              className="mt-2 text-[10px] font-semibold tracking-[0.22em] uppercase"
+              style={{ color: tint(72) }}
             >
               学习词库
             </span>
@@ -879,22 +879,30 @@ function VocabFunnel({
             const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
             return (
               <div key={i}>
-                <div className="flex items-baseline justify-between text-[10px]">
+                <div className="flex items-baseline justify-between">
                   <span
-                    className="font-semibold tracking-wide"
+                    className="text-[11px] font-semibold tracking-wide"
                     style={{ color: tint(shades[i] < 50 ? 78 : shades[i]) }}
                   >
                     {s.label}
                   </span>
                   <span className="flex items-baseline gap-1.5 tabular-nums">
-                    <span className="font-semibold" style={{ color: "var(--foreground)" }}>{s.value}</span>
-                    <span className="font-medium" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
+                    <span
+                      className="text-[16px] font-semibold leading-none"
+                      style={{ color: accent, letterSpacing: "-0.02em" }}
+                    >
+                      {s.value}
+                    </span>
+                    <span
+                      className="text-[11px] font-medium"
+                      style={{ color: tint(60) }}
+                    >
                       {pct}%
                     </span>
                   </span>
                 </div>
                 <div
-                  className="mt-1 h-1 rounded-full overflow-hidden"
+                  className="mt-1.5 h-1 rounded-full overflow-hidden"
                   style={{ background: tint(10) }}
                 >
                   <div
