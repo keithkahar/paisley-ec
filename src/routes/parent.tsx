@@ -803,7 +803,7 @@ function VocabFunnel({
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
   const SIZE = 116;
-  const STROKE = 12;
+  const STROKE = 8;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
   const GAP = 0;
@@ -819,7 +819,7 @@ function VocabFunnel({
   return (
     <div
       className="col-span-6 rounded-3xl px-5 py-4 bg-white"
-      style={{ border: `1px solid ${tint(14)}`, boxShadow: `0 10px 30px -22px ${accent}` }}
+      style={{ border: `1px solid ${tint(14)}` }}
     >
       <div className="flex items-center gap-5">
         {/* Left: refined 4-segment donut */}
@@ -858,30 +858,15 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex flex-col items-center leading-none -translate-y-1.5">
-            <div className="flex items-baseline gap-1">
-              <span
-                className="text-[16px] font-semibold tabular-nums"
-                style={{ color: accent, letterSpacing: "-0.02em" }}
-              >
-                {total}
-              </span>
-              <span
-                className="text-[9px] font-semibold"
-                style={{ color: tint(70) }}
-              >
-                词
-              </span>
-            </div>
-            <div
-              className="mt-1.5 h-[2px] w-10 rounded-full"
-              style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
-            />
+          <div className="relative flex items-baseline gap-1 leading-none">
             <span
-              className="mt-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: tint(78) }}
+              className="text-[14px] font-bold tabular-nums"
+              style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
             >
-              学习词库
+              {total}
+            </span>
+            <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
+              词
             </span>
           </div>
         </div>
@@ -894,29 +879,23 @@ function VocabFunnel({
               <div key={i}>
                 <div className="flex items-baseline justify-between">
                   <span
-                    className="text-[11px] font-semibold tracking-wide"
+                    className="text-[11px] font-bold"
                     style={{ color: tint(shades[i] < 50 ? 78 : shades[i]) }}
                   >
                     {s.label}
                   </span>
                   <span className="flex items-baseline gap-1.5 tabular-nums">
                     <span
-                      className="text-[16px] font-semibold leading-none"
-                      style={{ color: tint(shades[i]), letterSpacing: "-0.02em" }}
+                      className="text-[11px] font-bold leading-none"
+                      style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
                     >
                       {s.value}
-                    </span>
-                    <span
-                      className="text-[11px] font-medium"
-                      style={{ color: tint(60) }}
-                    >
-                      {pct}%
                     </span>
                   </span>
                 </div>
                 <div
-                  className="mt-1.5 h-1 rounded-full overflow-hidden"
-                  style={{ background: tint(10) }}
+                  className="mt-1 h-1.5 rounded-full overflow-hidden"
+                  style={{ background: "oklch(0.95 0.01 240)" }}
                 >
                   <div
                     className="h-full rounded-full"
