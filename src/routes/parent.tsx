@@ -596,8 +596,10 @@ function WordieBento({
               </div>
             </div>
           </div>
-          <span className="absolute right-3 bottom-2 text-[10px] font-medium opacity-85">
-            目标 <span className="font-bold">14</span> {bento.hero.unit}
+          <span className="absolute right-4 bottom-3 text-[10px] font-medium opacity-85 leading-none flex items-baseline gap-1">
+            目标
+            <span className="text-[28px] font-bold tabular-nums" style={{ letterSpacing: "-0.03em" }}>14</span>
+            {bento.hero.unit}
           </span>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         </div>
@@ -892,12 +894,18 @@ function VocabFunnel({
                   >
                     {s.label}
                   </span>
-                  <span className="flex items-baseline gap-1.5 tabular-nums">
+                  <span className="flex items-baseline gap-1 tabular-nums">
+                    <span
+                      className="text-[11px] font-bold leading-none"
+                      style={{ color: "var(--foreground)" }}
+                    >
+                      {s.value}
+                    </span>
                     <span
                       className="text-[11px] font-bold leading-none"
                       style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
                     >
-                      {s.value}
+                      {pct}%
                     </span>
                   </span>
                 </div>
