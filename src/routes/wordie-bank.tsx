@@ -776,6 +776,21 @@ function PreviewFull({
         </div>
         <div className="w-5" />
       </div>
+      {/* Progress segments */}
+      <div className="px-5 flex gap-1 mb-3">
+        {Array.from({ length: total }).map((_, i) => (
+          <div
+            key={i}
+            className="flex-1 h-1.5 rounded-full"
+            style={{
+              background:
+                i <= index
+                  ? "var(--wordie)"
+                  : "color-mix(in oklab, var(--wordie) 10%, white)",
+            }}
+          />
+        ))}
+      </div>
       <div className="flex-1 overflow-y-auto px-5 pb-6">
         {/* Word card — white surface with soft wordie border */}
         <div
@@ -820,7 +835,7 @@ function PreviewFull({
               <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
-              <div className="mt-2 flex items-start gap-3">
+              <div className="mt-2 flex items-center gap-3">
                 <p
                   className="flex-1 text-[18px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
@@ -829,7 +844,7 @@ function PreviewFull({
                 </p>
                 <button
                   type="button"
-                  className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                  className="shrink-0 grid place-items-center text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Listen to example"
                 >
                   <Volume2 className="h-4 w-4" />
@@ -840,7 +855,7 @@ function PreviewFull({
               <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Example
               </p>
-              <div className="mt-2 flex items-start gap-3">
+              <div className="mt-2 flex items-center gap-3">
                 <p
                   className="flex-1 text-[18px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
@@ -849,7 +864,7 @@ function PreviewFull({
                 </p>
                 <button
                   type="button"
-                  className="shrink-0 grid place-items-center mt-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                  className="shrink-0 grid place-items-center text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Listen to example"
                 >
                   <Volume2 className="h-4 w-4" />
@@ -886,9 +901,7 @@ function PreviewFull({
         >
           Previous
         </button>
-        <span className="text-[12px] font-semibold text-muted-foreground">
-          {index + 1} / {total}
-        </span>
+        <span />
         <button
           type="button"
           onClick={onNext}
