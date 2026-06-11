@@ -152,7 +152,7 @@ function WordCardPage() {
           <div
             className="relative w-full"
             style={{
-              height: "24rem",
+              height: "28rem",
               transformStyle: "preserve-3d",
               transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
               transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -213,12 +213,12 @@ function WordCardPage() {
                 <p className="text-[13px] mt-3 font-mono opacity-80">{card.ipa}</p>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center gap-7 mt-4 mb-2">
+              <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Meaning</p>
                   <div className="mt-2 flex items-start gap-3">
                     <p
-                      className="flex-1 text-base font-semibold leading-snug"
+                      className="flex-1 text-[17px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
                     >
                       {card.meaning}
@@ -235,7 +235,7 @@ function WordCardPage() {
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
                     <p
-                      className="flex-1 text-base font-semibold leading-snug"
+                      className="flex-1 text-[17px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
                     >
                       {card.example}
