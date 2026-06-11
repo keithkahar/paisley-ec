@@ -946,62 +946,21 @@ type GoalRowSpec = {
 };
 
 function GoalCard({
-  open,
-  onToggle,
-  title,
   accent,
   rows,
 }: {
-  open: boolean;
-  onToggle: () => void;
-  title: string;
+  open?: boolean;
+  onToggle?: () => void;
+  title?: string;
   accent: string;
   rows: GoalRowSpec[];
 }) {
   return (
     <section className="px-5 pt-3">
-      <div
-        className="rounded-3xl overflow-hidden bg-white"
-        style={{
-          border: `1px solid color-mix(in oklab, ${accent} 18%, white)`,
-          boxShadow: `0 6px 24px -12px color-mix(in oklab, ${accent} 35%, transparent)`,
-        }}
-      >
-        {/* Header */}
-        <button
-          type="button"
-          onClick={onToggle}
-          className="w-full flex items-center justify-between px-5 py-4"
-          style={{
-            background: `color-mix(in oklab, ${accent} 7%, white)`,
-            borderBottom: open ? `1px solid color-mix(in oklab, ${accent} 14%, white)` : "none",
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <span
-              className="inline-block w-1.5 h-6 rounded-full"
-              style={{ background: accent }}
-            />
-            <span className="text-[16px] font-extrabold tracking-tight" style={{ color: accent }}>
-              {title}
-            </span>
-          </div>
-          <ChevronDown
-            className="h-4 w-4 transition-transform"
-            style={{
-              transform: open ? "rotate(0deg)" : "rotate(-90deg)",
-              color: `color-mix(in oklab, ${accent} 60%, white)`,
-            }}
-          />
-        </button>
-
-        {open && (
-          <div className="p-3 flex flex-col gap-2">
-            {rows.map((r) => (
-              <GoalRow key={r.label} accent={accent} {...r} />
-            ))}
-          </div>
-        )}
+      <div className="grid grid-cols-2 gap-2.5">
+        {rows.map((r) => (
+          <GoalRow key={r.label} accent={accent} {...r} />
+        ))}
       </div>
     </section>
   );
@@ -1019,20 +978,27 @@ function GoalRow({
   const inc = () => onChange(value + step);
   return (
     <div
-      className="flex items-center justify-between gap-3 p-3 rounded-2xl"
-      style={{ background: `color-mix(in oklab, ${accent} 5%, white)` }}
+      className="flex flex-col gap-2 p-3 rounded-2xl bg-white"
+      style={{ border: `1px solid color-mix(in oklab, ${accent} 30%, white)` }}
     >
-      <span className="text-[14px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 75%, white)" }}>
-        {label}
-      </span>
-      <div className="flex items-center gap-2">
-        <div
-          className="flex items-center bg-white rounded-full p-1"
+      <div className="flex items-center justify-between">
+        <span
+          className="text-[13px] font-bold"
+          style={{ color: "color-mix(in oklab, var(--foreground) 75%, white)" }}
+        >
+          {label}
+        </span>
+        <span
+          className="text-[10px] font-bold px-1.5 py-0.5 rounded-md"
           style={{
-            border: `1px solid color-mix(in oklab, ${accent} 22%, white)`,
-            boxShadow: "inset 0 1px 2px rgba(0,0,0,0.04)",
+            color: accent,
+            background: `color-mix(in oklab, ${accent} 14%, white)`,
           }}
         >
+          {unit}
+        </span>
+      </div>
+      <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={dec}
@@ -1050,7 +1016,7 @@ function GoalRow({
               const n = Math.max(0, Math.round(Number(e.target.value) || 0));
               onChange(n);
             }}
-            className="w-12 bg-transparent text-center text-[16px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="flex-1 min-w-0 bg-transparent text-center text-[18px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             style={{ color: "var(--foreground)" }}
           />
           <button
@@ -1062,16 +1028,6 @@ function GoalRow({
           >
             +
           </button>
-        </div>
-        <span
-          className="text-[11px] font-bold px-2 py-1 rounded-md min-w-[34px] text-center"
-          style={{
-            color: accent,
-            background: `color-mix(in oklab, ${accent} 14%, white)`,
-          }}
-        >
-          {unit}
-        </span>
       </div>
     </div>
   );
