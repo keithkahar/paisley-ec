@@ -37,7 +37,7 @@ function MyWordiePage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
+      <div className="relative bg-white">
         <FloatingBack to="/" />
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-12 pb-1">
@@ -155,20 +155,11 @@ function MyWordiePage() {
           </div>
         </section>
 
-        {/* Pill actions — matches ShirinTalk (px-6 pt-4 pb-10 flex-1 justify-end) */}
-        <section className="px-6 pt-4 pb-10 flex-1 flex flex-col justify-end gap-3">
+        {/* Pill actions */}
+        <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           <PillLink to="/wordie-bank" title="Wordie Bank" Icon={Layers} />
           <PillLink to="/wordie-x" title="Wordie-X" Icon={Zap} />
           <PillLink to="/wordie-test" title="Wordie Test" Icon={ClipboardCheck} />
-          {/* Invisible spacer (matches PillLink dimensions exactly) so the 3 pills
-              align with the first 3 of ShirinTalk's 4 pills. */}
-          <div
-            aria-hidden
-            className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 invisible"
-          >
-            <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full" />
-            <span className="text-[17px] font-bold tracking-tight leading-none">.</span>
-          </div>
         </section>
       </div>
 
