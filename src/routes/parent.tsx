@@ -814,7 +814,11 @@ function VocabFunnel({
     const drawLen = Math.max(0, segLen - GAP);
     const offset = -acc;
     acc += segLen;
-    return { drawLen, offset, color: tint(shades[i]) };
+    // End angle (clockwise from 12 o'clock)
+    const endTheta = (acc / C) * 2 * Math.PI;
+    const endX = SIZE / 2 + R * Math.sin(endTheta);
+    const endY = SIZE / 2 - R * Math.cos(endTheta);
+    return { drawLen, offset, color: tint(shades[i]), endX, endY };
   });
   return (
     <div
@@ -851,12 +855,15 @@ function VocabFunnel({
                   fill="none"
                   stroke={a.color}
                   strokeWidth={STROKE}
-                  strokeLinecap="round"
+                  strokeLinecap="butt"
                   strokeDasharray={`${a.drawLen} ${C}`}
                   strokeDashoffset={a.offset}
                 />
               ))}
             </g>
+            {arcs.map((a, i) => (
+              <circle key={`cap-${i}`} cx={a.endX} cy={a.endY} r={STROKE / 2} fill={a.color} />
+            ))}
           </svg>
           <div className="relative leading-none">
             <span
