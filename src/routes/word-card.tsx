@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
-import { Volume2, Star, RotateCw, Check, X, Sparkles } from "lucide-react";
+import { Volume2, Star, RotateCw, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/word-card")({
   head: () => ({ meta: [
@@ -62,13 +62,13 @@ function WordCardPage() {
   const navigate = useNavigate();
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [known, setKnown] = useState(0);
+  const [easyCount, setEasyCount] = useState(0);
   const card = DECK[idx];
   const total = DECK.length;
   const pct = Math.round(((idx) / total) * 100);
 
-  const next = (gotIt: boolean) => {
-    if (gotIt) setKnown((k) => k + 1);
+  const next = (rating: "forgot" | "hard" | "easy") => {
+    if (rating === "easy") setEasyCount((k) => k + 1);
     if (idx + 1 >= total) {
       navigate({ to: "/mywordie" });
       return;
@@ -127,12 +127,20 @@ function WordCardPage() {
               }}
             >
               <div className="flex items-center justify-between">
-                <span
-                  className="text-[10px] font-semibold rounded-full px-2 py-1"
-                  style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", color: "var(--wordie)" }}
-                >
-                  {card.level} · {card.pos}
-                </span>
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span
+                    className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                      color: "var(--wordie)",
+                    }}
+                  >
+                    {card.pos}
+                  </span>
+                  <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
+                    {card.level}
+                  </span>
+                </div>
                 <Star className="h-5 w-5 text-[color:var(--wordie-accent)]" />
               </div>
 
@@ -141,14 +149,6 @@ function WordCardPage() {
                   <div className="text-7xl mb-3 select-none">{card.emoji}</div>
                   <h2 className="text-4xl font-medium text-[color:var(--wordie)]">{card.word}</h2>
                   <p className="text-sm text-muted-foreground mt-1.5 font-mono">{card.ipa}</p>
-                  <button
-                    type="button"
-                    onClick={(e) => e.stopPropagation()}
-                    className="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-white text-sm font-semibold shadow"
-                    style={{ background: "var(--wordie)" }}
-                  >
-                    <Volume2 className="h-4 w-4" /> Listen
-                  </button>
                 </div>
               </div>
 
@@ -196,30 +196,47 @@ function WordCardPage() {
         </button>
       </section>
 
-      {/* Actions */}
-      <section className="px-5 mt-5 grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          onClick={() => next(false)}
-          className="rounded-2xl bg-white border border-border py-3.5 font-semibold text-sm inline-flex items-center justify-center gap-2 active:scale-[0.98]"
-        >
-          <X className="h-4 w-4 text-[color:var(--shirin)]" /> Practise again
-        </button>
-        <button
-          type="button"
-          onClick={() => next(true)}
-          className="rounded-2xl py-3.5 font-semibold text-sm text-white inline-flex items-center justify-center gap-2 shadow-md active:scale-[0.98]"
-          style={{ background: "var(--wordie)" }}
-        >
-          <Check className="h-4 w-4" /> I know it
-        </button>
+      {/* Three-emoji rating */}
+      <section className="px-5 mt-6 grid grid-cols-3 gap-3">
+        {([
+          { key: "forgot", emoji: "😟", label: "Forgot" },
+          { key: "hard", emoji: "🙂", label: "Hard" },
+          { key: "easy", emoji: "😄", label: "Easy" },
+        ] as const).map((r) => (
+          <button
+            key={r.key}
+            type="button"
+            onClick={() => next(r.key)}
+            className="rounded-2xl bg-white border border-border py-3 flex flex-col items-center gap-1 active:scale-[0.97] transition-transform"
+          >
+            <span className="text-3xl leading-none">{r.emoji}</span>
+            <span className="text-[12px] font-semibold text-foreground">{r.label}</span>
+          </button>
+        ))}
       </section>
 
-      <section className="px-5 mt-4 mb-8 text-center">
+      {/* Speaker — same shape as wordie-test stage 2 record button */}
+      <section className="mt-8 flex flex-col items-center gap-2">
+        <button
+          type="button"
+          className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+          style={{ background: "var(--wordie)" }}
+          aria-label="Listen"
+        >
+          <Volume2 className="h-6 w-6" />
+        </button>
+        <p className="text-[11px] font-medium text-muted-foreground">Tap to listen</p>
+      </section>
+
+      {/* Bottom: stats + End session pinned near the bottom */}
+      <section className="mt-auto px-5 pb-6 pt-4 flex flex-col items-center gap-3">
         <p className="text-xs text-muted-foreground">
-          <span className="font-semibold text-[color:var(--wordie)]">{known}</span> known this session
+          <span className="font-semibold text-[color:var(--wordie)]">{easyCount}</span> easy this session
         </p>
-        <Link to="/mywordie" className="text-xs underline text-muted-foreground mt-2 inline-block">
+        <Link
+          to="/mywordie"
+          className="rounded-full px-6 py-2.5 text-[13px] font-semibold border border-border bg-white text-foreground active:scale-[0.98] transition-transform"
+        >
           End session
         </Link>
       </section>
