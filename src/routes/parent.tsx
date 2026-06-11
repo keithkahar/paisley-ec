@@ -597,7 +597,7 @@ function WordieBento({
             </div>
           </div>
           <span className="absolute right-3 bottom-2 text-[10px] font-medium opacity-85">
-            目标 14 {bento.hero.unit}
+            目标 <span className="font-bold">14</span> {bento.hero.unit}
           </span>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         </div>
@@ -866,7 +866,7 @@ function VocabFunnel({
             ))}
           </svg>
           <span
-            className="relative text-[14px] font-bold tabular-nums leading-none -translate-y-2"
+            className="relative text-[22px] font-bold tabular-nums leading-none -translate-y-2"
             style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
           >
             {total}
