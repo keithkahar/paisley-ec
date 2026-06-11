@@ -615,24 +615,25 @@ function WordieBento({
           className="col-span-3 rounded-2xl px-4 py-3 flex flex-col justify-center gap-2 min-h-[64px]"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
-          <p className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
-            Wordie Test 平均分
-          </p>
+          <div className="flex items-baseline justify-between">
+            <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
+              Wordie Test 平均分
+            </span>
+            <span
+              className="text-[11px] font-bold tabular-nums leading-none"
+              style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
+            >
+              {bento.ring.pct}%
+            </span>
+          </div>
           <div
-            className="relative h-1.5 rounded-full overflow-visible"
+            className="h-1.5 rounded-full overflow-hidden"
             style={{ background: "oklch(0.95 0.01 240)" }}
           >
             <div
-              className="h-full rounded-full relative"
+              className="h-full rounded-full"
               style={{ width: `${bento.ring.pct}%`, background: tint(95) }}
-            >
-              <span
-                className="absolute right-0 translate-x-1/2 -top-5 text-[11px] font-bold tabular-nums"
-                style={{ color: tint(95) }}
-              >
-                {bento.ring.pct}%
-              </span>
-            </div>
+            />
           </div>
         </div>
         <StatCard
