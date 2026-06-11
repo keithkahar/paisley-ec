@@ -211,12 +211,10 @@ function ParentPage() {
         <SectionTitle>设置</SectionTitle>
 
         <section className="px-5 pt-3">
-          <div className="rounded-2xl bg-white px-4 py-2 space-y-1">
-            <PrefRow
-              label="音色"
-              value={prefs.voiceName}
-              onClick={() => setSheet({ type: "voice", title: "音色" })}
-            />
+          <div
+            className="rounded-2xl bg-white px-4 py-2 space-y-1"
+            style={{ border: "1px solid color-mix(in oklab, var(--foreground) 14%, white)" }}
+          >
             <PrefRow
               label="语速"
               value={prefs.speechRate.toFixed(1) + "×"}
