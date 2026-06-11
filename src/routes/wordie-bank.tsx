@@ -38,7 +38,7 @@ type BankWord = {
 };
 
 const BANK: BankWord[] = [
-  { wordId: "w1", word: "dog", definitionEn: "a friendly pet animal", exampleSentence: "The dog runs in the garden.", partOfSpeech: "noun", pronunciation: "/dɒɡ/", cefrLevel: "A1", theme: "Animals", packTitle: "Animal Friends", status: "mastered", focus: false, nextReviewLabel: "In 7 days" },
+  { wordId: "w1", word: "dog", definitionEn: "a friendly four-legged animal that people keep as a pet and as a loyal companion at home", exampleSentence: "The neighbour's playful brown dog runs around the garden every morning chasing colourful butterflies near the fence.", partOfSpeech: "noun", pronunciation: "/dɒɡ/", cefrLevel: "A1", theme: "Animals", packTitle: "Animal Friends", status: "mastered", focus: false, nextReviewLabel: "In 7 days" },
   { wordId: "w2", word: "cat", definitionEn: "a small furry pet", exampleSentence: "The cat sleeps on the chair.", partOfSpeech: "noun", pronunciation: "/kæt/", cefrLevel: "A1", theme: "Animals", packTitle: "Animal Friends", status: "learning", focus: true, nextReviewLabel: "Today" },
   { wordId: "w3", word: "bird", definitionEn: "an animal that can fly", exampleSentence: "A bird sings in the tree.", partOfSpeech: "noun", pronunciation: "/bɜːd/", cefrLevel: "A1", theme: "Animals", packTitle: "Animal Friends", status: "new", focus: false, nextReviewLabel: "Not started" },
   { wordId: "w4", word: "fish", definitionEn: "an animal that lives in water", exampleSentence: "The fish swims fast.", partOfSpeech: "noun", pronunciation: "/fɪʃ/", cefrLevel: "A1", theme: "Animals", packTitle: "Animal Friends", status: "review", focus: false, nextReviewLabel: "Tomorrow" },
