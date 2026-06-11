@@ -60,7 +60,6 @@ export function BottomTabBar() {
                     alt=""
                     className={`relative z-10 object-contain ${isProfile ? "h-9 w-9" : "h-12 w-12"}`}
                   />
-                  />
                 </span>
               </Link>
             );
