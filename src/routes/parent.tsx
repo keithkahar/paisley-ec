@@ -975,16 +975,16 @@ function GoalRow({
 }: GoalRowSpec & { accent: string }) {
   return (
     <div
-      className="flex flex-col gap-1.5 p-3 rounded-2xl bg-white"
+      className="flex flex-col gap-1 px-4 py-2.5 rounded-2xl bg-white h-16"
       style={{ border: `1px solid color-mix(in oklab, ${accent} 30%, white)` }}
     >
       <span
-        className="text-[13px] font-bold"
-        style={{ color: "color-mix(in oklab, var(--foreground) 75%, white)" }}
+        className="text-[11px] font-bold leading-none"
+        style={{ color: `color-mix(in oklab, ${accent} 82%, black)` }}
       >
         {label}
       </span>
-      <div className="flex items-center gap-1">
+      <div className="flex items-baseline gap-1 mt-auto justify-end">
         <input
           type="number"
           min={0}
@@ -993,12 +993,12 @@ function GoalRow({
             const n = Math.max(0, Math.round(Number(e.target.value) || 0));
             onChange(n);
           }}
-          className="w-14 bg-transparent text-left text-[16px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          style={{ color: "var(--foreground)" }}
+          className="w-14 bg-transparent text-right text-[22px] font-bold leading-none tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          style={{ color: accent, letterSpacing: "-0.02em" }}
         />
         <span
-          className="text-[10px] font-bold"
-          style={{ color: accent }}
+          className="text-[11px] font-bold"
+          style={{ color: `color-mix(in oklab, ${accent} 60%, black)` }}
         >
           {unit}
         </span>
