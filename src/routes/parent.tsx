@@ -612,38 +612,27 @@ function WordieBento({
       {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
+          className="col-span-3 rounded-2xl px-4 py-3 flex flex-col justify-center gap-2 min-h-[64px]"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
-          <div className="min-w-0 flex flex-col gap-0.5">
-            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(82) }}>
-              Wordie Test
-            </p>
-            <p className="text-[10px] font-medium leading-tight" style={{ color: tint(65) }}>
-              平均分
-            </p>
-          </div>
-          <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
-            <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke={tint(14)} strokeWidth="6" fill="none" />
-              <circle
-                cx="25"
-                cy="25"
-                r="22"
-                stroke={accent}
-                strokeWidth="6"
-                fill="none"
-                strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
-              />
-            </svg>
-            <span
-              className="text-[14px] font-bold relative tabular-nums"
-              style={{ letterSpacing: "-0.02em", color: accent }}
+          <p className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
+            Wordie Test 平均分
+          </p>
+          <div
+            className="relative h-1.5 rounded-full overflow-visible"
+            style={{ background: "oklch(0.95 0.01 240)" }}
+          >
+            <div
+              className="h-full rounded-full relative"
+              style={{ width: `${bento.ring.pct}%`, background: tint(95) }}
             >
-              {bento.ring.pct}
-              <span className="text-[10px] font-bold ml-0.5" style={{ color: tint(60) }}>%</span>
-            </span>
+              <span
+                className="absolute right-0 translate-x-1/2 -top-5 text-[11px] font-bold tabular-nums"
+                style={{ color: tint(95) }}
+              >
+                {bento.ring.pct}%
+              </span>
+            </div>
           </div>
         </div>
         <StatCard
