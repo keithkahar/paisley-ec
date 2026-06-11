@@ -302,8 +302,8 @@ function ChatPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        {/* Header */}
-        <header className="sticky top-0 z-30 flex items-center justify-between px-3 py-2.5 bg-white/95 backdrop-blur">
+        {/* Floating back — matches topics / smart-reading style */}
+        <div className="absolute top-4 left-4 z-30">
           <Link
             to={
               (search.from as string) === "shirin-talk"
@@ -317,13 +317,11 @@ function ChatPage() {
                       : "/shirin-talk"
             }
             aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
-          <span aria-hidden />
-          <div className="h-9 w-9" />
-        </header>
+        </div>
 
         {/* Scrollable area */}
         <div className="flex-1 overflow-y-auto scroll-hide px-4 pt-4 pb-40">
