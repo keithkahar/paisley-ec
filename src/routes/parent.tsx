@@ -542,9 +542,9 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: 75% of the 260 funnel donut (116px) ≈ 87px, same stroke (10px) as funnel
-  const STREAK_SIZE = 87;
-  const STREAK_STROKE = 5;
+  // Streak ring: 50% of the 260 funnel donut (116px) = 58px, stroke = 2x progress bar (4px) = 8px
+  const STREAK_SIZE = 58;
+  const STREAK_STROKE = 8;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
@@ -622,16 +622,16 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke={tint(14)} strokeWidth="6" fill="none" />
+              <circle cx="25" cy="25" r="23" stroke={tint(14)} strokeWidth="4" fill="none" />
               <circle
                 cx="25"
                 cy="25"
-                r="22"
+                r="23"
                 stroke={accent}
-                strokeWidth="6"
+                strokeWidth="4"
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
               />
             </svg>
             <span
@@ -803,7 +803,7 @@ function VocabFunnel({
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
   const SIZE = 116;
-  const STROKE = 10;
+  const STROKE = 12;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
   const GAP = 0;
@@ -858,7 +858,7 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex flex-col items-center leading-none">
+          <div className="relative flex flex-col items-center leading-none -translate-y-1.5">
             <div className="flex items-baseline gap-1">
               <span
                 className="text-[16px] font-semibold tabular-nums"
@@ -874,12 +874,12 @@ function VocabFunnel({
               </span>
             </div>
             <div
-              className="mt-1.5 h-[2px] w-6 rounded-full"
+              className="mt-1.5 h-[2px] w-10 rounded-full"
               style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
               className="mt-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: tint(72) }}
+              style={{ color: tint(78) }}
             >
               学习词库
             </span>
