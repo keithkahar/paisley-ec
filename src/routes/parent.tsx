@@ -1008,8 +1008,8 @@ function PrefRow({ label, value, onClick }: { label: string; value: string; onCl
       onClick={onClick}
       className="w-full flex items-center justify-between py-2.5 px-1 text-left"
     >
-      <span className="text-[14px] font-bold">{label}</span>
-      <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+      <span className="text-[13px] font-bold">{label}</span>
+      <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
         {value}
         <ChevronDown className="inline h-4 w-4 -rotate-90 ml-1 align-[-2px]" />
       </span>
@@ -1030,7 +1030,7 @@ function SwitchRow({
 }) {
   return (
     <div className="flex items-center justify-between py-2.5 px-1">
-      <span className="text-[14px] font-bold flex items-center gap-1">
+      <span className="text-[13px] font-bold flex items-center gap-1">
         {label}
         {info && <HelpCircle className="h-3.5 w-3.5 opacity-50" />}
       </span>
