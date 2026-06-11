@@ -53,7 +53,7 @@ function Home() {
           >
             Hi, {name}.
             <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.3]">
-              Are you ready for today's <span className="font-semibold text-foreground">English adventure?</span>
+              Are you ready for today's <span className="font-medium text-foreground">English adventure?</span>
             </span>
           </h1>
 
