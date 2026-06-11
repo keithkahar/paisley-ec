@@ -796,8 +796,8 @@ function VocabFunnel({
   });
   return (
     <div
-      className="col-span-6 rounded-3xl px-5 py-4 bg-white"
-      style={{ border: `1px solid ${tint(14)}`, boxShadow: `0 10px 30px -22px ${accent}` }}
+      className="rounded-3xl px-5 py-4"
+      style={{ background: tint(8), border: `1px solid ${tint(16)}` }}
     >
       <div className="flex items-center gap-5">
         {/* Left: refined 4-segment donut */}
