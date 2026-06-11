@@ -767,9 +767,13 @@ function PreviewFull({
         <button type="button" onClick={onClose} aria-label="Close">
           <X className="h-5 w-5" />
         </button>
-        <p className="text-[12px] font-semibold text-muted-foreground">
-          {index + 1}/{total} cards
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="text-[12px] font-semibold text-muted-foreground">
+            {index + 1} / {total}
+          </p>
+          <StatusBadge status={word.status} />
+          {word.focus && <FocusPill />}
+        </div>
         <div className="w-5" />
       </div>
       <div className="flex-1 overflow-y-auto px-5 pb-6">
@@ -780,31 +784,18 @@ function PreviewFull({
             border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)"
           }}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center">
             <div className="flex items-center gap-1.5 min-w-0">
               <span
                 className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                style={{
-                  background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                  color: "var(--wordie)"
-                }}
+                style={{ background: "var(--wordie)", color: "white" }}
               >
                 {capitalize(word.partOfSpeech)}
               </span>
               <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
                 {word.cefrLevel}
               </span>
-              <StatusBadge status={word.status} />
-              {word.focus && <FocusPill />}
             </div>
-            <button
-              type="button"
-              className="h-9 w-9 rounded-full grid place-items-center"
-              style={{ background: "var(--wordie)", color: "white" }}
-              aria-label="Listen"
-            >
-              <Volume2 className="h-4 w-4" />
-            </button>
           </div>
 
           <div className="mt-8 text-center">
@@ -872,6 +863,17 @@ function PreviewFull({
             <MiniStat label="Level" value={word.cefrLevel} />
             <MiniStat label="Next" value={word.nextReviewLabel} />
           </div>
+        </div>
+        {/* Speaker outside card */}
+        <div className="mt-8 flex flex-col items-center">
+          <button
+            type="button"
+            className="h-[72px] w-[72px] rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
+            style={{ background: "var(--wordie)" }}
+            aria-label="Listen"
+          >
+            <Volume2 className="h-8 w-8" />
+          </button>
         </div>
       </div>
       <div className="flex items-center justify-between px-5 py-4">
