@@ -559,14 +559,14 @@ function WordieBento({
       <div className="grid grid-cols-6 grid-rows-2 gap-3">
         {/* 连续练习 — tall hero with centered ring */}
         <div
-          className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col text-white relative overflow-hidden"
+          className="col-span-3 row-span-2 rounded-3xl px-4 py-4 grid place-items-center text-white relative overflow-hidden"
           style={{ background: accent }}
         >
-          <span className="text-[11px] font-bold opacity-90 self-start">
+          <span className="absolute top-3 left-4 text-[11px] font-bold opacity-90">
             连续练习
           </span>
           <div
-            className="relative grid place-items-center my-auto self-center"
+            className="relative grid place-items-center"
             style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
           >
             <svg
