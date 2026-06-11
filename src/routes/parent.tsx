@@ -83,8 +83,11 @@ function ParentPage() {
 
   // Mock editable values
   const [talkGoals, setTalkGoals] = useState({ week: 100, month: 400, year: 1000 });
+  const [talkStreakGoal, setTalkStreakGoal] = useState(14);
+  const [talkAskGoal, setTalkAskGoal] = useState(18);
   const [dailyPlan, setDailyPlan] = useState({ dailyCards: 5, dailyMinutes: 10 });
   const [wordieGoals, setWordieGoals] = useState({ week: 20, month: 200, year: 1000 });
+  const [wordieStreakGoal, setWordieStreakGoal] = useState(14);
 
   const [prefs, setPrefs] = useState({
     voiceName: "Mónica Standard",
@@ -189,6 +192,18 @@ function ParentPage() {
                 onChange={(v) => setTalkGoals((g) => ({ ...g, [k]: v }))}
               />
             ))}
+            <NumberRow
+              label="连续练习"
+              value={talkStreakGoal}
+              unit="天"
+              onChange={setTalkStreakGoal}
+            />
+            <NumberRow
+              label="主动提问"
+              value={talkAskGoal}
+              unit="次"
+              onChange={setTalkAskGoal}
+            />
           </div>
         </Collapsible>
 
@@ -229,6 +244,12 @@ function ParentPage() {
                 onChange={(v) => setWordieGoals((g) => ({ ...g, [k]: v }))}
               />
             ))}
+            <NumberRow
+              label="连续练习"
+              value={wordieStreakGoal}
+              unit="天"
+              onChange={setWordieStreakGoal}
+            />
           </div>
         </Collapsible>
 
