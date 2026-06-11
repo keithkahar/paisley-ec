@@ -47,7 +47,7 @@ function MyWordiePage() {
           >
           <div>
             <h2
-              className="text-center text-[22px] font-bold leading-none"
+              className="text-center text-[22px] font-medium leading-none"
               style={{ letterSpacing: "-0.01em" }}
             >
               Today's Practice
