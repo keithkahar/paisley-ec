@@ -548,11 +548,14 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: stroke matches the 已掌握 progress bar (h-1.5 = 6px)
-  const STREAK_SIZE = 84;
+  // Streak track — stadium (pill) shape, stroke matches 已掌握 progress bar (6px)
+  const STREAK_W = 120;
+  const STREAK_H = 84;
   const STREAK_STROKE = 6;
-  const R = (STREAK_SIZE - STREAK_STROKE) / 2;
-  const C = 2 * Math.PI * R;
+  const streakInnerW = STREAK_W - STREAK_STROKE;
+  const streakInnerH = STREAK_H - STREAK_STROKE;
+  const STREAK_RX = streakInnerH / 2;
+  const STREAK_C = 2 * (streakInnerW - streakInnerH) + Math.PI * streakInnerH;
   return (
     <div className="space-y-3">
       {/* Row 1: Streak hero (3 col x 2 row) + 本周卡片 stacked + 本周时长 stacked */}
@@ -567,24 +570,38 @@ function WordieBento({
           </span>
           <div
             className="relative grid place-items-center my-auto self-center"
-            style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
+            style={{ width: STREAK_W, height: STREAK_H }}
           >
             <svg
-              width={STREAK_SIZE}
-              height={STREAK_SIZE}
-              viewBox={`0 0 ${STREAK_SIZE} ${STREAK_SIZE}`}
-              className="absolute inset-0 -rotate-90"
+              width={STREAK_W}
+              height={STREAK_H}
+              viewBox={`0 0 ${STREAK_W} ${STREAK_H}`}
+              className="absolute inset-0"
             >
-              <circle cx={STREAK_SIZE / 2} cy={STREAK_SIZE / 2} r={R} stroke="rgba(255,255,255,0.18)" strokeWidth={STREAK_STROKE} fill="none" />
-              <circle
-                cx={STREAK_SIZE / 2}
-                cy={STREAK_SIZE / 2}
-                r={R}
+              <rect
+                x={STREAK_STROKE / 2}
+                y={STREAK_STROKE / 2}
+                width={streakInnerW}
+                height={streakInnerH}
+                rx={STREAK_RX}
+                ry={STREAK_RX}
+                fill="none"
+                stroke="rgba(255,255,255,0.18)"
+                strokeWidth={STREAK_STROKE}
+              />
+              <rect
+                x={STREAK_STROKE / 2}
+                y={STREAK_STROKE / 2}
+                width={streakInnerW}
+                height={streakInnerH}
+                rx={STREAK_RX}
+                ry={STREAK_RX}
+                fill="none"
                 stroke="white"
                 strokeWidth={STREAK_STROKE}
-                fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(ringPct / 100) * C} ${C}`}
+                pathLength={STREAK_C}
+                strokeDasharray={`${(ringPct / 100) * STREAK_C} ${STREAK_C}`}
               />
             </svg>
             <div className="relative text-center leading-none">
@@ -610,28 +627,37 @@ function WordieBento({
       {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-3 flex flex-col justify-center gap-2 min-h-[64px]"
+          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
-          <div className="flex items-baseline justify-between">
-            <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
-              Wordie Test 平均分
-            </span>
+          <div className="min-w-0 flex flex-col gap-0.5">
+            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
+              Wordie Test
+            </p>
+            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
+              平均分
+            </p>
+          </div>
+          <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
+            <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
+              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="6" fill="none" />
+              <circle
+                cx="25"
+                cy="25"
+                r="22"
+                stroke={tint(95)}
+                strokeWidth="6"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
+              />
+            </svg>
             <span
-              className="text-[22px] font-bold tabular-nums leading-none"
-              style={{ color: tint(95), letterSpacing: "-0.02em" }}
+              className="text-[12px] font-bold relative tabular-nums leading-none"
+              style={{ letterSpacing: "-0.02em", color: tint(95) }}
             >
               {bento.ring.pct}%
             </span>
-          </div>
-          <div
-            className="h-1.5 rounded-full overflow-hidden"
-            style={{ background: "oklch(0.95 0.01 240)" }}
-          >
-            <div
-              className="h-full rounded-full"
-              style={{ width: `${bento.ring.pct}%`, background: tint(95) }}
-            />
           </div>
         </div>
         <StatCard
@@ -792,15 +818,11 @@ function VocabFunnel({
   stages: VocabStage[];
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
-  // Stadium (pill) geometry — single track split into 4 proportional arcs
-  const W = 168;
-  const H = 96;
+  // Donut geometry — single ring split into 4 proportional arcs
+  const SIZE = 116;
   const STROKE = 8;
-  const innerW = W - STROKE;
-  const innerH = H - STROKE;
-  const RX = innerH / 2;
-  // Pill perimeter = 2 * (straightLen) + π * innerH
-  const C = 2 * (innerW - innerH) + Math.PI * innerH;
+  const R = (SIZE - STROKE) / 2;
+  const C = 2 * Math.PI * R;
   const GAP = 0;
   const shades = [22, 42, 65, 95];
   let acc = 0;
@@ -821,46 +843,41 @@ function VocabFunnel({
         <div
           className="relative shrink-0 grid place-items-center"
           style={{
-            width: W,
-            height: H,
+            width: SIZE,
+            height: SIZE,
             background: `radial-gradient(closest-side, ${tint(6)} 0%, transparent 70%)`,
             borderRadius: "9999px",
           }}
         >
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="absolute inset-0">
-            <rect
-              x={STROKE / 2}
-              y={STROKE / 2}
-              width={innerW}
-              height={innerH}
-              rx={RX}
-              ry={RX}
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
+            <circle
+              cx={SIZE / 2}
+              cy={SIZE / 2}
+              r={R}
               fill="none"
               stroke={tint(10)}
               strokeWidth={STROKE}
             />
-            {arcs.map((a, i) => (
-              <rect
-                key={i}
-                x={STROKE / 2}
-                y={STROKE / 2}
-                width={innerW}
-                height={innerH}
-                rx={RX}
-                ry={RX}
-                fill="none"
-                stroke={a.color}
-                strokeWidth={STROKE}
-                strokeLinecap="round"
-                pathLength={C}
-                strokeDasharray={`${a.drawLen} ${C}`}
-                strokeDashoffset={a.offset}
-              />
-            ))}
+            <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
+              {arcs.map((a, i) => (
+                <circle
+                  key={i}
+                  cx={SIZE / 2}
+                  cy={SIZE / 2}
+                  r={R}
+                  fill="none"
+                  stroke={a.color}
+                  strokeWidth={STROKE}
+                  strokeLinecap="round"
+                  strokeDasharray={`${a.drawLen} ${C}`}
+                  strokeDashoffset={a.offset}
+                />
+              ))}
+            </g>
           </svg>
           <div className="relative leading-none">
             <span
-              className="text-[22px] font-bold tabular-nums"
+              className="text-[14px] font-bold tabular-nums"
               style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
             >
               {total}
