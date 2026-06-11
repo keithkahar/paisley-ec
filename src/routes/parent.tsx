@@ -667,29 +667,44 @@ function StatCard({
   label,
   value,
   unit,
+  accentOverride,
 }: {
   accent: string;
   tint: (pct: number) => string;
   label: string;
   value: string;
   unit: string;
+  accentOverride?: string;
 }) {
+  const color = accentOverride ?? accent;
+  const bg = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 10%, white)`
+    : tint(10);
+  const border = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 22%, white)`
+    : tint(18);
+  const labelColor = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 75%, black)`
+    : tint(82);
+  const unitColor = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 60%, black)`
+    : tint(70);
   return (
     <div
       className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
-      style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+      style={{ background: bg, border: `1px solid ${border}` }}
     >
-      <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
+      <span className="text-[11px] font-bold leading-none" style={{ color: labelColor }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
           className="text-[22px] font-bold leading-none tabular-nums"
-          style={{ color: accent, letterSpacing: "-0.02em" }}
+          style={{ color: color, letterSpacing: "-0.02em" }}
         >
           {value}
         </span>
-        <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{unit}</span>
+        <span className="text-[11px] font-bold" style={{ color: unitColor }}>{unit}</span>
       </div>
     </div>
   );
