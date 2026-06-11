@@ -548,11 +548,14 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: stroke matches the 已掌握 progress bar (h-1.5 = 6px)
-  const STREAK_SIZE = 84;
+  // Streak track — stadium (pill) shape, stroke matches 已掌握 progress bar (6px)
+  const STREAK_W = 120;
+  const STREAK_H = 84;
   const STREAK_STROKE = 6;
-  const R = (STREAK_SIZE - STREAK_STROKE) / 2;
-  const C = 2 * Math.PI * R;
+  const streakInnerW = STREAK_W - STREAK_STROKE;
+  const streakInnerH = STREAK_H - STREAK_STROKE;
+  const STREAK_RX = streakInnerH / 2;
+  const STREAK_C = 2 * (streakInnerW - streakInnerH) + Math.PI * streakInnerH;
   return (
     <div className="space-y-3">
       {/* Row 1: Streak hero (3 col x 2 row) + 本周卡片 stacked + 本周时长 stacked */}
@@ -567,24 +570,38 @@ function WordieBento({
           </span>
           <div
             className="relative grid place-items-center my-auto self-center"
-            style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
+            style={{ width: STREAK_W, height: STREAK_H }}
           >
             <svg
-              width={STREAK_SIZE}
-              height={STREAK_SIZE}
-              viewBox={`0 0 ${STREAK_SIZE} ${STREAK_SIZE}`}
-              className="absolute inset-0 -rotate-90"
+              width={STREAK_W}
+              height={STREAK_H}
+              viewBox={`0 0 ${STREAK_W} ${STREAK_H}`}
+              className="absolute inset-0"
             >
-              <circle cx={STREAK_SIZE / 2} cy={STREAK_SIZE / 2} r={R} stroke="rgba(255,255,255,0.18)" strokeWidth={STREAK_STROKE} fill="none" />
-              <circle
-                cx={STREAK_SIZE / 2}
-                cy={STREAK_SIZE / 2}
-                r={R}
+              <rect
+                x={STREAK_STROKE / 2}
+                y={STREAK_STROKE / 2}
+                width={streakInnerW}
+                height={streakInnerH}
+                rx={STREAK_RX}
+                ry={STREAK_RX}
+                fill="none"
+                stroke="rgba(255,255,255,0.18)"
+                strokeWidth={STREAK_STROKE}
+              />
+              <rect
+                x={STREAK_STROKE / 2}
+                y={STREAK_STROKE / 2}
+                width={streakInnerW}
+                height={streakInnerH}
+                rx={STREAK_RX}
+                ry={STREAK_RX}
+                fill="none"
                 stroke="white"
                 strokeWidth={STREAK_STROKE}
-                fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(ringPct / 100) * C} ${C}`}
+                pathLength={STREAK_C}
+                strokeDasharray={`${(ringPct / 100) * STREAK_C} ${STREAK_C}`}
               />
             </svg>
             <div className="relative text-center leading-none">
