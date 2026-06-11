@@ -889,7 +889,7 @@ function WordieXPage() {
             exampleSentence: filtered[previewIdx].exampleSentence,
             partOfSpeech: filtered[previewIdx].partOfSpeech || "noun",
             cefrLevel: filtered[previewIdx].cefrLevel,
-            statusValue: capitalizeX(filtered[previewIdx].learnStatus),
+            statusValue: capitalize(filtered[previewIdx].learnStatus),
             nextReviewLabel: filtered[previewIdx].nextReviewLabel,
           }}
           index={previewIdx}
