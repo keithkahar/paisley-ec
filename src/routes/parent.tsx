@@ -609,32 +609,32 @@ function TalkBento({
         <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
       </div>
 
-      {/* Row 3: 本周主动提问 (full row, accent like hero) */}
+      {/* Row 3: 本周主动提问 (full row, white) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1.5 h-16 justify-center relative overflow-hidden"
-          style={{ background: accent }}
+          className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1.5 h-16 justify-center"
+          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
           <div className="flex items-baseline justify-between">
-            <span className="text-[11px] font-bold leading-none" style={{ color: "rgba(255,255,255,0.9)" }}>
+            <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
               {bento.ring.label}
             </span>
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
                 className="text-[22px] font-bold leading-none"
-                style={{ color: "white", letterSpacing: "-0.02em" }}
+                style={{ color: "var(--shirin)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
               </span>
               <span
                 className="text-[11px] font-bold leading-none"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "var(--shirin)" }}
               >
                 次
               </span>
               <span
                 className="text-[11px] font-bold leading-none"
-                style={{ color: "rgba(255,255,255,0.7)" }}
+                style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
               >
                 目标18次
               </span>
@@ -642,11 +642,11 @@ function TalkBento({
           </div>
           <div
             className="h-1.5 rounded-full overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.18)" }}
+            style={{ background: "oklch(0.95 0.01 240)" }}
           >
             <div
               className="h-full rounded-full"
-              style={{ width: `${Math.min(100, Math.round((Number(bento.ring.value) / 18) * 100))}%`, background: "white" }}
+              style={{ width: `${Math.min(100, Math.round((Number(bento.ring.value) / 18) * 100))}%`, background: tint(95) }}
             />
           </div>
         </div>
