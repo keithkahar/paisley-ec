@@ -262,7 +262,7 @@ function MyTestsPage() {
 
         {/* Wordie Test section */}
         <section className="px-6 pt-6 pb-8">
-          <SectionHeader title="Wordie Test" actionLabel="Take Wordie Test" accent={WORDIE_ACCENT} />
+          <SectionHeader title="Wordie Test" actionLabel="Take Wordie Test" accent={WORDIE_ACCENT} to="/wordie-test" />
 
           {/* Avg + trend card */}
           <div className="mt-3 rounded-2xl p-4 border border-[var(--input)]">
