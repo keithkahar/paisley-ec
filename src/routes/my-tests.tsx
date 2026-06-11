@@ -269,7 +269,7 @@ function MyTestsPage() {
           <SectionHeader title="Wordie Test" actionLabel="Take Wordie Test" accent={WORDIE_ACCENT} />
 
           {/* Avg + trend card */}
-          <div className="mt-3 rounded-2xl p-4 border border-[oklch(0.94_0.01_240)]">
+          <div className="mt-3 rounded-2xl p-4 border border-[var(--input)]">
             <div className="flex items-end justify-between">
               <div>
                 <p className="text-[11px] font-bold leading-none" style={{ color: WORDIE_ACCENT }}>
@@ -376,7 +376,7 @@ function MyTestsPage() {
                                     {d.correct}/{d.total}
                                   </span>
                                 </div>
-                                <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "oklch(0.95 0.01 240)" }}>
+                                <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
                                   <div
                                     className="h-full rounded-full"
                                     style={{ width: `${pct}%`, background: WORDIE_ACCENT }}
@@ -495,7 +495,7 @@ function TrendChart({ values, labels, accent }: { values: number[]; labels: stri
         </linearGradient>
       </defs>
       {guideYs.map((y, i) => (
-        <line key={i} x1={PAD_X} x2={W - PAD_X} y1={y} y2={y} stroke="oklch(0.94 0.01 240)" strokeWidth={1} />
+        <line key={i} x1={PAD_X} x2={W - PAD_X} y1={y} y2={y} stroke="var(--input)" strokeWidth={1} />
       ))}
       <path d={areaPath} fill="url(#myTestsTrendFill)" />
       <path d={path} fill="none" stroke={accent} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
