@@ -36,7 +36,7 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[72%] max-w-[297px] object-contain"
+              className="relative z-10 w-[58%] max-w-[220px] object-contain"
             />
           </div>
         </section>
