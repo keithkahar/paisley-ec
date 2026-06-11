@@ -175,7 +175,8 @@ function ParentPage() {
         {/* 计划管理 */}
         <SectionTitle>计划管理</SectionTitle>
 
-        {/* ShirinTalk */}
+        {/* 跟随顶部 ShirinTalk / myWordie 切换 */}
+        {tab === "talk" ? (
         <GoalCard
           open={open.settingTalk}
           onToggle={() => toggle("settingTalk")}
@@ -189,8 +190,7 @@ function ParentPage() {
             { label: "本年", value: talkGoals.year, unit: "分钟", step: 50, onChange: (v) => setTalkGoals((g) => ({ ...g, year: v })) },
           ]}
         />
-
-        {/* myWordie */}
+        ) : (
         <GoalCard
           open={open.settingWordie}
           onToggle={() => toggle("settingWordie")}
@@ -205,6 +205,7 @@ function ParentPage() {
             { label: "本年", value: wordieGoals.year, unit: "卡片", step: 50, onChange: (v) => setWordieGoals((g) => ({ ...g, year: v })) },
           ]}
         />
+        )}
 
         {/* 设置 */}
         <SectionTitle>设置</SectionTitle>
