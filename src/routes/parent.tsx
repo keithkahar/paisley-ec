@@ -542,9 +542,9 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: match the 86% Wordie Test ring stroke (4px)
-  const STREAK_SIZE = 58;
-  const STREAK_STROKE = 4;
+  // Streak ring: stroke matches the 已掌握 progress bar (h-1.5 = 6px)
+  const STREAK_SIZE = 104;
+  const STREAK_STROKE = 6;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
@@ -553,14 +553,14 @@ function WordieBento({
       <div className="grid grid-cols-6 grid-rows-2 gap-3">
         {/* 连续练习 — tall hero with centered ring */}
         <div
-          className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col items-center text-white relative overflow-hidden"
+          className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col text-white relative overflow-hidden"
           style={{ background: accent }}
         >
-          <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
+          <span className="text-[12px] font-semibold tracking-wide opacity-90 self-start">
             连续练习
           </span>
           <div
-            className="relative grid place-items-center my-auto"
+            className="relative grid place-items-center my-auto self-center"
             style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
           >
             <svg
@@ -583,19 +583,16 @@ function WordieBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[32px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
+                <span className="text-[40px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
                   {bento.hero.value}
                 </span>
-                <span className="text-[12px] font-medium opacity-85">{bento.hero.unit}</span>
+                <span className="text-[13px] font-medium opacity-85">{bento.hero.unit}</span>
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-center w-full">
             <span className="text-[11px] font-medium opacity-85 tracking-wide">
               目标 14 {bento.hero.unit}
-            </span>
-            <span className="text-[14px] font-semibold tabular-nums" style={{ letterSpacing: "-0.02em" }}>
-              {ringPct}%
             </span>
           </div>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
@@ -622,16 +619,16 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="23" stroke={tint(14)} strokeWidth="4" fill="none" />
+              <circle cx="25" cy="25" r="22" stroke={tint(14)} strokeWidth="6" fill="none" />
               <circle
                 cx="25"
                 cy="25"
-                r="23"
+                r="22"
                 stroke={accent}
-                strokeWidth="4"
+                strokeWidth="6"
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
               />
             </svg>
             <span
