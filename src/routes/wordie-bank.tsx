@@ -825,12 +825,12 @@ function PreviewFull({
           {/* Example + Word in use — both left-aligned */}
           <div className="mt-10 space-y-6">
             <div>
-              <p className="text-[10px] font-semibold tracking-[0.08em] text-muted-foreground">
+              <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-xs font-semibold leading-snug text-foreground"
+                  className="flex-1 text-base font-semibold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {word.definitionEn}
@@ -845,12 +845,12 @@ function PreviewFull({
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-semibold tracking-[0.08em] text-muted-foreground">
+              <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Example
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-xs font-semibold leading-snug text-foreground"
+                  className="flex-1 text-base font-semibold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(word.exampleSentence, word.word)}
