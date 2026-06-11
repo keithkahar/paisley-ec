@@ -127,6 +127,12 @@ function ParentPage() {
           >
             Parent Page
           </h1>
+          <p
+            className="mt-1 text-[13px] leading-none font-bold"
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+          >
+            {new Date().toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+          </p>
         </section>
 
         {/* Source tabs (segmented pill, same as /progress) */}
@@ -543,7 +549,7 @@ function WordieBento({
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
   // Streak ring: stroke matches the 已掌握 progress bar (h-1.5 = 6px)
-  const STREAK_SIZE = 104;
+  const STREAK_SIZE = 84;
   const STREAK_STROKE = 6;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
@@ -556,7 +562,7 @@ function WordieBento({
           className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col text-white relative overflow-hidden"
           style={{ background: accent }}
         >
-          <span className="text-[12px] font-semibold tracking-wide opacity-90 self-start">
+          <span className="text-[11px] font-bold opacity-90 self-start">
             连续练习
           </span>
           <div
@@ -583,15 +589,15 @@ function WordieBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[40px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
+                <span className="text-[28px] font-bold tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                   {bento.hero.value}
                 </span>
-                <span className="text-[13px] font-medium opacity-85">{bento.hero.unit}</span>
+                <span className="text-[11px] font-bold opacity-85">{bento.hero.unit}</span>
               </div>
             </div>
           </div>
           <div className="flex items-center justify-center w-full">
-            <span className="text-[11px] font-medium opacity-85 tracking-wide">
+            <span className="text-[10px] font-medium opacity-85">
               目标 14 {bento.hero.unit}
             </span>
           </div>
@@ -610,10 +616,10 @@ function WordieBento({
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
-            <p className="text-[12px] font-semibold leading-tight" style={{ color: tint(82) }}>
+            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(82) }}>
               Wordie Test
             </p>
-            <p className="text-[11px] font-medium leading-tight" style={{ color: tint(65) }}>
+            <p className="text-[10px] font-medium leading-tight" style={{ color: tint(65) }}>
               平均分
             </p>
           </div>
@@ -632,11 +638,11 @@ function WordieBento({
               />
             </svg>
             <span
-              className="text-[14px] font-semibold relative tabular-nums"
+              className="text-[14px] font-bold relative tabular-nums"
               style={{ letterSpacing: "-0.02em", color: accent }}
             >
               {bento.ring.pct}
-              <span className="text-[9px] font-medium ml-0.5" style={{ color: tint(60) }}>%</span>
+              <span className="text-[10px] font-bold ml-0.5" style={{ color: tint(60) }}>%</span>
             </span>
           </div>
         </div>
@@ -686,17 +692,17 @@ function StatCard({
       className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 min-h-[64px]"
       style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
     >
-      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
+      <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
-          className="text-[26px] font-semibold leading-none tabular-nums"
-          style={{ color: accent, letterSpacing: "-0.03em" }}
+          className="text-[22px] font-bold leading-none tabular-nums"
+          style={{ color: accent, letterSpacing: "-0.02em" }}
         >
           {value}
         </span>
-        <span className="text-[11px] font-medium" style={{ color: tint(70) }}>{unit}</span>
+        <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{unit}</span>
       </div>
     </div>
   );
