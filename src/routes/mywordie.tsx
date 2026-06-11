@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Layers, Zap, ClipboardCheck, Flame, Play, ChevronLeft } from "lucide-react";
+import { Layers, Zap, ClipboardCheck, Flame, Play } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/mywordie")({
   head: () => ({ meta: [{ title: "myWordie — Paisley EC" }] }),
@@ -32,15 +33,7 @@ function MyWordiePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/" />
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-12 pb-1">
           <div
