@@ -36,7 +36,7 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[72%] max-w-[297px] object-contain"
+              className="relative z-10 w-[58%] max-w-[220px] object-contain"
             />
           </div>
         </section>
@@ -48,7 +48,7 @@ function Home() {
         >
           {/* SECONDARY: greeting + question, one refined block */}
           <h1
-            className="text-[28px] leading-[1.2] font-semibold tracking-tight text-foreground"
+            className="text-[28px] leading-[1.2] font-semibold tracking-tight text-foreground text-center"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
