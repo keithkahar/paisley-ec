@@ -620,18 +620,18 @@ function WordieBento({
               平均分
             </p>
           </div>
-          <div className="relative w-14 h-14 grid place-items-center shrink-0">
-            <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-              <circle cx="28" cy="28" r="23" stroke={tint(14)} strokeWidth="4" fill="none" />
+          <div className="relative grid place-items-center shrink-0" style={{ width: 65, height: 65 }}>
+            <svg width={65} height={65} viewBox="0 0 65 65" className="absolute inset-0 -rotate-90">
+              <circle cx="32.5" cy="32.5" r="28.5" stroke={tint(14)} strokeWidth="8" fill="none" />
               <circle
-                cx="28"
-                cy="28"
-                r="23"
+                cx="32.5"
+                cy="32.5"
+                r="28.5"
                 stroke={accent}
-                strokeWidth="4"
+                strokeWidth="8"
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 28.5} ${2 * Math.PI * 28.5}`}
               />
             </svg>
             <span
