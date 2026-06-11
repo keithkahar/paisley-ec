@@ -861,24 +861,24 @@ function VocabFunnel({
           <div className="relative flex flex-col items-center leading-none">
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[34px] font-semibold tabular-nums"
-                style={{ color: accent, letterSpacing: "-0.04em" }}
+                className="text-[16px] font-semibold tabular-nums"
+                style={{ color: accent, letterSpacing: "-0.02em" }}
               >
                 {total}
               </span>
               <span
-                className="text-[12px] font-semibold"
+                className="text-[11px] font-semibold"
                 style={{ color: tint(70) }}
               >
                 词
               </span>
             </div>
             <div
-              className="mt-2 h-[2px] w-8 rounded-full"
+              className="mt-1.5 h-[2px] w-6 rounded-full"
               style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
-              className="mt-2 text-[10px] font-semibold tracking-[0.22em] uppercase"
+              className="mt-1.5 text-[9px] font-semibold tracking-[0.22em] uppercase"
               style={{ color: tint(72) }}
             >
               学习词库
@@ -902,7 +902,7 @@ function VocabFunnel({
                   <span className="flex items-baseline gap-1.5 tabular-nums">
                     <span
                       className="text-[16px] font-semibold leading-none"
-                      style={{ color: accent, letterSpacing: "-0.02em" }}
+                      style={{ color: tint(shades[i]), letterSpacing: "-0.02em" }}
                     >
                       {s.value}
                     </span>
