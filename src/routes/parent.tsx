@@ -596,11 +596,9 @@ function WordieBento({
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center w-full">
-            <span className="text-[10px] font-medium opacity-85">
-              目标 14 {bento.hero.unit}
-            </span>
-          </div>
+          <span className="absolute right-3 bottom-2 text-[10px] font-medium opacity-85">
+            目标 14 {bento.hero.unit}
+          </span>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         </div>
         {/* 本周卡片 — unified tinted style */}
@@ -620,8 +618,8 @@ function WordieBento({
               Wordie Test 平均分
             </span>
             <span
-              className="text-[11px] font-bold tabular-nums leading-none"
-              style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
+              className="text-[22px] font-bold tabular-nums leading-none"
+              style={{ color: tint(95), letterSpacing: "-0.02em" }}
             >
               {bento.ring.pct}%
             </span>
