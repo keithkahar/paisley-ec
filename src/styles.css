@@ -90,7 +90,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.91 0.015 80);
-  --input: oklch(0.93 0.015 80);
+  --input: oklch(0.957 0.012 250); /* #EDF2F7 — unified light blue-gray */
   --ring: oklch(0.46 0.21 261);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
