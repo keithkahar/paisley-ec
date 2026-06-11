@@ -23,14 +23,14 @@ type BentoLayout = {
 };
 
 const TALK_BENTO: BentoLayout = {
-  hero: { label: "本周对话时长", value: "37", unit: "min" },
-  smallA: { label: "对话轮次", value: "5", unit: "次" },
-  smallB: { label: "连续练习", value: "12", unit: "天" },
+  hero: { label: "连续练习", value: "12", unit: "天" },
+  smallA: { label: "本周对话轮次", value: "5", unit: "次" },
+  smallB: { label: "本周对话时长", value: "37", unit: "min" },
   trend: { label: "本周发言轮次", value: "84", unit: "次", bars: [30, 50, 80, 40, 60] },
-  squareA: { label: "主动提问", value: "11", unit: "次" },
-  squareB: { label: "完整表达", value: "9", unit: "次" },
-  tall: { label: "本周对话用词", value: "186", unit: "词", badge: "Vocab Growth" },
-  ring: { label: "目标词使用", value: "14", unit: "次", pct: 70 },
+  squareA: { label: "完整表达", value: "9", unit: "次" },
+  squareB: { label: "本周对话用词", value: "186", unit: "词" },
+  tall: { label: "目标词使用", value: "14", unit: "次", badge: "Vocab Growth" },
+  ring: { label: "本周主动提问", value: "11", unit: "次", pct: 55 },
 };
 
 const WORDIE_BENTO: BentoLayout = {
@@ -165,145 +165,7 @@ function ParentPage() {
           {tab === "wordie" ? (
             <WordieBento accent={accent} tint={tint} bento={bento} />
           ) : (
-          <div className="grid grid-cols-6 gap-2.5">
-            <div
-              className="col-span-4 rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]"
-              style={{ background: accent }}
-            >
-              <span className="text-[10px] font-bold opacity-90">{bento.hero.label}</span>
-              <div className="flex items-baseline">
-                <span className="text-[20px] font-bold tracking-tight leading-none">{bento.hero.value}</span>
-                <span className="ml-1 text-[10px] font-bold opacity-80">{bento.hero.unit}</span>
-              </div>
-              <div className="absolute -right-4 -bottom-4 w-16 h-16 rounded-full bg-white/15 blur-xl" />
-            </div>
-            <div
-              className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
-              style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-            >
-              <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
-                {bento.smallA.label}
-              </span>
-              <div className="flex items-baseline">
-                <span className="text-[18px] font-bold leading-none" style={{ color: accent }}>
-                  {bento.smallA.value}
-                </span>
-                <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                  {bento.smallA.unit}
-                </span>
-              </div>
-            </div>
-
-            {/* trend (talk) */}
-            <div
-              className="col-span-4 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
-              style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-            >
-              <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
-                {bento.trend.label}
-              </span>
-              <div className="flex items-baseline">
-                <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                  {bento.trend.value}
-                </span>
-                <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                  {bento.trend.unit}
-                </span>
-              </div>
-            </div>
-            <div
-                className="col-span-2 rounded-2xl px-3 py-2.5 flex flex-col justify-between min-h-[60px]"
-                style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-              >
-                <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
-                  {bento.smallB.label}
-                </span>
-                <div className="flex items-baseline">
-                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                    {bento.smallB.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: tint(70) }}>
-                    {bento.smallB.unit}
-                  </span>
-                </div>
-              </div>
-
-            {/* Squares (talk only) */}
-            {[bento.squareA, bento.squareB].map((c, i) => (
-                <div
-                  key={i}
-                  className="col-span-3 rounded-2xl p-3.5 bg-white border border-[oklch(0.94_0.01_240)] flex flex-col justify-between min-h-[70px]"
-                >
-                  <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
-                    {c.label}
-                  </span>
-                  <div className="flex items-baseline">
-                    <span className="text-[22px] font-bold leading-none" style={{ color: "var(--foreground)" }}>
-                      {c.value}
-                    </span>
-                    <span className="text-[11px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                      {c.unit}
-                    </span>
-                  </div>
-                </div>
-            ))}
-
-            {/* Tall (3×1) — Vocab (talk) */}
-            <div
-              className="col-span-3 rounded-2xl px-3.5 py-2.5 flex flex-col justify-between min-h-[60px]"
-              style={{ background: tint(6), border: `1.5px dashed ${tint(25)}` }}
-            >
-              <span className="text-[10px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                {bento.tall.label}
-              </span>
-              <div className="flex items-baseline">
-                <span className="text-[24px] font-bold tracking-tight leading-none" style={{ color: "var(--foreground)" }}>
-                  {bento.tall.value}
-                </span>
-                <span className="text-[11px] ml-1 font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
-                  {bento.tall.unit}
-                </span>
-              </div>
-            </div>
-
-            {/* Ring (talk) */}
-            <div
-              className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[60px]"
-              style={{ background: tint(10) }}
-            >
-              <div className="min-w-0">
-                <p className="text-[10px] font-bold leading-tight" style={{ color: accent }}>
-                  {bento.ring.label}
-                </p>
-                <div className="mt-1 flex items-baseline">
-                  <span className="text-[20px] font-bold leading-none" style={{ color: accent }}>
-                    {bento.ring.value}
-                  </span>
-                  <span className="text-[10px] ml-0.5 font-bold" style={{ color: accent }}>
-                    {bento.ring.unit}
-                  </span>
-                </div>
-              </div>
-              <div className="relative w-12 h-12 grid place-items-center shrink-0">
-                <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-                  <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="6" fill="none" />
-                  <circle
-                    cx="28"
-                    cy="28"
-                    r="24"
-                    stroke={accent}
-                    strokeWidth="6"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
-                  />
-                </svg>
-                <span className="text-[11px] font-bold relative tabular-nums" style={{ color: accent }}>
-                  {bento.ring.pct}%
-                </span>
-              </div>
-            </div>
-          </div>
+            <TalkBento accent={accent} tint={tint} bento={bento} />
           )}
         </section>
 
