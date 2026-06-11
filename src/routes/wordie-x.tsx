@@ -881,13 +881,28 @@ function WordieXPage() {
 
       {/* Full-screen preview */}
       {previewIdx !== null && filtered[previewIdx] && (
-        <PreviewFull
-          note={filtered[previewIdx]}
+        <WordPreview
+          item={{
+            word: filtered[previewIdx].word,
+            pronunciation: filtered[previewIdx].pronunciation,
+            definitionEn: filtered[previewIdx].definitionEn || filtered[previewIdx].content,
+            exampleSentence: filtered[previewIdx].exampleSentence,
+            partOfSpeech: filtered[previewIdx].partOfSpeech || "noun",
+            cefrLevel: filtered[previewIdx].cefrLevel,
+            statusValue: capitalizeX(filtered[previewIdx].learnStatus),
+            nextReviewLabel: filtered[previewIdx].nextReviewLabel,
+          }}
           index={previewIdx}
           total={filtered.length}
           onClose={() => setPreviewIdx(null)}
           onPrev={() => setPreviewIdx((i) => (i !== null && i > 0 ? i - 1 : i))}
           onNext={() => setPreviewIdx((i) => (i !== null && i < filtered.length - 1 ? i + 1 : i))}
+          topBadges={
+            <>
+              <LearnBadge status={filtered[previewIdx].learnStatus} />
+              {filtered[previewIdx].isFocus && <FocusPill />}
+            </>
+          }
         />
       )}
 
