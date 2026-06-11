@@ -822,7 +822,7 @@ function PreviewFull({
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-[17px] font-semibold leading-relaxed text-foreground"
+                  className="flex-1 text-[18px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {word.definitionEn}
@@ -842,7 +842,7 @@ function PreviewFull({
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-[17px] font-semibold leading-relaxed text-foreground"
+                  className="flex-1 text-[18px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(word.exampleSentence, word.word)}
