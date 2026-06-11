@@ -654,8 +654,8 @@ function TalkBento({
 
       {/* Row 4: 本周对话用词 + 本周目标词使用 */}
       <div className="grid grid-cols-6 gap-3">
-        <StatCard accentOverride="oklch(0.66 0.24 9)" label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} accent={accent} tint={tint} />
-        <StatCard accentOverride="oklch(0.72 0.18 350)" label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} accent={accent} tint={tint} />
+        <StatCard label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} accent={accent} tint={tint} />
+        <StatCard label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} accent={accent} tint={tint} />
       </div>
     </div>
   );
