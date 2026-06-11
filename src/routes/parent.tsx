@@ -630,13 +630,7 @@ function TalkBento({
                 className="text-[11px] font-bold leading-none"
                 style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
               >
-                / 18
-              </span>
-              <span
-                className="text-[11px] font-bold leading-none"
-                style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
-              >
-                次(目标)
+                目标18次
               </span>
             </span>
           </div>
