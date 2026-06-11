@@ -212,8 +212,6 @@ function ProgressPage() {
           </div>
         </section>
       </div>
-
-      <BottomTabBar />
     </PhoneFrame>
   );
 }

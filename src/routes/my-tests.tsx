@@ -426,8 +426,6 @@ function MyTestsPage() {
           )}
         </section>
       </div>
-
-      <BottomTabBar />
     </PhoneFrame>
   );
 }
