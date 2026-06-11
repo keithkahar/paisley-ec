@@ -223,7 +223,7 @@ function WordCardPage() {
             >
               <div className="flex items-center gap-1.5 min-w-0">
                 <span
-                  className="inline-flex rounded-md px-[7px] py-[2px] text-[12px] font-semibold"
+                  className="inline-flex rounded-lg px-[7px] py-[2px] text-[12px] font-semibold"
                   style={{ background: "white", color: "var(--wordie)" }}
                 >
                   {card.pos}

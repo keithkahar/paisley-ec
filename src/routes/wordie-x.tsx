@@ -1031,7 +1031,7 @@ function PreviewFull({
         </div>
         <div className="w-5" />
       </div>
-      <div className="flex-1 overflow-y-auto px-5 pb-6">
+      <div className="flex-1 overflow-y-auto px-5 pb-6 flex flex-col">
         <div
           className="rounded-[2rem] p-6 bg-white flex flex-col overflow-hidden"
           style={{
@@ -1042,7 +1042,7 @@ function PreviewFull({
           <div className="flex items-center">
             <div className="flex items-center gap-1.5 min-w-0">
               <span
-                className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                className="inline-flex rounded-lg px-[7px] py-[2px] text-[12px] font-semibold"
                 style={{ background: "var(--wordie)", color: "white" }}
               >
                 {capitalize(note.partOfSpeech || "noun")}
@@ -1113,7 +1113,7 @@ function PreviewFull({
           <MiniStat label="Level" value={note.cefrLevel} />
           <MiniStat label="Next" value={note.nextReviewLabel} />
         </div>
-        <div className="mt-8 flex flex-col items-center">
+        <div className="mt-[109px] flex flex-col items-center">
           <button
             type="button"
             className="h-[72px] w-[72px] rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
@@ -1124,24 +1124,21 @@ function PreviewFull({
           </button>
         </div>
       </div>
-      <div className="flex items-center justify-between px-5 py-4">
+      <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-5 py-4 pointer-events-none">
         <button
           type="button"
           onClick={onPrev}
           disabled={prevDisabled}
-          className="text-[13px] font-semibold disabled:opacity-30"
+          className="text-[15px] font-light disabled:opacity-30 pointer-events-auto"
           style={{ color: "var(--wordie)" }}
         >
           Previous
         </button>
-        <span className="text-[12px] font-semibold text-muted-foreground">
-          {index + 1} / {total}
-        </span>
         <button
           type="button"
           onClick={onNext}
           disabled={nextDisabled}
-          className="text-[13px] font-semibold disabled:opacity-30"
+          className="text-[15px] font-light disabled:opacity-30 pointer-events-auto"
           style={{ color: "var(--wordie)" }}
         >
           Next
