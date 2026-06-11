@@ -702,7 +702,7 @@ function StatCard({
         >
           {value}
         </span>
-        <span className="text-[11px] font-medium" style={{ color: tint(70) }}>{unit}</span>
+        <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{unit}</span>
       </div>
     </div>
   );
