@@ -791,7 +791,7 @@ function PreviewFull({
           />
         ))}
       </div>
-      <div className="flex-1 overflow-y-auto px-5 pb-6">
+      <div className="flex-1 overflow-y-auto px-5 pb-6 flex flex-col">
         {/* Word card — white surface with soft wordie border */}
         <div
           className="rounded-[2rem] p-6 bg-white flex flex-col overflow-hidden"
@@ -880,7 +880,7 @@ function PreviewFull({
           <MiniStat label="Next" value={word.nextReviewLabel} />
         </div>
         {/* Speaker outside card */}
-        <div className="mt-8 flex flex-col items-center">
+        <div className="mt-auto mb-24 flex flex-col items-center">
           <button
             type="button"
             className="h-[72px] w-[72px] rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
