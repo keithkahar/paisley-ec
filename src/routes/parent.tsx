@@ -200,7 +200,7 @@ function ParentPage() {
                 key={k}
                 label={k === "week" ? "本周" : k === "month" ? "本月" : "本年"}
                 value={talkGoals[k]}
-                unit="min"
+                unit="分钟"
                 onChange={(v) => setTalkGoals((g) => ({ ...g, [k]: v }))}
               />
             ))}
@@ -224,13 +224,13 @@ function ParentPage() {
             <NumberRow
               label="每天卡片"
               value={dailyPlan.dailyCards}
-              unit="cards"
+              unit="卡片"
               onChange={(v) => setDailyPlan((p) => ({ ...p, dailyCards: v }))}
             />
             <NumberRow
               label="每天时长"
               value={dailyPlan.dailyMinutes}
-              unit="min"
+              unit="分钟"
               onChange={(v) => setDailyPlan((p) => ({ ...p, dailyMinutes: v }))}
             />
             {(["week", "month", "year"] as const).map((k) => (
@@ -238,7 +238,7 @@ function ParentPage() {
                 key={k}
                 label={k === "week" ? "本周" : k === "month" ? "本月" : "本年"}
                 value={wordieGoals[k]}
-                unit="cards"
+                unit="卡片"
                 onChange={(v) => setWordieGoals((g) => ({ ...g, [k]: v }))}
               />
             ))}
