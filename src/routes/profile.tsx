@@ -51,7 +51,7 @@ function ProfilePage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
+      <div className="relative bg-white">
         <FloatingBack to="/" label="Back to home" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
@@ -161,18 +161,10 @@ function ProfilePage() {
         </section>
 
         {/* Pill actions — mirrors ShirinTalk pill style */}
-        <section className="px-6 pt-4 pb-10 flex-1 flex flex-col justify-end gap-3">
+        <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
-          {/* Invisible spacer — keeps the first action pill at the same Y as ShirinTalk's 4-pill stack */}
-          <div
-            aria-hidden
-            className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 invisible"
-          >
-            <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full" />
-            <span className="text-[17px] font-bold tracking-tight leading-none">.</span>
-          </div>
         </section>
 
         {/* Hidden admin entry — absolutely positioned so it doesn't push action pills upward */}

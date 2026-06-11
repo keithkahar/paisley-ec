@@ -21,8 +21,15 @@ export function BottomTabBar() {
   return (
     <>
       {/* spacer so content isn't hidden under the bar */}
-      <div className="h-24" aria-hidden />
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10 pb-4">
+      <div
+        className="h-24"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+        aria-hidden
+      />
+      <nav
+        className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10"
+        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+      >
         <div
           className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
           style={{

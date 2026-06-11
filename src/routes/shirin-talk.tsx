@@ -35,7 +35,7 @@ function ShirinTalkPage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
+      <div className="relative bg-white">
         <FloatingBack to="/" />
 
         {/* Hero */}
@@ -57,7 +57,7 @@ function ShirinTalkPage() {
           >
             Let's practise English together.
           </p>
-          <div className="mt-3 flex items-center justify-between">
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
@@ -112,7 +112,7 @@ function ShirinTalkPage() {
         </section>
 
         {/* Pill actions */}
-        <section className="px-6 pt-4 pb-10 flex-1 flex flex-col justify-end gap-3">
+        <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
@@ -150,15 +150,6 @@ function ShirinTalkPage() {
               </Link>
             );
           })}
-          {/* Invisible spacer (matches pill dimensions) so the 3 pills align
-              vertically with mywordie/profile's pill stack. */}
-          <div
-            aria-hidden
-            className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 invisible"
-          >
-            <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full" />
-            <span className="text-[17px] font-bold tracking-tight leading-none">.</span>
-          </div>
         </section>
       </div>
 
