@@ -542,7 +542,10 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  const R = 40;
+  // Streak ring: 75% of the 260 funnel donut (116px) ≈ 87px, same stroke (10px) as funnel
+  const STREAK_SIZE = 87;
+  const STREAK_STROKE = 10;
+  const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
     <div className="space-y-3">
@@ -556,15 +559,23 @@ function WordieBento({
           <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
             连续练习
           </span>
-          <div className="relative w-[108px] h-[108px] grid place-items-center my-auto">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
-              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.18)" strokeWidth="7" fill="none" />
+          <div
+            className="relative grid place-items-center my-auto"
+            style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
+          >
+            <svg
+              width={STREAK_SIZE}
+              height={STREAK_SIZE}
+              viewBox={`0 0 ${STREAK_SIZE} ${STREAK_SIZE}`}
+              className="absolute inset-0 -rotate-90"
+            >
+              <circle cx={STREAK_SIZE / 2} cy={STREAK_SIZE / 2} r={R} stroke="rgba(255,255,255,0.18)" strokeWidth={STREAK_STROKE} fill="none" />
               <circle
-                cx="50"
-                cy="50"
+                cx={STREAK_SIZE / 2}
+                cy={STREAK_SIZE / 2}
                 r={R}
                 stroke="white"
-                strokeWidth="7"
+                strokeWidth={STREAK_STROKE}
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(ringPct / 100) * C} ${C}`}
