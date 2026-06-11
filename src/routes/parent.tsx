@@ -854,22 +854,25 @@ function VocabFunnel({
                   fill="none"
                   stroke={a.color}
                   strokeWidth={STROKE}
-                  strokeLinecap="butt"
+                  strokeLinecap="round"
                   strokeDasharray={`${a.drawLen} ${C}`}
                   strokeDashoffset={a.offset}
                 />
               ))}
             </g>
           </svg>
-          <div className="relative flex items-baseline gap-1 leading-none">
+          <div className="relative flex flex-col items-center leading-none gap-1">
             <span
               className="text-[14px] font-bold tabular-nums"
               style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
             >
               {total}
             </span>
-            <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
-              词
+            <span
+              className="text-[11px] font-bold"
+              style={{ color: tint(shades[3]) }}
+            >
+              学习词库
             </span>
           </div>
         </div>
