@@ -3,7 +3,8 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
-import { ChevronLeft, Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import { Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
@@ -30,15 +31,7 @@ function ShirinTalkPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/" />
 
         {/* Hero */}
         <section className="px-6 pt-12 pb-1 text-center">
