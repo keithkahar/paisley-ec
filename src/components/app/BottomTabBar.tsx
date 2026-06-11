@@ -38,7 +38,7 @@ export function BottomTabBar() {
           }}
         >
           {tabs.map((t, i) => {
-            const active = pathname.startsWith(t.to);
+            const active = pathname === t.to || pathname.startsWith(t.to + "/");
             const isProfile = t.to === "/profile";
             const isFirst = i === 0;
             const isLast = i === tabs.length - 1;

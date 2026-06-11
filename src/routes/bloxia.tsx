@@ -5,7 +5,6 @@ import { AppHeader } from "@/components/app/AppHeader";
 import { BpPill } from "@/components/app/Pills";
 import logo from "@/assets/brand/Bloxia.png";
 import { Hammer, Sprout, PawPrint, Gift, Play } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/bloxia")({
   head: () => ({ meta: [
@@ -66,9 +65,11 @@ function BloxiaPage() {
 
       {/* Primary CTA */}
       <div className="px-5 mt-5">
-        <Link
-          to="/bloxia"
-          className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
+        <button
+          type="button"
+          disabled
+          aria-label="Play Bloxia — coming soon"
+          className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-bold text-white shadow-lg opacity-80 cursor-not-allowed"
           style={{
             background: "var(--bloxia)",
             fontSize: "17.25px"
@@ -76,7 +77,8 @@ function BloxiaPage() {
         >
           <Play className="shrink-0 fill-current" style={{ width: "1.15em", height: "1.15em" }} />
           <span className="leading-none">Play Bloxia</span>
-        </Link>
+          <span className="ml-2 rounded-full bg-white/25 px-2 py-0.5 text-[11px] font-bold leading-none">Soon</span>
+        </button>
       </div>
 
       <BottomTabBar />
@@ -95,7 +97,15 @@ function ResourceChip({ label, value, color }: { label: string; value: number; c
 
 function ActionCard({ label, sub, icon, tint }: { label: string; sub: string; icon: React.ReactNode; tint: string }) {
   return (
-    <button className="rounded-2xl bg-white border border-border p-4 flex flex-col items-start gap-2 active:scale-[0.98] text-left">
+    <button
+      type="button"
+      disabled
+      aria-label={`${label} — coming soon`}
+      className="relative rounded-2xl bg-white border border-border p-4 flex flex-col items-start gap-2 text-left opacity-90 cursor-not-allowed"
+    >
+      <span className="absolute top-2 right-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground leading-none">
+        Soon
+      </span>
       <div className="h-10 w-10 rounded-xl grid place-items-center text-white" style={{ background: tint }}>
         {icon}
       </div>
