@@ -163,16 +163,7 @@ function MyTestsPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        {/* Back */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/profile"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/profile" />
 
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
