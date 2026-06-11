@@ -803,7 +803,7 @@ function VocabFunnel({
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
   const SIZE = 116;
-  const STROKE = 10;
+  const STROKE = 12;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
   const GAP = 0;
@@ -858,7 +858,7 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex flex-col items-center leading-none">
+          <div className="relative flex flex-col items-center leading-none -translate-y-1.5">
             <div className="flex items-baseline gap-1">
               <span
                 className="text-[16px] font-semibold tabular-nums"
@@ -874,12 +874,12 @@ function VocabFunnel({
               </span>
             </div>
             <div
-              className="mt-1.5 h-[2px] w-6 rounded-full"
+              className="mt-1.5 h-[2px] w-10 rounded-full"
               style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
               className="mt-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: tint(72) }}
+              style={{ color: tint(78) }}
             >
               学习词库
             </span>
