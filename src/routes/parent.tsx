@@ -542,9 +542,9 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: 50% of the 260 funnel donut (116px) = 58px, stroke = 2x progress bar (4px) = 8px
+  // Streak ring: match the 86% Wordie Test ring stroke (4px)
   const STREAK_SIZE = 58;
-  const STREAK_STROKE = 8;
+  const STREAK_STROKE = 4;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
@@ -554,7 +554,7 @@ function WordieBento({
         {/* 连续练习 — tall hero with centered ring */}
         <div
           className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col items-center text-white relative overflow-hidden"
-          style={{ background: accent, boxShadow: `0 14px 30px -18px ${accent}` }}
+          style={{ background: accent }}
         >
           <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
             连续练习
@@ -610,7 +610,7 @@ function WordieBento({
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
+          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
             <p className="text-[12px] font-semibold leading-tight" style={{ color: tint(82) }}>
