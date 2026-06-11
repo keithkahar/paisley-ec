@@ -185,18 +185,16 @@ function WordCardPage() {
             >
               <div className="flex items-center gap-1.5 min-w-0">
                 <span
-                  className="inline-flex rounded-lg px-[9px] py-[3px] text-[15px] font-semibold"
+                  className="inline-flex rounded-lg px-[7px] py-[2px] text-[12px] font-semibold"
                   style={{
                     background: "var(--wordie)",
                     color: "white",
-                    fontFamily: "var(--font-display)",
                   }}
                 >
                   {card.pos}
                 </span>
                 <span
                   className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground"
-                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   {card.level}
                 </span>
@@ -225,7 +223,7 @@ function WordCardPage() {
             >
               <div className="flex items-center gap-1.5 min-w-0">
                 <span
-                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                  className="inline-flex rounded-md px-[7px] py-[2px] text-[12px] font-semibold"
                   style={{ background: "white", color: "var(--wordie)" }}
                 >
                   {card.pos}
@@ -244,7 +242,7 @@ function WordCardPage() {
               <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Meaning</p>
-                  <div className="mt-2 flex items-center gap-3">
+                  <div className="mt-2 flex items-start gap-3">
                     <p
                       className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
@@ -253,6 +251,7 @@ function WordCardPage() {
                     </p>
                     <span
                       className="shrink-0 grid place-items-center opacity-80"
+                      style={{ height: "29px" }}
                       aria-label="Listen to meaning"
                     >
                       <Volume2 className="h-4 w-4" />
@@ -261,7 +260,7 @@ function WordCardPage() {
                 </div>
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
-                  <div className="mt-2 flex items-center gap-3">
+                  <div className="mt-2 flex items-start gap-3">
                     <p
                       className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
@@ -270,6 +269,7 @@ function WordCardPage() {
                     </p>
                     <span
                       className="shrink-0 grid place-items-center opacity-80"
+                      style={{ height: "29px" }}
                       aria-label="Listen to example"
                     >
                       <Volume2 className="h-4 w-4" />
