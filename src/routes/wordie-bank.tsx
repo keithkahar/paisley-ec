@@ -891,27 +891,6 @@ function PreviewFull({
           </button>
         </div>
       </div>
-      <div className="flex items-center justify-between px-5 py-4">
-        <button
-          type="button"
-          onClick={onPrev}
-          disabled={prevDisabled}
-          className="text-[13px] font-semibold disabled:opacity-30"
-          style={{ color: "var(--wordie)" }}
-        >
-          Previous
-        </button>
-        <span />
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={nextDisabled}
-          className="text-[13px] font-semibold disabled:opacity-30"
-          style={{ color: "var(--wordie)" }}
-        >
-          Next
-        </button>
-      </div>
     </div>
   );
 }
