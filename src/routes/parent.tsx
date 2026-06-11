@@ -542,7 +542,10 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  const R = 40;
+  // Streak ring: 75% of the 260 funnel donut (116px) ≈ 87px, same stroke (10px) as funnel
+  const STREAK_SIZE = 87;
+  const STREAK_STROKE = 10;
+  const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
     <div className="space-y-3">
@@ -556,15 +559,23 @@ function WordieBento({
           <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
             连续练习
           </span>
-          <div className="relative w-[108px] h-[108px] grid place-items-center my-auto">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
-              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.18)" strokeWidth="7" fill="none" />
+          <div
+            className="relative grid place-items-center my-auto"
+            style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
+          >
+            <svg
+              width={STREAK_SIZE}
+              height={STREAK_SIZE}
+              viewBox={`0 0 ${STREAK_SIZE} ${STREAK_SIZE}`}
+              className="absolute inset-0 -rotate-90"
+            >
+              <circle cx={STREAK_SIZE / 2} cy={STREAK_SIZE / 2} r={R} stroke="rgba(255,255,255,0.18)" strokeWidth={STREAK_STROKE} fill="none" />
               <circle
-                cx="50"
-                cy="50"
+                cx={STREAK_SIZE / 2}
+                cy={STREAK_SIZE / 2}
                 r={R}
                 stroke="white"
-                strokeWidth="7"
+                strokeWidth={STREAK_STROKE}
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(ringPct / 100) * C} ${C}`}
@@ -609,18 +620,18 @@ function WordieBento({
               平均分
             </p>
           </div>
-          <div className="relative w-14 h-14 grid place-items-center shrink-0">
-            <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-              <circle cx="28" cy="28" r="23" stroke={tint(14)} strokeWidth="4" fill="none" />
+          <div className="relative grid place-items-center shrink-0" style={{ width: 65, height: 65 }}>
+            <svg width={65} height={65} viewBox="0 0 65 65" className="absolute inset-0 -rotate-90">
+              <circle cx="32.5" cy="32.5" r="28.5" stroke={tint(14)} strokeWidth="8" fill="none" />
               <circle
-                cx="28"
-                cy="28"
-                r="23"
+                cx="32.5"
+                cy="32.5"
+                r="28.5"
                 stroke={accent}
-                strokeWidth="4"
+                strokeWidth="8"
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 28.5} ${2 * Math.PI * 28.5}`}
               />
             </svg>
             <span
@@ -850,24 +861,24 @@ function VocabFunnel({
           <div className="relative flex flex-col items-center leading-none">
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[34px] font-semibold tabular-nums"
-                style={{ color: accent, letterSpacing: "-0.04em" }}
+                className="text-[16px] font-semibold tabular-nums"
+                style={{ color: accent, letterSpacing: "-0.02em" }}
               >
                 {total}
               </span>
               <span
-                className="text-[12px] font-semibold"
+                className="text-[11px] font-semibold"
                 style={{ color: tint(70) }}
               >
                 词
               </span>
             </div>
             <div
-              className="mt-2 h-[2px] w-8 rounded-full"
+              className="mt-1.5 h-[2px] w-6 rounded-full"
               style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
-              className="mt-2 text-[10px] font-semibold tracking-[0.22em] uppercase"
+              className="mt-1.5 text-[9px] font-semibold tracking-[0.22em] uppercase"
               style={{ color: tint(72) }}
             >
               学习词库
@@ -891,7 +902,7 @@ function VocabFunnel({
                   <span className="flex items-baseline gap-1.5 tabular-nums">
                     <span
                       className="text-[16px] font-semibold leading-none"
-                      style={{ color: accent, letterSpacing: "-0.02em" }}
+                      style={{ color: tint(shades[i]), letterSpacing: "-0.02em" }}
                     >
                       {s.value}
                     </span>
