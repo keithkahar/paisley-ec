@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { AppHeader } from "@/components/app/AppHeader";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Volume2, Check, Circle } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Check, Circle } from "lucide-react";
 import {
   FilterChip,
   EmptyState,
   StatusBadge,
   type WordStatus,
 } from "@/components/app/WordieKit";
+import { WordPreview } from "@/components/app/WordPreview";
 
 export const Route = createFileRoute("/wordie-bank")({
   head: () => ({ meta: [
@@ -612,14 +613,29 @@ function WordieBankPage() {
 
       {/* Full-screen preview */}
       {previewIdx !== null && filtered[previewIdx] && (
-        <PreviewFull
-          word={filtered[previewIdx]}
+        <WordPreview
+          item={{
+            word: filtered[previewIdx].word,
+            pronunciation: filtered[previewIdx].pronunciation,
+            definitionEn: filtered[previewIdx].definitionEn,
+            exampleSentence: filtered[previewIdx].exampleSentence,
+            partOfSpeech: filtered[previewIdx].partOfSpeech,
+            cefrLevel: filtered[previewIdx].cefrLevel,
+            statusValue: capitalize(filtered[previewIdx].status),
+            nextReviewLabel: filtered[previewIdx].nextReviewLabel,
+          }}
           index={previewIdx}
           total={filtered.length}
           onClose={() => setPreviewIdx(null)}
           onPrev={() => setPreviewIdx((i) => (i !== null && i > 0 ? i - 1 : i))}
           onNext={() =>
             setPreviewIdx((i) => (i !== null && i < filtered.length - 1 ? i + 1 : i))
+          }
+          topBadges={
+            <>
+              <StatusBadge status={filtered[previewIdx].status} />
+              {filtered[previewIdx].focus && <FocusPill />}
+            </>
           }
         />
       )}

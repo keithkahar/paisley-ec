@@ -9,9 +9,9 @@ import {
   Check,
   Circle,
   X,
-  Volume2,
 } from "lucide-react";
 import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
+import { WordPreview } from "@/components/app/WordPreview";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [
