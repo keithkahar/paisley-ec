@@ -62,7 +62,7 @@ function ProfilePage() {
               ) : (
                 <span
                   className="text-[56px] font-bold leading-none"
-                  style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+                  style={{ color: PAISLEY, letterSpacing: "-0.02em" }}
                 >
                   {INITIALS}
                 </span>
@@ -79,14 +79,14 @@ function ProfilePage() {
           </div>
           <h2
             className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
           >
             {DISPLAY_NAME}
           </h2>
           {/* Registration date — mirrors ShirinTalk subtitle position */}
           <p
             className="mt-1 text-[13px] leading-none font-bold"
-            style={{ color: PAISLEY_YELLOW, fontFamily: "var(--font-sans)" }}
+            style={{ color: PAISLEY_YELLOW }}
           >
             Reg. {PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })} {PROFILE.registeredAt.getDate()} {PROFILE.registeredAt.getFullYear()}
           </p>
@@ -195,7 +195,7 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
     >
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"

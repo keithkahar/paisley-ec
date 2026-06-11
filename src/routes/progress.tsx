@@ -79,13 +79,13 @@ function ProgressPage() {
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: accent, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: accent, letterSpacing: "-0.01em" }}
           >
             My Progress
           </h1>
           <p
             className="mt-1 text-[13px] leading-none font-bold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {dateLabel}
           </p>
@@ -106,7 +106,7 @@ function ProgressPage() {
                   style={{
                     background: active ? "white" : "transparent",
                     color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
-                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
+                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined
                   }}
                 >
                   {key === "talk" ? "ShirinTalk" : "myWordie"}
@@ -175,7 +175,7 @@ function ProgressPage() {
                       className="px-2.5 h-6 rounded-full text-[11px] font-bold transition-colors"
                       style={{
                         background: active ? "white" : "transparent",
-                        color: active ? accent : "color-mix(in oklab, var(--foreground) 55%, white)",
+                        color: active ? accent : "color-mix(in oklab, var(--foreground) 55%, white)"
                       }}
                     >
                       {m === "week" ? "Week" : m === "month" ? "Month" : "Year"}

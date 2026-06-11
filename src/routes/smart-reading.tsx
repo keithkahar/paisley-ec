@@ -175,7 +175,7 @@ function SmartReadingPage() {
               <div className="min-w-0 flex flex-col gap-1.5">
                 <p
                   className="text-[17px] font-bold tracking-tight leading-none"
-                  style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                  style={{ color: PINK, letterSpacing: "-0.01em" }}
                 >
                   {currentPack.title}
                 </p>
@@ -260,7 +260,7 @@ function SmartReadingPage() {
                       {u.emoji}
                     </div>
                     <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
-                      <p className="text-[17px] font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}>
+                      <p className="text-[17px] font-bold tracking-tight leading-tight" style={{ letterSpacing: "-0.01em" }}>
                         {u.story_title}
                       </p>
                       <p className="mt-0.5 text-[11px] font-semibold line-clamp-1 text-foreground/60">

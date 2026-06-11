@@ -118,13 +118,13 @@ function ParentPage() {
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PAISLEY, fontFamily: "var(--font-sans)" }}
+            style={{ color: PAISLEY }}
           >
             Parent Page
           </h1>
           <p
             className="mt-1 text-[13px] leading-none font-bold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {new Date().toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}
           </p>
@@ -145,7 +145,7 @@ function ParentPage() {
                   style={{
                     background: active ? "white" : "transparent",
                     color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
-                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
+                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined
                   }}
                 >
                   {k === "talk" ? "ShirinTalk" : "myWordie"}
@@ -748,7 +748,7 @@ function VocabFunnel({
             width: SIZE,
             height: SIZE,
             background: `radial-gradient(closest-side, ${tint(6)} 0%, transparent 70%)`,
-            borderRadius: "9999px",
+            borderRadius: "9999px"
           }}
         >
           <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
@@ -844,7 +844,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className="px-6 pt-6 pb-2 text-[13px] font-bold uppercase tracking-wide text-black"
-      style={{ fontFamily: "var(--font-sans)" }}
     >
       {children}
     </h2>
@@ -1135,7 +1134,7 @@ function ActionPill({
       className="h-7 rounded-full text-[11px] font-bold"
       style={{
         background: active ? color : `color-mix(in oklab, ${color} 10%, white)`,
-        color: active ? "white" : color,
+        color: active ? "white" : color
       }}
     >
       {children}
@@ -1198,7 +1197,7 @@ function VoiceSheet({ currentId, onPick }: { currentId: string; onPick: (v: { id
                   className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left"
                   style={{
                     background: active ? "color-mix(in oklab, var(--paisley) 10%, white)" : "transparent",
-                    color: active ? PAISLEY : "var(--foreground)",
+                    color: active ? PAISLEY : "var(--foreground)"
                   }}
                 >
                   <span className="text-[14px] font-bold">{v.name}</span>
@@ -1226,7 +1225,7 @@ function ThemeSheet({ value, onPick }: { value: string; onPick: (id: string) => 
             className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-left"
             style={{
               background: active ? "color-mix(in oklab, var(--paisley) 10%, white)" : "transparent",
-              color: active ? PAISLEY : "var(--foreground)",
+              color: active ? PAISLEY : "var(--foreground)"
             }}
           >
             <span className="text-[14px] font-bold">{t.label}</span>

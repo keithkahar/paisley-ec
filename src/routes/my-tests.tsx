@@ -170,7 +170,7 @@ function MyTestsPage() {
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: "var(--paisley)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: "var(--paisley)", letterSpacing: "-0.01em" }}
           >
             My Tests
           </h1>
@@ -219,7 +219,7 @@ function MyTestsPage() {
               className="h-4 w-4 transition-transform"
               style={{
                 color: "color-mix(in oklab, var(--foreground) 55%, white)",
-                transform: openCefr ? "rotate(180deg)" : "rotate(0deg)",
+                transform: openCefr ? "rotate(180deg)" : "rotate(0deg)"
               }}
             />
           </button>
@@ -231,7 +231,7 @@ function MyTestsPage() {
                   <div className="min-w-0 flex-1">
                     <p
                       className="font-bold text-[15px] truncate leading-tight text-foreground"
-                      style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                      style={{ letterSpacing: "-0.01em" }}
                     >
                       {h.level}
                     </p>
@@ -294,7 +294,7 @@ function MyTestsPage() {
               className="h-4 w-4 transition-transform"
               style={{
                 color: "color-mix(in oklab, var(--foreground) 55%, white)",
-                transform: openWordie ? "rotate(180deg)" : "rotate(0deg)",
+                transform: openWordie ? "rotate(180deg)" : "rotate(0deg)"
               }}
             />
           </button>
@@ -313,7 +313,7 @@ function MyTestsPage() {
                       <div className="min-w-0 flex-1">
                         <p
                           className="font-bold text-[15px] truncate leading-tight text-foreground"
-                          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                          style={{ letterSpacing: "-0.01em" }}
                         >
                           {t.score}%
                           <span
@@ -438,14 +438,14 @@ function SectionHeader({ title, actionLabel, accent }: { title: string; actionLa
     <div className="flex items-center justify-between">
       <h2
         className="text-[16px] font-bold"
-        style={{ color: "var(--foreground)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
       >
         {title}
       </h2>
       <button
         type="button"
         className="text-[12px] font-bold px-3 h-7 rounded-full"
-        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent, fontFamily: "var(--font-sans)" }}
+        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
       >
         {actionLabel}
       </button>

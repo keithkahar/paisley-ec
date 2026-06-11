@@ -183,7 +183,7 @@ function EditProfilePage() {
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: YELLOW, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: YELLOW, letterSpacing: "-0.01em" }}
           >
             Edit Profile
           </h1>
@@ -290,9 +290,8 @@ function EditProfilePage() {
               onClick={() => setShowBirthdayPicker(true)}
               className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-bold"
               style={{
-                fontFamily: "var(--font-sans)",
                 letterSpacing: "-0.01em",
-                color: form.birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)",
+                color: form.birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)"
               }}
             >
               {formatBirthday(form.birthday)}
@@ -308,7 +307,7 @@ function EditProfilePage() {
             type="button"
             onClick={onSave}
             className="w-full h-12 rounded-full text-[15px] font-bold active:scale-[0.99] transition-transform"
-            style={{ background: YELLOW, color: "white", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
           >
             Save
           </button>
@@ -348,9 +347,8 @@ function RowPill({ label, children }: { label: string; children: React.ReactNode
     <div
       className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[64px] bg-white border"
       style={{
-        borderColor: `color-mix(in oklab, ${YELLOW} 55%, white)`,
-        fontFamily: "var(--font-sans)",
-      }}
+        borderColor: `color-mix(in oklab, ${YELLOW} 55%, white)`
+        }}
     >
       <span
         className="shrink-0 text-[15px] font-bold leading-none"
@@ -402,7 +400,7 @@ function NamePill({
           type="button"
           onClick={() => setEditing(true)}
           className="w-full truncate text-right text-[15px] font-bold text-foreground"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          style={{ letterSpacing: "-0.01em" }}
         >
           {givenName.trim()} {familyName.trim()}
         </button>
@@ -417,7 +415,7 @@ function NamePill({
             onChange={(e) => onGivenNameChange(e.target.value)}
             placeholder="Given Name"
             className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ letterSpacing: "-0.01em" }}
           />
           <input
             type="text"
@@ -425,7 +423,7 @@ function NamePill({
             onChange={(e) => onFamilyNameChange(e.target.value)}
             placeholder="Family Name"
             className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ letterSpacing: "-0.01em" }}
           />
         </div>
       )}
@@ -516,7 +514,7 @@ function AvatarDraggable({
       style={{
         background: src ? "transparent" : `color-mix(in oklab, ${YELLOW} 22%, white)`,
         touchAction: src ? "none" : "auto",
-        cursor: src ? "grab" : "default",
+        cursor: src ? "grab" : "default"
       }}
     >
       {src ? (
@@ -528,13 +526,13 @@ function AvatarDraggable({
           style={{
             objectPosition: `${posX}% ${posY}%`,
             transform: `scale(${scale})`,
-            transformOrigin: `${posX}% ${posY}%`,
+            transformOrigin: `${posX}% ${posY}%`
           }}
         />
       ) : (
         <span
           className="text-[56px] font-bold leading-none"
-          style={{ color: YELLOW, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+          style={{ color: YELLOW, letterSpacing: "-0.02em" }}
         >
           {initials}
         </span>
@@ -590,12 +588,11 @@ function BirthdaySheet({
       role="dialog"
       aria-modal="true"
       onClick={onCancel}
-      style={{ fontFamily: "var(--font-sans)" }}
     >
       <div className="absolute inset-0 bg-black/40" />
       <div
         className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-        style={{ height: "62vh", fontFamily: "var(--font-sans)" }}
+        style={{ height: "62vh" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Grabber */}
@@ -612,7 +609,7 @@ function BirthdaySheet({
           </button>
           <p
             className="text-[17px] font-bold tracking-tight leading-none"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: YELLOW }}
+            style={{ letterSpacing: "-0.01em", color: YELLOW }}
           >
             Birthday
           </p>
@@ -642,25 +639,23 @@ function BirthdaySheet({
                         background: YELLOW_SOFT,
                         color: YELLOW,
                         border: `1px solid ${YELLOW_SOFT}`,
-                        fontFamily: "var(--font-sans)",
-                      }
+                        }
                     : {
                         background: "white",
                         color: YELLOW,
                         border: `1px solid color-mix(in oklab, ${YELLOW} 45%, white)`,
-                        fontFamily: "var(--font-sans)",
-                      }
+                        }
                 }
               >
                 <span
                   className="block text-[11px] font-bold leading-none opacity-80"
-                  style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}
+                  style={{ letterSpacing: "-0.01em" }}
                 >
                   {t.label}
                 </span>
                 <span
                   className="block text-[17px] font-bold leading-tight mt-0.5"
-                  style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                  style={{ letterSpacing: "-0.01em" }}
                 >
                   {t.value}
                 </span>
@@ -737,14 +732,12 @@ function ChipGrid({
                     background: YELLOW_SOFT,
                     color: YELLOW,
                     border: `1px solid ${YELLOW_SOFT}`,
-                    fontFamily: "var(--font-sans)",
-                  }
+                    }
                 : {
                     background: "white",
                     color: "var(--foreground)",
                     border: `1px solid color-mix(in oklab, ${YELLOW} 45%, white)`,
-                    fontFamily: "var(--font-sans)",
-                  }
+                    }
             }
           >
             {it.label}

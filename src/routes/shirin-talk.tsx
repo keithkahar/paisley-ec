@@ -42,13 +42,13 @@ function ShirinTalkPage() {
           />
           <h2
             className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: PINK, letterSpacing: "-0.01em" }}
           >
             Hi, I'm Shirin!
           </h2>
           <p
             className="mt-1 text-[15px] text-foreground/70 font-bold tracking-tight"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ letterSpacing: "-0.01em" }}
           >
             Let's practise English together.
           </p>
@@ -116,7 +116,7 @@ function ShirinTalkPage() {
                 to={c.to}
                 search={"search" in c ? c.search : undefined}
                 className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-                style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
+                style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)" }}
               >
                 <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
                   {Icon ? (
@@ -134,7 +134,7 @@ function ShirinTalkPage() {
                         WebkitMaskPosition: "center",
                         maskPosition: "center",
                         WebkitMaskSize: "contain",
-                        maskSize: "contain",
+                        maskSize: "contain"
                       }}
                     />
                   )}

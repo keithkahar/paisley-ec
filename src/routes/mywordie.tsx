@@ -43,7 +43,7 @@ function MyWordiePage() {
           <div>
             <h2
               className="text-center text-[22px] font-bold leading-none"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              style={{ letterSpacing: "-0.01em" }}
             >
               Today's Practice
             </h2>
@@ -61,13 +61,13 @@ function MyWordiePage() {
             <div className="flex items-baseline justify-center gap-2">
               <span
                 className="text-[46px] font-bold leading-none"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+                style={{ letterSpacing: "-0.02em" }}
               >
                 {cardsTotal}
               </span>
               <span
                 className="text-[24px] opacity-90 font-bold leading-none"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                style={{ letterSpacing: "-0.01em" }}
               >
                 cards
               </span>
@@ -84,8 +84,7 @@ function MyWordiePage() {
             style={{
               color: "var(--wordie)",
               background: "white",
-              fontFamily: "var(--font-sans)",
-              fontSize: "17.25px",
+              fontSize: "17.25px"
             }}
           >
             <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
@@ -187,7 +186,7 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)" }}
     >
       <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
         <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: WORDIE }} />

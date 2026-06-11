@@ -537,7 +537,7 @@ function ChatPage() {
                         style={{
                           background: holding ? PINK : PINK_SOFT,
                           borderColor: PINK,
-                          color: holding ? "white" : "var(--shirin)",
+                          color: holding ? "white" : "var(--shirin)"
                         }}
                       >
                         {holding ? "Release to send · slide up to cancel" : "Hold to talk"}
@@ -658,10 +658,10 @@ function VoiceHoldOverlay() {
         background:
           "linear-gradient(180deg, color-mix(in oklab, var(--shirin) 0%, transparent) 0%, color-mix(in oklab, var(--shirin) 6%, transparent) 25%, color-mix(in oklab, var(--shirin) 18%, transparent) 45%, color-mix(in oklab, var(--shirin) 38%, transparent) 65%, color-mix(in oklab, var(--shirin) 65%, transparent) 85%, color-mix(in oklab, var(--shirin) 85%, transparent) 100%)",
         borderTopLeftRadius: "50% 36px",
-        borderTopRightRadius: "50% 36px",
+        borderTopRightRadius: "50% 36px"
       }}
     >
-      <p className="text-white text-[12px] font-semibold mb-3 tracking-wide" style={{ fontFamily: "var(--font-sans)" }}>
+      <p className="text-white text-[12px] font-semibold mb-3 tracking-wide">
         Release to send · slide up to cancel
       </p>
       <div className="flex items-end gap-[3px] h-9 px-6">
@@ -671,7 +671,7 @@ function VoiceHoldOverlay() {
             className="w-[3px] rounded-full bg-white/85"
             style={{
               height: `${20 + Math.abs(Math.sin((i + 1) * 0.6)) * 70}%`,
-              animation: `voiceWave 900ms ease-in-out ${i * 28}ms infinite alternate`,
+              animation: `voiceWave 900ms ease-in-out ${i * 28}ms infinite alternate`
             }}
           />
         ))}
@@ -698,7 +698,7 @@ function SelectDot({
       style={{
         border: `1.5px solid ${enabled ? "var(--shirin)" : "oklch(0.9 0.01 10)"}`,
         background: selected ? PINK : "white",
-        opacity: enabled ? 1 : 0.4,
+        opacity: enabled ? 1 : 0.4
       }}
       aria-label="Select message"
     >
@@ -807,7 +807,7 @@ function CommentsSheet({
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
         <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-border">
-          <h3 className="text-[15px] font-bold" style={{ fontFamily: "var(--font-sans)" }}>Comments {count}</h3>
+          <h3 className="text-[15px] font-bold">Comments {count}</h3>
           <button onClick={onClose} className="h-8 w-8 rounded-full grid place-items-center" aria-label="Close">
             <X className="h-4 w-4" />
           </button>
