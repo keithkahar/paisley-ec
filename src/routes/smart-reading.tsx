@@ -93,7 +93,12 @@ const PACKS: Pack[] = [
 ];
 
 export const Route = createFileRoute("/smart-reading")({
-  head: () => ({ meta: [{ title: "Smart Reading Talk — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Smart Reading — Paisley EC" },
+      { name: "description", content: "Read along with picture books and discuss them with Shirin." },
+      { property: "og:title", content: "Smart Reading — Paisley EC" },
+      { property: "og:description", content: "Read along with picture books and discuss them with Shirin." },
+    ] }),
   validateSearch: z.object({ from: z.string().optional() }),
   component: SmartReadingPage,
 });

@@ -5,7 +5,12 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/my-tests")({
-  head: () => ({ meta: [{ title: "My Tests — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "My Tests — Paisley EC" },
+      { name: "description", content: "Your CEFR tests, Wordie tests and results history." },
+      { property: "og:title", content: "My Tests — Paisley EC" },
+      { property: "og:description", content: "Your CEFR tests, Wordie tests and results history." },
+    ] }),
   component: MyTestsPage,
 });
 

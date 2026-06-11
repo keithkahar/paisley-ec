@@ -6,7 +6,12 @@ import { ProgressBar } from "@/components/app/WordieKit";
 import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/mywordie")({
-  head: () => ({ meta: [{ title: "myWordie — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "myWordie — Paisley EC" },
+      { name: "description", content: "Daily word cards, quick reviews and a personal word bank for young learners." },
+      { property: "og:title", content: "myWordie — Paisley EC" },
+      { property: "og:description", content: "Daily word cards, quick reviews and a personal word bank for young learners." },
+    ] }),
   component: MyWordiePage,
 });
 

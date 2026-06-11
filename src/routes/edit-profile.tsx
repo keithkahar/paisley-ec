@@ -5,7 +5,12 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/edit-profile")({
-  head: () => ({ meta: [{ title: "Edit Profile — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Edit Profile — Paisley EC" },
+      { name: "description", content: "Update your name, age and avatar." },
+      { property: "og:title", content: "Edit Profile — Paisley EC" },
+      { property: "og:description", content: "Update your name, age and avatar." },
+    ] }),
   component: EditProfilePage,
 });
 

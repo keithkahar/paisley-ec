@@ -84,7 +84,12 @@ const MOCK_COMMENTS = [
 type Reply = { name: string; text: string; date: string; likes: number; liked: boolean };
 
 export const Route = createFileRoute("/chat")({
-  head: () => ({ meta: [{ title: "Chat with Shirin — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Chat — Paisley EC" },
+      { name: "description", content: "Open-ended English conversation with Shirin and myWordie." },
+      { property: "og:title", content: "Chat — Paisley EC" },
+      { property: "og:description", content: "Open-ended English conversation with Shirin and myWordie." },
+    ] }),
   validateSearch: z.object({
     mode: z.string().optional(),
     topic_id: z.string().optional(),

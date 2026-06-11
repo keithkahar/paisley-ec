@@ -15,7 +15,12 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/wordie-test")({
-  head: () => ({ meta: [{ title: "Wordie Test — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Wordie Test — Paisley EC" },
+      { name: "description", content: "Quick quizzes that adapt to the words you're learning." },
+      { property: "og:title", content: "Wordie Test — Paisley EC" },
+      { property: "og:description", content: "Quick quizzes that adapt to the words you're learning." },
+    ] }),
   component: WordieTestPage,
 });
 

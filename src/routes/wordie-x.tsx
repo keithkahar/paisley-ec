@@ -14,7 +14,12 @@ import {
 import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-x")({
-  head: () => ({ meta: [{ title: "Wordie-X — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "WordieX — Paisley EC" },
+      { name: "description", content: "Extended word practice with deeper context and examples." },
+      { property: "og:title", content: "WordieX — Paisley EC" },
+      { property: "og:description", content: "Extended word practice with deeper context and examples." },
+    ] }),
   component: WordieXPage,
 });
 

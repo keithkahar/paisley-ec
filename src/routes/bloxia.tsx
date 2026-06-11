@@ -8,7 +8,12 @@ import { Hammer, Sprout, PawPrint, Gift, Play } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/bloxia")({
-  head: () => ({ meta: [{ title: "Bloxia — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Bloxia — Paisley EC" },
+      { name: "description", content: "A pixel-style island where kids explore English mini-games and quests." },
+      { property: "og:title", content: "Bloxia — Paisley EC" },
+      { property: "og:description", content: "A pixel-style island where kids explore English mini-games and quests." },
+    ] }),
   component: BloxiaPage,
 });
 

@@ -5,7 +5,12 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/parent")({
-  head: () => ({ meta: [{ title: "Parent Page — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Parent Page — Paisley EC" },
+      { name: "description", content: "A weekly snapshot for parents: time, words and tests at a glance." },
+      { property: "og:title", content: "Parent Page — Paisley EC" },
+      { property: "og:description", content: "A weekly snapshot for parents: time, words and tests at a glance." },
+    ] }),
   component: ParentPage,
 });
 

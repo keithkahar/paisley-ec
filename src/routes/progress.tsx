@@ -4,7 +4,12 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/progress")({
-  head: () => ({ meta: [{ title: "My Progress — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "My Progress — Paisley EC" },
+      { name: "description", content: "Weekly, monthly and yearly stats for talk minutes and word cards." },
+      { property: "og:title", content: "My Progress — Paisley EC" },
+      { property: "og:description", content: "Weekly, monthly and yearly stats for talk minutes and word cards." },
+    ] }),
   component: ProgressPage,
 });
 

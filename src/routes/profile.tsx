@@ -11,7 +11,12 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
-  head: () => ({ meta: [{ title: "My Profile — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "My Profile — Paisley EC" },
+      { name: "description", content: "Track your streak, progress and tests in one place." },
+      { property: "og:title", content: "My Profile — Paisley EC" },
+      { property: "og:description", content: "Track your streak, progress and tests in one place." },
+    ] }),
   component: ProfilePage,
 });
 

@@ -33,7 +33,12 @@ const TOPICS: Topic[] = [
 ];
 
 export const Route = createFileRoute("/topics")({
-  head: () => ({ meta: [{ title: "Topic Talk — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Topic Talk — Paisley EC" },
+      { name: "description", content: "Pick a topic and start an English conversation with Shirin." },
+      { property: "og:title", content: "Topic Talk — Paisley EC" },
+      { property: "og:description", content: "Pick a topic and start an English conversation with Shirin." },
+    ] }),
   component: TopicsPage,
 });
 

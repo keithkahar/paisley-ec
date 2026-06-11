@@ -11,7 +11,12 @@ import {
 } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-bank")({
-  head: () => ({ meta: [{ title: "Wordie Bank — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Wordie Bank — Paisley EC" },
+      { name: "description", content: "Browse and manage every word card you've collected." },
+      { property: "og:title", content: "Wordie Bank — Paisley EC" },
+      { property: "og:description", content: "Browse and manage every word card you've collected." },
+    ] }),
   component: WordieBankPage,
 });
 
