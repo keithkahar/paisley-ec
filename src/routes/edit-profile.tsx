@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, X, Check, ChevronRight, Camera } from "lucide-react";
+import { X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/edit-profile")({
   head: () => ({ meta: [{ title: "Edit Profile — Paisley EC" }] }),
@@ -176,16 +177,7 @@ function EditProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
-        {/* Back */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/profile"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/profile" />
 
         {/* Title */}
         <section className="px-6 pt-12 pb-2 text-center">
