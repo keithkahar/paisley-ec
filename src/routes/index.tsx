@@ -48,11 +48,11 @@ function Home() {
         >
           {/* SECONDARY: greeting + question, one refined block */}
           <h1
-            className="text-[26px] leading-[1.2] font-medium tracking-tight text-foreground text-center"
+            className="text-[26px] leading-[1.4] font-medium tracking-tight text-foreground text-center"
             style={{ letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
-            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.5]">
+            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.7]">
               Are you ready for today's English adventure?
             </span>
           </h1>
