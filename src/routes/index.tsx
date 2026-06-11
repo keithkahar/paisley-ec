@@ -52,7 +52,7 @@ function Home() {
             style={{ letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
-            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.3]">
+            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.5]">
               Are you ready for today's English adventure?
             </span>
           </h1>
