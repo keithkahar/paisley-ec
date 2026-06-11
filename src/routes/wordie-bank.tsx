@@ -779,9 +779,10 @@ function PreviewFull({
       <div className="flex-1 overflow-y-auto px-5 pb-6">
         {/* Word card — white surface with soft wordie border */}
         <div
-          className="rounded-[2rem] p-6 bg-white"
+          className="rounded-[2rem] p-6 bg-white flex flex-col"
           style={{
-            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)"
+            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)",
+            height: "24rem"
           }}
         >
           <div className="flex items-center">
@@ -798,9 +799,9 @@ function PreviewFull({
             </div>
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-2 text-center">
             <h2
-              className="font-medium text-[46px] leading-none"
+              className="font-medium text-[40px] leading-none"
               style={{
                 color: "var(--wordie)",
                 letterSpacing: "-0.02em"
@@ -814,7 +815,7 @@ function PreviewFull({
           </div>
 
           {/* Example + Word in use — both left-aligned */}
-          <div className="mt-10 space-y-6">
+          <div className="flex-1 flex flex-col justify-center gap-5 mt-4">
             <div>
               <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Definition
@@ -856,13 +857,12 @@ function PreviewFull({
               </div>
             </div>
           </div>
-
-          {/* Three pills below example */}
-          <div className="grid grid-cols-3 gap-2 mt-12">
-            <MiniStat label="Status" value={capitalize(word.status)} />
-            <MiniStat label="Level" value={word.cefrLevel} />
-            <MiniStat label="Next" value={word.nextReviewLabel} />
-          </div>
+        </div>
+        {/* Three pills below card — same slot as the three emojis on word-card */}
+        <div className="px-0 mt-6 grid grid-cols-3 gap-3">
+          <MiniStat label="Status" value={capitalize(word.status)} />
+          <MiniStat label="Level" value={word.cefrLevel} />
+          <MiniStat label="Next" value={word.nextReviewLabel} />
         </div>
         {/* Speaker outside card */}
         <div className="mt-8 flex flex-col items-center">
