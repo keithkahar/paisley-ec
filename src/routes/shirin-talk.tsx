@@ -57,7 +57,7 @@ function ShirinTalkPage() {
           >
             Let's practise English together.
           </p>
-          <div className="mt-3 flex items-center justify-between">
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
