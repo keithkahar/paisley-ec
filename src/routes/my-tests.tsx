@@ -173,7 +173,7 @@ function MyTestsPage() {
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: "var(--paisley)", letterSpacing: "-0.01em" }}
           >
             My Tests
@@ -194,7 +194,7 @@ function MyTestsPage() {
                 Current CEFR Level
               </p>
               <p
-                className="mt-2 text-[32px] leading-none font-semibold tracking-tight"
+                className="mt-2 text-[32px] leading-none font-medium tracking-tight"
                 style={{ color: CEFR_ACCENT, letterSpacing: "-0.02em" }}
               >
                 {latestCefr.level}
@@ -272,7 +272,7 @@ function MyTestsPage() {
                   Average Score
                 </p>
                 <p
-                  className="mt-2 text-[32px] leading-none font-semibold tracking-tight"
+                  className="mt-2 text-[32px] leading-none font-medium tracking-tight"
                   style={{ color: WORDIE_ACCENT, letterSpacing: "-0.02em" }}
                 >
                   {wordieAvg}%

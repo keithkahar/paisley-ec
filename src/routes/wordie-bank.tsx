@@ -809,7 +809,7 @@ function PreviewFull({
 
           <div className="mt-8 text-center">
             <h2
-              className="font-semibold text-[46px] leading-none"
+              className="font-medium text-[46px] leading-none"
               style={{
                 color: "var(--wordie)",
                 letterSpacing: "-0.02em"

@@ -454,7 +454,7 @@ function WordieXPage() {
         {/* Title */}
         <div className="mb-4 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: WORDIE, letterSpacing: "-0.01em" }}
           >
             Wordie-X
@@ -1061,7 +1061,7 @@ function PreviewFull({
 
           <div className="mt-8 text-center">
             <h2
-              className="font-semibold text-[46px] leading-none"
+              className="font-medium text-[46px] leading-none"
               style={{
                 color: "var(--wordie)",
                 letterSpacing: "-0.02em"

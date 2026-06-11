@@ -82,7 +82,7 @@ function ProgressPage() {
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: accent, letterSpacing: "-0.01em" }}
           >
             My Progress
@@ -138,7 +138,7 @@ function ProgressPage() {
                 <div>
                   <div className="flex items-baseline gap-1">
                     <span
-                      className="text-[22px] font-semibold leading-none"
+                      className="text-[22px] font-medium leading-none"
                       style={{ color: accent, letterSpacing: "-0.02em" }}
                     >
                       {c.value}

@@ -381,7 +381,7 @@ function WordieTestPage() {
         {(mode === "info" || mode === "locked") && (
           <div className="px-5 pt-3 text-center">
             <h1
-              className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
               style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
             >
               Wordie Test
@@ -578,7 +578,7 @@ function QuizView({
       >
         <div className="flex items-center justify-between">
           <h2
-            className="text-[24px] font-semibold leading-none"
+            className="text-[24px] font-medium leading-none"
             style={{ letterSpacing: "-0.01em" }}
           >
             {meta.label}
@@ -800,7 +800,7 @@ function ResultView({
       >
         <div>
           <h2
-            className="text-center text-[22px] font-semibold leading-none"
+            className="text-center text-[22px] font-medium leading-none"
             style={{
               letterSpacing: "-0.01em",
               color: "white"
@@ -821,11 +821,11 @@ function ResultView({
           Your Wordie Test score
         </p>
         <p
-          className="mt-2 text-[46px] font-semibold leading-none"
+          className="mt-2 text-[46px] font-medium leading-none"
           style={{ letterSpacing: "-0.02em" }}
         >
           {score}
-          <span className="text-[24px] opacity-90 font-semibold ml-1" style={{ letterSpacing: "-0.01em" }}>%</span>
+          <span className="text-[24px] opacity-90 font-medium ml-1" style={{ letterSpacing: "-0.01em" }}>%</span>
         </p>
         <p className="mt-2 text-[13px] font-semibold opacity-90">
           {correct} / {total} correct
@@ -949,7 +949,7 @@ function ReviewOverlay({
           </button>
         </div>
         <p
-          className="mt-2 text-[22px] font-semibold"
+          className="mt-2 text-[22px] font-medium"
           style={{ letterSpacing: "-0.01em" }}
         >
           {question.word}

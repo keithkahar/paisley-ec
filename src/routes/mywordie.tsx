@@ -65,13 +65,13 @@ function MyWordiePage() {
           <div>
             <div className="flex items-baseline justify-center gap-2">
               <span
-                className="text-[46px] font-semibold leading-none"
+                className="text-[46px] font-medium leading-none"
                 style={{ letterSpacing: "-0.02em" }}
               >
                 {cardsTotal}
               </span>
               <span
-                className="text-[24px] opacity-90 font-semibold leading-none"
+                className="text-[24px] opacity-90 font-medium leading-none"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 cards

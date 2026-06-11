@@ -186,7 +186,7 @@ function EditProfilePage() {
         {/* Title */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: YELLOW, letterSpacing: "-0.01em" }}
           >
             Edit Profile
@@ -535,7 +535,7 @@ function AvatarDraggable({
         />
       ) : (
         <span
-          className="text-[56px] font-semibold leading-none"
+          className="text-[56px] font-medium leading-none"
           style={{ color: YELLOW, letterSpacing: "-0.02em" }}
         >
           {initials}

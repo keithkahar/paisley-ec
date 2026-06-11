@@ -65,7 +65,7 @@ function ProfilePage() {
                 <img src={PROFILE.avatarPath} alt={DISPLAY_NAME} className="h-full w-full object-cover" />
               ) : (
                 <span
-                  className="text-[56px] font-semibold leading-none"
+                  className="text-[56px] font-medium leading-none"
                   style={{ color: PAISLEY, letterSpacing: "-0.02em" }}
                 >
                   {INITIALS}
@@ -82,7 +82,7 @@ function ProfilePage() {
             </Link>
           </div>
           <h2
-            className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="mt-2 text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
           >
             {DISPLAY_NAME}

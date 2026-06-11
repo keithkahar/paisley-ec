@@ -364,7 +364,7 @@ function WordieBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[28px] font-semibold tabular-nums" style={{ letterSpacing: "-0.03em" }}>
+                <span className="text-[28px] font-medium tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                   {bento.hero.value}
                 </span>
                 <span className="text-[11px] font-semibold opacity-85">{bento.hero.unit}</span>
@@ -498,7 +498,7 @@ function TalkBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[28px] font-semibold tabular-nums" style={{ letterSpacing: "-0.03em" }}>
+                <span className="text-[28px] font-medium tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                   {bento.hero.value}
                 </span>
                 <span className="text-[11px] font-semibold opacity-85">{bento.hero.unit}</span>
@@ -534,7 +534,7 @@ function TalkBento({
             </span>
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
-                className="text-[22px] font-semibold leading-none"
+                className="text-[22px] font-medium leading-none"
                 style={{ color: "var(--shirin)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
@@ -614,7 +614,7 @@ function StatCard({
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
-          className="text-[22px] font-semibold leading-none tabular-nums"
+          className="text-[22px] font-medium leading-none tabular-nums"
           style={{ color: color, letterSpacing: "-0.02em" }}
         >
           {value}
@@ -786,7 +786,7 @@ function VocabFunnel({
             ))}
           </svg>
           <span
-            className="relative text-[22px] font-semibold tabular-nums leading-none -translate-y-2"
+            className="relative text-[22px] font-medium tabular-nums leading-none -translate-y-2"
             style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
           >
             {total}
