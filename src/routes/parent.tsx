@@ -609,7 +609,7 @@ function WordieBento({
       {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 min-h-[78px]"
+          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
@@ -620,18 +620,18 @@ function WordieBento({
               平均分
             </p>
           </div>
-          <div className="relative grid place-items-center shrink-0" style={{ width: 65, height: 65 }}>
-            <svg width={65} height={65} viewBox="0 0 65 65" className="absolute inset-0 -rotate-90">
-              <circle cx="32.5" cy="32.5" r="28.5" stroke={tint(14)} strokeWidth="8" fill="none" />
+          <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
+            <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
+              <circle cx="25" cy="25" r="22" stroke={tint(14)} strokeWidth="6" fill="none" />
               <circle
-                cx="32.5"
-                cy="32.5"
-                r="28.5"
+                cx="25"
+                cy="25"
+                r="22"
                 stroke={accent}
-                strokeWidth="8"
+                strokeWidth="6"
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 28.5} ${2 * Math.PI * 28.5}`}
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
               />
             </svg>
             <span
