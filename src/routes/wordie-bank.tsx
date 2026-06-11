@@ -596,7 +596,7 @@ function WordieBankPage() {
                 type="button"
                 onClick={resetProgress}
                 className="rounded-full py-2.5 text-[13px] font-bold text-white"
-                style={{ background: "#E64A4A" }}
+                style={{ background: "var(--destructive)" }}
               >
                 Reset
               </button>
@@ -730,7 +730,7 @@ function SheetBtn({
       className="w-full rounded-2xl py-3 text-[14px] font-bold text-center"
       style={{
         background: muted ? "var(--muted)" : "white",
-        color: danger ? "#E64A4A" : muted ? "var(--foreground)" : "var(--wordie)",
+        color: danger ? "var(--destructive)" : muted ? "var(--foreground)" : "var(--wordie)",
         border: muted ? "none" : "1px solid var(--border)"
       }}
     >

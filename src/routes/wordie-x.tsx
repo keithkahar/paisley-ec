@@ -865,7 +865,7 @@ function WordieXPage() {
                 type="button"
                 onClick={() => performDelete(confirmDelete)}
                 className="flex-1 rounded-full py-2.5 text-[13px] font-bold text-white"
-                style={{ background: "#D85A45" }}
+                style={{ background: "var(--destructive)" }}
               >
                 Delete
               </button>
@@ -972,7 +972,7 @@ function SheetBtn({
       className="w-full rounded-2xl py-3 text-[14px] font-bold text-center"
       style={{
         background: muted ? "var(--muted)" : "white",
-        color: danger ? "#E64A4A" : muted ? "var(--foreground)" : "var(--wordie)",
+        color: danger ? "var(--destructive)" : muted ? "var(--foreground)" : "var(--wordie)",
         border: muted ? "none" : "1px solid var(--border)"
       }}
     >
