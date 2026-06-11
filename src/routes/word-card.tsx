@@ -139,7 +139,7 @@ function WordCardPage() {
               <div className="flex-1 grid place-items-center text-center">
                 <div>
                   <div className="text-7xl mb-3 select-none">{card.emoji}</div>
-                  <h2 className="text-4xl font-semibold text-[color:var(--wordie)]">{card.word}</h2>
+                  <h2 className="text-4xl font-medium text-[color:var(--wordie)]">{card.word}</h2>
                   <p className="text-sm text-muted-foreground mt-1.5 font-mono">{card.ipa}</p>
                   <button
                     type="button"

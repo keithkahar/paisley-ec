@@ -31,13 +31,13 @@ export function ComingSoon({
         >
           <Icon className="h-10 w-10" />
           <span
-            className="absolute -top-2 -right-2 rounded-full bg-white border border-border px-2 py-0.5 text-[11px] font-bold"
+            className="absolute -top-2 -right-2 rounded-full bg-white border border-border px-2 py-0.5 text-[11px] font-semibold"
             style={{ color: accent }}
           >
             Soon
           </span>
         </div>
-        <h2 className="mt-6 text-2xl font-bold" style={{ color: accent }}>
+        <h2 className="mt-6 text-2xl font-medium" style={{ color: accent }}>
           {title}
         </h2>
         <p className="mt-2 text-sm text-muted-foreground max-w-[18rem]">
@@ -47,7 +47,7 @@ export function ComingSoon({
           {cta ?? (
             <Link
               to={back}
-              className="inline-flex items-center rounded-full px-5 py-2.5 text-sm font-bold text-white active:scale-[0.98] transition-transform"
+              className="inline-flex items-center rounded-full px-5 py-2.5 text-sm font-semibold text-white active:scale-[0.98] transition-transform"
               style={{ background: accent }}
             >
               Got it

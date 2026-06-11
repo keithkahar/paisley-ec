@@ -18,7 +18,7 @@ export function StatusBadge({ status }: { status: WordStatus }) {
   const m = STATUS_META[status];
   return (
     <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold"
+      className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold"
       style={{
         background: `color-mix(in oklab, ${m.color} 22%, white)`,
         color: `color-mix(in oklab, ${m.color} 70%, black)`,
@@ -46,7 +46,7 @@ export function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className="shrink-0 rounded-full px-3.5 py-1.5 text-xs font-bold border transition-colors active:scale-95"
+      className="shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold border transition-colors active:scale-95"
       style={
         active
           ? tone === "tint"
@@ -108,7 +108,7 @@ export function WordRow({
     >
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <p className="font-bold text-[15px] truncate" style={{ letterSpacing: "-0.01em" }}>
+          <p className="font-semibold text-[15px] truncate" style={{ letterSpacing: "-0.01em" }}>
             {item.word}
           </p>
           {item.ipa && (
@@ -139,7 +139,7 @@ export function SectionTitle({
 }) {
   return (
     <div className="flex items-center justify-between mb-2 px-1">
-      <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
         {children}
       </p>
       {action}
@@ -192,7 +192,7 @@ export function EmptyState({
       >
         {icon}
       </div>
-      <p className="font-bold text-[15px]">{title}</p>
+      <p className="font-semibold text-[15px]">{title}</p>
       {description && <p className="text-[13px] text-muted-foreground mt-1 max-w-[240px]">{description}</p>}
       {action && <div className="mt-4">{action}</div>}
     </div>
@@ -223,14 +223,14 @@ export function LockedCard({
           <Lock className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="font-bold text-[14px]">{title}</p>
+          <p className="font-semibold text-[14px]">{title}</p>
           {description && <p className="text-[12px] text-muted-foreground mt-0.5">{description}</p>}
         </div>
       </div>
       <button
         type="button"
         onClick={onClick}
-        className="mt-4 w-full rounded-full py-2.5 text-[13px] font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5"
+        className="mt-4 w-full rounded-full py-2.5 text-[13px] font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5"
         style={{ background: "var(--wordie-accent)" }}
       >
         <Sparkles className="h-3.5 w-3.5" />
@@ -251,10 +251,10 @@ export function StatTile({
 }) {
   return (
     <div className="rounded-2xl bg-white border border-border px-3 py-3 text-center">
-      <p className="text-[20px] font-bold leading-none" style={{ color, fontFamily: "var(--font-display)" }}>
+      <p className="text-[20px] font-semibold leading-none" style={{ color, fontFamily: "var(--font-display)" }}>
         {value}
       </p>
-      <p className="text-[10.5px] font-bold uppercase tracking-wide text-muted-foreground mt-1">
+      <p className="text-[10.5px] font-semibold uppercase tracking-wide text-muted-foreground mt-1">
         {label}
       </p>
     </div>
