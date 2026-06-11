@@ -218,7 +218,7 @@ function WordCardPage() {
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Meaning</p>
                   <div className="mt-2 flex items-start gap-3">
                     <p
-                      className="flex-1 text-[17px] font-semibold leading-relaxed"
+                      className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
                     >
                       {card.meaning}
@@ -235,7 +235,7 @@ function WordCardPage() {
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
                     <p
-                      className="flex-1 text-[17px] font-semibold leading-relaxed"
+                      className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
                     >
                       {card.example}
