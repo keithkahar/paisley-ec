@@ -621,8 +621,8 @@ function TalkBento({
             </span>
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
-                className="text-[11px] font-bold leading-none"
-                style={{ color: "var(--foreground)" }}
+                className="text-[22px] font-bold leading-none"
+                style={{ color: "var(--foreground)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
               </span>
@@ -654,8 +654,8 @@ function TalkBento({
 
       {/* Row 4: 本周对话用词 + 本周目标词使用 */}
       <div className="grid grid-cols-6 gap-3">
-        <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
-        <StatCard accent={accent} tint={tint} label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} />
+        <StatCard accentOverride="oklch(0.66 0.22 35)" label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} accent={accent} tint={tint} />
+        <StatCard accentOverride="oklch(0.62 0.18 160)" label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} accent={accent} tint={tint} />
       </div>
     </div>
   );
@@ -667,29 +667,44 @@ function StatCard({
   label,
   value,
   unit,
+  accentOverride,
 }: {
   accent: string;
   tint: (pct: number) => string;
   label: string;
   value: string;
   unit: string;
+  accentOverride?: string;
 }) {
+  const color = accentOverride ?? accent;
+  const bg = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 10%, white)`
+    : tint(10);
+  const border = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 22%, white)`
+    : tint(18);
+  const labelColor = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 75%, black)`
+    : tint(82);
+  const unitColor = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 60%, black)`
+    : tint(70);
   return (
     <div
       className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
-      style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+      style={{ background: bg, border: `1px solid ${border}` }}
     >
-      <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
+      <span className="text-[11px] font-bold leading-none" style={{ color: labelColor }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
           className="text-[22px] font-bold leading-none tabular-nums"
-          style={{ color: accent, letterSpacing: "-0.02em" }}
+          style={{ color: color, letterSpacing: "-0.02em" }}
         >
           {value}
         </span>
-        <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{unit}</span>
+        <span className="text-[11px] font-bold" style={{ color: unitColor }}>{unit}</span>
       </div>
     </div>
   );
