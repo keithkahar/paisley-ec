@@ -31,7 +31,7 @@ export function AppHeader({
       ) : (
         <span className="h-9 w-9" />
       )}
-      <h1 className="flex-1 text-center text-base font-bold truncate">{title}</h1>
+      <h1 className="flex-1 text-center text-base font-medium truncate">{title}</h1>
       <div className="min-w-9 h-9 flex items-center justify-end">{right}</div>
     </header>
   );

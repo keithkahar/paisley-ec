@@ -12,7 +12,7 @@ export function Pill({
 }) {
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold"
+      className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold"
       style={{
         background: `color-mix(in oklab, ${color} 14%, white)`,
         color,
