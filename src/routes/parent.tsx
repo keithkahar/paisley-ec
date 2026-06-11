@@ -610,7 +610,7 @@ function WordieBento({
       {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
+          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 h-16"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
@@ -623,13 +623,13 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="6" fill="none" />
+              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="3" fill="none" />
               <circle
                 cx="25"
                 cy="25"
                 r="22"
                 stroke={tint(95)}
-                strokeWidth="6"
+                strokeWidth="3"
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
@@ -686,7 +686,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 min-h-[64px]"
+      className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
       style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
     >
       <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
@@ -865,20 +865,18 @@ function VocabFunnel({
               <circle key={`cap-${i}`} cx={a.endX} cy={a.endY} r={STROKE / 2} fill={a.color} />
             ))}
           </svg>
-          <div className="relative leading-none">
-            <span
-              className="text-[14px] font-bold tabular-nums"
-              style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
-            >
-              {total}
-            </span>
-            <span
-              className="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-[11px] font-bold whitespace-nowrap"
-              style={{ color: tint(shades[3]) }}
-            >
-              学习词库
-            </span>
-          </div>
+          <span
+            className="relative text-[14px] font-bold tabular-nums leading-none -translate-y-2"
+            style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
+          >
+            {total}
+          </span>
+          <span
+            className="absolute left-1/2 -translate-x-1/2 text-[11px] font-bold leading-none whitespace-nowrap"
+            style={{ top: `calc(50% + 12px)`, color: tint(shades[3]) }}
+          >
+            学习词库
+          </span>
         </div>
 
         {/* Right: 4 progress rows */}
