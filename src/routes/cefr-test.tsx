@@ -373,6 +373,7 @@ function CefrTestPage() {
           )}
           {mode === "result" && <span />}
           {mode === "locked" && <span />}
+          <span className="h-9 w-9" aria-hidden />
         </div>
 
         {/* Title — info/locked */}
