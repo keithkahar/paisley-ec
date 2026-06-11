@@ -542,9 +542,9 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: 75% of the 260 funnel donut (116px) ≈ 87px, same stroke (10px) as funnel
-  const STREAK_SIZE = 87;
-  const STREAK_STROKE = 5;
+  // Streak ring: 50% of the 260 funnel donut (116px) = 58px, stroke = 2x progress bar (4px) = 8px
+  const STREAK_SIZE = 58;
+  const STREAK_STROKE = 8;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
@@ -622,16 +622,16 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke={tint(14)} strokeWidth="6" fill="none" />
+              <circle cx="25" cy="25" r="23" stroke={tint(14)} strokeWidth="4" fill="none" />
               <circle
                 cx="25"
                 cy="25"
-                r="22"
+                r="23"
                 stroke={accent}
-                strokeWidth="6"
+                strokeWidth="4"
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
               />
             </svg>
             <span
