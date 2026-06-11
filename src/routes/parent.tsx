@@ -172,8 +172,8 @@ function ParentPage() {
           )}
         </section>
 
-        {/* 计划管理 */}
-        <SectionTitle>计划管理</SectionTitle>
+        {/* 计划 */}
+        <SectionTitle>计划</SectionTitle>
 
         {/* 跟随顶部 ShirinTalk / myWordie 切换 */}
         {tab === "talk" ? (
@@ -851,8 +851,8 @@ function VocabFunnel({
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
-      className="px-6 pt-6 pb-2 text-[13px] font-bold uppercase tracking-wide"
-      style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+      className="px-6 pt-6 pb-2 text-[13px] font-bold uppercase tracking-wide text-black"
+      style={{ fontFamily: "var(--font-sans)" }}
     >
       {children}
     </h2>
