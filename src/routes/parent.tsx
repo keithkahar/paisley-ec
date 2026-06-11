@@ -692,13 +692,13 @@ function StatCard({
       className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 min-h-[64px]"
       style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
     >
-      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
+      <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
-          className="text-[26px] font-semibold leading-none tabular-nums"
-          style={{ color: accent, letterSpacing: "-0.03em" }}
+          className="text-[22px] font-bold leading-none tabular-nums"
+          style={{ color: accent, letterSpacing: "-0.02em" }}
         >
           {value}
         </span>
