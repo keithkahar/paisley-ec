@@ -880,7 +880,7 @@ function PreviewFull({
           <MiniStat label="Next" value={word.nextReviewLabel} />
         </div>
         {/* Speaker outside card */}
-        <div className="mt-auto mb-10 flex flex-col items-center">
+        <div className="mt-auto mb-12 flex flex-col items-center">
           <button
             type="button"
             className="h-[72px] w-[72px] rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform"
