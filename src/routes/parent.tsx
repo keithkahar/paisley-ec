@@ -140,7 +140,7 @@ function ParentPage() {
 
         {/* Source tabs (segmented pill, same as /progress) */}
         <section className="px-6 pt-4">
-          <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[oklch(0.96_0.01_240)]">
+          <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
             {(["talk", "wordie"] as const).map((k) => {
               const active = tab === k;
               const c = k === "talk" ? SHIRIN : WORDIE;
@@ -403,7 +403,7 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="4.8" fill="none" />
+              <circle cx="25" cy="25" r="22" stroke="var(--input)" strokeWidth="4.8" fill="none" />
               <circle
                 cx="25"
                 cy="25"
@@ -560,7 +560,7 @@ function TalkBento({
           </div>
           <div
             className="h-1.5 rounded-full overflow-hidden"
-            style={{ background: "oklch(0.95 0.01 240)" }}
+            style={{ background: "var(--input)" }}
           >
             <div
               className="h-full rounded-full"
@@ -832,7 +832,7 @@ function VocabFunnel({
                 </div>
                 <div
                   className="mt-1 h-1.5 rounded-full overflow-hidden"
-                  style={{ background: "oklch(0.95 0.01 240)" }}
+                  style={{ background: "var(--input)" }}
                 >
                   <div
                     className="h-full rounded-full"

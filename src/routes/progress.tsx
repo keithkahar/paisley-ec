@@ -102,7 +102,7 @@ function ProgressPage() {
 
         {/* Source tabs */}
         <section className="px-6 pt-4">
-          <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[oklch(0.96_0.01_240)]">
+          <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
             {(["talk", "wordie"] as const).map((key) => {
               const active = source === key;
               const c = key === "talk" ? "var(--shirin)" : "var(--wordie)";
@@ -168,12 +168,12 @@ function ProgressPage() {
 
         {/* Trend panel */}
         <section className="px-6 pt-4">
-          <div className="rounded-2xl p-4 border border-[oklch(0.94_0.01_240)]">
+          <div className="rounded-2xl p-4 border border-[var(--input)]">
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
                 Trend
               </p>
-              <div className="flex gap-1 p-0.5 rounded-full bg-[oklch(0.96_0.01_240)]">
+              <div className="flex gap-1 p-0.5 rounded-full bg-[var(--input)]">
                 {(["week", "month", "year"] as const).map((m) => {
                   const active = mode === m;
                   return (
@@ -199,7 +199,7 @@ function ProgressPage() {
 
         {/* Goal rings */}
         <section className="px-6 pt-4 pb-8">
-          <div className="rounded-2xl p-4 border border-[oklch(0.94_0.01_240)]">
+          <div className="rounded-2xl p-4 border border-[var(--input)]">
             <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
               Goals
             </p>
@@ -262,7 +262,7 @@ function TrendChart({ values, labels, accent }: { values: number[]; labels: stri
         </linearGradient>
       </defs>
       {guideYs.map((y, i) => (
-        <line key={i} x1={PAD_X} x2={W - PAD_X} y1={y} y2={y} stroke="oklch(0.94 0.01 240)" strokeWidth={1} />
+        <line key={i} x1={PAD_X} x2={W - PAD_X} y1={y} y2={y} stroke="var(--input)" strokeWidth={1} />
       ))}
       <path d={areaPath} fill="url(#trendFill)" />
       <path d={path} fill="none" stroke={accent} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
@@ -316,7 +316,7 @@ function GoalRing({
         const C = 2 * Math.PI * r.r;
         return (
           <g key={i} transform={`rotate(-90 ${cx} ${cy})`}>
-            <circle cx={cx} cy={cy} r={r.r} fill="none" stroke="oklch(0.95 0.01 240)" strokeWidth={STROKE} />
+            <circle cx={cx} cy={cy} r={r.r} fill="none" stroke="var(--input)" strokeWidth={STROKE} />
             <circle
               cx={cx}
               cy={cy}
@@ -354,7 +354,7 @@ function GoalRow({ tone, label, done, total, unit }: { tone: string; label: stri
           {done} / {total} {unit}
         </span>
       </div>
-      <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "oklch(0.95 0.01 240)" }}>
+      <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
         <div className="h-full rounded-full" style={{ width: `${pct}%`, background: tone }} />
       </div>
     </div>
