@@ -24,19 +24,19 @@ type BentoLayout = {
 
 const TALK_BENTO: BentoLayout = {
   hero: { label: "连续练习", value: "12", unit: "天" },
-  smallA: { label: "本周对话轮次", value: "5", unit: "次" },
-  smallB: { label: "本周对话时长", value: "37", unit: "min" },
+  smallA: { label: "本周对话时长", value: "37", unit: "min" },
+  smallB: { label: "本周对话轮次", value: "5", unit: "次" },
   trend: { label: "本周发言轮次", value: "84", unit: "次", bars: [30, 50, 80, 40, 60] },
-  squareA: { label: "完整表达", value: "9", unit: "次" },
+  squareA: { label: "本周完整表达", value: "9", unit: "次" },
   squareB: { label: "本周对话用词", value: "186", unit: "词" },
-  tall: { label: "目标词使用", value: "14", unit: "次", badge: "Vocab Growth" },
+  tall: { label: "本周目标词使用", value: "14", unit: "次", badge: "Vocab Growth" },
   ring: { label: "本周主动提问", value: "11", unit: "次", pct: 55 },
 };
 
 const WORDIE_BENTO: BentoLayout = {
   hero: { label: "连续练习", value: "8", unit: "天" },
-  smallA: { label: "本周练习卡片", value: "42", unit: "张" },
-  smallB: { label: "本周练习时长", value: "18", unit: "min" },
+  smallA: { label: "本周练习时长", value: "18", unit: "min" },
+  smallB: { label: "本周练习卡片", value: "42", unit: "张" },
   trend: { label: "本周 myWordie Talk 用词", value: "23", unit: "次", bars: [20, 45, 70, 35, 55] },
   squareA: { label: "已掌握", value: "166", unit: "词" },
   squareB: { label: "复习", value: "38", unit: "词" },
