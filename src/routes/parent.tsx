@@ -542,41 +542,35 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  const R = 40;
+  const R = 42;
   const C = 2 * Math.PI * R;
+  const testPct = bento.ring.pct;
   return (
     <div className="space-y-3">
-      {/* Row 1: Streak hero (3 col x 2 row) + 本周卡片 stacked + 本周时长 stacked */}
-      <div className="grid grid-cols-6 grid-rows-2 gap-3">
-        {/* 连续练习 — tall hero with centered ring */}
+      {/* Row 1: Twin hero ring cards — Streak (filled) + Wordie Test (outlined) */}
+      <div className="grid grid-cols-2 gap-3">
+        {/* 连续练习 — filled hero */}
         <div
-          className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col items-center text-white relative overflow-hidden"
-          style={{ background: accent, boxShadow: `0 14px 30px -18px ${accent}` }}
+          className="aspect-square rounded-3xl p-4 flex flex-col items-center text-white relative overflow-hidden"
+          style={{ background: accent }}
         >
-          <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
+          <span className="text-[12px] font-semibold tracking-wide opacity-90">
             连续练习
           </span>
-          <div className="relative w-[132px] h-[132px] grid place-items-center my-auto">
+          <div className="relative grid place-items-center my-auto" style={{ width: "62%", aspectRatio: "1 / 1" }}>
             <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
-              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.18)" strokeWidth="6" fill="none" />
+              <circle cx="50" cy="50" r={R} stroke="rgba(255,255,255,0.2)" strokeWidth="6" fill="none" />
               <circle
-                cx="50"
-                cy="50"
-                r={R}
-                stroke="white"
-                strokeWidth="6"
-                fill="none"
-                strokeLinecap="round"
+                cx="50" cy="50" r={R}
+                stroke="white" strokeWidth="6" fill="none" strokeLinecap="round"
                 strokeDasharray={`${(ringPct / 100) * C} ${C}`}
               />
             </svg>
-            <div className="relative text-center leading-none">
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[40px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
-                  {bento.hero.value}
-                </span>
-                <span className="text-[13px] font-medium opacity-85">{bento.hero.unit}</span>
-              </div>
+            <div className="relative flex items-baseline gap-1 leading-none">
+              <span className="text-[40px] font-semibold tabular-nums" style={{ letterSpacing: "-0.04em" }}>
+                {bento.hero.value}
+              </span>
+              <span className="text-[13px] font-medium opacity-85">{bento.hero.unit}</span>
             </div>
           </div>
           <div className="flex items-center justify-between w-full">
@@ -587,62 +581,57 @@ function WordieBento({
               {ringPct}%
             </span>
           </div>
-          <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         </div>
-        {/* 本周卡片 — unified tinted style */}
-        <StatCard accent={accent} tint={tint} label={bento.smallA.label} value={bento.smallA.value} unit={bento.smallA.unit} />
-        {/* 本周时长 — unified tinted style */}
-        <StatCard accent={accent} tint={tint} label={bento.smallB.label} value={bento.smallB.value} unit={bento.smallB.unit} />
-      </div>
 
-      {/* Row 2: Wordie Test (left, white) + 本周用词 (right, tinted) */}
-      <div className="grid grid-cols-6 gap-3">
+        {/* Wordie Test — outlined hero, mirrors streak proportions */}
         <div
-          className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 min-h-[68px]"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
+          className="aspect-square rounded-3xl p-4 flex flex-col items-center relative overflow-hidden"
+          style={{ background: "#ffffff", border: `1px solid ${tint(16)}` }}
         >
-          <div className="min-w-0 flex flex-col gap-0.5">
-            <p className="text-[12px] font-semibold leading-tight" style={{ color: tint(82) }}>
+          <div className="flex flex-col items-center gap-0.5">
+            <span className="text-[12px] font-semibold tracking-wide" style={{ color: tint(82) }}>
               Wordie Test
-            </p>
-            <p className="text-[11px] font-medium leading-tight" style={{ color: tint(65) }}>
+            </span>
+            <span className="text-[11px] font-medium" style={{ color: tint(60) }}>
               平均分
-            </p>
+            </span>
           </div>
-          <div className="relative w-14 h-14 grid place-items-center shrink-0">
-            <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-              <circle cx="28" cy="28" r="23" stroke={tint(14)} strokeWidth="4" fill="none" />
+          <div className="relative grid place-items-center my-auto" style={{ width: "62%", aspectRatio: "1 / 1" }}>
+            <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
+              <circle cx="50" cy="50" r={R} stroke={tint(14)} strokeWidth="6" fill="none" />
               <circle
-                cx="28"
-                cy="28"
-                r="23"
-                stroke={accent}
-                strokeWidth="4"
-                fill="none"
-                strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
+                cx="50" cy="50" r={R}
+                stroke={accent} strokeWidth="6" fill="none" strokeLinecap="round"
+                strokeDasharray={`${(testPct / 100) * C} ${C}`}
               />
             </svg>
-            <span
-              className="text-[14px] font-semibold relative tabular-nums"
-              style={{ letterSpacing: "-0.02em", color: accent }}
-            >
-              {bento.ring.pct}
-              <span className="text-[9px] font-medium ml-0.5" style={{ color: tint(60) }}>%</span>
+            <div className="relative flex items-baseline gap-0.5 leading-none">
+              <span className="text-[40px] font-semibold tabular-nums" style={{ color: accent, letterSpacing: "-0.04em" }}>
+                {testPct}
+              </span>
+              <span className="text-[13px] font-medium" style={{ color: tint(60) }}>%</span>
+            </div>
+          </div>
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-medium tracking-wide" style={{ color: tint(65) }}>
+              满分 100
+            </span>
+            <span className="text-[14px] font-semibold tabular-nums" style={{ color: accent, letterSpacing: "-0.02em" }}>
+              A
             </span>
           </div>
         </div>
-        <StatCard
-          accent={accent}
-          tint={tint}
-          label={bento.trend.label}
-          value={bento.trend.value}
-          unit={bento.trend.unit}
-        />
+      </div>
+
+      {/* Row 2: Three equal-sized weekly stat cards */}
+      <div className="grid grid-cols-3 gap-3">
+        <StatCard accent={accent} tint={tint} label={bento.smallA.label} value={bento.smallA.value} unit={bento.smallA.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.smallB.label} value={bento.smallB.value} unit={bento.smallB.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.trend.label} value={bento.trend.value} unit={bento.trend.unit} />
       </div>
 
       {/* Row 3: Vocab funnel (full) */}
-      <div className="grid grid-cols-6 gap-3">
+      <div>
         {bento.extra && (
           <VocabFunnel
             accent={accent}
@@ -675,20 +664,20 @@ function StatCard({
 }) {
   return (
     <div
-      className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[68px]"
-      style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
+      className="rounded-2xl px-3.5 py-3 flex flex-col gap-1.5 min-h-[78px]"
+      style={{ background: tint(10), border: `1px solid ${tint(16)}` }}
     >
-      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
+      <span className="text-[10.5px] font-semibold leading-tight tracking-wide" style={{ color: tint(72) }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
-          className="text-[26px] font-semibold leading-none tabular-nums"
+          className="text-[24px] font-semibold leading-none tabular-nums"
           style={{ color: accent, letterSpacing: "-0.03em" }}
         >
           {value}
         </span>
-        <span className="text-[11px] font-medium" style={{ color: tint(70) }}>{unit}</span>
+        <span className="text-[11px] font-medium" style={{ color: tint(65) }}>{unit}</span>
       </div>
     </div>
   );
@@ -807,8 +796,8 @@ function VocabFunnel({
   });
   return (
     <div
-      className="col-span-6 rounded-3xl px-5 py-4 bg-white"
-      style={{ border: `1px solid ${tint(14)}`, boxShadow: `0 10px 30px -22px ${accent}` }}
+      className="rounded-3xl px-5 py-4"
+      style={{ background: tint(8), border: `1px solid ${tint(16)}` }}
     >
       <div className="flex items-center gap-5">
         {/* Left: refined 4-segment donut */}
