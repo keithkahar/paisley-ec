@@ -759,6 +759,8 @@ function PreviewFull({
   onPrev: () => void;
   onNext: () => void;
 }) {
+  const prevDisabled = index === 0;
+  const nextDisabled = index >= total - 1;
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col max-w-[420px] mx-auto">
       <div className="flex items-center justify-between px-5 py-4">
@@ -888,6 +890,27 @@ function PreviewFull({
             <Volume2 className="h-8 w-8" />
           </button>
         </div>
+      </div>
+      {/* Previous / Next — absolute overlay so it doesn't push speaker up */}
+      <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-5 py-4 pointer-events-none">
+        <button
+          type="button"
+          onClick={onPrev}
+          disabled={prevDisabled}
+          className="text-[13px] font-semibold disabled:opacity-30 pointer-events-auto"
+          style={{ color: "var(--wordie)" }}
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={nextDisabled}
+          className="text-[13px] font-semibold disabled:opacity-30 pointer-events-auto"
+          style={{ color: "var(--wordie)" }}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
