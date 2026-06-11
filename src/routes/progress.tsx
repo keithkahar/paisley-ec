@@ -1,11 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ChevronLeft } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/progress")({
-  head: () => ({ meta: [{ title: "My Progress — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "My Progress — Paisley EC" },
+      { name: "description", content: "Weekly, monthly and yearly stats for talk minutes and word cards." },
+      { property: "og:title", content: "My Progress — Paisley EC" },
+      { property: "og:description", content: "Weekly, monthly and yearly stats for talk minutes and word cards." },
+    ] }),
   component: ProgressPage,
 });
 
@@ -73,28 +77,19 @@ function ProgressPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        {/* Back */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/profile"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/profile" />
 
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: accent, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: accent, letterSpacing: "-0.01em" }}
           >
             My Progress
           </h1>
           <p
             className="mt-1 text-[13px] leading-none font-bold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {dateLabel}
           </p>
@@ -115,7 +110,7 @@ function ProgressPage() {
                   style={{
                     background: active ? "white" : "transparent",
                     color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
-                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
+                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined
                   }}
                 >
                   {key === "talk" ? "ShirinTalk" : "myWordie"}
@@ -184,7 +179,7 @@ function ProgressPage() {
                       className="px-2.5 h-6 rounded-full text-[11px] font-bold transition-colors"
                       style={{
                         background: active ? "white" : "transparent",
-                        color: active ? accent : "color-mix(in oklab, var(--foreground) 55%, white)",
+                        color: active ? accent : "color-mix(in oklab, var(--foreground) 55%, white)"
                       }}
                     >
                       {m === "week" ? "Week" : m === "month" ? "Month" : "Year"}
@@ -222,8 +217,6 @@ function ProgressPage() {
           </div>
         </section>
       </div>
-
-      <BottomTabBar />
     </PhoneFrame>
   );
 }

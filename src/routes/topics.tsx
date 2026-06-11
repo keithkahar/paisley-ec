@@ -33,7 +33,12 @@ const TOPICS: Topic[] = [
 ];
 
 export const Route = createFileRoute("/topics")({
-  head: () => ({ meta: [{ title: "Topic Talk — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Topic Talk — Paisley EC" },
+      { name: "description", content: "Pick a topic and start an English conversation with Shirin." },
+      { property: "og:title", content: "Topic Talk — Paisley EC" },
+      { property: "og:description", content: "Pick a topic and start an English conversation with Shirin." },
+    ] }),
   component: TopicsPage,
 });
 
@@ -53,7 +58,7 @@ function TopicsPage() {
           <div className="mb-4 text-center">
             <h1
               className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-              style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              style={{ color: PINK, letterSpacing: "-0.01em" }}
             >
               Pick A Topic
             </h1>
@@ -97,7 +102,7 @@ function TopicsPage() {
                 <div className="px-3 py-3">
                   <p
                     className="text-[17px] font-bold tracking-tight leading-none whitespace-nowrap text-center"
-                    style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.015em" }}
+                    style={{ color: PINK, letterSpacing: "-0.015em" }}
                   >
                     {t.title}
                   </p>

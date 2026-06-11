@@ -3,10 +3,16 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
-import { ChevronLeft, Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import { Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/shirin-talk")({
-  head: () => ({ meta: [{ title: "ShirinTalk — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "ShirinTalk — Paisley EC" },
+      { name: "description", content: "Practise spoken English with Shirin: topic talks, smart reading and free chat." },
+      { property: "og:title", content: "ShirinTalk — Paisley EC" },
+      { property: "og:description", content: "Practise spoken English with Shirin: topic talks, smart reading and free chat." },
+    ] }),
   component: ShirinTalkPage,
 });
 
@@ -30,15 +36,7 @@ function ShirinTalkPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/" />
 
         {/* Hero */}
         <section className="px-6 pt-12 pb-1 text-center">
@@ -49,13 +47,13 @@ function ShirinTalkPage() {
           />
           <h2
             className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PINK, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: PINK, letterSpacing: "-0.01em" }}
           >
             Hi, I'm Shirin!
           </h2>
           <p
             className="mt-1 text-[15px] text-foreground/70 font-bold tracking-tight"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ letterSpacing: "-0.01em" }}
           >
             Let's practise English together.
           </p>
@@ -123,7 +121,7 @@ function ShirinTalkPage() {
                 to={c.to}
                 search={"search" in c ? c.search : undefined}
                 className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-                style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", fontFamily: "var(--font-sans)" }}
+                style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)" }}
               >
                 <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
                   {Icon ? (
@@ -141,7 +139,7 @@ function ShirinTalkPage() {
                         WebkitMaskPosition: "center",
                         maskPosition: "center",
                         WebkitMaskSize: "contain",
-                        maskSize: "contain",
+                        maskSize: "contain"
                       }}
                     />
                   )}

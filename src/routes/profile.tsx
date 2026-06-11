@@ -2,16 +2,21 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import {
   TrendingUp,
   ClipboardList,
   Users,
-  ChevronLeft,
   Pencil,
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
-  head: () => ({ meta: [{ title: "My Profile — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "My Profile — Paisley EC" },
+      { name: "description", content: "Track your streak, progress and tests in one place." },
+      { property: "og:title", content: "My Profile — Paisley EC" },
+      { property: "og:description", content: "Track your streak, progress and tests in one place." },
+    ] }),
   component: ProfilePage,
 });
 
@@ -30,7 +35,6 @@ const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_YELLOW = "var(--paisley-yellow)";
-const PAISLEY_YELLOW_INK = "#cdae8d";
 const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
@@ -48,16 +52,7 @@ function ProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        {/* Back button → home */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/"
-            aria-label="Back to home"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/" label="Back to home" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-12 pb-1 text-center">
@@ -71,7 +66,7 @@ function ProfilePage() {
               ) : (
                 <span
                   className="text-[56px] font-bold leading-none"
-                  style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+                  style={{ color: PAISLEY, letterSpacing: "-0.02em" }}
                 >
                   {INITIALS}
                 </span>
@@ -83,19 +78,19 @@ function ProfilePage() {
               aria-label="Edit profile"
               className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
             >
-              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#9CA3AF" }} />
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
             </Link>
           </div>
           <h2
             className="mt-2 text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PAISLEY, fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
           >
             {DISPLAY_NAME}
           </h2>
           {/* Registration date — mirrors ShirinTalk subtitle position */}
           <p
             className="mt-1 text-[13px] leading-none font-bold"
-            style={{ color: PAISLEY_YELLOW, fontFamily: "var(--font-sans)" }}
+            style={{ color: PAISLEY_YELLOW }}
           >
             Reg. {PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })} {PROFILE.registeredAt.getDate()} {PROFILE.registeredAt.getFullYear()}
           </p>
@@ -204,7 +199,7 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
     >
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"

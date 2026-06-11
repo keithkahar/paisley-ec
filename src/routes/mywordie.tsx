@@ -1,11 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Layers, Zap, ClipboardCheck, Flame, Play, ChevronLeft } from "lucide-react";
+import { Layers, Zap, ClipboardCheck, Flame, Play } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/mywordie")({
-  head: () => ({ meta: [{ title: "myWordie — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "myWordie — Paisley EC" },
+      { name: "description", content: "Daily word cards, quick reviews and a personal word bank for young learners." },
+      { property: "og:title", content: "myWordie — Paisley EC" },
+      { property: "og:description", content: "Daily word cards, quick reviews and a personal word bank for young learners." },
+    ] }),
   component: MyWordiePage,
 });
 
@@ -32,15 +38,7 @@ function MyWordiePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/" />
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-12 pb-1">
           <div
@@ -50,7 +48,7 @@ function MyWordiePage() {
           <div>
             <h2
               className="text-center text-[22px] font-bold leading-none"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              style={{ letterSpacing: "-0.01em" }}
             >
               Today's Practice
             </h2>
@@ -68,13 +66,13 @@ function MyWordiePage() {
             <div className="flex items-baseline justify-center gap-2">
               <span
                 className="text-[46px] font-bold leading-none"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+                style={{ letterSpacing: "-0.02em" }}
               >
                 {cardsTotal}
               </span>
               <span
                 className="text-[24px] opacity-90 font-bold leading-none"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                style={{ letterSpacing: "-0.01em" }}
               >
                 cards
               </span>
@@ -91,8 +89,7 @@ function MyWordiePage() {
             style={{
               color: "var(--wordie)",
               background: "white",
-              fontFamily: "var(--font-sans)",
-              fontSize: "17.25px",
+              fontSize: "17.25px"
             }}
           >
             <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
@@ -194,7 +191,7 @@ function PillLink({
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)", fontFamily: "var(--font-sans)" }}
+      style={{ background: "color-mix(in oklab, var(--wordie) 14%, white)" }}
     >
       <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
         <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: WORDIE }} />

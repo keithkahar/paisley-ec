@@ -1,11 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronDown, ChevronRight, Check, RotateCcw } from "lucide-react";
+import { ChevronDown, ChevronRight, Check, RotateCcw } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/my-tests")({
-  head: () => ({ meta: [{ title: "My Tests — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "My Tests — Paisley EC" },
+      { name: "description", content: "Your CEFR tests, Wordie tests and results history." },
+      { property: "og:title", content: "My Tests — Paisley EC" },
+      { property: "og:description", content: "Your CEFR tests, Wordie tests and results history." },
+    ] }),
   component: MyTestsPage,
 });
 
@@ -163,22 +168,13 @@ function MyTestsPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        {/* Back */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/profile"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/profile" />
 
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: "var(--paisley)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: "var(--paisley)", letterSpacing: "-0.01em" }}
           >
             My Tests
           </h1>
@@ -227,7 +223,7 @@ function MyTestsPage() {
               className="h-4 w-4 transition-transform"
               style={{
                 color: "color-mix(in oklab, var(--foreground) 55%, white)",
-                transform: openCefr ? "rotate(180deg)" : "rotate(0deg)",
+                transform: openCefr ? "rotate(180deg)" : "rotate(0deg)"
               }}
             />
           </button>
@@ -239,7 +235,7 @@ function MyTestsPage() {
                   <div className="min-w-0 flex-1">
                     <p
                       className="font-bold text-[15px] truncate leading-tight text-foreground"
-                      style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                      style={{ letterSpacing: "-0.01em" }}
                     >
                       {h.level}
                     </p>
@@ -302,7 +298,7 @@ function MyTestsPage() {
               className="h-4 w-4 transition-transform"
               style={{
                 color: "color-mix(in oklab, var(--foreground) 55%, white)",
-                transform: openWordie ? "rotate(180deg)" : "rotate(0deg)",
+                transform: openWordie ? "rotate(180deg)" : "rotate(0deg)"
               }}
             />
           </button>
@@ -321,7 +317,7 @@ function MyTestsPage() {
                       <div className="min-w-0 flex-1">
                         <p
                           className="font-bold text-[15px] truncate leading-tight text-foreground"
-                          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                          style={{ letterSpacing: "-0.01em" }}
                         >
                           {t.score}%
                           <span
@@ -435,8 +431,6 @@ function MyTestsPage() {
           )}
         </section>
       </div>
-
-      <BottomTabBar />
     </PhoneFrame>
   );
 }
@@ -446,14 +440,14 @@ function SectionHeader({ title, actionLabel, accent }: { title: string; actionLa
     <div className="flex items-center justify-between">
       <h2
         className="text-[16px] font-bold"
-        style={{ color: "var(--foreground)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+        style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
       >
         {title}
       </h2>
       <button
         type="button"
         className="text-[12px] font-bold px-3 h-7 rounded-full"
-        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent, fontFamily: "var(--font-sans)" }}
+        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
       >
         {actionLabel}
       </button>

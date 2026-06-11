@@ -5,7 +5,12 @@ import { AppHeader } from "@/components/app/AppHeader";
 import { Volume2, Star, RotateCw, Check, X, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/word-card")({
-  head: () => ({ meta: [{ title: "Word Card — myWordie" }] }),
+  head: () => ({ meta: [
+      { title: "Word Card — Paisley EC" },
+      { name: "description", content: "Flip, hear and review a single word card." },
+      { property: "og:title", content: "Word Card — Paisley EC" },
+      { property: "og:description", content: "Flip, hear and review a single word card." },
+    ] }),
   component: WordCardPage,
 });
 

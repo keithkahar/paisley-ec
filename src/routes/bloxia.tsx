@@ -8,7 +8,12 @@ import { Hammer, Sprout, PawPrint, Gift, Play } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/bloxia")({
-  head: () => ({ meta: [{ title: "Bloxia — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Bloxia — Paisley EC" },
+      { name: "description", content: "A pixel-style island where kids explore English mini-games and quests." },
+      { property: "og:title", content: "Bloxia — Paisley EC" },
+      { property: "og:description", content: "A pixel-style island where kids explore English mini-games and quests." },
+    ] }),
   component: BloxiaPage,
 });
 
@@ -36,7 +41,7 @@ function BloxiaPage() {
         style={{
           background:
             "linear-gradient(180deg, oklch(0.92 0.06 220) 0%, oklch(0.88 0.07 215) 60%, oklch(0.82 0.08 215) 100%)",
-          height: 320,
+          height: 320
         }}>
         {/* clouds */}
         <div className="absolute top-4 left-6 w-16 h-4 bg-white/80 rounded-full" />
@@ -66,8 +71,7 @@ function BloxiaPage() {
           className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-bold text-white shadow-lg active:scale-[0.98] transition-transform"
           style={{
             background: "var(--bloxia)",
-            fontFamily: "var(--font-sans)",
-            fontSize: "17.25px",
+            fontSize: "17.25px"
           }}
         >
           <Play className="shrink-0 fill-current" style={{ width: "1.15em", height: "1.15em" }} />

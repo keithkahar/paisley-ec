@@ -49,7 +49,7 @@ function Home() {
           {/* SECONDARY: greeting + question, one refined block */}
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight text-foreground text-center"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
             <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.3]">
@@ -63,8 +63,7 @@ function Home() {
             className="relative isolate mt-10 flex items-center justify-center gap-[8px] rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
-              fontFamily: "var(--font-sans)",
-              fontSize: "17.25px",
+              fontSize: "17.25px"
             }}
           >
             <Mic className="shrink-0" style={{ width: "1.15em", height: "1.15em" }} />
@@ -84,7 +83,6 @@ function Home() {
             <Link
               to="/mywordie"
               className="inline-flex items-center gap-1 text-xs text-muted-foreground font-semibold underline-offset-4 hover:underline"
-              style={{ fontFamily: "var(--font-sans)" }}
             >
               or practice with
               <img src={myWordieText.url} alt="myWordie" className="h-4 object-contain" />

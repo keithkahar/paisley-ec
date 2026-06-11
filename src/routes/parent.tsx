@@ -1,10 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronLeft, ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/parent")({
-  head: () => ({ meta: [{ title: "Parent Page — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Parent Page — Paisley EC" },
+      { name: "description", content: "A weekly snapshot for parents: time, words and tests at a glance." },
+      { property: "og:title", content: "Parent Page — Paisley EC" },
+      { property: "og:description", content: "A weekly snapshot for parents: time, words and tests at a glance." },
+    ] }),
   component: ParentPage,
 });
 
@@ -111,28 +117,19 @@ function ParentPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white pb-24">
-        {/* Back */}
-        <div className="absolute top-4 left-4 z-30">
-          <Link
-            to="/profile"
-            aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
-        </div>
+        <FloatingBack to="/profile" />
 
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: PAISLEY, fontFamily: "var(--font-sans)" }}
+            style={{ color: PAISLEY }}
           >
             Parent Page
           </h1>
           <p
             className="mt-1 text-[13px] leading-none font-bold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontFamily: "var(--font-sans)" }}
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {new Date().toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}
           </p>
@@ -153,7 +150,7 @@ function ParentPage() {
                   style={{
                     background: active ? "white" : "transparent",
                     color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
-                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
+                    boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined
                   }}
                 >
                   {k === "talk" ? "ShirinTalk" : "myWordie"}
@@ -391,7 +388,7 @@ function WordieBento({
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 h-16"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
+          style={{ background: "var(--card)", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
             <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
@@ -529,7 +526,7 @@ function TalkBento({
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1.5 h-16 justify-center"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
+          style={{ background: "var(--card)", border: `1px solid ${tint(14)}` }}
         >
           <div className="flex items-baseline justify-between">
             <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
@@ -756,7 +753,7 @@ function VocabFunnel({
             width: SIZE,
             height: SIZE,
             background: `radial-gradient(closest-side, ${tint(6)} 0%, transparent 70%)`,
-            borderRadius: "9999px",
+            borderRadius: "9999px"
           }}
         >
           <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
@@ -852,7 +849,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className="px-6 pt-6 pb-2 text-[13px] font-bold uppercase tracking-wide text-black"
-      style={{ fontFamily: "var(--font-sans)" }}
     >
       {children}
     </h2>
@@ -1143,7 +1139,7 @@ function ActionPill({
       className="h-7 rounded-full text-[11px] font-bold"
       style={{
         background: active ? color : `color-mix(in oklab, ${color} 10%, white)`,
-        color: active ? "white" : color,
+        color: active ? "white" : color
       }}
     >
       {children}
@@ -1206,7 +1202,7 @@ function VoiceSheet({ currentId, onPick }: { currentId: string; onPick: (v: { id
                   className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left"
                   style={{
                     background: active ? "color-mix(in oklab, var(--paisley) 10%, white)" : "transparent",
-                    color: active ? PAISLEY : "var(--foreground)",
+                    color: active ? PAISLEY : "var(--foreground)"
                   }}
                 >
                   <span className="text-[14px] font-bold">{v.name}</span>
@@ -1234,7 +1230,7 @@ function ThemeSheet({ value, onPick }: { value: string; onPick: (id: string) => 
             className="w-full flex items-center justify-between px-3 py-3 rounded-xl text-left"
             style={{
               background: active ? "color-mix(in oklab, var(--paisley) 10%, white)" : "transparent",
-              color: active ? PAISLEY : "var(--foreground)",
+              color: active ? PAISLEY : "var(--foreground)"
             }}
           >
             <span className="text-[14px] font-bold">{t.label}</span>

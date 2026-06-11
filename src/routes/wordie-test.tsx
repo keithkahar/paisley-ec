@@ -15,7 +15,12 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/wordie-test")({
-  head: () => ({ meta: [{ title: "Wordie Test — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Wordie Test — Paisley EC" },
+      { name: "description", content: "Quick quizzes that adapt to the words you're learning." },
+      { property: "og:title", content: "Wordie Test — Paisley EC" },
+      { property: "og:description", content: "Quick quizzes that adapt to the words you're learning." },
+    ] }),
   component: WordieTestPage,
 });
 
@@ -339,7 +344,7 @@ function WordieTestPage() {
           <Link
             to="/mywordie"
             aria-label="Back"
-            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-[oklch(0.95_0.02_10)]"
+            className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
@@ -355,7 +360,7 @@ function WordieTestPage() {
                     mode === "info"
                       ? "color-mix(in oklab, var(--wordie) 12%, white)"
                       : `color-mix(in oklab, ${STAGE_META[stageKey].color} 14%, white)`,
-                  color: mode === "info" ? "var(--wordie)" : STAGE_META[stageKey].color,
+                  color: mode === "info" ? "var(--wordie)" : STAGE_META[stageKey].color
                 }}
               >
                 {mode === "info" ? "Info" : STAGE_META[stageKey].label}
@@ -375,7 +380,7 @@ function WordieTestPage() {
           <div className="px-5 pt-3 text-center">
             <h1
               className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-              style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
             >
               Wordie Test
             </h1>
@@ -446,7 +451,7 @@ function LockedView() {
         className="mx-auto h-14 w-14 rounded-2xl grid place-items-center mb-3"
         style={{
           background: "color-mix(in oklab, var(--wordie) 14%, white)",
-          color: "var(--wordie)",
+          color: "var(--wordie)"
         }}
       >
         <Lock className="h-6 w-6" />
@@ -474,7 +479,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
       <section className="rounded-3xl bg-white border border-border p-5">
         <p
           className="text-[20px] font-bold leading-none"
-          style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
         >
           #03
         </p>
@@ -501,7 +506,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
       <button
         onClick={onStart}
         className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
-        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "17.25px" }}
+        style={{ background: "var(--wordie)", fontSize: "17.25px" }}
       >
         <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
         <span>Start Test</span>
@@ -558,7 +563,7 @@ function QuizView({
                   ? "var(--wordie)"
                   : i === stageIdx
                   ? meta.color
-                  : "color-mix(in oklab, var(--wordie) 10%, white)",
+                  : "color-mix(in oklab, var(--wordie) 10%, white)"
             }}
           />
         ))}
@@ -572,7 +577,7 @@ function QuizView({
         <div className="flex items-center justify-between">
           <h2
             className="text-[24px] font-bold leading-none"
-            style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ letterSpacing: "-0.01em" }}
           >
             {meta.label}
           </h2>
@@ -616,7 +621,7 @@ function QuizView({
           onClick={onNext}
           className="flex-[2] rounded-full py-3.5 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
           style={{
-            background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)",
+            background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)"
           }}
         >
           {isLast ? "Submit" : "Next"}
@@ -658,7 +663,7 @@ function QuestionCard({
           className="h-7 w-7 grid place-items-center rounded-full text-[12px] font-bold shrink-0"
           style={{
             background: "color-mix(in oklab, var(--wordie) 12%, white)",
-            color: "var(--wordie)",
+            color: "var(--wordie)"
           }}
         >
           {qNum}
@@ -680,7 +685,7 @@ function QuestionCard({
           <div className="flex items-baseline gap-2">
             <span
               className="text-[20px] font-bold"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              style={{ letterSpacing: "-0.01em" }}
             >
               {q.word}
             </span>
@@ -695,7 +700,7 @@ function QuestionCard({
           q.stage !== "spelling" && (
             <span
               className="text-[20px] font-bold"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              style={{ letterSpacing: "-0.01em" }}
             >
               {q.word}
             </span>
@@ -714,7 +719,7 @@ function QuestionCard({
             onContextMenu={(event) => event.preventDefault()}
             className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform touch-none"
             style={{
-              background: recording ? "var(--wordie-accent)" : "var(--wordie)",
+              background: recording ? "var(--wordie-accent)" : "var(--wordie)"
             }}
           >
             <Mic className="h-6 w-6" />
@@ -748,7 +753,7 @@ function QuestionCard({
                     ? "color-mix(in oklab, var(--wordie) 10%, white)"
                     : "white",
                   borderColor: selected ? "var(--wordie)" : "var(--border)",
-                  color: selected ? "var(--wordie)" : "var(--foreground)",
+                  color: selected ? "var(--wordie)" : "var(--foreground)"
                 }}
               >
                 {c.label}
@@ -791,9 +796,8 @@ function ResultView({
           <h2
             className="text-center text-[22px] font-bold leading-none"
             style={{
-              fontFamily: "var(--font-sans)",
               letterSpacing: "-0.01em",
-              color: "white",
+              color: "white"
             }}
           >
             Test Completed!
@@ -812,7 +816,7 @@ function ResultView({
         </p>
         <p
           className="mt-2 text-[46px] font-bold leading-none"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.02em" }}
+          style={{ letterSpacing: "-0.02em" }}
         >
           {score}
           <span className="text-[24px] opacity-90 font-bold ml-1" style={{ letterSpacing: "-0.01em" }}>%</span>
@@ -825,7 +829,7 @@ function ResultView({
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
             style={{
               background: "color-mix(in oklab, var(--wordie) 14%, white)",
-              color: "var(--wordie)",
+              color: "var(--wordie)"
             }}
           >
             Test Time {timeText}
@@ -834,7 +838,7 @@ function ResultView({
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
             style={{
               background: "color-mix(in oklab, var(--bloxia) 14%, white)",
-              color: "var(--bloxia)",
+              color: "var(--bloxia)"
             }}
           >
             +{bp} Bp
@@ -907,7 +911,7 @@ function ResultView({
       <Link
         to="/mywordie"
         className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
-        style={{ background: "var(--wordie)", fontFamily: "var(--font-sans)", fontSize: "17.25px" }}
+        style={{ background: "var(--wordie)", fontSize: "17.25px" }}
       >
         <span>Back to myWordie</span>
       </Link>
@@ -940,7 +944,7 @@ function ReviewOverlay({
         </div>
         <p
           className="mt-2 text-[22px] font-bold"
-          style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+          style={{ letterSpacing: "-0.01em" }}
         >
           {question.word}
         </p>
@@ -979,7 +983,7 @@ function ReviewOverlay({
                       ? "var(--wordie)"
                       : isMine
                       ? "var(--wordie-accent)"
-                      : "var(--border)",
+                      : "var(--border)"
                   }}
                 >
                   <span>{c.label}</span>

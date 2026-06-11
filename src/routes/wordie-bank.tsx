@@ -11,7 +11,12 @@ import {
 } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/wordie-bank")({
-  head: () => ({ meta: [{ title: "Wordie Bank — Paisley EC" }] }),
+  head: () => ({ meta: [
+      { title: "Wordie Bank — Paisley EC" },
+      { name: "description", content: "Browse and manage every word card you've collected." },
+      { property: "og:title", content: "Wordie Bank — Paisley EC" },
+      { property: "og:description", content: "Browse and manage every word card you've collected." },
+    ] }),
   component: WordieBankPage,
 });
 
@@ -238,7 +243,7 @@ function WordieBankPage() {
         <div className="mb-4 text-center">
           <h1
             className="text-[26px] leading-[1.2] font-semibold tracking-tight"
-            style={{ color: "var(--wordie)", fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+            style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
           >
             Wordie Bank
           </h1>
@@ -292,7 +297,7 @@ function WordieBankPage() {
               style={{
                 background: "color-mix(in oklab, var(--paisley) 10%, white)",
                 border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
-                color: "var(--foreground)",
+                color: "var(--foreground)"
               }}
             />
           </div>
@@ -389,7 +394,7 @@ function WordieBankPage() {
                         style={{
                           borderColor: isSel ? "var(--wordie)" : "var(--border)",
                           background: isSel ? "var(--wordie)" : "transparent",
-                          color: "white",
+                          color: "white"
                         }}
                       >
                         {isSel && <Check className="h-3 w-3" strokeWidth={3} />}
@@ -398,7 +403,7 @@ function WordieBankPage() {
                     <div className="min-w-0 flex-1">
                       <p
                         className="font-bold text-[20px] truncate leading-tight text-foreground"
-                        style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+                        style={{ letterSpacing: "-0.01em" }}
                       >
                         {w.word}
                       </p>
@@ -410,7 +415,7 @@ function WordieBankPage() {
                           className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                           style={{
                             background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                            color: "var(--wordie)",
+                            color: "var(--wordie)"
                           }}
                         >
                           {capitalize(w.partOfSpeech)}
@@ -451,7 +456,7 @@ function WordieBankPage() {
               <span className="w-12" />
               <p
                 className="text-[17px] font-bold tracking-tight leading-none"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: "var(--wordie)" }}
+                style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 Batch Actions
               </p>
@@ -501,7 +506,7 @@ function WordieBankPage() {
               <span className="w-12" />
               <p
                 className="text-[17px] font-bold tracking-tight leading-none"
-                style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em", color: "var(--wordie)" }}
+                style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 {openSheet === "level"
                   ? "Choose Level"
@@ -596,7 +601,7 @@ function WordieBankPage() {
                 type="button"
                 onClick={resetProgress}
                 className="rounded-full py-2.5 text-[13px] font-bold text-white"
-                style={{ background: "#E64A4A" }}
+                style={{ background: "var(--destructive)" }}
               >
                 Reset
               </button>
@@ -702,7 +707,7 @@ function FocusPill() {
       className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold"
       style={{
         background: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 22%, white)`,
-        color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`,
+        color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`
       }}
       aria-label="Focus"
       title="Focus"
@@ -730,8 +735,8 @@ function SheetBtn({
       className="w-full rounded-2xl py-3 text-[14px] font-bold text-center"
       style={{
         background: muted ? "var(--muted)" : "white",
-        color: danger ? "#E64A4A" : muted ? "var(--foreground)" : "var(--wordie)",
-        border: muted ? "none" : "1px solid var(--border)",
+        color: danger ? "var(--destructive)" : muted ? "var(--foreground)" : "var(--wordie)",
+        border: muted ? "none" : "1px solid var(--border)"
       }}
     >
       {label}
@@ -772,7 +777,7 @@ function PreviewFull({
         <div
           className="rounded-[2rem] p-6 bg-white"
           style={{
-            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)",
+            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)"
           }}
         >
           <div className="flex items-center justify-between">
@@ -781,7 +786,7 @@ function PreviewFull({
                 className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
                 style={{
                   background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                  color: "var(--wordie)",
+                  color: "var(--wordie)"
                 }}
               >
                 {capitalize(word.partOfSpeech)}
@@ -807,8 +812,7 @@ function PreviewFull({
               className="font-semibold text-[46px] leading-none"
               style={{
                 color: "var(--wordie)",
-                fontFamily: "var(--font-sans)",
-                letterSpacing: "-0.02em",
+                letterSpacing: "-0.02em"
               }}
             >
               {word.word}
