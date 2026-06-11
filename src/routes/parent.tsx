@@ -865,20 +865,18 @@ function VocabFunnel({
               <circle key={`cap-${i}`} cx={a.endX} cy={a.endY} r={STROKE / 2} fill={a.color} />
             ))}
           </svg>
-          <div className="relative leading-none">
-            <span
-              className="text-[14px] font-bold tabular-nums block -translate-y-1.5"
-              style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
-            >
-              {total}
-            </span>
-            <span
-              className="absolute left-1/2 -translate-x-1/2 top-full mt-2 text-[11px] font-bold whitespace-nowrap"
-              style={{ color: tint(shades[3]) }}
-            >
-              学习词库
-            </span>
-          </div>
+          <span
+            className="relative text-[14px] font-bold tabular-nums leading-none -translate-y-2"
+            style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
+          >
+            {total}
+          </span>
+          <span
+            className="absolute left-1/2 -translate-x-1/2 text-[11px] font-bold leading-none whitespace-nowrap"
+            style={{ top: `calc(50% + 12px)`, color: tint(shades[3]) }}
+          >
+            学习词库
+          </span>
         </div>
 
         {/* Right: 4 progress rows */}
