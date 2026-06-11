@@ -383,7 +383,7 @@ function WordieBento({
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 h-16"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
+          style={{ background: "var(--card)", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
             <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
@@ -521,7 +521,7 @@ function TalkBento({
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1.5 h-16 justify-center"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
+          style={{ background: "var(--card)", border: `1px solid ${tint(14)}` }}
         >
           <div className="flex items-baseline justify-between">
             <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
