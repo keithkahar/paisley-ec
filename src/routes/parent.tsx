@@ -970,12 +970,9 @@ function GoalRow({
   label,
   value,
   unit,
-  step = 1,
   accent,
   onChange,
 }: GoalRowSpec & { accent: string }) {
-  const dec = () => onChange(Math.max(0, value - step));
-  const inc = () => onChange(value + step);
   return (
     <div
       className="flex flex-col gap-1.5 p-3 rounded-2xl bg-white"
@@ -988,15 +985,6 @@ function GoalRow({
         {label}
       </span>
       <div className="flex items-center gap-1">
-        <button
-          type="button"
-          onClick={dec}
-          className="w-6 h-6 flex items-center justify-center rounded-full text-[14px] font-bold leading-none active:scale-90 transition-transform"
-          style={{ color: accent }}
-          aria-label={`减少 ${label}`}
-        >
-          −
-        </button>
         <input
           type="number"
           min={0}
@@ -1005,24 +993,12 @@ function GoalRow({
             const n = Math.max(0, Math.round(Number(e.target.value) || 0));
             onChange(n);
           }}
-          className="w-12 bg-transparent text-center text-[16px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          className="w-14 bg-transparent text-left text-[16px] font-extrabold tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           style={{ color: "var(--foreground)" }}
         />
-        <button
-          type="button"
-          onClick={inc}
-          className="w-6 h-6 flex items-center justify-center rounded-full text-[14px] font-bold leading-none active:scale-90 transition-transform"
-          style={{ color: accent }}
-          aria-label={`增加 ${label}`}
-        >
-          +
-        </button>
         <span
-          className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-md"
-          style={{
-            color: accent,
-            background: `color-mix(in oklab, ${accent} 14%, white)`,
-          }}
+          className="text-[10px] font-bold"
+          style={{ color: accent }}
         >
           {unit}
         </span>
