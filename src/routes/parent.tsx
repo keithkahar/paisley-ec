@@ -686,7 +686,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[78px]"
+      className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 min-h-[64px]"
       style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
     >
       <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
