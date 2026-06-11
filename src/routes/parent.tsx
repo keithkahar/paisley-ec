@@ -623,13 +623,13 @@ function WordieBento({
           </div>
           <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
             <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="3" fill="none" />
+              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="4.8" fill="none" />
               <circle
                 cx="25"
                 cy="25"
                 r="22"
                 stroke={tint(95)}
-                strokeWidth="3"
+                strokeWidth="4.8"
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
