@@ -867,7 +867,7 @@ function VocabFunnel({
                 {total}
               </span>
               <span
-                className="text-[11px] font-semibold"
+                className="text-[9px] font-semibold"
                 style={{ color: tint(70) }}
               >
                 词
@@ -878,7 +878,7 @@ function VocabFunnel({
               style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
-              className="mt-1.5 text-[9px] font-semibold tracking-[0.22em] uppercase"
+              className="mt-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase"
               style={{ color: tint(72) }}
             >
               学习词库
