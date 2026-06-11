@@ -535,6 +535,129 @@ function WordieBento({
   );
 }
 
+function TalkBento({
+  accent,
+  tint,
+  bento,
+}: {
+  accent: string;
+  tint: (pct: number) => string;
+  bento: BentoLayout;
+}) {
+  const STREAK_GOAL = 14;
+  const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / STREAK_GOAL) * 100));
+  const STREAK_SIZE = 84;
+  const STREAK_STROKE = 6;
+  const R = (STREAK_SIZE - STREAK_STROKE) / 2;
+  const C = 2 * Math.PI * R;
+  return (
+    <div className="space-y-3">
+      {/* Row 1: 连续练习 hero (3x2) + 本周对话轮次 + 本周对话时长 */}
+      <div className="grid grid-cols-6 grid-rows-2 gap-3">
+        <div
+          className="col-span-3 row-span-2 rounded-3xl px-4 py-4 grid place-items-center text-white relative overflow-hidden"
+          style={{ background: accent }}
+        >
+          <span className="absolute top-3 left-4 text-[11px] font-bold opacity-90">
+            {bento.hero.label}
+          </span>
+          <div
+            className="relative grid place-items-center"
+            style={{ width: STREAK_SIZE, height: STREAK_SIZE }}
+          >
+            <svg
+              width={STREAK_SIZE}
+              height={STREAK_SIZE}
+              viewBox={`0 0 ${STREAK_SIZE} ${STREAK_SIZE}`}
+              className="absolute inset-0 -rotate-90"
+            >
+              <circle cx={STREAK_SIZE / 2} cy={STREAK_SIZE / 2} r={R} stroke="rgba(255,255,255,0.18)" strokeWidth={STREAK_STROKE} fill="none" />
+              <circle
+                cx={STREAK_SIZE / 2}
+                cy={STREAK_SIZE / 2}
+                r={R}
+                stroke="white"
+                strokeWidth={STREAK_STROKE}
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={`${(ringPct / 100) * C} ${C}`}
+              />
+            </svg>
+            <div className="relative text-center leading-none">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-[28px] font-bold tabular-nums" style={{ letterSpacing: "-0.03em" }}>
+                  {bento.hero.value}
+                </span>
+                <span className="text-[11px] font-bold opacity-85">{bento.hero.unit}</span>
+              </div>
+            </div>
+          </div>
+          <span className="absolute right-4 bottom-3 text-[10px] font-medium leading-none flex items-baseline gap-1">
+            目标
+            <span className="font-bold tabular-nums">{STREAK_GOAL}</span>
+            {bento.hero.unit}
+          </span>
+          <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+        </div>
+        <StatCard accent={accent} tint={tint} label={bento.smallA.label} value={bento.smallA.value} unit={bento.smallA.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.smallB.label} value={bento.smallB.value} unit={bento.smallB.unit} />
+      </div>
+
+      {/* Row 2: 本周主动提问 (ring, white) + 本周发言轮次 (tinted) */}
+      <div className="grid grid-cols-6 gap-3">
+        <div
+          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 h-16"
+          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
+        >
+          <div className="min-w-0 flex flex-col gap-0.5">
+            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
+              本周主动
+            </p>
+            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
+              提问
+            </p>
+          </div>
+          <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
+            <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
+              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="4.8" fill="none" />
+              <circle
+                cx="25"
+                cy="25"
+                r="22"
+                stroke={tint(95)}
+                strokeWidth="4.8"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
+              />
+            </svg>
+            <span
+              className="text-[12px] font-bold relative tabular-nums leading-none"
+              style={{ letterSpacing: "-0.02em", color: tint(95) }}
+            >
+              {bento.ring.value}
+            </span>
+          </div>
+        </div>
+        <StatCard
+          accent={accent}
+          tint={tint}
+          label={bento.trend.label}
+          value={bento.trend.value}
+          unit={bento.trend.unit}
+        />
+      </div>
+
+      {/* Row 3: 剩下的板块 — 完整表达 / 本周对话用词 / 目标词使用 */}
+      <div className="grid grid-cols-6 gap-3">
+        <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} />
+      </div>
+    </div>
+  );
+}
+
 function StatCard({
   accent,
   tint,
