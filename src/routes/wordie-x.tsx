@@ -1033,8 +1033,11 @@ function PreviewFull({
       </div>
       <div className="flex-1 overflow-y-auto px-5 pb-6">
         <div
-          className="rounded-[2rem] p-6 bg-white"
-          style={{ border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)" }}
+          className="rounded-[2rem] p-6 bg-white flex flex-col overflow-hidden"
+          style={{
+            border: "1px solid color-mix(in oklab, var(--wordie) 30%, white)",
+            height: "28rem"
+          }}
         >
           <div className="flex items-center">
             <div className="flex items-center gap-1.5 min-w-0">
@@ -1050,9 +1053,9 @@ function PreviewFull({
             </div>
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-2 text-center">
             <h2
-              className="font-medium text-[46px] leading-none"
+              className="font-medium text-[40px] leading-none"
               style={{
                 color: "var(--wordie)",
                 letterSpacing: "-0.02em"
@@ -1065,12 +1068,12 @@ function PreviewFull({
             </p>
           </div>
 
-          <div className="mt-10 space-y-6">
+          <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
             <div>
-              <p className="text-[10px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
+              <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-xs font-semibold leading-snug text-foreground"
+                  className="flex-1 text-[17px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {note.definitionEn || note.content}
@@ -1085,10 +1088,10 @@ function PreviewFull({
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-semibold tracking-[0.08em] text-muted-foreground">Example</p>
+              <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Example</p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-xs font-semibold leading-snug text-foreground"
+                  className="flex-1 text-[17px] font-semibold leading-relaxed text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(note.exampleSentence, note.word)}
@@ -1103,12 +1106,12 @@ function PreviewFull({
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-3 gap-2 mt-12">
-            <MiniStat label="Status" value={capitalize(note.learnStatus)} />
-            <MiniStat label="Level" value={note.cefrLevel} />
-            <MiniStat label="Next" value={note.nextReviewLabel} />
-          </div>
+        </div>
+        {/* Three pills below card */}
+        <div className="px-0 mt-6 grid grid-cols-3 gap-3">
+          <MiniStat label="Status" value={capitalize(note.learnStatus)} />
+          <MiniStat label="Level" value={note.cefrLevel} />
+          <MiniStat label="Next" value={note.nextReviewLabel} />
         </div>
         <div className="mt-8 flex flex-col items-center">
           <button
