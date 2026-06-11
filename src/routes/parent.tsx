@@ -866,7 +866,7 @@ function VocabFunnel({
             ))}
           </svg>
           <span
-            className="relative text-[14px] font-bold tabular-nums leading-none -translate-y-2"
+            className="relative text-[22px] font-bold tabular-nums leading-none -translate-y-2"
             style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
           >
             {total}
