@@ -27,7 +27,7 @@ function Home() {
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </div>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-[6.5rem] pb-0">
+        <section className="relative px-6 pt-[5.25rem] sm:pt-[6.5rem] pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -43,16 +43,16 @@ function Home() {
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6"
+          className="relative -mt-5 flex-1 bg-card px-6 sm:px-7 pt-9 sm:pt-[60px] pb-6"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight text-foreground text-center"
+            className="text-[22px] sm:text-[26px] leading-[1.2] font-semibold tracking-tight text-foreground text-center text-balance"
             style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
-            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.3]">
+            <span className="block mt-4 sm:mt-5 text-[22px] sm:text-[26px] text-foreground/80 font-normal leading-[1.3]">
               Are you ready for today's <span className="font-semibold text-foreground">English adventure?</span>
             </span>
           </h1>
@@ -60,11 +60,12 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="relative isolate mt-10 flex items-center justify-center gap-[8px] rounded-full py-4 font-bold text-white active:scale-[0.98] transition-transform"
+            className="relative isolate mt-8 sm:mt-10 flex items-center justify-center gap-[8px] rounded-full py-4 px-4 font-bold text-white tracking-tight active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               fontFamily: "var(--font-sans)",
-              fontSize: "17.25px",
+              fontSize: "17px",
+              letterSpacing: "-0.01em",
             }}
           >
             <Mic className="shrink-0" style={{ width: "1.15em", height: "1.15em" }} />
