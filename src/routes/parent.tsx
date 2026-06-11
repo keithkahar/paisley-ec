@@ -162,7 +162,7 @@ function ParentPage() {
           <div className="grid grid-cols-6 gap-2.5">
             <div
               className="col-span-4 rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]"
-              style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
+              style={{ background: accent }}
             >
               <span className="text-[10px] font-bold opacity-90">{bento.hero.label}</span>
               <div className="flex items-baseline">
