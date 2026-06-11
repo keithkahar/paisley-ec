@@ -56,7 +56,7 @@ function TopicsPage() {
             >
               Pick A Topic
             </h1>
-            <p className="mt-1 text-[14px] font-bold tracking-tight text-muted-foreground">
+            <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
               Let's talk about it.
             </p>
           </div>
@@ -95,7 +95,7 @@ function TopicsPage() {
                 </div>
                 <div className="px-3 py-3">
                   <p
-                    className="text-[17px] font-bold tracking-tight leading-none whitespace-nowrap text-center"
+                    className="text-[17px] font-semibold tracking-tight leading-none whitespace-nowrap text-center"
                     style={{ color: PINK, letterSpacing: "-0.015em" }}
                   >
                     {t.title}

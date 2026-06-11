@@ -169,7 +169,7 @@ function SmartReadingPage() {
             >
               <div className="min-w-0 flex flex-col gap-1.5">
                 <p
-                  className="text-[17px] font-bold tracking-tight leading-none"
+                  className="text-[17px] font-semibold tracking-tight leading-none"
                   style={{ color: PINK, letterSpacing: "-0.01em" }}
                 >
                   {currentPack.title}
@@ -201,7 +201,7 @@ function SmartReadingPage() {
                       style={active ? { background: PINK_SOFT } : undefined}
                     >
                       <div className="min-w-0 flex flex-col gap-1.5">
-                        <p className="text-[15px] font-bold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
+                        <p className="text-[15px] font-semibold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
                           {p.title}
                         </p>
                         <div className="flex items-center gap-1.5 flex-wrap">
@@ -255,7 +255,7 @@ function SmartReadingPage() {
                       {u.emoji}
                     </div>
                     <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
-                      <p className="text-[17px] font-bold tracking-tight leading-tight" style={{ letterSpacing: "-0.01em" }}>
+                      <p className="text-[17px] font-semibold tracking-tight leading-tight" style={{ letterSpacing: "-0.01em" }}>
                         {u.story_title}
                       </p>
                       <p className="mt-0.5 text-[11px] font-semibold line-clamp-1 text-foreground/60">
@@ -289,7 +289,7 @@ function SmartReadingPage() {
 function MiniPill({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-flex items-center rounded-full px-2.5 py-1 text-[12px] font-bold leading-none bg-white"
+      className="inline-flex items-center rounded-full px-2.5 py-1 text-[12px] font-semibold leading-none bg-white"
       style={{ color: PINK }}
     >
       {children}

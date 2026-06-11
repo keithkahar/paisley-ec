@@ -228,7 +228,7 @@ function EditProfilePage() {
             </div>
             {form.avatarPath ? (
               <>
-                <p className="mt-2 text-[11px] font-bold text-muted-foreground">
+                <p className="mt-2 text-[11px] font-semibold text-muted-foreground">
                   Drag and scroll to adjust
                 </p>
                 <input
@@ -273,7 +273,7 @@ function EditProfilePage() {
                     key={opt.key}
                     type="button"
                     onClick={() => onGenderChange(opt.key)}
-                    className="h-8 px-4 rounded-full text-[14px] font-bold transition-colors"
+                    className="h-8 px-4 rounded-full text-[14px] font-semibold transition-colors"
                     style={
                       active
                         ? { background: opt.color, color: "white" }
@@ -292,7 +292,7 @@ function EditProfilePage() {
             <button
               type="button"
               onClick={() => setShowBirthdayPicker(true)}
-              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-bold"
+              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-semibold"
               style={{
                 letterSpacing: "-0.01em",
                 color: form.birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)"
@@ -310,7 +310,7 @@ function EditProfilePage() {
           <button
             type="button"
             onClick={onSave}
-            className="w-full h-12 rounded-full text-[15px] font-bold active:scale-[0.99] transition-transform"
+            className="w-full h-12 rounded-full text-[15px] font-semibold active:scale-[0.99] transition-transform"
             style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
           >
             Save
@@ -321,7 +321,7 @@ function EditProfilePage() {
         {toast && (
           <div className="pointer-events-none absolute inset-x-0 bottom-24 z-40 flex justify-center">
             <div
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-bold shadow-lg"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-semibold shadow-lg"
               style={{ background: YELLOW, color: "white" }}
             >
               <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
@@ -355,7 +355,7 @@ function RowPill({ label, children }: { label: string; children: React.ReactNode
         }}
     >
       <span
-        className="shrink-0 text-[15px] font-bold leading-none"
+        className="shrink-0 text-[15px] font-semibold leading-none"
         style={{ color: YELLOW, letterSpacing: "-0.01em" }}
       >
         {label}
@@ -403,7 +403,7 @@ function NamePill({
         <button
           type="button"
           onClick={() => setEditing(true)}
-          className="w-full truncate text-right text-[15px] font-bold text-foreground"
+          className="w-full truncate text-right text-[15px] font-semibold text-foreground"
           style={{ letterSpacing: "-0.01em" }}
         >
           {givenName.trim()} {familyName.trim()}
@@ -418,7 +418,7 @@ function NamePill({
             value={givenName}
             onChange={(e) => onGivenNameChange(e.target.value)}
             placeholder="Given Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-semibold text-foreground placeholder:text-muted-foreground"
             style={{ letterSpacing: "-0.01em" }}
           />
           <input
@@ -426,7 +426,7 @@ function NamePill({
             value={familyName}
             onChange={(e) => onFamilyNameChange(e.target.value)}
             placeholder="Family Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-bold text-foreground placeholder:text-muted-foreground"
+            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-semibold text-foreground placeholder:text-muted-foreground"
             style={{ letterSpacing: "-0.01em" }}
           />
         </div>
@@ -535,7 +535,7 @@ function AvatarDraggable({
         />
       ) : (
         <span
-          className="text-[56px] font-bold leading-none"
+          className="text-[56px] font-semibold leading-none"
           style={{ color: YELLOW, letterSpacing: "-0.02em" }}
         >
           {initials}
@@ -607,12 +607,12 @@ function BirthdaySheet({
           <button
             type="button"
             onClick={onCancel}
-            className="text-[13px] font-bold text-muted-foreground w-12 text-left"
+            className="text-[13px] font-semibold text-muted-foreground w-12 text-left"
           >
             Cancel
           </button>
           <p
-            className="text-[17px] font-bold tracking-tight leading-none"
+            className="text-[17px] font-semibold tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: YELLOW }}
           >
             Birthday
@@ -620,7 +620,7 @@ function BirthdaySheet({
           <button
             type="button"
             onClick={confirm}
-            className="text-[13px] font-bold w-12 text-right"
+            className="text-[13px] font-semibold w-12 text-right"
             style={{ color: YELLOW }}
           >
             Done
@@ -652,13 +652,13 @@ function BirthdaySheet({
                 }
               >
                 <span
-                  className="block text-[11px] font-bold leading-none opacity-80"
+                  className="block text-[11px] font-semibold leading-none opacity-80"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {t.label}
                 </span>
                 <span
-                  className="block text-[17px] font-bold leading-tight mt-0.5"
+                  className="block text-[17px] font-semibold leading-tight mt-0.5"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {t.value}
@@ -729,7 +729,7 @@ function ChipGrid({
             key={it.key}
             type="button"
             onClick={() => onPick(it.key)}
-            className="h-11 rounded-xl text-[13px] font-bold transition-colors"
+            className="h-11 rounded-xl text-[13px] font-semibold transition-colors"
             style={
               active
                 ? {

@@ -52,32 +52,32 @@ function ShirinTalkPage() {
             Hi, I'm Shirin!
           </h2>
           <p
-            className="mt-1 text-[15px] text-foreground/70 font-bold tracking-tight"
+            className="mt-1 text-[15px] text-foreground/70 font-semibold tracking-tight"
             style={{ letterSpacing: "-0.01em" }}
           >
             Let's practise English together.
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               7 days
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               116 words
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               318 min
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               1,240 Bp
@@ -96,7 +96,7 @@ function ShirinTalkPage() {
                     {dayLabels[i]}
                   </span>
                   <span
-                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
+                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-semibold"
                     style={
                       isToday
                         ? { color: PINK, border: `1.5px solid ${PINK}` }
@@ -144,7 +144,7 @@ function ShirinTalkPage() {
                     />
                   )}
                 </span>
-                <span className="text-[17px] font-bold tracking-tight leading-none" style={{ letterSpacing: "-0.01em", color: PINK }}>
+                <span className="text-[17px] font-semibold tracking-tight leading-none" style={{ letterSpacing: "-0.01em", color: PINK }}>
                   {c.title}
                 </span>
               </Link>

@@ -352,11 +352,11 @@ function WordieTestPage() {
           </Link>
           {mode === "quiz" || mode === "info" ? (
             <div className="flex items-center gap-2">
-              <span className="text-[12px] font-bold text-muted-foreground">
+              <span className="text-[12px] font-semibold text-muted-foreground">
                 {mode === "info" ? 1 : stageIdx + 2} / 7
               </span>
               <span
-                className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold"
+                className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold"
                 style={{
                   background:
                     mode === "info"
@@ -367,7 +367,7 @@ function WordieTestPage() {
               >
                 {mode === "info" ? "Info" : STAGE_META[stageKey].label}
               </span>
-              <span className="inline-flex items-center gap-1 text-[12px] font-bold text-muted-foreground">
+              <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
                 <Clock className="h-3.5 w-3.5" />
                 {fmtTime(mode === "info" ? 0 : seconds)}
               </span>
@@ -427,7 +427,7 @@ function WordieTestPage() {
 
         {/* Toast */}
         {toast && (
-          <div className="fixed left-1/2 bottom-24 -translate-x-1/2 z-40 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-bold">
+          <div className="fixed left-1/2 bottom-24 -translate-x-1/2 z-40 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-semibold">
             {toast}
           </div>
         )}
@@ -458,16 +458,16 @@ function LockedView() {
       >
         <Lock className="h-6 w-6" />
       </div>
-      <p className="font-bold text-[16px]">Wordie Test is locked for now</p>
+      <p className="font-semibold text-[16px]">Wordie Test is locked for now</p>
       <p className="text-[13px] text-muted-foreground mt-1">Available in 4 days</p>
       <div className="mt-4 grid grid-cols-2 gap-2 text-left">
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
-          <p className="text-[12px] font-bold text-muted-foreground">Last Wordie Test</p>
-          <p className="text-[13px] font-bold mt-1">Jun 5 · #02</p>
+          <p className="text-[12px] font-semibold text-muted-foreground">Last Wordie Test</p>
+          <p className="text-[13px] font-semibold mt-1">Jun 5 · #02</p>
         </div>
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
-          <p className="text-[12px] font-bold text-muted-foreground">Next Wordie Test</p>
-          <p className="text-[13px] font-bold mt-1">Jun 12 · #03</p>
+          <p className="text-[12px] font-semibold text-muted-foreground">Next Wordie Test</p>
+          <p className="text-[13px] font-semibold mt-1">Jun 12 · #03</p>
         </div>
       </div>
     </div>
@@ -480,12 +480,12 @@ function InfoView({ onStart }: { onStart: () => void }) {
     <div>
       <section className="rounded-3xl bg-white border border-border p-5">
         <p
-          className="text-[20px] font-bold leading-none"
+          className="text-[20px] font-semibold leading-none"
           style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
         >
           #03
         </p>
-        <ul className="mt-4 space-y-2 text-[13px] font-bold">
+        <ul className="mt-4 space-y-2 text-[13px] font-semibold">
           {[
             "Finish the test to see your result.",
             "Each audio can be played 2 times.",
@@ -507,7 +507,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
 
       <button
         onClick={onStart}
-        className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        className="mt-5 w-full rounded-full py-3 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
         style={{ background: "var(--wordie)", fontSize: "17.25px" }}
       >
         <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
@@ -578,16 +578,16 @@ function QuizView({
       >
         <div className="flex items-center justify-between">
           <h2
-            className="text-[24px] font-bold leading-none"
+            className="text-[24px] font-semibold leading-none"
             style={{ letterSpacing: "-0.01em" }}
           >
             {meta.label}
           </h2>
-          <span className="text-[11px] font-bold rounded-full bg-white/22 px-2 py-0.5">
+          <span className="text-[11px] font-semibold rounded-full bg-white/22 px-2 py-0.5">
             {meta.points} Pt
           </span>
         </div>
-        <p className="mt-2 text-[13px] font-bold opacity-95">{meta.note}</p>
+        <p className="mt-2 text-[13px] font-semibold opacity-95">{meta.note}</p>
       </section>
 
       {/* Questions */}
@@ -613,7 +613,7 @@ function QuizView({
         {stageIdx > 0 && (
           <button
             onClick={onPrev}
-            className="flex-1 rounded-full py-3.5 font-bold border border-border bg-white text-[14px]"
+            className="flex-1 rounded-full py-3.5 font-semibold border border-border bg-white text-[14px]"
             style={{ color: "var(--wordie)" }}
           >
             Previous
@@ -621,7 +621,7 @@ function QuizView({
         )}
         <button
           onClick={onNext}
-          className="flex-[2] rounded-full py-3.5 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
+          className="flex-[2] rounded-full py-3.5 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
           style={{
             background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)"
           }}
@@ -662,7 +662,7 @@ function QuestionCard({
       {/* Header row */}
       <div className="flex items-center gap-3">
         <span
-          className="h-7 w-7 grid place-items-center rounded-full text-[12px] font-bold shrink-0"
+          className="h-7 w-7 grid place-items-center rounded-full text-[12px] font-semibold shrink-0"
           style={{
             background: "color-mix(in oklab, var(--wordie) 12%, white)",
             color: "var(--wordie)"
@@ -686,7 +686,7 @@ function QuestionCard({
         {q.stage === "pronunciationSpeak" && (
           <div className="flex items-baseline gap-2">
             <span
-              className="text-[20px] font-bold"
+              className="text-[20px] font-semibold"
               style={{ letterSpacing: "-0.01em" }}
             >
               {q.word}
@@ -701,7 +701,7 @@ function QuestionCard({
           q.stage !== "pronunciationSpeak" &&
           q.stage !== "spelling" && (
             <span
-              className="text-[20px] font-bold"
+              className="text-[20px] font-semibold"
               style={{ letterSpacing: "-0.01em" }}
             >
               {q.word}
@@ -730,7 +730,7 @@ function QuestionCard({
           >
             <Mic className="h-6 w-6" />
           </button>
-          <p className="text-[12px] font-bold text-muted-foreground">
+          <p className="text-[12px] font-semibold text-muted-foreground">
             {recording
               ? "Recording…"
               : answer?.record
@@ -753,7 +753,7 @@ function QuestionCard({
                 key={c.id}
                 type="button"
                 onClick={() => onPick(c.id)}
-                className="rounded-2xl border px-3 py-2.5 text-left text-[14px] font-bold transition-colors"
+                className="rounded-2xl border px-3 py-2.5 text-left text-[14px] font-semibold transition-colors"
                 style={{
                   background: selected
                     ? "color-mix(in oklab, var(--wordie) 10%, white)"
@@ -800,7 +800,7 @@ function ResultView({
       >
         <div>
           <h2
-            className="text-center text-[22px] font-bold leading-none"
+            className="text-center text-[22px] font-semibold leading-none"
             style={{
               letterSpacing: "-0.01em",
               color: "white"
@@ -817,22 +817,22 @@ function ResultView({
             />
           </div>
         </div>
-        <p className="mt-7 text-[13px] font-bold opacity-90">
+        <p className="mt-7 text-[13px] font-semibold opacity-90">
           Your Wordie Test score
         </p>
         <p
-          className="mt-2 text-[46px] font-bold leading-none"
+          className="mt-2 text-[46px] font-semibold leading-none"
           style={{ letterSpacing: "-0.02em" }}
         >
           {score}
-          <span className="text-[24px] opacity-90 font-bold ml-1" style={{ letterSpacing: "-0.01em" }}>%</span>
+          <span className="text-[24px] opacity-90 font-semibold ml-1" style={{ letterSpacing: "-0.01em" }}>%</span>
         </p>
-        <p className="mt-2 text-[13px] font-bold opacity-90">
+        <p className="mt-2 text-[13px] font-semibold opacity-90">
           {correct} / {total} correct
         </p>
         <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
             style={{
               background: "color-mix(in oklab, var(--wordie) 14%, white)",
               color: "var(--wordie)"
@@ -841,7 +841,7 @@ function ResultView({
             Test Time {timeText}
           </span>
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
             style={{
               background: "color-mix(in oklab, var(--bloxia) 14%, white)",
               color: "var(--bloxia)"
@@ -861,8 +861,8 @@ function ResultView({
             return (
               <div key={s} className="px-4 py-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-[13px] font-bold">{STAGE_META[s].label}</p>
-                  <p className="text-[12px] font-bold text-muted-foreground">
+                  <p className="text-[13px] font-semibold">{STAGE_META[s].label}</p>
+                  <p className="text-[12px] font-semibold text-muted-foreground">
                     {d.correct} / {d.total}
                   </p>
                 </div>
@@ -877,7 +877,7 @@ function ResultView({
 
       {/* Answer review */}
       <section className="mt-5">
-        <p className="text-[14px] font-bold text-foreground mb-2 px-1">
+        <p className="text-[14px] font-semibold text-foreground mb-2 px-1">
           Answer Review
         </p>
         <div className="space-y-4">
@@ -885,7 +885,7 @@ function ResultView({
             const items = results.filter((r) => r.q.stage === s);
             return (
               <div key={s}>
-                <p className="text-[11px] font-bold text-muted-foreground px-1 mb-1.5">
+                <p className="text-[11px] font-semibold text-muted-foreground px-1 mb-1.5">
                   {STAGE_META[s].label}
                 </p>
                 <div className="rounded-2xl bg-white border border-border divide-y divide-border overflow-hidden">
@@ -895,10 +895,10 @@ function ResultView({
                       onClick={() => onReview(r.q.id)}
                       className="w-full flex items-center gap-3 px-4 py-2.5 text-left active:bg-muted/40"
                     >
-                      <span className="text-[11px] font-bold text-muted-foreground w-5">
+                      <span className="text-[11px] font-semibold text-muted-foreground w-5">
                         Q{idx + 1}
                       </span>
-                      <span className="flex-1 text-[13px] font-bold">{r.q.word}</span>
+                      <span className="flex-1 text-[13px] font-semibold">{r.q.word}</span>
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white"
                         style={{ background: r.correct ? "var(--wordie)" : "var(--wordie-accent)" }}
@@ -916,7 +916,7 @@ function ResultView({
 
       <Link
         to="/mywordie"
-        className="mt-5 w-full rounded-full py-3 font-bold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        className="mt-5 w-full rounded-full py-3 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
         style={{ background: "var(--wordie)", fontSize: "17.25px" }}
       >
         <span>Back to myWordie</span>
@@ -941,7 +941,7 @@ function ReviewOverlay({
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative w-full max-w-[360px] bg-white rounded-3xl p-5 max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between">
-          <p className="text-[13px] font-bold text-muted-foreground">
+          <p className="text-[13px] font-semibold text-muted-foreground">
             {STAGE_META[question.stage].label}
           </p>
           <button onClick={onClose} className="h-7 w-7 grid place-items-center rounded-full bg-muted/40">
@@ -949,7 +949,7 @@ function ReviewOverlay({
           </button>
         </div>
         <p
-          className="mt-2 text-[22px] font-bold"
+          className="mt-2 text-[22px] font-semibold"
           style={{ letterSpacing: "-0.01em" }}
         >
           {question.word}
@@ -957,7 +957,7 @@ function ReviewOverlay({
 
         {question.stage === "pronunciationSpeak" ? (
           <div className="mt-4 rounded-2xl bg-muted/30 p-3 text-[13px]">
-            <p className="font-bold">Pronunciation score</p>
+            <p className="font-semibold">Pronunciation score</p>
             <p className="text-muted-foreground mt-0.5">
               {answer?.record
                 ? `${answer.record.score} · ${
@@ -978,7 +978,7 @@ function ReviewOverlay({
               return (
                 <div
                   key={c.id}
-                  className="rounded-2xl border px-3 py-2.5 text-[13px] font-bold flex items-center justify-between"
+                  className="rounded-2xl border px-3 py-2.5 text-[13px] font-semibold flex items-center justify-between"
                   style={{
                     background: isRight
                       ? "color-mix(in oklab, var(--wordie) 10%, white)"

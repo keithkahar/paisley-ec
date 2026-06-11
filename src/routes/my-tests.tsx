@@ -190,21 +190,21 @@ function MyTestsPage() {
             style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 10%, white)` }}
           >
             <div>
-              <p className="text-[11px] font-bold leading-none" style={{ color: CEFR_ACCENT }}>
+              <p className="text-[11px] font-semibold leading-none" style={{ color: CEFR_ACCENT }}>
                 Current CEFR Level
               </p>
               <p
-                className="mt-2 text-[32px] leading-none font-bold tracking-tight"
+                className="mt-2 text-[32px] leading-none font-semibold tracking-tight"
                 style={{ color: CEFR_ACCENT, letterSpacing: "-0.02em" }}
               >
                 {latestCefr.level}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+              <p className="text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
                 Last test
               </p>
-              <p className="text-[12px] font-bold" style={{ color: "var(--foreground)" }}>
+              <p className="text-[12px] font-semibold" style={{ color: "var(--foreground)" }}>
                 {latestCefr.date}
               </p>
             </div>
@@ -216,7 +216,7 @@ function MyTestsPage() {
             onClick={() => setOpenCefr((v) => !v)}
             className="mt-3 w-full flex items-center justify-between py-1.5"
           >
-            <span className="text-[12px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+            <span className="text-[12px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
               History · {CEFR_HISTORY.length}
             </span>
             <ChevronDown
@@ -234,7 +234,7 @@ function MyTestsPage() {
                 <div key={h.id} className="w-full flex items-center gap-3 px-4 py-3">
                   <div className="min-w-0 flex-1">
                     <p
-                      className="font-bold text-[15px] truncate leading-tight text-foreground"
+                      className="font-semibold text-[15px] truncate leading-tight text-foreground"
                       style={{ letterSpacing: "-0.01em" }}
                     >
                       {h.level}
@@ -244,12 +244,12 @@ function MyTestsPage() {
                     </p>
                     <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
                       <span
-                        className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                        className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                         style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
                       >
                         {h.code}
                       </span>
-                      <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                      <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
                         {h.date}
                       </span>
                     </div>
@@ -268,17 +268,17 @@ function MyTestsPage() {
           <div className="mt-3 rounded-2xl p-4 border border-[var(--input)]">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-[11px] font-bold leading-none" style={{ color: WORDIE_ACCENT }}>
+                <p className="text-[11px] font-semibold leading-none" style={{ color: WORDIE_ACCENT }}>
                   Average Score
                 </p>
                 <p
-                  className="mt-2 text-[32px] leading-none font-bold tracking-tight"
+                  className="mt-2 text-[32px] leading-none font-semibold tracking-tight"
                   style={{ color: WORDIE_ACCENT, letterSpacing: "-0.02em" }}
                 >
                   {wordieAvg}%
                 </p>
               </div>
-              <p className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+              <p className="text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
                 Last {ALL_WORDIE_TESTS.length} tests
               </p>
             </div>
@@ -291,7 +291,7 @@ function MyTestsPage() {
             onClick={() => setOpenWordie((v) => !v)}
             className="mt-3 w-full flex items-center justify-between py-1.5"
           >
-            <span className="text-[12px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+            <span className="text-[12px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
               History · {ALL_WORDIE_TESTS.length}
             </span>
             <ChevronDown
@@ -316,12 +316,12 @@ function MyTestsPage() {
                     >
                       <div className="min-w-0 flex-1">
                         <p
-                          className="font-bold text-[15px] truncate leading-tight text-foreground"
+                          className="font-semibold text-[15px] truncate leading-tight text-foreground"
                           style={{ letterSpacing: "-0.01em" }}
                         >
                           {t.score}%
                           <span
-                            className="ml-2 text-[13px] font-bold align-baseline"
+                            className="ml-2 text-[13px] font-semibold align-baseline"
                             style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
                           >
                             {t.correct}/{t.total}
@@ -332,17 +332,17 @@ function MyTestsPage() {
                         </p>
                         <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
                           <span
-                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                             style={{ background: `color-mix(in oklab, ${WORDIE_ACCENT} 12%, white)`, color: WORDIE_ACCENT }}
                           >
                             {t.code}
                           </span>
-                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
                             {t.date}
                           </span>
                           {t.reviews.length > 0 && (
                             <span
-                              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                               style={{ background: "color-mix(in oklab, var(--wordie-accent) 14%, white)", color: "var(--wordie-accent)" }}
                             >
                               {t.reviews.length} to review
@@ -358,7 +358,7 @@ function MyTestsPage() {
 
                     {expanded && (
                       <div className="px-4 pb-4 pt-1 bg-muted/30">
-                        <p className="mt-2 text-[11px] font-bold" style={{ color: WORDIE_ACCENT }}>
+                        <p className="mt-2 text-[11px] font-semibold" style={{ color: WORDIE_ACCENT }}>
                           Result
                         </p>
                         <div className="mt-2 space-y-2">
@@ -366,7 +366,7 @@ function MyTestsPage() {
                             const pct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0;
                             return (
                               <div key={d.key}>
-                                <div className="flex items-center justify-between text-[11px] font-bold">
+                                <div className="flex items-center justify-between text-[11px] font-semibold">
                                   <span style={{ color: "var(--foreground)" }}>{d.label}</span>
                                   <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
                                     {d.correct}/{d.total}
@@ -385,7 +385,7 @@ function MyTestsPage() {
 
                         {t.reviews.length > 0 && (
                           <>
-                            <p className="mt-4 text-[11px] font-bold" style={{ color: WORDIE_ACCENT }}>
+                            <p className="mt-4 text-[11px] font-semibold" style={{ color: WORDIE_ACCENT }}>
                               Questions · {t.reviews.length} to review
                             </p>
                             <ul className="mt-2 space-y-2">
@@ -396,11 +396,11 @@ function MyTestsPage() {
                                   style={{ background: "white" }}
                                 >
                                   <div className="flex items-center justify-between">
-                                    <span className="text-[11px] font-bold" style={{ color: "var(--foreground)" }}>
+                                    <span className="text-[11px] font-semibold" style={{ color: "var(--foreground)" }}>
                                       Q{r.idx} · {r.dim}
                                     </span>
                                     <span
-                                      className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                                      className="inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-full"
                                       style={
                                         r.correct
                                           ? { background: "color-mix(in oklab, var(--bloxia) 14%, white)", color: "var(--bloxia)" }
@@ -439,7 +439,7 @@ function SectionHeader({ title, actionLabel, accent, to }: { title: string; acti
   return (
     <div className="flex items-center justify-between">
       <h2
-        className="text-[16px] font-bold"
+        className="text-[16px] font-semibold"
         style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
       >
         {title}
@@ -447,7 +447,7 @@ function SectionHeader({ title, actionLabel, accent, to }: { title: string; acti
       {to ? (
         <Link
           to={to}
-          className="inline-flex items-center text-[12px] font-bold px-3 h-7 rounded-full"
+          className="inline-flex items-center text-[12px] font-semibold px-3 h-7 rounded-full"
           style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
         >
           {actionLabel}
@@ -455,7 +455,7 @@ function SectionHeader({ title, actionLabel, accent, to }: { title: string; acti
       ) : (
         <button
           type="button"
-          className="text-[12px] font-bold px-3 h-7 rounded-full"
+          className="text-[12px] font-semibold px-3 h-7 rounded-full"
           style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
         >
           {actionLabel}

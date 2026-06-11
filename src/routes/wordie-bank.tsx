@@ -254,7 +254,7 @@ function WordieBankPage() {
           <button
             type="button"
             onClick={() => (selectMode ? exitSelect() : setSelectMode(true))}
-            className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
             style={{ color: selectMode ? "var(--wordie)" : "var(--foreground)" }}
           >
             {selectMode ? <Check className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
@@ -264,7 +264,7 @@ function WordieBankPage() {
             <button
               type="button"
               onClick={openBatch}
-              className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
               style={{ color: "var(--wordie)" }}
             >
               {selectedSummary} •••
@@ -273,7 +273,7 @@ function WordieBankPage() {
             <button
               type="button"
               onClick={() => filtered.length > 0 && setPreviewIdx(0)}
-              className="text-[13px] font-bold"
+              className="text-[13px] font-semibold"
               style={{ color: "var(--wordie)" }}
             >
               Preview
@@ -342,7 +342,7 @@ function WordieBankPage() {
         </div>
 
         {/* Count row */}
-        <div className="mt-3 flex items-center justify-between text-[12px] font-bold">
+        <div className="mt-3 flex items-center justify-between text-[12px] font-semibold">
           <span className="text-muted-foreground">{filtered.length} cards</span>
           <div className="flex items-center gap-3">
             {selectMode && (
@@ -402,7 +402,7 @@ function WordieBankPage() {
                     )}
                     <div className="min-w-0 flex-1">
                       <p
-                        className="font-bold text-[20px] truncate leading-tight text-foreground"
+                        className="font-semibold text-[20px] truncate leading-tight text-foreground"
                         style={{ letterSpacing: "-0.01em" }}
                       >
                         {w.word}
@@ -412,7 +412,7 @@ function WordieBankPage() {
                       </p>
                       <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
                         <span
-                          className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                          className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                           style={{
                             background: "color-mix(in oklab, var(--wordie) 12%, white)",
                             color: "var(--wordie)"
@@ -420,7 +420,7 @@ function WordieBankPage() {
                         >
                           {capitalize(w.partOfSpeech)}
                         </span>
-                        <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+                        <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
                           {w.cefrLevel}
                         </span>
                         <StatusBadge status={w.status} />
@@ -455,7 +455,7 @@ function WordieBankPage() {
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <span className="w-12" />
               <p
-                className="text-[17px] font-bold tracking-tight leading-none"
+                className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 Batch Actions
@@ -463,7 +463,7 @@ function WordieBankPage() {
               <button
                 type="button"
                 onClick={() => setBatchOpen(false)}
-                className="text-[13px] font-bold w-12 text-right"
+                className="text-[13px] font-semibold w-12 text-right"
                 style={{ color: "var(--wordie)" }}
               >
                 Done
@@ -505,7 +505,7 @@ function WordieBankPage() {
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <span className="w-12" />
               <p
-                className="text-[17px] font-bold tracking-tight leading-none"
+                className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 {openSheet === "level"
@@ -517,7 +517,7 @@ function WordieBankPage() {
               <button
                 type="button"
                 onClick={() => setOpenSheet(null)}
-                className="text-[13px] font-bold w-12 text-right"
+                className="text-[13px] font-semibold w-12 text-right"
                 style={{ color: "var(--wordie)" }}
               >
                 Done
@@ -585,7 +585,7 @@ function WordieBankPage() {
         <div className="fixed inset-0 z-50 grid place-items-center px-8">
           <div className="absolute inset-0 bg-black/40" onClick={() => setResetConfirm(false)} />
           <div className="relative w-full max-w-[360px] bg-white rounded-2xl p-5 text-center">
-            <p className="font-bold text-[15px]">Reset Progress?</p>
+            <p className="font-semibold text-[15px]">Reset Progress?</p>
             <p className="text-[12px] text-muted-foreground mt-1">
               Selected cards will become New again.
             </p>
@@ -593,14 +593,14 @@ function WordieBankPage() {
               <button
                 type="button"
                 onClick={() => setResetConfirm(false)}
-                className="rounded-full py-2.5 text-[13px] font-bold bg-muted"
+                className="rounded-full py-2.5 text-[13px] font-semibold bg-muted"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={resetProgress}
-                className="rounded-full py-2.5 text-[13px] font-bold text-white"
+                className="rounded-full py-2.5 text-[13px] font-semibold text-white"
                 style={{ background: "var(--destructive)" }}
               >
                 Reset
@@ -626,7 +626,7 @@ function WordieBankPage() {
 
       {/* Toast */}
       {toast && (
-        <div className="fixed left-1/2 bottom-10 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-bold">
+        <div className="fixed left-1/2 bottom-10 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-semibold">
           {toast}
         </div>
       )}
@@ -666,12 +666,12 @@ function FilterDropdown({
     >
       <span className="flex items-baseline gap-1 min-w-0">
         <span
-          className="text-xs font-bold opacity-70"
+          className="text-xs font-semibold opacity-70"
         >
           {label}
         </span>
         <span
-          className="text-[12px] font-bold truncate"
+          className="text-[12px] font-semibold truncate"
           style={!active ? { color: "var(--wordie)" } : undefined}
         >
           {value}
@@ -687,7 +687,7 @@ function SheetRow({ label, active, onClick }: { label: string; active?: boolean;
     <button
       type="button"
       onClick={onClick}
-      className="w-full flex items-center justify-between py-3 text-left text-[14px] font-bold"
+      className="w-full flex items-center justify-between py-3 text-left text-[14px] font-semibold"
       style={{ color: active ? "var(--wordie)" : "var(--foreground)" }}
     >
       <span>{label}</span>
@@ -704,7 +704,7 @@ const FOCUS_PILL_COLOR = "oklch(0.7 0.24 340)";
 function FocusPill() {
   return (
     <span
-      className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+      className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
       style={{
         background: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 22%, white)`,
         color: `color-mix(in oklab, ${FOCUS_PILL_COLOR} 70%, black)`
@@ -732,7 +732,7 @@ function SheetBtn({
     <button
       type="button"
       onClick={onClick}
-      className="w-full rounded-2xl py-3 text-[14px] font-bold text-center"
+      className="w-full rounded-2xl py-3 text-[14px] font-semibold text-center"
       style={{
         background: muted ? "var(--muted)" : "white",
         color: danger ? "var(--destructive)" : muted ? "var(--foreground)" : "var(--wordie)",
@@ -767,7 +767,7 @@ function PreviewFull({
         <button type="button" onClick={onClose} aria-label="Close">
           <X className="h-5 w-5" />
         </button>
-        <p className="text-[12px] font-bold text-muted-foreground">
+        <p className="text-[12px] font-semibold text-muted-foreground">
           {index + 1}/{total} cards
         </p>
         <div className="w-5" />
@@ -783,7 +783,7 @@ function PreviewFull({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 min-w-0">
               <span
-                className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                 style={{
                   background: "color-mix(in oklab, var(--wordie) 12%, white)",
                   color: "var(--wordie)"
@@ -791,7 +791,7 @@ function PreviewFull({
               >
                 {capitalize(word.partOfSpeech)}
               </span>
-              <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-bold bg-muted text-muted-foreground">
+              <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
                 {word.cefrLevel}
               </span>
               <StatusBadge status={word.status} />
@@ -825,12 +825,12 @@ function PreviewFull({
           {/* Example + Word in use — both left-aligned */}
           <div className="mt-10 space-y-6">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
+              <p className="text-[10px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Definition
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-xs font-bold leading-snug text-foreground"
+                  className="flex-1 text-xs font-semibold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {word.definitionEn}
@@ -845,12 +845,12 @@ function PreviewFull({
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-bold tracking-[0.08em] text-muted-foreground">
+              <p className="text-[10px] font-semibold tracking-[0.08em] text-muted-foreground">
                 Example
               </p>
               <div className="mt-2 flex items-start gap-3">
                 <p
-                  className="flex-1 text-xs font-bold leading-snug text-foreground"
+                  className="flex-1 text-xs font-semibold leading-snug text-foreground"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {renderExample(word.exampleSentence, word.word)}
@@ -879,19 +879,19 @@ function PreviewFull({
           type="button"
           onClick={onPrev}
           disabled={prevDisabled}
-          className="text-[13px] font-bold disabled:opacity-30"
+          className="text-[13px] font-semibold disabled:opacity-30"
           style={{ color: "var(--wordie)" }}
         >
           Previous
         </button>
-        <span className="text-[12px] font-bold text-muted-foreground">
+        <span className="text-[12px] font-semibold text-muted-foreground">
           {index + 1} / {total}
         </span>
         <button
           type="button"
           onClick={onNext}
           disabled={nextDisabled}
-          className="text-[13px] font-bold disabled:opacity-30"
+          className="text-[13px] font-semibold disabled:opacity-30"
           style={{ color: "var(--wordie)" }}
         >
           Next
@@ -907,11 +907,11 @@ function MiniStat({ label, value }: { label: string; value: string }) {
       className="rounded-2xl px-3 py-2 text-center"
       style={{ background: "color-mix(in oklab, var(--wordie) 10%, white)" }}
     >
-      <p className="text-xs font-bold tracking-[0.08em] text-muted-foreground">
+      <p className="text-xs font-semibold tracking-[0.08em] text-muted-foreground">
         {label}
       </p>
       <p
-        className="text-xs font-bold mt-0.5 truncate"
+        className="text-xs font-semibold mt-0.5 truncate"
         style={{ color: "var(--wordie)" }}
       >
         {value}

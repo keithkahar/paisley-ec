@@ -445,7 +445,7 @@ function ChatPage() {
             {attachmentOpen && !shareMode && (
               <div className="mx-4 mb-2 rounded-2xl bg-white border border-border shadow-sm p-3">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-[12px] font-bold inline-flex items-center gap-1">
+                  <p className="text-[12px] font-semibold inline-flex items-center gap-1">
                     <ImageIcon className="h-3.5 w-3.5" style={{ color: PINK }} />
                     Photo album
                   </p>
@@ -474,14 +474,14 @@ function ChatPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={confirmShare}
-                    className="flex-1 h-11 rounded-full font-bold text-white text-[14px]"
+                    className="flex-1 h-11 rounded-full font-semibold text-white text-[14px]"
                     style={{ background: PINK }}
                   >
                     Share to WeChat
                   </button>
                   <button
                     onClick={() => setShareMode(false)}
-                    className="h-11 px-5 rounded-full font-bold border border-border bg-white text-[14px]"
+                    className="h-11 px-5 rounded-full font-semibold border border-border bg-white text-[14px]"
                   >
                     Cancel
                   </button>
@@ -536,7 +536,7 @@ function ChatPage() {
                         }}
                         onPointerUp={() => setHolding(false)}
                         onPointerLeave={() => setHolding(false)}
-                        className={`flex-1 h-10 rounded-full text-[13px] font-bold border ${holding ? "text-white" : ""}`}
+                        className={`flex-1 h-10 rounded-full text-[13px] font-semibold border ${holding ? "text-white" : ""}`}
                         style={{
                           background: holding ? PINK : PINK_SOFT,
                           borderColor: PINK,
@@ -810,7 +810,7 @@ function CommentsSheet({
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
         <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-border">
-          <h3 className="text-[15px] font-bold">Comments {count}</h3>
+          <h3 className="text-[15px] font-semibold">Comments {count}</h3>
           <button onClick={onClose} className="h-8 w-8 rounded-full grid place-items-center" aria-label="Close">
             <X className="h-4 w-4" />
           </button>
@@ -825,14 +825,14 @@ function CommentsSheet({
             comments.map((c, i) => (
               <div key={i} className="flex gap-2.5">
                 <div
-                  className="h-8 w-8 rounded-full grid place-items-center text-[12px] font-bold text-white shrink-0"
+                  className="h-8 w-8 rounded-full grid place-items-center text-[12px] font-semibold text-white shrink-0"
                   style={{ background: PINK }}
                 >
                   {c.name.charAt(0)}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <p className="text-[13px] font-bold">{c.name}</p>
+                    <p className="text-[13px] font-semibold">{c.name}</p>
                     <button
                       onClick={() => onToggleLike(i)}
                       className="inline-flex items-center gap-1 text-[11px] font-semibold"
@@ -852,13 +852,13 @@ function CommentsSheet({
                       {c.replies.map((r, j) => (
                         <div key={j} className="flex gap-2">
                           <div
-                            className="h-6 w-6 rounded-full grid place-items-center text-[10px] font-bold text-white shrink-0"
+                            className="h-6 w-6 rounded-full grid place-items-center text-[10px] font-semibold text-white shrink-0"
                             style={{ background: PINK }}
                           >
                             {r.name.charAt(0)}
                           </div>
                           <div className="flex-1">
-                            <p className="text-[12px] font-bold">{r.name}</p>
+                            <p className="text-[12px] font-semibold">{r.name}</p>
                             <p className="text-[12px] mt-0.5">{r.text}</p>
                             <p className="text-[10px] text-muted-foreground mt-0.5">{r.date}</p>
                           </div>
@@ -893,7 +893,7 @@ function CommentsSheet({
             />
             <button
               onClick={onSend}
-              className="h-9 px-4 rounded-full text-white font-bold text-[13px]"
+              className="h-9 px-4 rounded-full text-white font-semibold text-[13px]"
               style={{ background: PINK }}
             >
               Send

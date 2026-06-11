@@ -65,7 +65,7 @@ function ProfilePage() {
                 <img src={PROFILE.avatarPath} alt={DISPLAY_NAME} className="h-full w-full object-cover" />
               ) : (
                 <span
-                  className="text-[56px] font-bold leading-none"
+                  className="text-[56px] font-semibold leading-none"
                   style={{ color: PAISLEY, letterSpacing: "-0.02em" }}
                 >
                   {INITIALS}
@@ -89,20 +89,20 @@ function ProfilePage() {
           </h2>
           {/* Registration date — mirrors ShirinTalk subtitle position */}
           <p
-            className="mt-1 text-[13px] leading-none font-bold"
+            className="mt-1 text-[13px] leading-none font-semibold"
             style={{ color: PAISLEY_YELLOW }}
           >
             Reg. {PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })} {PROFILE.registeredAt.getDate()} {PROFILE.registeredAt.getFullYear()}
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
               Age {PROFILE.age}
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
               CEFR {PROFILE.cefr}
@@ -127,7 +127,7 @@ function ProfilePage() {
                     {dayLabels[i]}
                   </span>
                   <span
-                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
+                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-semibold"
                     style={
                       isToday
                         ? { color: PAISLEY, border: `1.5px solid ${PAISLEY}` }
@@ -200,7 +200,7 @@ function PillLink({
         <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
       </span>
       <span
-        className="text-[17px] font-bold tracking-tight leading-none"
+        className="text-[17px] font-semibold tracking-tight leading-none"
         style={{ letterSpacing: "-0.01em", color: PAISLEY }}
       >
         {title}

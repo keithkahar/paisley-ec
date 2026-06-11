@@ -65,19 +65,19 @@ function MyWordiePage() {
           <div>
             <div className="flex items-baseline justify-center gap-2">
               <span
-                className="text-[46px] font-bold leading-none"
+                className="text-[46px] font-semibold leading-none"
                 style={{ letterSpacing: "-0.02em" }}
               >
                 {cardsTotal}
               </span>
               <span
-                className="text-[24px] opacity-90 font-bold leading-none"
+                className="text-[24px] opacity-90 font-semibold leading-none"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 cards
               </span>
             </div>
-            <p className="mt-1 text-center text-[13px] font-bold opacity-90">
+            <p className="mt-1 text-center text-[13px] font-semibold opacity-90">
               {reviewCount} review · {newCount} new
             </p>
           </div>
@@ -85,7 +85,7 @@ function MyWordiePage() {
           {/* Start word card — white pill */}
           <Link
             to="/word-card"
-            className="flex items-center justify-center gap-2 rounded-full py-3 font-bold active:scale-[0.98] transition-transform"
+            className="flex items-center justify-center gap-2 rounded-full py-3 font-semibold active:scale-[0.98] transition-transform"
             style={{
               color: "var(--wordie)",
               background: "white",
@@ -100,25 +100,25 @@ function MyWordiePage() {
           {/* Streak + Bp pills — match ShirinTalk position (mt-3 inside hero) */}
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
           <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
             7 days
           </span>
           <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
             230 cards
           </span>
           <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
             318 min
           </span>
           <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-bold bg-white h-7"
+            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
             1,240 Bp
@@ -140,7 +140,7 @@ function MyWordiePage() {
                     {dayLabels[i]}
                   </span>
                   <span
-                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-bold"
+                    className="h-8 w-8 grid place-items-center rounded-full text-[13px] font-semibold"
                     style={
                       isToday
                         ? { color: WORDIE, border: `1.5px solid ${WORDIE}` }
@@ -188,7 +188,7 @@ function PillLink({
         <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: WORDIE }} />
       </span>
       <span
-        className="text-[17px] font-bold tracking-tight leading-none"
+        className="text-[17px] font-semibold tracking-tight leading-none"
         style={{ letterSpacing: "-0.01em", color: WORDIE }}
       >
         {title}
