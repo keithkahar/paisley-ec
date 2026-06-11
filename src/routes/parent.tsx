@@ -577,9 +577,13 @@ function WordieBento({
               <div className="text-[10px] font-medium opacity-80 mt-1 tracking-wide">{bento.hero.unit}</div>
             </div>
           </div>
-          <div className="flex items-center justify-between text-[10px] font-medium opacity-80 pt-1 border-t border-white/15">
-            <span className="tracking-wide">Goal · 14 {bento.hero.unit}</span>
-            <span className="tabular-nums font-semibold">{ringPct}%</span>
+          <div className="flex items-center justify-between pt-1">
+            <span className="text-[11px] font-medium opacity-85 tracking-wide">
+              目标 14 {bento.hero.unit}
+            </span>
+            <span className="text-[14px] font-semibold tabular-nums" style={{ letterSpacing: "-0.02em" }}>
+              {ringPct}%
+            </span>
           </div>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         </div>
@@ -599,38 +603,39 @@ function WordieBento({
           unit={bento.trend.unit}
         />
         <div
-          className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 text-white relative overflow-hidden"
-          style={{
-            background: `linear-gradient(135deg, ${accent}, color-mix(in oklab, ${accent} 80%, black))`,
-            boxShadow: `0 12px 26px -18px ${accent}`,
-          }}
+          className="col-span-3 rounded-2xl px-4 py-3 flex items-center justify-between gap-3 min-h-[68px]"
+          style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
-            <p className="text-[9px] font-semibold tracking-[0.1em] uppercase opacity-75">
+            <p className="text-[12px] font-semibold leading-tight" style={{ color: tint(80) }}>
               Wordie Test
             </p>
-            <p className="text-[12px] font-semibold leading-tight">平均分</p>
+            <p className="text-[11px] font-medium leading-tight" style={{ color: tint(65) }}>
+              平均分
+            </p>
           </div>
           <div className="relative w-14 h-14 grid place-items-center shrink-0">
             <svg viewBox="0 0 56 56" className="absolute inset-0 -rotate-90">
-              <circle cx="28" cy="28" r="23" stroke="rgba(255,255,255,0.2)" strokeWidth="4" fill="none" />
+              <circle cx="28" cy="28" r="23" stroke={tint(18)} strokeWidth="4" fill="none" />
               <circle
                 cx="28"
                 cy="28"
                 r="23"
-                stroke="white"
+                stroke={accent}
                 strokeWidth="4"
                 fill="none"
                 strokeLinecap="round"
                 strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 23} ${2 * Math.PI * 23}`}
               />
             </svg>
-            <span className="text-[12px] font-semibold relative tabular-nums" style={{ letterSpacing: "-0.02em" }}>
+            <span
+              className="text-[14px] font-semibold relative tabular-nums"
+              style={{ letterSpacing: "-0.02em", color: accent }}
+            >
               {bento.ring.pct}
-              <span className="text-[8px] font-medium opacity-80 ml-0.5">%</span>
+              <span className="text-[9px] font-medium ml-0.5" style={{ color: tint(70) }}>%</span>
             </span>
           </div>
-          <div className="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-white/10 blur-2xl pointer-events-none" />
         </div>
       </div>
 
@@ -669,9 +674,9 @@ function StatCard({
   return (
     <div
       className="col-span-3 rounded-2xl px-4 py-3 flex flex-col gap-1.5 min-h-[68px]"
-      style={{ background: tint(8), border: `1px solid ${tint(16)}` }}
+      style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
     >
-      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(72) }}>
+      <span className="text-[10px] font-semibold tracking-wide" style={{ color: tint(75) }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
@@ -681,7 +686,7 @@ function StatCard({
         >
           {value}
         </span>
-        <span className="text-[11px] font-medium" style={{ color: tint(70) }}>{unit}</span>
+        <span className="text-[11px] font-medium" style={{ color: tint(65) }}>{unit}</span>
       </div>
     </div>
   );
@@ -841,27 +846,27 @@ function VocabFunnel({
             </g>
           </svg>
           <div className="relative flex flex-col items-center leading-none">
-            <div className="flex items-baseline gap-0.5">
+            <div className="flex items-baseline gap-1">
               <span
-                className="text-[30px] font-semibold tabular-nums"
+                className="text-[34px] font-semibold tabular-nums"
                 style={{ color: accent, letterSpacing: "-0.04em" }}
               >
                 {total}
               </span>
               <span
-                className="text-[11px] font-medium"
-                style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                className="text-[12px] font-semibold"
+                style={{ color: tint(70) }}
               >
                 词
               </span>
             </div>
             <div
-              className="mt-1.5 h-px w-7"
-              style={{ background: `color-mix(in oklab, ${accent} 30%, white)` }}
+              className="mt-2 h-[2px] w-8 rounded-full"
+              style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
             />
             <span
-              className="mt-1.5 text-[10px] font-semibold tracking-[0.12em]"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              className="mt-2 text-[10px] font-semibold tracking-[0.22em] uppercase"
+              style={{ color: tint(72) }}
             >
               学习词库
             </span>
@@ -874,22 +879,30 @@ function VocabFunnel({
             const pct = total > 0 ? Math.round((s.value / total) * 100) : 0;
             return (
               <div key={i}>
-                <div className="flex items-baseline justify-between text-[10px]">
+                <div className="flex items-baseline justify-between">
                   <span
-                    className="font-semibold tracking-wide"
+                    className="text-[11px] font-semibold tracking-wide"
                     style={{ color: tint(shades[i] < 50 ? 78 : shades[i]) }}
                   >
                     {s.label}
                   </span>
                   <span className="flex items-baseline gap-1.5 tabular-nums">
-                    <span className="font-semibold" style={{ color: "var(--foreground)" }}>{s.value}</span>
-                    <span className="font-medium" style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}>
+                    <span
+                      className="text-[16px] font-semibold leading-none"
+                      style={{ color: accent, letterSpacing: "-0.02em" }}
+                    >
+                      {s.value}
+                    </span>
+                    <span
+                      className="text-[11px] font-medium"
+                      style={{ color: tint(60) }}
+                    >
                       {pct}%
                     </span>
                   </span>
                 </div>
                 <div
-                  className="mt-1 h-1 rounded-full overflow-hidden"
+                  className="mt-1.5 h-1 rounded-full overflow-hidden"
                   style={{ background: tint(10) }}
                 >
                   <div
