@@ -792,15 +792,11 @@ function VocabFunnel({
   stages: VocabStage[];
 }) {
   const total = stages.reduce((s, x) => s + x.value, 0);
-  // Stadium (pill) geometry — single track split into 4 proportional arcs
-  const W = 168;
-  const H = 96;
+  // Donut geometry — single ring split into 4 proportional arcs
+  const SIZE = 116;
   const STROKE = 8;
-  const innerW = W - STROKE;
-  const innerH = H - STROKE;
-  const RX = innerH / 2;
-  // Pill perimeter = 2 * (straightLen) + π * innerH
-  const C = 2 * (innerW - innerH) + Math.PI * innerH;
+  const R = (SIZE - STROKE) / 2;
+  const C = 2 * Math.PI * R;
   const GAP = 0;
   const shades = [22, 42, 65, 95];
   let acc = 0;
@@ -821,46 +817,41 @@ function VocabFunnel({
         <div
           className="relative shrink-0 grid place-items-center"
           style={{
-            width: W,
-            height: H,
+            width: SIZE,
+            height: SIZE,
             background: `radial-gradient(closest-side, ${tint(6)} 0%, transparent 70%)`,
             borderRadius: "9999px",
           }}
         >
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="absolute inset-0">
-            <rect
-              x={STROKE / 2}
-              y={STROKE / 2}
-              width={innerW}
-              height={innerH}
-              rx={RX}
-              ry={RX}
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
+            <circle
+              cx={SIZE / 2}
+              cy={SIZE / 2}
+              r={R}
               fill="none"
               stroke={tint(10)}
               strokeWidth={STROKE}
             />
-            {arcs.map((a, i) => (
-              <rect
-                key={i}
-                x={STROKE / 2}
-                y={STROKE / 2}
-                width={innerW}
-                height={innerH}
-                rx={RX}
-                ry={RX}
-                fill="none"
-                stroke={a.color}
-                strokeWidth={STROKE}
-                strokeLinecap="round"
-                pathLength={C}
-                strokeDasharray={`${a.drawLen} ${C}`}
-                strokeDashoffset={a.offset}
-              />
-            ))}
+            <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
+              {arcs.map((a, i) => (
+                <circle
+                  key={i}
+                  cx={SIZE / 2}
+                  cy={SIZE / 2}
+                  r={R}
+                  fill="none"
+                  stroke={a.color}
+                  strokeWidth={STROKE}
+                  strokeLinecap="round"
+                  strokeDasharray={`${a.drawLen} ${C}`}
+                  strokeDashoffset={a.offset}
+                />
+              ))}
+            </g>
           </svg>
           <div className="relative leading-none">
             <span
-              className="text-[22px] font-bold tabular-nums"
+              className="text-[14px] font-bold tabular-nums"
               style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
             >
               {total}
