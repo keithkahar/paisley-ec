@@ -168,7 +168,7 @@ function ProfilePage() {
         </section>
 
         {/* Hidden admin entry — absolutely positioned so it doesn't push action pills upward */}
-        <div className="absolute bottom-1 left-0 right-0 z-20">
+        <div className="absolute bottom-6 left-0 right-0 z-20">
           <VersionTap />
         </div>
       </div>
