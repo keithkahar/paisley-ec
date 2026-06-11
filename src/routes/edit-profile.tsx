@@ -17,7 +17,6 @@ const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
 const YELLOW = "var(--paisley-yellow)";
 const YELLOW_SOFT = `color-mix(in oklab, var(--paisley-yellow) 18%, white)`;
-const CHIP_BLUE = "#E8EDFA";
 
 type Gender = "" | "male" | "female";
 type ProfileForm = {

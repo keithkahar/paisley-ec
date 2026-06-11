@@ -30,7 +30,6 @@ const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_YELLOW = "var(--paisley-yellow)";
-const PAISLEY_YELLOW_INK = "#cdae8d";
 const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
