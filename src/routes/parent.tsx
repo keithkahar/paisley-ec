@@ -560,7 +560,7 @@ function TalkBento({
           </div>
           <div
             className="h-1.5 rounded-full overflow-hidden"
-            style={{ background: "oklch(0.95 0.01 240)" }}
+            style={{ background: "var(--input)" }}
           >
             <div
               className="h-full rounded-full"
