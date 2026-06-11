@@ -210,6 +210,7 @@ function WordCardPage() {
                 >
                   {card.word}
                 </h3>
+                <p className="text-[13px] mt-3 font-mono opacity-80">{card.ipa}</p>
               </div>
 
               <div className="flex-1 flex flex-col justify-center gap-5 mt-4">
