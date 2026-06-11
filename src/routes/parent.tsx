@@ -210,13 +210,8 @@ function ParentPage() {
         {/* 设置 */}
         <SectionTitle>设置</SectionTitle>
 
-        <Collapsible
-          open={open.general}
-          onToggle={() => toggle("general")}
-          title="偏好设置"
-          accent={PAISLEY}
-        >
-          <div className="space-y-1">
+        <section className="px-5 pt-3">
+          <div className="rounded-2xl bg-white px-4 py-2 space-y-1">
             <PrefRow
               label="音色"
               value={prefs.voiceName}
@@ -255,12 +250,12 @@ function ParentPage() {
             />
             {prefs.dailyStudyReminder && (
               <div className="flex items-center justify-between py-2.5 px-1">
-                <span className="text-[14px] font-bold">提醒时间</span>
+                <span className="text-[13px] font-bold">提醒时间</span>
                 <input
                   type="time"
                   value={prefs.reminderTime}
                   onChange={(e) => setPrefs((p) => ({ ...p, reminderTime: e.target.value }))}
-                  className="bg-transparent text-[14px] font-bold outline-none"
+                  className="bg-transparent text-[13px] font-bold outline-none"
                   style={{ color: PAISLEY }}
                 />
               </div>
@@ -272,19 +267,19 @@ function ParentPage() {
             />
             <PrefRow label="评价应用" value="" onClick={() => {}} />
             <div className="flex items-center justify-between py-2.5 px-1">
-              <span className="text-[14px] font-bold">版本</span>
-              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+              <span className="text-[13px] font-bold">版本</span>
+              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
                 1.0.0
               </span>
             </div>
             <div className="flex items-center justify-between py-2.5 px-1">
-              <span className="text-[14px] font-bold">Admin Rules</span>
-              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+              <span className="text-[13px] font-bold">Admin Rules</span>
+              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
                 —
               </span>
             </div>
           </div>
-        </Collapsible>
+        </section>
 
         {/* Bottom sheet */}
         {sheet.type && (
