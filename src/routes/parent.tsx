@@ -162,7 +162,7 @@ function ParentPage() {
           <div className="grid grid-cols-6 gap-2.5">
             <div
               className="col-span-4 rounded-2xl px-3 py-2.5 flex flex-col justify-between text-white relative overflow-hidden min-h-[60px]"
-              style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
+              style={{ background: accent }}
             >
               <span className="text-[10px] font-bold opacity-90">{bento.hero.label}</span>
               <div className="flex items-baseline">
@@ -542,9 +542,9 @@ function WordieBento({
   bento: BentoLayout;
 }) {
   const ringPct = Math.min(100, Math.round((Number(bento.hero.value) / 14) * 100));
-  // Streak ring: 50% of the 260 funnel donut (116px) = 58px, stroke = 2x progress bar (4px) = 8px
+  // Streak ring: match the 86% Wordie Test ring stroke (4px)
   const STREAK_SIZE = 58;
-  const STREAK_STROKE = 8;
+  const STREAK_STROKE = 4;
   const R = (STREAK_SIZE - STREAK_STROKE) / 2;
   const C = 2 * Math.PI * R;
   return (
@@ -554,7 +554,7 @@ function WordieBento({
         {/* 连续练习 — tall hero with centered ring */}
         <div
           className="col-span-3 row-span-2 rounded-3xl px-4 py-4 flex flex-col items-center text-white relative overflow-hidden"
-          style={{ background: accent, boxShadow: `0 14px 30px -18px ${accent}` }}
+          style={{ background: accent }}
         >
           <span className="text-[12px] font-semibold tracking-wide opacity-90 self-center">
             连续练习
@@ -610,7 +610,7 @@ function WordieBento({
       <div className="grid grid-cols-6 gap-3">
         <div
           className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 min-h-[64px]"
-          style={{ background: "#ffffff", border: `1px solid ${tint(14)}`, boxShadow: `0 1px 2px -1px ${tint(20)}` }}
+          style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
             <p className="text-[12px] font-semibold leading-tight" style={{ color: tint(82) }}>
@@ -803,7 +803,7 @@ function VocabFunnel({
   const total = stages.reduce((s, x) => s + x.value, 0);
   // Donut geometry — single ring split into 4 proportional arcs
   const SIZE = 116;
-  const STROKE = 12;
+  const STROKE = 8;
   const R = (SIZE - STROKE) / 2;
   const C = 2 * Math.PI * R;
   const GAP = 0;
@@ -819,7 +819,7 @@ function VocabFunnel({
   return (
     <div
       className="col-span-6 rounded-3xl px-5 py-4 bg-white"
-      style={{ border: `1px solid ${tint(14)}`, boxShadow: `0 10px 30px -22px ${accent}` }}
+      style={{ border: `1px solid ${tint(14)}` }}
     >
       <div className="flex items-center gap-5">
         {/* Left: refined 4-segment donut */}
@@ -858,30 +858,15 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex flex-col items-center leading-none -translate-y-1.5">
-            <div className="flex items-baseline gap-1">
-              <span
-                className="text-[16px] font-semibold tabular-nums"
-                style={{ color: accent, letterSpacing: "-0.02em" }}
-              >
-                {total}
-              </span>
-              <span
-                className="text-[9px] font-semibold"
-                style={{ color: tint(70) }}
-              >
-                词
-              </span>
-            </div>
-            <div
-              className="mt-1.5 h-[2px] w-10 rounded-full"
-              style={{ background: `color-mix(in oklab, ${accent} 55%, white)` }}
-            />
+          <div className="relative flex items-baseline gap-1 leading-none">
             <span
-              className="mt-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: tint(78) }}
+              className="text-[14px] font-bold tabular-nums"
+              style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
             >
-              学习词库
+              {total}
+            </span>
+            <span className="text-[10px] font-bold" style={{ color: tint(70) }}>
+              词
             </span>
           </div>
         </div>
@@ -894,29 +879,23 @@ function VocabFunnel({
               <div key={i}>
                 <div className="flex items-baseline justify-between">
                   <span
-                    className="text-[11px] font-semibold tracking-wide"
+                    className="text-[11px] font-bold"
                     style={{ color: tint(shades[i] < 50 ? 78 : shades[i]) }}
                   >
                     {s.label}
                   </span>
                   <span className="flex items-baseline gap-1.5 tabular-nums">
                     <span
-                      className="text-[16px] font-semibold leading-none"
-                      style={{ color: tint(shades[i]), letterSpacing: "-0.02em" }}
+                      className="text-[11px] font-bold leading-none"
+                      style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
                     >
                       {s.value}
-                    </span>
-                    <span
-                      className="text-[11px] font-medium"
-                      style={{ color: tint(60) }}
-                    >
-                      {pct}%
                     </span>
                   </span>
                 </div>
                 <div
-                  className="mt-1.5 h-1 rounded-full overflow-hidden"
-                  style={{ background: tint(10) }}
+                  className="mt-1 h-1.5 rounded-full overflow-hidden"
+                  style={{ background: "oklch(0.95 0.01 240)" }}
                 >
                   <div
                     className="h-full rounded-full"
