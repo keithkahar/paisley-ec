@@ -435,7 +435,7 @@ function MyTestsPage() {
   );
 }
 
-function SectionHeader({ title, actionLabel, accent }: { title: string; actionLabel: string; accent: string }) {
+function SectionHeader({ title, actionLabel, accent, to }: { title: string; actionLabel: string; accent: string; to?: string }) {
   return (
     <div className="flex items-center justify-between">
       <h2
@@ -444,13 +444,23 @@ function SectionHeader({ title, actionLabel, accent }: { title: string; actionLa
       >
         {title}
       </h2>
-      <button
-        type="button"
-        className="text-[12px] font-bold px-3 h-7 rounded-full"
-        style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
-      >
-        {actionLabel}
-      </button>
+      {to ? (
+        <Link
+          to={to}
+          className="inline-flex items-center text-[12px] font-bold px-3 h-7 rounded-full"
+          style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
+        >
+          {actionLabel}
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className="text-[12px] font-bold px-3 h-7 rounded-full"
+          style={{ background: `color-mix(in oklab, ${accent} 12%, white)`, color: accent }}
+        >
+          {actionLabel}
+        </button>
+      )}
     </div>
   );
 }
