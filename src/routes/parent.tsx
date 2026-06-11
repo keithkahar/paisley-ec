@@ -622,7 +622,7 @@ function TalkBento({
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
                 className="text-[22px] font-bold leading-none"
-                style={{ color: "var(--foreground)", letterSpacing: "-0.02em" }}
+                style={{ color: "var(--shirin)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
               </span>
