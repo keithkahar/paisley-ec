@@ -50,7 +50,7 @@ function BloxiaPage() {
         {/* island */}
         <Island />
         {/* floating Bp */}
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[color:var(--bloxia-deep)] shadow">
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[color:var(--bloxia-deep)] shadow">
           Welcome back, builder!
         </div>
       </section>
@@ -69,7 +69,7 @@ function BloxiaPage() {
           type="button"
           disabled
           aria-label="Play Bloxia — coming soon"
-          className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-bold text-white shadow-lg opacity-80 cursor-not-allowed"
+          className="relative isolate flex items-center justify-center gap-[8px] w-full rounded-full py-4 font-semibold text-white shadow-lg opacity-80 cursor-not-allowed"
           style={{
             background: "var(--bloxia)",
             fontSize: "17.25px"
@@ -77,7 +77,7 @@ function BloxiaPage() {
         >
           <Play className="shrink-0 fill-current" style={{ width: "1.15em", height: "1.15em" }} />
           <span className="leading-none">Play Bloxia</span>
-          <span className="ml-2 rounded-full bg-white/25 px-2 py-0.5 text-[11px] font-bold leading-none">Soon</span>
+          <span className="ml-2 rounded-full bg-white/25 px-2 py-0.5 text-[11px] font-semibold leading-none">Soon</span>
         </button>
       </div>
 
@@ -89,8 +89,8 @@ function BloxiaPage() {
 function ResourceChip({ label, value, color }: { label: string; value: number; color: string }) {
   return (
     <div className="flex-1 rounded-2xl bg-white/90 border border-border px-3 py-2 flex items-center justify-between">
-      <span className="text-[11px] font-bold text-muted-foreground">{label}</span>
-      <span className="text-sm font-bold" style={{ color }}>{value}</span>
+      <span className="text-[11px] font-semibold text-muted-foreground">{label}</span>
+      <span className="text-sm font-semibold" style={{ color }}>{value}</span>
     </div>
   );
 }
@@ -103,14 +103,14 @@ function ActionCard({ label, sub, icon, tint }: { label: string; sub: string; ic
       aria-label={`${label} — coming soon`}
       className="relative rounded-2xl bg-white border border-border p-4 flex flex-col items-start gap-2 text-left opacity-90 cursor-not-allowed"
     >
-      <span className="absolute top-2 right-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground leading-none">
+      <span className="absolute top-2 right-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground leading-none">
         Soon
       </span>
       <div className="h-10 w-10 rounded-xl grid place-items-center text-white" style={{ background: tint }}>
         {icon}
       </div>
       <div>
-        <p className="font-bold text-sm" style={{ color: tint }}>{label}</p>
+        <p className="font-semibold text-sm" style={{ color: tint }}>{label}</p>
         <p className="text-[11px] text-muted-foreground">{sub}</p>
       </div>
     </button>

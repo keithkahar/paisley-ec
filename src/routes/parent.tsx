@@ -128,7 +128,7 @@ function ParentPage() {
             Parent Page
           </h1>
           <p
-            className="mt-1 text-[13px] leading-none font-bold"
+            className="mt-1 text-[13px] leading-none font-semibold"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {new Date().toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}
@@ -146,7 +146,7 @@ function ParentPage() {
                   key={k}
                   type="button"
                   onClick={() => setTab(k)}
-                  className="h-9 rounded-full text-[13px] font-bold transition-colors"
+                  className="h-9 rounded-full text-[13px] font-semibold transition-colors"
                   style={{
                     background: active ? "white" : "transparent",
                     color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
@@ -245,12 +245,12 @@ function ParentPage() {
             />
             {prefs.dailyStudyReminder && (
               <div className="flex items-center justify-between py-2.5 px-1">
-                <span className="text-[13px] font-bold">提醒时间</span>
+                <span className="text-[13px] font-semibold">提醒时间</span>
                 <input
                   type="time"
                   value={prefs.reminderTime}
                   onChange={(e) => setPrefs((p) => ({ ...p, reminderTime: e.target.value }))}
-                  className="bg-transparent text-[13px] font-bold outline-none"
+                  className="bg-transparent text-[13px] font-semibold outline-none"
                   style={{ color: PAISLEY }}
                 />
               </div>
@@ -262,14 +262,14 @@ function ParentPage() {
             />
             <PrefRow label="评价应用" value="" onClick={() => {}} />
             <div className="flex items-center justify-between py-2.5 px-1">
-              <span className="text-[13px] font-bold">版本</span>
-              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+              <span className="text-[13px] font-semibold">版本</span>
+              <span className="text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
                 1.0.0
               </span>
             </div>
             <div className="flex items-center justify-between py-2.5 px-1">
-              <span className="text-[13px] font-bold">Admin Rules</span>
-              <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+              <span className="text-[13px] font-semibold">Admin Rules</span>
+              <span className="text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
                 —
               </span>
             </div>
@@ -337,7 +337,7 @@ function WordieBento({
           className="col-span-3 row-span-2 rounded-3xl px-4 py-4 grid place-items-center text-white relative overflow-hidden"
           style={{ background: accent }}
         >
-          <span className="absolute top-3 left-4 text-[11px] font-bold opacity-90">
+          <span className="absolute top-3 left-4 text-[11px] font-semibold opacity-90">
             连续练习
           </span>
           <div
@@ -364,16 +364,16 @@ function WordieBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[28px] font-bold tabular-nums" style={{ letterSpacing: "-0.03em" }}>
+                <span className="text-[28px] font-medium tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                   {bento.hero.value}
                 </span>
-                <span className="text-[11px] font-bold opacity-85">{bento.hero.unit}</span>
+                <span className="text-[11px] font-semibold opacity-85">{bento.hero.unit}</span>
               </div>
             </div>
           </div>
           <span className="absolute right-4 bottom-3 text-[10px] font-medium leading-none flex items-baseline gap-1">
             目标
-            <span className="font-bold tabular-nums">14</span>
+            <span className="font-semibold tabular-nums">14</span>
             {bento.hero.unit}
           </span>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
@@ -391,10 +391,10 @@ function WordieBento({
           style={{ background: "var(--card)", border: `1px solid ${tint(14)}` }}
         >
           <div className="min-w-0 flex flex-col gap-0.5">
-            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
+            <p className="text-[11px] font-semibold leading-tight" style={{ color: tint(95) }}>
               Wordie Test
             </p>
-            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
+            <p className="text-[11px] font-semibold leading-tight" style={{ color: tint(95) }}>
               平均分
             </p>
           </div>
@@ -413,7 +413,7 @@ function WordieBento({
               />
             </svg>
             <span
-              className="text-[12px] font-bold relative tabular-nums leading-none"
+              className="text-[12px] font-semibold relative tabular-nums leading-none"
               style={{ letterSpacing: "-0.02em", color: tint(95) }}
             >
               {bento.ring.pct}%
@@ -471,7 +471,7 @@ function TalkBento({
           className="col-span-3 row-span-2 rounded-3xl px-4 py-4 grid place-items-center text-white relative overflow-hidden"
           style={{ background: accent }}
         >
-          <span className="absolute top-3 left-4 text-[11px] font-bold opacity-90">
+          <span className="absolute top-3 left-4 text-[11px] font-semibold opacity-90">
             {bento.hero.label}
           </span>
           <div
@@ -498,16 +498,16 @@ function TalkBento({
             </svg>
             <div className="relative text-center leading-none">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[28px] font-bold tabular-nums" style={{ letterSpacing: "-0.03em" }}>
+                <span className="text-[28px] font-medium tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                   {bento.hero.value}
                 </span>
-                <span className="text-[11px] font-bold opacity-85">{bento.hero.unit}</span>
+                <span className="text-[11px] font-semibold opacity-85">{bento.hero.unit}</span>
               </div>
             </div>
           </div>
           <span className="absolute right-4 bottom-3 text-[10px] font-medium leading-none flex items-baseline gap-1">
             目标
-            <span className="font-bold tabular-nums">{STREAK_GOAL}</span>
+            <span className="font-semibold tabular-nums">{STREAK_GOAL}</span>
             {bento.hero.unit}
           </span>
           <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10 blur-2xl pointer-events-none" />
@@ -529,18 +529,18 @@ function TalkBento({
           style={{ background: "var(--card)", border: `1px solid ${tint(14)}` }}
         >
           <div className="flex items-baseline justify-between">
-            <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
+            <span className="text-[11px] font-semibold leading-none" style={{ color: tint(95) }}>
               {bento.ring.label}
             </span>
             <span className="flex items-baseline gap-1 tabular-nums">
               <span
-                className="text-[22px] font-bold leading-none"
+                className="text-[22px] font-medium leading-none"
                 style={{ color: "var(--shirin)", letterSpacing: "-0.02em" }}
               >
                 {bento.ring.value}
               </span>
               <span
-                className="text-[11px] font-bold leading-none"
+                className="text-[11px] font-semibold leading-none"
                 style={{ color: "var(--shirin)" }}
               >
                 次
@@ -550,7 +550,7 @@ function TalkBento({
                 style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
               >
                 目标
-                <span className="font-bold tabular-nums">18</span>
+                <span className="font-semibold tabular-nums">18</span>
                 次
               </span>
             </span>
@@ -609,17 +609,17 @@ function StatCard({
       className="col-span-3 rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
       style={{ background: bg, border: `1px solid ${border}` }}
     >
-      <span className="text-[11px] font-bold leading-none" style={{ color: labelColor }}>
+      <span className="text-[11px] font-semibold leading-none" style={{ color: labelColor }}>
         {label}
       </span>
       <div className="flex items-baseline gap-1 mt-auto">
         <span
-          className="text-[22px] font-bold leading-none tabular-nums"
+          className="text-[22px] font-medium leading-none tabular-nums"
           style={{ color: color, letterSpacing: "-0.02em" }}
         >
           {value}
         </span>
-        <span className="text-[11px] font-bold" style={{ color: unitColor }}>{unit}</span>
+        <span className="text-[11px] font-semibold" style={{ color: unitColor }}>{unit}</span>
       </div>
     </div>
   );
@@ -658,12 +658,12 @@ function StreakRingCard({
             strokeDasharray={`${(pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
           />
         </svg>
-        <span className="text-[11px] font-bold relative tabular-nums leading-none text-white">
+        <span className="text-[11px] font-semibold relative tabular-nums leading-none text-white">
           {value}
           {unit}
         </span>
       </div>
-      <p className="text-[11px] font-bold leading-tight text-right min-w-0 flex-1 text-white">
+      <p className="text-[11px] font-semibold leading-tight text-right min-w-0 flex-1 text-white">
         {label}
       </p>
     </div>
@@ -682,7 +682,7 @@ function RingCard({
       className="col-span-3 rounded-2xl px-3 py-2.5 flex items-center justify-between gap-3 min-h-[60px] text-white relative overflow-hidden"
       style={{ background: accent, boxShadow: `0 8px 20px -14px ${accent}` }}
     >
-      <p className="text-[11px] font-bold leading-tight min-w-0 text-white">
+      <p className="text-[11px] font-semibold leading-tight min-w-0 text-white">
         Wordie Test
         <br />
         平均分
@@ -701,7 +701,7 @@ function RingCard({
             strokeDasharray={`${(ring.pct / 100) * 2 * Math.PI * 24} ${2 * Math.PI * 24}`}
           />
         </svg>
-        <span className="text-[11px] font-bold relative tabular-nums" style={{ color: accent }}>
+        <span className="text-[11px] font-semibold relative tabular-nums" style={{ color: accent }}>
           {ring.pct}%
         </span>
       </div>
@@ -786,13 +786,13 @@ function VocabFunnel({
             ))}
           </svg>
           <span
-            className="relative text-[22px] font-bold tabular-nums leading-none -translate-y-2"
+            className="relative text-[22px] font-medium tabular-nums leading-none -translate-y-2"
             style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
           >
             {total}
           </span>
           <span
-            className="absolute left-1/2 -translate-x-1/2 text-[11px] font-bold leading-none whitespace-nowrap"
+            className="absolute left-1/2 -translate-x-1/2 text-[11px] font-semibold leading-none whitespace-nowrap"
             style={{ top: `calc(50% + 12px)`, color: tint(shades[3]) }}
           >
             学习词库
@@ -807,20 +807,20 @@ function VocabFunnel({
               <div key={i}>
                 <div className="flex items-baseline justify-between">
                   <span
-                    className="text-[11px] font-bold"
+                    className="text-[11px] font-semibold"
                     style={{ color: tint(shades[i] < 50 ? 78 : shades[i]) }}
                   >
                     {s.label}
                   </span>
                   <span className="flex items-baseline gap-1 tabular-nums">
                     <span
-                      className="text-[11px] font-bold leading-none"
+                      className="text-[11px] font-semibold leading-none"
                       style={{ color: "var(--foreground)" }}
                     >
                       {s.value}
                     </span>
                     <span
-                      className="text-[11px] font-bold leading-none"
+                      className="text-[11px] font-semibold leading-none"
                       style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
                     >
                       / {pct}%
@@ -848,7 +848,7 @@ function VocabFunnel({
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
-      className="px-6 pt-6 pb-2 text-[13px] font-bold uppercase tracking-wide text-black"
+      className="px-6 pt-6 pb-2 text-[13px] font-semibold uppercase tracking-wide text-black"
     >
       {children}
     </h2>
@@ -879,7 +879,7 @@ function Collapsible({
           onClick={onToggle}
           className="w-full flex items-center justify-between px-4 py-3"
         >
-          <span className="text-[14px] font-bold" style={{ color: accent }}>
+          <span className="text-[14px] font-semibold" style={{ color: accent }}>
             {title}
           </span>
           <ChevronDown
@@ -906,7 +906,7 @@ function NumberRow({
 }) {
   return (
     <div className="flex items-center justify-between gap-3 py-1.5">
-      <span className="text-[13px] font-bold">{label}</span>
+      <span className="text-[13px] font-semibold">{label}</span>
       <div className="flex items-baseline gap-1">
         <input
           type="number"
@@ -916,9 +916,9 @@ function NumberRow({
             const n = Math.max(0, Math.round(Number(e.target.value) || 0));
             onChange(n);
           }}
-          className="w-20 bg-transparent text-right text-[15px] font-bold outline-none border-b border-border focus:border-[color:var(--paisley)] py-0.5"
+          className="w-20 bg-transparent text-right text-[15px] font-semibold outline-none border-b border-border focus:border-[color:var(--paisley)] py-0.5"
         />
-        <span className="text-[12px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+        <span className="text-[12px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
           {unit}
         </span>
       </div>
@@ -969,7 +969,7 @@ function GoalRow({
       style={{ border: `1px solid ${tint(14)}` }}
     >
       <span
-        className="text-[11px] font-bold leading-none"
+        className="text-[11px] font-semibold leading-none"
         style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
       >
         {label}
@@ -982,11 +982,11 @@ function GoalRow({
           const n = Math.max(0, Math.round(Number(e.target.value) || 0));
           onChange(n);
         }}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 bg-transparent text-center text-[18px] font-bold leading-none tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 bg-transparent text-center text-[18px] font-semibold leading-none tabular-nums outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         style={{ color: accent, letterSpacing: "-0.02em" }}
       />
       <span
-        className="text-[11px] font-bold leading-none"
+        className="text-[11px] font-semibold leading-none"
         style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
       >
         {unit}
@@ -1002,8 +1002,8 @@ function PrefRow({ label, value, onClick }: { label: string; value: string; onCl
       onClick={onClick}
       className="w-full flex items-center justify-between py-2.5 px-1 text-left"
     >
-      <span className="text-[13px] font-bold">{label}</span>
-      <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+      <span className="text-[13px] font-semibold">{label}</span>
+      <span className="text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
         {value}
         <ChevronDown className="inline h-4 w-4 -rotate-90 ml-1 align-[-2px]" />
       </span>
@@ -1024,7 +1024,7 @@ function SwitchRow({
 }) {
   return (
     <div className="flex items-center justify-between py-2.5 px-1">
-      <span className="text-[13px] font-bold flex items-center gap-1">
+      <span className="text-[13px] font-semibold flex items-center gap-1">
         {label}
         {info && <HelpCircle className="h-3.5 w-3.5 opacity-50" />}
       </span>
@@ -1080,10 +1080,10 @@ function WordieXCard({
       style={{ background: "color-mix(in oklab, var(--wordie) 6%, white)", border: "1px solid color-mix(in oklab, var(--wordie) 18%, white)" }}
     >
       <div className="flex items-baseline justify-between">
-        <span className="text-[18px] font-bold" style={{ color: WORDIE }}>
+        <span className="text-[18px] font-semibold" style={{ color: WORDIE }}>
           {word}
         </span>
-        <span className="text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+        <span className="text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
           {partOfSpeech} · {cefrLevel} · {source}
         </span>
       </div>
@@ -1091,7 +1091,7 @@ function WordieXCard({
         <Pill color="var(--wordie)">{statusLabel[status]}</Pill>
         {isFocus && <Pill color="var(--paisley)">重点</Pill>}
       </div>
-      <div className="mt-2 flex items-center justify-between text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+      <div className="mt-2 flex items-center justify-between text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
         <span>掌握度 {mastery}%</span>
         <span>下次复习 · {nextReview}</span>
       </div>
@@ -1113,7 +1113,7 @@ function WordieXCard({
 function Pill({ color, children }: { color: string; children: React.ReactNode }) {
   return (
     <span
-      className="px-2 h-5 rounded-full text-[10px] font-bold inline-flex items-center"
+      className="px-2 h-5 rounded-full text-[10px] font-semibold inline-flex items-center"
       style={{ background: `color-mix(in oklab, ${color} 14%, white)`, color }}
     >
       {children}
@@ -1136,7 +1136,7 @@ function ActionPill({
     <button
       type="button"
       onClick={onClick}
-      className="h-7 rounded-full text-[11px] font-bold"
+      className="h-7 rounded-full text-[11px] font-semibold"
       style={{
         background: active ? color : `color-mix(in oklab, ${color} 10%, white)`,
         color: active ? "white" : color
@@ -1167,8 +1167,8 @@ function BottomSheet({
       <div className="relative w-full max-w-md bg-white rounded-t-3xl p-5 pb-8 shadow-2xl">
         <div className="mx-auto w-10 h-1.5 rounded-full bg-[oklch(0.9_0.01_240)] mb-3" />
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-[16px] font-bold">{title}</h3>
-          <button type="button" onClick={onClose} className="text-[13px] font-bold" style={{ color: PAISLEY }}>
+          <h3 className="text-[16px] font-semibold">{title}</h3>
+          <button type="button" onClick={onClose} className="text-[13px] font-semibold" style={{ color: PAISLEY }}>
             完成
           </button>
         </div>
@@ -1188,7 +1188,7 @@ function VoiceSheet({ currentId, onPick }: { currentId: string; onPick: (v: { id
     <div className="space-y-4 max-h-[60vh] overflow-y-auto">
       {groups.map((g) => (
         <div key={g.key}>
-          <p className="text-[11px] font-bold uppercase mb-1.5" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+          <p className="text-[11px] font-semibold uppercase mb-1.5" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
             {g.label}
           </p>
           <div className="space-y-1">
@@ -1205,8 +1205,8 @@ function VoiceSheet({ currentId, onPick }: { currentId: string; onPick: (v: { id
                     color: active ? PAISLEY : "var(--foreground)"
                   }}
                 >
-                  <span className="text-[14px] font-bold">{v.name}</span>
-                  {active && <span className="text-[12px] font-bold">✓</span>}
+                  <span className="text-[14px] font-semibold">{v.name}</span>
+                  {active && <span className="text-[12px] font-semibold">✓</span>}
                 </button>
               );
             })}
@@ -1233,8 +1233,8 @@ function ThemeSheet({ value, onPick }: { value: string; onPick: (id: string) => 
               color: active ? PAISLEY : "var(--foreground)"
             }}
           >
-            <span className="text-[14px] font-bold">{t.label}</span>
-            {active && <span className="text-[12px] font-bold">✓</span>}
+            <span className="text-[14px] font-semibold">{t.label}</span>
+            {active && <span className="text-[12px] font-semibold">✓</span>}
           </button>
         );
       })}
@@ -1246,10 +1246,10 @@ function SpeechRateSheet({ value, onChange }: { value: number; onChange: (v: num
   return (
     <div className="py-2">
       <div className="flex items-baseline justify-between mb-3">
-        <span className="text-[13px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+        <span className="text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
           当前
         </span>
-        <span className="text-[20px] font-bold" style={{ color: PAISLEY }}>
+        <span className="text-[20px] font-semibold" style={{ color: PAISLEY }}>
           {value.toFixed(1)}×
         </span>
       </div>
@@ -1262,7 +1262,7 @@ function SpeechRateSheet({ value, onChange }: { value: number; onChange: (v: num
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full accent-[color:var(--paisley)]"
       />
-      <div className="flex justify-between text-[11px] font-bold mt-1" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
+      <div className="flex justify-between text-[11px] font-semibold mt-1" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
         <span>0.6×</span>
         <span>1.0×</span>
         <span>1.4×</span>

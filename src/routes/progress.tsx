@@ -82,13 +82,13 @@ function ProgressPage() {
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">
           <h1
-            className="text-[26px] leading-[1.2] font-semibold tracking-tight"
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: accent, letterSpacing: "-0.01em" }}
           >
             My Progress
           </h1>
           <p
-            className="mt-1 text-[13px] leading-none font-bold"
+            className="mt-1 text-[13px] leading-none font-semibold"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {dateLabel}
@@ -106,7 +106,7 @@ function ProgressPage() {
                   key={key}
                   type="button"
                   onClick={() => setSource(key)}
-                  className="h-9 rounded-full text-[13px] font-bold transition-colors"
+                  className="h-9 rounded-full text-[13px] font-semibold transition-colors"
                   style={{
                     background: active ? "white" : "transparent",
                     color: active ? c : "color-mix(in oklab, var(--foreground) 55%, white)",
@@ -130,7 +130,7 @@ function ProgressPage() {
                 style={{ background: accentSoft }}
               >
                 <p
-                  className="text-[11px] font-bold leading-none"
+                  className="text-[11px] font-semibold leading-none"
                   style={{ color: accent, letterSpacing: "-0.01em" }}
                 >
                   {c.title}
@@ -138,13 +138,13 @@ function ProgressPage() {
                 <div>
                   <div className="flex items-baseline gap-1">
                     <span
-                      className="text-[22px] font-bold leading-none"
+                      className="text-[22px] font-medium leading-none"
                       style={{ color: accent, letterSpacing: "-0.02em" }}
                     >
                       {c.value}
                     </span>
                     {c.unit && (
-                      <span className="text-[11px] font-bold leading-none" style={{ color: accent }}>
+                      <span className="text-[11px] font-semibold leading-none" style={{ color: accent }}>
                         {c.unit}
                       </span>
                     )}
@@ -165,7 +165,7 @@ function ProgressPage() {
         <section className="px-6 pt-4">
           <div className="rounded-2xl p-4 border border-[var(--input)]">
             <div className="flex items-center justify-between">
-              <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
+              <p className="text-[13px] font-semibold" style={{ color: "var(--foreground)" }}>
                 Trend
               </p>
               <div className="flex gap-1 p-0.5 rounded-full bg-[var(--input)]">
@@ -176,7 +176,7 @@ function ProgressPage() {
                       key={m}
                       type="button"
                       onClick={() => setMode(m)}
-                      className="px-2.5 h-6 rounded-full text-[11px] font-bold transition-colors"
+                      className="px-2.5 h-6 rounded-full text-[11px] font-semibold transition-colors"
                       style={{
                         background: active ? "white" : "transparent",
                         color: active ? accent : "color-mix(in oklab, var(--foreground) 55%, white)"
@@ -195,7 +195,7 @@ function ProgressPage() {
         {/* Goal rings */}
         <section className="px-6 pt-4 pb-8">
           <div className="rounded-2xl p-4 border border-[var(--input)]">
-            <p className="text-[13px] font-bold" style={{ color: "var(--foreground)" }}>
+            <p className="text-[13px] font-semibold" style={{ color: "var(--foreground)" }}>
               Goals
             </p>
             <div className="mt-3 flex items-center gap-4">
@@ -209,7 +209,7 @@ function ProgressPage() {
                 <GoalRow tone={goalTones.week} label="Week" done={data.goals.week.done} total={data.goals.week.total} unit={data.goals.week.unit} />
                 <GoalRow tone={goalTones.month} label="Month" done={data.goals.month.done} total={data.goals.month.total} unit={data.goals.month.unit} />
                 <GoalRow tone={goalTones.year} label="Year" done={data.goals.year.done} total={data.goals.year.total} unit={data.goals.year.unit} />
-                <div className="pt-1 text-[11px] font-bold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                <div className="pt-1 text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
                   Up to Now · {data.goals.total}
                 </div>
               </div>
@@ -341,7 +341,7 @@ function GoalRow({ tone, label, done, total, unit }: { tone: string; label: stri
   const pct = Math.round(clampPct(done / total) * 100);
   return (
     <div>
-      <div className="flex items-center justify-between text-[11px] font-bold">
+      <div className="flex items-center justify-between text-[11px] font-semibold">
         <span style={{ color: tone }}>{label}</span>
         <span style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
           {done} / {total} {unit}
