@@ -861,7 +861,7 @@ function VocabFunnel({
               ))}
             </g>
           </svg>
-          <div className="relative flex flex-col items-center leading-none gap-1">
+          <div className="relative leading-none">
             <span
               className="text-[14px] font-bold tabular-nums"
               style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}
@@ -869,7 +869,7 @@ function VocabFunnel({
               {total}
             </span>
             <span
-              className="text-[11px] font-bold"
+              className="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-[11px] font-bold whitespace-nowrap"
               style={{ color: tint(shades[3]) }}
             >
               学习词库
