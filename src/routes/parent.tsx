@@ -603,76 +603,40 @@ function TalkBento({
         <StatCard accent={accent} tint={tint} label={bento.smallB.label} value={bento.smallB.value} unit={bento.smallB.unit} />
       </div>
 
-      {/* Row 2: 本周主动提问 (ring, white) + 本周发言轮次 (tinted) */}
+      {/* Row 2: 本周主动提问 (full row, white) */}
       <div className="grid grid-cols-6 gap-3">
         <div
-          className="col-span-3 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 h-16"
+          className="col-span-6 rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
           style={{ background: "#ffffff", border: `1px solid ${tint(14)}` }}
         >
-          <div className="min-w-0 flex flex-col gap-0.5">
-            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
-              本周主动
-            </p>
-            <p className="text-[11px] font-bold leading-tight" style={{ color: tint(95) }}>
-              提问
-            </p>
-          </div>
-          <div className="relative grid place-items-center shrink-0" style={{ width: 50, height: 50 }}>
-            <svg width={50} height={50} viewBox="0 0 50 50" className="absolute inset-0 -rotate-90">
-              <circle cx="25" cy="25" r="22" stroke="oklch(0.95 0.01 240)" strokeWidth="4.8" fill="none" />
-              <circle
-                cx="25"
-                cy="25"
-                r="22"
-                stroke={tint(95)}
-                strokeWidth="4.8"
-                fill="none"
-                strokeLinecap="round"
-                strokeDasharray={`${(bento.ring.pct / 100) * 2 * Math.PI * 22} ${2 * Math.PI * 22}`}
-              />
-            </svg>
-            <span
-              className="text-[12px] font-bold relative tabular-nums leading-none"
-              style={{ letterSpacing: "-0.02em", color: tint(95) }}
-            >
-              {bento.ring.value}
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold leading-none" style={{ color: tint(95) }}>
+              {bento.ring.label}
             </span>
-          </div>
-        </div>
-        <StatCard
-          accent={accent}
-          tint={tint}
-          label={bento.trend.label}
-          value={bento.trend.value}
-          unit={bento.trend.unit}
-        />
-      </div>
-
-      {/* Row 3: 剩下的板块 — 完整表达 / 本周对话用词 / 目标词使用 */}
-      <div className="grid grid-cols-6 gap-3">
-        <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
-        <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
-      </div>
-      <div className="grid grid-cols-6 gap-3">
-        <div className="col-span-6">
-          <div
-            className="rounded-2xl px-4 py-2.5 flex flex-col gap-1 h-16"
-            style={{ background: tint(10), border: `1px solid ${tint(18)}` }}
-          >
-            <span className="text-[11px] font-bold leading-none" style={{ color: tint(82) }}>
-              {bento.tall.label}
-            </span>
-            <div className="flex items-baseline gap-1 mt-auto">
+            <div className="flex items-baseline gap-1">
               <span
                 className="text-[22px] font-bold leading-none tabular-nums"
                 style={{ color: accent, letterSpacing: "-0.02em" }}
               >
-                {bento.tall.value}
+                {bento.ring.value}
               </span>
-              <span className="text-[11px] font-bold" style={{ color: tint(70) }}>{bento.tall.unit}</span>
+              <span className="text-[11px] font-bold" style={{ color: tint(70) }}>次</span>
             </div>
           </div>
+          <span className="text-[10px] leading-none mt-auto" style={{ color: tint(50) }}>目标18次</span>
         </div>
+      </div>
+
+      {/* Row 3: 本周对话用词 + 本周目标词使用 */}
+      <div className="grid grid-cols-6 gap-3">
+        <StatCard accent={accent} tint={tint} label={bento.squareB.label} value={bento.squareB.value} unit={bento.squareB.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.tall.label} value={bento.tall.value} unit={bento.tall.unit} />
+      </div>
+
+      {/* Row 4: 本周发言轮次 + 本周完整表达 */}
+      <div className="grid grid-cols-6 gap-3">
+        <StatCard accent={accent} tint={tint} label={bento.trend.label} value={bento.trend.value} unit={bento.trend.unit} />
+        <StatCard accent={accent} tint={tint} label={bento.squareA.label} value={bento.squareA.value} unit={bento.squareA.unit} />
       </div>
     </div>
   );
