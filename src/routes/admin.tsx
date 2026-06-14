@@ -40,6 +40,9 @@ const ACTIVE_BG = "#EAF3FF";
 const SUMMARY_BG = "#F7FAFF";
 const BORDER = "#EEF3FA";
 const PAISLEY = "#0146B9";
+const YELLOW = "#cdae8d";
+const YELLOW_SOFT = "#f7f2ec";
+const YELLOW_BORDER = "#ebd9c2";
 
 const INITIAL_GROUPS: AdminGroup[] = [
   {
