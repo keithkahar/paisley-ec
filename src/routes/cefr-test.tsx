@@ -820,6 +820,8 @@ function ResultView({
   writingWords: number;
   onReview: (id: string) => void;
 }) {
+  const correctCount = results.filter((r) => r.correct).length;
+  const bp = total >= 85 ? 20 : total >= 70 ? 15 : total >= 45 ? 10 : 5;
   return (
     <div>
       {/* Hero */}
@@ -843,7 +845,13 @@ function ResultView({
         >
           {level}
         </p>
-        <p className="mt-2 text-[12px] opacity-90">{cambridge}</p>
+        <p className="mt-5 text-[13px] font-semibold opacity-90">Cambridge English Level</p>
+        <p className="mt-1 text-[18px] font-bold" style={{ letterSpacing: "-0.01em" }}>
+          {cambridge}
+        </p>
+        <p className="mt-2 text-[13px] font-semibold opacity-90">
+          {total} / 100 correct
+        </p>
         <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
@@ -857,11 +865,11 @@ function ResultView({
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
             style={{
-              background: "color-mix(in oklab, var(--paisley-yellow) 80%, white)",
-              color: "#7a5a36",
+              background: "color-mix(in oklab, var(--bloxia) 14%, white)",
+              color: "var(--bloxia)",
             }}
           >
-            {total} / 100 Pts
+            +{bp} Bp
           </span>
         </div>
       </section>
