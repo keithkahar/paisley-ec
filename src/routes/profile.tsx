@@ -169,13 +169,13 @@ function ProfilePage() {
 
       </div>
 
-      {/* Hidden admin entry — fixed just above the bottom tab bar */}
+      {/* About PEC link — fixed just above the bottom tab bar */}
       <div
         className="fixed left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 pointer-events-none"
         style={{ bottom: "calc(max(1rem, env(safe-area-inset-bottom)) + 5.5rem)" }}
       >
         <div className="pointer-events-auto">
-          <VersionTap />
+          <AboutPecLink />
         </div>
       </div>
       <BottomTabBar />
