@@ -460,7 +460,8 @@ function CefrTestPage() {
 }
 
 // ───────── Locked ─────────
-function LockedView() {
+function LockedView({ testNumber }: { testNumber: number }) {
+  const lastNum = Math.max(0, testNumber - 1);
   return (
     <div className="mt-4 rounded-3xl bg-white border border-border p-5 text-center">
       <div
@@ -473,15 +474,15 @@ function LockedView() {
         <Lock className="h-6 w-6" />
       </div>
       <p className="font-semibold text-[16px]">CEFR Test is locked for now</p>
-      <p className="text-[13px] text-muted-foreground mt-1">Available again in 60 days</p>
+      <p className="text-[13px] text-muted-foreground mt-1">Available in 60 days</p>
       <div className="mt-4 grid grid-cols-2 gap-2 text-left">
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
           <p className="text-[12px] font-semibold text-muted-foreground">Last CEFR Test</p>
-          <p className="text-[13px] font-semibold mt-1">Jun 11, 2026</p>
+          <p className="text-[13px] font-semibold mt-1">Jun 11 · #{String(lastNum).padStart(2, "0")}</p>
         </div>
         <div className="rounded-2xl bg-muted/30 px-3 py-3">
           <p className="text-[12px] font-semibold text-muted-foreground">Next CEFR Test</p>
-          <p className="text-[13px] font-semibold mt-1">Aug 10, 2026</p>
+          <p className="text-[13px] font-semibold mt-1">Aug 10 · #{String(testNumber).padStart(2, "0")}</p>
         </div>
       </div>
     </div>
