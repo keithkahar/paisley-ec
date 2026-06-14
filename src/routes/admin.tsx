@@ -285,7 +285,7 @@ function AdminPage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
+      <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY, fontFamily: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif" }}>
         <FloatingBack to="/profile" label="Back to profile" />
 
         <div className="px-5 pt-12">
