@@ -60,7 +60,7 @@ export function MonthCalendarDialog({
       cursor.getMonth() + 1,
       0
     ).getDate();
-    const total = Math.ceil((startDow + daysInMonth) / 7) * 7;
+    const total = 6 * 7; // always 6 rows for fixed height
     return Array.from({ length: total }).map((_, i) => {
       const dayNum = i - startDow + 1;
       if (dayNum < 1 || dayNum > daysInMonth) return null;
