@@ -217,10 +217,18 @@ const START_LOCKED = false;
 function CefrTestPage() {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
+  const [testNumber, setTestNumber] = useState<number>(1);
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (new URLSearchParams(window.location.search).get("locked") === "1") {
       setMode("locked");
+    }
+    try {
+      const raw = window.localStorage.getItem("cefrTestCount");
+      const n = raw ? parseInt(raw, 10) : 0;
+      setTestNumber((Number.isFinite(n) ? n : 0) + 1);
+    } catch {
+      setTestNumber(1);
     }
   }, []);
 
@@ -258,6 +266,11 @@ function CefrTestPage() {
     setSeconds(0);
     setStageIdx(0);
     setMode("quiz");
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.setItem("cefrTestCount", String(testNumber));
+      } catch {}
+    }
   };
 
   const stageKey = STAGE_ORDER[stageIdx];
@@ -393,7 +406,7 @@ function CefrTestPage() {
         {/* Body */}
         <div className="px-5 pt-4 pb-10">
           {mode === "locked" && <LockedView />}
-          {mode === "info" && <InfoView onStart={startTest} />}
+          {mode === "info" && <InfoView onStart={startTest} testNumber={testNumber} />}
           {mode === "quiz" && (
             <QuizView
               stageKey={stageKey}
@@ -476,7 +489,8 @@ function LockedView() {
 }
 
 // ───────── Info ─────────
-function InfoView({ onStart }: { onStart: () => void }) {
+function InfoView({ onStart, testNumber }: { onStart: () => void; testNumber: number }) {
+  const numLabel = `#${String(testNumber).padStart(2, "0")}`;
   return (
     <div>
       <section className="rounded-3xl bg-white border border-border p-5">
@@ -484,7 +498,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
           className="text-[20px] font-semibold leading-none"
           style={{ color: "var(--paisley)", letterSpacing: "-0.01em" }}
         >
-          Level Check
+          {numLabel}
         </p>
         <ul className="mt-4 space-y-2 text-[13px] font-semibold">
           {[
@@ -504,26 +518,6 @@ function InfoView({ onStart }: { onStart: () => void }) {
             </li>
           ))}
         </ul>
-      </section>
-
-      <section className="mt-4 rounded-3xl bg-white border border-border p-4">
-        <p className="text-[12px] font-semibold text-muted-foreground px-1 mb-2">Level Map</p>
-        <div className="space-y-2">
-          {LEVEL_LEGEND.map((l) => (
-            <div key={l.level} className="flex items-center gap-3">
-              <span
-                className="w-14 shrink-0 rounded-full px-2 py-1 text-center text-[11px] font-semibold"
-                style={{
-                  background: "color-mix(in oklab, var(--paisley-yellow) 28%, white)",
-                  color: "#7a5a36",
-                }}
-              >
-                {l.level}
-              </span>
-              <span className="text-[12px] text-foreground/80">{l.label}</span>
-            </div>
-          ))}
-        </div>
       </section>
 
       <button
@@ -571,7 +565,6 @@ function QuizView({
   stageDone: boolean;
 }) {
   const meta = STAGE_META[stageKey];
-  const Icon = meta.icon;
   const totalSegments = STAGE_ORDER.length;
   const words = wordCount(writingAnswer);
 
@@ -602,29 +595,18 @@ function QuizView({
         style={{ background: "var(--paisley)" }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span
-              className="h-9 w-9 rounded-2xl grid place-items-center"
-              style={{ background: "color-mix(in oklab, var(--paisley-yellow) 65%, white)", color: "var(--paisley)" }}
-            >
-              <Icon className="h-4.5 w-4.5" />
-            </span>
-            <h2
-              className="text-[22px] font-medium leading-none"
-              style={{ letterSpacing: "-0.01em" }}
-            >
-              {meta.label}
-            </h2>
-          </div>
-          <span
-            className="text-[11px] font-semibold rounded-full px-2 py-0.5"
-            style={{ background: "color-mix(in oklab, var(--paisley-yellow) 80%, white)", color: "#7a5a36" }}
+          <h2
+            className="text-[24px] font-medium leading-none"
+            style={{ letterSpacing: "-0.01em" }}
           >
+            {meta.label}
+          </h2>
+          <span className="text-[11px] font-semibold rounded-full bg-white/22 px-2 py-0.5">
             {meta.points} Pt
           </span>
         </div>
         <p className="mt-2 text-[13px] font-semibold opacity-95">{meta.note}</p>
-        <p className="mt-0.5 text-[12px] opacity-80">Stage {stageIdx + 1} of {totalSegments}</p>
+        <p className="mt-0.5 text-[12px] opacity-80">Stage {stageIdx + 1}/{totalSegments}</p>
       </section>
 
       {/* Reading passage */}
@@ -662,18 +644,11 @@ function QuizView({
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex items-center justify-between">
-            <label htmlFor="writing-answer" className="text-[12px] font-semibold text-muted-foreground">
-              Your answer
-            </label>
+          <div className="mt-3 flex items-center justify-end">
             <span
-              className="rounded-full px-2.5 py-0.5 text-[11px] font-semibold"
+              className="text-[11px] font-semibold"
               style={{
-                background:
-                  words >= 35
-                    ? "color-mix(in oklab, var(--paisley) 12%, white)"
-                    : "color-mix(in oklab, var(--paisley-yellow) 30%, white)",
-                color: words >= 35 ? "var(--paisley)" : "#7a5a36",
+                color: words >= 35 ? "var(--paisley)" : "var(--paisley-yellow)",
               }}
             >
               {words} words
@@ -684,8 +659,10 @@ function QuizView({
             value={writingAnswer}
             onChange={(e) => setWritingAnswer(e.target.value)}
             placeholder="Write here..."
-            className="mt-2 min-h-[180px] w-full resize-none rounded-2xl border border-border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground focus:border-transparent focus:ring-2"
-            style={{ ["--tw-ring-color" as string]: "var(--paisley)" }}
+            className="mt-2 min-h-[180px] w-full resize-none rounded-2xl border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground"
+            style={{ borderColor: "var(--paisley-yellow)" }}
+            onFocus={(e) => (e.currentTarget.style.borderColor = "var(--paisley)")}
+            onBlur={(e) => (e.currentTarget.style.borderColor = "var(--paisley-yellow)")}
           />
         </section>
       ) : (
@@ -754,7 +731,7 @@ function QuestionCard({
 
   return (
     <section className="rounded-3xl bg-white border border-border p-4">
-      <div className="flex items-start gap-3">
+      <div className="flex items-center gap-3">
         <span
           className="h-7 w-7 grid place-items-center rounded-full text-[12px] font-semibold shrink-0"
           style={{
@@ -766,26 +743,34 @@ function QuestionCard({
         </span>
 
         {q.stage === "listening" ? (
-          <div className="flex-1 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={onPlay}
-              aria-label={audioPlaying ? "Playing" : "Play audio"}
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-white text-[12px] font-semibold active:scale-95 shadow"
-              style={{
-                background: plays >= 2 ? "color-mix(in oklab, var(--paisley) 35%, white)" : "var(--paisley)",
-              }}
-              disabled={plays >= 2}
-            >
-              <Volume2 className="h-3.5 w-3.5" />
-              {audioPlaying ? "Playing…" : plays >= 2 ? "Limit" : `Play ${plays}/2`}
-            </button>
-            <span className="text-[13px] font-semibold text-foreground/85 text-right">{q.prompt}</span>
-          </div>
+          <button
+            type="button"
+            onClick={onPlay}
+            aria-label={audioPlaying ? "Playing" : "Play audio"}
+            disabled={plays >= 2}
+            className="h-8 w-8 grid place-items-center rounded-full text-white active:scale-95 shadow disabled:opacity-50"
+            style={{ background: "var(--paisley)" }}
+          >
+            <Volume2 className="h-3.5 w-3.5" />
+          </button>
         ) : (
-          <p className="text-[14px] font-semibold leading-5 text-foreground">{q.prompt}</p>
+          <p
+            className="text-[20px] font-semibold"
+            style={{ letterSpacing: "-0.01em" }}
+          >
+            {q.prompt}
+          </p>
         )}
       </div>
+
+      {q.stage === "listening" && (
+        <p
+          className="mt-3 text-[20px] font-semibold"
+          style={{ letterSpacing: "-0.01em" }}
+        >
+          {q.prompt}
+        </p>
+      )}
 
       <div className={`mt-3 ${singleCol ? "space-y-2" : "grid grid-cols-2 gap-2"}`}>
         {q.choices?.map((c) => {
@@ -835,6 +820,7 @@ function ResultView({
   writingWords: number;
   onReview: (id: string) => void;
 }) {
+  const bp = total >= 85 ? 20 : total >= 70 ? 15 : total >= 45 ? 10 : 5;
   return (
     <div>
       {/* Hero */}
@@ -858,7 +844,13 @@ function ResultView({
         >
           {level}
         </p>
-        <p className="mt-2 text-[12px] opacity-90">{cambridge}</p>
+        <p className="mt-5 text-[13px] font-semibold opacity-90">Cambridge English Level</p>
+        <p className="mt-1 text-[18px] font-bold" style={{ letterSpacing: "-0.01em" }}>
+          {cambridge}
+        </p>
+        <p className="mt-2 text-[13px] font-semibold opacity-90">
+          {total} / 100 correct
+        </p>
         <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
@@ -872,11 +864,11 @@ function ResultView({
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
             style={{
-              background: "color-mix(in oklab, var(--paisley-yellow) 80%, white)",
-              color: "#7a5a36",
+              background: "color-mix(in oklab, var(--bloxia) 14%, white)",
+              color: "var(--bloxia)",
             }}
           >
-            {total} / 100 Pts
+            +{bp} Bp
           </span>
         </div>
       </section>
@@ -933,7 +925,7 @@ function ResultView({
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white shrink-0"
                         style={{
-                          background: r.correct ? "var(--paisley)" : "#d97a6a",
+                          background: r.correct ? "var(--paisley)" : "var(--paisley-yellow)",
                         }}
                       >
                         {r.correct ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
@@ -964,8 +956,8 @@ function ResultView({
                 <span
                   className="rounded-full px-2.5 py-0.5"
                   style={{
-                    background: "color-mix(in oklab, var(--paisley-yellow) 60%, white)",
-                    color: "#7a5a36",
+                    background: "var(--paisley-yellow-soft)",
+                    color: "var(--paisley-yellow)",
                   }}
                 >
                   Words: {writingWords}
@@ -1037,18 +1029,18 @@ function ReviewOverlay({
                 <span className="flex gap-1">
                   {isRight && (
                     <span
-                      className="rounded-full px-2 py-0.5 text-[10px] text-white"
+                      className="h-6 w-6 rounded-full grid place-items-center text-white"
                       style={{ background: "var(--paisley)" }}
                     >
-                      Right
+                      <Check className="h-3.5 w-3.5" />
                     </span>
                   )}
                   {isMine && !isRight && (
                     <span
-                      className="rounded-full px-2 py-0.5 text-[10px]"
-                      style={{ background: "var(--paisley-yellow)", color: "#7a5a36" }}
+                      className="h-6 w-6 rounded-full grid place-items-center text-white"
+                      style={{ background: "var(--paisley-yellow)" }}
                     >
-                      Mine
+                      <X className="h-3.5 w-3.5" />
                     </span>
                   )}
                 </span>
