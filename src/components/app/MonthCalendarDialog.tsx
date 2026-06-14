@@ -20,7 +20,9 @@ type Props = {
   color: string;
   /** Returns activity flags for a given date. */
   getActivity: (date: Date) => DayActivity;
-  /** Optional second color used for the wordie dot in dual mode. */
+  /** Color for the talk dot. Defaults to `color`. */
+  talkColor?: string;
+  /** Color for the wordie dot. Defaults to `color`. */
   wordieColor?: string;
 };
 
@@ -40,6 +42,7 @@ export function MonthCalendarDialog({
   title,
   color,
   getActivity,
+  talkColor,
   wordieColor,
 }: Props) {
   const today = useMemo(() => new Date(), []);
@@ -168,7 +171,7 @@ export function MonthCalendarDialog({
                   {act.talk && (
                     <span
                       className="h-1 w-1 rounded-full"
-                      style={{ background: color }}
+                      style={{ background: talkColor ?? color }}
                     />
                   )}
                   {act.wordie && (
