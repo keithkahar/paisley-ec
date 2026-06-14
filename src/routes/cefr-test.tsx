@@ -1029,18 +1029,18 @@ function ReviewOverlay({
                 <span className="flex gap-1">
                   {isRight && (
                     <span
-                      className="rounded-full px-2 py-0.5 text-[10px] text-white"
+                      className="h-6 w-6 rounded-full grid place-items-center text-white"
                       style={{ background: "var(--paisley)" }}
                     >
-                      Right
+                      <Check className="h-3.5 w-3.5" />
                     </span>
                   )}
                   {isMine && !isRight && (
                     <span
-                      className="rounded-full px-2 py-0.5 text-[10px]"
-                      style={{ background: "var(--paisley-yellow)", color: "#7a5a36" }}
+                      className="h-6 w-6 rounded-full grid place-items-center text-white"
+                      style={{ background: "var(--paisley-yellow)" }}
                     >
-                      Mine
+                      <X className="h-3.5 w-3.5" />
                     </span>
                   )}
                 </span>
