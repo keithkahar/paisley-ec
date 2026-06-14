@@ -405,7 +405,7 @@ function CefrTestPage() {
 
         {/* Body */}
         <div className="px-5 pt-4 pb-10">
-          {mode === "locked" && <LockedView />}
+          {mode === "locked" && <LockedView testNumber={testNumber} />}
           {mode === "info" && <InfoView onStart={startTest} testNumber={testNumber} />}
           {mode === "quiz" && (
             <QuizView
