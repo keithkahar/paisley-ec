@@ -210,6 +210,8 @@ function AdminPage() {
   const [helpFor, setHelpFor] = useState<AdminParam | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
   const [toast, setToast] = useState<string>("");
+  const [navOpen, setNavOpen] = useState(false);
+  const [query, setQuery] = useState("");
 
   const activeGroup = groups.find((g) => g.key === activeKey) ?? groups[0];
 
@@ -222,6 +224,17 @@ function AdminPage() {
       { label: "已自定义", value: cust },
     ];
   }, [groups]);
+
+  const filteredRows = useMemo(() => {
+    if (!activeGroup) return [];
+    const q = query.trim().toLowerCase();
+    if (!q) return activeGroup.rows;
+    return activeGroup.rows.filter((r) =>
+      r.label.toLowerCase().includes(q) ||
+      r.path.toLowerCase().includes(q) ||
+      r.valueText.toLowerCase().includes(q),
+    );
+  }, [activeGroup, query]);
 
   function showToast(msg: string) {
     setToast(msg);
@@ -264,96 +277,122 @@ function AdminPage() {
     showToast("已重置");
   }
 
+  const MONO = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+  const SOFT_BLUE = "#EEF2FA";
+  const AMBER = "#F59E0B";
+
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
         <FloatingBack to="/profile" label="Back to profile" />
 
         <div className="px-5 pt-12">
-          {/* Header */}
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h1 className="text-[24px] font-bold leading-tight" style={{ color: NAVY }}>管理员后台</h1>
-              <p className="text-[12px] mt-1" style={{ color: MUTED }}>前端参数管理中心</p>
+          {/* Header: title + menu (open groups drawer) + reset */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <button
+                onClick={() => setNavOpen(true)}
+                aria-label="分组导航"
+                className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-xl"
+                style={{ background: SOFT_BLUE, color: PAISLEY }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              </button>
+              <div className="min-w-0">
+                <h1 className="text-[22px] font-bold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
+                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>前端参数管理中心</p>
+              </div>
             </div>
             <button
               onClick={() => setConfirmReset(true)}
-              className="h-[30px] px-4 rounded-full text-[13px] font-semibold"
+              className="shrink-0 h-[30px] px-3 rounded-full text-[12px] font-semibold"
               style={{ background: SOFT_BG, color: SUB }}
             >
               重置
             </button>
           </div>
 
-          {/* Summary */}
-          <div className="grid grid-cols-3 gap-[7px] mt-4 mb-3">
-            {summary.map((s) => (
-              <div key={s.label} className="rounded-2xl py-[11px] text-center" style={{ background: SUMMARY_BG }}>
-                <div className="text-[19px] font-bold leading-none" style={{ color: PAISLEY }}>{s.value}</div>
-                <div className="text-[11px] mt-1" style={{ color: SUB }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Group tabs */}
-          <div className="-mx-5 px-5 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-            <div className="flex gap-2 py-2 whitespace-nowrap">
-              {groups.map((g) => {
-                const active = g.key === activeKey;
-                const cc = customizedCount(g);
-                return (
-                  <button
-                    key={g.key}
-                    onClick={() => setActiveKey(g.key)}
-                    className="h-8 px-3 rounded-full text-[12px] font-semibold inline-flex items-center gap-1.5 shrink-0"
-                    style={{
-                      background: active ? ACTIVE_BG : SOFT_BG,
-                      color: active ? PAISLEY : SUB,
-                    }}
-                  >
-                    <span>{g.title}</span>
-                    {cc > 0 && (
-                      <span
-                        className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[10px] font-bold"
-                        style={{ background: active ? PAISLEY : "#D6E4F5", color: active ? "#fff" : PAISLEY }}
-                      >
-                        {cc}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Param card */}
-          {activeGroup && (
-            <div
-              className="rounded-[20px] bg-white px-4 py-3 mt-3"
-              style={{ boxShadow: "0 7px 20px rgba(11, 37, 69, 0.055)" }}
-            >
-              <div className="flex items-start justify-between gap-3 pb-1">
-                <div className="min-w-0">
-                  <div className="text-[15px] font-semibold" style={{ color: NAVY }}>{activeGroup.title}</div>
-                  <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>{activeGroup.subtitle}</div>
-                </div>
-                <div className="text-[12px] font-bold" style={{ color: PAISLEY }}>{activeGroup.rows.length}</div>
-              </div>
-
-              {activeGroup.rows.map((row, idx) => (
-                <button
-                  key={row.path}
-                  onClick={() => openEditor(row)}
-                  className="w-full flex items-center justify-between gap-3 py-3 text-left"
-                  style={{ borderTop: idx === 0 ? "none" : `1px solid ${BORDER}` }}
+          {/* Summary stats */}
+          <div className="grid grid-cols-3 gap-[7px] mt-4">
+            {summary.map((s) => {
+              const isCustom = s.label === "已自定义";
+              return (
+                <div
+                  key={s.label}
+                  className="rounded-2xl px-3 py-2.5"
+                  style={{
+                    background: isCustom ? "#FFF7ED" : SOFT_BLUE,
+                    border: `1px solid ${isCustom ? "#FCE7C5" : "#E2EAF6"}`,
+                  }}
                 >
+                  <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isCustom ? AMBER : PAISLEY, letterSpacing: "0.08em" }}>{s.label}</div>
+                  <div className="text-[22px] font-bold leading-tight mt-0.5" style={{ color: NAVY }}>{s.value}</div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Current group header */}
+          {activeGroup && (
+            <div className="mt-5 flex items-end justify-between gap-3">
+              <div className="min-w-0">
+                <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY }}>当前分组</div>
+                <h2 className="text-[17px] font-bold leading-tight mt-0.5 truncate" style={{ color: NAVY }}>{activeGroup.title}</h2>
+              </div>
+              <span
+                className="inline-flex items-center justify-center min-w-[26px] h-[22px] px-2 rounded-full text-[11px] font-bold shrink-0"
+                style={{ background: SOFT_BLUE, color: PAISLEY }}
+              >
+                {activeGroup.rows.length}
+              </span>
+            </div>
+          )}
+          {activeGroup && (
+            <p className="text-[11px] mt-1 leading-relaxed" style={{ color: MUTED }}>{activeGroup.subtitle}</p>
+          )}
+
+          {/* Search */}
+          <div className="relative mt-3">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="搜索本组参数 (名称 / key)"
+              className="w-full pl-9 pr-3 py-2 rounded-xl text-[13px] outline-none"
+              style={{ background: "#F5F7FB", border: "1px solid #E6ECF5", color: NAVY }}
+            />
+          </div>
+
+          {/* Param cards */}
+          <div className="mt-3 space-y-2.5">
+            {filteredRows.length === 0 && (
+              <div className="text-center text-[12px] py-8" style={{ color: MUTED }}>无匹配参数</div>
+            )}
+            {filteredRows.map((row) => (
+              <button
+                key={row.path}
+                onClick={() => openEditor(row)}
+                className="w-full text-left relative rounded-2xl p-3.5 transition-all"
+                style={{
+                  background: "#fff",
+                  border: `1px solid ${row.customized ? "rgba(245,158,11,0.28)" : "#EEF2F7"}`,
+                  boxShadow: row.customized
+                    ? "0 4px 14px rgba(245,158,11,0.07)"
+                    : "0 2px 10px rgba(11,37,69,0.04)",
+                  overflow: "hidden",
+                }}
+              >
+                {row.customized && (
+                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: AMBER }} />
+                )}
+                <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[14px] font-semibold" style={{ color: NAVY }}>{row.label}</span>
+                      <span className="text-[14px] font-semibold leading-tight" style={{ color: NAVY }}>{row.label}</span>
                       {row.customized && (
                         <span
-                          className="px-1.5 py-0.5 rounded text-[10px] font-bold"
-                          style={{ background: "#FFE9CC", color: "#B45309" }}
+                          className="px-1.5 py-0.5 rounded text-[9px] font-bold leading-none"
+                          style={{ background: AMBER, color: "#fff" }}
                         >
                           已改
                         </span>
@@ -361,24 +400,99 @@ function AdminPage() {
                       <span
                         role="button"
                         onClick={(e) => { e.stopPropagation(); setHelpFor(row); }}
-                        className="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full text-[11px] font-bold"
+                        className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full text-[10px] font-bold leading-none"
                         style={{ background: SOFT_BG, color: SUB }}
                       >
                         ?
                       </span>
                     </div>
-                    <div className="text-[11px] mt-0.5 break-all" style={{ color: MUTED }}>{row.path}</div>
-                    <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>默认：{row.defaultText}</div>
+                    <code
+                      className="inline-block mt-1.5 px-1.5 py-0.5 rounded text-[10.5px] font-medium break-all"
+                      style={{ background: SOFT_BLUE, color: PAISLEY, fontFamily: MONO }}
+                    >
+                      {row.path}
+                    </code>
                   </div>
-                  <div className="flex items-center gap-1 shrink-0 max-w-[40%]">
-                    <div className="text-[14px] font-bold text-right break-all" style={{ color: PAISLEY }}>{row.valueText}</div>
-                    <div className="text-[18px] leading-none" style={{ color: "#B8C2D1" }}>›</div>
+                  <div className="flex flex-col items-end gap-0.5 shrink-0 max-w-[42%]">
+                    <div className="text-[13.5px] font-bold text-right break-all leading-tight" style={{ color: row.customized ? PAISLEY : NAVY }}>{row.valueText}</div>
+                    <div className="text-[9.5px]" style={{ color: "#A0AEC0" }}>默认: {row.defaultText}</div>
                   </div>
-                </button>
-              ))}
-            </div>
-          )}
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
+
+        {/* Group navigation drawer */}
+        {navOpen && (
+          <>
+            <div
+              className="fixed inset-0 z-40 transition-opacity"
+              style={{ background: "rgba(11,37,69,0.36)" }}
+              onClick={() => setNavOpen(false)}
+            />
+            <aside
+              className="fixed top-0 left-0 bottom-0 z-50 w-[78%] max-w-[300px] flex flex-col"
+              style={{ background: SOFT_BLUE, boxShadow: "4px 0 24px rgba(11,37,69,0.18)" }}
+            >
+              <div className="px-5 pt-12 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: PAISLEY }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[15px] font-bold leading-tight" style={{ color: NAVY }}>管理员后台</div>
+                    <div className="text-[10px]" style={{ color: SUB }}>选择参数分组</div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex-1 overflow-y-auto px-3 pb-3">
+                <div className="px-2 text-[9px] font-bold uppercase tracking-[0.14em] mb-1.5" style={{ color: "rgba(11,37,69,0.45)" }}>参数分组</div>
+                <nav className="space-y-1">
+                  {groups.map((g) => {
+                    const active = g.key === activeKey;
+                    const cc = customizedCount(g);
+                    return (
+                      <button
+                        key={g.key}
+                        onClick={() => { setActiveKey(g.key); setQuery(""); setNavOpen(false); }}
+                        className="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-left transition-all"
+                        style={{
+                          background: active ? PAISLEY : "transparent",
+                          color: active ? "#fff" : NAVY,
+                          boxShadow: active ? "0 4px 12px rgba(1,70,185,0.22)" : "none",
+                        }}
+                      >
+                        <span className="text-[13px] font-semibold truncate">{g.title}</span>
+                        <span className="flex items-center gap-1 shrink-0">
+                          {cc > 0 && (
+                            <span
+                              className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-bold leading-none"
+                              style={{ background: active ? "rgba(255,255,255,0.22)" : AMBER, color: "#fff" }}
+                            >
+                              {cc}
+                            </span>
+                          )}
+                          <span className="text-[10px]" style={{ color: active ? "rgba(255,255,255,0.7)" : "#94A3B8" }}>{g.rows.length}</span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+              <div className="p-4 border-t" style={{ borderColor: "#DDE6F2" }}>
+                <button
+                  onClick={() => { setNavOpen(false); setConfirmReset(true); }}
+                  className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-semibold"
+                  style={{ background: "#fff", color: NAVY, border: "1px solid #D5DEEC" }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+                  全局重置
+                </button>
+              </div>
+            </aside>
+          </>
+        )}
 
         {/* Toast */}
         {toast && (
