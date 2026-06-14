@@ -1,9 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Layers, Zap, ClipboardCheck, Flame, Play } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import {
+  MonthCalendarDialog,
+  mockActivity,
+} from "@/components/app/MonthCalendarDialog";
 
 export const Route = createFileRoute("/mywordie")({
   head: () => ({ meta: [
@@ -17,6 +22,7 @@ export const Route = createFileRoute("/mywordie")({
 
 function MyWordiePage() {
   const WORDIE = "var(--wordie)";
+  const [calOpen, setCalOpen] = useState(false);
   // Today's card pack
   const cardsTotal = 5;
   const reviewCount = 1;
@@ -128,7 +134,12 @@ function MyWordiePage() {
 
         {/* Week calendar — locked to ShirinTalk's same hero stack: pt-12 + 220px card + mt-3 stats + pb-1 + pt-3 */}
         <section className="px-6 pt-3">
-          <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
+            className="w-full flex items-center justify-between active:scale-[0.99] transition-transform"
+            aria-label="Open monthly myWordie calendar"
+          >
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
               return (
@@ -152,7 +163,7 @@ function MyWordiePage() {
                 </div>
               );
             })}
-          </div>
+          </button>
         </section>
 
         {/* Pill actions */}
@@ -164,6 +175,13 @@ function MyWordiePage() {
       </div>
 
       <BottomTabBar />
+      <MonthCalendarDialog
+        open={calOpen}
+        onOpenChange={setCalOpen}
+        title="myWordie · Monthly"
+        color={WORDIE}
+        getActivity={(d) => ({ wordie: mockActivity(d, 2) })}
+      />
     </PhoneFrame>
   );
 }
