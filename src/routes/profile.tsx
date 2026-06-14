@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useRef, useCallback } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -222,13 +223,50 @@ function PillLink({
 
 function AboutPecLink() {
   const navigate = useNavigate();
+  const clickCountRef = useRef(0);
+  const firstClickTimeRef = useRef<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const reset = useCallback(() => {
+    clickCountRef.current = 0;
+    firstClickTimeRef.current = null;
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const handleClick = useCallback(() => {
+    const now = Date.now();
+    if (firstClickTimeRef.current === null || now - firstClickTimeRef.current > 2000) {
+      reset();
+      firstClickTimeRef.current = now;
+    }
+    clickCountRef.current += 1;
+
+    if (clickCountRef.current === 5) {
+      reset();
+      navigate({ to: "/admin" });
+      return;
+    }
+
+    if (clickCountRef.current === 1) {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
+        if (clickCountRef.current === 1) {
+          navigate({ to: "/about" });
+        }
+        reset();
+      }, 350);
+    }
+  }, [navigate, reset]);
 
   return (
     <div className="pb-4 flex justify-center">
       <button
         type="button"
-        onClick={() => navigate({ to: "/about" })}
-        className="text-[13px] font-bold tracking-wide"
+        onClick={handleClick}
+        className="text-[13px] font-bold tracking-wide select-none"
         style={{ color: "oklch(0.65 0.02 260)" }}
       >
         About PEC
