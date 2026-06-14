@@ -255,7 +255,7 @@ function MyTestsPage() {
                       {h.reviewCount > 0 && (
                         <span
                           className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                          style={{ background: "color-mix(in oklab, var(--paisley-yellow) 10%, white)", color: "color-mix(in oklab, var(--paisley-yellow) 55%, black)" }}
+                          style={{ background: "var(--paisley-yellow-soft)", color: "color-mix(in oklab, var(--paisley-yellow) 65%, black)" }}
                         >
                           {h.reviewCount} to review
                         </span>
