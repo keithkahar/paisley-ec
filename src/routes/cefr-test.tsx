@@ -596,29 +596,18 @@ function QuizView({
         style={{ background: "var(--paisley)" }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span
-              className="h-9 w-9 rounded-2xl grid place-items-center"
-              style={{ background: "color-mix(in oklab, var(--paisley-yellow) 65%, white)", color: "var(--paisley)" }}
-            >
-              <Icon className="h-4.5 w-4.5" />
-            </span>
-            <h2
-              className="text-[22px] font-medium leading-none"
-              style={{ letterSpacing: "-0.01em" }}
-            >
-              {meta.label}
-            </h2>
-          </div>
-          <span
-            className="text-[11px] font-semibold rounded-full px-2 py-0.5"
-            style={{ background: "color-mix(in oklab, var(--paisley-yellow) 80%, white)", color: "#7a5a36" }}
+          <h2
+            className="text-[24px] font-medium leading-none"
+            style={{ letterSpacing: "-0.01em" }}
           >
+            {meta.label}
+          </h2>
+          <span className="text-[11px] font-semibold rounded-full bg-white/22 px-2 py-0.5">
             {meta.points} Pt
           </span>
         </div>
         <p className="mt-2 text-[13px] font-semibold opacity-95">{meta.note}</p>
-        <p className="mt-0.5 text-[12px] opacity-80">Stage {stageIdx + 1} of {totalSegments}</p>
+        <p className="mt-0.5 text-[12px] opacity-80">Stage {stageIdx + 1}/{totalSegments}</p>
       </section>
 
       {/* Reading passage */}
