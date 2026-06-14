@@ -489,7 +489,8 @@ function LockedView() {
 }
 
 // ───────── Info ─────────
-function InfoView({ onStart }: { onStart: () => void }) {
+function InfoView({ onStart, testNumber }: { onStart: () => void; testNumber: number }) {
+  const numLabel = `#${String(testNumber).padStart(2, "0")}`;
   return (
     <div>
       <section className="rounded-3xl bg-white border border-border p-5">
@@ -497,7 +498,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
           className="text-[20px] font-semibold leading-none"
           style={{ color: "var(--paisley)", letterSpacing: "-0.01em" }}
         >
-          Level Check
+          {numLabel}
         </p>
         <ul className="mt-4 space-y-2 text-[13px] font-semibold">
           {[
