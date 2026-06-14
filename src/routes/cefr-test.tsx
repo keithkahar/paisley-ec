@@ -736,7 +736,7 @@ function QuestionCard({
 
   return (
     <section className="rounded-3xl bg-white border border-border p-4">
-      <div className="flex items-start gap-3">
+      <div className="flex items-center gap-3">
         <span
           className="h-7 w-7 grid place-items-center rounded-full text-[12px] font-semibold shrink-0"
           style={{
@@ -748,26 +748,34 @@ function QuestionCard({
         </span>
 
         {q.stage === "listening" ? (
-          <div className="flex-1 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={onPlay}
-              aria-label={audioPlaying ? "Playing" : "Play audio"}
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-white text-[12px] font-semibold active:scale-95 shadow"
-              style={{
-                background: plays >= 2 ? "color-mix(in oklab, var(--paisley) 35%, white)" : "var(--paisley)",
-              }}
-              disabled={plays >= 2}
-            >
-              <Volume2 className="h-3.5 w-3.5" />
-              {audioPlaying ? "Playing…" : plays >= 2 ? "Limit" : `Play ${plays}/2`}
-            </button>
-            <span className="text-[13px] font-semibold text-foreground/85 text-right">{q.prompt}</span>
-          </div>
+          <button
+            type="button"
+            onClick={onPlay}
+            aria-label={audioPlaying ? "Playing" : "Play audio"}
+            disabled={plays >= 2}
+            className="h-8 w-8 grid place-items-center rounded-full text-white active:scale-95 shadow disabled:opacity-50"
+            style={{ background: "var(--paisley)" }}
+          >
+            <Volume2 className="h-3.5 w-3.5" />
+          </button>
         ) : (
-          <p className="text-[14px] font-semibold leading-5 text-foreground">{q.prompt}</p>
+          <p
+            className="text-[20px] font-semibold"
+            style={{ letterSpacing: "-0.01em" }}
+          >
+            {q.prompt}
+          </p>
         )}
       </div>
+
+      {q.stage === "listening" && (
+        <p
+          className="mt-3 text-[20px] font-semibold"
+          style={{ letterSpacing: "-0.01em" }}
+        >
+          {q.prompt}
+        </p>
+      )}
 
       <div className={`mt-3 ${singleCol ? "space-y-2" : "grid grid-cols-2 gap-2"}`}>
         {q.choices?.map((c) => {
