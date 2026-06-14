@@ -40,6 +40,9 @@ const ACTIVE_BG = "#EAF3FF";
 const SUMMARY_BG = "#F7FAFF";
 const BORDER = "#EEF3FA";
 const PAISLEY = "#0146B9";
+const YELLOW = "#cdae8d";
+const YELLOW_SOFT = "#f7f2ec";
+const YELLOW_BORDER = "#ebd9c2";
 
 const INITIAL_GROUPS: AdminGroup[] = [
   {
@@ -279,7 +282,6 @@ function AdminPage() {
 
   const MONO = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
   const SOFT_BLUE = "#EEF2FA";
-  const AMBER = "#F59E0B";
 
   return (
     <PhoneFrame bg="bg-white">
@@ -317,17 +319,17 @@ function AdminPage() {
             {summary.map((s) => {
               const isCustom = s.label === "已自定义";
               return (
-                <div
-                  key={s.label}
-                  className="rounded-2xl px-3 py-2.5"
-                  style={{
-                    background: isCustom ? "#FFF7ED" : SOFT_BLUE,
-                    border: `1px solid ${isCustom ? "#FCE7C5" : "#E2EAF6"}`,
-                  }}
-                >
-                  <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isCustom ? AMBER : PAISLEY, letterSpacing: "0.08em" }}>{s.label}</div>
-                  <div className="text-[22px] font-bold leading-tight mt-0.5" style={{ color: NAVY }}>{s.value}</div>
-                </div>
+                  <div
+                    key={s.label}
+                    className="rounded-2xl px-3 py-2.5"
+                    style={{
+                      background: isCustom ? YELLOW_SOFT : SOFT_BLUE,
+                      border: `1px solid ${isCustom ? YELLOW_BORDER : "#E2EAF6"}`,
+                    }}
+                  >
+                    <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isCustom ? YELLOW : PAISLEY, letterSpacing: "0.08em" }}>{s.label}</div>
+                    <div className="text-[22px] font-bold leading-tight mt-0.5" style={{ color: NAVY }}>{s.value}</div>
+                  </div>
               );
             })}
           </div>
@@ -375,15 +377,15 @@ function AdminPage() {
                 className="w-full text-left relative rounded-2xl p-3.5 transition-all"
                 style={{
                   background: "#fff",
-                  border: `1px solid ${row.customized ? "rgba(245,158,11,0.28)" : "#EEF2F7"}`,
+                  border: `1px solid ${row.customized ? "rgba(205,174,141,0.28)" : "#EEF2F7"}`,
                   boxShadow: row.customized
-                    ? "0 4px 14px rgba(245,158,11,0.07)"
+                    ? "0 4px 14px rgba(205,174,141,0.07)"
                     : "0 2px 10px rgba(11,37,69,0.04)",
                   overflow: "hidden",
                 }}
               >
                 {row.customized && (
-                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: AMBER }} />
+                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: YELLOW }} />
                 )}
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
@@ -392,7 +394,7 @@ function AdminPage() {
                       {row.customized && (
                         <span
                           className="px-1.5 py-0.5 rounded text-[9px] font-bold leading-none"
-                          style={{ background: AMBER, color: "#fff" }}
+                          style={{ background: YELLOW, color: "#fff" }}
                         >
                           已改
                         </span>
@@ -468,7 +470,7 @@ function AdminPage() {
                           {cc > 0 && (
                             <span
                               className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-bold leading-none"
-                              style={{ background: active ? "rgba(255,255,255,0.22)" : AMBER, color: "#fff" }}
+                              style={{ background: active ? "rgba(255,255,255,0.22)" : YELLOW, color: "#fff" }}
                             >
                               {cc}
                             </span>
