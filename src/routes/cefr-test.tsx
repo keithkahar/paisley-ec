@@ -520,26 +520,6 @@ function InfoView({ onStart, testNumber }: { onStart: () => void; testNumber: nu
         </ul>
       </section>
 
-      <section className="mt-4 rounded-3xl bg-white border border-border p-4">
-        <p className="text-[12px] font-semibold text-muted-foreground px-1 mb-2">Level Map</p>
-        <div className="space-y-2">
-          {LEVEL_LEGEND.map((l) => (
-            <div key={l.level} className="flex items-center gap-3">
-              <span
-                className="w-14 shrink-0 rounded-full px-2 py-1 text-center text-[11px] font-semibold"
-                style={{
-                  background: "color-mix(in oklab, var(--paisley-yellow) 28%, white)",
-                  color: "#7a5a36",
-                }}
-              >
-                {l.level}
-              </span>
-              <span className="text-[12px] text-foreground/80">{l.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <button
         onClick={onStart}
         className="mt-5 w-full rounded-full py-3 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
