@@ -189,20 +189,27 @@ function PillLink({
   to,
   title,
   Icon,
+  outlined,
 }: {
   to: string;
   title: string;
   Icon: React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>;
+  outlined?: boolean;
 }) {
+  const bg = "color-mix(in oklab, var(--paisley) 12%, white)";
   return (
     <Link
       to={to}
       className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
+      style={
+        outlined
+          ? { background: "white", border: `1.5px solid ${bg}` }
+          : { background: bg }
+      }
     >
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"
-        style={{ background: "white" }}
+        style={{ background: outlined ? bg : "white" }}
       >
         <Icon className="h-4 w-4" strokeWidth={2.25} style={{ color: PAISLEY }} />
       </span>
