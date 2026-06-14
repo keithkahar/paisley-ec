@@ -1,8 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import {
+  MonthCalendarDialog,
+  mockActivity,
+} from "@/components/app/MonthCalendarDialog";
 import {
   TrendingUp,
   ClipboardList,
@@ -38,6 +42,7 @@ const PAISLEY_YELLOW = "var(--paisley-yellow)";
 const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
+  const [calOpen, setCalOpen] = useState(false);
   const today = new Date();
   const week = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date(today);
@@ -112,7 +117,12 @@ function ProfilePage() {
 
         {/* Week calendar — matches ShirinTalk/myWordie pattern, with practice dots */}
         <section className="px-6 pt-3">
-          <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
+            className="w-full flex items-center justify-between active:scale-[0.99] transition-transform"
+            aria-label="Open monthly profile calendar"
+          >
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
               const dow = d.getDay();
@@ -157,7 +167,7 @@ function ProfilePage() {
                 </div>
               );
             })}
-          </div>
+          </button>
         </section>
 
         {/* Pill actions — mirrors ShirinTalk pill style */}
@@ -179,6 +189,17 @@ function ProfilePage() {
         </div>
       </div>
       <BottomTabBar />
+      <MonthCalendarDialog
+        open={calOpen}
+        onOpenChange={setCalOpen}
+        title="My Practice · Monthly"
+        color="var(--paisley)"
+        wordieColor="var(--wordie)"
+        getActivity={(d) => ({
+          talk: mockActivity(d, 1),
+          wordie: mockActivity(d, 2),
+        })}
+      />
     </PhoneFrame>
   );
 }
