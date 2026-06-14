@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -199,6 +199,7 @@ type Answer = { choiceId?: string; record?: { scorable: boolean; score: number; 
 const START_LOCKED = false;
 
 function WordieTestPage() {
+  const router = useRouter();
   const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -343,13 +344,14 @@ function WordieTestPage() {
       <div className="relative min-h-[calc(100dvh-6rem)] bg-white">
         {/* Top bar */}
         <div className="px-4 pt-4 flex items-center justify-between">
-          <Link
-            to="/mywordie"
+          <button
+            type="button"
+            onClick={() => router.history.back()}
             aria-label="Back"
             className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
           >
             <ChevronLeft className="h-5 w-5" />
-          </Link>
+          </button>
           {mode === "quiz" || mode === "info" ? (
             <div className="flex items-center gap-2">
               <span className="text-[12px] font-semibold text-muted-foreground">
