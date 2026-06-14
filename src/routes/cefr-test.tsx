@@ -606,7 +606,6 @@ function QuizView({
           </span>
         </div>
         <p className="mt-2 text-[13px] font-semibold opacity-95">{meta.note}</p>
-        <p className="mt-0.5 text-[12px] opacity-80">Stage {stageIdx + 1}/{totalSegments}</p>
       </section>
 
       {/* Reading passage */}
@@ -619,7 +618,7 @@ function QuizView({
           }}
         >
           <h3 className="text-[14px] font-semibold">{READING_PASSAGE.title}</h3>
-          <div className="mt-2 space-y-2 text-[13px] leading-6 text-foreground/85">
+          <div className="mt-2 space-y-2 text-[14px] font-semibold leading-6 text-foreground/85">
             {READING_PASSAGE.lines.map((line) => (
               <p key={line}>{line}</p>
             ))}
@@ -957,7 +956,7 @@ function ResultView({
                   className="rounded-full px-2.5 py-0.5"
                   style={{
                     background: "var(--paisley-yellow-soft)",
-                    color: "var(--paisley-yellow)",
+                    color: "color-mix(in oklab, var(--paisley-yellow) 55%, black)",
                   }}
                 >
                   Words: {writingWords}
