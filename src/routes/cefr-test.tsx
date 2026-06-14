@@ -217,10 +217,18 @@ const START_LOCKED = false;
 function CefrTestPage() {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
+  const [testNumber, setTestNumber] = useState<number>(1);
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (new URLSearchParams(window.location.search).get("locked") === "1") {
       setMode("locked");
+    }
+    try {
+      const raw = window.localStorage.getItem("cefrTestCount");
+      const n = raw ? parseInt(raw, 10) : 0;
+      setTestNumber((Number.isFinite(n) ? n : 0) + 1);
+    } catch {
+      setTestNumber(1);
     }
   }, []);
 
@@ -258,6 +266,11 @@ function CefrTestPage() {
     setSeconds(0);
     setStageIdx(0);
     setMode("quiz");
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.setItem("cefrTestCount", String(testNumber));
+      } catch {}
+    }
   };
 
   const stageKey = STAGE_ORDER[stageIdx];
@@ -393,7 +406,7 @@ function CefrTestPage() {
         {/* Body */}
         <div className="px-5 pt-4 pb-10">
           {mode === "locked" && <LockedView />}
-          {mode === "info" && <InfoView onStart={startTest} />}
+          {mode === "info" && <InfoView onStart={startTest} testNumber={testNumber} />}
           {mode === "quiz" && (
             <QuizView
               stageKey={stageKey}
