@@ -282,7 +282,6 @@ function AdminPage() {
 
   const MONO = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
   const SOFT_BLUE = "#EEF2FA";
-  const AMBER = "#F59E0B";
 
   return (
     <PhoneFrame bg="bg-white">
