@@ -229,7 +229,7 @@ function AboutPecLink() {
         type="button"
         onClick={() => navigate({ to: "/about" })}
         className="text-[13px] font-bold tracking-wide"
-        style={{ color: "var(--muted-foreground)" }}
+        style={{ color: "oklch(0.65 0.02 260)" }}
       >
         About PEC
       </button>
