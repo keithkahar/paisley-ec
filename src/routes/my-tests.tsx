@@ -254,6 +254,7 @@ function MyTestsPage() {
                       </span>
                     </div>
                   </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 self-center" />
                 </div>
               ))}
             </div>
@@ -278,9 +279,14 @@ function MyTestsPage() {
                   {wordieAvg}%
                 </p>
               </div>
-              <p className="text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-                Last {ALL_WORDIE_TESTS.length} tests
-              </p>
+              <div className="text-right">
+                <p className="text-[11px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+                  Last test
+                </p>
+                <p className="text-[12px] font-semibold" style={{ color: "var(--foreground)" }}>
+                  {ALL_WORDIE_TESTS[0].date}
+                </p>
+              </div>
             </div>
             <TrendChart values={ALL_WORDIE_TESTS.slice().reverse().map((t) => t.score)} labels={ALL_WORDIE_TESTS.slice().reverse().map((t) => t.code)} accent={WORDIE_ACCENT} />
           </div>
@@ -343,7 +349,7 @@ function MyTestsPage() {
                           {t.reviews.length > 0 && (
                             <span
                               className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                              style={{ background: "color-mix(in oklab, var(--wordie-accent) 14%, white)", color: "var(--wordie-accent)" }}
+                              style={{ background: "var(--paisley-yellow-soft)", color: "color-mix(in oklab, var(--paisley-yellow) 55%, black)" }}
                             >
                               {t.reviews.length} to review
                             </span>
