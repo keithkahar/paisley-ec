@@ -19,13 +19,19 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const name = "Daniella Wang";
+  const navigate = useNavigate();
   return (
     <PhoneFrame bg="bg-card">
       <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-[color:var(--paisley-soft)]">
         {/* App logo top-left */}
-        <div className="absolute top-7 left-7 z-20">
+        <button
+          type="button"
+          onClick={() => navigate({ to: "/about" })}
+          className="absolute top-7 left-7 z-20 cursor-pointer active:scale-[0.98] transition-transform"
+          aria-label="About PEC"
+        >
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
-        </div>
+        </button>
         {/* PRIMARY: Shirin hero */}
         <section className="relative px-6 pt-[6.5rem] pb-0">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
