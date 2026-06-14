@@ -925,7 +925,7 @@ function ResultView({
                       <span
                         className="h-6 w-6 rounded-full grid place-items-center text-white shrink-0"
                         style={{
-                          background: r.correct ? "var(--paisley)" : "#d97a6a",
+                          background: r.correct ? "var(--paisley)" : "var(--paisley-yellow)",
                         }}
                       >
                         {r.correct ? <Check className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}
@@ -956,8 +956,8 @@ function ResultView({
                 <span
                   className="rounded-full px-2.5 py-0.5"
                   style={{
-                    background: "color-mix(in oklab, var(--paisley-yellow) 60%, white)",
-                    color: "#7a5a36",
+                    background: "var(--paisley-yellow-soft)",
+                    color: "var(--paisley-yellow)",
                   }}
                 >
                   Words: {writingWords}
