@@ -296,7 +296,7 @@ function AdminPage() {
           </div>
 
           {/* Group tabs */}
-          <div className="-mx-5 px-5 overflow-x-auto no-scrollbar">
+          <div className="-mx-5 px-5 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
             <div className="flex gap-2 py-2 whitespace-nowrap">
               {groups.map((g) => {
                 const active = g.key === activeKey;
