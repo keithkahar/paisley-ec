@@ -1,10 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
 import { Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import {
+  MonthCalendarDialog,
+  mockActivity,
+} from "@/components/app/MonthCalendarDialog";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [
@@ -19,6 +24,7 @@ export const Route = createFileRoute("/shirin-talk")({
 const PINK = "var(--shirin)";
 
 function ShirinTalkPage() {
+  const [calOpen, setCalOpen] = useState(false);
   const cards = [
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen, search: { from: "shirin-talk" } as const },
@@ -87,7 +93,12 @@ function ShirinTalkPage() {
 
         {/* Week calendar */}
         <section className="px-6 pt-3">
-          <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
+            className="w-full flex items-center justify-between active:scale-[0.99] transition-transform"
+            aria-label="Open monthly ShirinTalk calendar"
+          >
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
               return (
@@ -108,7 +119,7 @@ function ShirinTalkPage() {
                 </div>
               );
             })}
-          </div>
+          </button>
         </section>
 
         {/* Pill actions */}
@@ -154,6 +165,13 @@ function ShirinTalkPage() {
       </div>
 
       <BottomTabBar />
+      <MonthCalendarDialog
+        open={calOpen}
+        onOpenChange={setCalOpen}
+        title="ShirinTalk · Monthly"
+        color={PINK}
+        getActivity={(d) => ({ talk: mockActivity(d, 1) })}
+      />
     </PhoneFrame>
   );
 }
