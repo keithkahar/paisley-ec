@@ -260,9 +260,9 @@ function AboutPecLink() {
 
   const handleClick = useCallback(() => {
     const now = Date.now();
-    if (firstClickTimeRef.current === null || now - firstClickTimeRef.current > 2000) {
-      reset();
+    if (firstClickTimeRef.current === null || now - firstClickTimeRef.current > 5000) {
       firstClickTimeRef.current = now;
+      clickCountRef.current = 0;
     }
     clickCountRef.current += 1;
 
@@ -272,15 +272,14 @@ function AboutPecLink() {
       return;
     }
 
-    if (clickCountRef.current === 1) {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => {
-        if (clickCountRef.current === 1) {
-          navigate({ to: "/about" });
-        }
-        reset();
-      }, 350);
-    }
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      const count = clickCountRef.current;
+      reset();
+      if (count >= 1 && count < 5) {
+        navigate({ to: "/about" });
+      }
+    }, 500);
   }, [navigate, reset]);
 
   return (
