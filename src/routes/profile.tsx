@@ -167,12 +167,17 @@ function ProfilePage() {
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
         </section>
 
-        {/* Hidden admin entry — absolutely positioned so it doesn't push action pills upward */}
-        <div className="absolute bottom-6 left-0 right-0 z-20">
+      </div>
+
+      {/* Hidden admin entry — fixed just above the bottom tab bar */}
+      <div
+        className="fixed left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 pointer-events-none"
+        style={{ bottom: "calc(max(1rem, env(safe-area-inset-bottom)) + 5.5rem)" }}
+      >
+        <div className="pointer-events-auto">
           <VersionTap />
         </div>
       </div>
-
       <BottomTabBar />
     </PhoneFrame>
   );
