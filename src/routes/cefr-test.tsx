@@ -644,18 +644,11 @@ function QuizView({
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex items-center justify-between">
-            <label htmlFor="writing-answer" className="text-[12px] font-semibold text-muted-foreground">
-              Your answer
-            </label>
+          <div className="mt-3 flex items-center justify-end">
             <span
-              className="rounded-full px-2.5 py-0.5 text-[11px] font-semibold"
+              className="text-[11px] font-semibold"
               style={{
-                background:
-                  words >= 35
-                    ? "color-mix(in oklab, var(--paisley) 12%, white)"
-                    : "color-mix(in oklab, var(--paisley-yellow) 30%, white)",
-                color: words >= 35 ? "var(--paisley)" : "#7a5a36",
+                color: words >= 35 ? "var(--paisley)" : "var(--paisley-yellow)",
               }}
             >
               {words} words
@@ -666,8 +659,10 @@ function QuizView({
             value={writingAnswer}
             onChange={(e) => setWritingAnswer(e.target.value)}
             placeholder="Write here..."
-            className="mt-2 min-h-[180px] w-full resize-none rounded-2xl border border-border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground focus:border-transparent focus:ring-2"
-            style={{ ["--tw-ring-color" as string]: "var(--paisley)" }}
+            className="mt-2 min-h-[180px] w-full resize-none rounded-2xl border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground"
+            style={{ borderColor: "var(--paisley-yellow)" }}
+            onFocus={(e) => (e.currentTarget.style.borderColor = "var(--paisley)")}
+            onBlur={(e) => (e.currentTarget.style.borderColor = "var(--paisley-yellow)")}
           />
         </section>
       ) : (
