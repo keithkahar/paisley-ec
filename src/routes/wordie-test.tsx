@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { useEffect, useMemo, useRef, useState } from "react";
