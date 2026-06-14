@@ -192,8 +192,9 @@ function ProfilePage() {
       <MonthCalendarDialog
         open={calOpen}
         onOpenChange={setCalOpen}
-        title="My Practice · Monthly"
+        title="ShirinTalk / myWordie · Monthly"
         color="var(--paisley)"
+        talkColor="var(--shirin)"
         wordieColor="var(--wordie)"
         getActivity={(d) => ({
           talk: mockActivity(d, 1),
