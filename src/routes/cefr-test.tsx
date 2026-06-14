@@ -820,7 +820,6 @@ function ResultView({
   writingWords: number;
   onReview: (id: string) => void;
 }) {
-  const correctCount = results.filter((r) => r.correct).length;
   const bp = total >= 85 ? 20 : total >= 70 ? 15 : total >= 45 ? 10 : 5;
   return (
     <div>
