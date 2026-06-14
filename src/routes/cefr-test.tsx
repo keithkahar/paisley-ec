@@ -565,7 +565,6 @@ function QuizView({
   stageDone: boolean;
 }) {
   const meta = STAGE_META[stageKey];
-  const Icon = meta.icon;
   const totalSegments = STAGE_ORDER.length;
   const words = wordCount(writingAnswer);
 
