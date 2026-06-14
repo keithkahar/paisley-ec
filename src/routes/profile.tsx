@@ -8,6 +8,7 @@ import {
   ClipboardList,
   Users,
   Pencil,
+  User,
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
