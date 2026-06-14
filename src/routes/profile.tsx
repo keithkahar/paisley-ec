@@ -166,6 +166,7 @@ function ProfilePage() {
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
+          <PillLink to="/about" title="About PEC" Icon={User} outlined />
         </section>
 
       </div>
