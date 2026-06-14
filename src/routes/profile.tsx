@@ -1,5 +1,4 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -8,7 +7,6 @@ import {
   ClipboardList,
   Users,
   Pencil,
-  User,
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
@@ -166,18 +164,17 @@ function ProfilePage() {
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink to="/parent" title="Parent Page" Icon={Users} />
-          <PillLink to="/about" title="About PEC" Icon={User} outlined />
         </section>
 
       </div>
 
-      {/* Hidden admin entry — fixed just above the bottom tab bar */}
+      {/* About PEC link — fixed just above the bottom tab bar */}
       <div
         className="fixed left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 pointer-events-none"
         style={{ bottom: "calc(max(1rem, env(safe-area-inset-bottom)) + 5.5rem)" }}
       >
         <div className="pointer-events-auto">
-          <VersionTap />
+          <AboutPecLink />
         </div>
       </div>
       <BottomTabBar />
@@ -223,33 +220,18 @@ function PillLink({
   );
 }
 
-function VersionTap() {
+function AboutPecLink() {
   const navigate = useNavigate();
-  const taps = useRef<number[]>([]);
-  const [flash, setFlash] = useState(false);
-
-  function onTap() {
-    const now = Date.now();
-    taps.current = [...taps.current.filter((t) => now - t < 1500), now];
-    if (taps.current.length >= 5) {
-      taps.current = [];
-      setFlash(true);
-      setTimeout(() => {
-        setFlash(false);
-        navigate({ to: "/about" });
-      }, 400);
-    }
-  }
 
   return (
     <div className="pb-4 flex justify-center">
       <button
         type="button"
-        onClick={onTap}
-        className="text-[11px] font-semibold tracking-wide"
-        style={{ color: flash ? PAISLEY : "var(--muted-foreground)" }}
+        onClick={() => navigate({ to: "/about" })}
+        className="text-[13px] font-bold tracking-wide"
+        style={{ color: "var(--muted-foreground)" }}
       >
-        Version 1.0.0
+        About PEC
       </button>
     </div>
   );
