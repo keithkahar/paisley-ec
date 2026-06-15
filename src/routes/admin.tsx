@@ -407,6 +407,30 @@ function AdminPage() {
   const [navOpen, setNavOpen] = useState(false);
   const [query, setQuery] = useState("");
 
+  // ===== Mode switch & Smart Reading state =====
+  const [mode, setMode] = useState<"params" | "smartReading">("params");
+  const [srBooks, setSrBooks] = useState<SRBook[]>(INITIAL_SR_BOOKS);
+  const [srSource, setSrSource] = useState<"default" | "admin">("default");
+  const [srActiveBookCode, setSrActiveBookCode] = useState<string>(INITIAL_SR_BOOKS[0]?.book_code ?? "");
+  const [srActiveLessonId, setSrActiveLessonId] = useState<string>(INITIAL_SR_BOOKS[0]?.units[0]?.lesson_id ?? "");
+  const [srImportOpen, setSrImportOpen] = useState(false);
+  const [srImportText, setSrImportText] = useState("");
+  const [srValidationText, setSrValidationText] = useState("");
+  const [srValidationOk, setSrValidationOk] = useState<boolean | null>(null);
+  const [srConfirmClear, setSrConfirmClear] = useState(false);
+  const [srBookEditForm, setSrBookEditForm] = useState<SRBookForm | null>(null);
+  const [srUnitEditForm, setSrUnitEditForm] = useState<SRUnitForm | null>(null);
+  const [srCefrPickerOpen, setSrCefrPickerOpen] = useState(false);
+  const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
+  const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
+  const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
+
+  const srActiveBook = srBooks.find((b) => b.book_code === srActiveBookCode) ?? srBooks[0] ?? null;
+  const srActiveUnit = srActiveBook
+    ? srActiveBook.units.find((u) => u.lesson_id === srActiveLessonId) ?? srActiveBook.units[0] ?? null
+    : null;
+  const srTotalUnits = srBooks.reduce((n, b) => n + b.units.length, 0);
+
   const activeGroup = groups.find((g) => g.key === activeKey) ?? groups[0];
 
   const summary = useMemo(() => {
@@ -469,6 +493,158 @@ function AdminPage() {
     setGroups(INITIAL_GROUPS.map((g) => ({ ...g, rows: g.rows.map((r) => ({ ...r, customized: false, valueText: r.defaultText })) })));
     setConfirmReset(false);
     showToast("已重置");
+  }
+
+  // ===== Smart Reading actions =====
+  function srValidate(): SRBook[] | null {
+    const raw = srImportText.trim();
+    if (!raw) {
+      setSrValidationOk(false);
+      setSrValidationText("请粘贴 JSON 内容。");
+      return null;
+    }
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      setSrValidationOk(false);
+      setSrValidationText(`JSON 格式错误：${(err as Error).message}`);
+      return null;
+    }
+    const list: unknown = Array.isArray(parsed)
+      ? parsed
+      : (parsed as { books?: unknown }).books ?? [parsed];
+    if (!Array.isArray(list)) {
+      setSrValidationOk(false);
+      setSrValidationText("JSON 必须是 books 数组或包含 books 字段的对象。");
+      return null;
+    }
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    const books: SRBook[] = [];
+    list.forEach((item, i) => {
+      const b = item as Partial<SRBook>;
+      if (!b.book_code) errors.push(`第 ${i + 1} 本书缺少 book_code`);
+      if (!b.book_title) warnings.push(`第 ${i + 1} 本书缺少 book_title`);
+      if (!Array.isArray(b.units)) errors.push(`第 ${i + 1} 本书 units 不是数组`);
+      books.push({
+        book_code: b.book_code || `BOOK-${i + 1}`,
+        series_name: b.series_name || "Smart Reading",
+        book_title: b.book_title || "未命名",
+        cefr_range: b.cefr_range || "A1",
+        lexile_range: b.lexile_range || "BR-100L",
+        word_count_range: b.word_count_range || "100",
+        sort_order: Number(b.sort_order || i + 1),
+        updated_at: b.updated_at || new Date().toISOString().slice(0, 10),
+        content_license: b.content_license || "authorized",
+        unit_count: Array.isArray(b.units) ? b.units.length : 0,
+        units: Array.isArray(b.units) ? (b.units as SRUnit[]) : [],
+      });
+    });
+    const incomingCodes = books.map((b) => b.book_code);
+    const currentCodes = srBooks.map((b) => b.book_code);
+    const newBooks = incomingCodes.filter((c) => !currentCodes.includes(c));
+    const removedBooks = currentCodes.filter((c) => !incomingCodes.includes(c));
+    const incomingUnits = books.reduce((n, b) => n + b.units.length, 0);
+    const ok = errors.length === 0;
+    const report = [
+      `校验状态：${ok ? "通过" : "失败"}`,
+      `导入规模：${books.length} 本书，${incomingUnits} 个单元`,
+      `当前规模：${srBooks.length} 本书，${srTotalUnits} 个单元`,
+      `Book 对比：新增 ${newBooks.length}，移除 ${removedBooks.length}`,
+      ...(newBooks.length ? ["新增书：" + newBooks.slice(0, 6).join(", ")] : []),
+      ...(removedBooks.length ? ["将被移除书：" + removedBooks.slice(0, 6).join(", ")] : []),
+      ...(errors.length ? ["错误：", ...errors.slice(0, 8)] : []),
+      ...(warnings.length ? ["警告：", ...warnings.slice(0, 6)] : []),
+    ].join("\n");
+    setSrValidationOk(ok);
+    setSrValidationText(report);
+    return ok ? books : null;
+  }
+
+  function srImport() {
+    const books = srValidate();
+    if (!books) return;
+    setSrBooks(books);
+    setSrSource("admin");
+    setSrActiveBookCode(books[0]?.book_code ?? "");
+    setSrActiveLessonId(books[0]?.units[0]?.lesson_id ?? "");
+    setSrImportOpen(false);
+    setSrImportText("");
+    setSrValidationText("");
+    setSrValidationOk(null);
+    showToast("已导入");
+  }
+
+  function srClear() {
+    setSrBooks(INITIAL_SR_BOOKS);
+    setSrSource("default");
+    setSrActiveBookCode(INITIAL_SR_BOOKS[0]?.book_code ?? "");
+    setSrActiveLessonId(INITIAL_SR_BOOKS[0]?.units[0]?.lesson_id ?? "");
+    setSrConfirmClear(false);
+    showToast("已清除");
+  }
+
+  function openSrBookEditor() {
+    if (!srActiveBook) return;
+    setSrBookEditForm(srBookToForm(srActiveBook));
+  }
+
+  function saveSrBookEditor() {
+    const f = srBookEditForm;
+    if (!f) return;
+    setSrBooks((prev) =>
+      prev.map((b) =>
+        b.book_code === f.bookCode
+          ? {
+              ...b,
+              book_title: f.bookTitle,
+              cefr_range: f.cefrRange,
+              lexile_range: f.lexileRange,
+              word_count_range: f.wordCountRange,
+              sort_order: Number(f.sortOrder) || 0,
+              updated_at: f.updatedAt,
+            }
+          : b
+      )
+    );
+    setSrSource("admin");
+    setSrBookEditForm(null);
+    showToast("已保存");
+  }
+
+  function openSrUnitEditor() {
+    if (!srActiveUnit) return;
+    setSrUnitEditForm(srUnitToForm(srActiveUnit));
+  }
+
+  function saveSrUnitEditor() {
+    const f = srUnitEditForm;
+    if (!f) return;
+    setSrBooks((prev) =>
+      prev.map((b) => ({
+        ...b,
+        units: b.units.map((u) =>
+          u.lesson_id === f.lessonId
+            ? {
+                ...u,
+                story_title: f.storyTitle,
+                cover_question: f.coverQuestion,
+                content_license: f.contentLicense,
+                reading_focus: f.readingFocus,
+                keywords: linesToArr(f.keywordsText),
+                target_sentences: linesToArr(f.targetSentencesText),
+                speaking_goals: linesToArr(f.speakingGoalsText),
+                retelling_frame: f.retellingFrame,
+                shirin_opening: f.shirinOpening,
+              }
+            : u
+        ),
+      }))
+    );
+    setSrSource("admin");
+    setSrUnitEditForm(null);
+    showToast("已保存");
   }
 
   const MONO = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
