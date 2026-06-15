@@ -980,7 +980,7 @@ function AdminPageInner() {
                           {cc > 0 && (
                             <span
                               className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-bold leading-none"
-                              style={{ background: active ? "rgba(255,255,255,0.22)" : YELLOW, color: "#fff" }}
+                              style={{ background: active ? "rgba(255,255,255,0.22)" : PAISLEY, color: "#fff" }}
                             >
                               {cc}
                             </span>
