@@ -554,33 +554,35 @@ function SRView(props: {
       {srActiveBook && (
         <>
           <Section title="单元" count={`${srActiveBook.units.length} 个`} />
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {srActiveBook.units.map((u) => {
               const active = u.lesson_id === srActiveLessonId;
               return (
                 <button
                   key={u.lesson_id}
                   onClick={() => setSrActiveLessonId(u.lesson_id)}
-                  className="relative w-full flex items-center gap-3 text-left rounded-xl p-3 transition-all overflow-hidden"
+                  className="w-full flex items-stretch text-left rounded-full overflow-hidden active:scale-[0.98] transition-transform"
                   style={{
                     background: active ? YELLOW_SOFT_C : "#fff",
                     border: `1px solid ${active ? YELLOW_BORDER_C : "#EEF2F7"}`,
                   }}
                 >
-                  {active && <span className="absolute left-0 top-0 h-full w-[3px]" style={{ background: YELLOW_C }} />}
                   <div
-                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13px] font-medium"
+                    className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[15px] font-semibold"
                     style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : NAVY_C }}
                   >
                     {u.unit_number}
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px]" style={{ color: MUTED_C }}>Unit {u.unit_number}</span>
-                      <span className="text-[10px] px-1.5 py-[1px] rounded" style={{ background: "#F7F2EC", color: SUB_C }}>{u.content_license}</span>
-                    </div>
-                    <div className="text-[14px] font-semibold leading-tight truncate mt-0.5" style={{ color: NAVY_C }}>{u.story_title}</div>
-                    <div className="text-[12px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
+                  <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
+                    <p className="text-[15px] font-semibold tracking-tight leading-tight truncate" style={{ color: NAVY_C, letterSpacing: "-0.01em" }}>
+                      {u.story_title}
+                    </p>
+                    <p className="mt-0.5 text-[11px] font-medium truncate" style={{ color: MUTED_C }}>
+                      {u.cover_question}
+                    </p>
+                  </div>
+                  <div className="shrink-0 pr-4 pl-1 flex items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={active ? YELLOW_C : "#C8D2E0"} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                   </div>
                 </button>
               );
