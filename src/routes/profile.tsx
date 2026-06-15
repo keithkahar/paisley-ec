@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import pecFromLogo from "@/assets/brand/pec-from-logo.png.asset.json";
 import { useRef, useCallback, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
@@ -287,10 +288,16 @@ function AboutPecLink() {
       <button
         type="button"
         onClick={handleClick}
-        className="text-[13px] font-bold tracking-wide select-none"
+        className="text-[13px] font-bold tracking-wide select-none inline-flex items-baseline gap-[2px]"
         style={{ color: "oklch(0.65 0.02 260)" }}
       >
-        About PEC
+        <span>About</span>
+        <img
+          src={pecFromLogo.url}
+          alt="PEC"
+          className="inline-block object-contain"
+          style={{ height: "0.95em", width: "auto" }}
+        />
       </button>
     </div>
   );
