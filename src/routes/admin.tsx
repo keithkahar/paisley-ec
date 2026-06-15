@@ -669,7 +669,7 @@ function AdminPage() {
               </button>
               <div className="min-w-0">
                 <h1 className="text-[22px] font-bold leading-tight truncate" style={{ color: NAVY, fontFamily: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif" }}>管理员后台</h1>
-                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>前端参数管理中心</p>
+                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
               </div>
             </div>
             <button
@@ -681,6 +681,32 @@ function AdminPage() {
             </button>
           </div>
 
+          {/* Mode tabs */}
+          <div className="mt-4 grid grid-cols-2 gap-[6px] p-[4px] rounded-2xl" style={{ background: SOFT_BLUE }}>
+            {[
+              { k: "params", label: "参数管理" },
+              { k: "smartReading", label: "Smart Reading" },
+            ].map((t) => {
+              const active = mode === t.k;
+              return (
+                <button
+                  key={t.k}
+                  onClick={() => setMode(t.k as "params" | "smartReading")}
+                  className="h-[34px] rounded-xl text-[12.5px] font-semibold transition-all"
+                  style={{
+                    background: active ? "#fff" : "transparent",
+                    color: active ? PAISLEY : SUB,
+                    boxShadow: active ? "0 2px 8px rgba(1,70,185,0.10)" : "none",
+                  }}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+
+        {mode === "params" && (
+          <>
           {/* Summary stats */}
           <div className="grid grid-cols-3 gap-[7px] mt-4">
             {summary.map((s) => {
@@ -790,6 +816,26 @@ function AdminPage() {
               </button>
             ))}
           </div>
+          </>
+        )}
+
+        {mode === "smartReading" && (
+          <SRView
+            srBooks={srBooks}
+            srActiveBook={srActiveBook}
+            srActiveUnit={srActiveUnit}
+            srActiveBookCode={srActiveBookCode}
+            srActiveLessonId={srActiveLessonId}
+            srSource={srSource}
+            srTotalUnits={srTotalUnits}
+            setSrActiveBookCode={setSrActiveBookCode}
+            setSrActiveLessonId={setSrActiveLessonId}
+            onImport={() => setSrImportOpen(true)}
+            onClear={() => setSrConfirmClear(true)}
+            onEditBook={openSrBookEditor}
+            onEditUnit={openSrUnitEditor}
+          />
+        )}
         </div>
 
         {/* Group navigation drawer */}
