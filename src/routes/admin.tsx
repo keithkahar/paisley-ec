@@ -418,8 +418,6 @@ function SRView(props: {
   const NAVY_C = "#0B2545";
   const MUTED_C = "#8A97A6";
   const SUB_C = "#50627A";
-  const PAISLEY_C = "#0146B9";
-  const SOFT_BLUE_C = "#EEF2FA";
   const YELLOW_C = "#cdae8d";
   const YELLOW_SOFT_C = "#f7f2ec";
   const YELLOW_BORDER_C = "#ebd9c2";
@@ -430,127 +428,127 @@ function SRView(props: {
   } = props;
   const isAdmin = srSource === "admin";
 
-  // ---- shared visual atoms (yellow brand theme) ----
-  const YELLOW_DEEP = "#8a6a47";
-  const PAPER = "#FFFBF4";
+  // Brand inherited font (Nunito via body). Only raw JSON uses mono.
   const MONO_F = "'JetBrains Mono', ui-monospace, monospace";
 
-  const SectionHeader = ({ kicker, title, count }: { kicker: string; title: string; count?: string }) => (
-    <div className="flex items-end justify-between mt-5 mb-2">
-      <div className="flex items-center gap-2 min-w-0">
-        <span className="inline-block w-[3px] h-[14px] rounded-full" style={{ background: YELLOW_C }} />
-        <div className="min-w-0">
-          <div className="text-[9.5px] font-bold uppercase" style={{ color: YELLOW_DEEP, letterSpacing: "0.14em", fontFamily: MONO_F }}>{kicker}</div>
-          <div className="text-[14.5px] font-bold leading-tight truncate" style={{ color: NAVY_C }}>{title}</div>
-        </div>
+  const Section = ({ title, count, action }: { title: string; count?: string; action?: React.ReactNode }) => (
+    <div className="flex items-end justify-between mt-6 mb-2.5">
+      <div className="flex items-baseline gap-2 min-w-0">
+        <h3 className="text-[16px] font-bold leading-tight truncate" style={{ color: NAVY_C }}>{title}</h3>
+        {count && <span className="text-[12px] shrink-0" style={{ color: MUTED_C }}>{count}</span>}
       </div>
-      {count && <div className="text-[10.5px] font-medium shrink-0" style={{ color: MUTED_C }}>{count}</div>}
+      {action}
     </div>
   );
 
+  // AI context payload preview (what Shirin sees when this unit opens)
+  const aiContext = srActiveUnit && srActiveBook ? {
+    book: srActiveBook.book_title,
+    book_code: srActiveBook.book_code,
+    cefr: srActiveBook.cefr_range,
+    lexile: srActiveBook.lexile_range,
+    unit: srActiveUnit.unit_number,
+    story_title: srActiveUnit.story_title,
+    cover_question: srActiveUnit.cover_question,
+    reading_focus: srActiveUnit.reading_focus,
+    keywords: srActiveUnit.keywords,
+    characters: srActiveUnit.characters,
+    speaking_goals: srActiveUnit.speaking_goals,
+    target_sentences: srActiveUnit.target_sentences,
+    retelling_frame: srActiveUnit.retelling_frame,
+    shirin_opening: srActiveUnit.shirin_opening,
+  } : null;
+
   return (
     <div className="mt-4">
-      {/* Status strip */}
-      <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${YELLOW_BORDER_C}`, background: PAPER }}>
-        <div className="px-3 py-2 flex items-center gap-2" style={{ background: YELLOW_C }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
-          <div className="text-[10px] font-bold uppercase text-white" style={{ letterSpacing: "0.16em", fontFamily: MONO_F }}>Smart Reading · 内容中心</div>
-        </div>
-        <div className="grid grid-cols-2 divide-x" style={{ borderColor: YELLOW_BORDER_C }}>
-          <div className="px-3 py-2.5">
-            <div className="text-[9px] font-bold uppercase" style={{ color: YELLOW_DEEP, letterSpacing: "0.12em", fontFamily: MONO_F }}>当前来源</div>
-            <div className="flex items-center gap-1.5 mt-1">
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: isAdmin ? YELLOW_C : "#9aa6b5" }} />
-              <div className="text-[14.5px] font-bold leading-none" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
-            </div>
+      {/* Content summary — clean, no decorative all-caps */}
+      <div className="rounded-2xl p-4 flex items-center justify-between gap-3" style={{ background: YELLOW_SOFT_C, border: `1px solid ${YELLOW_BORDER_C}` }}>
+        <div className="min-w-0">
+          <div className="text-[12px]" style={{ color: SUB_C }}>内容来源</div>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <span className="w-2 h-2 rounded-full" style={{ background: isAdmin ? YELLOW_C : "#9aa6b5" }} />
+            <div className="text-[15px] font-bold leading-none" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
           </div>
-          <div className="px-3 py-2.5" style={{ borderLeft: `1px solid ${YELLOW_BORDER_C}` }}>
-            <div className="text-[9px] font-bold uppercase" style={{ color: YELLOW_DEEP, letterSpacing: "0.12em", fontFamily: MONO_F }}>内容规模</div>
-            <div className="text-[14.5px] font-bold leading-none mt-1.5" style={{ color: NAVY_C }}>
-              {srBooks.length}<span className="text-[11px] font-medium ml-0.5" style={{ color: MUTED_C }}> 本</span>
-              <span className="mx-1.5 text-[11px]" style={{ color: MUTED_C }}>·</span>
-              {srTotalUnits}<span className="text-[11px] font-medium ml-0.5" style={{ color: MUTED_C }}> 单元</span>
-            </div>
+        </div>
+        <div className="text-right shrink-0">
+          <div className="text-[12px]" style={{ color: SUB_C }}>内容规模</div>
+          <div className="text-[15px] font-bold leading-none mt-0.5" style={{ color: NAVY_C }}>
+            {srBooks.length} 本 · {srTotalUnits} 单元
           </div>
         </div>
       </div>
 
       {/* Actions */}
-      <div className="mt-3 grid grid-cols-2 gap-[8px]">
+      <div className="mt-3 grid grid-cols-2 gap-2">
         <button
           onClick={onImport}
-          className="h-10 rounded-xl text-[13px] font-semibold text-white"
-          style={{ background: `linear-gradient(180deg, #d8bd9e 0%, ${YELLOW_C} 100%)`, boxShadow: "0 4px 12px rgba(205,174,141,0.32)" }}
+          className="h-10 rounded-xl text-[14px] font-bold text-white"
+          style={{ background: YELLOW_C, boxShadow: "0 4px 12px rgba(205,174,141,0.28)" }}
         >
           导入 JSON
         </button>
         <button
           onClick={onClear}
-          className="h-10 rounded-xl text-[13px] font-semibold"
-          style={{ background: "#fff", color: YELLOW_DEEP, border: `1px solid ${YELLOW_BORDER_C}` }}
+          className="h-10 rounded-xl text-[14px] font-bold"
+          style={{ background: "#fff", color: NAVY_C, border: `1px solid ${YELLOW_BORDER_C}` }}
         >
           清除导入
         </button>
       </div>
 
-      {/* Books tabs */}
-      <SectionHeader kicker="01 · Books" title="书籍选择" count={`${srBooks.length} 本`} />
-      <div className="-mx-1 px-1 overflow-x-auto">
-          <div className="flex gap-2 min-w-min">
-            {srBooks.map((b) => {
-              const active = b.book_code === srActiveBookCode;
-              return (
-                <button
-                  key={b.book_code}
-                  onClick={() => {
-                    setSrActiveBookCode(b.book_code);
-                    setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
-                  }}
-                  className="shrink-0 rounded-xl px-3 py-2 text-left transition-all"
-                  style={{
-                    background: active ? YELLOW_C : "#fff",
-                    color: active ? "#fff" : NAVY_C,
-                    border: `1px solid ${active ? YELLOW_C : "#E6ECF5"}`,
-                    minWidth: 144,
-                    boxShadow: active ? "0 4px 12px rgba(205,174,141,0.32)" : "none",
-                  }}
-                >
-                  <div className="text-[9.5px] font-bold uppercase truncate" style={{ color: active ? "rgba(255,255,255,0.82)" : YELLOW_DEEP, letterSpacing: "0.10em", fontFamily: MONO_F }}>{b.book_code}</div>
-                  <div className="text-[12.5px] font-bold leading-tight truncate mt-0.5">{b.book_title}</div>
-                  <div className="text-[10px] mt-0.5 truncate" style={{ color: active ? "rgba(255,255,255,0.82)" : MUTED_C }}>
-                    {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+      {/* Books — full-width grid, no overflow strip */}
+      <Section title="书籍" count={`共 ${srBooks.length} 本`} />
+      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.max(srBooks.length, 1)}, minmax(0, 1fr))` }}>
+        {srBooks.map((b) => {
+          const active = b.book_code === srActiveBookCode;
+          return (
+            <button
+              key={b.book_code}
+              onClick={() => {
+                setSrActiveBookCode(b.book_code);
+                setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
+              }}
+              className="rounded-xl px-3 py-2.5 text-left transition-all"
+              style={{
+                background: active ? YELLOW_C : "#fff",
+                color: active ? "#fff" : NAVY_C,
+                border: `1px solid ${active ? YELLOW_C : "#E6ECF5"}`,
+                boxShadow: active ? "0 4px 12px rgba(205,174,141,0.30)" : "none",
+              }}
+            >
+              <div className="text-[14px] font-bold leading-tight truncate">{b.book_title}</div>
+              <div className="text-[12px] mt-1 truncate" style={{ color: active ? "rgba(255,255,255,0.85)" : MUTED_C }}>
+                {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
+              </div>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Book info card */}
+      {/* Book info */}
       {srActiveBook && (
         <>
-          <SectionHeader kicker="02 · Book Meta" title="书籍基础信息" />
-          <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
-            {/* Title strip — visually distinct from content rows */}
-            <div className="px-3.5 py-3 flex items-start justify-between gap-3" style={{ background: PAPER, borderBottom: `1px solid ${YELLOW_BORDER_C}` }}>
-              <div className="min-w-0">
-                <code className="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold" style={{ background: "#fff", color: YELLOW_DEEP, border: `1px solid ${YELLOW_BORDER_C}`, fontFamily: MONO_F }}>{srActiveBook.book_code}</code>
-                <div className="text-[16px] font-bold leading-tight mt-1.5 truncate" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
-              </div>
-              <button onClick={onEditBook} className="shrink-0 h-[28px] px-3 rounded-full text-[11.5px] font-semibold text-white" style={{ background: YELLOW_C }}>编辑</button>
-            </div>
-            {/* Content rows — two-line key/value, clearly separated from the title strip */}
-            <div className="p-2">
+          <Section
+            title="书籍信息"
+            action={
+              <button onClick={onEditBook} className="h-[28px] px-3 rounded-full text-[12px] font-bold text-white" style={{ background: YELLOW_C }}>编辑</button>
+            }
+          />
+          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
+            <div className="text-[18px] font-bold leading-tight" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+            <div className="text-[12px] mt-0.5" style={{ color: MUTED_C }}>{srActiveBook.series_name} · {srActiveBook.book_code}</div>
+            <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
               {[
                 ["CEFR", srActiveBook.cefr_range],
                 ["Lexile", srActiveBook.lexile_range],
                 ["字数范围", `${srActiveBook.word_count_range} Words`],
                 ["排序", String(srActiveBook.sort_order)],
                 ["更新时间", srActiveBook.updated_at],
+                ["授权", srActiveBook.content_license],
               ].map(([k, v]) => (
-                <div key={k} className="flex items-center justify-between gap-3 px-2 py-2 rounded-lg" style={{ borderBottom: "1px solid #F4F6FA" }}>
-                  <div className="text-[10.5px] font-bold uppercase" style={{ color: YELLOW_DEEP, letterSpacing: "0.08em", fontFamily: MONO_F }}>{k}</div>
-                  <div className="text-[12.5px] font-semibold text-right break-all" style={{ color: NAVY_C }}>{v}</div>
+                <div key={k}>
+                  <div className="text-[11.5px]" style={{ color: MUTED_C }}>{k}</div>
+                  <div className="text-[14px] font-semibold mt-0.5 break-all" style={{ color: NAVY_C }}>{v}</div>
                 </div>
               ))}
             </div>
@@ -561,32 +559,31 @@ function SRView(props: {
       {/* Unit list */}
       {srActiveBook && (
         <>
-          <SectionHeader kicker="03 · Units" title="单元列表" count={`共 ${srActiveBook.units.length} 个`} />
-          <div className="space-y-1.5">
+          <Section title="单元" count={`共 ${srActiveBook.units.length} 个`} />
+          <div className="space-y-2">
             {srActiveBook.units.map((u) => {
               const active = u.lesson_id === srActiveLessonId;
               return (
                 <button
                   key={u.lesson_id}
                   onClick={() => setSrActiveLessonId(u.lesson_id)}
-                  className="relative w-full flex items-center gap-3 text-left rounded-xl p-2.5 transition-all overflow-hidden"
+                  className="relative w-full flex items-center gap-3 text-left rounded-xl p-3 transition-all overflow-hidden"
                   style={{
-                    background: active ? PAPER : "#fff",
+                    background: active ? YELLOW_SOFT_C : "#fff",
                     border: `1px solid ${active ? YELLOW_BORDER_C : "#EEF2F7"}`,
                   }}
                 >
                   {active && <span className="absolute left-0 top-0 h-full w-[3px]" style={{ background: YELLOW_C }} />}
                   <div
-                    className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-[12px] font-bold"
-                    style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : YELLOW_DEEP, fontFamily: MONO_F }}
+                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[14px] font-bold"
+                    style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : NAVY_C }}
                   >
                     {u.unit_number}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-[13px] font-semibold leading-tight truncate" style={{ color: NAVY_C }}>{u.story_title}</div>
-                    <div className="text-[10.5px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
+                    <div className="text-[14px] font-bold leading-tight truncate" style={{ color: NAVY_C }}>{u.story_title}</div>
+                    <div className="text-[12px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
                   </div>
-                  <span className="text-[9.5px] px-1.5 py-0.5 rounded font-bold uppercase" style={{ background: u.content_license === "authorized" ? "#E8F5EC" : YELLOW_SOFT_C, color: u.content_license === "authorized" ? "#1A7A3A" : YELLOW_DEEP, letterSpacing: "0.06em", fontFamily: MONO_F }}>{u.content_license}</span>
                 </button>
               );
             })}
@@ -597,52 +594,59 @@ function SRView(props: {
       {/* Unit preview */}
       {srActiveUnit && (
         <>
-          <SectionHeader kicker="04 · Unit Preview" title="单元预览" />
-          <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
-            {/* Title strip */}
-            <div className="px-3.5 py-3 flex items-start justify-between gap-3" style={{ background: PAPER, borderBottom: `1px solid ${YELLOW_BORDER_C}` }}>
-              <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="inline-flex items-center justify-center w-5 h-5 rounded text-[10px] font-bold text-white" style={{ background: YELLOW_C, fontFamily: MONO_F }}>U{srActiveUnit.unit_number}</span>
-                  <code className="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold" style={{ background: "#fff", color: YELLOW_DEEP, border: `1px solid ${YELLOW_BORDER_C}`, fontFamily: MONO_F }}>{srActiveUnit.lesson_id}</code>
-                </div>
-                <div className="text-[16px] font-bold leading-tight mt-1.5 truncate" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
-              </div>
-              <button onClick={onEditUnit} className="shrink-0 h-[28px] px-3 rounded-full text-[11.5px] font-semibold text-white" style={{ background: YELLOW_C }}>编辑</button>
+          <Section
+            title="单元预览"
+            action={
+              <button onClick={onEditUnit} className="h-[28px] px-3 rounded-full text-[12px] font-bold text-white" style={{ background: YELLOW_C }}>编辑</button>
+            }
+          />
+          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center px-2 h-[22px] rounded-md text-[12px] font-bold text-white" style={{ background: YELLOW_C }}>Unit {srActiveUnit.unit_number}</span>
+              <span className="text-[12px]" style={{ color: MUTED_C }}>{srActiveUnit.lesson_id}</span>
             </div>
-            {/* Content fields — each: tiny mono label on top, navy body below, separated card */}
-            <div className="p-2.5 space-y-2">
+            <div className="text-[20px] font-bold leading-tight mt-2" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
+            <div className="text-[14px] mt-1 leading-relaxed" style={{ color: SUB_C }}>{srActiveUnit.cover_question}</div>
+
+            <div className="h-px my-4" style={{ background: "#EEF2F7" }} />
+
+            <div className="space-y-3.5">
               {[
-                ["Cover Question", srActiveUnit.cover_question],
                 ["Reading Focus", srActiveUnit.reading_focus],
-                ["Keywords", srActiveUnit.keywords.join(" / ")],
-                ["Characters", srActiveUnit.characters.join(" / ")],
-                ["Speaking Goals", srActiveUnit.speaking_goals.join(" / ")],
-                ["Target Sentences", srActiveUnit.target_sentences.join(" / ")],
+                ["Keywords", srActiveUnit.keywords.join(" · ")],
+                ["Characters", srActiveUnit.characters.join(" · ")],
+                ["Speaking Goals", srActiveUnit.speaking_goals.join(" · ")],
+                ["Target Sentences", srActiveUnit.target_sentences.join(" · ")],
                 ["Retelling Frame", srActiveUnit.retelling_frame],
                 ["Shirin Opening", srActiveUnit.shirin_opening],
               ].map(([k, v]) => (
-                <div key={k} className="relative rounded-lg pl-3 pr-2.5 py-2" style={{ background: "#FAFBFD", border: "1px solid #EEF2F7" }}>
-                  <span className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full" style={{ background: YELLOW_BORDER_C }} />
-                  <div className="text-[9.5px] font-bold uppercase" style={{ color: YELLOW_DEEP, letterSpacing: "0.10em", fontFamily: MONO_F }}>{k}</div>
-                  <div className="text-[12.5px] mt-1 leading-relaxed font-medium" style={{ color: NAVY_C }}>{v || "—"}</div>
+                <div key={k}>
+                  <div className="text-[12px] font-semibold" style={{ color: MUTED_C }}>{k}</div>
+                  <div className="text-[14px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{v || "—"}</div>
                 </div>
               ))}
-              <div className="relative rounded-lg pl-3 pr-2.5 py-2.5" style={{ background: PAPER, border: `1px solid ${YELLOW_BORDER_C}` }}>
-                <span className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full" style={{ background: YELLOW_C }} />
-                <div className="flex items-center justify-between">
-                  <div className="text-[9.5px] font-bold uppercase" style={{ color: YELLOW_DEEP, letterSpacing: "0.10em", fontFamily: MONO_F }}>Oral Questions</div>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded text-white" style={{ background: YELLOW_C, fontFamily: MONO_F }}>{srActiveUnit.oral_questions.length}</span>
-                </div>
-                <div className="text-[12.5px] mt-1.5 leading-relaxed font-medium" style={{ color: NAVY_C }}>{srActiveUnit.oral_questions.map((q) => q.question).join(" · ") || "—"}</div>
-              </div>
             </div>
+          </div>
+
+          {/* AI Context Preview — what Shirin actually receives for this unit */}
+          <Section title="AI Context Preview" count="Shirin 实际接收的上下文" />
+          <div className="rounded-2xl overflow-hidden" style={{ background: "#0B2545", border: "1px solid #0B2545" }}>
+            <div className="flex items-center justify-between px-4 py-2.5" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full" style={{ background: YELLOW_C }} />
+                <span className="text-[12px] font-semibold text-white">context.json</span>
+              </div>
+              <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.55)" }}>只读 · 由上方字段生成</span>
+            </div>
+            <pre className="px-4 py-3 text-[11.5px] leading-relaxed overflow-x-auto" style={{ color: "#E6ECF5", fontFamily: MONO_F }}>
+{JSON.stringify(aiContext, null, 2)}
+            </pre>
           </div>
         </>
       )}
 
       {/* Last updated note */}
-      <div className="mt-4 text-[10.5px] text-center" style={{ color: MUTED_C }}>
+      <div className="mt-5 text-[12px] text-center" style={{ color: MUTED_C }}>
         Smart Reading 内容由 Admin Console 统一管理。修改后会标记为 Admin 导入内容。
       </div>
     </div>
