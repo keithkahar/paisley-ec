@@ -1232,7 +1232,200 @@ function AdminPageInner() {
             </div>
           </>
         )}
+
+        {/* SR clear confirm */}
+        {srConfirmClear && (
+          <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setSrConfirmClear(false)}>
+            <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
+              <div className="text-[16px] font-semibold" style={{ color: NAVY }}>清除导入内容？</div>
+              <div className="text-[13px] mt-2" style={{ color: SUB }}>清除后 Smart Reading 将回到默认代码内容。</div>
+              <div className="mt-4 flex gap-3">
+                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>清除</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SR Import sheet */}
+        {srImportOpen && (
+          <>
+            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} />
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
+                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>导入 Smart Reading JSON</div>
+                <div className="text-[11px] mt-1" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
+                <textarea
+                  value={srImportText}
+                  onChange={(e) => setSrImportText(e.target.value)}
+                  placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
+                  className="mt-3 w-full h-[140px] px-3 py-2 rounded-xl text-[12px] outline-none resize-none"
+                  style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
+                />
+                {srValidationText && (
+                  <pre
+                    className="mt-2 w-full max-h-[160px] overflow-auto px-3 py-2 rounded-xl text-[11px] whitespace-pre-wrap"
+                    style={{
+                      background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
+                      color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
+                      fontFamily: MONO,
+                      border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
+                    }}
+                  >
+                    {srValidationText}
+                  </pre>
+                )}
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <button onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                  <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: PAISLEY, border: `1px solid ${PAISLEY}` }}>校验</button>
+                  <button onClick={srImport} className="h-11 rounded-full text-[13px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>导入</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* SR Book editor sheet */}
+        {srBookEditForm && (
+          <>
+            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrBookEditForm(null)} />
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
+                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
+                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
+                <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto">
+                  <SRField label="书名">
+                    <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="CEFR">
+                    <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
+                  </SRField>
+                  <SRField label="Lexile">
+                    <SRSelect value={srBookEditForm.lexileRange} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexileRange: v })} placeholder="请选择 Lexile" />
+                  </SRField>
+                  <SRField label="字数范围">
+                    <SRSelect value={srBookEditForm.wordCountRange} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: v })} placeholder="请选择字数" suffix="Words" />
+                  </SRField>
+                  <SRField label="排序">
+                    <input inputMode="numeric" value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="更新时间 (YYYY-MM-DD)">
+                    <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} placeholder="2026-06-15" className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
+                  </SRField>
+                </div>
+                <div className="mt-5 flex gap-3">
+                  <button onClick={() => setSrBookEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* SR Unit editor sheet */}
+        {srUnitEditForm && (
+          <>
+            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrUnitEditForm(null)} />
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
+                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑单元</div>
+                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
+                <div className="mt-4 space-y-3 max-h-[58vh] overflow-y-auto">
+                  <SRField label="标题">
+                    <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="封面问题 Cover Question">
+                    <input value={srUnitEditForm.coverQuestion} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, coverQuestion: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="授权状态 License">
+                    <SRSelect value={srUnitEditForm.contentLicense} options={[...SR_LICENSE_OPTIONS]} open={srLicensePickerOpen} setOpen={setSrLicensePickerOpen} onChange={(v) => setSrUnitEditForm({ ...srUnitEditForm, contentLicense: v as SRUnit["content_license"] })} placeholder="请选择授权" />
+                  </SRField>
+                  <SRField label="Reading Focus">
+                    <textarea value={srUnitEditForm.readingFocus} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, readingFocus: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Keywords（每行一个）">
+                    <textarea value={srUnitEditForm.keywordsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, keywordsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
+                  </SRField>
+                  <SRField label="Target Sentences（每行一句）">
+                    <textarea value={srUnitEditForm.targetSentencesText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, targetSentencesText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Speaking Goals（每行一项）">
+                    <textarea value={srUnitEditForm.speakingGoalsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, speakingGoalsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Retelling Frame">
+                    <textarea value={srUnitEditForm.retellingFrame} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, retellingFrame: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Shirin Opening">
+                    <textarea value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                </div>
+                <div className="mt-5 flex gap-3">
+                  <button onClick={() => setSrUnitEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </PhoneFrame>
+  );
+}
+
+function SRField(props: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-[10.5px] font-bold uppercase tracking-wider mb-1" style={{ color: "#50627A", letterSpacing: "0.06em" }}>{props.label}</div>
+      {props.children}
+    </div>
+  );
+}
+
+function SRSelect(props: {
+  value: string;
+  options: string[];
+  open: boolean;
+  setOpen: (v: boolean) => void;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  suffix?: string;
+}) {
+  const NAVY_C = "#0B2545";
+  const MUTED_C = "#8A97A6";
+  const PAISLEY_C = "#0146B9";
+  const SOFT_BG_C = "#F6F8FC";
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => props.setOpen(!props.open)}
+        className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[14px]"
+        style={{ background: SOFT_BG_C, color: props.value ? NAVY_C : MUTED_C }}
+      >
+        <span>{props.value ? `${props.value}${props.suffix ? " " + props.suffix : ""}` : props.placeholder || "请选择"}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ color: MUTED_C, transform: props.open ? "rotate(180deg)" : undefined, transition: "transform 0.15s" }}><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      {props.open && (
+        <div className="absolute z-10 left-0 right-0 mt-1 max-h-[200px] overflow-y-auto rounded-xl bg-white" style={{ border: "1px solid #E6ECF5", boxShadow: "0 8px 24px rgba(11,37,69,0.10)" }}>
+          {props.options.map((o) => {
+            const active = o === props.value;
+            return (
+              <button
+                key={o}
+                type="button"
+                onClick={() => { props.onChange(o); props.setOpen(false); }}
+                className="w-full text-left px-3 py-2 text-[13px]"
+                style={{ background: active ? "#EAF3FF" : "transparent", color: active ? PAISLEY_C : NAVY_C, fontWeight: active ? 700 : 500 }}
+              >
+                {o}{props.suffix ? " " + props.suffix : ""}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }
