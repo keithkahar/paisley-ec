@@ -1194,22 +1194,16 @@ function AdminPageInner() {
                 <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
                 <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto">
                   <SRField label="书名">
-                    <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                    <input value={srBookEditForm.title} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, title: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                   <SRField label="CEFR">
-                    <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
+                    <SRSelect value={srBookEditForm.cefr} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefr: v })} placeholder="请选择 CEFR" />
                   </SRField>
                   <SRField label="Lexile">
-                    <SRSelect value={srBookEditForm.lexileRange} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexileRange: v })} placeholder="请选择 Lexile" />
+                    <SRSelect value={srBookEditForm.lexile} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexile: v })} placeholder="请选择 Lexile" />
                   </SRField>
                   <SRField label="字数范围">
-                    <SRSelect value={srBookEditForm.wordCountRange} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: v })} placeholder="请选择字数" suffix="Words" />
-                  </SRField>
-                  <SRField label="排序">
-                    <input inputMode="numeric" value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="更新时间 (YYYY-MM-DD)">
-                    <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} placeholder="2026-06-15" className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
+                    <SRSelect value={srBookEditForm.wordCount} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCount: v })} placeholder="请选择字数" suffix="Words" />
                   </SRField>
                 </div>
                 <div className="mt-5 flex gap-3">
@@ -1237,26 +1231,21 @@ function AdminPageInner() {
                   <SRField label="封面问题 Cover Question">
                     <input value={srUnitEditForm.coverQuestion} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, coverQuestion: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                  <SRField label="授权状态 License">
-                    <SRSelect value={srUnitEditForm.contentLicense} options={[...SR_LICENSE_OPTIONS]} open={srLicensePickerOpen} setOpen={setSrLicensePickerOpen} onChange={(v) => setSrUnitEditForm({ ...srUnitEditForm, contentLicense: v as SRUnit["content_license"] })} placeholder="请选择授权" />
+                  <SRField label="Emoji">
+                    <input value={srUnitEditForm.emoji} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, emoji: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[18px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                  <SRField label="Reading Focus">
-                    <textarea value={srUnitEditForm.readingFocus} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, readingFocus: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Keywords（每行一个）">
-                    <textarea value={srUnitEditForm.keywordsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, keywordsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
-                  </SRField>
-                  <SRField label="Target Sentences（每行一句）">
-                    <textarea value={srUnitEditForm.targetSentencesText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, targetSentencesText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Speaking Goals（每行一项）">
-                    <textarea value={srUnitEditForm.speakingGoalsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, speakingGoalsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Retelling Frame">
-                    <textarea value={srUnitEditForm.retellingFrame} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, retellingFrame: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Shirin Opening">
-                    <textarea value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  <SRField label="阅读状态">
+                    <button
+                      type="button"
+                      onClick={() => setSrUnitEditForm({ ...srUnitEditForm, done: !srUnitEditForm.done })}
+                      className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[14px]"
+                      style={{ background: SOFT_BG, color: NAVY }}
+                    >
+                      <span>{srUnitEditForm.done ? "已读" : "未读"}</span>
+                      <span className="relative inline-block w-[40px] h-[22px] rounded-full" style={{ background: srUnitEditForm.done ? PAISLEY : "#CBD5E1" }}>
+                        <span className="absolute top-0.5 w-[18px] h-[18px] rounded-full bg-white transition-all" style={{ left: srUnitEditForm.done ? 20 : 2 }} />
+                      </span>
+                    </button>
                   </SRField>
                 </div>
                 <div className="mt-5 flex gap-3">
