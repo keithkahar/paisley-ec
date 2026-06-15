@@ -81,6 +81,7 @@ type SRBookForm = {
   wordCountRange: string;
   sortOrder: string;
   updatedAt: string;
+  contentLicense: string;
 };
 type SRUnitForm = {
   lessonId: string;
@@ -215,6 +216,7 @@ function srBookToForm(b: SRBook): SRBookForm {
     wordCountRange: b.word_count_range,
     sortOrder: String(b.sort_order),
     updatedAt: b.updated_at,
+    contentLicense: b.content_license,
   };
 }
 function srUnitToForm(u: SRUnit): SRUnitForm {
@@ -504,14 +506,14 @@ function SRView(props: {
               }}
               className="rounded-xl px-3 py-2.5 text-left transition-all"
               style={{
-                background: active ? YELLOW_C : "#fff",
-                color: active ? "#fff" : NAVY_C,
-                border: `1px solid ${active ? YELLOW_C : "#E6ECF5"}`,
+                background: active ? YELLOW_SOFT_C : "#fff",
+                color: NAVY_C,
+                border: `1px solid ${active ? YELLOW_BORDER_C : "#E6ECF5"}`,
                 boxShadow: "none",
               }}
             >
               <div className="text-[14px] font-semibold leading-tight truncate">{b.book_title}</div>
-              <div className="text-[12px] mt-1 truncate" style={{ color: active ? "rgba(255,255,255,0.85)" : MUTED_C }}>
+              <div className="text-[12px] mt-1 truncate" style={{ color: MUTED_C }}>
                 {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
               </div>
             </button>
@@ -554,33 +556,35 @@ function SRView(props: {
       {srActiveBook && (
         <>
           <Section title="单元" count={`${srActiveBook.units.length} 个`} />
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {srActiveBook.units.map((u) => {
               const active = u.lesson_id === srActiveLessonId;
               return (
                 <button
                   key={u.lesson_id}
                   onClick={() => setSrActiveLessonId(u.lesson_id)}
-                  className="relative w-full flex items-center gap-3 text-left rounded-xl p-3 transition-all overflow-hidden"
+                  className="w-full flex items-stretch text-left rounded-full overflow-hidden active:scale-[0.98] transition-transform"
                   style={{
                     background: active ? YELLOW_SOFT_C : "#fff",
                     border: `1px solid ${active ? YELLOW_BORDER_C : "#EEF2F7"}`,
                   }}
                 >
-                  {active && <span className="absolute left-0 top-0 h-full w-[3px]" style={{ background: YELLOW_C }} />}
                   <div
-                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13px] font-medium"
+                    className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[15px] font-semibold"
                     style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : NAVY_C }}
                   >
                     {u.unit_number}
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px]" style={{ color: MUTED_C }}>Unit {u.unit_number}</span>
-                      <span className="text-[10px] px-1.5 py-[1px] rounded" style={{ background: "#F7F2EC", color: SUB_C }}>{u.content_license}</span>
-                    </div>
-                    <div className="text-[14px] font-semibold leading-tight truncate mt-0.5" style={{ color: NAVY_C }}>{u.story_title}</div>
-                    <div className="text-[12px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
+                  <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
+                    <p className="text-[15px] font-semibold tracking-tight leading-tight truncate" style={{ color: NAVY_C, letterSpacing: "-0.01em" }}>
+                      {u.story_title}
+                    </p>
+                    <p className="mt-0.5 text-[11px] font-medium truncate" style={{ color: MUTED_C }}>
+                      {u.cover_question}
+                    </p>
+                  </div>
+                  <div className="shrink-0 pr-4 pl-1 flex items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={active ? YELLOW_C : "#C8D2E0"} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                   </div>
                 </button>
               );
@@ -626,8 +630,11 @@ function SRView(props: {
             </div>
           </div>
 
-          <Section title="AI Context Preview" />
-          <pre className="rounded-2xl p-4 text-[11px] leading-relaxed overflow-x-auto" style={{ background: "#0B2545", color: "#E6ECF5", fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+          <div className="flex items-baseline justify-between mt-6 mb-2.5">
+            <h3 className="text-[13px] font-medium leading-tight" style={{ color: SUB_C }}>AI Context Preview</h3>
+            <span className="text-[11px]" style={{ color: MUTED_C }}>context.json</span>
+          </div>
+          <pre className="rounded-2xl p-4 text-[11px] leading-relaxed overflow-x-auto" style={{ background: "#F5F7FB", color: NAVY_C, border: "1px solid #E6ECF5", fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
 {JSON.stringify(aiContext, null, 2)}
           </pre>
         </>
@@ -668,6 +675,7 @@ function AdminPageInner() {
   const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
   const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
   const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
+  const [srBookLicensePickerOpen, setSrBookLicensePickerOpen] = useState(false);
 
   const srActiveBook = srBooks.find((b) => b.book_code === srActiveBookCode) ?? srBooks[0] ?? null;
   const srActiveUnit = srActiveBook
@@ -848,6 +856,7 @@ function AdminPageInner() {
               word_count_range: f.wordCountRange,
               sort_order: Number(f.sortOrder) || b.sort_order,
               updated_at: f.updatedAt,
+              content_license: f.contentLicense,
             }
           : b
       )
@@ -902,19 +911,9 @@ function AdminPageInner() {
         <div className="px-5 pt-12">
           {/* Header: title + menu (open groups drawer) + reset */}
           <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <button
-                onClick={() => setNavOpen(true)}
-                aria-label="分组导航"
-                className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-xl"
-                style={{ background: SOFT_BLUE, color: PAISLEY }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-              </button>
-              <div className="min-w-0">
-                <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
-                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
-              </div>
+            <div className="min-w-0">
+              <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
+              <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
             </div>
             <button
               onClick={() => setConfirmReset(true)}
@@ -925,8 +924,16 @@ function AdminPageInner() {
             </button>
           </div>
 
-          {/* Mode tabs */}
-          <div className="mt-4 grid grid-cols-2 gap-[6px] p-[4px] rounded-2xl" style={{ background: SOFT_BLUE }}>
+          {/* Mode tabs — hamburger + scrollable tabs in one pill */}
+          <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
+            <button
+              onClick={() => setNavOpen(true)}
+              aria-label="分组导航"
+              className="shrink-0 inline-flex items-center justify-center h-[34px] w-[34px] rounded-full transition-all"
+              style={{ background: "#fff", color: PAISLEY, boxShadow: "0 2px 8px rgba(1,70,185,0.10)" }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
             {[
               { k: "params", label: "参数管理" },
               { k: "smartReading", label: "Smart Reading" },
@@ -937,7 +944,7 @@ function AdminPageInner() {
                 <button
                   key={t.k}
                   onClick={() => setMode(t.k as "params" | "smartReading")}
-                  className="h-[34px] rounded-xl text-[12.5px] font-semibold transition-all"
+                  className="shrink-0 flex-1 h-[34px] px-4 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
                   style={{
                     background: active ? "#fff" : "transparent",
                     color: active ? accent : SUB,
@@ -962,11 +969,11 @@ function AdminPageInner() {
               return (
                 <div
                   key={s.label}
-                  className="rounded-2xl px-3 py-2.5"
+                  className="rounded-full px-3.5 py-1.5 flex items-baseline justify-between gap-2"
                   style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
                 >
-                  <div className="text-[11px]" style={{ color: SUB }}>{s.label}</div>
-                  <div className="text-[20px] font-semibold leading-tight mt-1" style={{ color: NAVY }}>{s.value}</div>
+                  <span className="text-[11px] truncate" style={{ color: SUB }}>{s.label}</span>
+                  <span className="text-[14px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
                 </div>
               );
             })}
@@ -983,20 +990,8 @@ function AdminPageInner() {
             <p className="text-[11px] mt-1 leading-relaxed" style={{ color: MUTED }}>{activeGroup.subtitle}</p>
           )}
 
-          {/* Search */}
-          <div className="relative mt-3">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="搜索本组参数 (名称 / key)"
-              className="w-full pl-9 pr-3 py-2 rounded-xl text-[13px] outline-none"
-              style={{ background: "#F5F7FB", border: "1px solid #E6ECF5", color: NAVY }}
-            />
-          </div>
-
           {/* Param cards */}
-          <div className="mt-3 space-y-2.5">
+          <div className="mt-4 space-y-2.5">
             {filteredRows.length === 0 && (
               <div className="text-center text-[12px] py-8" style={{ color: MUTED }}>无匹配参数</div>
             )}
@@ -1332,6 +1327,9 @@ function AdminPageInner() {
                   </SRField>
                   <SRField label="更新时间">
                     <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="授权">
+                    <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
                   </SRField>
                 </div>
                 <div className="mt-5 flex gap-3">
