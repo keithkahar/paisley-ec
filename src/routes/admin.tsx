@@ -963,17 +963,17 @@ function AdminPageInner() {
 
         {mode === "params" && (
           <>
-          {/* Summary stats */}
+          {/* Summary stats — height matches the SR status strip */}
           <div className="grid grid-cols-3 gap-[7px] mt-4">
             {summary.map((s) => {
               return (
                 <div
                   key={s.label}
-                  className="rounded-full px-3.5 py-1.5 flex items-baseline justify-between gap-2"
+                  className="rounded-full px-3.5 py-2.5 flex items-baseline justify-between gap-2"
                   style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
                 >
                   <span className="text-[11px] truncate" style={{ color: SUB }}>{s.label}</span>
-                  <span className="text-[14px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
+                  <span className="text-[13px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
                 </div>
               );
             })}
@@ -1180,16 +1180,18 @@ function AdminPageInner() {
         {editing && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={closeEditor} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>{editing.label}</div>
-                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED }}>{editing.path}</div>
-                <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>默认：{editing.defaultText}</div>
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>{editing.label}</div>
+                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED }}>{editing.path}</div>
+                  <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>默认：{editing.defaultText}</div>
+                </div>
 
-                <div className="mt-4">
+                <div className="mt-4 flex-1 min-h-0 overflow-y-auto">
                   {editing.options && editing.options.length > 0 ? (
-                    <div className="flex flex-col gap-2 max-h-[40vh] overflow-y-auto">
+                    <div className="flex flex-col gap-2">
                       {editing.options.map((opt) => {
                         const active = editValue === opt.value;
                         return (
@@ -1238,7 +1240,7 @@ function AdminPageInner() {
                   )}
                 </div>
 
-                <div className="mt-5 flex gap-3">
+                <div className="mt-5 flex gap-3 shrink-0">
                   <button onClick={closeEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
                   <button onClick={saveEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
                 </div>
@@ -1265,35 +1267,39 @@ function AdminPageInner() {
         {srImportOpen && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>导入 Smart Reading JSON</div>
-                <div className="text-[11px] mt-1" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
-                <textarea
-                  value={srImportText}
-                  onChange={(e) => setSrImportText(e.target.value)}
-                  placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
-                  className="mt-3 w-full h-[140px] px-3 py-2 rounded-xl text-[12px] outline-none resize-none"
-                  style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
-                />
-                {srValidationText && (
-                  <pre
-                    className="mt-2 w-full max-h-[160px] overflow-auto px-3 py-2 rounded-xl text-[11px] whitespace-pre-wrap"
-                    style={{
-                      background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
-                      color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
-                      fontFamily: MONO,
-                      border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
-                    }}
-                  >
-                    {srValidationText}
-                  </pre>
-                )}
-                <div className="mt-4 grid grid-cols-3 gap-2">
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>导入 Smart Reading JSON</div>
+                  <div className="text-[11px] mt-1" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
+                </div>
+                <div className="mt-3 flex-1 min-h-0 overflow-y-auto">
+                  <textarea
+                    value={srImportText}
+                    onChange={(e) => setSrImportText(e.target.value)}
+                    placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
+                    className="w-full h-[160px] px-3 py-2 rounded-xl text-[12px] outline-none resize-none"
+                    style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
+                  />
+                  {srValidationText && (
+                    <pre
+                      className="mt-2 w-full px-3 py-2 rounded-xl text-[11px] whitespace-pre-wrap"
+                      style={{
+                        background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
+                        color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
+                        fontFamily: MONO,
+                        border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
+                      }}
+                    >
+                      {srValidationText}
+                    </pre>
+                  )}
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-2 shrink-0">
                   <button onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: PAISLEY, border: `1px solid ${PAISLEY}` }}>校验</button>
-                  <button onClick={srImport} className="h-11 rounded-full text-[13px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>导入</button>
+                  <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
+                  <button onClick={srImport} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>导入</button>
                 </div>
               </div>
             </div>
@@ -1304,12 +1310,14 @@ function AdminPageInner() {
         {srBookEditForm && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrBookEditForm(null)} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
-                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
-                <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto">
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
+                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
+                </div>
+                <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="书名">
                     <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1332,9 +1340,9 @@ function AdminPageInner() {
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
                   </SRField>
                 </div>
-                <div className="mt-5 flex gap-3">
+                <div className="mt-5 flex gap-3 shrink-0">
                   <button onClick={() => setSrBookEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
                 </div>
               </div>
             </div>
@@ -1345,12 +1353,14 @@ function AdminPageInner() {
         {srUnitEditForm && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrUnitEditForm(null)} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑单元</div>
-                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
-                <div className="mt-4 space-y-3 max-h-[58vh] overflow-y-auto">
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑单元</div>
+                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
+                </div>
+                <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="标题">
                     <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1379,9 +1389,9 @@ function AdminPageInner() {
                     <input value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                 </div>
-                <div className="mt-5 flex gap-3">
+                <div className="mt-5 flex gap-3 shrink-0">
                   <button onClick={() => setSrUnitEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
                 </div>
               </div>
             </div>
