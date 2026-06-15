@@ -1310,12 +1310,14 @@ function AdminPageInner() {
         {srBookEditForm && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrBookEditForm(null)} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
-                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
-                <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto">
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
+                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
+                </div>
+                <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="书名">
                     <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1338,9 +1340,9 @@ function AdminPageInner() {
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
                   </SRField>
                 </div>
-                <div className="mt-5 flex gap-3">
+                <div className="mt-5 flex gap-3 shrink-0">
                   <button onClick={() => setSrBookEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
                 </div>
               </div>
             </div>
@@ -1351,12 +1353,14 @@ function AdminPageInner() {
         {srUnitEditForm && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrUnitEditForm(null)} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑单元</div>
-                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
-                <div className="mt-4 space-y-3 max-h-[58vh] overflow-y-auto">
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑单元</div>
+                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
+                </div>
+                <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="标题">
                     <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1385,9 +1389,9 @@ function AdminPageInner() {
                     <input value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                 </div>
-                <div className="mt-5 flex gap-3">
+                <div className="mt-5 flex gap-3 shrink-0">
                   <button onClick={() => setSrUnitEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
                 </div>
               </div>
             </div>
