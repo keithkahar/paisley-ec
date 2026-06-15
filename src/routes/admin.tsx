@@ -903,6 +903,7 @@ function AdminPageInner() {
               { k: "smartReading", label: "Smart Reading" },
             ].map((t) => {
               const active = mode === t.k;
+              const accent = t.k === "smartReading" ? YELLOW : PAISLEY;
               return (
                 <button
                   key={t.k}
@@ -910,8 +911,12 @@ function AdminPageInner() {
                   className="h-[34px] rounded-xl text-[12.5px] font-semibold transition-all"
                   style={{
                     background: active ? "#fff" : "transparent",
-                    color: active ? PAISLEY : SUB,
-                    boxShadow: active ? "0 2px 8px rgba(1,70,185,0.10)" : "none",
+                    color: active ? accent : SUB,
+                    boxShadow: active
+                      ? t.k === "smartReading"
+                        ? "0 2px 8px rgba(205,174,141,0.30)"
+                        : "0 2px 8px rgba(1,70,185,0.10)"
+                      : "none",
                   }}
                 >
                   {t.label}
