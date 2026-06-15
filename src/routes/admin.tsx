@@ -44,6 +44,197 @@ const YELLOW = "#cdae8d";
 const YELLOW_SOFT = "#f7f2ec";
 const YELLOW_BORDER = "#ebd9c2";
 
+// ===== Smart Reading content types & mock data =====
+type SRUnit = {
+  lesson_id: string;
+  unit_number: number;
+  story_title: string;
+  cover_question: string;
+  content_license: "authorized" | "summary_only" | "metadata_only" | "unknown";
+  reading_focus: string;
+  keywords: string[];
+  characters: string[];
+  speaking_goals: string[];
+  target_sentences: string[];
+  oral_questions: { question: string }[];
+  retelling_frame: string;
+  shirin_opening: string;
+};
+type SRBook = {
+  book_code: string;
+  series_name: string;
+  book_title: string;
+  cefr_range: string;
+  lexile_range: string;
+  word_count_range: string;
+  sort_order: number;
+  updated_at: string;
+  content_license: string;
+  unit_count: number;
+  units: SRUnit[];
+};
+type SRBookForm = {
+  bookCode: string;
+  bookTitle: string;
+  cefrRange: string;
+  lexileRange: string;
+  wordCountRange: string;
+  sortOrder: string;
+  updatedAt: string;
+};
+type SRUnitForm = {
+  lessonId: string;
+  storyTitle: string;
+  coverQuestion: string;
+  contentLicense: SRUnit["content_license"];
+  readingFocus: string;
+  keywordsText: string;
+  targetSentencesText: string;
+  speakingGoalsText: string;
+  retellingFrame: string;
+  shirinOpening: string;
+};
+
+const SR_CEFR_OPTIONS = ["PreA1-A1","PreA1","A1","A1-A2","A2","A2-B1","B1","B1-B2","B2"];
+const SR_LEXILE_OPTIONS = ["BR-100L","100L-250L","150L-350L","250L-450L","350L-550L","450L-650L","550L-750L","650L-850L"];
+const SR_WORD_OPTIONS = ["50","60","80","100","120","150","200","250","300","400","500"];
+const SR_LICENSE_OPTIONS: SRUnit["content_license"][] = ["authorized","summary_only","metadata_only","unknown"];
+
+const INITIAL_SR_BOOKS: SRBook[] = [
+  {
+    book_code: "SR-PA1-01",
+    series_name: "Smart Reading",
+    book_title: "Hello, Sunny Day",
+    cefr_range: "PreA1-A1",
+    lexile_range: "BR-100L",
+    word_count_range: "50",
+    sort_order: 1,
+    updated_at: "2026-06-10",
+    content_license: "authorized",
+    unit_count: 3,
+    units: [
+      {
+        lesson_id: "SR-PA1-01-U01",
+        unit_number: 1,
+        story_title: "A Big Red Apple",
+        cover_question: "What color is the apple?",
+        content_license: "authorized",
+        reading_focus: "Identify colors and simple nouns in a short story.",
+        keywords: ["apple","red","big","tree"],
+        characters: ["Mia","Dad"],
+        speaking_goals: ["Name three colors","Use 'I see a ___'"],
+        target_sentences: ["I see a big red apple.","The apple is on the tree."],
+        oral_questions: [{ question: "What does Mia see?" }, { question: "Where is the apple?" }],
+        retelling_frame: "First ___ . Then ___ . Finally ___ .",
+        shirin_opening: "Hi! Today let's read about Mia and a big red apple. Ready?",
+      },
+      {
+        lesson_id: "SR-PA1-01-U02",
+        unit_number: 2,
+        story_title: "My Little Cat",
+        cover_question: "Where is the cat?",
+        content_license: "authorized",
+        reading_focus: "Use prepositions of place (on, in, under).",
+        keywords: ["cat","box","sleep","little"],
+        characters: ["Lily","Cat"],
+        speaking_goals: ["Use 'on / in / under'"],
+        target_sentences: ["The cat is in the box.","The cat can sleep."],
+        oral_questions: [{ question: "Where is the cat?" }],
+        retelling_frame: "There is a ___ . It is ___ .",
+        shirin_opening: "Meow! Let's find Lily's little cat together.",
+      },
+      {
+        lesson_id: "SR-PA1-01-U03",
+        unit_number: 3,
+        story_title: "Rainy Park",
+        cover_question: "What is the weather like?",
+        content_license: "summary_only",
+        reading_focus: "Weather words and feelings.",
+        keywords: ["rain","umbrella","park","wet"],
+        characters: ["Tom"],
+        speaking_goals: ["Describe weather"],
+        target_sentences: ["It is rainy today.","Tom has an umbrella."],
+        oral_questions: [{ question: "How is the weather?" }],
+        retelling_frame: "It is ___ . Tom ___ .",
+        shirin_opening: "It's raining! Let's see what Tom does in the park.",
+      },
+    ],
+  },
+  {
+    book_code: "SR-A1-02",
+    series_name: "Smart Reading",
+    book_title: "Around My Town",
+    cefr_range: "A1",
+    lexile_range: "100L-250L",
+    word_count_range: "100",
+    sort_order: 2,
+    updated_at: "2026-05-22",
+    content_license: "authorized",
+    unit_count: 2,
+    units: [
+      {
+        lesson_id: "SR-A1-02-U01",
+        unit_number: 1,
+        story_title: "At the Bakery",
+        cover_question: "What do you buy at a bakery?",
+        content_license: "authorized",
+        reading_focus: "Food vocabulary and polite requests.",
+        keywords: ["bread","cake","buy","please"],
+        characters: ["Ana","Baker"],
+        speaking_goals: ["Use 'Can I have ___, please?'"],
+        target_sentences: ["Can I have a small cake, please?","Thank you very much."],
+        oral_questions: [{ question: "What does Ana buy?" }],
+        retelling_frame: "Ana goes to ___ . She buys ___ .",
+        shirin_opening: "Yum! Let's go to the bakery with Ana.",
+      },
+      {
+        lesson_id: "SR-A1-02-U02",
+        unit_number: 2,
+        story_title: "On the Bus",
+        cover_question: "Where is Ben going?",
+        content_license: "authorized",
+        reading_focus: "Talking about places and directions.",
+        keywords: ["bus","school","stop","go"],
+        characters: ["Ben","Driver"],
+        speaking_goals: ["Ask 'Where is ___?'"],
+        target_sentences: ["The bus goes to school.","Ben sits near the window."],
+        oral_questions: [{ question: "Where does the bus go?" }],
+        retelling_frame: "Ben takes ___ . He goes to ___ .",
+        shirin_opening: "All aboard! Let's ride the bus with Ben.",
+      },
+    ],
+  },
+];
+
+function srBookToForm(b: SRBook): SRBookForm {
+  return {
+    bookCode: b.book_code,
+    bookTitle: b.book_title,
+    cefrRange: b.cefr_range,
+    lexileRange: b.lexile_range,
+    wordCountRange: b.word_count_range,
+    sortOrder: String(b.sort_order),
+    updatedAt: b.updated_at,
+  };
+}
+function srUnitToForm(u: SRUnit): SRUnitForm {
+  return {
+    lessonId: u.lesson_id,
+    storyTitle: u.story_title,
+    coverQuestion: u.cover_question,
+    contentLicense: u.content_license,
+    readingFocus: u.reading_focus,
+    keywordsText: u.keywords.join("\n"),
+    targetSentencesText: u.target_sentences.join("\n"),
+    speakingGoalsText: u.speaking_goals.join("\n"),
+    retellingFrame: u.retelling_frame,
+    shirinOpening: u.shirin_opening,
+  };
+}
+function linesToArr(s: string) {
+  return s.split("\n").map((x) => x.trim()).filter(Boolean);
+}
+
 const INITIAL_GROUPS: AdminGroup[] = [
   {
     key: "system",
