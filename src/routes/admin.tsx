@@ -45,163 +45,81 @@ const YELLOW_SOFT = "#f7f2ec";
 const YELLOW_BORDER = "#ebd9c2";
 
 // ===== Smart Reading content types & mock data =====
+// Mirrors the real shape used in src/routes/smart-reading.tsx — no invented fields.
 type SRUnit = {
   lesson_id: string;
   unit_number: number;
   story_title: string;
   cover_question: string;
-  content_license: "authorized" | "summary_only" | "metadata_only" | "unknown";
-  reading_focus: string;
-  keywords: string[];
-  characters: string[];
-  speaking_goals: string[];
-  target_sentences: string[];
-  oral_questions: { question: string }[];
-  retelling_frame: string;
-  shirin_opening: string;
+  emoji: string;
+  done?: boolean;
 };
 type SRBook = {
-  book_code: string;
+  pack_id: string;
   series_name: string;
-  book_title: string;
-  cefr_range: string;
-  lexile_range: string;
-  word_count_range: string;
-  sort_order: number;
-  updated_at: string;
-  content_license: string;
-  unit_count: number;
+  book_code: string;
+  title: string;
+  CEFR: string;
+  Lexile: string;
+  wordCount: string;
   units: SRUnit[];
 };
 type SRBookForm = {
   bookCode: string;
-  bookTitle: string;
-  cefrRange: string;
-  lexileRange: string;
-  wordCountRange: string;
-  sortOrder: string;
-  updatedAt: string;
+  title: string;
+  cefr: string;
+  lexile: string;
+  wordCount: string;
 };
 type SRUnitForm = {
   lessonId: string;
   storyTitle: string;
   coverQuestion: string;
-  contentLicense: SRUnit["content_license"];
-  readingFocus: string;
-  keywordsText: string;
-  targetSentencesText: string;
-  speakingGoalsText: string;
-  retellingFrame: string;
-  shirinOpening: string;
+  emoji: string;
+  done: boolean;
 };
 
 const SR_CEFR_OPTIONS = ["PreA1-A1","PreA1","A1","A1-A2","A2","A2-B1","B1","B1-B2","B2"];
 const SR_LEXILE_OPTIONS = ["BR-100L","100L-250L","150L-350L","250L-450L","350L-550L","450L-650L","550L-750L","650L-850L"];
 const SR_WORD_OPTIONS = ["50","60","80","100","120","150","200","250","300","400","500"];
-const SR_LICENSE_OPTIONS: SRUnit["content_license"][] = ["authorized","summary_only","metadata_only","unknown"];
 
 const INITIAL_SR_BOOKS: SRBook[] = [
   {
-    book_code: "SR-PA1-01",
+    pack_id: "smart_reading_2_1_units_1_16",
     series_name: "Smart Reading",
-    book_title: "Hello, Sunny Day",
-    cefr_range: "PreA1-A1",
-    lexile_range: "BR-100L",
-    word_count_range: "50",
-    sort_order: 1,
-    updated_at: "2026-06-10",
-    content_license: "authorized",
-    unit_count: 3,
+    book_code: "2.1",
+    title: "Smart Reading 2.1",
+    CEFR: "PreA1-A1",
+    Lexile: "150L-350L",
+    wordCount: "50",
     units: [
-      {
-        lesson_id: "SR-PA1-01-U01",
-        unit_number: 1,
-        story_title: "A Big Red Apple",
-        cover_question: "What color is the apple?",
-        content_license: "authorized",
-        reading_focus: "Identify colors and simple nouns in a short story.",
-        keywords: ["apple","red","big","tree"],
-        characters: ["Mia","Dad"],
-        speaking_goals: ["Name three colors","Use 'I see a ___'"],
-        target_sentences: ["I see a big red apple.","The apple is on the tree."],
-        oral_questions: [{ question: "What does Mia see?" }, { question: "Where is the apple?" }],
-        retelling_frame: "First ___ . Then ___ . Finally ___ .",
-        shirin_opening: "Hi! Today let's read about Mia and a big red apple. Ready?",
-      },
-      {
-        lesson_id: "SR-PA1-01-U02",
-        unit_number: 2,
-        story_title: "My Little Cat",
-        cover_question: "Where is the cat?",
-        content_license: "authorized",
-        reading_focus: "Use prepositions of place (on, in, under).",
-        keywords: ["cat","box","sleep","little"],
-        characters: ["Lily","Cat"],
-        speaking_goals: ["Use 'on / in / under'"],
-        target_sentences: ["The cat is in the box.","The cat can sleep."],
-        oral_questions: [{ question: "Where is the cat?" }],
-        retelling_frame: "There is a ___ . It is ___ .",
-        shirin_opening: "Meow! Let's find Lily's little cat together.",
-      },
-      {
-        lesson_id: "SR-PA1-01-U03",
-        unit_number: 3,
-        story_title: "Rainy Park",
-        cover_question: "What is the weather like?",
-        content_license: "summary_only",
-        reading_focus: "Weather words and feelings.",
-        keywords: ["rain","umbrella","park","wet"],
-        characters: ["Tom"],
-        speaking_goals: ["Describe weather"],
-        target_sentences: ["It is rainy today.","Tom has an umbrella."],
-        oral_questions: [{ question: "How is the weather?" }],
-        retelling_frame: "It is ___ . Tom ___ .",
-        shirin_opening: "It's raining! Let's see what Tom does in the park.",
-      },
+      { lesson_id: "smart_reading_2_1_unit_1", unit_number: 1, story_title: "My Cat Bob", cover_question: "Bob has many feelings. How does Bob feel?", emoji: "🐱", done: true },
+      { lesson_id: "smart_reading_2_1_unit_2", unit_number: 2, story_title: "I Can Run", cover_question: "What can you do at the park?", emoji: "🏃", done: true },
+      { lesson_id: "smart_reading_2_1_unit_3", unit_number: 3, story_title: "A Big Red Bus", cover_question: "Where does the red bus go?", emoji: "🚌" },
+      { lesson_id: "smart_reading_2_1_unit_4", unit_number: 4, story_title: "My Mom and Me", cover_question: "What do you and your mom do together?", emoji: "👩‍👧" },
+      { lesson_id: "smart_reading_2_1_unit_5", unit_number: 5, story_title: "The Little Duck", cover_question: "Why is the little duck happy?", emoji: "🦆" },
+      { lesson_id: "smart_reading_2_1_unit_6", unit_number: 6, story_title: "At the Farm", cover_question: "Which animal do you like at the farm?", emoji: "🐮" },
+      { lesson_id: "smart_reading_2_1_unit_7", unit_number: 7, story_title: "Rainy Day Fun", cover_question: "What do you do on a rainy day?", emoji: "🌧️" },
+      { lesson_id: "smart_reading_2_1_unit_8", unit_number: 8, story_title: "My New Shoes", cover_question: "What color are your favorite shoes?", emoji: "👟" },
     ],
   },
   {
-    book_code: "SR-A1-02",
+    pack_id: "smart_reading_2_2_units_1_16",
     series_name: "Smart Reading",
-    book_title: "Around My Town",
-    cefr_range: "A1",
-    lexile_range: "100L-250L",
-    word_count_range: "100",
-    sort_order: 2,
-    updated_at: "2026-05-22",
-    content_license: "authorized",
-    unit_count: 2,
+    book_code: "2.2",
+    title: "Smart Reading 2.2",
+    CEFR: "PreA1-A1",
+    Lexile: "150L-350L",
+    wordCount: "60",
     units: [
-      {
-        lesson_id: "SR-A1-02-U01",
-        unit_number: 1,
-        story_title: "At the Bakery",
-        cover_question: "What do you buy at a bakery?",
-        content_license: "authorized",
-        reading_focus: "Food vocabulary and polite requests.",
-        keywords: ["bread","cake","buy","please"],
-        characters: ["Ana","Baker"],
-        speaking_goals: ["Use 'Can I have ___, please?'"],
-        target_sentences: ["Can I have a small cake, please?","Thank you very much."],
-        oral_questions: [{ question: "What does Ana buy?" }],
-        retelling_frame: "Ana goes to ___ . She buys ___ .",
-        shirin_opening: "Yum! Let's go to the bakery with Ana.",
-      },
-      {
-        lesson_id: "SR-A1-02-U02",
-        unit_number: 2,
-        story_title: "On the Bus",
-        cover_question: "Where is Ben going?",
-        content_license: "authorized",
-        reading_focus: "Talking about places and directions.",
-        keywords: ["bus","school","stop","go"],
-        characters: ["Ben","Driver"],
-        speaking_goals: ["Ask 'Where is ___?'"],
-        target_sentences: ["The bus goes to school.","Ben sits near the window."],
-        oral_questions: [{ question: "Where does the bus go?" }],
-        retelling_frame: "Ben takes ___ . He goes to ___ .",
-        shirin_opening: "All aboard! Let's ride the bus with Ben.",
-      },
+      { lesson_id: "smart_reading_2_2_unit_1", unit_number: 1, story_title: "A Day at the Zoo", cover_question: "Which animal do you want to see first?", emoji: "🦁" },
+      { lesson_id: "smart_reading_2_2_unit_2", unit_number: 2, story_title: "My Best Friend", cover_question: "Who is your best friend? Why?", emoji: "🤝" },
+      { lesson_id: "smart_reading_2_2_unit_3", unit_number: 3, story_title: "The Lost Kite", cover_question: "Where did the kite go?", emoji: "🪁" },
+      { lesson_id: "smart_reading_2_2_unit_4", unit_number: 4, story_title: "Bedtime Story", cover_question: "What story do you like before bed?", emoji: "🌙" },
+      { lesson_id: "smart_reading_2_2_unit_5", unit_number: 5, story_title: "Lunch with Grandma", cover_question: "What is your favorite lunch?", emoji: "🥪" },
+      { lesson_id: "smart_reading_2_2_unit_6", unit_number: 6, story_title: "The Brave Little Boat", cover_question: "How does the boat feel in the storm?", emoji: "⛵" },
+      { lesson_id: "smart_reading_2_2_unit_7", unit_number: 7, story_title: "My Birthday Party", cover_question: "Who do you want at your party?", emoji: "🎂" },
+      { lesson_id: "smart_reading_2_2_unit_8", unit_number: 8, story_title: "Snowy Morning", cover_question: "What do you do when it snows?", emoji: "⛄" },
     ],
   },
 ];
@@ -209,12 +127,10 @@ const INITIAL_SR_BOOKS: SRBook[] = [
 function srBookToForm(b: SRBook): SRBookForm {
   return {
     bookCode: b.book_code,
-    bookTitle: b.book_title,
-    cefrRange: b.cefr_range,
-    lexileRange: b.lexile_range,
-    wordCountRange: b.word_count_range,
-    sortOrder: String(b.sort_order),
-    updatedAt: b.updated_at,
+    title: b.title,
+    cefr: b.CEFR,
+    lexile: b.Lexile,
+    wordCount: b.wordCount,
   };
 }
 function srUnitToForm(u: SRUnit): SRUnitForm {
@@ -222,17 +138,9 @@ function srUnitToForm(u: SRUnit): SRUnitForm {
     lessonId: u.lesson_id,
     storyTitle: u.story_title,
     coverQuestion: u.cover_question,
-    contentLicense: u.content_license,
-    readingFocus: u.reading_focus,
-    keywordsText: u.keywords.join("\n"),
-    targetSentencesText: u.target_sentences.join("\n"),
-    speakingGoalsText: u.speaking_goals.join("\n"),
-    retellingFrame: u.retelling_frame,
-    shirinOpening: u.shirin_opening,
+    emoji: u.emoji,
+    done: !!u.done,
   };
-}
-function linesToArr(s: string) {
-  return s.split("\n").map((x) => x.trim()).filter(Boolean);
 }
 
 const INITIAL_GROUPS: AdminGroup[] = [
@@ -428,53 +336,29 @@ function SRView(props: {
   } = props;
   const isAdmin = srSource === "admin";
 
-  // Brand inherited font (Nunito via body). Only raw JSON uses mono.
-  const MONO_F = "'JetBrains Mono', ui-monospace, monospace";
-
   const Section = ({ title, count, action }: { title: string; count?: string; action?: React.ReactNode }) => (
-    <div className="flex items-end justify-between mt-6 mb-2.5">
+    <div className="flex items-baseline justify-between mt-6 mb-2.5">
       <div className="flex items-baseline gap-2 min-w-0">
-        <h3 className="text-[16px] font-bold leading-tight truncate" style={{ color: NAVY_C }}>{title}</h3>
+        <h3 className="text-[15px] font-semibold leading-tight truncate" style={{ color: NAVY_C }}>{title}</h3>
         {count && <span className="text-[12px] shrink-0" style={{ color: MUTED_C }}>{count}</span>}
       </div>
       {action}
     </div>
   );
 
-  // AI context payload preview (what Shirin sees when this unit opens)
-  const aiContext = srActiveUnit && srActiveBook ? {
-    book: srActiveBook.book_title,
-    book_code: srActiveBook.book_code,
-    cefr: srActiveBook.cefr_range,
-    lexile: srActiveBook.lexile_range,
-    unit: srActiveUnit.unit_number,
-    story_title: srActiveUnit.story_title,
-    cover_question: srActiveUnit.cover_question,
-    reading_focus: srActiveUnit.reading_focus,
-    keywords: srActiveUnit.keywords,
-    characters: srActiveUnit.characters,
-    speaking_goals: srActiveUnit.speaking_goals,
-    target_sentences: srActiveUnit.target_sentences,
-    retelling_frame: srActiveUnit.retelling_frame,
-    shirin_opening: srActiveUnit.shirin_opening,
-  } : null;
-
   return (
     <div className="mt-4">
-      {/* Content summary — clean, no decorative all-caps */}
-      <div className="rounded-2xl p-4 flex items-center justify-between gap-3" style={{ background: YELLOW_SOFT_C, border: `1px solid ${YELLOW_BORDER_C}` }}>
-        <div className="min-w-0">
-          <div className="text-[12px]" style={{ color: SUB_C }}>内容来源</div>
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <span className="w-2 h-2 rounded-full" style={{ background: isAdmin ? YELLOW_C : "#9aa6b5" }} />
-            <div className="text-[15px] font-bold leading-none" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
-          </div>
+      {/* Status strip — quiet, no dots, no heavy fonts */}
+      <div className="rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-3" style={{ background: "#FAFBFD", border: "1px solid #EEF2F7" }}>
+        <div className="flex items-baseline gap-2 min-w-0">
+          <span className="text-[11px]" style={{ color: MUTED_C }}>来源</span>
+          <span className="text-[13px] font-medium" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</span>
         </div>
-        <div className="text-right shrink-0">
-          <div className="text-[12px]" style={{ color: SUB_C }}>内容规模</div>
-          <div className="text-[15px] font-bold leading-none mt-0.5" style={{ color: NAVY_C }}>
+        <div className="flex items-baseline gap-2 shrink-0">
+          <span className="text-[11px]" style={{ color: MUTED_C }}>规模</span>
+          <span className="text-[13px] font-medium" style={{ color: NAVY_C }}>
             {srBooks.length} 本 · {srTotalUnits} 单元
-          </div>
+          </span>
         </div>
       </div>
 
@@ -482,22 +366,22 @@ function SRView(props: {
       <div className="mt-3 grid grid-cols-2 gap-2">
         <button
           onClick={onImport}
-          className="h-10 rounded-xl text-[14px] font-bold text-white"
-          style={{ background: YELLOW_C, boxShadow: "0 4px 12px rgba(205,174,141,0.28)" }}
+          className="h-10 rounded-xl text-[13px] font-semibold text-white"
+          style={{ background: YELLOW_C }}
         >
           导入 JSON
         </button>
         <button
           onClick={onClear}
-          className="h-10 rounded-xl text-[14px] font-bold"
+          className="h-10 rounded-xl text-[13px] font-semibold"
           style={{ background: "#fff", color: NAVY_C, border: `1px solid ${YELLOW_BORDER_C}` }}
         >
           清除导入
         </button>
       </div>
 
-      {/* Books — full-width grid, no overflow strip */}
-      <Section title="书籍" count={`共 ${srBooks.length} 本`} />
+      {/* Books — full-width grid */}
+      <Section title="书籍" count={`${srBooks.length} 本`} />
       <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.max(srBooks.length, 1)}, minmax(0, 1fr))` }}>
         {srBooks.map((b) => {
           const active = b.book_code === srActiveBookCode;
@@ -513,12 +397,12 @@ function SRView(props: {
                 background: active ? YELLOW_C : "#fff",
                 color: active ? "#fff" : NAVY_C,
                 border: `1px solid ${active ? YELLOW_C : "#E6ECF5"}`,
-                boxShadow: active ? "0 4px 12px rgba(205,174,141,0.30)" : "none",
+                boxShadow: "none",
               }}
             >
-              <div className="text-[14px] font-bold leading-tight truncate">{b.book_title}</div>
+              <div className="text-[14px] font-semibold leading-tight truncate">{b.title}</div>
               <div className="text-[12px] mt-1 truncate" style={{ color: active ? "rgba(255,255,255,0.85)" : MUTED_C }}>
-                {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
+                {b.CEFR} · {b.Lexile} · {b.wordCount}w
               </div>
             </button>
           );
@@ -531,24 +415,21 @@ function SRView(props: {
           <Section
             title="书籍信息"
             action={
-              <button onClick={onEditBook} className="h-[28px] px-3 rounded-full text-[12px] font-bold text-white" style={{ background: YELLOW_C }}>编辑</button>
+              <button onClick={onEditBook} className="h-[26px] px-3 rounded-full text-[12px] font-medium text-white" style={{ background: YELLOW_C }}>编辑</button>
             }
           />
-          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
-            <div className="text-[18px] font-bold leading-tight" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
-            <div className="text-[12px] mt-0.5" style={{ color: MUTED_C }}>{srActiveBook.series_name} · {srActiveBook.book_code}</div>
-            <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
+          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
+            <div className="text-[17px] font-semibold leading-tight" style={{ color: NAVY_C }}>{srActiveBook.title}</div>
+            <div className="text-[12px] mt-1" style={{ color: MUTED_C }}>{srActiveBook.series_name} · Book {srActiveBook.book_code}</div>
+            <div className="mt-3 grid grid-cols-3 gap-3">
               {[
-                ["CEFR", srActiveBook.cefr_range],
-                ["Lexile", srActiveBook.lexile_range],
-                ["字数范围", `${srActiveBook.word_count_range} Words`],
-                ["排序", String(srActiveBook.sort_order)],
-                ["更新时间", srActiveBook.updated_at],
-                ["授权", srActiveBook.content_license],
+                ["CEFR", srActiveBook.CEFR],
+                ["Lexile", srActiveBook.Lexile],
+                ["Words", srActiveBook.wordCount],
               ].map(([k, v]) => (
                 <div key={k}>
-                  <div className="text-[11.5px]" style={{ color: MUTED_C }}>{k}</div>
-                  <div className="text-[14px] font-semibold mt-0.5 break-all" style={{ color: NAVY_C }}>{v}</div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>{k}</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{v}</div>
                 </div>
               ))}
             </div>
@@ -559,7 +440,7 @@ function SRView(props: {
       {/* Unit list */}
       {srActiveBook && (
         <>
-          <Section title="单元" count={`共 ${srActiveBook.units.length} 个`} />
+          <Section title="单元" count={`${srActiveBook.units.length} 个`} />
           <div className="space-y-2">
             {srActiveBook.units.map((u) => {
               const active = u.lesson_id === srActiveLessonId;
@@ -575,13 +456,18 @@ function SRView(props: {
                 >
                   {active && <span className="absolute left-0 top-0 h-full w-[3px]" style={{ background: YELLOW_C }} />}
                   <div
-                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[14px] font-bold"
-                    style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : NAVY_C }}
+                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[18px]"
+                    style={{ background: "#F6F8FC" }}
+                    aria-hidden
                   >
-                    {u.unit_number}
+                    {u.emoji}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-[14px] font-bold leading-tight truncate" style={{ color: NAVY_C }}>{u.story_title}</div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px]" style={{ color: MUTED_C }}>Unit {u.unit_number}</span>
+                      {u.done && <span className="text-[10px] px-1.5 py-[1px] rounded" style={{ background: "#ECFDF5", color: "#047857" }}>已读</span>}
+                    </div>
+                    <div className="text-[14px] font-semibold leading-tight truncate mt-0.5" style={{ color: NAVY_C }}>{u.story_title}</div>
                     <div className="text-[12px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
                   </div>
                 </button>
@@ -597,57 +483,31 @@ function SRView(props: {
           <Section
             title="单元预览"
             action={
-              <button onClick={onEditUnit} className="h-[28px] px-3 rounded-full text-[12px] font-bold text-white" style={{ background: YELLOW_C }}>编辑</button>
+              <button onClick={onEditUnit} className="h-[26px] px-3 rounded-full text-[12px] font-medium text-white" style={{ background: YELLOW_C }}>编辑</button>
             }
           />
-          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center px-2 h-[22px] rounded-md text-[12px] font-bold text-white" style={{ background: YELLOW_C }}>Unit {srActiveUnit.unit_number}</span>
-              <span className="text-[12px]" style={{ color: MUTED_C }}>{srActiveUnit.lesson_id}</span>
-            </div>
-            <div className="text-[20px] font-bold leading-tight mt-2" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
-            <div className="text-[14px] mt-1 leading-relaxed" style={{ color: SUB_C }}>{srActiveUnit.cover_question}</div>
-
-            <div className="h-px my-4" style={{ background: "#EEF2F7" }} />
-
-            <div className="space-y-3.5">
-              {[
-                ["Reading Focus", srActiveUnit.reading_focus],
-                ["Keywords", srActiveUnit.keywords.join(" · ")],
-                ["Characters", srActiveUnit.characters.join(" · ")],
-                ["Speaking Goals", srActiveUnit.speaking_goals.join(" · ")],
-                ["Target Sentences", srActiveUnit.target_sentences.join(" · ")],
-                ["Retelling Frame", srActiveUnit.retelling_frame],
-                ["Shirin Opening", srActiveUnit.shirin_opening],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <div className="text-[12px] font-semibold" style={{ color: MUTED_C }}>{k}</div>
-                  <div className="text-[14px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{v || "—"}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* AI Context Preview — what Shirin actually receives for this unit */}
-          <Section title="AI Context Preview" count="Shirin 实际接收的上下文" />
-          <div className="rounded-2xl overflow-hidden" style={{ background: "#0B2545", border: "1px solid #0B2545" }}>
-            <div className="flex items-center justify-between px-4 py-2.5" style={{ background: "rgba(255,255,255,0.06)" }}>
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full" style={{ background: YELLOW_C }} />
-                <span className="text-[12px] font-semibold text-white">context.json</span>
+          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
+            <div className="flex items-center gap-3">
+              <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-[26px]" style={{ background: "#F6F8FC" }} aria-hidden>{srActiveUnit.emoji}</div>
+              <div className="min-w-0">
+                <div className="text-[11px]" style={{ color: MUTED_C }}>Book {srActiveBook?.book_code} · Unit {srActiveUnit.unit_number}</div>
+                <div className="text-[16px] font-semibold leading-tight mt-0.5 truncate" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
               </div>
-              <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.55)" }}>只读 · 由上方字段生成</span>
             </div>
-            <pre className="px-4 py-3 text-[11.5px] leading-relaxed overflow-x-auto" style={{ color: "#E6ECF5", fontFamily: MONO_F }}>
-{JSON.stringify(aiContext, null, 2)}
-            </pre>
+            <div className="mt-3">
+              <div className="text-[11px]" style={{ color: MUTED_C }}>Cover Question</div>
+              <div className="text-[14px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{srActiveUnit.cover_question}</div>
+            </div>
+            <div className="mt-3 flex items-center gap-2">
+              <span className="text-[11px]" style={{ color: MUTED_C }}>状态</span>
+              <span className="text-[12px] font-medium" style={{ color: srActiveUnit.done ? "#047857" : NAVY_C }}>{srActiveUnit.done ? "已读" : "未读"}</span>
+            </div>
           </div>
         </>
       )}
 
-      {/* Last updated note */}
       <div className="mt-5 text-[12px] text-center" style={{ color: MUTED_C }}>
-        Smart Reading 内容由 Admin Console 统一管理。修改后会标记为 Admin 导入内容。
+        内容由 Admin Console 统一管理。修改会标记为 Admin 导入。
       </div>
     </div>
   );
@@ -680,7 +540,7 @@ function AdminPageInner() {
   const [srCefrPickerOpen, setSrCefrPickerOpen] = useState(false);
   const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
   const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
-  const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
+  // (license picker removed — field doesn't exist in source data)
 
   const srActiveBook = srBooks.find((b) => b.book_code === srActiveBookCode) ?? srBooks[0] ?? null;
   const srActiveUnit = srActiveBook
@@ -782,19 +642,16 @@ function AdminPageInner() {
     list.forEach((item, i) => {
       const b = item as Partial<SRBook>;
       if (!b.book_code) errors.push(`第 ${i + 1} 本书缺少 book_code`);
-      if (!b.book_title) warnings.push(`第 ${i + 1} 本书缺少 book_title`);
+      if (!b.title) warnings.push(`第 ${i + 1} 本书缺少 title`);
       if (!Array.isArray(b.units)) errors.push(`第 ${i + 1} 本书 units 不是数组`);
       books.push({
-        book_code: b.book_code || `BOOK-${i + 1}`,
+        pack_id: b.pack_id || `pack_${i + 1}`,
         series_name: b.series_name || "Smart Reading",
-        book_title: b.book_title || "未命名",
-        cefr_range: b.cefr_range || "A1",
-        lexile_range: b.lexile_range || "BR-100L",
-        word_count_range: b.word_count_range || "100",
-        sort_order: Number(b.sort_order || i + 1),
-        updated_at: b.updated_at || new Date().toISOString().slice(0, 10),
-        content_license: b.content_license || "authorized",
-        unit_count: Array.isArray(b.units) ? b.units.length : 0,
+        book_code: b.book_code || `BOOK-${i + 1}`,
+        title: b.title || "未命名",
+        CEFR: b.CEFR || "A1",
+        Lexile: b.Lexile || "BR-100L",
+        wordCount: b.wordCount || "100",
         units: Array.isArray(b.units) ? (b.units as SRUnit[]) : [],
       });
     });
@@ -855,12 +712,10 @@ function AdminPageInner() {
         b.book_code === f.bookCode
           ? {
               ...b,
-              book_title: f.bookTitle,
-              cefr_range: f.cefrRange,
-              lexile_range: f.lexileRange,
-              word_count_range: f.wordCountRange,
-              sort_order: Number(f.sortOrder) || 0,
-              updated_at: f.updatedAt,
+              title: f.title,
+              CEFR: f.cefr,
+              Lexile: f.lexile,
+              wordCount: f.wordCount,
             }
           : b
       )
@@ -887,13 +742,8 @@ function AdminPageInner() {
                 ...u,
                 story_title: f.storyTitle,
                 cover_question: f.coverQuestion,
-                content_license: f.contentLicense,
-                reading_focus: f.readingFocus,
-                keywords: linesToArr(f.keywordsText),
-                target_sentences: linesToArr(f.targetSentencesText),
-                speaking_goals: linesToArr(f.speakingGoalsText),
-                retelling_frame: f.retellingFrame,
-                shirin_opening: f.shirinOpening,
+                emoji: f.emoji,
+                done: f.done,
               }
             : u
         ),
@@ -925,7 +775,7 @@ function AdminPageInner() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
               </button>
               <div className="min-w-0">
-                <h1 className="text-[22px] font-bold leading-tight truncate" style={{ color: NAVY, fontFamily: "var(--font-sans)" }}>管理员后台</h1>
+                <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
                 <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
               </div>
             </div>
@@ -972,36 +822,24 @@ function AdminPageInner() {
           {/* Summary stats */}
           <div className="grid grid-cols-3 gap-[7px] mt-4">
             {summary.map((s) => {
-              const isCustom = s.label === "已自定义";
               return (
-                  <div
-                    key={s.label}
-                    className="rounded-2xl px-3 py-2.5"
-                    style={{
-                      background: isCustom ? YELLOW_SOFT : SOFT_BLUE,
-                      border: `1px solid ${isCustom ? YELLOW_BORDER : "#E2EAF6"}`,
-                    }}
-                  >
-                    <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isCustom ? YELLOW : PAISLEY, letterSpacing: "0.08em" }}>{s.label}</div>
-                    <div className="text-[22px] font-bold leading-tight mt-0.5" style={{ color: NAVY }}>{s.value}</div>
-                  </div>
+                <div
+                  key={s.label}
+                  className="rounded-2xl px-3 py-2.5"
+                  style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
+                >
+                  <div className="text-[11px]" style={{ color: SUB }}>{s.label}</div>
+                  <div className="text-[20px] font-semibold leading-tight mt-1" style={{ color: NAVY }}>{s.value}</div>
+                </div>
               );
             })}
           </div>
 
           {/* Current group header */}
           {activeGroup && (
-            <div className="mt-5 flex items-end justify-between gap-3">
-              <div className="min-w-0">
-                <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY }}>当前分组</div>
-                <h2 className="text-[17px] font-bold leading-tight mt-0.5 truncate" style={{ color: NAVY, fontFamily: "var(--font-sans)" }}>{activeGroup.title}</h2>
-              </div>
-              <span
-                className="inline-flex items-center justify-center min-w-[26px] h-[22px] px-2 rounded-full text-[11px] font-bold shrink-0"
-                style={{ background: SOFT_BLUE, color: PAISLEY }}
-              >
-                {activeGroup.rows.length}
-              </span>
+            <div className="mt-5 flex items-baseline justify-between gap-3">
+              <h2 className="text-[16px] font-semibold leading-tight truncate" style={{ color: NAVY }}>{activeGroup.title}</h2>
+              <span className="text-[12px] shrink-0" style={{ color: MUTED }}>{activeGroup.rows.length}</span>
             </div>
           )}
           {activeGroup && (
@@ -1032,24 +870,21 @@ function AdminPageInner() {
                 className="w-full text-left relative rounded-2xl p-3.5 transition-all"
                 style={{
                   background: "#fff",
-                  border: `1px solid ${row.customized ? "rgba(205,174,141,0.28)" : "#EEF2F7"}`,
-                  boxShadow: row.customized
-                    ? "0 4px 14px rgba(205,174,141,0.07)"
-                    : "0 2px 10px rgba(11,37,69,0.04)",
+                  border: `1px solid ${row.customized ? "rgba(1,70,185,0.22)" : "#EEF2F7"}`,
                   overflow: "hidden",
                 }}
               >
                 {row.customized && (
-                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: YELLOW }} />
+                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: PAISLEY }} />
                 )}
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[14px] font-semibold leading-tight" style={{ color: NAVY }}>{row.label}</span>
+                      <span className="text-[14px] font-medium leading-tight" style={{ color: NAVY }}>{row.label}</span>
                       {row.customized && (
                         <span
-                          className="px-1.5 py-0.5 rounded text-[9px] font-bold leading-none"
-                          style={{ background: YELLOW, color: "#fff" }}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-medium leading-none"
+                          style={{ background: SOFT_BLUE, color: PAISLEY }}
                         >
                           已改
                         </span>
@@ -1057,21 +892,21 @@ function AdminPageInner() {
                       <span
                         role="button"
                         onClick={(e) => { e.stopPropagation(); setHelpFor(row); }}
-                        className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full text-[10px] font-bold leading-none"
+                        className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full text-[10px] font-medium leading-none"
                         style={{ background: SOFT_BG, color: SUB }}
                       >
                         ?
                       </span>
                     </div>
                     <code
-                      className="inline-block mt-1.5 px-1.5 py-0.5 rounded text-[10.5px] font-medium break-all"
+                      className="inline-block mt-1.5 px-1.5 py-0.5 rounded text-[10.5px] break-all"
                       style={{ background: SOFT_BLUE, color: PAISLEY, fontFamily: MONO }}
                     >
                       {row.path}
                     </code>
                   </div>
                   <div className="flex flex-col items-end gap-0.5 shrink-0 max-w-[42%]">
-                    <div className="text-[13.5px] font-bold text-right break-all leading-tight" style={{ color: row.customized ? PAISLEY : NAVY }}>{row.valueText}</div>
+                    <div className="text-[13.5px] font-semibold text-right break-all leading-tight" style={{ color: row.customized ? PAISLEY : NAVY }}>{row.valueText}</div>
                     <div className="text-[9.5px]" style={{ color: "#A0AEC0" }}>默认: {row.defaultText}</div>
                   </div>
                 </div>
@@ -1145,7 +980,7 @@ function AdminPageInner() {
                           {cc > 0 && (
                             <span
                               className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-bold leading-none"
-                              style={{ background: active ? "rgba(255,255,255,0.22)" : YELLOW, color: "#fff" }}
+                              style={{ background: active ? "rgba(255,255,255,0.22)" : PAISLEY, color: "#fff" }}
                             >
                               {cc}
                             </span>
@@ -1344,22 +1179,16 @@ function AdminPageInner() {
                 <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
                 <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto">
                   <SRField label="书名">
-                    <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                    <input value={srBookEditForm.title} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, title: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                   <SRField label="CEFR">
-                    <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
+                    <SRSelect value={srBookEditForm.cefr} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefr: v })} placeholder="请选择 CEFR" />
                   </SRField>
                   <SRField label="Lexile">
-                    <SRSelect value={srBookEditForm.lexileRange} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexileRange: v })} placeholder="请选择 Lexile" />
+                    <SRSelect value={srBookEditForm.lexile} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexile: v })} placeholder="请选择 Lexile" />
                   </SRField>
                   <SRField label="字数范围">
-                    <SRSelect value={srBookEditForm.wordCountRange} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: v })} placeholder="请选择字数" suffix="Words" />
-                  </SRField>
-                  <SRField label="排序">
-                    <input inputMode="numeric" value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="更新时间 (YYYY-MM-DD)">
-                    <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} placeholder="2026-06-15" className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
+                    <SRSelect value={srBookEditForm.wordCount} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCount: v })} placeholder="请选择字数" suffix="Words" />
                   </SRField>
                 </div>
                 <div className="mt-5 flex gap-3">
@@ -1387,26 +1216,21 @@ function AdminPageInner() {
                   <SRField label="封面问题 Cover Question">
                     <input value={srUnitEditForm.coverQuestion} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, coverQuestion: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                  <SRField label="授权状态 License">
-                    <SRSelect value={srUnitEditForm.contentLicense} options={[...SR_LICENSE_OPTIONS]} open={srLicensePickerOpen} setOpen={setSrLicensePickerOpen} onChange={(v) => setSrUnitEditForm({ ...srUnitEditForm, contentLicense: v as SRUnit["content_license"] })} placeholder="请选择授权" />
+                  <SRField label="Emoji">
+                    <input value={srUnitEditForm.emoji} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, emoji: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[18px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                  <SRField label="Reading Focus">
-                    <textarea value={srUnitEditForm.readingFocus} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, readingFocus: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Keywords（每行一个）">
-                    <textarea value={srUnitEditForm.keywordsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, keywordsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
-                  </SRField>
-                  <SRField label="Target Sentences（每行一句）">
-                    <textarea value={srUnitEditForm.targetSentencesText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, targetSentencesText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Speaking Goals（每行一项）">
-                    <textarea value={srUnitEditForm.speakingGoalsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, speakingGoalsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Retelling Frame">
-                    <textarea value={srUnitEditForm.retellingFrame} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, retellingFrame: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
-                  </SRField>
-                  <SRField label="Shirin Opening">
-                    <textarea value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  <SRField label="阅读状态">
+                    <button
+                      type="button"
+                      onClick={() => setSrUnitEditForm({ ...srUnitEditForm, done: !srUnitEditForm.done })}
+                      className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[14px]"
+                      style={{ background: SOFT_BG, color: NAVY }}
+                    >
+                      <span>{srUnitEditForm.done ? "已读" : "未读"}</span>
+                      <span className="relative inline-block w-[40px] h-[22px] rounded-full" style={{ background: srUnitEditForm.done ? PAISLEY : "#CBD5E1" }}>
+                        <span className="absolute top-0.5 w-[18px] h-[18px] rounded-full bg-white transition-all" style={{ left: srUnitEditForm.done ? 20 : 2 }} />
+                      </span>
+                    </button>
                   </SRField>
                 </div>
                 <div className="mt-5 flex gap-3">
@@ -1425,7 +1249,7 @@ function AdminPageInner() {
 function SRField(props: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-[10.5px] font-bold uppercase tracking-wider mb-1" style={{ color: "#50627A", letterSpacing: "0.06em" }}>{props.label}</div>
+      <div className="text-[11.5px] font-medium mb-1" style={{ color: "#50627A" }}>{props.label}</div>
       {props.children}
     </div>
   );
