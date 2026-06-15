@@ -438,6 +438,24 @@ function SRView(props: {
     </div>
   );
 
+  const aiContext = srActiveBook && srActiveUnit ? {
+    book: srActiveBook.book_title,
+    book_code: srActiveBook.book_code,
+    cefr: srActiveBook.cefr_range,
+    lexile: srActiveBook.lexile_range,
+    unit: srActiveUnit.unit_number,
+    story_title: srActiveUnit.story_title,
+    cover_question: srActiveUnit.cover_question,
+    reading_focus: srActiveUnit.reading_focus,
+    keywords: srActiveUnit.keywords,
+    characters: srActiveUnit.characters,
+    speaking_goals: srActiveUnit.speaking_goals,
+    target_sentences: srActiveUnit.target_sentences,
+    oral_questions: srActiveUnit.oral_questions,
+    retelling_frame: srActiveUnit.retelling_frame,
+    shirin_opening: srActiveUnit.shirin_opening,
+  } : null;
+
   return (
     <div className="mt-4">
       {/* Status strip — quiet, no dots, no heavy fonts */}
@@ -492,9 +510,9 @@ function SRView(props: {
                 boxShadow: "none",
               }}
             >
-              <div className="text-[14px] font-semibold leading-tight truncate">{b.title}</div>
+              <div className="text-[14px] font-semibold leading-tight truncate">{b.book_title}</div>
               <div className="text-[12px] mt-1 truncate" style={{ color: active ? "rgba(255,255,255,0.85)" : MUTED_C }}>
-                {b.CEFR} · {b.Lexile} · {b.wordCount}w
+                {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
               </div>
             </button>
           );
@@ -511,13 +529,16 @@ function SRView(props: {
             }
           />
           <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
-            <div className="text-[17px] font-semibold leading-tight" style={{ color: NAVY_C }}>{srActiveBook.title}</div>
-            <div className="text-[12px] mt-1" style={{ color: MUTED_C }}>{srActiveBook.series_name} · Book {srActiveBook.book_code}</div>
-            <div className="mt-3 grid grid-cols-3 gap-3">
+            <div className="text-[17px] font-semibold leading-tight" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+            <div className="text-[12px] mt-1" style={{ color: MUTED_C }}>{srActiveBook.series_name} · {srActiveBook.book_code}</div>
+            <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
               {[
-                ["CEFR", srActiveBook.CEFR],
-                ["Lexile", srActiveBook.Lexile],
-                ["Words", srActiveBook.wordCount],
+                ["CEFR", srActiveBook.cefr_range],
+                ["Lexile", srActiveBook.lexile_range],
+                ["Words", srActiveBook.word_count_range],
+                ["排序", String(srActiveBook.sort_order)],
+                ["更新时间", srActiveBook.updated_at],
+                ["授权", srActiveBook.content_license],
               ].map(([k, v]) => (
                 <div key={k}>
                   <div className="text-[11px]" style={{ color: MUTED_C }}>{k}</div>
@@ -548,16 +569,15 @@ function SRView(props: {
                 >
                   {active && <span className="absolute left-0 top-0 h-full w-[3px]" style={{ background: YELLOW_C }} />}
                   <div
-                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[18px]"
-                    style={{ background: "#F6F8FC" }}
-                    aria-hidden
+                    className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13px] font-medium"
+                    style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : NAVY_C }}
                   >
-                    {u.emoji}
+                    {u.unit_number}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[11px]" style={{ color: MUTED_C }}>Unit {u.unit_number}</span>
-                      {u.done && <span className="text-[10px] px-1.5 py-[1px] rounded" style={{ background: "#ECFDF5", color: "#047857" }}>已读</span>}
+                      <span className="text-[10px] px-1.5 py-[1px] rounded" style={{ background: "#F7F2EC", color: SUB_C }}>{u.content_license}</span>
                     </div>
                     <div className="text-[14px] font-semibold leading-tight truncate mt-0.5" style={{ color: NAVY_C }}>{u.story_title}</div>
                     <div className="text-[12px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
@@ -580,21 +600,36 @@ function SRView(props: {
           />
           <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
             <div className="flex items-center gap-3">
-              <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-[26px]" style={{ background: "#F6F8FC" }} aria-hidden>{srActiveUnit.emoji}</div>
+              <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-[15px] font-semibold" style={{ background: YELLOW_SOFT_C, color: NAVY_C }}>U{srActiveUnit.unit_number}</div>
               <div className="min-w-0">
-                <div className="text-[11px]" style={{ color: MUTED_C }}>Book {srActiveBook?.book_code} · Unit {srActiveUnit.unit_number}</div>
+                <div className="text-[11px]" style={{ color: MUTED_C }}>{srActiveBook?.book_code} · {srActiveUnit.lesson_id}</div>
                 <div className="text-[16px] font-semibold leading-tight mt-0.5 truncate" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
               </div>
             </div>
-            <div className="mt-3">
-              <div className="text-[11px]" style={{ color: MUTED_C }}>Cover Question</div>
-              <div className="text-[14px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{srActiveUnit.cover_question}</div>
-            </div>
-            <div className="mt-3 flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: MUTED_C }}>状态</span>
-              <span className="text-[12px] font-medium" style={{ color: srActiveUnit.done ? "#047857" : NAVY_C }}>{srActiveUnit.done ? "已读" : "未读"}</span>
+            <div className="mt-4 space-y-3.5">
+              {[
+                ["Cover Question", srActiveUnit.cover_question],
+                ["Reading Focus", srActiveUnit.reading_focus],
+                ["Keywords", srActiveUnit.keywords.join(" · ")],
+                ["Characters", srActiveUnit.characters.join(" · ")],
+                ["Speaking Goals", srActiveUnit.speaking_goals.join(" · ")],
+                ["Target Sentences", srActiveUnit.target_sentences.join(" · ")],
+                ["Oral Questions", srActiveUnit.oral_questions.map((q) => q.question).join(" · ")],
+                ["Retelling Frame", srActiveUnit.retelling_frame],
+                ["Shirin Opening", srActiveUnit.shirin_opening],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>{k}</div>
+                  <div className="text-[14px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{v || "—"}</div>
+                </div>
+              ))}
             </div>
           </div>
+
+          <Section title="AI Context Preview" />
+          <pre className="rounded-2xl p-4 text-[11px] leading-relaxed overflow-x-auto" style={{ background: "#0B2545", color: "#E6ECF5", fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+{JSON.stringify(aiContext, null, 2)}
+          </pre>
         </>
       )}
 
