@@ -504,14 +504,14 @@ function SRView(props: {
               }}
               className="rounded-xl px-3 py-2.5 text-left transition-all"
               style={{
-                background: active ? YELLOW_C : "#fff",
-                color: active ? "#fff" : NAVY_C,
-                border: `1px solid ${active ? YELLOW_C : "#E6ECF5"}`,
+                background: active ? YELLOW_SOFT_C : "#fff",
+                color: NAVY_C,
+                border: `1px solid ${active ? YELLOW_BORDER_C : "#E6ECF5"}`,
                 boxShadow: "none",
               }}
             >
               <div className="text-[14px] font-semibold leading-tight truncate">{b.book_title}</div>
-              <div className="text-[12px] mt-1 truncate" style={{ color: active ? "rgba(255,255,255,0.85)" : MUTED_C }}>
+              <div className="text-[12px] mt-1 truncate" style={{ color: MUTED_C }}>
                 {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
               </div>
             </button>
