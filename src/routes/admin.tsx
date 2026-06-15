@@ -642,19 +642,16 @@ function AdminPageInner() {
     list.forEach((item, i) => {
       const b = item as Partial<SRBook>;
       if (!b.book_code) errors.push(`第 ${i + 1} 本书缺少 book_code`);
-      if (!b.book_title) warnings.push(`第 ${i + 1} 本书缺少 book_title`);
+      if (!b.title) warnings.push(`第 ${i + 1} 本书缺少 title`);
       if (!Array.isArray(b.units)) errors.push(`第 ${i + 1} 本书 units 不是数组`);
       books.push({
-        book_code: b.book_code || `BOOK-${i + 1}`,
+        pack_id: b.pack_id || `pack_${i + 1}`,
         series_name: b.series_name || "Smart Reading",
-        book_title: b.book_title || "未命名",
-        cefr_range: b.cefr_range || "A1",
-        lexile_range: b.lexile_range || "BR-100L",
-        word_count_range: b.word_count_range || "100",
-        sort_order: Number(b.sort_order || i + 1),
-        updated_at: b.updated_at || new Date().toISOString().slice(0, 10),
-        content_license: b.content_license || "authorized",
-        unit_count: Array.isArray(b.units) ? b.units.length : 0,
+        book_code: b.book_code || `BOOK-${i + 1}`,
+        title: b.title || "未命名",
+        CEFR: b.CEFR || "A1",
+        Lexile: b.Lexile || "BR-100L",
+        wordCount: b.wordCount || "100",
         units: Array.isArray(b.units) ? (b.units as SRUnit[]) : [],
       });
     });
@@ -715,12 +712,10 @@ function AdminPageInner() {
         b.book_code === f.bookCode
           ? {
               ...b,
-              book_title: f.bookTitle,
-              cefr_range: f.cefrRange,
-              lexile_range: f.lexileRange,
-              word_count_range: f.wordCountRange,
-              sort_order: Number(f.sortOrder) || 0,
-              updated_at: f.updatedAt,
+              title: f.title,
+              CEFR: f.cefr,
+              Lexile: f.lexile,
+              wordCount: f.wordCount,
             }
           : b
       )
@@ -747,13 +742,8 @@ function AdminPageInner() {
                 ...u,
                 story_title: f.storyTitle,
                 cover_question: f.coverQuestion,
-                content_license: f.contentLicense,
-                reading_focus: f.readingFocus,
-                keywords: linesToArr(f.keywordsText),
-                target_sentences: linesToArr(f.targetSentencesText),
-                speaking_goals: linesToArr(f.speakingGoalsText),
-                retelling_frame: f.retellingFrame,
-                shirin_opening: f.shirinOpening,
+                emoji: f.emoji,
+                done: f.done,
               }
             : u
         ),
