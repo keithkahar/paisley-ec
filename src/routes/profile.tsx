@@ -288,15 +288,15 @@ function AboutPecLink() {
       <button
         type="button"
         onClick={handleClick}
-        className="text-[13px] font-bold tracking-wide select-none inline-flex items-end gap-[3px]"
+        className="text-[13px] font-bold tracking-wide select-none inline-flex items-end gap-[2px]"
         style={{ color: "oklch(0.65 0.02 260)" }}
       >
-        <span className="pb-[1px]">About</span>
+        <span>About</span>
         <img
           src={pecFromLogo.url}
           alt="PEC"
-          className="inline-block object-contain"
-          style={{ height: "0.92em", width: "auto" }}
+          className="block object-contain"
+          style={{ height: "0.88em", width: "auto" }}
         />
       </button>
     </div>
