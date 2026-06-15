@@ -1180,16 +1180,18 @@ function AdminPageInner() {
         {editing && (
           <>
             <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={closeEditor} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
-                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>{editing.label}</div>
-                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED }}>{editing.path}</div>
-                <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>默认：{editing.defaultText}</div>
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
+                <div className="shrink-0">
+                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>{editing.label}</div>
+                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED }}>{editing.path}</div>
+                  <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>默认：{editing.defaultText}</div>
+                </div>
 
-                <div className="mt-4">
+                <div className="mt-4 flex-1 min-h-0 overflow-y-auto">
                   {editing.options && editing.options.length > 0 ? (
-                    <div className="flex flex-col gap-2 max-h-[40vh] overflow-y-auto">
+                    <div className="flex flex-col gap-2">
                       {editing.options.map((opt) => {
                         const active = editValue === opt.value;
                         return (
@@ -1238,7 +1240,7 @@ function AdminPageInner() {
                   )}
                 </div>
 
-                <div className="mt-5 flex gap-3">
+                <div className="mt-5 flex gap-3 shrink-0">
                   <button onClick={closeEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
                   <button onClick={saveEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
                 </div>
