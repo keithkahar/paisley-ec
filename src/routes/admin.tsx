@@ -540,7 +540,7 @@ function AdminPageInner() {
   const [srCefrPickerOpen, setSrCefrPickerOpen] = useState(false);
   const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
   const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
-  const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
+  // (license picker removed — field doesn't exist in source data)
 
   const srActiveBook = srBooks.find((b) => b.book_code === srActiveBookCode) ?? srBooks[0] ?? null;
   const srActiveUnit = srActiveBook
@@ -822,36 +822,24 @@ function AdminPageInner() {
           {/* Summary stats */}
           <div className="grid grid-cols-3 gap-[7px] mt-4">
             {summary.map((s) => {
-              const isCustom = s.label === "已自定义";
               return (
-                  <div
-                    key={s.label}
-                    className="rounded-2xl px-3 py-2.5"
-                    style={{
-                      background: isCustom ? YELLOW_SOFT : SOFT_BLUE,
-                      border: `1px solid ${isCustom ? YELLOW_BORDER : "#E2EAF6"}`,
-                    }}
-                  >
-                    <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isCustom ? YELLOW : PAISLEY, letterSpacing: "0.08em" }}>{s.label}</div>
-                    <div className="text-[22px] font-bold leading-tight mt-0.5" style={{ color: NAVY }}>{s.value}</div>
-                  </div>
+                <div
+                  key={s.label}
+                  className="rounded-2xl px-3 py-2.5"
+                  style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
+                >
+                  <div className="text-[11px]" style={{ color: SUB }}>{s.label}</div>
+                  <div className="text-[20px] font-semibold leading-tight mt-1" style={{ color: NAVY }}>{s.value}</div>
+                </div>
               );
             })}
           </div>
 
           {/* Current group header */}
           {activeGroup && (
-            <div className="mt-5 flex items-end justify-between gap-3">
-              <div className="min-w-0">
-                <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY }}>当前分组</div>
-                <h2 className="text-[17px] font-bold leading-tight mt-0.5 truncate" style={{ color: NAVY, fontFamily: "var(--font-sans)" }}>{activeGroup.title}</h2>
-              </div>
-              <span
-                className="inline-flex items-center justify-center min-w-[26px] h-[22px] px-2 rounded-full text-[11px] font-bold shrink-0"
-                style={{ background: SOFT_BLUE, color: PAISLEY }}
-              >
-                {activeGroup.rows.length}
-              </span>
+            <div className="mt-5 flex items-baseline justify-between gap-3">
+              <h2 className="text-[16px] font-semibold leading-tight truncate" style={{ color: NAVY }}>{activeGroup.title}</h2>
+              <span className="text-[12px] shrink-0" style={{ color: MUTED }}>{activeGroup.rows.length}</span>
             </div>
           )}
           {activeGroup && (
@@ -882,24 +870,21 @@ function AdminPageInner() {
                 className="w-full text-left relative rounded-2xl p-3.5 transition-all"
                 style={{
                   background: "#fff",
-                  border: `1px solid ${row.customized ? "rgba(205,174,141,0.28)" : "#EEF2F7"}`,
-                  boxShadow: row.customized
-                    ? "0 4px 14px rgba(205,174,141,0.07)"
-                    : "0 2px 10px rgba(11,37,69,0.04)",
+                  border: `1px solid ${row.customized ? "rgba(1,70,185,0.22)" : "#EEF2F7"}`,
                   overflow: "hidden",
                 }}
               >
                 {row.customized && (
-                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: YELLOW }} />
+                  <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: PAISLEY }} />
                 )}
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[14px] font-semibold leading-tight" style={{ color: NAVY }}>{row.label}</span>
+                      <span className="text-[14px] font-medium leading-tight" style={{ color: NAVY }}>{row.label}</span>
                       {row.customized && (
                         <span
-                          className="px-1.5 py-0.5 rounded text-[9px] font-bold leading-none"
-                          style={{ background: YELLOW, color: "#fff" }}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-medium leading-none"
+                          style={{ background: SOFT_BLUE, color: PAISLEY }}
                         >
                           已改
                         </span>
@@ -907,21 +892,21 @@ function AdminPageInner() {
                       <span
                         role="button"
                         onClick={(e) => { e.stopPropagation(); setHelpFor(row); }}
-                        className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full text-[10px] font-bold leading-none"
+                        className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full text-[10px] font-medium leading-none"
                         style={{ background: SOFT_BG, color: SUB }}
                       >
                         ?
                       </span>
                     </div>
                     <code
-                      className="inline-block mt-1.5 px-1.5 py-0.5 rounded text-[10.5px] font-medium break-all"
+                      className="inline-block mt-1.5 px-1.5 py-0.5 rounded text-[10.5px] break-all"
                       style={{ background: SOFT_BLUE, color: PAISLEY, fontFamily: MONO }}
                     >
                       {row.path}
                     </code>
                   </div>
                   <div className="flex flex-col items-end gap-0.5 shrink-0 max-w-[42%]">
-                    <div className="text-[13.5px] font-bold text-right break-all leading-tight" style={{ color: row.customized ? PAISLEY : NAVY }}>{row.valueText}</div>
+                    <div className="text-[13.5px] font-semibold text-right break-all leading-tight" style={{ color: row.customized ? PAISLEY : NAVY }}>{row.valueText}</div>
                     <div className="text-[9.5px]" style={{ color: "#A0AEC0" }}>默认: {row.defaultText}</div>
                   </div>
                 </div>
