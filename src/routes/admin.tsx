@@ -81,6 +81,7 @@ type SRBookForm = {
   wordCountRange: string;
   sortOrder: string;
   updatedAt: string;
+  contentLicense: string;
 };
 type SRUnitForm = {
   lessonId: string;
@@ -215,6 +216,7 @@ function srBookToForm(b: SRBook): SRBookForm {
     wordCountRange: b.word_count_range,
     sortOrder: String(b.sort_order),
     updatedAt: b.updated_at,
+    contentLicense: b.content_license,
   };
 }
 function srUnitToForm(u: SRUnit): SRUnitForm {
@@ -853,6 +855,7 @@ function AdminPageInner() {
               word_count_range: f.wordCountRange,
               sort_order: Number(f.sortOrder) || b.sort_order,
               updated_at: f.updatedAt,
+              content_license: f.contentLicense,
             }
           : b
       )
