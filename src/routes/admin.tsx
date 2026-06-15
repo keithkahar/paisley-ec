@@ -675,6 +675,7 @@ function AdminPageInner() {
   const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
   const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
   const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
+  const [srBookLicensePickerOpen, setSrBookLicensePickerOpen] = useState(false);
 
   const srActiveBook = srBooks.find((b) => b.book_code === srActiveBookCode) ?? srBooks[0] ?? null;
   const srActiveUnit = srActiveBook
