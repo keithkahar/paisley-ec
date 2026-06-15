@@ -298,7 +298,7 @@ function AboutPecLink() {
           src="/assets/pec-matched.png"
           alt="PEC"
           className="object-contain block"
-          style={{ height: "0.85em", width: "auto" }}
+          style={{ height: "0.7em", width: "auto", transform: "translateY(1px)" }}
         />
       </button>
     </div>
