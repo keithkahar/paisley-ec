@@ -289,31 +289,16 @@ function AboutPecLink() {
       <button
         type="button"
         onClick={handleClick}
-        className="text-[13px] font-bold tracking-wide select-none inline-flex items-baseline gap-[3px] leading-none"
+        className="text-[13px] font-bold tracking-wide select-none inline-block leading-none"
         style={{ color: gray }}
         aria-label="About PEC"
       >
         <span className="leading-none">About</span>
-        <span
-          aria-hidden="true"
-          className="inline-block"
-          style={{
-            // Aspect ratio derived from the PNG's non-transparent bbox (335 × 139)
-            height: "0.78em",
-            width: "calc(0.78em * (335 / 139))",
-            backgroundColor: gray,
-            WebkitMaskImage: `url(${pecFromLogo.url})`,
-            maskImage: `url(${pecFromLogo.url})`,
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-            // The PNG has equal transparent padding on all sides; sizing the
-            // mask box to the full image while sizing the box to the bbox
-            // ratio crops the padding out so the letters fill the box.
-            WebkitMaskSize: "calc(100% * (354 / 335)) calc(100% * (158 / 139))",
-            maskSize: "calc(100% * (354 / 335)) calc(100% * (158 / 139))",
-          }}
+        <img
+          src="/assets/pec-gray.png"
+          alt="PEC"
+          className="inline-block align-baseline object-contain"
+          style={{ height: "0.82em", width: "auto", marginLeft: "3px" }}
         />
       </button>
     </div>
