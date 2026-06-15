@@ -283,20 +283,37 @@ function AboutPecLink() {
     }, 500);
   }, [navigate, reset]);
 
+  const gray = "oklch(0.65 0.02 260)";
   return (
     <div className="pb-4 flex justify-center">
       <button
         type="button"
         onClick={handleClick}
-        className="text-[13px] font-bold tracking-wide select-none inline-flex items-end gap-[2px] leading-none"
-        style={{ color: "oklch(0.65 0.02 260)" }}
+        className="text-[13px] font-bold tracking-wide select-none inline-flex items-baseline gap-[3px] leading-none"
+        style={{ color: gray }}
+        aria-label="About PEC"
       >
         <span className="leading-none">About</span>
-        <img
-          src={pecFromLogo.url}
-          alt="PEC"
-          className="block object-contain"
-          style={{ height: "1em", width: "auto" }}
+        <span
+          aria-hidden="true"
+          className="inline-block"
+          style={{
+            // Aspect ratio derived from the PNG's non-transparent bbox (335 × 139)
+            height: "0.78em",
+            width: "calc(0.78em * (335 / 139))",
+            backgroundColor: gray,
+            WebkitMaskImage: `url(${pecFromLogo.url})`,
+            maskImage: `url(${pecFromLogo.url})`,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            // The PNG has equal transparent padding on all sides; sizing the
+            // mask box to the full image while sizing the box to the bbox
+            // ratio crops the padding out so the letters fill the box.
+            WebkitMaskSize: "calc(100% * (354 / 335)) calc(100% * (158 / 139))",
+            maskSize: "calc(100% * (354 / 335)) calc(100% * (158 / 139))",
+          }}
         />
       </button>
     </div>
