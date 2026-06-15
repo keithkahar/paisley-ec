@@ -1328,6 +1328,9 @@ function AdminPageInner() {
                   <SRField label="更新时间">
                     <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
+                  <SRField label="授权">
+                    <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
+                  </SRField>
                 </div>
                 <div className="mt-5 flex gap-3">
                   <button onClick={() => setSrBookEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
