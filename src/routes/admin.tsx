@@ -907,19 +907,9 @@ function AdminPageInner() {
         <div className="px-5 pt-12">
           {/* Header: title + menu (open groups drawer) + reset */}
           <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <button
-                onClick={() => setNavOpen(true)}
-                aria-label="分组导航"
-                className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-xl"
-                style={{ background: SOFT_BLUE, color: PAISLEY }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-              </button>
-              <div className="min-w-0">
-                <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
-                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
-              </div>
+            <div className="min-w-0">
+              <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
+              <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
             </div>
             <button
               onClick={() => setConfirmReset(true)}
@@ -930,8 +920,16 @@ function AdminPageInner() {
             </button>
           </div>
 
-          {/* Mode tabs */}
-          <div className="mt-4 grid grid-cols-2 gap-[6px] p-[4px] rounded-2xl" style={{ background: SOFT_BLUE }}>
+          {/* Mode tabs — hamburger + scrollable tabs in one pill */}
+          <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
+            <button
+              onClick={() => setNavOpen(true)}
+              aria-label="分组导航"
+              className="shrink-0 inline-flex items-center justify-center h-[34px] w-[34px] rounded-full transition-all"
+              style={{ background: "#fff", color: PAISLEY, boxShadow: "0 2px 8px rgba(1,70,185,0.10)" }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
             {[
               { k: "params", label: "参数管理" },
               { k: "smartReading", label: "Smart Reading" },
@@ -942,7 +940,7 @@ function AdminPageInner() {
                 <button
                   key={t.k}
                   onClick={() => setMode(t.k as "params" | "smartReading")}
-                  className="h-[34px] rounded-xl text-[12.5px] font-semibold transition-all"
+                  className="shrink-0 flex-1 h-[34px] px-4 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
                   style={{
                     background: active ? "#fff" : "transparent",
                     color: active ? accent : SUB,
@@ -967,11 +965,11 @@ function AdminPageInner() {
               return (
                 <div
                   key={s.label}
-                  className="rounded-2xl px-3 py-2.5"
+                  className="rounded-full px-3.5 py-1.5 flex items-baseline justify-between gap-2"
                   style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
                 >
-                  <div className="text-[11px]" style={{ color: SUB }}>{s.label}</div>
-                  <div className="text-[20px] font-semibold leading-tight mt-1" style={{ color: NAVY }}>{s.value}</div>
+                  <span className="text-[11px] truncate" style={{ color: SUB }}>{s.label}</span>
+                  <span className="text-[14px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
                 </div>
               );
             })}
@@ -988,20 +986,8 @@ function AdminPageInner() {
             <p className="text-[11px] mt-1 leading-relaxed" style={{ color: MUTED }}>{activeGroup.subtitle}</p>
           )}
 
-          {/* Search */}
-          <div className="relative mt-3">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="搜索本组参数 (名称 / key)"
-              className="w-full pl-9 pr-3 py-2 rounded-xl text-[13px] outline-none"
-              style={{ background: "#F5F7FB", border: "1px solid #E6ECF5", color: NAVY }}
-            />
-          </div>
-
           {/* Param cards */}
-          <div className="mt-3 space-y-2.5">
+          <div className="mt-4 space-y-2.5">
             {filteredRows.length === 0 && (
               <div className="text-center text-[12px] py-8" style={{ color: MUTED }}>无匹配参数</div>
             )}
