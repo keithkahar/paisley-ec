@@ -289,16 +289,16 @@ function AboutPecLink() {
       <button
         type="button"
         onClick={handleClick}
-        className="text-[13px] font-bold tracking-wide select-none inline-block leading-none"
-        style={{ color: gray }}
+        className="text-[13px] font-bold tracking-wide select-none inline-flex items-baseline leading-none"
+        style={{ color: gray, gap: "6px" }}
         aria-label="About PEC"
       >
         <span className="leading-none">About</span>
         <img
-          src="/assets/pec-gray.png"
+          src="/assets/pec-matched.png"
           alt="PEC"
-          className="inline-block align-baseline object-contain"
-          style={{ height: "0.82em", width: "auto", marginLeft: "3px" }}
+          className="object-contain block"
+          style={{ height: "0.85em", width: "auto" }}
         />
       </button>
     </div>
