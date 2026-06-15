@@ -775,7 +775,7 @@ function AdminPageInner() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
               </button>
               <div className="min-w-0">
-                <h1 className="text-[22px] font-bold leading-tight truncate" style={{ color: NAVY, fontFamily: "var(--font-sans)" }}>管理员后台</h1>
+                <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
                 <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
               </div>
             </div>
@@ -1249,7 +1249,7 @@ function AdminPageInner() {
 function SRField(props: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-[10.5px] font-bold uppercase tracking-wider mb-1" style={{ color: "#50627A", letterSpacing: "0.06em" }}>{props.label}</div>
+      <div className="text-[11.5px] font-medium mb-1" style={{ color: "#50627A" }}>{props.label}</div>
       {props.children}
     </div>
   );
