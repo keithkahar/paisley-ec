@@ -963,17 +963,17 @@ function AdminPageInner() {
 
         {mode === "params" && (
           <>
-          {/* Summary stats */}
+          {/* Summary stats — height matches the SR status strip */}
           <div className="grid grid-cols-3 gap-[7px] mt-4">
             {summary.map((s) => {
               return (
                 <div
                   key={s.label}
-                  className="rounded-full px-3.5 py-1.5 flex items-baseline justify-between gap-2"
+                  className="rounded-full px-3.5 py-2.5 flex items-baseline justify-between gap-2"
                   style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
                 >
                   <span className="text-[11px] truncate" style={{ color: SUB }}>{s.label}</span>
-                  <span className="text-[14px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
+                  <span className="text-[13px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
                 </div>
               );
             })}
