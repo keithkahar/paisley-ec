@@ -397,6 +397,221 @@ function formatValueText(param: AdminParam, raw: string): string {
 }
 
 function AdminPage() {
+  return <AdminPageInner />;
+}
+
+function SRView(props: {
+  srBooks: SRBook[];
+  srActiveBook: SRBook | null;
+  srActiveUnit: SRUnit | null;
+  srActiveBookCode: string;
+  srActiveLessonId: string;
+  srSource: "default" | "admin";
+  srTotalUnits: number;
+  setSrActiveBookCode: (v: string) => void;
+  setSrActiveLessonId: (v: string) => void;
+  onImport: () => void;
+  onClear: () => void;
+  onEditBook: () => void;
+  onEditUnit: () => void;
+}) {
+  const NAVY_C = "#0B2545";
+  const MUTED_C = "#8A97A6";
+  const SUB_C = "#50627A";
+  const PAISLEY_C = "#0146B9";
+  const SOFT_BLUE_C = "#EEF2FA";
+  const YELLOW_C = "#cdae8d";
+  const YELLOW_SOFT_C = "#f7f2ec";
+  const YELLOW_BORDER_C = "#ebd9c2";
+  const {
+    srBooks, srActiveBook, srActiveUnit, srActiveBookCode, srActiveLessonId,
+    srSource, srTotalUnits, setSrActiveBookCode, setSrActiveLessonId,
+    onImport, onClear, onEditBook, onEditUnit,
+  } = props;
+  const isAdmin = srSource === "admin";
+
+  return (
+    <div className="mt-4">
+      {/* Source & scale */}
+      <div className="grid grid-cols-2 gap-[7px]">
+        <div
+          className="rounded-2xl px-3 py-2.5"
+          style={{
+            background: isAdmin ? YELLOW_SOFT_C : SOFT_BLUE_C,
+            border: `1px solid ${isAdmin ? YELLOW_BORDER_C : "#E2EAF6"}`,
+          }}
+        >
+          <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isAdmin ? YELLOW_C : PAISLEY_C, letterSpacing: "0.08em" }}>当前来源</div>
+          <div className="text-[15px] font-bold leading-tight mt-1" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
+        </div>
+        <div className="rounded-2xl px-3 py-2.5" style={{ background: SOFT_BLUE_C, border: "1px solid #E2EAF6" }}>
+          <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: PAISLEY_C, letterSpacing: "0.08em" }}>内容规模</div>
+          <div className="text-[15px] font-bold leading-tight mt-1" style={{ color: NAVY_C }}>{srBooks.length} 本 · {srTotalUnits} 单元</div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="mt-3 grid grid-cols-2 gap-[8px]">
+        <button
+          onClick={onImport}
+          className="h-10 rounded-xl text-[13px] font-semibold text-white"
+          style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY_C} 100%)` }}
+        >
+          导入 JSON
+        </button>
+        <button
+          onClick={onClear}
+          className="h-10 rounded-xl text-[13px] font-semibold"
+          style={{ background: "#fff", color: NAVY_C, border: "1px solid #D5DEEC" }}
+        >
+          清除导入
+        </button>
+      </div>
+
+      {/* Books tabs */}
+      <div className="mt-4">
+        <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>书籍选择</div>
+        <div className="mt-2 -mx-1 px-1 overflow-x-auto">
+          <div className="flex gap-2 min-w-min">
+            {srBooks.map((b) => {
+              const active = b.book_code === srActiveBookCode;
+              return (
+                <button
+                  key={b.book_code}
+                  onClick={() => {
+                    setSrActiveBookCode(b.book_code);
+                    setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
+                  }}
+                  className="shrink-0 rounded-xl px-3 py-2 text-left transition-all"
+                  style={{
+                    background: active ? PAISLEY_C : "#fff",
+                    color: active ? "#fff" : NAVY_C,
+                    border: `1px solid ${active ? PAISLEY_C : "#E6ECF5"}`,
+                    minWidth: 140,
+                    boxShadow: active ? "0 4px 12px rgba(1,70,185,0.18)" : "none",
+                  }}
+                >
+                  <div className="text-[12.5px] font-semibold leading-tight truncate">{b.book_title}</div>
+                  <div className="text-[10px] mt-0.5 truncate" style={{ color: active ? "rgba(255,255,255,0.78)" : MUTED_C }}>
+                    {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Book info card */}
+      {srActiveBook && (
+        <div className="mt-4 rounded-2xl p-3.5" style={{ background: "#fff", border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>书籍基础信息</div>
+              <div className="text-[15px] font-bold leading-tight mt-1 truncate" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+              <code className="inline-block mt-1 px-1.5 py-0.5 rounded text-[10px] font-medium" style={{ background: SOFT_BLUE_C, color: PAISLEY_C, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>{srActiveBook.book_code}</code>
+            </div>
+            <button onClick={onEditBook} className="shrink-0 h-[28px] px-3 rounded-full text-[11.5px] font-semibold" style={{ background: SOFT_BLUE_C, color: PAISLEY_C }}>编辑</button>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2">
+            {[
+              ["CEFR", srActiveBook.cefr_range],
+              ["Lexile", srActiveBook.lexile_range],
+              ["字数范围", `${srActiveBook.word_count_range} Words`],
+              ["排序", String(srActiveBook.sort_order)],
+              ["更新时间", srActiveBook.updated_at],
+            ].map(([k, v]) => (
+              <div key={k} className="flex items-baseline justify-between gap-2 py-1 border-b border-dashed" style={{ borderColor: "#EEF2F7" }}>
+                <div className="text-[10.5px] uppercase tracking-wide" style={{ color: MUTED_C, letterSpacing: "0.06em" }}>{k}</div>
+                <div className="text-[12.5px] font-semibold text-right break-all" style={{ color: NAVY_C }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Unit list */}
+      {srActiveBook && (
+        <div className="mt-4">
+          <div className="flex items-end justify-between">
+            <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>单元列表</div>
+            <div className="text-[10.5px]" style={{ color: MUTED_C }}>共 {srActiveBook.units.length} 个</div>
+          </div>
+          <div className="mt-2 space-y-1.5">
+            {srActiveBook.units.map((u) => {
+              const active = u.lesson_id === srActiveLessonId;
+              return (
+                <button
+                  key={u.lesson_id}
+                  onClick={() => setSrActiveLessonId(u.lesson_id)}
+                  className="w-full flex items-center gap-3 text-left rounded-xl p-2.5 transition-all"
+                  style={{
+                    background: active ? "#EAF3FF" : "#fff",
+                    border: `1px solid ${active ? "#BFDBFE" : "#EEF2F7"}`,
+                  }}
+                >
+                  <div
+                    className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-[12px] font-bold"
+                    style={{ background: active ? PAISLEY_C : SOFT_BLUE_C, color: active ? "#fff" : PAISLEY_C }}
+                  >
+                    {u.unit_number}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[13px] font-semibold leading-tight truncate" style={{ color: NAVY_C }}>{u.story_title}</div>
+                    <div className="text-[10.5px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
+                  </div>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: u.content_license === "authorized" ? "#E8F5EC" : YELLOW_SOFT_C, color: u.content_license === "authorized" ? "#1A7A3A" : YELLOW_C }}>{u.content_license}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Unit preview */}
+      {srActiveUnit && (
+        <div className="mt-4 rounded-2xl p-3.5" style={{ background: "#fff", border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>单元预览</div>
+              <div className="text-[15px] font-bold leading-tight mt-1 truncate" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
+              <code className="inline-block mt-1 px-1.5 py-0.5 rounded text-[10px] font-medium" style={{ background: SOFT_BLUE_C, color: PAISLEY_C, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>{srActiveUnit.lesson_id}</code>
+            </div>
+            <button onClick={onEditUnit} className="shrink-0 h-[28px] px-3 rounded-full text-[11.5px] font-semibold" style={{ background: SOFT_BLUE_C, color: PAISLEY_C }}>编辑</button>
+          </div>
+          <div className="mt-3 space-y-2">
+            {[
+              ["Cover Question", srActiveUnit.cover_question],
+              ["Reading Focus", srActiveUnit.reading_focus],
+              ["Keywords", srActiveUnit.keywords.join(" / ")],
+              ["Characters", srActiveUnit.characters.join(" / ")],
+              ["Speaking Goals", srActiveUnit.speaking_goals.join(" / ")],
+              ["Target Sentences", srActiveUnit.target_sentences.join(" / ")],
+              ["Retelling Frame", srActiveUnit.retelling_frame],
+              ["Shirin Opening", srActiveUnit.shirin_opening],
+            ].map(([k, v]) => (
+              <div key={k} className="rounded-lg p-2" style={{ background: "#F7FAFF" }}>
+                <div className="text-[9.5px] font-bold uppercase tracking-wider" style={{ color: SUB_C, letterSpacing: "0.08em" }}>{k}</div>
+                <div className="text-[12px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{v || "—"}</div>
+              </div>
+            ))}
+            <div className="rounded-lg p-2" style={{ background: "#F3F6FB", border: `1px dashed ${SOFT_BLUE_C}` }}>
+              <div className="text-[9.5px] font-bold uppercase tracking-wider" style={{ color: PAISLEY_C, letterSpacing: "0.08em" }}>Oral Questions</div>
+              <div className="text-[12px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{srActiveUnit.oral_questions.length} 个：{srActiveUnit.oral_questions.map((q) => q.question).join(" | ") || "—"}</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Last updated note */}
+      <div className="mt-4 text-[10.5px] text-center" style={{ color: MUTED_C }}>
+        Smart Reading 内容由 Admin Console 统一管理。修改后会标记为 Admin 导入内容。
+      </div>
+    </div>
+  );
+}
+
+function AdminPageInner() {
   const [groups, setGroups] = useState<AdminGroup[]>(INITIAL_GROUPS);
   const [activeKey, setActiveKey] = useState<string>("system");
   const [editing, setEditing] = useState<AdminParam | null>(null);
