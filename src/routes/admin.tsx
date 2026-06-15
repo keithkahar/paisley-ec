@@ -44,6 +44,197 @@ const YELLOW = "#cdae8d";
 const YELLOW_SOFT = "#f7f2ec";
 const YELLOW_BORDER = "#ebd9c2";
 
+// ===== Smart Reading content types & mock data =====
+type SRUnit = {
+  lesson_id: string;
+  unit_number: number;
+  story_title: string;
+  cover_question: string;
+  content_license: "authorized" | "summary_only" | "metadata_only" | "unknown";
+  reading_focus: string;
+  keywords: string[];
+  characters: string[];
+  speaking_goals: string[];
+  target_sentences: string[];
+  oral_questions: { question: string }[];
+  retelling_frame: string;
+  shirin_opening: string;
+};
+type SRBook = {
+  book_code: string;
+  series_name: string;
+  book_title: string;
+  cefr_range: string;
+  lexile_range: string;
+  word_count_range: string;
+  sort_order: number;
+  updated_at: string;
+  content_license: string;
+  unit_count: number;
+  units: SRUnit[];
+};
+type SRBookForm = {
+  bookCode: string;
+  bookTitle: string;
+  cefrRange: string;
+  lexileRange: string;
+  wordCountRange: string;
+  sortOrder: string;
+  updatedAt: string;
+};
+type SRUnitForm = {
+  lessonId: string;
+  storyTitle: string;
+  coverQuestion: string;
+  contentLicense: SRUnit["content_license"];
+  readingFocus: string;
+  keywordsText: string;
+  targetSentencesText: string;
+  speakingGoalsText: string;
+  retellingFrame: string;
+  shirinOpening: string;
+};
+
+const SR_CEFR_OPTIONS = ["PreA1-A1","PreA1","A1","A1-A2","A2","A2-B1","B1","B1-B2","B2"];
+const SR_LEXILE_OPTIONS = ["BR-100L","100L-250L","150L-350L","250L-450L","350L-550L","450L-650L","550L-750L","650L-850L"];
+const SR_WORD_OPTIONS = ["50","60","80","100","120","150","200","250","300","400","500"];
+const SR_LICENSE_OPTIONS: SRUnit["content_license"][] = ["authorized","summary_only","metadata_only","unknown"];
+
+const INITIAL_SR_BOOKS: SRBook[] = [
+  {
+    book_code: "SR-PA1-01",
+    series_name: "Smart Reading",
+    book_title: "Hello, Sunny Day",
+    cefr_range: "PreA1-A1",
+    lexile_range: "BR-100L",
+    word_count_range: "50",
+    sort_order: 1,
+    updated_at: "2026-06-10",
+    content_license: "authorized",
+    unit_count: 3,
+    units: [
+      {
+        lesson_id: "SR-PA1-01-U01",
+        unit_number: 1,
+        story_title: "A Big Red Apple",
+        cover_question: "What color is the apple?",
+        content_license: "authorized",
+        reading_focus: "Identify colors and simple nouns in a short story.",
+        keywords: ["apple","red","big","tree"],
+        characters: ["Mia","Dad"],
+        speaking_goals: ["Name three colors","Use 'I see a ___'"],
+        target_sentences: ["I see a big red apple.","The apple is on the tree."],
+        oral_questions: [{ question: "What does Mia see?" }, { question: "Where is the apple?" }],
+        retelling_frame: "First ___ . Then ___ . Finally ___ .",
+        shirin_opening: "Hi! Today let's read about Mia and a big red apple. Ready?",
+      },
+      {
+        lesson_id: "SR-PA1-01-U02",
+        unit_number: 2,
+        story_title: "My Little Cat",
+        cover_question: "Where is the cat?",
+        content_license: "authorized",
+        reading_focus: "Use prepositions of place (on, in, under).",
+        keywords: ["cat","box","sleep","little"],
+        characters: ["Lily","Cat"],
+        speaking_goals: ["Use 'on / in / under'"],
+        target_sentences: ["The cat is in the box.","The cat can sleep."],
+        oral_questions: [{ question: "Where is the cat?" }],
+        retelling_frame: "There is a ___ . It is ___ .",
+        shirin_opening: "Meow! Let's find Lily's little cat together.",
+      },
+      {
+        lesson_id: "SR-PA1-01-U03",
+        unit_number: 3,
+        story_title: "Rainy Park",
+        cover_question: "What is the weather like?",
+        content_license: "summary_only",
+        reading_focus: "Weather words and feelings.",
+        keywords: ["rain","umbrella","park","wet"],
+        characters: ["Tom"],
+        speaking_goals: ["Describe weather"],
+        target_sentences: ["It is rainy today.","Tom has an umbrella."],
+        oral_questions: [{ question: "How is the weather?" }],
+        retelling_frame: "It is ___ . Tom ___ .",
+        shirin_opening: "It's raining! Let's see what Tom does in the park.",
+      },
+    ],
+  },
+  {
+    book_code: "SR-A1-02",
+    series_name: "Smart Reading",
+    book_title: "Around My Town",
+    cefr_range: "A1",
+    lexile_range: "100L-250L",
+    word_count_range: "100",
+    sort_order: 2,
+    updated_at: "2026-05-22",
+    content_license: "authorized",
+    unit_count: 2,
+    units: [
+      {
+        lesson_id: "SR-A1-02-U01",
+        unit_number: 1,
+        story_title: "At the Bakery",
+        cover_question: "What do you buy at a bakery?",
+        content_license: "authorized",
+        reading_focus: "Food vocabulary and polite requests.",
+        keywords: ["bread","cake","buy","please"],
+        characters: ["Ana","Baker"],
+        speaking_goals: ["Use 'Can I have ___, please?'"],
+        target_sentences: ["Can I have a small cake, please?","Thank you very much."],
+        oral_questions: [{ question: "What does Ana buy?" }],
+        retelling_frame: "Ana goes to ___ . She buys ___ .",
+        shirin_opening: "Yum! Let's go to the bakery with Ana.",
+      },
+      {
+        lesson_id: "SR-A1-02-U02",
+        unit_number: 2,
+        story_title: "On the Bus",
+        cover_question: "Where is Ben going?",
+        content_license: "authorized",
+        reading_focus: "Talking about places and directions.",
+        keywords: ["bus","school","stop","go"],
+        characters: ["Ben","Driver"],
+        speaking_goals: ["Ask 'Where is ___?'"],
+        target_sentences: ["The bus goes to school.","Ben sits near the window."],
+        oral_questions: [{ question: "Where does the bus go?" }],
+        retelling_frame: "Ben takes ___ . He goes to ___ .",
+        shirin_opening: "All aboard! Let's ride the bus with Ben.",
+      },
+    ],
+  },
+];
+
+function srBookToForm(b: SRBook): SRBookForm {
+  return {
+    bookCode: b.book_code,
+    bookTitle: b.book_title,
+    cefrRange: b.cefr_range,
+    lexileRange: b.lexile_range,
+    wordCountRange: b.word_count_range,
+    sortOrder: String(b.sort_order),
+    updatedAt: b.updated_at,
+  };
+}
+function srUnitToForm(u: SRUnit): SRUnitForm {
+  return {
+    lessonId: u.lesson_id,
+    storyTitle: u.story_title,
+    coverQuestion: u.cover_question,
+    contentLicense: u.content_license,
+    readingFocus: u.reading_focus,
+    keywordsText: u.keywords.join("\n"),
+    targetSentencesText: u.target_sentences.join("\n"),
+    speakingGoalsText: u.speaking_goals.join("\n"),
+    retellingFrame: u.retelling_frame,
+    shirinOpening: u.shirin_opening,
+  };
+}
+function linesToArr(s: string) {
+  return s.split("\n").map((x) => x.trim()).filter(Boolean);
+}
+
 const INITIAL_GROUPS: AdminGroup[] = [
   {
     key: "system",
@@ -206,6 +397,221 @@ function formatValueText(param: AdminParam, raw: string): string {
 }
 
 function AdminPage() {
+  return <AdminPageInner />;
+}
+
+function SRView(props: {
+  srBooks: SRBook[];
+  srActiveBook: SRBook | null;
+  srActiveUnit: SRUnit | null;
+  srActiveBookCode: string;
+  srActiveLessonId: string;
+  srSource: "default" | "admin";
+  srTotalUnits: number;
+  setSrActiveBookCode: (v: string) => void;
+  setSrActiveLessonId: (v: string) => void;
+  onImport: () => void;
+  onClear: () => void;
+  onEditBook: () => void;
+  onEditUnit: () => void;
+}) {
+  const NAVY_C = "#0B2545";
+  const MUTED_C = "#8A97A6";
+  const SUB_C = "#50627A";
+  const PAISLEY_C = "#0146B9";
+  const SOFT_BLUE_C = "#EEF2FA";
+  const YELLOW_C = "#cdae8d";
+  const YELLOW_SOFT_C = "#f7f2ec";
+  const YELLOW_BORDER_C = "#ebd9c2";
+  const {
+    srBooks, srActiveBook, srActiveUnit, srActiveBookCode, srActiveLessonId,
+    srSource, srTotalUnits, setSrActiveBookCode, setSrActiveLessonId,
+    onImport, onClear, onEditBook, onEditUnit,
+  } = props;
+  const isAdmin = srSource === "admin";
+
+  return (
+    <div className="mt-4">
+      {/* Source & scale */}
+      <div className="grid grid-cols-2 gap-[7px]">
+        <div
+          className="rounded-2xl px-3 py-2.5"
+          style={{
+            background: isAdmin ? YELLOW_SOFT_C : SOFT_BLUE_C,
+            border: `1px solid ${isAdmin ? YELLOW_BORDER_C : "#E2EAF6"}`,
+          }}
+        >
+          <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isAdmin ? YELLOW_C : PAISLEY_C, letterSpacing: "0.08em" }}>当前来源</div>
+          <div className="text-[15px] font-bold leading-tight mt-1" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
+        </div>
+        <div className="rounded-2xl px-3 py-2.5" style={{ background: SOFT_BLUE_C, border: "1px solid #E2EAF6" }}>
+          <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: PAISLEY_C, letterSpacing: "0.08em" }}>内容规模</div>
+          <div className="text-[15px] font-bold leading-tight mt-1" style={{ color: NAVY_C }}>{srBooks.length} 本 · {srTotalUnits} 单元</div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="mt-3 grid grid-cols-2 gap-[8px]">
+        <button
+          onClick={onImport}
+          className="h-10 rounded-xl text-[13px] font-semibold text-white"
+          style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY_C} 100%)` }}
+        >
+          导入 JSON
+        </button>
+        <button
+          onClick={onClear}
+          className="h-10 rounded-xl text-[13px] font-semibold"
+          style={{ background: "#fff", color: NAVY_C, border: "1px solid #D5DEEC" }}
+        >
+          清除导入
+        </button>
+      </div>
+
+      {/* Books tabs */}
+      <div className="mt-4">
+        <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>书籍选择</div>
+        <div className="mt-2 -mx-1 px-1 overflow-x-auto">
+          <div className="flex gap-2 min-w-min">
+            {srBooks.map((b) => {
+              const active = b.book_code === srActiveBookCode;
+              return (
+                <button
+                  key={b.book_code}
+                  onClick={() => {
+                    setSrActiveBookCode(b.book_code);
+                    setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
+                  }}
+                  className="shrink-0 rounded-xl px-3 py-2 text-left transition-all"
+                  style={{
+                    background: active ? PAISLEY_C : "#fff",
+                    color: active ? "#fff" : NAVY_C,
+                    border: `1px solid ${active ? PAISLEY_C : "#E6ECF5"}`,
+                    minWidth: 140,
+                    boxShadow: active ? "0 4px 12px rgba(1,70,185,0.18)" : "none",
+                  }}
+                >
+                  <div className="text-[12.5px] font-semibold leading-tight truncate">{b.book_title}</div>
+                  <div className="text-[10px] mt-0.5 truncate" style={{ color: active ? "rgba(255,255,255,0.78)" : MUTED_C }}>
+                    {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Book info card */}
+      {srActiveBook && (
+        <div className="mt-4 rounded-2xl p-3.5" style={{ background: "#fff", border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>书籍基础信息</div>
+              <div className="text-[15px] font-bold leading-tight mt-1 truncate" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+              <code className="inline-block mt-1 px-1.5 py-0.5 rounded text-[10px] font-medium" style={{ background: SOFT_BLUE_C, color: PAISLEY_C, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>{srActiveBook.book_code}</code>
+            </div>
+            <button onClick={onEditBook} className="shrink-0 h-[28px] px-3 rounded-full text-[11.5px] font-semibold" style={{ background: SOFT_BLUE_C, color: PAISLEY_C }}>编辑</button>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2">
+            {[
+              ["CEFR", srActiveBook.cefr_range],
+              ["Lexile", srActiveBook.lexile_range],
+              ["字数范围", `${srActiveBook.word_count_range} Words`],
+              ["排序", String(srActiveBook.sort_order)],
+              ["更新时间", srActiveBook.updated_at],
+            ].map(([k, v]) => (
+              <div key={k} className="flex items-baseline justify-between gap-2 py-1 border-b border-dashed" style={{ borderColor: "#EEF2F7" }}>
+                <div className="text-[10.5px] uppercase tracking-wide" style={{ color: MUTED_C, letterSpacing: "0.06em" }}>{k}</div>
+                <div className="text-[12.5px] font-semibold text-right break-all" style={{ color: NAVY_C }}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Unit list */}
+      {srActiveBook && (
+        <div className="mt-4">
+          <div className="flex items-end justify-between">
+            <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>单元列表</div>
+            <div className="text-[10.5px]" style={{ color: MUTED_C }}>共 {srActiveBook.units.length} 个</div>
+          </div>
+          <div className="mt-2 space-y-1.5">
+            {srActiveBook.units.map((u) => {
+              const active = u.lesson_id === srActiveLessonId;
+              return (
+                <button
+                  key={u.lesson_id}
+                  onClick={() => setSrActiveLessonId(u.lesson_id)}
+                  className="w-full flex items-center gap-3 text-left rounded-xl p-2.5 transition-all"
+                  style={{
+                    background: active ? "#EAF3FF" : "#fff",
+                    border: `1px solid ${active ? "#BFDBFE" : "#EEF2F7"}`,
+                  }}
+                >
+                  <div
+                    className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-[12px] font-bold"
+                    style={{ background: active ? PAISLEY_C : SOFT_BLUE_C, color: active ? "#fff" : PAISLEY_C }}
+                  >
+                    {u.unit_number}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[13px] font-semibold leading-tight truncate" style={{ color: NAVY_C }}>{u.story_title}</div>
+                    <div className="text-[10.5px] mt-0.5 truncate" style={{ color: MUTED_C }}>{u.cover_question}</div>
+                  </div>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: u.content_license === "authorized" ? "#E8F5EC" : YELLOW_SOFT_C, color: u.content_license === "authorized" ? "#1A7A3A" : YELLOW_C }}>{u.content_license}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Unit preview */}
+      {srActiveUnit && (
+        <div className="mt-4 rounded-2xl p-3.5" style={{ background: "#fff", border: "1px solid #EEF2F7", boxShadow: "0 2px 10px rgba(11,37,69,0.04)" }}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: PAISLEY_C }}>单元预览</div>
+              <div className="text-[15px] font-bold leading-tight mt-1 truncate" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
+              <code className="inline-block mt-1 px-1.5 py-0.5 rounded text-[10px] font-medium" style={{ background: SOFT_BLUE_C, color: PAISLEY_C, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>{srActiveUnit.lesson_id}</code>
+            </div>
+            <button onClick={onEditUnit} className="shrink-0 h-[28px] px-3 rounded-full text-[11.5px] font-semibold" style={{ background: SOFT_BLUE_C, color: PAISLEY_C }}>编辑</button>
+          </div>
+          <div className="mt-3 space-y-2">
+            {[
+              ["Cover Question", srActiveUnit.cover_question],
+              ["Reading Focus", srActiveUnit.reading_focus],
+              ["Keywords", srActiveUnit.keywords.join(" / ")],
+              ["Characters", srActiveUnit.characters.join(" / ")],
+              ["Speaking Goals", srActiveUnit.speaking_goals.join(" / ")],
+              ["Target Sentences", srActiveUnit.target_sentences.join(" / ")],
+              ["Retelling Frame", srActiveUnit.retelling_frame],
+              ["Shirin Opening", srActiveUnit.shirin_opening],
+            ].map(([k, v]) => (
+              <div key={k} className="rounded-lg p-2" style={{ background: "#F7FAFF" }}>
+                <div className="text-[9.5px] font-bold uppercase tracking-wider" style={{ color: SUB_C, letterSpacing: "0.08em" }}>{k}</div>
+                <div className="text-[12px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{v || "—"}</div>
+              </div>
+            ))}
+            <div className="rounded-lg p-2" style={{ background: "#F3F6FB", border: `1px dashed ${SOFT_BLUE_C}` }}>
+              <div className="text-[9.5px] font-bold uppercase tracking-wider" style={{ color: PAISLEY_C, letterSpacing: "0.08em" }}>Oral Questions</div>
+              <div className="text-[12px] mt-1 leading-relaxed" style={{ color: NAVY_C }}>{srActiveUnit.oral_questions.length} 个：{srActiveUnit.oral_questions.map((q) => q.question).join(" | ") || "—"}</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Last updated note */}
+      <div className="mt-4 text-[10.5px] text-center" style={{ color: MUTED_C }}>
+        Smart Reading 内容由 Admin Console 统一管理。修改后会标记为 Admin 导入内容。
+      </div>
+    </div>
+  );
+}
+
+function AdminPageInner() {
   const [groups, setGroups] = useState<AdminGroup[]>(INITIAL_GROUPS);
   const [activeKey, setActiveKey] = useState<string>("system");
   const [editing, setEditing] = useState<AdminParam | null>(null);
@@ -215,6 +621,30 @@ function AdminPage() {
   const [toast, setToast] = useState<string>("");
   const [navOpen, setNavOpen] = useState(false);
   const [query, setQuery] = useState("");
+
+  // ===== Mode switch & Smart Reading state =====
+  const [mode, setMode] = useState<"params" | "smartReading">("params");
+  const [srBooks, setSrBooks] = useState<SRBook[]>(INITIAL_SR_BOOKS);
+  const [srSource, setSrSource] = useState<"default" | "admin">("default");
+  const [srActiveBookCode, setSrActiveBookCode] = useState<string>(INITIAL_SR_BOOKS[0]?.book_code ?? "");
+  const [srActiveLessonId, setSrActiveLessonId] = useState<string>(INITIAL_SR_BOOKS[0]?.units[0]?.lesson_id ?? "");
+  const [srImportOpen, setSrImportOpen] = useState(false);
+  const [srImportText, setSrImportText] = useState("");
+  const [srValidationText, setSrValidationText] = useState("");
+  const [srValidationOk, setSrValidationOk] = useState<boolean | null>(null);
+  const [srConfirmClear, setSrConfirmClear] = useState(false);
+  const [srBookEditForm, setSrBookEditForm] = useState<SRBookForm | null>(null);
+  const [srUnitEditForm, setSrUnitEditForm] = useState<SRUnitForm | null>(null);
+  const [srCefrPickerOpen, setSrCefrPickerOpen] = useState(false);
+  const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
+  const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
+  const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
+
+  const srActiveBook = srBooks.find((b) => b.book_code === srActiveBookCode) ?? srBooks[0] ?? null;
+  const srActiveUnit = srActiveBook
+    ? srActiveBook.units.find((u) => u.lesson_id === srActiveLessonId) ?? srActiveBook.units[0] ?? null
+    : null;
+  const srTotalUnits = srBooks.reduce((n, b) => n + b.units.length, 0);
 
   const activeGroup = groups.find((g) => g.key === activeKey) ?? groups[0];
 
@@ -280,6 +710,158 @@ function AdminPage() {
     showToast("已重置");
   }
 
+  // ===== Smart Reading actions =====
+  function srValidate(): SRBook[] | null {
+    const raw = srImportText.trim();
+    if (!raw) {
+      setSrValidationOk(false);
+      setSrValidationText("请粘贴 JSON 内容。");
+      return null;
+    }
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      setSrValidationOk(false);
+      setSrValidationText(`JSON 格式错误：${(err as Error).message}`);
+      return null;
+    }
+    const list: unknown = Array.isArray(parsed)
+      ? parsed
+      : (parsed as { books?: unknown }).books ?? [parsed];
+    if (!Array.isArray(list)) {
+      setSrValidationOk(false);
+      setSrValidationText("JSON 必须是 books 数组或包含 books 字段的对象。");
+      return null;
+    }
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    const books: SRBook[] = [];
+    list.forEach((item, i) => {
+      const b = item as Partial<SRBook>;
+      if (!b.book_code) errors.push(`第 ${i + 1} 本书缺少 book_code`);
+      if (!b.book_title) warnings.push(`第 ${i + 1} 本书缺少 book_title`);
+      if (!Array.isArray(b.units)) errors.push(`第 ${i + 1} 本书 units 不是数组`);
+      books.push({
+        book_code: b.book_code || `BOOK-${i + 1}`,
+        series_name: b.series_name || "Smart Reading",
+        book_title: b.book_title || "未命名",
+        cefr_range: b.cefr_range || "A1",
+        lexile_range: b.lexile_range || "BR-100L",
+        word_count_range: b.word_count_range || "100",
+        sort_order: Number(b.sort_order || i + 1),
+        updated_at: b.updated_at || new Date().toISOString().slice(0, 10),
+        content_license: b.content_license || "authorized",
+        unit_count: Array.isArray(b.units) ? b.units.length : 0,
+        units: Array.isArray(b.units) ? (b.units as SRUnit[]) : [],
+      });
+    });
+    const incomingCodes = books.map((b) => b.book_code);
+    const currentCodes = srBooks.map((b) => b.book_code);
+    const newBooks = incomingCodes.filter((c) => !currentCodes.includes(c));
+    const removedBooks = currentCodes.filter((c) => !incomingCodes.includes(c));
+    const incomingUnits = books.reduce((n, b) => n + b.units.length, 0);
+    const ok = errors.length === 0;
+    const report = [
+      `校验状态：${ok ? "通过" : "失败"}`,
+      `导入规模：${books.length} 本书，${incomingUnits} 个单元`,
+      `当前规模：${srBooks.length} 本书，${srTotalUnits} 个单元`,
+      `Book 对比：新增 ${newBooks.length}，移除 ${removedBooks.length}`,
+      ...(newBooks.length ? ["新增书：" + newBooks.slice(0, 6).join(", ")] : []),
+      ...(removedBooks.length ? ["将被移除书：" + removedBooks.slice(0, 6).join(", ")] : []),
+      ...(errors.length ? ["错误：", ...errors.slice(0, 8)] : []),
+      ...(warnings.length ? ["警告：", ...warnings.slice(0, 6)] : []),
+    ].join("\n");
+    setSrValidationOk(ok);
+    setSrValidationText(report);
+    return ok ? books : null;
+  }
+
+  function srImport() {
+    const books = srValidate();
+    if (!books) return;
+    setSrBooks(books);
+    setSrSource("admin");
+    setSrActiveBookCode(books[0]?.book_code ?? "");
+    setSrActiveLessonId(books[0]?.units[0]?.lesson_id ?? "");
+    setSrImportOpen(false);
+    setSrImportText("");
+    setSrValidationText("");
+    setSrValidationOk(null);
+    showToast("已导入");
+  }
+
+  function srClear() {
+    setSrBooks(INITIAL_SR_BOOKS);
+    setSrSource("default");
+    setSrActiveBookCode(INITIAL_SR_BOOKS[0]?.book_code ?? "");
+    setSrActiveLessonId(INITIAL_SR_BOOKS[0]?.units[0]?.lesson_id ?? "");
+    setSrConfirmClear(false);
+    showToast("已清除");
+  }
+
+  function openSrBookEditor() {
+    if (!srActiveBook) return;
+    setSrBookEditForm(srBookToForm(srActiveBook));
+  }
+
+  function saveSrBookEditor() {
+    const f = srBookEditForm;
+    if (!f) return;
+    setSrBooks((prev) =>
+      prev.map((b) =>
+        b.book_code === f.bookCode
+          ? {
+              ...b,
+              book_title: f.bookTitle,
+              cefr_range: f.cefrRange,
+              lexile_range: f.lexileRange,
+              word_count_range: f.wordCountRange,
+              sort_order: Number(f.sortOrder) || 0,
+              updated_at: f.updatedAt,
+            }
+          : b
+      )
+    );
+    setSrSource("admin");
+    setSrBookEditForm(null);
+    showToast("已保存");
+  }
+
+  function openSrUnitEditor() {
+    if (!srActiveUnit) return;
+    setSrUnitEditForm(srUnitToForm(srActiveUnit));
+  }
+
+  function saveSrUnitEditor() {
+    const f = srUnitEditForm;
+    if (!f) return;
+    setSrBooks((prev) =>
+      prev.map((b) => ({
+        ...b,
+        units: b.units.map((u) =>
+          u.lesson_id === f.lessonId
+            ? {
+                ...u,
+                story_title: f.storyTitle,
+                cover_question: f.coverQuestion,
+                content_license: f.contentLicense,
+                reading_focus: f.readingFocus,
+                keywords: linesToArr(f.keywordsText),
+                target_sentences: linesToArr(f.targetSentencesText),
+                speaking_goals: linesToArr(f.speakingGoalsText),
+                retelling_frame: f.retellingFrame,
+                shirin_opening: f.shirinOpening,
+              }
+            : u
+        ),
+      }))
+    );
+    setSrSource("admin");
+    setSrUnitEditForm(null);
+    showToast("已保存");
+  }
+
   const MONO = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
   const SOFT_BLUE = "#EEF2FA";
 
@@ -302,7 +884,7 @@ function AdminPage() {
               </button>
               <div className="min-w-0">
                 <h1 className="text-[22px] font-bold leading-tight truncate" style={{ color: NAVY, fontFamily: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif" }}>管理员后台</h1>
-                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>前端参数管理中心</p>
+                <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
               </div>
             </div>
             <button
@@ -314,6 +896,32 @@ function AdminPage() {
             </button>
           </div>
 
+          {/* Mode tabs */}
+          <div className="mt-4 grid grid-cols-2 gap-[6px] p-[4px] rounded-2xl" style={{ background: SOFT_BLUE }}>
+            {[
+              { k: "params", label: "参数管理" },
+              { k: "smartReading", label: "Smart Reading" },
+            ].map((t) => {
+              const active = mode === t.k;
+              return (
+                <button
+                  key={t.k}
+                  onClick={() => setMode(t.k as "params" | "smartReading")}
+                  className="h-[34px] rounded-xl text-[12.5px] font-semibold transition-all"
+                  style={{
+                    background: active ? "#fff" : "transparent",
+                    color: active ? PAISLEY : SUB,
+                    boxShadow: active ? "0 2px 8px rgba(1,70,185,0.10)" : "none",
+                  }}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+
+        {mode === "params" && (
+          <>
           {/* Summary stats */}
           <div className="grid grid-cols-3 gap-[7px] mt-4">
             {summary.map((s) => {
@@ -423,6 +1031,26 @@ function AdminPage() {
               </button>
             ))}
           </div>
+          </>
+        )}
+
+        {mode === "smartReading" && (
+          <SRView
+            srBooks={srBooks}
+            srActiveBook={srActiveBook}
+            srActiveUnit={srActiveUnit}
+            srActiveBookCode={srActiveBookCode}
+            srActiveLessonId={srActiveLessonId}
+            srSource={srSource}
+            srTotalUnits={srTotalUnits}
+            setSrActiveBookCode={setSrActiveBookCode}
+            setSrActiveLessonId={setSrActiveLessonId}
+            onImport={() => setSrImportOpen(true)}
+            onClear={() => setSrConfirmClear(true)}
+            onEditBook={openSrBookEditor}
+            onEditUnit={openSrUnitEditor}
+          />
+        )}
         </div>
 
         {/* Group navigation drawer */}
@@ -604,7 +1232,200 @@ function AdminPage() {
             </div>
           </>
         )}
+
+        {/* SR clear confirm */}
+        {srConfirmClear && (
+          <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setSrConfirmClear(false)}>
+            <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
+              <div className="text-[16px] font-semibold" style={{ color: NAVY }}>清除导入内容？</div>
+              <div className="text-[13px] mt-2" style={{ color: SUB }}>清除后 Smart Reading 将回到默认代码内容。</div>
+              <div className="mt-4 flex gap-3">
+                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>清除</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SR Import sheet */}
+        {srImportOpen && (
+          <>
+            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} />
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
+                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>导入 Smart Reading JSON</div>
+                <div className="text-[11px] mt-1" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
+                <textarea
+                  value={srImportText}
+                  onChange={(e) => setSrImportText(e.target.value)}
+                  placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
+                  className="mt-3 w-full h-[140px] px-3 py-2 rounded-xl text-[12px] outline-none resize-none"
+                  style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
+                />
+                {srValidationText && (
+                  <pre
+                    className="mt-2 w-full max-h-[160px] overflow-auto px-3 py-2 rounded-xl text-[11px] whitespace-pre-wrap"
+                    style={{
+                      background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
+                      color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
+                      fontFamily: MONO,
+                      border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
+                    }}
+                  >
+                    {srValidationText}
+                  </pre>
+                )}
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <button onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                  <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: PAISLEY, border: `1px solid ${PAISLEY}` }}>校验</button>
+                  <button onClick={srImport} className="h-11 rounded-full text-[13px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>导入</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* SR Book editor sheet */}
+        {srBookEditForm && (
+          <>
+            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrBookEditForm(null)} />
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
+                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
+                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
+                <div className="mt-4 space-y-3 max-h-[60vh] overflow-y-auto">
+                  <SRField label="书名">
+                    <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="CEFR">
+                    <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
+                  </SRField>
+                  <SRField label="Lexile">
+                    <SRSelect value={srBookEditForm.lexileRange} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexileRange: v })} placeholder="请选择 Lexile" />
+                  </SRField>
+                  <SRField label="字数范围">
+                    <SRSelect value={srBookEditForm.wordCountRange} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: v })} placeholder="请选择字数" suffix="Words" />
+                  </SRField>
+                  <SRField label="排序">
+                    <input inputMode="numeric" value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="更新时间 (YYYY-MM-DD)">
+                    <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} placeholder="2026-06-15" className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
+                  </SRField>
+                </div>
+                <div className="mt-5 flex gap-3">
+                  <button onClick={() => setSrBookEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* SR Unit editor sheet */}
+        {srUnitEditForm && (
+          <>
+            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrUnitEditForm(null)} />
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)" }}>
+              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))]">
+                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3]" />
+                <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>编辑单元</div>
+                <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
+                <div className="mt-4 space-y-3 max-h-[58vh] overflow-y-auto">
+                  <SRField label="标题">
+                    <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="封面问题 Cover Question">
+                    <input value={srUnitEditForm.coverQuestion} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, coverQuestion: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="授权状态 License">
+                    <SRSelect value={srUnitEditForm.contentLicense} options={[...SR_LICENSE_OPTIONS]} open={srLicensePickerOpen} setOpen={setSrLicensePickerOpen} onChange={(v) => setSrUnitEditForm({ ...srUnitEditForm, contentLicense: v as SRUnit["content_license"] })} placeholder="请选择授权" />
+                  </SRField>
+                  <SRField label="Reading Focus">
+                    <textarea value={srUnitEditForm.readingFocus} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, readingFocus: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Keywords（每行一个）">
+                    <textarea value={srUnitEditForm.keywordsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, keywordsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO }} />
+                  </SRField>
+                  <SRField label="Target Sentences（每行一句）">
+                    <textarea value={srUnitEditForm.targetSentencesText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, targetSentencesText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Speaking Goals（每行一项）">
+                    <textarea value={srUnitEditForm.speakingGoalsText} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, speakingGoalsText: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Retelling Frame">
+                    <textarea value={srUnitEditForm.retellingFrame} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, retellingFrame: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                  <SRField label="Shirin Opening">
+                    <textarea value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  </SRField>
+                </div>
+                <div className="mt-5 flex gap-3">
+                  <button onClick={() => setSrUnitEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold text-white" style={{ background: `linear-gradient(180deg, #0877FF 0%, ${PAISLEY} 100%)` }}>保存</button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </PhoneFrame>
+  );
+}
+
+function SRField(props: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-[10.5px] font-bold uppercase tracking-wider mb-1" style={{ color: "#50627A", letterSpacing: "0.06em" }}>{props.label}</div>
+      {props.children}
+    </div>
+  );
+}
+
+function SRSelect(props: {
+  value: string;
+  options: string[];
+  open: boolean;
+  setOpen: (v: boolean) => void;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  suffix?: string;
+}) {
+  const NAVY_C = "#0B2545";
+  const MUTED_C = "#8A97A6";
+  const PAISLEY_C = "#0146B9";
+  const SOFT_BG_C = "#F6F8FC";
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => props.setOpen(!props.open)}
+        className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[14px]"
+        style={{ background: SOFT_BG_C, color: props.value ? NAVY_C : MUTED_C }}
+      >
+        <span>{props.value ? `${props.value}${props.suffix ? " " + props.suffix : ""}` : props.placeholder || "请选择"}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ color: MUTED_C, transform: props.open ? "rotate(180deg)" : undefined, transition: "transform 0.15s" }}><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      {props.open && (
+        <div className="absolute z-10 left-0 right-0 mt-1 max-h-[200px] overflow-y-auto rounded-xl bg-white" style={{ border: "1px solid #E6ECF5", boxShadow: "0 8px 24px rgba(11,37,69,0.10)" }}>
+          {props.options.map((o) => {
+            const active = o === props.value;
+            return (
+              <button
+                key={o}
+                type="button"
+                onClick={() => { props.onChange(o); props.setOpen(false); }}
+                className="w-full text-left px-3 py-2 text-[13px]"
+                style={{ background: active ? "#EAF3FF" : "transparent", color: active ? PAISLEY_C : NAVY_C, fontWeight: active ? 700 : 500 }}
+              >
+                {o}{props.suffix ? " " + props.suffix : ""}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }
