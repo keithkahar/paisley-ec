@@ -1361,16 +1361,51 @@ function AdminPageInner() {
                     <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
                   </SRField>
                   <SRField label="Lexile">
-                    <SRSelect value={srBookEditForm.lexileRange} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexileRange: v })} placeholder="请选择 Lexile" />
+                    <div className="flex items-center gap-2">
+                      <input
+                        inputMode="numeric"
+                        placeholder="起始"
+                        value={srBookEditForm.lexileMin}
+                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, lexileMin: e.target.value.replace(/[^\d]/g, "") })}
+                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
+                        style={{ background: SOFT_BG, color: NAVY }}
+                      />
+                      <span className="text-[12px]" style={{ color: MUTED }}>L  —  </span>
+                      <input
+                        inputMode="numeric"
+                        placeholder="结束"
+                        value={srBookEditForm.lexileMax}
+                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, lexileMax: e.target.value.replace(/[^\d]/g, "") })}
+                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
+                        style={{ background: SOFT_BG, color: NAVY }}
+                      />
+                      <span className="text-[12px]" style={{ color: MUTED }}>L</span>
+                    </div>
                   </SRField>
-                  <SRField label="字数范围">
-                    <SRSelect value={srBookEditForm.wordCountRange} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: v })} placeholder="请选择字数" suffix="Words" />
+                  <SRField label="Words">
+                    <input
+                      inputMode="numeric"
+                      placeholder="例如 100"
+                      value={srBookEditForm.wordCountRange}
+                      onChange={(e) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: e.target.value.replace(/[^\d]/g, "") })}
+                      className="w-full px-3 py-2 rounded-xl text-[14px] outline-none"
+                      style={{ background: SOFT_BG, color: NAVY }}
+                    />
                   </SRField>
                   <SRField label="排序">
                     <input value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                  <SRField label="更新时间">
-                    <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  <SRField label="更新日期">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="date"
+                        value={srBookEditForm.updatedAt}
+                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })}
+                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
+                        style={{ background: SOFT_BG, color: NAVY }}
+                      />
+                      <span className="text-[12px] tabular-nums" style={{ color: MUTED }}>{toUsShortDate(srBookEditForm.updatedAt) || "mm-dd-yy"}</span>
+                    </div>
                   </SRField>
                   <SRField label="授权">
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
