@@ -568,7 +568,7 @@ function SRView(props: {
                 ["Lexile", srActiveBook.lexile_range],
                 ["Words", srActiveBook.word_count_range],
                 ["排序", String(srActiveBook.sort_order)],
-                ["更新时间", srActiveBook.updated_at],
+                ["更新日期", toUsShortDate(srActiveBook.updated_at)],
                 ["授权", srActiveBook.content_license],
               ].map(([k, v]) => (
                 <div key={k}>
