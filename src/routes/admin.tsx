@@ -701,8 +701,6 @@ function AdminPageInner() {
   const [srBookEditForm, setSrBookEditForm] = useState<SRBookForm | null>(null);
   const [srUnitEditForm, setSrUnitEditForm] = useState<SRUnitForm | null>(null);
   const [srCefrPickerOpen, setSrCefrPickerOpen] = useState(false);
-  const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
-  const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
   const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
   const [srBookLicensePickerOpen, setSrBookLicensePickerOpen] = useState(false);
 
