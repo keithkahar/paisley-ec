@@ -887,7 +887,7 @@ function AdminPageInner() {
               ...b,
               book_title: f.bookTitle,
               cefr_range: f.cefrRange,
-              lexile_range: f.lexileRange,
+              lexile_range: buildLexileRange(f.lexileMin, f.lexileMax),
               word_count_range: f.wordCountRange,
               sort_order: Number(f.sortOrder) || b.sort_order,
               updated_at: f.updatedAt,
