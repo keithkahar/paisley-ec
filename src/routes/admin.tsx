@@ -1302,7 +1302,7 @@ function AdminPageInner() {
                     </pre>
                   )}
                 </div>
-                <div className="mt-4 grid grid-cols-2 gap-2 shrink-0">
+                <div className="mt-4 grid grid-cols-4 gap-2 shrink-0">
                   <button onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
                   <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
                   <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
