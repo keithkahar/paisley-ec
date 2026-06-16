@@ -77,7 +77,8 @@ type SRBookForm = {
   bookCode: string;
   bookTitle: string;
   cefrRange: string;
-  lexileRange: string;
+  lexileMin: string;
+  lexileMax: string;
   wordCountRange: string;
   sortOrder: string;
   updatedAt: string;
@@ -97,8 +98,6 @@ type SRUnitForm = {
 };
 
 const SR_CEFR_OPTIONS = ["PreA1-A1","PreA1","A1","A1-A2","A2","A2-B1","B1","B1-B2","B2"];
-const SR_LEXILE_OPTIONS = ["BR-100L","100L-250L","150L-350L","250L-450L","350L-550L","450L-650L","550L-750L","650L-850L"];
-const SR_WORD_OPTIONS = ["50","60","80","100","120","150","200","250","300","400","500"];
 const SR_LICENSE_OPTIONS: SRUnit["content_license"][] = ["authorized","summary_only","metadata_only","unknown"];
 
 const INITIAL_SR_BOOKS: SRBook[] = [
@@ -207,15 +206,45 @@ const INITIAL_SR_BOOKS: SRBook[] = [
   },
 ];
 
+function stripLexileSuffix(v: string) {
+  return String(v || "").replace(/L/gi, "").trim();
+}
+function splitLexileRange(v: string) {
+  const parts = String(v || "").trim().split("-");
+  return { lexileMin: stripLexileSuffix(parts[0] || ""), lexileMax: stripLexileSuffix(parts[1] || "") };
+}
+function buildLexileRange(min: string, max: string) {
+  const a = stripLexileSuffix(min);
+  const b = stripLexileSuffix(max);
+  if (a && b) return `${a}L-${b}L`;
+  if (a) return `${a}L`;
+  if (b) return `${b}L`;
+  return "";
+}
+function toIsoDate(value: string) {
+  const text = String(value || "").trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+  const m = text.match(/^(\d{1,2})-(\d{1,2})-(\d{2}|\d{4})$/);
+  if (!m) return text;
+  const y = m[3].length === 2 ? "20" + m[3] : m[3];
+  return `${y}-${m[1].padStart(2, "0")}-${m[2].padStart(2, "0")}`;
+}
+function toUsShortDate(value: string) {
+  const m = String(value || "").trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return value;
+  return `${m[2]}-${m[3]}-${m[1].slice(-2)}`;
+}
 function srBookToForm(b: SRBook): SRBookForm {
+  const lex = splitLexileRange(b.lexile_range || "");
   return {
     bookCode: b.book_code,
     bookTitle: b.book_title,
     cefrRange: b.cefr_range,
-    lexileRange: b.lexile_range,
+    lexileMin: lex.lexileMin,
+    lexileMax: lex.lexileMax,
     wordCountRange: b.word_count_range,
     sortOrder: String(b.sort_order),
-    updatedAt: b.updated_at,
+    updatedAt: toIsoDate(b.updated_at || new Date().toISOString().slice(0, 10)),
     contentLicense: b.content_license,
   };
 }
@@ -539,7 +568,7 @@ function SRView(props: {
                 ["Lexile", srActiveBook.lexile_range],
                 ["Words", srActiveBook.word_count_range],
                 ["排序", String(srActiveBook.sort_order)],
-                ["更新时间", srActiveBook.updated_at],
+                ["更新日期", toUsShortDate(srActiveBook.updated_at)],
                 ["授权", srActiveBook.content_license],
               ].map(([k, v]) => (
                 <div key={k}>
@@ -672,8 +701,6 @@ function AdminPageInner() {
   const [srBookEditForm, setSrBookEditForm] = useState<SRBookForm | null>(null);
   const [srUnitEditForm, setSrUnitEditForm] = useState<SRUnitForm | null>(null);
   const [srCefrPickerOpen, setSrCefrPickerOpen] = useState(false);
-  const [srLexilePickerOpen, setSrLexilePickerOpen] = useState(false);
-  const [srWordPickerOpen, setSrWordPickerOpen] = useState(false);
   const [srLicensePickerOpen, setSrLicensePickerOpen] = useState(false);
   const [srBookLicensePickerOpen, setSrBookLicensePickerOpen] = useState(false);
 
@@ -858,7 +885,7 @@ function AdminPageInner() {
               ...b,
               book_title: f.bookTitle,
               cefr_range: f.cefrRange,
-              lexile_range: f.lexileRange,
+              lexile_range: buildLexileRange(f.lexileMin, f.lexileMax),
               word_count_range: f.wordCountRange,
               sort_order: Number(f.sortOrder) || b.sort_order,
               updated_at: f.updatedAt,
@@ -1332,16 +1359,51 @@ function AdminPageInner() {
                     <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
                   </SRField>
                   <SRField label="Lexile">
-                    <SRSelect value={srBookEditForm.lexileRange} options={SR_LEXILE_OPTIONS} open={srLexilePickerOpen} setOpen={setSrLexilePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, lexileRange: v })} placeholder="请选择 Lexile" />
+                    <div className="flex items-center gap-2">
+                      <input
+                        inputMode="numeric"
+                        placeholder="起始"
+                        value={srBookEditForm.lexileMin}
+                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, lexileMin: e.target.value.replace(/[^\d]/g, "") })}
+                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
+                        style={{ background: SOFT_BG, color: NAVY }}
+                      />
+                      <span className="text-[12px]" style={{ color: MUTED }}>L  —  </span>
+                      <input
+                        inputMode="numeric"
+                        placeholder="结束"
+                        value={srBookEditForm.lexileMax}
+                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, lexileMax: e.target.value.replace(/[^\d]/g, "") })}
+                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
+                        style={{ background: SOFT_BG, color: NAVY }}
+                      />
+                      <span className="text-[12px]" style={{ color: MUTED }}>L</span>
+                    </div>
                   </SRField>
-                  <SRField label="字数范围">
-                    <SRSelect value={srBookEditForm.wordCountRange} options={SR_WORD_OPTIONS} open={srWordPickerOpen} setOpen={setSrWordPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: v })} placeholder="请选择字数" suffix="Words" />
+                  <SRField label="Words">
+                    <input
+                      inputMode="numeric"
+                      placeholder="例如 100"
+                      value={srBookEditForm.wordCountRange}
+                      onChange={(e) => setSrBookEditForm({ ...srBookEditForm, wordCountRange: e.target.value.replace(/[^\d]/g, "") })}
+                      className="w-full px-3 py-2 rounded-xl text-[14px] outline-none"
+                      style={{ background: SOFT_BG, color: NAVY }}
+                    />
                   </SRField>
                   <SRField label="排序">
                     <input value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                  <SRField label="更新时间">
-                    <input value={srBookEditForm.updatedAt} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
+                  <SRField label="更新日期">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="date"
+                        value={srBookEditForm.updatedAt}
+                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })}
+                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
+                        style={{ background: SOFT_BG, color: NAVY }}
+                      />
+                      <span className="text-[12px] tabular-nums" style={{ color: MUTED }}>{toUsShortDate(srBookEditForm.updatedAt) || "mm-dd-yy"}</span>
+                    </div>
                   </SRField>
                   <SRField label="授权">
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
