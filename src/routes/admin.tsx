@@ -814,18 +814,24 @@ function AdminPageInner() {
     return ok ? books : null;
   }
 
-  function srImport() {
+  function srImport(mode: "merge" | "replace" = "merge") {
     const books = srValidate();
     if (!books) return;
-    setSrBooks(books);
+    let next = books;
+    if (mode === "merge") {
+      const map = new Map(srBooks.map((b) => [b.book_code, b]));
+      books.forEach((b) => map.set(b.book_code, b));
+      next = Array.from(map.values());
+    }
+    setSrBooks(next);
     setSrSource("admin");
-    setSrActiveBookCode(books[0]?.book_code ?? "");
-    setSrActiveLessonId(books[0]?.units[0]?.lesson_id ?? "");
+    setSrActiveBookCode(next[0]?.book_code ?? "");
+    setSrActiveLessonId(next[0]?.units[0]?.lesson_id ?? "");
     setSrImportOpen(false);
     setSrImportText("");
     setSrValidationText("");
     setSrValidationOk(null);
-    showToast("已导入");
+    showToast(mode === "merge" ? "已合并导入" : "已替换导入");
   }
 
   function srClear() {
@@ -1296,10 +1302,11 @@ function AdminPageInner() {
                     </pre>
                   )}
                 </div>
-                <div className="mt-4 grid grid-cols-3 gap-2 shrink-0">
+                <div className="mt-4 grid grid-cols-2 gap-2 shrink-0">
                   <button onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
                   <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
-                  <button onClick={srImport} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>导入</button>
+                  <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换导入</button>
+                  <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>合并导入</button>
                 </div>
               </div>
             </div>
