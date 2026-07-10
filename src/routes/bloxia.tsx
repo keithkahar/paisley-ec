@@ -1241,7 +1241,7 @@ function BadgeSheet({
       </div>
 
       <div className="mt-3 space-y-2">
-        <SheetRow label="Used Bp" value={formatBp(cost)} />
+        <SheetRow label={unlocked ? "Used Bp" : "Required Bp"} value={formatBp(cost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
 
