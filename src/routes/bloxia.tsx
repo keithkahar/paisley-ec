@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Map as MapIcon, Award, Package } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Medal, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -128,11 +128,15 @@ function BloxiaPage() {
             aria-hidden
             className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-30 pointer-events-none"
             style={{
-              height: "calc(env(safe-area-inset-top) + 104px)",
+              height: "calc(env(safe-area-inset-top) + 150px)",
               background:
-                "linear-gradient(to bottom, rgba(8,36,22,0.95) 0%, rgba(8,36,22,0.92) 70%, rgba(8,36,22,0) 100%)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
+                "linear-gradient(to bottom, rgba(8,36,22,0.95) 0%, rgba(8,36,22,0.9) 55%, rgba(8,36,22,0.55) 80%, rgba(8,36,22,0) 100%)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              maskImage:
+                "linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.7) 85%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.7) 85%, transparent 100%)",
             }}
           />
         )}
@@ -209,6 +213,16 @@ function BloxiaPage() {
               if (r.ok) setSelectedItem(null);
             }}
             onToggleFavorite={() => b.toggleFavoriteItem(selectedItem.id)}
+          />
+        )}
+        {page !== "badges" && selectedBadge && (
+          <BadgeSheet
+            badge={selectedBadge}
+            progress={b.progress}
+            bp={b.bp}
+            onClose={() => setSelectedBadge(null)}
+            onToggleFavorite={() => b.toggleFavorite(selectedBadge.id)}
+            onUnlockGrowth={() => b.unlockGrowthBadge(selectedBadge.id)}
           />
         )}
         {nameEditor && (
