@@ -989,12 +989,14 @@ function ProfileGroup({
   onAction,
   actionKind,
   framed,
+  actionRotated,
   children,
 }: {
   title: string;
   onAction?: () => void;
   actionKind?: "right" | "down";
   framed?: boolean;
+  actionRotated?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -1016,7 +1018,11 @@ function ProfileGroup({
             }}
           >
             {actionKind === "down" ? (
-              <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
+              <ChevronDown
+                className="w-4 h-4 transition-transform"
+                strokeWidth={2.5}
+                style={{ transform: actionRotated ? "rotate(180deg)" : "none" }}
+              />
             ) : (
               <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
             )}
