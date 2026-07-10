@@ -618,9 +618,9 @@ function CollectionView({
       {groups.map((g) => (
         <div key={g.place.id} className="space-y-3">
           {/* Place header — mirrors Badge tab label typography */}
-          <div className="px-1 inline-flex items-baseline gap-1">
+          <div className="px-1 inline-flex items-center gap-1">
             <span className="text-[15px] font-bold" style={{ color: T.ivory }}>
-              {g.place.name}
+              {g.place.name} 
             </span>
             <span className="text-[13px] font-semibold" style={{ color: T.sage }}>
               {g.collected}/{g.items.length}
@@ -637,6 +637,7 @@ function CollectionView({
                   unlocked={unlocked}
                   selected={false}
                   onClick={() => onSelectItem(item)}
+                  size="large"
                 />
               );
             })}
