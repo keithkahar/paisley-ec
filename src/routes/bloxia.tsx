@@ -204,12 +204,13 @@ function TopBar({
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
-  const tabs: { key: PageKey; label: string; Icon: typeof MapIcon }[] = [
+  const allTabs: { key: PageKey; label: string; Icon: typeof MapIcon }[] = [
     { key: "map", label: "Map", Icon: MapIcon },
     { key: "badges", label: "Badges", Icon: Award },
     { key: "collection", label: "Items", Icon: Package },
-    { key: "profile", label: "Profile", Icon: UserIcon },
   ];
+  // Hide the icon of the current page; profile is entered via the avatar
+  const tabs = allTabs.filter((t) => t.key !== page);
   return (
     <div
       className="fixed top-2 left-1/2 -translate-x-1/2 w-full max-w-[404px] z-40 px-3"
@@ -249,7 +250,13 @@ function TopBar({
 
         {/* Right cluster: name + BP, then avatar */}
         <div className="flex items-center gap-2 ml-auto min-w-0">
-          <div className="min-w-0 text-right">
+          <button
+            type="button"
+            onClick={() => onNavigate("profile")}
+            aria-label="Profile"
+            className="flex items-center gap-2 min-w-0 active:scale-95 transition-transform"
+          >
+            <div className="min-w-0 text-right">
             <div
               className="text-[13px] font-extrabold leading-tight truncate"
               style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
@@ -262,8 +269,8 @@ function TopBar({
             >
               {formatBp(bp)}
             </div>
-          </div>
-          <img
+            </div>
+            <img
             src={CHARACTER_ASSETS.shirinPortrait}
             alt=""
             className="h-11 w-11 rounded-full object-cover border shrink-0"
@@ -273,7 +280,8 @@ function TopBar({
               borderColor: T.goldLight,
               boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
             }}
-          />
+            />
+          </button>
         </div>
       </div>
 
