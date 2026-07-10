@@ -281,12 +281,12 @@ function TopBar({
               type="button"
               onClick={() => onNavigate("profile")}
               aria-label="Profile"
-              className="h-[53px] w-[53px] rounded-full shrink-0 grid place-items-center"
+              className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center"
             >
               <img
                 src={CHARACTER_ASSETS.shirinPortrait}
                 alt=""
-                className="h-[53px] w-[53px] rounded-full object-cover border"
+                className="h-[48px] w-[48px] rounded-full object-cover border"
                 style={{
                   imageRendering: "pixelated",
                   background: "#173F29",
