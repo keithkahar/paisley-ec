@@ -297,12 +297,12 @@ function TopBar({
           </div>
         </div>
 
-        {/* Progress bar: completed = dark green, unfinished = gold */}
+        {/* Progress bar: completed = gold, unfinished = dark green */}
         <div
           className="mt-2 h-[6px] rounded-full overflow-hidden"
-          style={{ background: T.goldGradient, border: "1px solid rgba(216,175,87,0.45)" }}
+          style={{ background: "rgba(23,63,41,0.95)", border: "1px solid rgba(216,175,87,0.45)" }}
         >
-          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: "rgba(23,63,41,0.95)" }} />
+          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
         </div>
       </div>
     </div>
