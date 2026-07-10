@@ -28,10 +28,16 @@ export interface Progress {
 
 export interface SpendingLog {
   id: string;
-  type: "unlock_place" | "unlock_growth_badge" | "unlock_collection_item";
+  type:
+    | "unlock_place"
+    | "unlock_growth_badge"
+    | "unlock_collection_item"
+    | "earn_wordie"
+    | "earn_talk";
   targetId: string;
   bpAmount: number;
   createdAt: number;
+  label?: string;
 }
 
 const defaultProgress = (): Progress => ({
@@ -100,6 +106,27 @@ export function useBloxia() {
       return next;
     });
   }, []);
+
+  const earnBp = useCallback(
+    (
+      amount: number,
+      source: "wordie" | "talk",
+      label?: string,
+    ): { ok: boolean } => {
+      if (amount <= 0) return { ok: true };
+      setBpAndSave(bp + amount);
+      appendLog({
+        id: `bloxia_earn_${Date.now()}_${source}`,
+        type: source === "wordie" ? "earn_wordie" : "earn_talk",
+        targetId: source,
+        bpAmount: amount,
+        createdAt: Date.now(),
+        label,
+      });
+      return { ok: true };
+    },
+    [bp, setBpAndSave, appendLog],
+  );
 
   const spend = useCallback(
     (
@@ -214,6 +241,7 @@ export function useBloxia() {
     unlockCollectionItem,
     unlockGrowthBadge,
     updateName,
+    earnBp,
     totals: {
       places: PLACES.length,
       placeBadges: PLACE_BADGES.length,
