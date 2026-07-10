@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
