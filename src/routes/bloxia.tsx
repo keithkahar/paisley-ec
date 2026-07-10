@@ -262,9 +262,8 @@ function TopBar({
     { key: "badges", label: "Badges", Icon: Medal },
     { key: "collection", label: "Items", Icon: Gem },
   ];
-  // Always show all three nav icons so the top-bar layout stays identical
-  // across pages; the current page is highlighted via the `active` style.
-  const tabs = allTabs;
+  // Hide the icon of the current page; profile is entered via the avatar.
+  const tabs = allTabs.filter((t) => t.key !== page);
   return (
     <div
       className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4"
@@ -302,7 +301,8 @@ function TopBar({
                 </button>
               );
             })}
-            {/* Bp pill: same height as nav icons, same color scheme */}
+            {/* Bp pill: hidden on profile (Bp is shown in the stat pills below) */}
+            {page !== "profile" && (
             <div
               className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
               style={{
@@ -313,6 +313,7 @@ function TopBar({
             >
               {formatBp(bp)}
             </div>
+            )}
           </div>
 
           {/* Right cluster: name + milestone; milestone bottom-aligned with avatar */}
