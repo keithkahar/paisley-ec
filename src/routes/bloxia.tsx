@@ -1086,7 +1086,7 @@ function ItemSheet({
           type="button"
           onClick={onCollect}
           className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
-          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           Collect · {item.bpCost.toLocaleString()} Bp
         </button>
