@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, Pencil, Map as MapIcon, Award, Package, User as UserIcon, Check } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -43,6 +43,7 @@ export const Route = createFileRoute("/bloxia")({
 
 type PageKey = "map" | "badges" | "collection" | "profile";
 type BadgeTab = "place" | "growth" | "favorite";
+type CollectionTab = "items" | "favorite";
 
 // ---------- Theme constants (dark green + gold) ----------
 const T = {
@@ -74,6 +75,7 @@ function BloxiaPage() {
   const [nameEditor, setNameEditor] = useState(false);
   const [activityOpen, setActivityOpen] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
+  const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
 
   const next = nextPlace(b.progress);
   const progressPct = next
@@ -154,6 +156,8 @@ function BloxiaPage() {
             <CollectionView
               progress={b.progress}
               onSelectItem={setSelectedItem}
+              tab={collectionTab}
+              setTab={setCollectionTab}
             />
           )}
           {page === "profile" && (
@@ -198,6 +202,7 @@ function BloxiaPage() {
               const r = b.unlockCollectionItem(selectedItem.id);
               if (r.ok) setSelectedItem(null);
             }}
+            onToggleFavorite={() => b.toggleFavoriteItem(selectedItem.id)}
           />
         )}
         {nameEditor && (
@@ -609,15 +614,25 @@ function BadgeTile({
 function CollectionView({
   progress,
   onSelectItem,
+  tab,
+  setTab,
 }: {
   progress: Progress;
   onSelectItem: (i: CollectionItem) => void;
+  tab: CollectionTab;
+  setTab: (t: CollectionTab) => void;
 }) {
   const groups = PLACES.map((place) => {
     const items = COLLECTION_ITEMS.filter((i) => i.placeId === place.id);
     const collected = items.filter((i) => progress.collectedItemIds.includes(i.id)).length;
     return { place, items, collected, placeUnlocked: progress.unlockedPlaceIds.includes(place.id) };
   });
+  const favoriteIds = progress.favoriteItemIds ?? [];
+  const favoriteItems = COLLECTION_ITEMS.filter((i) => favoriteIds.includes(i.id));
+  const tabs: { key: CollectionTab; text: string; count: string }[] = [
+    { key: "items", text: "Items", count: `${progress.collectedItemIds.length}/${COLLECTION_ITEMS.length}` },
+    { key: "favorite", text: "Favorite", count: `${favoriteItems.length}` },
+  ];
 
   return (
     <div className="space-y-4">
@@ -631,7 +646,57 @@ function CollectionView({
         </div>
       </div>
 
-      {groups.map((g) => (
+      {/* Tab strip — mirrors Badges tab pill (Items / Favorite) */}
+      <div
+        className="grid grid-cols-2 p-1 rounded-full"
+        style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
+      >
+        {tabs.map((t) => {
+          const active = t.key === tab;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => setTab(t.key)}
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-1"
+              style={
+                active
+                  ? { background: T.goldGradient, color: T.goldOnDark }
+                  : { color: T.sage, background: "transparent" }
+              }
+            >
+              <span className="text-[15px] font-bold">{t.text} </span>
+              <span>{t.count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {tab === "favorite" ? (
+        favoriteItems.length ? (
+          <div className="grid grid-cols-4 gap-3">
+            {favoriteItems.map((item) => (
+              <BadgeTile
+                key={item.id}
+                asset={item.asset}
+                name={item.name}
+                unlocked
+                selected={false}
+                onClick={() => onSelectItem(item)}
+                size="large"
+              />
+            ))}
+          </div>
+        ) : (
+          <div
+            className="rounded-[18px] text-center py-8 text-[13px] font-semibold"
+            style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
+          >
+            Tap on any collected item to Add to Favorite
+          </div>
+        )
+      ) : (
+        groups.map((g) => (
         <div key={g.place.id} className="space-y-3">
           {/* Place header — mirrors Badge tab label typography */}
           <div className="px-1 inline-flex items-center gap-1">
@@ -659,7 +724,8 @@ function CollectionView({
             })}
           </div>
         </div>
-      ))}
+        ))
+      )}
     </div>
   );
 }
@@ -1051,17 +1117,22 @@ function ItemSheet({
   bp,
   onClose,
   onCollect,
+  onToggleFavorite,
 }: {
   item: CollectionItem;
   progress: Progress;
   bp: number;
   onClose: () => void;
   onCollect: () => void;
+  onToggleFavorite: () => void;
 }) {
   const collected = progress.collectedItemIds.includes(item.id);
   const placeUnlocked = progress.unlockedPlaceIds.includes(item.placeId);
   const canCollect = !collected && placeUnlocked && bp >= item.bpCost;
-  const statusText = collected ? "Collected" : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
+  const isFavorite = (progress.favoriteItemIds ?? []).includes(item.id);
+  const statusText = collected
+    ? isFavorite ? "Favorite" : "Collected"
+    : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
     <Sheet onClose={onClose}>
       <img
@@ -1088,12 +1159,12 @@ function ItemSheet({
       {collected ? (
         <button
           type="button"
-          disabled
+          onClick={onToggleFavorite}
           className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight, opacity: 0.75 }}
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
-          <Check className="w-4 h-4" />
-          Collected
+          <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
+          {isFavorite ? "Favorite" : "Add to Favorite"}
         </button>
       ) : canCollect ? (
         <button

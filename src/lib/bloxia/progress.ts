@@ -22,6 +22,7 @@ export interface Progress {
   unlockedGrowthBadgeIds: string[];
   favoriteBadgeIds: string[];
   collectedItemIds: string[];
+  favoriteItemIds?: string[];
   createdAt: number;
   updatedAt: number;
 }
@@ -48,6 +49,7 @@ const defaultProgress = (): Progress => ({
   unlockedGrowthBadgeIds: [],
   favoriteBadgeIds: [],
   collectedItemIds: [],
+  favoriteItemIds: [],
   createdAt: Date.now(),
   updatedAt: Date.now(),
 });
@@ -207,6 +209,20 @@ export function useBloxia() {
     [progress, persist, spend],
   );
 
+  const toggleFavoriteItem = useCallback(
+    (itemId: string) => {
+      if (!progress.collectedItemIds.includes(itemId)) return { ok: false, error: "LOCKED" as const };
+      const cur = progress.favoriteItemIds ?? [];
+      const has = cur.includes(itemId);
+      persist({
+        ...progress,
+        favoriteItemIds: has ? cur.filter((id) => id !== itemId) : uniq([...cur, itemId]),
+      });
+      return { ok: true };
+    },
+    [progress, persist],
+  );
+
   const unlockGrowthBadge = useCallback(
     (badgeId: string) => {
       const badge = GROWTH_BADGES.find((b) => b.id === badgeId);
@@ -239,6 +255,7 @@ export function useBloxia() {
     setCurrentPlace,
     toggleFavorite,
     unlockCollectionItem,
+    toggleFavoriteItem,
     unlockGrowthBadge,
     updateName,
     earnBp,
