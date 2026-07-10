@@ -1046,7 +1046,7 @@ function PlaceSheet({
 
       {!unlocked && !canUnlock && (
         <div
-          className="mt-3 rounded-[12px] text-center py-2.5 px-3 text-[13px] font-extrabold"
+          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-extrabold"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           {formatBp(place.unlockBp - bp)} still needed to unlock
