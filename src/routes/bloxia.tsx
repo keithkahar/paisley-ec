@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
   COLLECTION_ITEMS,
@@ -59,7 +60,7 @@ const T = {
 };
 
 function formatBp(n: number) {
-  return `${Math.max(0, Math.floor(n)).toLocaleString()} BP`;
+  return `${Math.max(0, Math.floor(n)).toLocaleString()} Bp`;
 }
 
 function BloxiaPage() {
@@ -78,7 +79,6 @@ function BloxiaPage() {
   const progressPct = next
     ? Math.min(100, Math.max(0, Math.round((b.bp / next.unlockBp) * 100)))
     : 100;
-  const progressLabel = next ? `${formatBp(Math.max(0, next.unlockBp - b.bp))} to ${next.name}` : "All places unlocked";
   const currentPlace = placeById[b.progress.currentPlaceId];
 
   return (
@@ -90,7 +90,6 @@ function BloxiaPage() {
           bp={b.bp}
           currentPlaceName={currentPlace?.name ?? ""}
           progressPct={progressPct}
-          progressLabel={progressLabel}
           page={page}
           onNavigate={(p) => {
             setPage(p);
