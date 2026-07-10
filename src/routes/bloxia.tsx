@@ -386,6 +386,7 @@ function TopBar({
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
+                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
               />
             </button>
           </div>
@@ -893,6 +894,7 @@ function ProfileView({
               alt=""
               className="h-full w-full object-cover"
               draggable={false}
+              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
             />
           </div>
           <button
@@ -1522,6 +1524,7 @@ function NameEditor({
                 alt=""
                 className="h-full w-full object-cover"
                 draggable={false}
+                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
               />
             </div>
             <button
@@ -1589,7 +1592,7 @@ function AvatarPickerSheet({
   return (
     <Sheet onClose={onClose ?? (() => {})}>
       <div className="flex flex-col h-full">
-        <div className="text-[22px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+        <div className="text-[22px] font-semibold leading-tight" style={{ color: T.ivory }}>
           {title}
         </div>
         {subtitle && (
@@ -1605,7 +1608,7 @@ function AvatarPickerSheet({
                 key={a.id}
                 type="button"
                 onClick={() => setPending(a.id)}
-                className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform"
+                className="flex items-center justify-center active:scale-95 transition-transform"
               >
                 <div
                   className="h-16 w-16 rounded-full overflow-hidden"
@@ -1616,14 +1619,14 @@ function AvatarPickerSheet({
                       : `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
                   }}
                 >
-                  <img src={a.portrait} alt={a.name} className="h-full w-full object-cover" draggable={false} />
+                  <img
+                    src={a.portrait}
+                    alt=""
+                    className="h-full w-full object-cover"
+                    style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                    draggable={false}
+                  />
                 </div>
-                <span
-                  className="text-[11px] font-semibold"
-                  style={{ color: active ? T.ivory : T.sage }}
-                >
-                  {a.name}
-                </span>
               </button>
             );
           })}
@@ -1632,12 +1635,8 @@ function AvatarPickerSheet({
           <button
             type="button"
             onClick={() => onConfirm(pending)}
-            className="w-full h-12 rounded-full text-[15px] font-bold"
-            style={{
-              background: T.goldGradient,
-              color: T.goldOnDark,
-              border: `1px solid ${T.goldLight}`,
-            }}
+            className="w-full h-12 rounded-full text-[15px] font-semibold"
+            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
             {confirmLabel}
           </button>
@@ -1727,7 +1726,13 @@ function WelcomeSheet({
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
           >
-            <img src={prev.portrait} alt="" className="h-full w-full object-cover" draggable={false} />
+            <img
+              src={prev.portrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              draggable={false}
+            />
           </button>
 
           <div className="relative h-[134px] w-[134px] shrink-0">
@@ -1738,7 +1743,13 @@ function WelcomeSheet({
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
-              <img src={current.portrait} alt="" className="h-full w-full object-cover" draggable={false} />
+              <img
+                src={current.portrait}
+                alt=""
+                className="h-full w-full object-cover"
+                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                draggable={false}
+              />
             </div>
           </div>
 
@@ -1753,7 +1764,13 @@ function WelcomeSheet({
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
           >
-            <img src={next.portrait} alt="" className="h-full w-full object-cover" draggable={false} />
+            <img
+              src={next.portrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              draggable={false}
+            />
           </button>
         </div>
 
