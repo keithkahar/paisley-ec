@@ -1065,8 +1065,6 @@ function ItemSheet({
         {item.description}
       </div>
       <div className="mt-3 space-y-2">
-        <SheetRow label="Found in" value={placeById[item.placeId].name} />
-        <SheetRow label="Rarity" value={item.rarity} />
         <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
