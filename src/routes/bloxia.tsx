@@ -377,7 +377,7 @@ function TopBar({
               aria-label="Profile"
               className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center overflow-hidden"
               style={{
-                background: "#173F29",
+                background: "white",
                 boxShadow: `0 0 0 1.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.45)`,
               }}
             >
@@ -386,7 +386,7 @@ function TopBar({
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
               />
             </button>
           </div>
@@ -885,7 +885,7 @@ function ProfileView({
           <div
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
             style={{
-              background: "#173F29",
+              background: "white",
               boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
             }}
           >
@@ -894,7 +894,7 @@ function ProfileView({
               alt=""
               className="h-full w-full object-cover"
               draggable={false}
-              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
             />
           </div>
           <button
