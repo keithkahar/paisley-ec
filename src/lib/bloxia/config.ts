@@ -74,7 +74,7 @@ export interface BloxianAvatar {
 export const BLOXIAN_AVATARS: BloxianAvatar[] = [
   {
     id: "shirin",
-    name: "Shirin",
+    name: "Bloxian",
     portrait: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
     full: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
     map: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
