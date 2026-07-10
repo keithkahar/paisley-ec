@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Map as MapIcon, Award, Package } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -842,12 +842,12 @@ function ProfileView({
             aria-label="Edit profile"
             className="absolute top-5 left-5 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
-              background: T.ivory,
-              border: `1.5px solid ${T.goldLight}`,
-              boxShadow: "0 2px 6px rgba(0,0,0,0.35)",
+              background: "#173F29",
+              border: `1.5px solid rgba(216,175,87,0.55)`,
+              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
           >
-            <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: T.goldOnDark }} />
+            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
           </button>
         </div>
         <div
@@ -1009,7 +1009,7 @@ function ProfileGroup({
             onClick={onAction}
             aria-label={actionKind === "down" ? "Show more" : "View all"}
             className="h-7 w-7 grid place-items-center active:scale-95 transition-transform"
-            style={{ color: "#1C5732" }}
+            style={{ color: T.ivory }}
           >
             {actionKind === "down" ? (
               <ChevronDown
@@ -1410,55 +1410,71 @@ function NameEditor({
   const [name, setName] = useState(initial);
   return (
     <Sheet onClose={onClose}>
-      <div className="text-center text-[22px] font-extrabold" style={{ color: T.goldLight }}>
+      <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         Edit Profile
       </div>
-      <div className="mt-5 flex flex-col items-center">
-        <div
-          className="h-24 w-24 rounded-full grid place-items-center overflow-hidden"
-          style={{
-            background: "#173F29",
-            border: `2px solid ${T.goldLight}`,
-            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
-          }}
-        >
-          <img
-            src={CHARACTER_ASSETS.shirinPortrait}
-            alt=""
-            className="h-full w-full object-cover"
-            style={{ imageRendering: "pixelated" }}
-          />
+      <div className="mt-6 flex flex-col items-center">
+        <div className="relative h-28 w-28">
+          <div
+            className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+            style={{
+              background: "#173F29",
+              border: `2px solid ${T.goldLight}`,
+              boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+            }}
+          >
+            <img
+              src={CHARACTER_ASSETS.shirinPortrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ imageRendering: "pixelated" }}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              /* Avatar chooser — codex integration pending. */
+            }}
+            aria-label="Change avatar"
+            className="absolute bottom-0 right-0 h-9 w-9 rounded-full grid place-items-center active:scale-95 transition-transform"
+            style={{
+              background: T.goldGradient,
+              border: `2px solid ${T.goldLight}`,
+              color: T.goldOnDark,
+              boxShadow: "0 3px 8px rgba(0,0,0,0.4)",
+            }}
+          >
+            <Camera className="h-4 w-4" strokeWidth={2.25} />
+          </button>
         </div>
       </div>
-      <div className="mt-6 space-y-3">
-        <SettingsRow label="Name">
+      <div className="mt-6 flex items-stretch gap-3">
+        <div
+          className="flex-1 flex items-center gap-3 rounded-full px-5 h-14"
+          style={{
+            background: "rgba(8,36,22,0.55)",
+            border: `1.5px solid ${T.borderSoft}`,
+          }}
+        >
+          <span
+            className="shrink-0 text-[15px] font-semibold leading-none"
+            style={{ color: T.goldLight, letterSpacing: "-0.01em" }}
+          >
+            Name
+          </span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             maxLength={24}
             placeholder="Enter name"
-            className="w-full bg-transparent outline-none text-right text-[15px] font-semibold"
+            className="flex-1 min-w-0 bg-transparent outline-none text-right text-[15px] font-semibold"
             style={{ color: T.ivory, letterSpacing: "-0.01em" }}
           />
-        </SettingsRow>
-      </div>
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          onClick={onClose}
-          className="h-12 rounded-full text-[15px] font-semibold"
-          style={{
-            background: "rgba(8,36,22,0.72)",
-            border: `1.5px solid ${T.borderSoft}`,
-            color: T.ivory,
-          }}
-        >
-          Cancel
-        </button>
+        </div>
         <button
           type="button"
           onClick={() => onSave(name)}
-          className="h-12 rounded-full text-[15px] font-semibold"
+          className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
           Save
