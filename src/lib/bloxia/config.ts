@@ -227,5 +227,5 @@ export const placeBadgeById = Object.fromEntries(PLACE_BADGES.map((b) => [b.id, 
 export const growthBadgeById = Object.fromEntries(GROWTH_BADGES.map((b) => [b.id, b])) as Record<string, GrowthBadge>;
 export const collectionItemById = Object.fromEntries(COLLECTION_ITEMS.map((i) => [i.id, i])) as Record<string, CollectionItem>;
 
-export const DEFAULT_BLOXIAN_NAME = "Shirin";
+export const DEFAULT_BLOXIAN_NAME = "Bloxian";
 export const DEFAULT_PLACE_ID: PlaceId = "arrival_meadow";
