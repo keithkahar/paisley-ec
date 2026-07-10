@@ -1264,7 +1264,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           style={{
             height: "calc(100vh - 22rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
-            paddingBottom: "calc(4rem + 6rem + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(3.5rem + 6rem + env(safe-area-inset-bottom))",
           }}
         >
           {children}
@@ -1441,69 +1441,69 @@ function NameEditor({
   const [name, setName] = useState(initial);
   return (
     <Sheet onClose={onClose}>
-      <div className="flex flex-col">
-      <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
-        Edit Profile
-      </div>
-      <div className="mt-6 flex flex-col items-center">
-        <div className="relative h-28 w-28">
+      <div className="flex flex-col min-h-full">
+        <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
+          Edit Profile
+        </div>
+        <div className="mt-6 flex flex-col items-center">
+          <div className="relative h-[134px] w-[134px]">
+            <div
+              className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+              style={{
+                background: "#173F29",
+                boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
+              }}
+            >
+              <img
+                src={CHARACTER_ASSETS.shirinPortrait}
+                alt=""
+                className="h-full w-full object-cover"
+                draggable={false}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                /* Avatar chooser — codex integration pending. */
+              }}
+              aria-label="Change avatar"
+              className="absolute bottom-0 right-0 h-8 w-8 rounded-full grid place-items-center active:scale-95 transition-transform"
+              style={{
+                background: "#173F29",
+                border: `1.5px solid rgba(216,175,87,0.55)`,
+                boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+              }}
+            >
+              <Camera className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
+            </button>
+          </div>
+        </div>
+        <div className="mt-auto flex items-stretch gap-3">
           <div
-            className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+            className="flex-1 flex items-center gap-3 rounded-full px-5 h-14"
             style={{
-              background: "#173F29",
-              boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 14px rgba(0,0,0,0.4)`,
+              background: "rgba(8,36,22,0.55)",
+              border: `1.5px solid ${T.borderSoft}`,
             }}
           >
-            <img
-              src={CHARACTER_ASSETS.shirinPortrait}
-              alt=""
-              className="h-full w-full object-cover"
-              draggable={false}
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              maxLength={24}
+              placeholder="Enter name"
+              className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              style={{ color: T.ivory, letterSpacing: "-0.01em" }}
             />
           </div>
           <button
             type="button"
-            onClick={() => {
-              /* Avatar chooser — codex integration pending. */
-            }}
-            aria-label="Change avatar"
-            className="absolute bottom-0 right-0 h-8 w-8 rounded-full grid place-items-center active:scale-95 transition-transform"
-            style={{
-              background: "#173F29",
-              border: `1.5px solid rgba(216,175,87,0.55)`,
-              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-            }}
+            onClick={() => onSave(name)}
+            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
+            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
-            <Camera className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
+            Save
           </button>
         </div>
-      </div>
-      <div className="mt-6 flex items-stretch gap-3">
-        <div
-          className="flex-1 flex items-center gap-3 rounded-full px-5 h-14"
-          style={{
-            background: "rgba(8,36,22,0.55)",
-            border: `1.5px solid ${T.borderSoft}`,
-          }}
-        >
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            maxLength={24}
-            placeholder="Enter name"
-            className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
-            style={{ color: T.ivory, letterSpacing: "-0.01em" }}
-          />
-        </div>
-        <button
-          type="button"
-          onClick={() => onSave(name)}
-          className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
-        >
-          Save
-        </button>
-      </div>
       </div>
     </Sheet>
   );
