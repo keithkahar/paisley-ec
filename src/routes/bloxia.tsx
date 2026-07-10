@@ -903,7 +903,7 @@ function ProfileView({
             aria-label="Edit profile"
             className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
-              background: "#173F29",
+              background: "white",
               border: `1.5px solid rgba(216,175,87,0.55)`,
               boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
