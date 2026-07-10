@@ -523,20 +523,23 @@ function BadgesView({
 
       {selected && (
         <div
-          className="rounded-[18px] p-4"
+          className="rounded-[20px] p-4"
           style={{
-            background: T.panel,
-            border: `2px solid ${T.border}`,
-            boxShadow: "0 12px 28px rgba(0,0,0,0.28)",
+            background: "rgba(8,36,22,0.86)",
+            border: `1.5px solid ${T.border}`,
+            boxShadow: "0 12px 28px rgba(0,0,0,0.32)",
+            backdropFilter: "blur(6px)",
           }}
         >
           <div className="flex items-center gap-3">
             <img
               src={selected.asset}
               alt=""
-              className="h-16 w-16 shrink-0"
+              className="h-20 w-20 shrink-0 rounded-[14px]"
               style={{
                 imageRendering: "pixelated",
+                background: "rgba(255,244,191,0.08)",
+                padding: 6,
                 opacity:
                   (selected.kind === "place" &&
                     !progress.earnedPlaceBadgeIds.includes(selected.id)) ||
@@ -547,10 +550,10 @@ function BadgesView({
               }}
             />
             <div className="min-w-0">
-              <div className="text-[15px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+              <div className="text-[17px] font-extrabold leading-tight" style={{ color: T.ivory }}>
                 {selected.name}
               </div>
-              <div className="text-[12px] leading-snug mt-0.5" style={{ color: T.sage }}>
+              <div className="text-[13px] leading-snug mt-1" style={{ color: T.sage }}>
                 {selected.description}
               </div>
             </div>
@@ -570,7 +573,7 @@ function BadgesView({
                       // silent — button is already disabled when unaffordable
                     }
                   }}
-                  className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
+                  className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold flex items-center justify-center gap-1.5"
                   style={{
                     background: canAfford ? T.goldGradient : "rgba(255,244,191,0.08)",
                     color: canAfford ? T.goldOnDark : T.sage,
@@ -588,7 +591,7 @@ function BadgesView({
             <button
               type="button"
               onClick={() => onToggleFavorite(selected.id)}
-              className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
+              className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold flex items-center justify-center gap-1.5"
               style={{
                 background: progress.favoriteBadgeIds.includes(selected.id)
                   ? "linear-gradient(180deg, #FFDF87, #C05252)"
