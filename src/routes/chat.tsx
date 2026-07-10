@@ -4,6 +4,7 @@ import { z } from "zod";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import shirinGirl from "@/assets/brand/shirin-girl.png";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
+import { useBloxia } from "@/lib/bloxia/progress";
 import {
   ChevronLeft,
   Camera,
@@ -131,6 +132,8 @@ function ChatPage() {
 
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
+  const { earnBp } = useBloxia();
+  const earnedRef = useRef(0);
   const [pendingImage, setPendingImage] = useState<string | null>(null);
   const [attachmentOpen, setAttachmentOpen] = useState(false);
   const [voiceMode, setVoiceMode] = useState(false);
@@ -182,6 +185,10 @@ function ChatPage() {
     setPendingImage(null);
     setAttachmentOpen(false);
     setSending(true);
+    if (earnedRef.current < 20) {
+      earnBp(2, "talk", "ShirinTalk chat");
+      earnedRef.current += 2;
+    }
     window.setTimeout(() => {
       setMessages((m) => [
         ...m,

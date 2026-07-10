@@ -2,6 +2,7 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useBloxia } from "@/lib/bloxia/progress";
 import {
   ChevronLeft,
   Volume2,
@@ -200,6 +201,8 @@ const START_LOCKED = false;
 
 function WordieTestPage() {
   const router = useRouter();
+  const { earnBp } = useBloxia();
+  const awardedRef = useRef(false);
   const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -337,6 +340,13 @@ function WordieTestPage() {
     else if (s >= 60) b += 3;
     return Math.min(20, b);
   }, [grading.score]);
+
+  useEffect(() => {
+    if (mode === "result" && !awardedRef.current) {
+      awardedRef.current = true;
+      earnBp(bp, "wordie", "Wordie Test");
+    }
+  }, [mode, bp, earnBp]);
 
   // ───── Render ─────
   return (

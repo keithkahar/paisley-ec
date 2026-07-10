@@ -9,6 +9,7 @@ import {
   MonthCalendarDialog,
   mockActivity,
 } from "@/components/app/MonthCalendarDialog";
+import { useBloxia } from "@/lib/bloxia/progress";
 
 export const Route = createFileRoute("/mywordie")({
   head: () => ({ meta: [
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/mywordie")({
 function MyWordiePage() {
   const WORDIE = "var(--wordie)";
   const [calOpen, setCalOpen] = useState(false);
+  const { bp } = useBloxia();
   // Today's card pack
   const cardsTotal = 5;
   const reviewCount = 1;
@@ -127,7 +129,7 @@ function MyWordiePage() {
             className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
             style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
           >
-            1,240 Bp
+            {bp.toLocaleString()} Bp
           </span>
           </div>
         </section>

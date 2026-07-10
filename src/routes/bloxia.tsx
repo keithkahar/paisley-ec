@@ -850,7 +850,10 @@ function ActivityRow({ activity }: { activity: Activity }) {
           {activity.date}
         </div>
       </div>
-      <div className="text-[11px] font-extrabold shrink-0" style={{ color: T.goldLight }}>
+      <div
+        className="text-[11px] font-extrabold shrink-0"
+        style={{ color: activity.positive ? "#8AE68A" : T.goldLight }}
+      >
         {activity.bpText}
       </div>
     </div>
@@ -862,20 +865,30 @@ interface Activity {
   title: string;
   date: string;
   bpText: string;
+  positive?: boolean;
 }
 function logToActivity(log: SpendingLog): Activity {
   const date = new Date(log.createdAt).toISOString().slice(0, 10);
   let title = "Bloxia activity";
+  let sign: "+" | "-" = "-";
   if (log.type === "unlock_place") title = `Unlocked ${placeById[log.targetId as PlaceId]?.name ?? "place"}`;
   else if (log.type === "unlock_growth_badge")
     title = `Earned ${growthBadgeById[log.targetId]?.name ?? "growth badge"}`;
   else if (log.type === "unlock_collection_item")
     title = `Collected ${collectionItemById[log.targetId]?.name ?? "item"}`;
+  else if (log.type === "earn_wordie") {
+    title = log.label ? `myWordie · ${log.label}` : "myWordie practice";
+    sign = "+";
+  } else if (log.type === "earn_talk") {
+    title = log.label ? `ShirinTalk · ${log.label}` : "ShirinTalk practice";
+    sign = "+";
+  }
   return {
     id: log.id,
     title,
     date,
-    bpText: log.bpAmount ? `-${formatBp(log.bpAmount)}` : "",
+    bpText: log.bpAmount ? `${sign}${formatBp(log.bpAmount)}` : "",
+    positive: sign === "+",
   };
 }
 
