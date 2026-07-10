@@ -890,7 +890,7 @@ function ProfileView({
             }}
           >
             <img
-              src={CHARACTER_ASSETS.shirinPortrait}
+              src={avatarUrl}
               alt=""
               className="h-full w-full object-cover"
               draggable={false}
