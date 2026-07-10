@@ -853,7 +853,7 @@ function ProfileView({
             type="button"
             onClick={onEditName}
             aria-label="Edit profile"
-            className="absolute top-4 left-4 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
               background: "#173F29",
               border: `1.5px solid rgba(216,175,87,0.55)`,
