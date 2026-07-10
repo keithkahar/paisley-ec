@@ -1591,7 +1591,7 @@ function NameEditor({
         </div>
         <div className="mt-auto flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center gap-3 rounded-full px-5 h-14"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14 relative"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -1600,11 +1600,27 @@ function NameEditor({
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onFocus={() => setNameFocused(true)}
+              onBlur={() => setNameFocused(false)}
               maxLength={24}
               placeholder="Enter name"
-              className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
-              style={{ color: T.ivory, letterSpacing: "-0.01em" }}
+              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              style={{
+                color: T.ivory,
+                letterSpacing: "-0.01em",
+                fieldSizing: "content",
+                width: "auto",
+              } as React.CSSProperties}
             />
+            {!nameFocused && (
+              <span
+                aria-hidden
+                className="text-[15px] font-semibold bloxia-caret-blink"
+                style={{ color: T.ivory, marginLeft: -2 }}
+              >
+                _
+              </span>
+            )}
           </div>
           <button
             type="button"
