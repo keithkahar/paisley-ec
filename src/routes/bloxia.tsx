@@ -761,6 +761,7 @@ function ProfileView({
   progress,
   logs,
   totals,
+  bp,
   onEditName,
   onGoBadgesFavorite,
   onGoCollectionFavorite,
@@ -770,6 +771,7 @@ function ProfileView({
   progress: Progress;
   logs: SpendingLog[];
   totals: { places: number; placeBadges: number; growthBadges: number; collectionItems: number };
+  bp: number;
   onEditName: () => void;
   onGoBadgesFavorite: () => void;
   onGoCollectionFavorite: () => void;
