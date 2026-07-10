@@ -977,7 +977,7 @@ function ProfileView({
             {activityCount > 1 &&
               activityCount < activities.length &&
               activityCount % 10 === 0 && (
-                <div className="flex justify-center pt-1">
+                <div className="flex justify-end pt-1 pr-1">
                   <button
                     type="button"
                     onClick={() =>
