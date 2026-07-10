@@ -1068,26 +1068,35 @@ function ItemSheet({
         <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
-      {!collected && (
-        canCollect ? (
-          <button
-            type="button"
-            onClick={onCollect}
-            className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
-            style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
-          >
-            Collect · {item.bpCost.toLocaleString()} Bp
-          </button>
-        ) : (
-          <div
-            className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
-          >
-            {!placeUnlocked
-              ? "Unlock this place first"
-              : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
-          </div>
-        )
+
+      {collected ? (
+        <button
+          type="button"
+          disabled
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight, opacity: 0.75 }}
+        >
+          <Check className="w-4 h-4" />
+          Collected
+        </button>
+      ) : canCollect ? (
+        <button
+          type="button"
+          onClick={onCollect}
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+        >
+          Collect · {item.bpCost.toLocaleString()} Bp
+        </button>
+      ) : (
+        <div
+          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+        >
+          {!placeUnlocked
+            ? "Unlock this place first"
+            : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
+        </div>
       )}
     </Sheet>
   );
