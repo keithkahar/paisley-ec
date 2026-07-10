@@ -58,6 +58,84 @@ export const CHARACTER_ASSETS = {
   bloxieGlow: U.bloxie_glow,
 };
 
+// ---------- Bloxian Avatars (8) ----------
+// Each avatar ships a single high-res portrait used across contexts (top bar,
+// map marker, profile, picker). Adding icon variants later is a drop-in swap.
+
+export interface BloxianAvatar {
+  id: string;
+  name: string;
+  portrait: string;
+  full: string;
+  map: string;
+  isDefault?: boolean;
+}
+
+export const BLOXIAN_AVATARS: BloxianAvatar[] = [
+  {
+    id: "shirin",
+    name: "Shirin",
+    portrait: "/__l5e/assets-v1/f5440f04-abf3-44d6-bfc0-f2442581133a/avatar_shirin.png",
+    full: "/__l5e/assets-v1/f5440f04-abf3-44d6-bfc0-f2442581133a/avatar_shirin.png",
+    map: "/__l5e/assets-v1/f5440f04-abf3-44d6-bfc0-f2442581133a/avatar_shirin.png",
+    isDefault: true,
+  },
+  {
+    id: "ezra",
+    name: "Ezra",
+    portrait: "/__l5e/assets-v1/c21512ba-b60d-44c0-b1ca-55f09d092cd1/avatar_ezra.png",
+    full: "/__l5e/assets-v1/c21512ba-b60d-44c0-b1ca-55f09d092cd1/avatar_ezra.png",
+    map: "/__l5e/assets-v1/c21512ba-b60d-44c0-b1ca-55f09d092cd1/avatar_ezra.png",
+  },
+  {
+    id: "luna",
+    name: "Luna",
+    portrait: "/__l5e/assets-v1/0076d400-2170-4ecc-b93e-1b15bd5da10c/avatar_luna.png",
+    full: "/__l5e/assets-v1/0076d400-2170-4ecc-b93e-1b15bd5da10c/avatar_luna.png",
+    map: "/__l5e/assets-v1/0076d400-2170-4ecc-b93e-1b15bd5da10c/avatar_luna.png",
+  },
+  {
+    id: "rex",
+    name: "Rex",
+    portrait: "/__l5e/assets-v1/a995ec1d-6f34-4c94-a88c-c8710ba22882/avatar_rex.png",
+    full: "/__l5e/assets-v1/a995ec1d-6f34-4c94-a88c-c8710ba22882/avatar_rex.png",
+    map: "/__l5e/assets-v1/a995ec1d-6f34-4c94-a88c-c8710ba22882/avatar_rex.png",
+  },
+  {
+    id: "milo",
+    name: "Milo",
+    portrait: "/__l5e/assets-v1/b7485073-a831-46f4-b547-3744b3dd0cbc/avatar_milo.png",
+    full: "/__l5e/assets-v1/b7485073-a831-46f4-b547-3744b3dd0cbc/avatar_milo.png",
+    map: "/__l5e/assets-v1/b7485073-a831-46f4-b547-3744b3dd0cbc/avatar_milo.png",
+  },
+  {
+    id: "nova",
+    name: "Nova",
+    portrait: "/__l5e/assets-v1/e7721926-6f7e-4371-bb4d-4ebe1abcc09c/avatar_nova.png",
+    full: "/__l5e/assets-v1/e7721926-6f7e-4371-bb4d-4ebe1abcc09c/avatar_nova.png",
+    map: "/__l5e/assets-v1/e7721926-6f7e-4371-bb4d-4ebe1abcc09c/avatar_nova.png",
+  },
+  {
+    id: "kai",
+    name: "Kai",
+    portrait: "/__l5e/assets-v1/d204a189-a34c-4bf7-90bd-2924b79c6e61/avatar_kai.png",
+    full: "/__l5e/assets-v1/d204a189-a34c-4bf7-90bd-2924b79c6e61/avatar_kai.png",
+    map: "/__l5e/assets-v1/d204a189-a34c-4bf7-90bd-2924b79c6e61/avatar_kai.png",
+  },
+  {
+    id: "iris",
+    name: "Iris",
+    portrait: "/__l5e/assets-v1/01ffb5c0-e153-491e-a31c-94aeaa0c1524/avatar_iris.png",
+    full: "/__l5e/assets-v1/01ffb5c0-e153-491e-a31c-94aeaa0c1524/avatar_iris.png",
+    map: "/__l5e/assets-v1/01ffb5c0-e153-491e-a31c-94aeaa0c1524/avatar_iris.png",
+  },
+];
+
+export const DEFAULT_AVATAR_ID = "shirin";
+export const avatarById = Object.fromEntries(
+  BLOXIAN_AVATARS.map((a) => [a.id, a]),
+) as Record<string, BloxianAvatar>;
+
 export const MAP_ASSETS = {
   world: U.map_bloxia_world,
   markers: {
