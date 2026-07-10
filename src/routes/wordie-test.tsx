@@ -201,6 +201,8 @@ const START_LOCKED = false;
 
 function WordieTestPage() {
   const router = useRouter();
+  const { earnBp } = useBloxia();
+  const awardedRef = useRef(false);
   const [mode, setMode] = useState<Mode>(START_LOCKED ? "locked" : "info");
   useEffect(() => {
     if (typeof window === "undefined") return;
