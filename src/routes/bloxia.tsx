@@ -537,13 +537,16 @@ function BadgeTile({
   unlocked,
   selected,
   onClick,
+  size = "default",
 }: {
   asset: string;
   name: string;
   unlocked: boolean;
   selected: boolean;
   onClick: () => void;
+  size?: "default" | "large";
 }) {
+  const imgSize = size === "large" ? "h-[95%] w-[95%]" : "h-[85%] w-[85%]";
   return (
     <button
       type="button"
@@ -559,7 +562,7 @@ function BadgeTile({
         <img
           src={asset}
           alt=""
-          className="h-[85%] w-[85%] object-contain"
+          className={`${imgSize} object-contain`}
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
@@ -568,15 +571,15 @@ function BadgeTile({
         />
       </div>
       <div
-        className="mt-2 text-[12px] font-semibold leading-[1.15] flex items-center justify-center text-center px-0.5"
+        className="mt-2 text-[12px] font-semibold leading-[1.2] text-center px-0.5"
         style={{
           color: T.ivory,
           height: 32,
-          wordBreak: "break-word",
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
         {name}
