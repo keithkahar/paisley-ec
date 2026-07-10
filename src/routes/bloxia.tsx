@@ -486,7 +486,7 @@ function BadgesView({
                 setTab(t.key);
                 onSelect(null);
               }}
-              className="h-9 rounded-full text-[13px] font-semibold transition-colors"
+              className="h-9 rounded-full text-[13px] font-medium transition-colors"
               style={
                 active
                   ? { background: T.goldGradient, color: T.goldOnDark }
