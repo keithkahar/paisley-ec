@@ -455,12 +455,12 @@ function BadgesView({
 
   return (
     <div className="space-y-4">
-      {/* Page title — same font/size as the stat-pill value (2 / 8) */}
+      {/* Page title — mirrors app typography (no heavy panel) */}
       <div className="px-1">
-        <div className="text-[15px] font-semibold leading-tight" style={{ color: T.ivory }}>
+        <div className="text-[22px] font-semibold leading-tight" style={{ color: T.ivory }}>
           My Badges
         </div>
-        <div className="text-[15px] font-semibold mt-1" style={{ color: T.sage }}>
+        <div className="text-[13px] font-semibold mt-1" style={{ color: T.sage }}>
           {totalEarned} of {PLACE_BADGES.length + GROWTH_BADGES.length} earned
         </div>
       </div>
@@ -486,7 +486,7 @@ function BadgesView({
                 setTab(t.key);
                 onSelect(null);
               }}
-              className="h-9 rounded-full text-[15px] font-semibold transition-colors"
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors"
               style={
                 active
                   ? { background: T.goldGradient, color: T.goldOnDark }
@@ -513,7 +513,7 @@ function BadgesView({
         ))}
         {!visible.length && (
           <div
-            className="col-span-3 rounded-[18px] text-center py-8 text-[15px] font-semibold"
+            className="col-span-3 rounded-[18px] text-center py-8 text-[13px] font-semibold"
             style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
           >
             No favorite badges yet — tap ♥ on any earned badge.
