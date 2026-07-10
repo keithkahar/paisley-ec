@@ -447,8 +447,8 @@ function BadgesView({
 
   const visible = tab === "place" ? placeItems : tab === "growth" ? growthItems : favoriteItems;
   const tabs: { key: BadgeTab; label: string }[] = [
-    { key: "place", label: "Places" },
-    { key: "growth", label: "Growth" },
+    { key: "place", label: `Places ${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}` },
+    { key: "growth", label: `Growth ${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}` },
     { key: "favorite", label: "Favorite" },
   ];
 
