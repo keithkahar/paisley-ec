@@ -248,8 +248,12 @@ function TopBar({
     { key: "badges", label: "Badges", Icon: Award },
     { key: "collection", label: "Items", Icon: Package },
   ];
-  // Hide the icon of the current page; profile is entered via the avatar
-  const tabs = allTabs.filter((t) => t.key !== page);
+  // Hide the icon of the current page; profile is entered via the avatar.
+  // On profile, also hide "collection" so the row keeps the same 2-nav-pill
+  // shape as every other page (see image 3 reference).
+  const tabs = allTabs.filter((t) =>
+    page === "profile" ? t.key !== "collection" : t.key !== page,
+  );
   return (
     <div
       className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4"
@@ -321,17 +325,17 @@ function TopBar({
               type="button"
               onClick={() => onNavigate("profile")}
               aria-label="Profile"
-              className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center"
+              className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center overflow-hidden"
+              style={{
+                background: "#173F29",
+                boxShadow: `0 0 0 1.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.45)`,
+              }}
             >
               <img
                 src={CHARACTER_ASSETS.shirinPortrait}
                 alt=""
-                className="h-[48px] w-[48px] rounded-full object-cover border"
-                style={{
-                  imageRendering: "pixelated",
-                  background: "#173F29",
-                  borderColor: T.goldLight,
-                }}
+                className="h-full w-full rounded-full object-cover"
+                draggable={false}
               />
             </button>
           </div>
