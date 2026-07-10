@@ -966,7 +966,8 @@ function ProfileView({
                 )
             : undefined
         }
-        actionKind="right"
+        actionKind="down"
+        actionRotated={activityCount >= activities.length && activities.length > 5}
       >
         {visibleActivities.length ? (
           <div className="space-y-1.5">
