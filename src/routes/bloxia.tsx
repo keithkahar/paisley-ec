@@ -1501,6 +1501,7 @@ function NameEditor({
   onSave: (avatarId: string, name: string) => void;
 }) {
   const [name, setName] = useState(initial);
+  const [nameFocused, setNameFocused] = useState(false);
   const startIndex = Math.max(
     0,
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
