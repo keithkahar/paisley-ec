@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { Volume2, RotateCw, ChevronLeft, Clock, X } from "lucide-react";
+import { useBloxia } from "@/lib/bloxia/progress";
 
 export const Route = createFileRoute("/word-card")({
   head: () => ({ meta: [
@@ -77,6 +78,7 @@ function fmtTime(sec: number) {
 
 function WordCardPage() {
   const navigate = useNavigate();
+  const { earnBp } = useBloxia();
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -95,6 +97,7 @@ function WordCardPage() {
   const next = (rating: "forgot" | "hard" | "easy") => {
     void rating;
     if (idx + 1 >= total) {
+      earnBp(15, "wordie", "Word Card");
       navigate({ to: "/mywordie" });
       return;
     }
