@@ -779,6 +779,7 @@ function ProfileView({
   const [activityCount, setActivityCount] = useState(1);
 
   const pills = [
+    { label: "Bp", value: formatBp(progress.bp) },
     { label: "Places", value: `${progress.earnedPlaceBadgeIds.length}/${totals.placeBadges}` },
     { label: "Growth", value: `${progress.unlockedGrowthBadgeIds.length}/${totals.growthBadges}` },
     { label: "Items", value: `${progress.collectedItemIds.length}/${totals.collectionItems}` },
