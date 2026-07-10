@@ -1703,11 +1703,11 @@ function WelcomeSheet({
   return (
     <Sheet onClose={() => {}}>
       <div className="flex flex-col min-h-full">
-        <div className="text-center text-[22px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+        <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Welcome to Bloxia
         </div>
-        <div className="text-center text-[13px] font-semibold mt-1" style={{ color: T.sage }}>
-          Pick your Bloxian and start exploring
+        <div className="text-center text-[13px] font-semibold mt-2" style={{ color: T.sage }}>
+          Pick your Bloxian
         </div>
 
         <div
@@ -1721,7 +1721,7 @@ function WelcomeSheet({
             aria-label="Previous"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: "#173F29",
+              background: T.ivory,
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1730,7 +1730,7 @@ function WelcomeSheet({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
               draggable={false}
             />
           </button>
@@ -1739,7 +1739,7 @@ function WelcomeSheet({
             <div
               className="h-full w-full rounded-full overflow-hidden"
               style={{
-                background: "#173F29",
+                background: T.ivory,
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
@@ -1747,7 +1747,7 @@ function WelcomeSheet({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
                 draggable={false}
               />
             </div>
@@ -1759,7 +1759,7 @@ function WelcomeSheet({
             aria-label="Next"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: "#173F29",
+              background: T.ivory,
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1768,7 +1768,7 @@ function WelcomeSheet({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
               draggable={false}
             />
           </button>
