@@ -842,12 +842,12 @@ function ProfileView({
             aria-label="Edit profile"
             className="absolute top-5 left-5 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
-              background: T.ivory,
-              border: `1.5px solid ${T.goldLight}`,
-              boxShadow: "0 2px 6px rgba(0,0,0,0.35)",
+              background: "#173F29",
+              border: `1.5px solid rgba(216,175,87,0.55)`,
+              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
           >
-            <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: T.goldOnDark }} />
+            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
           </button>
         </div>
         <div
