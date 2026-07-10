@@ -883,7 +883,7 @@ function ProfileView({
               color: T.sage,
             }}
           >
-            <span>{bp.toLocaleString()}</span>
+            <span style={{ color: T.ivory }}>{bp.toLocaleString()}</span>
             <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
               Bp
             </span>
