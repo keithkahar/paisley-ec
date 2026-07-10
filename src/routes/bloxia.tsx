@@ -885,10 +885,10 @@ function ProfileView({
               color: T.sage,
             }}
           >
+            <span>{bp.toLocaleString()}</span>
             <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
               Bp
             </span>
-            <span>{bp.toLocaleString()}</span>
           </span>
           {pills.map((p) => (
             <span
