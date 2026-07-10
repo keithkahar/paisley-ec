@@ -266,8 +266,7 @@ function BloxiaPage() {
             initialAvatarId={b.progress.selectedAvatarId}
             initialName={b.progress.bloxianName}
             onStart={(id, name) => {
-              b.selectAvatar(id);
-              b.updateName(name);
+              b.completeWelcome(id, name);
             }}
           />
         )}
@@ -1502,6 +1501,7 @@ function NameEditor({
   onSave: (avatarId: string, name: string) => void;
 }) {
   const [name, setName] = useState(initial);
+  const [nameFocused, setNameFocused] = useState(false);
   const startIndex = Math.max(
     0,
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
@@ -1592,7 +1592,7 @@ function NameEditor({
         </div>
         <div className="mt-auto flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center gap-3 rounded-full px-5 h-14"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14 relative"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -1601,11 +1601,27 @@ function NameEditor({
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onFocus={() => setNameFocused(true)}
+              onBlur={() => setNameFocused(false)}
               maxLength={24}
               placeholder="Enter name"
-              className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
-              style={{ color: T.ivory, letterSpacing: "-0.01em" }}
+              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              style={{
+                color: T.ivory,
+                letterSpacing: "-0.01em",
+                fieldSizing: "content",
+                width: "auto",
+              } as React.CSSProperties}
             />
+            {!nameFocused && (
+              <span
+                aria-hidden
+                className="text-[15px] font-semibold bloxia-caret-blink"
+                style={{ color: T.ivory, marginLeft: -2 }}
+              >
+                _
+              </span>
+            )}
           </div>
           <button
             type="button"
@@ -1729,6 +1745,7 @@ function WelcomeSheet({
   );
   const [index, setIndex] = useState(startIndex);
   const [name, setName] = useState("Bloxian");
+  const [nameFocused, setNameFocused] = useState(false);
   const touchStartX = useState<{ x: number | null }>({ x: null })[0];
   const total = BLOXIAN_AVATARS.length;
   const mod = (n: number) => ((n % total) + total) % total;
@@ -1821,7 +1838,7 @@ function WelcomeSheet({
 
         <div className="mt-auto flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center gap-3 rounded-full px-5 h-14"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -1830,11 +1847,27 @@ function WelcomeSheet({
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onFocus={() => setNameFocused(true)}
+              onBlur={() => setNameFocused(false)}
               maxLength={24}
               placeholder="Enter name"
-              className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
-              style={{ color: T.ivory, letterSpacing: "-0.01em" }}
+              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              style={{
+                color: T.ivory,
+                letterSpacing: "-0.01em",
+                fieldSizing: "content",
+                width: "auto",
+              } as React.CSSProperties}
             />
+            {!nameFocused && (
+              <span
+                aria-hidden
+                className="text-[15px] font-semibold bloxia-caret-blink"
+                style={{ color: T.ivory, marginLeft: -2 }}
+              >
+                _
+              </span>
+            )}
           </div>
           <button
             type="button"

@@ -184,3 +184,11 @@
   scrollbar-width: none;
 }
 .scroll-hide::-webkit-scrollbar { display: none; }
+
+@keyframes bloxia-caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.bloxia-caret-blink {
+  animation: bloxia-caret-blink 1s step-end infinite;
+}
