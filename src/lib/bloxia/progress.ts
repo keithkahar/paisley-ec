@@ -69,6 +69,25 @@ const defaultProgress = (): Progress => ({
   updatedAt: Date.now(),
 });
 
+const demoLogs = (): SpendingLog[] => {
+  const now = Date.now();
+  const min = 60_000;
+  return [
+    { id: "seed_1", type: "unlock_collection_item", targetId: "collection_wonder_leaf", bpAmount: 50, createdAt: now - 5 * min },
+    { id: "seed_2", type: "unlock_collection_item", targetId: "collection_glow_seed", bpAmount: 100, createdAt: now - 30 * min },
+    { id: "seed_3", type: "unlock_growth_badge", targetId: "brave_learner", bpAmount: 300, createdAt: now - 2 * 60 * min },
+    { id: "seed_4", type: "unlock_growth_badge", targetId: "curious_explorer", bpAmount: 300, createdAt: now - 6 * 60 * min },
+    { id: "seed_5", type: "unlock_collection_item", targetId: "collection_welcome_flower", bpAmount: 80, createdAt: now - 20 * 60 * min },
+    { id: "seed_6", type: "unlock_collection_item", targetId: "collection_morning_dew_crystal", bpAmount: 50, createdAt: now - 26 * 60 * min },
+    { id: "seed_7", type: "unlock_place", targetId: "wonder_tree", bpAmount: 1000, createdAt: now - 30 * 60 * min },
+    { id: "seed_8", type: "earn_wordie", targetId: "wordie", bpAmount: 120, createdAt: now - 2 * 24 * 60 * min, label: "Vocabulary Set 3" },
+    { id: "seed_9", type: "earn_talk", targetId: "talk", bpAmount: 80, createdAt: now - 3 * 24 * 60 * min, label: "Daily practice" },
+    { id: "seed_10", type: "earn_wordie", targetId: "wordie", bpAmount: 60, createdAt: now - 5 * 24 * 60 * min, label: "Review" },
+    { id: "seed_11", type: "earn_talk", targetId: "talk", bpAmount: 100, createdAt: now - 8 * 24 * 60 * min, label: "Story time" },
+    { id: "seed_12", type: "unlock_place", targetId: "arrival_meadow", bpAmount: 0, createdAt: now - 12 * 24 * 60 * min },
+  ];
+};
+
 function safeRead<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
@@ -101,7 +120,7 @@ export function useBloxia() {
   useEffect(() => {
     setProgress(safeRead(PROGRESS_KEY, defaultProgress()));
     setBp(safeRead(BP_KEY, 1000));
-    setLogs(safeRead(LOGS_KEY, []));
+    setLogs(safeRead(LOGS_KEY, demoLogs()));
     setReady(true);
   }, []);
 
