@@ -90,6 +90,7 @@ function BloxiaPage() {
           bp={b.bp}
           currentPlaceName={currentPlace?.name ?? ""}
           progressPct={progressPct}
+          next={next}
           page={page}
           onNavigate={(p) => {
             setPage(p);
