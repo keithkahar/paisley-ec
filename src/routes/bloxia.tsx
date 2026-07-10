@@ -793,7 +793,7 @@ function ProfileView({
       if (pb) earnedEntries.push({ kind: "badge", ts: progress.createdAt, badge: { ...pb, kind: "place" } });
     }
   }
-  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 5);
+  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 4);
 
   // ---- Favorite badges / items (newest first by their favorite-order in state) ----
   const favBadgeIds = [...progress.favoriteBadgeIds].reverse();
