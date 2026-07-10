@@ -52,7 +52,7 @@ export const BLOXIA_URLS: Record<string, string> = {
   "growth_badge_trust_builder": "/__l5e/assets-v1/6ce83ccf-6bb4-4507-a645-c45c1302f15b/growth_badge_trust_builder.png",
   "map_bloxia_world": "/__l5e/assets-v1/c018bfa4-9e91-488a-98bd-3e1f3c09e306/map_bloxia_world.png",
   "map_marker_available": "/__l5e/assets-v1/49840eef-1334-4d8d-8ad3-a1c80dd3fbb7/map_marker_available.png",
-  "map_marker_current": "/__l5e/assets-v1/2e4d6e8b-89ab-426e-8cc2-cbeeebdf1ebf/map_marker_current.png",
+  "map_marker_current": "/__l5e/assets-v1/cbd299dd-759d-4dd5-ae9e-a40b9c67d272/map_marker_current.png",
   "map_marker_locked": "/__l5e/assets-v1/b978ab6b-7211-493a-a64d-231af486119e/map_marker_locked.png",
   "map_marker_visited": "/__l5e/assets-v1/706d3b5f-cf47-4ccc-8995-52de7104b035/map_marker_visited.png",
   "place_badge_community_visitor": "/__l5e/assets-v1/07116871-316c-47a1-9e8e-196fc4a0c94d/place_badge_community_visitor.png",
