@@ -350,6 +350,20 @@ export function useBloxia() {
     [progress, persist],
   );
 
+  const completeWelcome = useCallback(
+    (avatarId: string, name: string) => {
+      if (!avatarById[avatarId]) return { ok: false, error: "NOT_FOUND" as const };
+      persist({
+        ...progress,
+        selectedAvatarId: avatarId,
+        avatarSelectionCompleted: true,
+        bloxianName: name.trim() || DEFAULT_BLOXIAN_NAME,
+      });
+      return { ok: true };
+    },
+    [progress, persist],
+  );
+
   return {
     ready,
     progress,
@@ -365,6 +379,7 @@ export function useBloxia() {
     unlockGrowthBadge,
     updateName,
     selectAvatar,
+    completeWelcome,
     earnBp,
     totals: {
       places: PLACES.length,
