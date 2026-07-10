@@ -1680,7 +1680,7 @@ function WelcomeSheet({
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
   );
   const [index, setIndex] = useState(startIndex);
-  const [name, setName] = useState(initialName);
+  const [name, setName] = useState("Bloxian");
   const touchStartX = useState<{ x: number | null }>({ x: null })[0];
   const total = BLOXIAN_AVATARS.length;
   const mod = (n: number) => ((n % total) + total) % total;
