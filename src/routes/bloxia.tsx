@@ -1445,7 +1445,7 @@ function NameEditor({
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Edit Profile
         </div>
-        <div className="mt-6 flex flex-col items-center">
+        <div className="mt-10 flex flex-col items-center">
           <div className="relative h-[134px] w-[134px]">
             <div
               className="h-full w-full rounded-full grid place-items-center overflow-hidden"
