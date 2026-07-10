@@ -523,89 +523,14 @@ function BadgesView({
       </div>
 
       {selected && (
-        <div
-          className="rounded-[20px] p-4"
-          style={{
-            background: "rgba(8,36,22,0.86)",
-            border: `1.5px solid ${T.border}`,
-            boxShadow: "0 12px 28px rgba(0,0,0,0.32)",
-            backdropFilter: "blur(6px)",
-          }}
-        >
-          <div className="flex items-center gap-3">
-            <img
-              src={selected.asset}
-              alt=""
-              className="h-20 w-20 shrink-0 rounded-[14px]"
-              style={{
-                imageRendering: "pixelated",
-                background: "rgba(255,244,191,0.08)",
-                padding: 6,
-                opacity:
-                  (selected.kind === "place" &&
-                    !progress.earnedPlaceBadgeIds.includes(selected.id)) ||
-                  (selected.kind === "growth" &&
-                    !progress.unlockedGrowthBadgeIds.includes(selected.id))
-                    ? 0.35
-                    : 1,
-              }}
-            />
-            <div className="min-w-0">
-              <div className="text-[17px] font-semibold leading-tight" style={{ color: T.ivory }}>
-                {selected.name}
-              </div>
-              <div className="text-[13px] font-semibold leading-snug mt-1" style={{ color: T.sage }}>
-                {selected.description}
-              </div>
-            </div>
-          </div>
-          {selected.kind === "growth" &&
-          !progress.unlockedGrowthBadgeIds.includes(selected.id) ? (
-            (() => {
-              const cost = (selected as GrowthBadge).bpCost;
-              const canAfford = bp >= cost;
-              return (
-                <button
-                  type="button"
-                  disabled={!canAfford}
-                  onClick={() => {
-                    const r = onUnlockGrowth(selected.id);
-                    if (!r.ok && r.error === "INSUFFICIENT_BP") {
-                      // silent — button is already disabled when unaffordable
-                    }
-                  }}
-                  className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold flex items-center justify-center gap-1.5"
-                  style={{
-                    background: canAfford ? T.goldGradient : "rgba(255,244,191,0.08)",
-                    color: canAfford ? T.goldOnDark : T.sage,
-                    border: `1.5px solid ${canAfford ? T.goldLight : T.borderSoft}`,
-                    opacity: canAfford ? 1 : 0.75,
-                  }}
-                >
-                  {canAfford
-                    ? `Unlock · ${cost.toLocaleString()} Bp`
-                    : `Need ${cost.toLocaleString()} Bp`}
-                </button>
-              );
-            })()
-          ) : (
-            <button
-              type="button"
-              onClick={() => onToggleFavorite(selected.id)}
-              className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold flex items-center justify-center gap-1.5"
-              style={{
-                background: progress.favoriteBadgeIds.includes(selected.id)
-                  ? "linear-gradient(180deg, #FFDF87, #C05252)"
-                  : T.goldGradient,
-                color: T.goldOnDark,
-                border: `1.5px solid ${T.goldLight}`,
-              }}
-            >
-              <Heart className="w-4 h-4" fill={progress.favoriteBadgeIds.includes(selected.id) ? "currentColor" : "none"} />
-              {progress.favoriteBadgeIds.includes(selected.id) ? "Favorite" : "Add to Favorites"}
-            </button>
-          )}
-        </div>
+        <BadgeSheet
+          badge={selected}
+          progress={progress}
+          bp={bp}
+          onClose={() => onSelect(null)}
+          onToggleFavorite={() => onToggleFavorite(selected.id)}
+          onUnlockGrowth={() => onUnlockGrowth(selected.id)}
+        />
       )}
     </div>
   );
