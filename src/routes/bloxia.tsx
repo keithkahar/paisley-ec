@@ -781,10 +781,11 @@ function ProfileView({
 }) {
   const [activityCount, setActivityCount] = useState(1);
 
+  const totalBadges = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
+  const totalBadgesAll = totals.placeBadges + totals.growthBadges;
+
   const pills = [
-    { label: "Bp", value: formatBp(bp) },
-    { label: "Places", value: `${progress.earnedPlaceBadgeIds.length}/${totals.placeBadges}` },
-    { label: "Growth", value: `${progress.unlockedGrowthBadgeIds.length}/${totals.growthBadges}` },
+    { label: "Badges", value: `${totalBadges}/${totalBadgesAll}` },
     { label: "Items", value: `${progress.collectedItemIds.length}/${totals.collectionItems}` },
   ];
 
