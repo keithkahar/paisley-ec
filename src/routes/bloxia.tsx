@@ -1530,7 +1530,7 @@ function NameEditor({
           Edit Profile
         </div>
         <div
-          className="mt-8 flex items-center justify-center gap-4 select-none"
+          className="mt-6 flex items-center justify-center gap-4 select-none"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
@@ -1540,7 +1540,7 @@ function NameEditor({
             aria-label="Previous"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: T.ivory,
+              background: "white",
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1549,7 +1549,7 @@ function NameEditor({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
               draggable={false}
             />
           </button>
@@ -1557,7 +1557,7 @@ function NameEditor({
             <div
               className="h-full w-full rounded-full overflow-hidden"
               style={{
-                background: T.ivory,
+                background: "white",
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
@@ -1565,7 +1565,7 @@ function NameEditor({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
                 draggable={false}
               />
             </div>
@@ -1576,7 +1576,7 @@ function NameEditor({
             aria-label="Next"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: T.ivory,
+              background: "white",
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1585,7 +1585,7 @@ function NameEditor({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
               draggable={false}
             />
           </button>
