@@ -952,21 +952,23 @@ function logToActivity(log: SpendingLog): Activity {
 
 function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
+    <div className="fixed inset-0 z-40 flex items-end justify-center pointer-events-none">
       <button
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute inset-0 bg-black/55"
+        className="absolute inset-0 bg-transparent pointer-events-auto"
       />
       <div
-        className="relative w-full max-w-[420px] rounded-t-[24px] p-5"
+        className="relative w-full max-w-[420px] rounded-t-[24px] p-5 pointer-events-auto"
         style={{
+          height: "62vh",
           background: T.panel,
           border: `2px solid ${T.border}`,
           borderBottom: "none",
           boxShadow: "0 -12px 30px rgba(0,0,0,0.45)",
           paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom))",
+          marginBottom: "calc(5rem + env(safe-area-inset-bottom))",
         }}
       >
         <button
