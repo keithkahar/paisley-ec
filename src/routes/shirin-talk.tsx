@@ -10,6 +10,7 @@ import {
   MonthCalendarDialog,
   mockActivity,
 } from "@/components/app/MonthCalendarDialog";
+import { useBloxia } from "@/lib/bloxia/progress";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [
@@ -25,6 +26,7 @@ const PINK = "var(--shirin)";
 
 function ShirinTalkPage() {
   const [calOpen, setCalOpen] = useState(false);
+  const { bp } = useBloxia();
   const cards = [
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen, search: { from: "shirin-talk" } as const },
@@ -86,7 +88,7 @@ function ShirinTalkPage() {
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
-              1,240 Bp
+              {bp.toLocaleString()} Bp
             </span>
           </div>
         </section>
