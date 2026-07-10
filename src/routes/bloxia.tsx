@@ -217,7 +217,7 @@ function TopBar({
     >
       <div className="relative">
         {/* Top row: nav cluster on the left, name/milestone + avatar on the right */}
-        <div className="flex items-center justify-between gap-2 h-12">
+        <div className="flex items-center justify-between gap-2 h-[53px]">
           {/* Left cluster: back + nav icons + Bp pill */}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
@@ -281,17 +281,16 @@ function TopBar({
               type="button"
               onClick={() => onNavigate("profile")}
               aria-label="Profile"
-              className="h-12 w-12 rounded-full shrink-0 grid place-items-center"
+              className="h-[53px] w-[53px] rounded-full shrink-0 grid place-items-center"
             >
               <img
                 src={CHARACTER_ASSETS.shirinPortrait}
                 alt=""
-                className="h-12 w-12 rounded-full object-cover border"
+                className="h-[53px] w-[53px] rounded-full object-cover border"
                 style={{
                   imageRendering: "pixelated",
-                  background: "rgba(23,63,41,0.9)",
-                  borderWidth: "1.5px",
-                  borderColor: "rgba(216,175,87,0.55)",
+                  background: "#173F29",
+                  borderColor: T.goldLight,
                 }}
               />
             </button>
