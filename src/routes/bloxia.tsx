@@ -216,8 +216,8 @@ function TopBar({
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="relative">
-        {/* Top row: nav cluster on the left, name/milestone + avatar on the right */}
-        <div className="flex items-start justify-between gap-2 h-[53px]">
+        {/* Top row: nav cluster on the left, name + avatar on the right */}
+        <div className="flex items-start justify-between gap-2">
           {/* Left cluster: back + nav icons + Bp pill */}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
@@ -260,7 +260,7 @@ function TopBar({
             </div>
           </div>
 
-          {/* Right cluster: name/milestone text left of avatar, bottom-aligned with avatar */}
+          {/* Right cluster: name left of avatar, bottom-aligned with avatar */}
           <div className="flex items-end gap-2 min-w-0">
             <div className="min-w-0 text-right">
               <div
@@ -268,12 +268,6 @@ function TopBar({
                 style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
               >
                 {progress.bloxianName}
-              </div>
-              <div
-                className="text-[10px] font-bold leading-snug"
-                style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-              >
-                {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
               </div>
             </div>
 
@@ -294,6 +288,16 @@ function TopBar({
                 }}
               />
             </button>
+          </div>
+        </div>
+
+        {/* Milestone text: moved down to a full-width row so it fits on one line */}
+        <div className="mt-1 text-right">
+          <div
+            className="text-[10px] font-bold leading-snug"
+            style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+          >
+            {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
           </div>
         </div>
 
