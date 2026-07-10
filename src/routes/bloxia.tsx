@@ -877,6 +877,16 @@ function ProfileView({
           {progress.bloxianName}
         </div>
         <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-3 h-8 text-[13px] font-semibold"
+            style={{
+              background: "rgba(8,36,22,0.72)",
+              border: `1.5px solid ${T.borderSoft}`,
+              color: T.ivory,
+            }}
+          >
+            {formatBp(bp)}
+          </span>
           {pills.map((p) => (
             <span
               key={p.label}
