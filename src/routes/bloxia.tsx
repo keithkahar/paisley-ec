@@ -960,27 +960,37 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         className="absolute inset-0 bg-transparent pointer-events-auto"
       />
       <div
-        className="relative w-full max-w-[420px] rounded-t-[24px] p-5 pointer-events-auto"
+        className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
         style={{
-          height: "62vh",
-          background: T.panel,
+          maxHeight: "calc(100vh - 6rem - env(safe-area-inset-bottom))",
           border: `2px solid ${T.border}`,
           borderBottom: "none",
           boxShadow: "0 -12px 30px rgba(0,0,0,0.45)",
-          paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom))",
-          marginBottom: "calc(6rem + env(safe-area-inset-bottom))",
         }}
       >
+        {/* Background layer extends to bottom of screen, giving the nav bar its base color */}
+        <div
+          className="absolute inset-0 rounded-t-[24px]"
+          style={{ background: T.panel }}
+        />
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 h-8 w-8 rounded-full grid place-items-center"
+          className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full grid place-items-center"
           style={{ background: "rgba(255,244,191,0.1)", color: T.goldLight }}
         >
           <X className="w-4 h-4" />
         </button>
-        {children}
+        <div
+          className="relative p-5 overflow-y-auto"
+          style={{
+            paddingBottom: "calc(6rem + env(safe-area-inset-bottom))",
+            maxHeight: "calc(100vh - 6rem - env(safe-area-inset-bottom))",
+          }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
