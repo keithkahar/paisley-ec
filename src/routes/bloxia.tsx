@@ -116,6 +116,8 @@ function BloxiaPage() {
               selected={selectedBadge}
               onSelect={setSelectedBadge}
               onToggleFavorite={(id) => b.toggleFavorite(id)}
+              onUnlockGrowth={(id) => b.unlockGrowthBadge(id)}
+              bp={b.bp}
             />
           )}
           {page === "collection" && (
