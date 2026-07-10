@@ -972,11 +972,13 @@ function ProfileGroup({
   title,
   onAction,
   actionKind,
+  framed,
   children,
 }: {
   title: string;
   onAction?: () => void;
   actionKind?: "right" | "down";
+  framed?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -1005,7 +1007,19 @@ function ProfileGroup({
           </button>
         )}
       </div>
-      {children}
+      {framed ? (
+        <div
+          className="rounded-[18px] p-3"
+          style={{
+            background: "rgba(8,36,22,0.55)",
+            border: `1.5px solid ${T.borderSoft}`,
+          }}
+        >
+          {children}
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 }
