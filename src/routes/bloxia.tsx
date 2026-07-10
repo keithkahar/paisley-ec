@@ -257,9 +257,9 @@ function TopBar({
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
-  const allTabs: { key: PageKey; label: string; Icon: typeof Compass }[] = [
-    { key: "map", label: "Map", Icon: Compass },
-    { key: "badges", label: "Badges", Icon: Medal },
+  const allTabs: { key: PageKey; label: string; Icon: typeof Map }[] = [
+    { key: "map", label: "Map", Icon: Map },
+    { key: "badges", label: "Badges", Icon: Trophy },
     { key: "collection", label: "Items", Icon: Gem },
   ];
   // Hide the icon of the current page; profile is entered via the avatar.
