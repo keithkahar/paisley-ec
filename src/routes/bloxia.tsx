@@ -194,7 +194,6 @@ function TopBar({
   bp,
   currentPlaceName,
   progressPct,
-  progressLabel,
   page,
   onNavigate,
 }: {
@@ -202,7 +201,6 @@ function TopBar({
   bp: number;
   currentPlaceName: string;
   progressPct: number;
-  progressLabel: string;
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
@@ -217,63 +215,74 @@ function TopBar({
       className="fixed top-2 left-1/2 -translate-x-1/2 w-full max-w-[404px] z-40 px-3"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <div
-        className="rounded-[18px] p-3"
-        style={{
-          background: T.panel,
-          border: `2px solid ${T.gold}`,
-          boxShadow: "0 12px 34px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,232,164,0.14)",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <img
-            src={CHARACTER_ASSETS.shirinPortrait}
-            alt=""
-            className="h-[52px] w-[52px] rounded-full object-cover border border-[color:#E8C46B] shrink-0"
-            style={{ imageRendering: "pixelated", background: "#173F29" }}
-          />
-          <div className="min-w-0 flex-1">
-            <div className="text-[15px] font-extrabold leading-tight truncate" style={{ color: T.ivory }}>
+      <div className="flex items-center gap-2">
+        {/* Left cluster: back + 4 nav icons */}
+        <div className="flex items-center gap-1.5 min-w-0">
+          <Link
+            to="/"
+            aria-label="Back"
+            className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
+          >
+            <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
+          </Link>
+          {tabs.map((t) => {
+            const active = t.key === page;
+            const Icon = t.Icon;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => onNavigate(t.key)}
+                aria-label={t.label}
+                className="h-9 w-9 rounded-full grid place-items-center transition-colors shrink-0"
+                style={
+                  active
+                    ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
+                    : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.55)` }
+                }
+              >
+                <Icon className="h-4 w-4" strokeWidth={2.5} />
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Right cluster: name + BP, then avatar */}
+        <div className="flex items-center gap-2 ml-auto min-w-0">
+          <div className="min-w-0 text-right">
+            <div
+              className="text-[13px] font-extrabold leading-tight truncate"
+              style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+            >
               {progress.bloxianName}
             </div>
             <div
-              className="mt-1 inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-extrabold leading-none"
+              className="mt-0.5 inline-flex rounded-full px-2 py-0.5 text-[10.5px] font-extrabold leading-none"
               style={{ background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }}
             >
               {formatBp(bp)}
             </div>
           </div>
-          <div className="flex items-center gap-1.5 shrink-0">
-            {tabs.map((t) => {
-              const active = t.key === page;
-              const Icon = t.Icon;
-              return (
-                <button
-                  key={t.key}
-                  type="button"
-                  onClick={() => onNavigate(t.key)}
-                  aria-label={t.label}
-                  className="h-9 w-9 rounded-full grid place-items-center transition-colors"
-                  style={
-                    active
-                      ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
-                      : { background: "#173F29", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.5)` }
-                  }
-                >
-                  <Icon className="h-4 w-4" strokeWidth={2.5} />
-                </button>
-              );
-            })}
-          </div>
+          <img
+            src={CHARACTER_ASSETS.shirinPortrait}
+            alt=""
+            className="h-11 w-11 rounded-full object-cover border shrink-0"
+            style={{
+              imageRendering: "pixelated",
+              background: "#173F29",
+              borderColor: T.goldLight,
+              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+            }}
+          />
         </div>
+      </div>
 
-        {/* progress */}
-        <div className="mt-2">
-          <div className="text-[10.5px] truncate" style={{ color: T.goldLight }}>{progressLabel}</div>
-          <div className="mt-1 h-[7px] rounded-full overflow-hidden" style={{ background: "#244833", border: "1px solid rgba(216,175,87,0.4)" }}>
-            <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
-          </div>
-        </div>
+      {/* progress bar only, no label */}
+      <div
+        className="mt-2 h-[6px] rounded-full overflow-hidden"
+        style={{ background: "rgba(36,72,51,0.85)", border: "1px solid rgba(216,175,87,0.45)" }}
+      >
+        <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
       </div>
     </div>
   );
