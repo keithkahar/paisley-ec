@@ -683,10 +683,8 @@ function CollectionView({
               onClick={() => setTab(t.key)}
               className="h-9 rounded-full text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-1"
               style={{
-                background: active
-                  ? "linear-gradient(180deg, rgba(244,210,122,0.32), rgba(185,130,47,0.24))"
-                  : "transparent",
-                boxShadow: active ? "inset 0 0 0 1px rgba(216,175,87,0.45)" : "none",
+                background: active ? "rgba(28,87,50,0.92)" : "transparent",
+                boxShadow: active ? "inset 0 0 0 1px rgba(255,255,255,0.08)" : "none",
               }}
             >
               <span className="text-[15px] font-bold" style={{ color: T.ivory }}>{t.text} </span>
