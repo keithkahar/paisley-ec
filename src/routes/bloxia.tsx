@@ -524,7 +524,6 @@ function BadgesView({
               style={{
                 background: active ? "rgba(28,87,50,0.92)" : "transparent",
                 boxShadow: active ? "inset 0 0 0 1px rgba(255,255,255,0.08)" : "none",
-                border: active ? `1.5px solid rgba(216,175,87,0.55)` : "1px solid transparent",
               }}
             >
               <span className="text-[15px] font-bold" style={{ color: T.ivory }}>{t.text} </span>
@@ -686,7 +685,6 @@ function CollectionView({
               style={{
                 background: active ? "rgba(28,87,50,0.92)" : "transparent",
                 boxShadow: active ? "inset 0 0 0 1px rgba(255,255,255,0.08)" : "none",
-                border: active ? `1.5px solid rgba(216,175,87,0.55)` : "1px solid transparent",
               }}
             >
               <span className="text-[15px] font-bold" style={{ color: T.ivory }}>{t.text} </span>
