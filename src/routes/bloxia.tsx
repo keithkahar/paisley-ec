@@ -83,6 +83,30 @@ function BloxiaPage() {
   return (
     <PhoneFrame bg="">
       <div className="relative min-h-[100dvh] font-['Nunito',sans-serif] text-[color:#F8F1D2]" style={{ background: T.bg }}>
+        {/* Map lives underneath every page; on non-map pages it's veiled with the
+            same translucent green used by the home sheet backdrop. */}
+        {page === "map" ? (
+          <MapView
+            progress={b.progress}
+            bp={b.bp}
+            onSelectPlace={setSelectedPlace}
+          />
+        ) : (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <img
+              src={MAP_ASSETS.world}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ imageRendering: "pixelated" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "rgba(8, 36, 22, 0.52)", backdropFilter: "blur(6px)" }}
+            />
+          </div>
+        )}
+
         {/* TopBar */}
         <TopBar
           progress={b.progress}
@@ -98,14 +122,7 @@ function BloxiaPage() {
         />
 
         {/* Content */}
-        {page === "map" && (
-          <MapView
-            progress={b.progress}
-            bp={b.bp}
-            onSelectPlace={setSelectedPlace}
-          />
-        )}
-        <div className="pt-[140px] pb-32 px-4">
+        <div className="relative pt-[140px] pb-32 px-4">
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
