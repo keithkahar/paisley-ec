@@ -1726,7 +1726,13 @@ function WelcomeSheet({
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
           >
-            <img src={prev.portrait} alt="" className="h-full w-full object-cover" draggable={false} />
+            <img
+              src={prev.portrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              draggable={false}
+            />
           </button>
 
           <div className="relative h-[134px] w-[134px] shrink-0">
@@ -1737,7 +1743,13 @@ function WelcomeSheet({
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
-              <img src={current.portrait} alt="" className="h-full w-full object-cover" draggable={false} />
+              <img
+                src={current.portrait}
+                alt=""
+                className="h-full w-full object-cover"
+                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                draggable={false}
+              />
             </div>
           </div>
 
@@ -1752,7 +1764,13 @@ function WelcomeSheet({
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
           >
-            <img src={next.portrait} alt="" className="h-full w-full object-cover" draggable={false} />
+            <img
+              src={next.portrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              draggable={false}
+            />
           </button>
         </div>
 
