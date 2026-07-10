@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Medal, Gem } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -260,7 +260,7 @@ function TopBar({
 }) {
   const allTabs: { key: PageKey; label: string; Icon: typeof Compass }[] = [
     { key: "map", label: "Map", Icon: Compass },
-    { key: "badges", label: "Badges", Icon: Medal },
+    { key: "badges", label: "Badges", Icon: Award },
     { key: "collection", label: "Items", Icon: Gem },
   ];
   // Hide the icon of the current page; profile is entered via the avatar.
@@ -882,10 +882,13 @@ function ProfileView({
             style={{
               background: "rgba(8,36,22,0.72)",
               border: `1.5px solid ${T.borderSoft}`,
-              color: T.ivory,
+              color: T.sage,
             }}
           >
-            {formatBp(bp)}
+            <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
+              Bp
+            </span>
+            <span>{bp.toLocaleString()}</span>
           </span>
           {pills.map((p) => (
             <span
