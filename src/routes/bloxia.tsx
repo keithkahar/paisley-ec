@@ -1572,6 +1572,7 @@ function NameEditor({
 }
 
 function SettingsRow({ label, children }: { label: string; children: React.ReactNode }) {
+  // (placeholder anchor — see AvatarPickerSheet defined above)
   return (
     <div
       className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[60px]"
