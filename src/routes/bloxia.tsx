@@ -384,7 +384,7 @@ function MapView({
               color: T.ivory,
             }}
           >
-            {p.name}
+            {p.shortName}
           </div>
         </button>
       ))}
