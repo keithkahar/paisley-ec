@@ -123,7 +123,7 @@ function BloxiaPage() {
 
         {/* Content */}
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[100px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[82px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -1241,7 +1241,7 @@ function BadgeSheet({
       </div>
 
       <div className="mt-3 space-y-2">
-        <SheetRow label="Used Bp" value={formatBp(cost)} />
+        <SheetRow label={unlocked ? "Used Bp" : "Required Bp"} value={formatBp(cost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
 
