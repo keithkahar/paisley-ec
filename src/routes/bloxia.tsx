@@ -122,7 +122,8 @@ function BloxiaPage() {
         />
 
         {/* Content */}
-        <div className="relative pt-[140px] pb-32 px-4">
+        {/* Content — Badges page sits a bit higher for a tighter title gap */}
+        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[118px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -638,7 +639,7 @@ function BadgeTile({
         <img
           src={asset}
           alt=""
-          className="h-full w-full object-contain"
+          className="h-[85%] w-[85%] object-contain"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
