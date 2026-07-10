@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, Pencil, Map as MapIcon, Award, Package, User as UserIcon, Check } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -537,13 +537,16 @@ function BadgeTile({
   unlocked,
   selected,
   onClick,
+  size = "default",
 }: {
   asset: string;
   name: string;
   unlocked: boolean;
   selected: boolean;
   onClick: () => void;
+  size?: "default" | "large";
 }) {
+  const imgSize = size === "large" ? "h-[95%] w-[95%]" : "h-[85%] w-[85%]";
   return (
     <button
       type="button"
@@ -559,7 +562,7 @@ function BadgeTile({
         <img
           src={asset}
           alt=""
-          className="h-[85%] w-[85%] object-contain"
+          className={`${imgSize} object-contain`}
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
@@ -568,15 +571,15 @@ function BadgeTile({
         />
       </div>
       <div
-        className="mt-2 text-[12px] font-semibold leading-[1.15] flex items-center justify-center text-center px-0.5"
+        className="mt-2 text-[12px] font-semibold leading-[1.2] text-center px-0.5"
         style={{
           color: T.ivory,
           height: 32,
-          wordBreak: "break-word",
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
         {name}
@@ -615,9 +618,9 @@ function CollectionView({
       {groups.map((g) => (
         <div key={g.place.id} className="space-y-3">
           {/* Place header — mirrors Badge tab label typography */}
-          <div className="px-1 inline-flex items-baseline gap-1">
+          <div className="px-1 inline-flex items-center gap-1">
             <span className="text-[15px] font-bold" style={{ color: T.ivory }}>
-              {g.place.name}
+              {g.place.name} 
             </span>
             <span className="text-[13px] font-semibold" style={{ color: T.sage }}>
               {g.collected}/{g.items.length}
@@ -634,6 +637,7 @@ function CollectionView({
                   unlocked={unlocked}
                   selected={false}
                   onClick={() => onSelectItem(item)}
+                  size="large"
                 />
               );
             })}
@@ -1061,31 +1065,38 @@ function ItemSheet({
         {item.description}
       </div>
       <div className="mt-3 space-y-2">
-        <SheetRow label="Found in" value={placeById[item.placeId].name} />
-        <SheetRow label="Rarity" value={item.rarity} />
         <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
-      {!collected && (
-        canCollect ? (
-          <button
-            type="button"
-            onClick={onCollect}
-            className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
-            style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
-          >
-            Collect · {item.bpCost.toLocaleString()} Bp
-          </button>
-        ) : (
-          <div
-            className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
-          >
-            {!placeUnlocked
-              ? "Unlock this place first"
-              : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
-          </div>
-        )
+
+      {collected ? (
+        <button
+          type="button"
+          disabled
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight, opacity: 0.75 }}
+        >
+          <Check className="w-4 h-4" />
+          Collected
+        </button>
+      ) : canCollect ? (
+        <button
+          type="button"
+          onClick={onCollect}
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+        >
+          Collect · {item.bpCost.toLocaleString()} Bp
+        </button>
+      ) : (
+        <div
+          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+        >
+          {!placeUnlocked
+            ? "Unlock this place first"
+            : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
+        </div>
       )}
     </Sheet>
   );
