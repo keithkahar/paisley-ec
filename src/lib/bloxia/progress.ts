@@ -164,10 +164,15 @@ export function useBloxia() {
   useEffect(() => {
     const stored = safeRead<Partial<Progress> | null>(PROGRESS_KEY, null);
     const base = defaultProgress();
+    const sanitizedName =
+      stored?.bloxianName?.trim() && stored.bloxianName.trim() !== "Shirin"
+        ? stored.bloxianName.trim()
+        : DEFAULT_BLOXIAN_NAME;
     const merged: Progress = stored
       ? {
           ...base,
           ...stored,
+          bloxianName: sanitizedName,
           selectedAvatarId:
             stored.selectedAvatarId && avatarById[stored.selectedAvatarId]
               ? stored.selectedAvatarId
