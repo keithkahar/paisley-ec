@@ -756,14 +756,11 @@ function ProfileView({
   onSelectBadge: (b: SelectedBadge) => void;
   onSelectItem: (i: CollectionItem) => void;
 }) {
-  const [activityCount, setActivityCount] = useState(10);
-
-  const totalBadges = totals.placeBadges + totals.growthBadges;
-  const earnedBadges = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
+  const [activityCount, setActivityCount] = useState(5);
 
   const pills = [
-    { label: "Places", value: `${progress.unlockedPlaceIds.length}/${totals.places}` },
-    { label: "Badges", value: `${earnedBadges}/${totalBadges}` },
+    { label: "Places", value: `${progress.earnedPlaceBadgeIds.length}/${totals.placeBadges}` },
+    { label: "Growth", value: `${progress.unlockedGrowthBadgeIds.length}/${totals.growthBadges}` },
     { label: "Items", value: `${progress.collectedItemIds.length}/${totals.collectionItems}` },
   ];
 
@@ -820,24 +817,36 @@ function ProfileView({
     <div className="space-y-6">
       {/* --- Header: avatar + name + stat pills (no frame) --- */}
       <div className="flex flex-col items-center pt-1">
-        <button
-          type="button"
-          onClick={onEditName}
-          aria-label="Edit profile"
-          className="h-24 w-24 rounded-full grid place-items-center overflow-hidden active:scale-95 transition-transform"
-          style={{
-            background: "#173F29",
-            border: `2px solid ${T.goldLight}`,
-            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
-          }}
-        >
-          <img
-            src={CHARACTER_ASSETS.shirinPortrait}
-            alt=""
-            className="h-full w-full object-cover"
-            style={{ imageRendering: "pixelated" }}
-          />
-        </button>
+        <div className="relative h-[134px] w-[134px]">
+          <div
+            className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+            style={{
+              background: "#173F29",
+              border: `2px solid ${T.goldLight}`,
+              boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+            }}
+          >
+            <img
+              src={CHARACTER_ASSETS.shirinPortrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ imageRendering: "pixelated" }}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={onEditName}
+            aria-label="Edit profile"
+            className="absolute top-5 left-5 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            style={{
+              background: T.ivory,
+              border: `1.5px solid ${T.goldLight}`,
+              boxShadow: "0 2px 6px rgba(0,0,0,0.35)",
+            }}
+          >
+            <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: T.goldOnDark }} />
+          </button>
+        </div>
         <div
           className="mt-3 text-[22px] font-semibold leading-none"
           style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
@@ -898,7 +907,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Badges --- */}
-      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right">
+      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right" framed>
         {favBadges.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favBadges.map((b) => (
@@ -919,7 +928,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Items --- */}
-      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right">
+      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right" framed>
         {favItems.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favItems.map((it) => (
