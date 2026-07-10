@@ -1,11 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import {
   COLLECTION_ITEMS,
+  DEFAULT_AVATAR_ID,
   DEFAULT_BLOXIAN_NAME,
   DEFAULT_PLACE_ID,
   GROWTH_BADGES,
   PLACES,
   PLACE_BADGES,
+  avatarById,
   placeById,
   type PlaceId,
 } from "./config";
@@ -16,6 +18,8 @@ const BP_KEY = "pec_bloxia_bp_v3";
 
 export interface Progress {
   bloxianName: string;
+  selectedAvatarId: string;
+  avatarSelectionCompleted: boolean;
   currentPlaceId: PlaceId;
   unlockedPlaceIds: PlaceId[];
   earnedPlaceBadgeIds: string[];
@@ -43,6 +47,8 @@ export interface SpendingLog {
 
 const defaultProgress = (): Progress => ({
   bloxianName: DEFAULT_BLOXIAN_NAME,
+  selectedAvatarId: DEFAULT_AVATAR_ID,
+  avatarSelectionCompleted: false,
   currentPlaceId: DEFAULT_PLACE_ID,
   unlockedPlaceIds: [DEFAULT_PLACE_ID, "wonder_tree"],
   earnedPlaceBadgeIds: ["meadow_visitor", "wonder_tree_explorer"],
@@ -156,7 +162,20 @@ export function useBloxia() {
   const [logs, setLogs] = useState<SpendingLog[]>([]);
 
   useEffect(() => {
-    setProgress(safeRead(PROGRESS_KEY, defaultProgress()));
+    const stored = safeRead<Partial<Progress> | null>(PROGRESS_KEY, null);
+    const base = defaultProgress();
+    const merged: Progress = stored
+      ? {
+          ...base,
+          ...stored,
+          selectedAvatarId:
+            stored.selectedAvatarId && avatarById[stored.selectedAvatarId]
+              ? stored.selectedAvatarId
+              : base.selectedAvatarId,
+          avatarSelectionCompleted: !!stored.avatarSelectionCompleted,
+        }
+      : base;
+    setProgress(merged);
     setBp(safeRead(BP_KEY, 1000));
     setLogs(safeRead(LOGS_KEY, demoLogs()));
     setReady(true);
@@ -318,11 +337,26 @@ export function useBloxia() {
     [progress, persist],
   );
 
+  const selectAvatar = useCallback(
+    (avatarId: string) => {
+      if (!avatarById[avatarId]) return { ok: false, error: "NOT_FOUND" as const };
+      persist({
+        ...progress,
+        selectedAvatarId: avatarId,
+        avatarSelectionCompleted: true,
+      });
+      return { ok: true };
+    },
+    [progress, persist],
+  );
+
   return {
     ready,
     progress,
     bp,
     logs,
+    selectedAvatar:
+      avatarById[progress.selectedAvatarId] ?? avatarById[DEFAULT_AVATAR_ID],
     unlockPlace,
     setCurrentPlace,
     toggleFavorite,
@@ -330,6 +364,7 @@ export function useBloxia() {
     toggleFavoriteItem,
     unlockGrowthBadge,
     updateName,
+    selectAvatar,
     earnBp,
     totals: {
       places: PLACES.length,
