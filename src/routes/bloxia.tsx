@@ -43,6 +43,7 @@ export const Route = createFileRoute("/bloxia")({
 
 type PageKey = "map" | "badges" | "collection" | "profile";
 type BadgeTab = "place" | "growth" | "favorite";
+type CollectionTab = "items" | "favorite";
 
 // ---------- Theme constants (dark green + gold) ----------
 const T = {
@@ -74,6 +75,7 @@ function BloxiaPage() {
   const [nameEditor, setNameEditor] = useState(false);
   const [activityOpen, setActivityOpen] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
+  const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
 
   const next = nextPlace(b.progress);
   const progressPct = next
@@ -154,6 +156,8 @@ function BloxiaPage() {
             <CollectionView
               progress={b.progress}
               onSelectItem={setSelectedItem}
+              tab={collectionTab}
+              setTab={setCollectionTab}
             />
           )}
           {page === "profile" && (
@@ -198,6 +202,7 @@ function BloxiaPage() {
               const r = b.unlockCollectionItem(selectedItem.id);
               if (r.ok) setSelectedItem(null);
             }}
+            onToggleFavorite={() => b.toggleFavoriteItem(selectedItem.id)}
           />
         )}
         {nameEditor && (
