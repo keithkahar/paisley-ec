@@ -1009,7 +1009,7 @@ function ProfileGroup({
             onClick={onAction}
             aria-label={actionKind === "down" ? "Show more" : "View all"}
             className="h-7 w-7 grid place-items-center active:scale-95 transition-transform"
-            style={{ color: "#1C5732" }}
+            style={{ color: T.ivory }}
           >
             {actionKind === "down" ? (
               <ChevronDown
