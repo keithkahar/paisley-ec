@@ -123,7 +123,7 @@ function BloxiaPage() {
 
         {/* Content */}
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[82px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[100px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -447,8 +447,8 @@ function BadgesView({
 
   const visible = tab === "place" ? placeItems : tab === "growth" ? growthItems : favoriteItems;
   const tabs: { key: BadgeTab; label: string }[] = [
-    { key: "place", label: "Places" },
-    { key: "growth", label: "Growth" },
+    { key: "place", label: `Places ${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}` },
+    { key: "growth", label: `Growth ${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}` },
     { key: "favorite", label: "Favorite" },
   ];
 
@@ -464,12 +464,6 @@ function BadgesView({
         <div className="text-[13px] font-semibold mt-1" style={{ color: T.sage }}>
           {totalEarned} of {PLACE_BADGES.length + GROWTH_BADGES.length} earned
         </div>
-      </div>
-
-      {/* Stat pills — same rounded-full brand style as home */}
-      <div className="grid grid-cols-2 gap-2">
-        <StatPill label="Places" value={`${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}`} />
-        <StatPill label="Growth" value={`${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}`} />
       </div>
 
       {/* Tab strip — single rounded-full pill w/ gold active segment */}
@@ -808,22 +802,6 @@ function StatCard({ label, value }: { label: string; value: string }) {
       <div className="text-[11px] mt-0.5" style={{ color: T.sage }}>
         {label}
       </div>
-    </div>
-  );
-}
-
-function StatPill({ label, value }: { label: string; value: string }) {
-  return (
-    <div
-      className="rounded-full px-4 h-11 flex items-center justify-between"
-      style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
-    >
-      <span className="text-[13px] font-semibold" style={{ color: T.sage }}>
-        {label}
-      </span>
-      <span className="text-[15px] font-semibold" style={{ color: T.goldLight }}>
-        {value}
-      </span>
     </div>
   );
 }
