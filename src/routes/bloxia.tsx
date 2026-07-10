@@ -275,7 +275,7 @@ function TopBar({
               className="mt-0.5 text-[10px] font-bold truncate"
               style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
             >
-              {next ? `${formatBp(next.unlockBp - bp)} to ${next.shortName}` : "All places unlocked"}
+              {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
             </div>
           </div>
           <button
