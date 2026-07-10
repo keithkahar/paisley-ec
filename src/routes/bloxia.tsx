@@ -320,14 +320,7 @@ function MapView({
   );
 
   return (
-    <div
-      className="relative rounded-[20px] overflow-hidden"
-      style={{
-        aspectRatio: "3 / 4",
-        border: `2px solid ${T.gold}`,
-        boxShadow: "0 16px 34px rgba(0,0,0,0.35)",
-      }}
-    >
+    <div className="absolute inset-0 overflow-hidden">
       <img
         src={MAP_ASSETS.world}
         alt="Bloxia world map"
