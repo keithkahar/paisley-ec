@@ -1207,6 +1207,19 @@ function BadgeSheet({
   const isGrowthLocked = badge.kind === "growth" && !unlocked;
   const growthCost = badge.kind === "growth" ? (badge as GrowthBadge).bpCost : 0;
   const canAfford = bp >= growthCost;
+  const cost =
+    badge.kind === "place"
+      ? PLACES.find((p) => p.placeBadgeId === badge.id)?.unlockBp ?? 0
+      : growthCost;
+  const statusText = unlocked
+    ? isFavorite
+      ? "Favorite"
+      : "Earned"
+    : isGrowthLocked
+    ? canAfford
+      ? "Available"
+      : "Locked"
+    : "Locked";
 
   return (
     <Sheet onClose={onClose}>
@@ -1225,6 +1238,11 @@ function BadgeSheet({
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {badge.description}
+      </div>
+
+      <div className="mt-3 space-y-2">
+        <SheetRow label="Used Bp" value={formatBp(cost)} />
+        <SheetRow label="Status" value={statusText} />
       </div>
 
       {isGrowthLocked ? (
@@ -1262,9 +1280,8 @@ function BadgeSheet({
           disabled={!unlocked}
           className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{
-            background: unlocked ? T.goldGradient : "rgba(216,175,87,0.12)",
-            color: unlocked ? T.goldOnDark : T.sage,
-            border: unlocked ? `2px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
+            background: "rgba(216,175,87,0.12)",
+            color: unlocked ? T.goldLight : T.sage,
             opacity: unlocked ? 1 : 0.75,
           }}
         >
