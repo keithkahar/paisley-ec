@@ -546,7 +546,7 @@ function BadgeTile({
   onClick: () => void;
   size?: "default" | "large";
 }) {
-  const imgSize = size === "large" ? "h-[95%] w-[95%]" : "h-[85%] w-[85%]";
+  const imgSize = size === "large" ? "h-full w-full" : "h-[90%] w-[90%]";
   return (
     <button
       type="button"
@@ -558,7 +558,7 @@ function BadgeTile({
         boxShadow: selected ? `0 0 0 3px rgba(255,240,167,0.22)` : "none",
       }}
     >
-      <div className="mx-auto aspect-square w-full grid place-items-center">
+      <div className="mx-auto aspect-square w-full grid place-items-center overflow-hidden">
         <img
           src={asset}
           alt=""
@@ -571,15 +571,17 @@ function BadgeTile({
         />
       </div>
       <div
-        className="mt-2 text-[12px] font-semibold leading-[1.2] text-center px-0.5"
+        className="mt-2 text-[12px] font-semibold text-center px-0.5"
         style={{
           color: T.ivory,
-          height: 32,
+          height: 30,
+          lineHeight: "15px",
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
           textOverflow: "ellipsis",
+          wordBreak: "break-word",
         }}
       >
         {name}
@@ -1084,7 +1086,7 @@ function ItemSheet({
           type="button"
           onClick={onCollect}
           className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
-          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           Collect · {item.bpCost.toLocaleString()} Bp
         </button>
