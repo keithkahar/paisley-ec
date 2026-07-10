@@ -1088,14 +1088,14 @@ function ItemSheet({
       <img
         src={item.asset}
         alt=""
-        className="h-24 w-24 mx-auto"
+        className="h-28 w-28 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: collected ? 1 : 0.7,
           filter: collected ? undefined : "grayscale(50%)",
         }}
       />
-      <div className="mt-3 text-center text-[18px] font-extrabold" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-medium leading-none" style={{ color: T.ivory }}>
         {item.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
