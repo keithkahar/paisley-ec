@@ -217,7 +217,7 @@ function TopBar({
     >
       <div className="relative">
         {/* Top row: nav cluster on the left, name/milestone + avatar on the right */}
-        <div className="flex items-center justify-between gap-2 h-[53px]">
+        <div className="flex items-start justify-between gap-2 h-[53px]">
           {/* Left cluster: back + nav icons + Bp pill */}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
@@ -260,8 +260,8 @@ function TopBar({
             </div>
           </div>
 
-          {/* Right cluster: name/milestone text left of avatar */}
-          <div className="flex items-center gap-2 min-w-0">
+          {/* Right cluster: name/milestone text left of avatar, bottom-aligned with avatar */}
+          <div className="flex items-end gap-2 min-w-0">
             <div className="min-w-0 text-right">
               <div
                 className="text-[13px] font-extrabold leading-tight truncate"
