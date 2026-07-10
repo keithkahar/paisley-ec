@@ -760,7 +760,7 @@ function ProfileView({
   onSelectBadge: (b: SelectedBadge) => void;
   onSelectItem: (i: CollectionItem) => void;
 }) {
-  const [activityCount, setActivityCount] = useState(5);
+  const [activityCount, setActivityCount] = useState(1);
 
   const pills = [
     { label: "Places", value: `${progress.earnedPlaceBadgeIds.length}/${totals.placeBadges}` },
@@ -959,21 +959,40 @@ function ProfileView({
       <ProfileGroup
         title="Recent Activity"
         onAction={
-          activities.length > 5
+          activities.length > 1
             ? () =>
                 setActivityCount((c) =>
-                  c >= activities.length ? 5 : Math.min(activities.length, c + 5),
+                  c <= 1 ? Math.min(activities.length, 10) : 1,
                 )
             : undefined
         }
         actionKind="down"
-        actionRotated={activityCount >= activities.length && activities.length > 5}
+        actionRotated={activityCount > 1}
       >
         {visibleActivities.length ? (
           <div className="space-y-1.5">
             {visibleActivities.map((a) => (
               <ActivityRow key={a.id} activity={a} />
             ))}
+            {activityCount > 1 &&
+              activityCount < activities.length &&
+              activityCount % 10 === 0 && (
+                <div className="flex justify-center pt-1">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActivityCount((c) =>
+                        Math.min(activities.length, c + 10),
+                      )
+                    }
+                    aria-label="Show 10 more"
+                    className="h-7 w-7 grid place-items-center active:scale-95 transition-transform"
+                    style={{ color: T.ivory }}
+                  >
+                    <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
+                  </button>
+                </div>
+              )}
           </div>
         ) : (
           <EmptyLine>No Bloxia activity yet.</EmptyLine>
