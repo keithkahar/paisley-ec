@@ -377,14 +377,14 @@ function MapView({
             style={{ imageRendering: "pixelated", filter: "drop-shadow(0 4px 5px rgba(0,0,0,0.4))" }}
           />
           <div
-            className="px-2 py-[3px] rounded-full text-[10px] font-extrabold leading-none"
+            className="px-2 py-[3px] rounded-full text-[10px] font-extrabold leading-none whitespace-nowrap"
             style={{
               background: "rgba(8,36,22,0.86)",
               border: "1px solid rgba(248,230,164,0.7)",
               color: T.ivory,
             }}
           >
-            {p.shortName}
+            {p.name}
           </div>
         </button>
       ))}
@@ -1053,14 +1053,22 @@ function PlaceSheet({
         </div>
       )}
 
-      {(canUnlock || unlocked) && (
+      {unlocked && (
+        <div
+          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+        >
+          You are here
+        </div>
+      )}
+      {!unlocked && canUnlock && (
         <button
           type="button"
-          onClick={unlocked ? onExplore : onUnlock}
+          onClick={onUnlock}
           className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
-          {unlocked ? "Explore Place" : "Unlock Place"}
+          Unlock Place
         </button>
       )}
     </Sheet>
