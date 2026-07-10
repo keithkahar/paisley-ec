@@ -1117,17 +1117,22 @@ function ItemSheet({
   bp,
   onClose,
   onCollect,
+  onToggleFavorite,
 }: {
   item: CollectionItem;
   progress: Progress;
   bp: number;
   onClose: () => void;
   onCollect: () => void;
+  onToggleFavorite: () => void;
 }) {
   const collected = progress.collectedItemIds.includes(item.id);
   const placeUnlocked = progress.unlockedPlaceIds.includes(item.placeId);
   const canCollect = !collected && placeUnlocked && bp >= item.bpCost;
-  const statusText = collected ? "Collected" : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
+  const isFavorite = (progress.favoriteItemIds ?? []).includes(item.id);
+  const statusText = collected
+    ? isFavorite ? "Favorite" : "Collected"
+    : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
     <Sheet onClose={onClose}>
       <img
@@ -1154,12 +1159,12 @@ function ItemSheet({
       {collected ? (
         <button
           type="button"
-          disabled
+          onClick={onToggleFavorite}
           className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight, opacity: 0.75 }}
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
-          <Check className="w-4 h-4" />
-          Collected
+          <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
+          {isFavorite ? "Favorite" : "Add to Favorite"}
         </button>
       ) : canCollect ? (
         <button
