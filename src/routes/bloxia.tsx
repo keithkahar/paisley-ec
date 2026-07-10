@@ -972,7 +972,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         {/* Background layer extends to the bottom of the screen, giving the nav bar the same base color */}
         <div
           className="absolute inset-0 -bottom-[100vh] rounded-t-[24px]"
-          style={{ background: T.panel }}
+          style={{ background: "rgba(8, 36, 22, 0.72)", backdropFilter: "blur(6px)" }}
         />
         <button
           type="button"
@@ -987,7 +987,8 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           className="relative p-5 overflow-y-auto"
           style={{
             maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
-            paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom))",
+            paddingTop: "calc(1.25rem + 24px)",
+            paddingBottom: "calc(1.25rem + 24px + env(safe-area-inset-bottom))",
           }}
         >
           {children}
@@ -1056,7 +1057,7 @@ function PlaceSheet({
         <button
           type="button"
           onClick={unlocked ? onExplore : onUnlock}
-          className="mt-4 w-full h-12 rounded-[14px] font-extrabold text-[14px]"
+          className="mt-4 w-full rounded-full py-4 px-4 font-extrabold text-[17px] text-center"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
           {unlocked ? "Explore Place" : "Unlock Place"}
