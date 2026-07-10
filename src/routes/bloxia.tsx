@@ -560,6 +560,7 @@ function BadgeTile({
   selected,
   onClick,
   size = "default",
+  hideName = false,
 }: {
   asset: string;
   name: string;
@@ -567,13 +568,14 @@ function BadgeTile({
   selected: boolean;
   onClick: () => void;
   size?: "default" | "large";
+  hideName?: boolean;
 }) {
   const imgSize = size === "large" ? "h-full w-full" : "h-[90%] w-[90%]";
   return (
     <button
       type="button"
       onClick={onClick}
-      className="rounded-[18px] p-2.5 text-center transition-transform active:scale-95 flex flex-col"
+      className={`rounded-[14px] text-center transition-transform active:scale-95 flex flex-col ${hideName ? "p-1.5" : "p-2.5"}`}
       style={{
         background: "rgba(8,36,22,0.72)",
         border: selected ? `1.5px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
@@ -592,6 +594,7 @@ function BadgeTile({
           }}
         />
       </div>
+      {!hideName && (
       <div
         className="mt-2 text-[12px] font-semibold text-center px-0.5"
         style={{
@@ -608,6 +611,7 @@ function BadgeTile({
       >
         {name}
       </div>
+      )}
     </button>
   );
 }
