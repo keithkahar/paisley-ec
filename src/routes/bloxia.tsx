@@ -79,7 +79,6 @@ function BloxiaPage() {
   const progressPct = next
     ? Math.min(100, Math.max(0, Math.round((b.bp / next.unlockBp) * 100)))
     : 100;
-  const currentPlace = placeById[b.progress.currentPlaceId];
 
   return (
     <PhoneFrame bg="">
@@ -88,7 +87,6 @@ function BloxiaPage() {
         <TopBar
           progress={b.progress}
           bp={b.bp}
-          currentPlaceName={currentPlace?.name ?? ""}
           progressPct={progressPct}
           next={next}
           page={page}
