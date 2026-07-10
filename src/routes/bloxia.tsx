@@ -241,10 +241,10 @@ function BloxiaPage() {
         {nameEditor && (
           <NameEditor
             initial={b.progress.bloxianName}
-            avatarUrl={avatarUrl}
-            onOpenAvatarPicker={() => setAvatarPicker(true)}
+            initialAvatarId={b.progress.selectedAvatarId}
             onClose={() => setNameEditor(false)}
-            onSave={(name) => {
+            onSave={(id, name) => {
+              b.selectAvatar(id);
               b.updateName(name);
               setNameEditor(false);
             }}
