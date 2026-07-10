@@ -627,21 +627,18 @@ function BadgeTile({
     <button
       type="button"
       onClick={onClick}
-      className="rounded-[18px] p-2.5 text-center transition-transform active:scale-95"
+      className="rounded-[18px] p-2.5 text-center transition-transform active:scale-95 flex flex-col"
       style={{
         background: "rgba(8,36,22,0.72)",
         border: selected ? `1.5px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
         boxShadow: selected ? `0 0 0 3px rgba(255,240,167,0.22)` : "none",
       }}
     >
-      <div
-        className="mx-auto aspect-square w-full rounded-[14px] grid place-items-center relative"
-        style={{ background: "rgba(255,244,191,0.06)" }}
-      >
+      <div className="mx-auto aspect-square w-full grid place-items-center">
         <img
           src={asset}
           alt=""
-          className="h-[76%] w-[76%]"
+          className="h-full w-full object-contain"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
@@ -649,7 +646,18 @@ function BadgeTile({
           }}
         />
       </div>
-      <div className="mt-2 text-[12px] font-semibold leading-tight" style={{ color: T.ivory, wordBreak: "break-word" }}>
+      <div
+        className="mt-2 text-[12px] font-medium leading-[1.15] flex items-center justify-center text-center px-0.5"
+        style={{
+          color: T.ivory,
+          height: 32,
+          wordBreak: "break-word",
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        }}
+      >
         {name}
       </div>
     </button>
@@ -884,10 +892,10 @@ function StatPill({ label, value }: { label: string; value: string }) {
       className="rounded-full px-4 h-11 flex items-center justify-between"
       style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
     >
-      <span className="text-[13px] font-semibold" style={{ color: T.sage }}>
+      <span className="text-[13px] font-medium" style={{ color: T.sage }}>
         {label}
       </span>
-      <span className="text-[15px] font-extrabold" style={{ color: T.goldLight }}>
+      <span className="text-[15px] font-semibold" style={{ color: T.goldLight }}>
         {value}
       </span>
     </div>
