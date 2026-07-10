@@ -1571,13 +1571,90 @@ function NameEditor({
   );
 }
 
+function AvatarPickerSheet({
+  title,
+  subtitle,
+  selectedAvatarId,
+  confirmLabel = "Save",
+  onClose,
+  onConfirm,
+}: {
+  title: string;
+  subtitle?: string;
+  selectedAvatarId: string;
+  confirmLabel?: string;
+  onClose?: () => void;
+  onConfirm: (id: string) => void;
+}) {
+  const [pending, setPending] = useState(selectedAvatarId);
+  return (
+    <Sheet onClose={onClose ?? (() => {})}>
+      <div className="flex flex-col h-full">
+        <div className="text-[22px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+          {title}
+        </div>
+        {subtitle && (
+          <div className="text-[13px] font-semibold mt-1" style={{ color: T.sage }}>
+            {subtitle}
+          </div>
+        )}
+        <div className="grid grid-cols-4 gap-3 mt-5">
+          {BLOXIAN_AVATARS.map((a) => {
+            const active = a.id === pending;
+            return (
+              <button
+                key={a.id}
+                type="button"
+                onClick={() => setPending(a.id)}
+                className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform"
+              >
+                <div
+                  className="h-16 w-16 rounded-full overflow-hidden"
+                  style={{
+                    background: "#173F29",
+                    boxShadow: active
+                      ? `0 0 0 2.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 10px rgba(0,0,0,0.45)`
+                      : `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
+                  }}
+                >
+                  <img src={a.portrait} alt={a.name} className="h-full w-full object-cover" draggable={false} />
+                </div>
+                <span
+                  className="text-[11px] font-semibold"
+                  style={{ color: active ? T.ivory : T.sage }}
+                >
+                  {a.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-auto pt-5">
+          <button
+            type="button"
+            onClick={() => onConfirm(pending)}
+            className="w-full h-12 rounded-full text-[15px] font-bold"
+            style={{
+              background: T.goldGradient,
+              color: T.goldOnDark,
+              border: `1px solid ${T.goldLight}`,
+            }}
+          >
+            {confirmLabel}
+          </button>
+        </div>
+      </div>
+    </Sheet>
+  );
+}
+
 function SettingsRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div
       className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[60px]"
       style={{
         background: "rgba(8,36,22,0.55)",
-        border: `1.5px solid ${T.borderSoft}`, // ap
+        border: `1.5px solid ${T.borderSoft}`,
       }}
     >
       <span
