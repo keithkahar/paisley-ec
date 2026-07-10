@@ -891,6 +891,7 @@ function ProfileView({
                   selected={false}
                   onClick={() => onSelectBadge(e.badge)}
                   size="large"
+                  hideName
                 />
               ) : (
                 <BadgeTile
@@ -901,6 +902,7 @@ function ProfileView({
                   selected={false}
                   onClick={() => onSelectItem(e.item)}
                   size="large"
+                  hideName
                 />
               ),
             )}
@@ -911,7 +913,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Badges --- */}
-      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right" framed>
+      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right">
         {favBadges.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favBadges.map((b) => (
@@ -923,6 +925,7 @@ function ProfileView({
                 selected={false}
                 onClick={() => onSelectBadge(b)}
                 size="large"
+                hideName
               />
             ))}
           </div>
@@ -932,7 +935,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Items --- */}
-      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right" framed>
+      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right">
         {favItems.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favItems.map((it) => (
@@ -944,6 +947,7 @@ function ProfileView({
                 selected={false}
                 onClick={() => onSelectItem(it)}
                 size="large"
+                hideName
               />
             ))}
           </div>
@@ -955,8 +959,16 @@ function ProfileView({
       {/* --- Recent Activity --- */}
       <ProfileGroup
         title="Recent Activity"
-        onAction={canExpand ? () => setActivityCount((c) => c + 10) : undefined}
+        onAction={
+          activities.length > 5
+            ? () =>
+                setActivityCount((c) =>
+                  c >= activities.length ? 5 : Math.min(activities.length, c + 10),
+                )
+            : undefined
+        }
         actionKind="down"
+        actionRotated={activityCount >= activities.length && activities.length > 5}
       >
         {visibleActivities.length ? (
           <div className="space-y-1.5">
