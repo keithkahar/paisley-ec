@@ -1241,15 +1241,13 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
         style={{
           background: "transparent",
-          border: `2px solid ${T.border}`,
-          borderBottom: "none",
+          borderTop: `2px solid ${T.border}`,
           boxShadow: "0 -12px 30px rgba(0,0,0,0.45)",
-          marginBottom: "calc(6rem + env(safe-area-inset-bottom))",
         }}
       >
         {/* Background layer extends to the bottom of the screen, giving the nav bar the same base color */}
         <div
-          className="absolute inset-0 -bottom-[100vh] rounded-t-[24px]"
+          className="absolute inset-0 rounded-t-[24px]"
           style={{ background: "rgba(8, 36, 22, 0.52)", backdropFilter: "blur(6px)" }}
         />
         <button
@@ -1264,9 +1262,10 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         <div
           className="relative p-5 overflow-y-auto"
           style={{
+            minHeight: "440px",
             maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
-            paddingBottom: "calc(1.25rem + 48px + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(1.25rem + 6rem + env(safe-area-inset-bottom))",
           }}
         >
           {children}
