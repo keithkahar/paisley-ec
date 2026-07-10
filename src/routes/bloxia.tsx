@@ -219,92 +219,97 @@ function TopBar({
       className="fixed top-2 left-1/2 -translate-x-1/2 w-full max-w-[404px] z-40 px-3"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <div className="flex items-center gap-2">
-        {/* Left cluster: back + nav icons + Bp pill */}
-        <div className="flex items-center gap-1.5 min-w-0">
-          <Link
-            to="/"
-            aria-label="Back"
-            className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
-          >
-            <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
-          </Link>
-          {tabs.map((t) => {
-            const active = t.key === page;
-            const Icon = t.Icon;
-            return (
-              <button
-                key={t.key}
-                type="button"
-                onClick={() => onNavigate(t.key)}
-                aria-label={t.label}
-                className="h-9 w-9 rounded-full grid place-items-center transition-colors shrink-0"
-                style={
-                  active
-                    ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
-                    : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.55)` }
-                }
-              >
-                <Icon className="h-4 w-4" strokeWidth={2.5} />
-              </button>
-            );
-          })}
-          {/* Bp pill: same height as nav icons, same color scheme */}
-          <div
-            className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
-            style={{
-              background: "rgba(23,63,41,0.9)",
-              color: T.goldLight,
-              border: `1.5px solid rgba(216,175,87,0.55)`,
-            }}
-          >
-            {formatBp(bp)}
-          </div>
-        </div>
-
-        {/* Right cluster: name + milestone text, then avatar as profile entry */}
-        <div className="flex items-center gap-2 ml-auto min-w-0">
-          <div className="min-w-0 text-right">
-            <div
-              className="text-[13px] font-extrabold leading-tight truncate"
-              style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+      <div className="relative">
+        {/* Top content row: fixed at 44px so progress bar keeps its original position */}
+        <div className="flex items-center gap-2 h-11 pr-[66px]">
+          {/* Left cluster: back + nav icons + Bp pill */}
+          <div className="flex items-center gap-1.5 min-w-0">
+            <Link
+              to="/"
+              aria-label="Back"
+              className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
             >
-              {progress.bloxianName}
-            </div>
+              <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
+            </Link>
+            {tabs.map((t) => {
+              const active = t.key === page;
+              const Icon = t.Icon;
+              return (
+                <button
+                  key={t.key}
+                  type="button"
+                  onClick={() => onNavigate(t.key)}
+                  aria-label={t.label}
+                  className="h-9 w-9 rounded-full grid place-items-center transition-colors shrink-0"
+                  style={
+                    active
+                      ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
+                      : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.55)` }
+                  }
+                >
+                  <Icon className="h-4 w-4" strokeWidth={2.5} />
+                </button>
+              );
+            })}
+            {/* Bp pill: same height as nav icons, same color scheme */}
             <div
-              className="mt-0.5 text-[10px] font-bold truncate"
-              style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-            >
-              {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => onNavigate("profile")}
-            aria-label="Profile"
-            className="h-11 w-11 rounded-full shrink-0 grid place-items-center"
-          >
-            <img
-              src={CHARACTER_ASSETS.shirinPortrait}
-              alt=""
-              className="h-11 w-11 rounded-full object-cover border"
+              className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
               style={{
-                imageRendering: "pixelated",
-                background: "#173F29",
-                borderColor: T.goldLight,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                background: "rgba(23,63,41,0.9)",
+                color: T.goldLight,
+                border: `1.5px solid rgba(216,175,87,0.55)`,
               }}
-            />
-          </button>
-        </div>
-      </div>
+            >
+              {formatBp(bp)}
+            </div>
+          </div>
 
-      {/* progress bar only, no label */}
-      <div
-        className="mt-2 h-[6px] rounded-full overflow-hidden"
-        style={{ background: "rgba(36,72,51,0.85)", border: "1px solid rgba(216,175,87,0.45)" }}
-      >
-        <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
+          {/* Right cluster: name + milestone text only */}
+          <div className="flex items-center gap-2 ml-auto min-w-0">
+            <div className="min-w-0 text-right">
+              <div
+                className="text-[13px] font-extrabold leading-tight truncate"
+                style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+              >
+                {progress.bloxianName}
+              </div>
+              <div
+                className="mt-0.5 text-[10px] font-bold truncate"
+                style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+              >
+                {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Shirin avatar: enlarged, top-right, bottom aligns with progress bar bottom */}
+        <button
+          type="button"
+          onClick={() => onNavigate("profile")}
+          aria-label="Profile"
+          className="absolute top-0 right-0 h-[58px] w-[58px] rounded-full shrink-0 grid place-items-center z-10"
+        >
+          <img
+            src={CHARACTER_ASSETS.shirinPortrait}
+            alt=""
+            className="h-[58px] w-[58px] rounded-full object-cover border"
+            style={{
+              imageRendering: "pixelated",
+              background: "#173F29",
+              borderColor: T.goldLight,
+              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+            }}
+          />
+        </button>
+
+        {/* progress bar only, no label */}
+        <div
+          className="mt-2 h-[6px] rounded-full overflow-hidden"
+          style={{ background: "rgba(36,72,51,0.85)", border: "1px solid rgba(216,175,87,0.45)" }}
+        >
+          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
+        </div>
       </div>
     </div>
   );
