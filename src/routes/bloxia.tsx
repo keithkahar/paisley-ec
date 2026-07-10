@@ -248,15 +248,9 @@ function TopBar({
           })}
         </div>
 
-        {/* Right cluster: name + BP, then avatar */}
+        {/* Right cluster: name + BP, then avatar as profile entry */}
         <div className="flex items-center gap-2 ml-auto min-w-0">
-          <button
-            type="button"
-            onClick={() => onNavigate("profile")}
-            aria-label="Profile"
-            className="flex items-center gap-2 min-w-0 active:scale-95 transition-transform"
-          >
-            <div className="min-w-0 text-right">
+          <div className="min-w-0 text-right">
             <div
               className="text-[13px] font-extrabold leading-tight truncate"
               style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
@@ -269,17 +263,23 @@ function TopBar({
             >
               {formatBp(bp)}
             </div>
-            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => onNavigate("profile")}
+            aria-label="Profile"
+            className="h-11 w-11 rounded-full shrink-0 grid place-items-center"
+          >
             <img
-            src={CHARACTER_ASSETS.shirinPortrait}
-            alt=""
-            className="h-11 w-11 rounded-full object-cover border shrink-0"
-            style={{
-              imageRendering: "pixelated",
-              background: "#173F29",
-              borderColor: T.goldLight,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-            }}
+              src={CHARACTER_ASSETS.shirinPortrait}
+              alt=""
+              className="h-11 w-11 rounded-full object-cover border"
+              style={{
+                imageRendering: "pixelated",
+                background: "#173F29",
+                borderColor: T.goldLight,
+                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+              }}
             />
           </button>
         </div>
