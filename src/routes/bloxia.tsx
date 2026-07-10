@@ -168,6 +168,7 @@ function BloxiaPage() {
               progress={b.progress}
               logs={b.logs}
               totals={b.totals}
+              bp={b.bp}
               onEditName={() => setNameEditor(true)}
               onGoBadgesFavorite={() => {
                 setBadgeTab("favorite");
