@@ -627,21 +627,21 @@ function BadgeTile({
     <button
       type="button"
       onClick={onClick}
-      className="rounded-[14px] p-2 text-center transition-transform active:scale-95"
+      className="rounded-[18px] p-2.5 text-center transition-transform active:scale-95"
       style={{
-        background: T.panelSoft,
-        border: selected ? `2px solid ${T.goldLight}` : `1.5px solid rgba(216,175,87,0.42)`,
-        boxShadow: selected ? `0 0 0 2px rgba(255,240,167,0.18)` : "none",
+        background: "rgba(8,36,22,0.72)",
+        border: selected ? `1.5px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
+        boxShadow: selected ? `0 0 0 3px rgba(255,240,167,0.22)` : "none",
       }}
     >
       <div
-        className="mx-auto h-[68px] w-[68px] rounded-[12px] grid place-items-center relative"
-        style={{ background: "rgba(255,244,191,0.08)" }}
+        className="mx-auto aspect-square w-full rounded-[14px] grid place-items-center relative"
+        style={{ background: "rgba(255,244,191,0.06)" }}
       >
         <img
           src={asset}
           alt=""
-          className="h-[60px] w-[60px]"
+          className="h-[76%] w-[76%]"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
@@ -649,7 +649,7 @@ function BadgeTile({
           }}
         />
       </div>
-      <div className="mt-1.5 text-[10.5px] font-extrabold leading-tight" style={{ color: T.ivory, wordBreak: "break-word" }}>
+      <div className="mt-2 text-[12px] font-semibold leading-tight" style={{ color: T.ivory, wordBreak: "break-word" }}>
         {name}
       </div>
     </button>
