@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -73,7 +73,6 @@ function BloxiaPage() {
     (PlaceBadge | GrowthBadge) & { kind: "place" | "growth" } | null
   >(null);
   const [nameEditor, setNameEditor] = useState(false);
-  const [activityOpen, setActivityOpen] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
 
@@ -166,9 +165,16 @@ function BloxiaPage() {
               logs={b.logs}
               totals={b.totals}
               onEditName={() => setNameEditor(true)}
-              onGoBadges={() => setPage("badges")}
-              onGoCollection={() => setPage("collection")}
-              onOpenActivity={() => setActivityOpen(true)}
+              onGoBadgesFavorite={() => {
+                setBadgeTab("favorite");
+                setPage("badges");
+              }}
+              onGoCollectionFavorite={() => {
+                setCollectionTab("favorite");
+                setPage("collection");
+              }}
+              onSelectBadge={(bd) => setSelectedBadge(bd)}
+              onSelectItem={(it) => setSelectedItem(it)}
             />
           )}
         </div>
@@ -214,9 +220,6 @@ function BloxiaPage() {
               setNameEditor(false);
             }}
           />
-        )}
-        {activityOpen && (
-          <ActivitySheet logs={b.logs} onClose={() => setActivityOpen(false)} />
         )}
       </div>
     </PhoneFrame>
@@ -732,119 +735,268 @@ function CollectionView({
 
 // ============ Profile View ============
 
+type SelectedBadge = (PlaceBadge | GrowthBadge) & { kind: "place" | "growth" };
+
 function ProfileView({
   progress,
   logs,
   totals,
   onEditName,
-  onGoBadges,
-  onGoCollection,
-  onOpenActivity,
+  onGoBadgesFavorite,
+  onGoCollectionFavorite,
+  onSelectBadge,
+  onSelectItem,
 }: {
   progress: Progress;
   logs: SpendingLog[];
   totals: { places: number; placeBadges: number; growthBadges: number; collectionItems: number };
   onEditName: () => void;
-  onGoBadges: () => void;
-  onGoCollection: () => void;
-  onOpenActivity: () => void;
+  onGoBadgesFavorite: () => void;
+  onGoCollectionFavorite: () => void;
+  onSelectBadge: (b: SelectedBadge) => void;
+  onSelectItem: (i: CollectionItem) => void;
 }) {
-  const streak = calculateStreakDays(logs);
-  const stats = [
-    { label: "Streak Days", value: streak },
+  const [activityCount, setActivityCount] = useState(10);
+
+  const totalBadges = totals.placeBadges + totals.growthBadges;
+  const earnedBadges = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
+
+  const pills = [
     { label: "Places", value: `${progress.unlockedPlaceIds.length}/${totals.places}` },
-    {
-      label: "Badges",
-      value: `${progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length}/${totals.placeBadges + totals.growthBadges}`,
-    },
+    { label: "Badges", value: `${earnedBadges}/${totalBadges}` },
     { label: "Items", value: `${progress.collectedItemIds.length}/${totals.collectionItems}` },
   ];
-  const favBadges = [
-    ...PLACE_BADGES.filter((b) => progress.favoriteBadgeIds.includes(b.id)),
-    ...GROWTH_BADGES.filter((b) => progress.favoriteBadgeIds.includes(b.id)),
-  ].slice(0, 4);
-  const recent = logs.slice(0, 5).map(logToActivity);
+
+  // ---- Latest Earned: mix of newest earned badges and collected items ----
+  type EarnedEntry =
+    | { kind: "badge"; ts: number; badge: SelectedBadge }
+    | { kind: "item"; ts: number; item: CollectionItem };
+  const earnedEntries: EarnedEntry[] = [];
+  for (const l of logs) {
+    if (l.type === "unlock_growth_badge") {
+      const b = growthBadgeById[l.targetId];
+      if (b) earnedEntries.push({ kind: "badge", ts: l.createdAt, badge: { ...b, kind: "growth" } });
+    } else if (l.type === "unlock_place") {
+      const place = placeById[l.targetId as PlaceId];
+      const pb = place ? placeBadgeById[place.placeBadgeId] : undefined;
+      if (pb) earnedEntries.push({ kind: "badge", ts: l.createdAt, badge: { ...pb, kind: "place" } });
+    } else if (l.type === "unlock_collection_item") {
+      const it = collectionItemById[l.targetId];
+      if (it) earnedEntries.push({ kind: "item", ts: l.createdAt, item: it });
+    }
+  }
+  // Also seed the two default place badges (from initial progress) if not present in logs
+  for (const pbId of progress.earnedPlaceBadgeIds) {
+    if (!earnedEntries.some((e) => e.kind === "badge" && e.badge.id === pbId)) {
+      const pb = placeBadgeById[pbId];
+      if (pb) earnedEntries.push({ kind: "badge", ts: progress.createdAt, badge: { ...pb, kind: "place" } });
+    }
+  }
+  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 4);
+
+  // ---- Favorite badges / items (newest first by their favorite-order in state) ----
+  const favBadgeIds = [...progress.favoriteBadgeIds].reverse();
+  const favBadges: SelectedBadge[] = favBadgeIds
+    .map<SelectedBadge | null>((id) => {
+      const pb = placeBadgeById[id];
+      if (pb) return { ...pb, kind: "place" };
+      const gb = growthBadgeById[id];
+      if (gb) return { ...gb, kind: "growth" };
+      return null;
+    })
+    .filter((x): x is SelectedBadge => !!x)
+    .slice(0, 4);
+  const favItemIds = [...(progress.favoriteItemIds ?? [])].reverse();
+  const favItems: CollectionItem[] = favItemIds
+    .map((id) => collectionItemById[id])
+    .filter((x): x is CollectionItem => !!x)
+    .slice(0, 4);
+
+  const activities = logs.map(logToActivity);
+  const visibleActivities = activities.slice(0, activityCount);
+  const canExpand = activityCount < activities.length;
 
   return (
-    <div className="space-y-3">
-      <div
-        className="rounded-[18px] p-4 flex items-center gap-3"
-        style={{ background: T.panel, border: `2px solid ${T.border}` }}
-      >
-        <img
-          src={CHARACTER_ASSETS.shirinPortrait}
-          alt=""
-          className="h-16 w-16 rounded-[16px] border border-[color:#E8C46B] shrink-0"
-          style={{ imageRendering: "pixelated" }}
-        />
-        <div className="min-w-0 flex-1">
-          <div className="text-[20px] font-extrabold leading-tight truncate" style={{ color: T.ivory }}>
-            {progress.bloxianName}
-          </div>
-          <div className="text-[12px]" style={{ color: T.sage }}>
-            Shirin Growth World
-          </div>
-          <button
-            type="button"
-            onClick={onEditName}
-            className="mt-2 inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-extrabold"
-            style={{ background: T.goldGradient, color: T.goldOnDark }}
-          >
-            <Pencil className="w-3 h-3" /> Edit Profile
-          </button>
+    <div className="space-y-6">
+      {/* --- Header: avatar + name + stat pills (no frame) --- */}
+      <div className="flex flex-col items-center pt-1">
+        <button
+          type="button"
+          onClick={onEditName}
+          aria-label="Edit profile"
+          className="h-24 w-24 rounded-full grid place-items-center overflow-hidden active:scale-95 transition-transform"
+          style={{
+            background: "#173F29",
+            border: `2px solid ${T.goldLight}`,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+          }}
+        >
+          <img
+            src={CHARACTER_ASSETS.shirinPortrait}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ imageRendering: "pixelated" }}
+          />
+        </button>
+        <div
+          className="mt-3 text-[22px] font-semibold leading-none"
+          style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
+        >
+          {progress.bloxianName}
+        </div>
+        <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+          {pills.map((p) => (
+            <span
+              key={p.label}
+              className="inline-flex items-center gap-1 rounded-full px-3 h-8 text-[13px] font-semibold"
+              style={{
+                background: "rgba(8,36,22,0.72)",
+                border: `1.5px solid ${T.borderSoft}`,
+                color: T.sage,
+              }}
+            >
+              <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
+                {p.label}
+              </span>
+              <span>{p.value}</span>
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        {stats.map((s) => (
-          <StatCard key={s.label} label={s.label} value={String(s.value)} />
-        ))}
-      </div>
+      {/* --- Latest Earned --- */}
+      <ProfileGroup title="Latest Earned">
+        {latestEarned.length ? (
+          <div className="grid grid-cols-4 gap-3">
+            {latestEarned.map((e) =>
+              e.kind === "badge" ? (
+                <BadgeTile
+                  key={`b_${e.badge.id}_${e.ts}`}
+                  asset={e.badge.asset}
+                  name={e.badge.name}
+                  unlocked
+                  selected={false}
+                  onClick={() => onSelectBadge(e.badge)}
+                  size="large"
+                />
+              ) : (
+                <BadgeTile
+                  key={`i_${e.item.id}_${e.ts}`}
+                  asset={e.item.asset}
+                  name={e.item.name}
+                  unlocked
+                  selected={false}
+                  onClick={() => onSelectItem(e.item)}
+                  size="large"
+                />
+              ),
+            )}
+          </div>
+        ) : (
+          <EmptyLine>Nothing earned yet — go explore Bloxia.</EmptyLine>
+        )}
+      </ProfileGroup>
 
-      <ProfileSection
-        title="Favorite Badges"
-        action={{ label: "View All", onClick: onGoBadges }}
-      >
+      {/* --- Favorite Badges --- */}
+      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right">
         {favBadges.length ? (
-          <div className="flex gap-2 flex-wrap">
+          <div className="grid grid-cols-4 gap-3">
             {favBadges.map((b) => (
-              <img
+              <BadgeTile
                 key={b.id}
-                src={b.asset}
-                alt={b.name}
-                className="h-12 w-12 rounded-[10px]"
-                style={{ imageRendering: "pixelated", background: "rgba(255,244,191,0.08)" }}
+                asset={b.asset}
+                name={b.name}
+                unlocked
+                selected={false}
+                onClick={() => onSelectBadge(b)}
+                size="large"
               />
             ))}
           </div>
         ) : (
-          <EmptyLine>Favorite badges will appear here after you tap the heart.</EmptyLine>
+          <EmptyLine>Tap the heart on any earned badge.</EmptyLine>
         )}
-      </ProfileSection>
+      </ProfileGroup>
 
-      <ProfileSection
-        title="Collection"
-        action={{ label: "View All", onClick: onGoCollection }}
-      >
-        <div className="text-[12px]" style={{ color: T.sage }}>
-          {progress.collectedItemIds.length} of {totals.collectionItems} items collected across Bloxia.
-        </div>
-      </ProfileSection>
+      {/* --- Favorite Items --- */}
+      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right">
+        {favItems.length ? (
+          <div className="grid grid-cols-4 gap-3">
+            {favItems.map((it) => (
+              <BadgeTile
+                key={it.id}
+                asset={it.asset}
+                name={it.name}
+                unlocked
+                selected={false}
+                onClick={() => onSelectItem(it)}
+                size="large"
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyLine>Tap the heart on any collected item.</EmptyLine>
+        )}
+      </ProfileGroup>
 
-      <ProfileSection
+      {/* --- Recent Activity --- */}
+      <ProfileGroup
         title="Recent Activity"
-        action={{ label: "Full Log", onClick: onOpenActivity }}
+        onAction={canExpand ? () => setActivityCount((c) => c + 10) : undefined}
+        actionKind="down"
       >
-        {recent.length ? (
+        {visibleActivities.length ? (
           <div className="space-y-1.5">
-            {recent.map((a) => (
+            {visibleActivities.map((a) => (
               <ActivityRow key={a.id} activity={a} />
             ))}
           </div>
         ) : (
           <EmptyLine>No Bloxia activity yet.</EmptyLine>
         )}
-      </ProfileSection>
+      </ProfileGroup>
+    </div>
+  );
+}
+
+function ProfileGroup({
+  title,
+  onAction,
+  actionKind,
+  children,
+}: {
+  title: string;
+  onAction?: () => void;
+  actionKind?: "right" | "down";
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-2 px-1">
+        <div className="text-[15px] font-bold" style={{ color: T.ivory }}>
+          {title}
+        </div>
+        {onAction && (
+          <button
+            type="button"
+            onClick={onAction}
+            aria-label={actionKind === "down" ? "Show more" : "View all"}
+            className="h-7 w-7 rounded-full grid place-items-center active:scale-95 transition-transform"
+            style={{
+              background: "rgba(8,36,22,0.72)",
+              border: `1.5px solid ${T.borderSoft}`,
+              color: T.goldLight,
+            }}
+          >
+            {actionKind === "down" ? (
+              <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
+            ) : (
+              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+            )}
+          </button>
+        )}
+      </div>
+      {children}
     </div>
   );
 }
@@ -960,7 +1112,7 @@ interface Activity {
   positive?: boolean;
 }
 function logToActivity(log: SpendingLog): Activity {
-  const date = new Date(log.createdAt).toISOString().slice(0, 10);
+  const date = formatActivityDate(log.createdAt);
   let title = "Bloxia activity";
   let sign: "+" | "-" = "-";
   if (log.type === "unlock_place") title = `Unlocked ${placeById[log.targetId as PlaceId]?.name ?? "place"}`;
@@ -982,6 +1134,24 @@ function logToActivity(log: SpendingLog): Activity {
     bpText: log.bpAmount ? `${sign}${formatBp(log.bpAmount)}` : "",
     positive: sign === "+",
   };
+}
+
+function formatActivityDate(ts: number): string {
+  const d = new Date(ts);
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const startOfDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const diffDays = Math.round((startOfToday - startOfDate) / 86400000);
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  if (diffDays === 0) return `Today ${hh}:${mm}`;
+  if (diffDays === 1) return `Yesterday ${hh}:${mm}`;
+  if (diffDays > 1 && diffDays < 7) {
+    const wk = d.toLocaleDateString("en-US", { weekday: "short" });
+    return `${wk} ${hh}:${mm}`;
+  }
+  const month = d.toLocaleDateString("en-US", { month: "short" });
+  return `${month} ${d.getDate()} ${d.getFullYear()}`;
 }
 
 // ============ Sheets ============
