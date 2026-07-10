@@ -79,7 +79,6 @@ function BloxiaPage() {
   const progressPct = next
     ? Math.min(100, Math.max(0, Math.round((b.bp / next.unlockBp) * 100)))
     : 100;
-  const currentPlace = placeById[b.progress.currentPlaceId];
 
   return (
     <PhoneFrame bg="">
@@ -88,7 +87,6 @@ function BloxiaPage() {
         <TopBar
           progress={b.progress}
           bp={b.bp}
-          currentPlaceName={currentPlace?.name ?? ""}
           progressPct={progressPct}
           next={next}
           page={page}
@@ -193,7 +191,6 @@ function BloxiaPage() {
 function TopBar({
   progress,
   bp,
-  currentPlaceName,
   progressPct,
   next,
   page,
@@ -201,7 +198,6 @@ function TopBar({
 }: {
   progress: Progress;
   bp: number;
-  currentPlaceName: string;
   progressPct: number;
   next: Place | undefined;
   page: PageKey;
@@ -220,8 +216,8 @@ function TopBar({
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="relative">
-        {/* Top content row: fixed at 44px so progress bar keeps its original position */}
-        <div className="flex items-center gap-2 h-11 pr-[66px]">
+        {/* Top row: nav cluster only, leaves room for the avatar */}
+        <div className="flex items-center gap-2 h-11 pr-12">
           {/* Left cluster: back + nav icons + Bp pill */}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
@@ -263,37 +259,19 @@ function TopBar({
               {formatBp(bp)}
             </div>
           </div>
-
-          {/* Right cluster: name + milestone text only */}
-          <div className="flex items-center gap-2 ml-auto min-w-0">
-            <div className="min-w-0 text-right">
-              <div
-                className="text-[13px] font-extrabold leading-tight truncate"
-                style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
-              >
-                {progress.bloxianName}
-              </div>
-              <div
-                className="mt-0.5 text-[10px] font-bold truncate"
-                style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-              >
-                {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Shirin avatar: enlarged, top-right, bottom aligns with progress bar bottom */}
+        {/* Shirin avatar: smaller, top-right, gap above the progress bar */}
         <button
           type="button"
           onClick={() => onNavigate("profile")}
           aria-label="Profile"
-          className="absolute top-0 right-0 h-[58px] w-[58px] rounded-full shrink-0 grid place-items-center z-10"
+          className="absolute top-0 right-0 h-11 w-11 rounded-full shrink-0 grid place-items-center z-10"
         >
           <img
             src={CHARACTER_ASSETS.shirinPortrait}
             alt=""
-            className="h-[58px] w-[58px] rounded-full object-cover border"
+            className="h-11 w-11 rounded-full object-cover border"
             style={{
               imageRendering: "pixelated",
               background: "#173F29",
@@ -303,12 +281,30 @@ function TopBar({
           />
         </button>
 
-        {/* progress bar only, no label */}
+        {/* Progress bar */}
         <div
           className="mt-2 h-[6px] rounded-full overflow-hidden"
           style={{ background: "rgba(36,72,51,0.85)", border: "1px solid rgba(216,175,87,0.45)" }}
         >
           <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
+        </div>
+
+        {/* Name + milestone text below the progress bar, right-aligned, same gap as avatar */}
+        <div className="mt-2 flex justify-end">
+          <div className="min-w-0 text-right">
+            <div
+              className="text-[13px] font-extrabold leading-tight truncate"
+              style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+            >
+              {progress.bloxianName}
+            </div>
+            <div
+              className="mt-0.5 text-[10px] font-bold truncate"
+              style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+            >
+              {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
+            </div>
+          </div>
         </div>
       </div>
     </div>

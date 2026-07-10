@@ -43,8 +43,8 @@ export interface SpendingLog {
 const defaultProgress = (): Progress => ({
   bloxianName: DEFAULT_BLOXIAN_NAME,
   currentPlaceId: DEFAULT_PLACE_ID,
-  unlockedPlaceIds: [DEFAULT_PLACE_ID],
-  earnedPlaceBadgeIds: ["meadow_visitor"],
+  unlockedPlaceIds: [DEFAULT_PLACE_ID, "wonder_tree"],
+  earnedPlaceBadgeIds: ["meadow_visitor", "wonder_tree_explorer"],
   unlockedGrowthBadgeIds: [],
   favoriteBadgeIds: [],
   collectedItemIds: [],
@@ -78,12 +78,12 @@ function uniq<T>(arr: T[]): T[] {
 export function useBloxia() {
   const [ready, setReady] = useState(false);
   const [progress, setProgress] = useState<Progress>(() => defaultProgress());
-  const [bp, setBp] = useState<number>(1240);
+  const [bp, setBp] = useState<number>(240);
   const [logs, setLogs] = useState<SpendingLog[]>([]);
 
   useEffect(() => {
     setProgress(safeRead(PROGRESS_KEY, defaultProgress()));
-    setBp(safeRead(BP_KEY, 1240));
+    setBp(safeRead(BP_KEY, 240));
     setLogs(safeRead(LOGS_KEY, []));
     setReady(true);
   }, []);
