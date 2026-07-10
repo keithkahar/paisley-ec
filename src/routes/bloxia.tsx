@@ -866,16 +866,25 @@ interface Activity {
 function logToActivity(log: SpendingLog): Activity {
   const date = new Date(log.createdAt).toISOString().slice(0, 10);
   let title = "Bloxia activity";
+  let sign: "+" | "-" = "-";
   if (log.type === "unlock_place") title = `Unlocked ${placeById[log.targetId as PlaceId]?.name ?? "place"}`;
   else if (log.type === "unlock_growth_badge")
     title = `Earned ${growthBadgeById[log.targetId]?.name ?? "growth badge"}`;
   else if (log.type === "unlock_collection_item")
     title = `Collected ${collectionItemById[log.targetId]?.name ?? "item"}`;
+  else if (log.type === "earn_wordie") {
+    title = log.label ? `myWordie · ${log.label}` : "myWordie practice";
+    sign = "+";
+  } else if (log.type === "earn_talk") {
+    title = log.label ? `ShirinTalk · ${log.label}` : "ShirinTalk practice";
+    sign = "+";
+  }
   return {
     id: log.id,
     title,
     date,
-    bpText: log.bpAmount ? `-${formatBp(log.bpAmount)}` : "",
+    bpText: log.bpAmount ? `${sign}${formatBp(log.bpAmount)}` : "",
+    positive: sign === "+",
   };
 }
 
