@@ -100,14 +100,14 @@ function BloxiaPage() {
         />
 
         {/* Content */}
+        {page === "map" && (
+          <MapView
+            progress={b.progress}
+            bp={b.bp}
+            onSelectPlace={setSelectedPlace}
+          />
+        )}
         <div className="pt-[168px] pb-32 px-4">
-          {page === "map" && (
-            <MapView
-              progress={b.progress}
-              bp={b.bp}
-              onSelectPlace={setSelectedPlace}
-            />
-          )}
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
