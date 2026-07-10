@@ -128,15 +128,15 @@ function BloxiaPage() {
             aria-hidden
             className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-30 pointer-events-none"
             style={{
-              height: "calc(env(safe-area-inset-top) + 150px)",
+              height: "calc(env(safe-area-inset-top) + 108px)",
               background:
-                "linear-gradient(to bottom, rgba(8,36,22,0.95) 0%, rgba(8,36,22,0.9) 55%, rgba(8,36,22,0.55) 80%, rgba(8,36,22,0) 100%)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
+                "linear-gradient(to bottom, rgba(8,36,22,0.96) 0%, rgba(8,36,22,0.92) 70%, rgba(8,36,22,0.6) 90%, rgba(8,36,22,0) 100%)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
               maskImage:
-                "linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.7) 85%, transparent 100%)",
+                "linear-gradient(to bottom, #000 0%, #000 82%, rgba(0,0,0,0.5) 94%, transparent 100%)",
               WebkitMaskImage:
-                "linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.7) 85%, transparent 100%)",
+                "linear-gradient(to bottom, #000 0%, #000 82%, rgba(0,0,0,0.5) 94%, transparent 100%)",
             }}
           />
         )}
@@ -1262,8 +1262,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         <div
           className="relative p-5 overflow-y-auto"
           style={{
-            minHeight: "440px",
-            maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
+            height: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
             paddingBottom: "calc(1.25rem + 6rem + env(safe-area-inset-bottom))",
           }}
