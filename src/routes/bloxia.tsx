@@ -377,7 +377,7 @@ function TopBar({
               aria-label="Profile"
               className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center overflow-hidden"
               style={{
-                background: "#173F29",
+                background: "white",
                 boxShadow: `0 0 0 1.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.45)`,
               }}
             >
@@ -386,7 +386,7 @@ function TopBar({
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
               />
             </button>
           </div>
@@ -885,7 +885,7 @@ function ProfileView({
           <div
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
             style={{
-              background: "#173F29",
+              background: "white",
               boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
             }}
           >
@@ -894,7 +894,7 @@ function ProfileView({
               alt=""
               className="h-full w-full object-cover"
               draggable={false}
-              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
             />
           </div>
           <button
@@ -903,7 +903,7 @@ function ProfileView({
             aria-label="Edit profile"
             className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
-              background: "#173F29",
+              background: "white",
               border: `1.5px solid rgba(216,175,87,0.55)`,
               boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
@@ -1530,7 +1530,7 @@ function NameEditor({
           Edit Profile
         </div>
         <div
-          className="mt-8 flex items-center justify-center gap-4 select-none"
+          className="mt-6 flex items-center justify-center gap-4 select-none"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
@@ -1540,7 +1540,7 @@ function NameEditor({
             aria-label="Previous"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: T.ivory,
+              background: "white",
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1549,7 +1549,7 @@ function NameEditor({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
               draggable={false}
             />
           </button>
@@ -1557,7 +1557,7 @@ function NameEditor({
             <div
               className="h-full w-full rounded-full overflow-hidden"
               style={{
-                background: T.ivory,
+                background: "white",
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
@@ -1565,7 +1565,7 @@ function NameEditor({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
                 draggable={false}
               />
             </div>
@@ -1576,7 +1576,7 @@ function NameEditor({
             aria-label="Next"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: T.ivory,
+              background: "white",
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1585,7 +1585,7 @@ function NameEditor({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
               draggable={false}
             />
           </button>
@@ -1661,7 +1661,7 @@ function AvatarPickerSheet({
                 <div
                   className="h-16 w-16 rounded-full overflow-hidden"
                   style={{
-                    background: T.ivory,
+                    background: "white",
                     boxShadow: active
                       ? `0 0 0 2.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 10px rgba(0,0,0,0.45)`
                       : `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
@@ -1671,7 +1671,7 @@ function AvatarPickerSheet({
                     src={a.portrait}
                     alt=""
                     className="h-full w-full object-cover"
-                    style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                    style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
                     draggable={false}
                   />
                 </div>
@@ -1754,12 +1754,9 @@ function WelcomeSheet({
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Welcome to Bloxia
         </div>
-        <div className="text-center text-[13px] font-semibold mt-2" style={{ color: T.sage }}>
-          Pick your Bloxian
-        </div>
 
         <div
-          className="mt-8 flex items-center justify-center gap-4 select-none"
+          className="mt-6 flex items-center justify-center gap-4 select-none"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
@@ -1769,7 +1766,7 @@ function WelcomeSheet({
             aria-label="Previous"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: T.ivory,
+              background: "white",
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1778,7 +1775,7 @@ function WelcomeSheet({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
               draggable={false}
             />
           </button>
@@ -1787,7 +1784,7 @@ function WelcomeSheet({
             <div
               className="h-full w-full rounded-full overflow-hidden"
               style={{
-                background: T.ivory,
+                background: "white",
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
@@ -1795,7 +1792,7 @@ function WelcomeSheet({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
                 draggable={false}
               />
             </div>
@@ -1807,7 +1804,7 @@ function WelcomeSheet({
             aria-label="Next"
             className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
             style={{
-              background: T.ivory,
+              background: "white",
               opacity: 0.55,
               boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
             }}
@@ -1816,14 +1813,10 @@ function WelcomeSheet({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
               draggable={false}
             />
           </button>
-        </div>
-
-        <div className="text-center text-[13px] font-semibold mt-6" style={{ color: T.sage }}>
-          Name your Bloxian
         </div>
 
         <div className="mt-auto flex items-stretch gap-3">
