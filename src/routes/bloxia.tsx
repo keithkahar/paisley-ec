@@ -1500,8 +1500,7 @@ function NameEditor({
   onClose: () => void;
   onSave: (avatarId: string, name: string) => void;
 }) {
-  const [name, setName] = useState(initial);
-  const [nameFocused, setNameFocused] = useState(false);
+  const [name, setName] = useState(initial || "Bloxian");
   const startIndex = Math.max(
     0,
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
@@ -1601,31 +1600,17 @@ function NameEditor({
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onFocus={() => setNameFocused(true)}
-              onBlur={() => setNameFocused(false)}
               maxLength={24}
-              placeholder="Enter name"
               className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
               style={{
                 color: T.ivory,
                 letterSpacing: "-0.01em",
-                fieldSizing: "content",
-                width: "auto",
               } as React.CSSProperties}
             />
-            {!nameFocused && (
-              <span
-                aria-hidden
-                className="text-[15px] font-semibold bloxia-caret-blink"
-                style={{ color: T.ivory, marginLeft: -2 }}
-              >
-                _
-              </span>
-            )}
           </div>
           <button
             type="button"
-            onClick={() => onSave(current.id, name)}
+            onClick={() => onSave(current.id, name.trim() || "Bloxian")}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
