@@ -107,7 +107,7 @@ function BloxiaPage() {
             onSelectPlace={setSelectedPlace}
           />
         )}
-        <div className="pt-[168px] pb-32 px-4">
+        <div className="pt-[140px] pb-32 px-4">
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
