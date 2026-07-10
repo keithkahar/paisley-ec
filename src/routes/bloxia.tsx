@@ -647,7 +647,7 @@ function BadgeTile({
         />
       </div>
       <div
-        className="mt-2 text-[15px] font-semibold leading-[1.15] flex items-center justify-center text-center px-0.5"
+        className="mt-2 text-[12px] font-semibold leading-[1.15] flex items-center justify-center text-center px-0.5"
         style={{
           color: T.ivory,
           height: 32,
