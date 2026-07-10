@@ -11,6 +11,8 @@ import {
   MAP_ASSETS,
   PLACES,
   PLACE_BADGES,
+  BLOXIAN_AVATARS,
+  type BloxianAvatar,
   collectionItemById,
   growthBadgeById,
   placeBadgeById,
@@ -66,6 +68,9 @@ function formatBp(n: number) {
 
 function BloxiaPage() {
   const b = useBloxia();
+  const avatar = b.selectedAvatar;
+  const avatarUrl = avatar?.portrait ?? CHARACTER_ASSETS.shirinPortrait;
+  const avatarMap = avatar?.map ?? CHARACTER_ASSETS.shirinMap;
   const [page, setPage] = useState<PageKey>("map");
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [selectedItem, setSelectedItem] = useState<CollectionItem | null>(null);
@@ -73,8 +78,12 @@ function BloxiaPage() {
     (PlaceBadge | GrowthBadge) & { kind: "place" | "growth" } | null
   >(null);
   const [nameEditor, setNameEditor] = useState(false);
+  const [avatarPicker, setAvatarPicker] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
+
+  // First-time avatar selection: prompt once when the user has never chosen.
+  const showFirstTime = b.ready && !b.progress.avatarSelectionCompleted;
 
   const next = nextPlace(b.progress);
   const progressPct = next
@@ -91,6 +100,7 @@ function BloxiaPage() {
             progress={b.progress}
             bp={b.bp}
             onSelectPlace={setSelectedPlace}
+            avatarUrl={avatarMap}
           />
         ) : (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -115,6 +125,7 @@ function BloxiaPage() {
           progressPct={progressPct}
           next={next}
           page={page}
+          avatarUrl={avatarUrl}
           onNavigate={(p) => {
             setPage(p);
             setSelectedPlace(null);
@@ -169,6 +180,7 @@ function BloxiaPage() {
               logs={b.logs}
               totals={b.totals}
               bp={b.bp}
+              avatarUrl={avatarUrl}
               onEditName={() => setNameEditor(true)}
               onGoBadgesFavorite={() => {
                 setBadgeTab("favorite");
@@ -229,10 +241,34 @@ function BloxiaPage() {
         {nameEditor && (
           <NameEditor
             initial={b.progress.bloxianName}
+            avatarUrl={avatarUrl}
+            onOpenAvatarPicker={() => setAvatarPicker(true)}
             onClose={() => setNameEditor(false)}
             onSave={(name) => {
               b.updateName(name);
               setNameEditor(false);
+            }}
+          />
+        )}
+        {avatarPicker && (
+          <AvatarPickerSheet
+            title="Change Avatar"
+            selectedAvatarId={b.progress.selectedAvatarId}
+            onClose={() => setAvatarPicker(false)}
+            onConfirm={(id) => {
+              b.selectAvatar(id);
+              setAvatarPicker(false);
+            }}
+          />
+        )}
+        {showFirstTime && !avatarPicker && (
+          <AvatarPickerSheet
+            title="Choose Your Bloxian"
+            subtitle="Pick the Bloxian who will explore Growth World with you."
+            selectedAvatarId={b.progress.selectedAvatarId}
+            confirmLabel="Continue"
+            onConfirm={(id) => {
+              b.selectAvatar(id);
             }}
           />
         )}
@@ -249,6 +285,7 @@ function TopBar({
   progressPct,
   next,
   page,
+  avatarUrl,
   onNavigate,
 }: {
   progress: Progress;
@@ -256,6 +293,7 @@ function TopBar({
   progressPct: number;
   next: Place | undefined;
   page: PageKey;
+  avatarUrl: string;
   onNavigate: (p: PageKey) => void;
 }) {
   const allTabs: { key: PageKey; label: string; Icon: typeof Compass }[] = [
@@ -345,7 +383,7 @@ function TopBar({
               }}
             >
               <img
-                src={CHARACTER_ASSETS.shirinPortrait}
+                src={avatarUrl}
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
@@ -372,10 +410,12 @@ function MapView({
   progress,
   bp,
   onSelectPlace,
+  avatarUrl,
 }: {
   progress: Progress;
   bp: number;
   onSelectPlace: (p: Place) => void;
+  avatarUrl: string;
 }) {
   const places = useMemo(
     () =>
@@ -421,7 +461,7 @@ function MapView({
         >
           {p.current && (
             <img
-              src={CHARACTER_ASSETS.shirinMap}
+              src={avatarUrl}
               alt=""
               className="h-11 w-11 -mb-1"
               style={{ imageRendering: "pixelated", filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.42))" }}
@@ -761,6 +801,7 @@ function ProfileView({
   logs,
   totals,
   bp,
+  avatarUrl,
   onEditName,
   onGoBadgesFavorite,
   onGoCollectionFavorite,
@@ -771,6 +812,7 @@ function ProfileView({
   logs: SpendingLog[];
   totals: { places: number; placeBadges: number; growthBadges: number; collectionItems: number };
   bp: number;
+  avatarUrl: string;
   onEditName: () => void;
   onGoBadgesFavorite: () => void;
   onGoCollectionFavorite: () => void;
@@ -848,7 +890,7 @@ function ProfileView({
             }}
           >
             <img
-              src={CHARACTER_ASSETS.shirinPortrait}
+              src={avatarUrl}
               alt=""
               className="h-full w-full object-cover"
               draggable={false}
@@ -1449,10 +1491,14 @@ function ItemSheet({
 
 function NameEditor({
   initial,
+  avatarUrl,
+  onOpenAvatarPicker,
   onClose,
   onSave,
 }: {
   initial: string;
+  avatarUrl: string;
+  onOpenAvatarPicker: () => void;
   onClose: () => void;
   onSave: (name: string) => void;
 }) {
@@ -1473,7 +1519,7 @@ function NameEditor({
               }}
             >
               <img
-                src={CHARACTER_ASSETS.shirinPortrait}
+                src={avatarUrl}
                 alt=""
                 className="h-full w-full object-cover"
                 draggable={false}
@@ -1481,9 +1527,7 @@ function NameEditor({
             </div>
             <button
               type="button"
-              onClick={() => {
-                /* Avatar chooser — codex integration pending. */
-              }}
+              onClick={onOpenAvatarPicker}
               aria-label="Change avatar"
               className="absolute bottom-0 right-0 h-8 w-8 rounded-full grid place-items-center active:scale-95 transition-transform"
               style={{
@@ -1520,6 +1564,83 @@ function NameEditor({
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
             Save
+          </button>
+        </div>
+      </div>
+    </Sheet>
+  );
+}
+
+function AvatarPickerSheet({
+  title,
+  subtitle,
+  selectedAvatarId,
+  confirmLabel = "Save",
+  onClose,
+  onConfirm,
+}: {
+  title: string;
+  subtitle?: string;
+  selectedAvatarId: string;
+  confirmLabel?: string;
+  onClose?: () => void;
+  onConfirm: (id: string) => void;
+}) {
+  const [pending, setPending] = useState(selectedAvatarId);
+  return (
+    <Sheet onClose={onClose ?? (() => {})}>
+      <div className="flex flex-col h-full">
+        <div className="text-[22px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+          {title}
+        </div>
+        {subtitle && (
+          <div className="text-[13px] font-semibold mt-1" style={{ color: T.sage }}>
+            {subtitle}
+          </div>
+        )}
+        <div className="grid grid-cols-4 gap-3 mt-5">
+          {BLOXIAN_AVATARS.map((a) => {
+            const active = a.id === pending;
+            return (
+              <button
+                key={a.id}
+                type="button"
+                onClick={() => setPending(a.id)}
+                className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform"
+              >
+                <div
+                  className="h-16 w-16 rounded-full overflow-hidden"
+                  style={{
+                    background: "#173F29",
+                    boxShadow: active
+                      ? `0 0 0 2.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 10px rgba(0,0,0,0.45)`
+                      : `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
+                  }}
+                >
+                  <img src={a.portrait} alt={a.name} className="h-full w-full object-cover" draggable={false} />
+                </div>
+                <span
+                  className="text-[11px] font-semibold"
+                  style={{ color: active ? T.ivory : T.sage }}
+                >
+                  {a.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-auto pt-5">
+          <button
+            type="button"
+            onClick={() => onConfirm(pending)}
+            className="w-full h-12 rounded-full text-[15px] font-bold"
+            style={{
+              background: T.goldGradient,
+              color: T.goldOnDark,
+              border: `1px solid ${T.goldLight}`,
+            }}
+          >
+            {confirmLabel}
           </button>
         </div>
       </div>
