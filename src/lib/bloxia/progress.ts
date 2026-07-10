@@ -10,9 +10,9 @@ import {
   type PlaceId,
 } from "./config";
 
-const PROGRESS_KEY = "pec_bloxia_progress_v1";
-const LOGS_KEY = "pec_bloxia_spending_logs_v1";
-const BP_KEY = "pec_bloxia_bp_v1";
+const PROGRESS_KEY = "pec_bloxia_progress_v2";
+const LOGS_KEY = "pec_bloxia_spending_logs_v2";
+const BP_KEY = "pec_bloxia_bp_v2";
 
 export interface Progress {
   bloxianName: string;
