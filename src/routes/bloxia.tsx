@@ -1434,7 +1434,7 @@ function NameEditor({
   const [name, setName] = useState(initial);
   return (
     <Sheet onClose={onClose}>
-      <div className="min-h-[52vh] flex flex-col">
+      <div className="flex flex-col">
       <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         Edit Profile
       </div>
@@ -1444,15 +1444,14 @@ function NameEditor({
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
             style={{
               background: "#173F29",
-              border: `2px solid ${T.goldLight}`,
-              boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+              boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 14px rgba(0,0,0,0.4)`,
             }}
           >
             <img
               src={CHARACTER_ASSETS.shirinPortrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ imageRendering: "pixelated" }}
+              draggable={false}
             />
           </div>
           <button
