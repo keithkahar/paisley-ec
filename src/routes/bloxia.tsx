@@ -11,6 +11,8 @@ import {
   MAP_ASSETS,
   PLACES,
   PLACE_BADGES,
+  BLOXIAN_AVATARS,
+  type BloxianAvatar,
   collectionItemById,
   growthBadgeById,
   placeBadgeById,
@@ -66,6 +68,9 @@ function formatBp(n: number) {
 
 function BloxiaPage() {
   const b = useBloxia();
+  const avatar = b.selectedAvatar;
+  const avatarUrl = avatar?.portrait ?? CHARACTER_ASSETS.shirinPortrait;
+  const avatarMap = avatar?.map ?? CHARACTER_ASSETS.shirinMap;
   const [page, setPage] = useState<PageKey>("map");
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [selectedItem, setSelectedItem] = useState<CollectionItem | null>(null);
@@ -73,8 +78,12 @@ function BloxiaPage() {
     (PlaceBadge | GrowthBadge) & { kind: "place" | "growth" } | null
   >(null);
   const [nameEditor, setNameEditor] = useState(false);
+  const [avatarPicker, setAvatarPicker] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
+
+  // First-time avatar selection: prompt once when the user has never chosen.
+  const showFirstTime = b.ready && !b.progress.avatarSelectionCompleted;
 
   const next = nextPlace(b.progress);
   const progressPct = next
@@ -91,6 +100,7 @@ function BloxiaPage() {
             progress={b.progress}
             bp={b.bp}
             onSelectPlace={setSelectedPlace}
+            avatarUrl={avatarMap}
           />
         ) : (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -115,6 +125,7 @@ function BloxiaPage() {
           progressPct={progressPct}
           next={next}
           page={page}
+          avatarUrl={avatarUrl}
           onNavigate={(p) => {
             setPage(p);
             setSelectedPlace(null);
@@ -169,6 +180,7 @@ function BloxiaPage() {
               logs={b.logs}
               totals={b.totals}
               bp={b.bp}
+              avatarUrl={avatarUrl}
               onEditName={() => setNameEditor(true)}
               onGoBadgesFavorite={() => {
                 setBadgeTab("favorite");
@@ -229,10 +241,34 @@ function BloxiaPage() {
         {nameEditor && (
           <NameEditor
             initial={b.progress.bloxianName}
+            avatarUrl={avatarUrl}
+            onOpenAvatarPicker={() => setAvatarPicker(true)}
             onClose={() => setNameEditor(false)}
             onSave={(name) => {
               b.updateName(name);
               setNameEditor(false);
+            }}
+          />
+        )}
+        {avatarPicker && (
+          <AvatarPickerSheet
+            title="Change Avatar"
+            selectedAvatarId={b.progress.selectedAvatarId}
+            onClose={() => setAvatarPicker(false)}
+            onConfirm={(id) => {
+              b.selectAvatar(id);
+              setAvatarPicker(false);
+            }}
+          />
+        )}
+        {showFirstTime && !avatarPicker && (
+          <AvatarPickerSheet
+            title="Choose Your Bloxian"
+            subtitle="Pick the Bloxian who will explore Growth World with you."
+            selectedAvatarId={b.progress.selectedAvatarId}
+            confirmLabel="Continue"
+            onConfirm={(id) => {
+              b.selectAvatar(id);
             }}
           />
         )}
