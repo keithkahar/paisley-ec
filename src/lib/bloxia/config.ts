@@ -69,14 +69,14 @@ export const MAP_ASSETS = {
 };
 
 export const PLACES: Place[] = [
-  { id: "arrival_meadow", name: "Arrival Meadow", shortName: "Meadow", unlockBp: 0, order: 1, mapPosition: { x: 12, y: 76 }, placeBadgeId: "meadow_visitor", description: "The first safe field where every Bloxian begins." },
-  { id: "wonder_tree", name: "Wonder Tree", shortName: "Tree", unlockBp: 1000, order: 2, mapPosition: { x: 28, y: 58 }, placeBadgeId: "wonder_tree_explorer", description: "A bright tree for curious questions and new ideas." },
-  { id: "river_of_echoes", name: "River of Echoes", shortName: "River", unlockBp: 2000, order: 3, mapPosition: { x: 46, y: 70 }, placeBadgeId: "river_traveler", description: "A calm river where learning memories flow forward." },
-  { id: "whisper_woods", name: "Whisper Woods", shortName: "Woods", unlockBp: 3000, order: 4, mapPosition: { x: 58, y: 48 }, placeBadgeId: "forest_explorer", description: "A quiet forest for focus, listening, and careful growth." },
-  { id: "community_hollow", name: "Community Hollow", shortName: "Hollow", unlockBp: 4000, order: 5, mapPosition: { x: 74, y: 62 }, placeBadgeId: "community_visitor", description: "A friendly place for kindness, teamwork, and sharing." },
-  { id: "reflection_lake", name: "Reflection Lake", shortName: "Lake", unlockBp: 5000, order: 6, mapPosition: { x: 84, y: 38 }, placeBadgeId: "lake_observer", description: "A lake for looking back and seeing how far you have grown." },
-  { id: "myblox_belt", name: "MyBlox Belt", shortName: "MyBlox", unlockBp: 6000, order: 7, mapPosition: { x: 62, y: 22 }, placeBadgeId: "creative_land_visitor", description: "A creative land for building identity, projects, and dreams." },
-  { id: "far_hills", name: "Far Hills", shortName: "Hills", unlockBp: 8000, order: 8, mapPosition: { x: 38, y: 18 }, placeBadgeId: "hill_adventurer", description: "The far horizon for big goals and future courage." },
+  { id: "arrival_meadow", name: "Arrival Meadow", shortName: "Meadow", unlockBp: 0, order: 1, mapPosition: { x: 75, y: 70 }, placeBadgeId: "meadow_visitor", description: "The first safe field where every Bloxian begins." },
+  { id: "wonder_tree", name: "Wonder Tree", shortName: "Tree", unlockBp: 1000, order: 2, mapPosition: { x: 50, y: 35 }, placeBadgeId: "wonder_tree_explorer", description: "A bright tree for curious questions and new ideas." },
+  { id: "river_of_echoes", name: "River of Echoes", shortName: "River", unlockBp: 2000, order: 3, mapPosition: { x: 86, y: 42 }, placeBadgeId: "river_traveler", description: "A calm river where learning memories flow forward." },
+  { id: "whisper_woods", name: "Whisper Woods", shortName: "Woods", unlockBp: 3000, order: 4, mapPosition: { x: 14, y: 51 }, placeBadgeId: "forest_explorer", description: "A quiet forest for focus, listening, and careful growth." },
+  { id: "community_hollow", name: "Community Hollow", shortName: "Hollow", unlockBp: 4000, order: 5, mapPosition: { x: 20, y: 66 }, placeBadgeId: "community_visitor", description: "A friendly place for kindness, teamwork, and sharing." },
+  { id: "reflection_lake", name: "Reflection Lake", shortName: "Lake", unlockBp: 5000, order: 6, mapPosition: { x: 17, y: 29 }, placeBadgeId: "lake_observer", description: "A lake for looking back and seeing how far you have grown." },
+  { id: "myblox_belt", name: "MyBlox Belt", shortName: "MyBlox", unlockBp: 6000, order: 7, mapPosition: { x: 78, y: 27 }, placeBadgeId: "creative_land_visitor", description: "A creative land for building identity, projects, and dreams." },
+  { id: "far_hills", name: "Far Hills", shortName: "Hills", unlockBp: 8000, order: 8, mapPosition: { x: 44, y: 18 }, placeBadgeId: "hill_adventurer", description: "The far horizon for big goals and future courage." },
 ];
 
 export const PLACE_BADGES: PlaceBadge[] = [
