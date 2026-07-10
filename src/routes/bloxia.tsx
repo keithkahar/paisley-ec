@@ -83,6 +83,30 @@ function BloxiaPage() {
   return (
     <PhoneFrame bg="">
       <div className="relative min-h-[100dvh] font-['Nunito',sans-serif] text-[color:#F8F1D2]" style={{ background: T.bg }}>
+        {/* Map lives underneath every page; on non-map pages it's veiled with the
+            same translucent green used by the home sheet backdrop. */}
+        {page === "map" ? (
+          <MapView
+            progress={b.progress}
+            bp={b.bp}
+            onSelectPlace={setSelectedPlace}
+          />
+        ) : (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <img
+              src={MAP_ASSETS.world}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ imageRendering: "pixelated" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "rgba(8, 36, 22, 0.52)", backdropFilter: "blur(6px)" }}
+            />
+          </div>
+        )}
+
         {/* TopBar */}
         <TopBar
           progress={b.progress}
@@ -98,14 +122,7 @@ function BloxiaPage() {
         />
 
         {/* Content */}
-        {page === "map" && (
-          <MapView
-            progress={b.progress}
-            bp={b.bp}
-            onSelectPlace={setSelectedPlace}
-          />
-        )}
-        <div className="pt-[140px] pb-32 px-4">
+        <div className="relative pt-[140px] pb-32 px-4">
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -434,20 +451,30 @@ function BadgesView({
     { key: "favorite", label: "Favorite" },
   ];
 
+  const totalEarned = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
+
   return (
-    <div className="space-y-3">
-      <PageHeading
-        title="My Badges"
-        subtitle="Honors earned, adventures remembered."
-      />
-      <div className="grid grid-cols-2 gap-2">
-        <StatCard label="Places" value={`${progress.earnedPlaceBadgeIds.length} / 8`} />
-        <StatCard label="Growth" value={`${progress.unlockedGrowthBadgeIds.length} / 16`} />
+    <div className="space-y-4">
+      {/* Page title — mirrors app typography (no heavy panel) */}
+      <div className="px-1">
+        <div className="text-[22px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+          My Badges
+        </div>
+        <div className="text-[13px] mt-1" style={{ color: T.sage }}>
+          {totalEarned} of {PLACE_BADGES.length + GROWTH_BADGES.length} earned
+        </div>
       </div>
 
+      {/* Stat pills — same rounded-full brand style as home */}
+      <div className="grid grid-cols-2 gap-2">
+        <StatPill label="Places" value={`${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}`} />
+        <StatPill label="Growth" value={`${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}`} />
+      </div>
+
+      {/* Tab strip — single rounded-full pill w/ gold active segment */}
       <div
-        className="grid grid-cols-3 gap-1 p-1 rounded-[14px]"
-        style={{ background: "rgba(0,0,0,0.22)", border: `1.5px solid ${T.borderSoft}` }}
+        className="grid grid-cols-3 p-1 rounded-full"
+        style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
       >
         {tabs.map((t) => {
           const active = t.key === tab;
@@ -459,7 +486,7 @@ function BadgesView({
                 setTab(t.key);
                 onSelect(null);
               }}
-              className="h-9 rounded-[10px] text-[12px] font-extrabold"
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors"
               style={
                 active
                   ? { background: T.goldGradient, color: T.goldOnDark }
@@ -472,7 +499,8 @@ function BadgesView({
         })}
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      {/* Badge grid */}
+      <div className="grid grid-cols-3 gap-3">
         {visible.map((item) => (
           <BadgeTile
             key={item.id}
@@ -485,8 +513,8 @@ function BadgesView({
         ))}
         {!visible.length && (
           <div
-            className="col-span-3 rounded-[14px] text-center py-6 text-[13px]"
-            style={{ border: `2px dashed ${T.borderSoft}`, color: T.sage }}
+            className="col-span-3 rounded-[18px] text-center py-8 text-[13px]"
+            style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
           >
             No favorite badges yet — tap ♥ on any earned badge.
           </div>
@@ -495,20 +523,23 @@ function BadgesView({
 
       {selected && (
         <div
-          className="rounded-[18px] p-4"
+          className="rounded-[20px] p-4"
           style={{
-            background: T.panel,
-            border: `2px solid ${T.border}`,
-            boxShadow: "0 12px 28px rgba(0,0,0,0.28)",
+            background: "rgba(8,36,22,0.86)",
+            border: `1.5px solid ${T.border}`,
+            boxShadow: "0 12px 28px rgba(0,0,0,0.32)",
+            backdropFilter: "blur(6px)",
           }}
         >
           <div className="flex items-center gap-3">
             <img
               src={selected.asset}
               alt=""
-              className="h-16 w-16 shrink-0"
+              className="h-20 w-20 shrink-0 rounded-[14px]"
               style={{
                 imageRendering: "pixelated",
+                background: "rgba(255,244,191,0.08)",
+                padding: 6,
                 opacity:
                   (selected.kind === "place" &&
                     !progress.earnedPlaceBadgeIds.includes(selected.id)) ||
@@ -519,10 +550,10 @@ function BadgesView({
               }}
             />
             <div className="min-w-0">
-              <div className="text-[15px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+              <div className="text-[17px] font-extrabold leading-tight" style={{ color: T.ivory }}>
                 {selected.name}
               </div>
-              <div className="text-[12px] leading-snug mt-0.5" style={{ color: T.sage }}>
+              <div className="text-[13px] leading-snug mt-1" style={{ color: T.sage }}>
                 {selected.description}
               </div>
             </div>
@@ -542,7 +573,7 @@ function BadgesView({
                       // silent — button is already disabled when unaffordable
                     }
                   }}
-                  className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
+                  className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold flex items-center justify-center gap-1.5"
                   style={{
                     background: canAfford ? T.goldGradient : "rgba(255,244,191,0.08)",
                     color: canAfford ? T.goldOnDark : T.sage,
@@ -560,7 +591,7 @@ function BadgesView({
             <button
               type="button"
               onClick={() => onToggleFavorite(selected.id)}
-              className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
+              className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold flex items-center justify-center gap-1.5"
               style={{
                 background: progress.favoriteBadgeIds.includes(selected.id)
                   ? "linear-gradient(180deg, #FFDF87, #C05252)"
@@ -596,21 +627,21 @@ function BadgeTile({
     <button
       type="button"
       onClick={onClick}
-      className="rounded-[14px] p-2 text-center transition-transform active:scale-95"
+      className="rounded-[18px] p-2.5 text-center transition-transform active:scale-95"
       style={{
-        background: T.panelSoft,
-        border: selected ? `2px solid ${T.goldLight}` : `1.5px solid rgba(216,175,87,0.42)`,
-        boxShadow: selected ? `0 0 0 2px rgba(255,240,167,0.18)` : "none",
+        background: "rgba(8,36,22,0.72)",
+        border: selected ? `1.5px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
+        boxShadow: selected ? `0 0 0 3px rgba(255,240,167,0.22)` : "none",
       }}
     >
       <div
-        className="mx-auto h-[68px] w-[68px] rounded-[12px] grid place-items-center relative"
-        style={{ background: "rgba(255,244,191,0.08)" }}
+        className="mx-auto aspect-square w-full rounded-[14px] grid place-items-center relative"
+        style={{ background: "rgba(255,244,191,0.06)" }}
       >
         <img
           src={asset}
           alt=""
-          className="h-[60px] w-[60px]"
+          className="h-[76%] w-[76%]"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
@@ -618,7 +649,7 @@ function BadgeTile({
           }}
         />
       </div>
-      <div className="mt-1.5 text-[10.5px] font-extrabold leading-tight" style={{ color: T.ivory, wordBreak: "break-word" }}>
+      <div className="mt-2 text-[12px] font-semibold leading-tight" style={{ color: T.ivory, wordBreak: "break-word" }}>
         {name}
       </div>
     </button>
@@ -843,6 +874,22 @@ function StatCard({ label, value }: { label: string; value: string }) {
       <div className="text-[11px] mt-0.5" style={{ color: T.sage }}>
         {label}
       </div>
+    </div>
+  );
+}
+
+function StatPill({ label, value }: { label: string; value: string }) {
+  return (
+    <div
+      className="rounded-full px-4 h-11 flex items-center justify-between"
+      style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
+    >
+      <span className="text-[13px] font-semibold" style={{ color: T.sage }}>
+        {label}
+      </span>
+      <span className="text-[15px] font-extrabold" style={{ color: T.goldLight }}>
+        {value}
+      </span>
     </div>
   );
 }
