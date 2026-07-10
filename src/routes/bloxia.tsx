@@ -1156,7 +1156,7 @@ function NameEditor({
       <button
         type="button"
         onClick={() => onSave(name)}
-        className="mt-4 w-full h-12 rounded-[14px] font-extrabold text-[14px]"
+        className="mt-4 w-full h-12 rounded-[14px] font-semibold text-[14px]"
         style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
       >
         Save Profile
