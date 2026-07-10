@@ -560,6 +560,7 @@ function BadgeTile({
   selected,
   onClick,
   size = "default",
+  hideName = false,
 }: {
   asset: string;
   name: string;
@@ -567,13 +568,14 @@ function BadgeTile({
   selected: boolean;
   onClick: () => void;
   size?: "default" | "large";
+  hideName?: boolean;
 }) {
   const imgSize = size === "large" ? "h-full w-full" : "h-[90%] w-[90%]";
   return (
     <button
       type="button"
       onClick={onClick}
-      className="rounded-[18px] p-2.5 text-center transition-transform active:scale-95 flex flex-col"
+      className={`rounded-[14px] text-center transition-transform active:scale-95 flex flex-col ${hideName ? "p-1.5" : "p-2.5"}`}
       style={{
         background: "rgba(8,36,22,0.72)",
         border: selected ? `1.5px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
@@ -592,6 +594,7 @@ function BadgeTile({
           }}
         />
       </div>
+      {!hideName && (
       <div
         className="mt-2 text-[12px] font-semibold text-center px-0.5"
         style={{
@@ -608,6 +611,7 @@ function BadgeTile({
       >
         {name}
       </div>
+      )}
     </button>
   );
 }
@@ -887,6 +891,7 @@ function ProfileView({
                   selected={false}
                   onClick={() => onSelectBadge(e.badge)}
                   size="large"
+                  hideName
                 />
               ) : (
                 <BadgeTile
@@ -897,6 +902,7 @@ function ProfileView({
                   selected={false}
                   onClick={() => onSelectItem(e.item)}
                   size="large"
+                  hideName
                 />
               ),
             )}
@@ -907,7 +913,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Badges --- */}
-      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right" framed>
+      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right">
         {favBadges.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favBadges.map((b) => (
@@ -919,6 +925,7 @@ function ProfileView({
                 selected={false}
                 onClick={() => onSelectBadge(b)}
                 size="large"
+                hideName
               />
             ))}
           </div>
@@ -928,7 +935,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Items --- */}
-      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right" framed>
+      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right">
         {favItems.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favItems.map((it) => (
@@ -940,6 +947,7 @@ function ProfileView({
                 selected={false}
                 onClick={() => onSelectItem(it)}
                 size="large"
+                hideName
               />
             ))}
           </div>
@@ -951,8 +959,16 @@ function ProfileView({
       {/* --- Recent Activity --- */}
       <ProfileGroup
         title="Recent Activity"
-        onAction={canExpand ? () => setActivityCount((c) => c + 10) : undefined}
+        onAction={
+          activities.length > 5
+            ? () =>
+                setActivityCount((c) =>
+                  c >= activities.length ? 5 : Math.min(activities.length, c + 10),
+                )
+            : undefined
+        }
         actionKind="down"
+        actionRotated={activityCount >= activities.length && activities.length > 5}
       >
         {visibleActivities.length ? (
           <div className="space-y-1.5">
@@ -973,12 +989,14 @@ function ProfileGroup({
   onAction,
   actionKind,
   framed,
+  actionRotated,
   children,
 }: {
   title: string;
   onAction?: () => void;
   actionKind?: "right" | "down";
   framed?: boolean;
+  actionRotated?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -1000,7 +1018,11 @@ function ProfileGroup({
             }}
           >
             {actionKind === "down" ? (
-              <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
+              <ChevronDown
+                className="w-4 h-4 transition-transform"
+                strokeWidth={2.5}
+                style={{ transform: actionRotated ? "rotate(180deg)" : "none" }}
+              />
             ) : (
               <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
             )}
