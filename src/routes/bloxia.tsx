@@ -142,7 +142,7 @@ function BloxiaPage() {
         )}
 
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" ? "pt-[120px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" || page === "profile" ? "pt-[120px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -315,8 +315,8 @@ function TopBar({
           </div>
 
           {/* Right cluster: name + milestone; milestone bottom-aligned with avatar */}
-          <div className="flex items-stretch gap-2 min-w-0 h-[48px]">
-            <div className="min-w-0 text-right flex flex-col items-end justify-between leading-none shrink-0 py-[1px]">
+          <div className="flex items-end gap-2 min-w-0">
+            <div className="min-w-0 text-right flex flex-col items-end justify-end leading-none shrink-0">
               <div
                 className="text-[14px] font-extrabold leading-tight truncate"
                 style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
@@ -324,7 +324,7 @@ function TopBar({
                 {progress.bloxianName}
               </div>
               <div
-                className="text-[10px] font-bold leading-none whitespace-nowrap"
+                className="text-[10px] font-bold leading-snug mt-[7.5px] whitespace-nowrap"
                 style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
               >
                 {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
@@ -833,7 +833,7 @@ function ProfileView({
   return (
     <div className="space-y-6">
       {/* --- Header: avatar + name + stat pills (no frame) --- */}
-      <div className="flex flex-col items-center pt-3">
+      <div className="flex flex-col items-center">
         <div className="relative h-[134px] w-[134px]">
           <div
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
