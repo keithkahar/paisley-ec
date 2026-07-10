@@ -850,7 +850,10 @@ function ActivityRow({ activity }: { activity: Activity }) {
           {activity.date}
         </div>
       </div>
-      <div className="text-[11px] font-extrabold shrink-0" style={{ color: T.goldLight }}>
+      <div
+        className="text-[11px] font-extrabold shrink-0"
+        style={{ color: activity.positive ? "#8AE68A" : T.goldLight }}
+      >
         {activity.bpText}
       </div>
     </div>
