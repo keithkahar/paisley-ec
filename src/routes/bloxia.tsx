@@ -1112,7 +1112,7 @@ interface Activity {
   positive?: boolean;
 }
 function logToActivity(log: SpendingLog): Activity {
-  const date = new Date(log.createdAt).toISOString().slice(0, 10);
+  const date = formatActivityDate(log.createdAt);
   let title = "Bloxia activity";
   let sign: "+" | "-" = "-";
   if (log.type === "unlock_place") title = `Unlocked ${placeById[log.targetId as PlaceId]?.name ?? "place"}`;
@@ -1134,6 +1134,24 @@ function logToActivity(log: SpendingLog): Activity {
     bpText: log.bpAmount ? `${sign}${formatBp(log.bpAmount)}` : "",
     positive: sign === "+",
   };
+}
+
+function formatActivityDate(ts: number): string {
+  const d = new Date(ts);
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const startOfDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const diffDays = Math.round((startOfToday - startOfDate) / 86400000);
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  if (diffDays === 0) return `Today ${hh}:${mm}`;
+  if (diffDays === 1) return `Yesterday ${hh}:${mm}`;
+  if (diffDays > 1 && diffDays < 7) {
+    const wk = d.toLocaleDateString("en-US", { weekday: "short" });
+    return `${wk} ${hh}:${mm}`;
+  }
+  const month = d.toLocaleDateString("en-US", { month: "short" });
+  return `${month} ${d.getDate()} ${d.getFullYear()}`;
 }
 
 // ============ Sheets ============
