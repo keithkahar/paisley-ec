@@ -1111,7 +1111,7 @@ function ItemSheet({
           type="button"
           onClick={onCollect}
           disabled={!canCollect}
-          className="mt-4 w-full h-12 rounded-[14px] font-extrabold text-[14px] disabled:opacity-55"
+          className="mt-4 w-full h-12 rounded-[14px] font-semibold text-[14px] disabled:opacity-55"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
           {!placeUnlocked ? "Unlock this place first" : canCollect ? "Collect Item" : "Not enough Bp"}
