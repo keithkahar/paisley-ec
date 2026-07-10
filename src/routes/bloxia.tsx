@@ -285,6 +285,7 @@ function TopBar({
   progressPct,
   next,
   page,
+  avatarUrl,
   onNavigate,
 }: {
   progress: Progress;
@@ -292,6 +293,7 @@ function TopBar({
   progressPct: number;
   next: Place | undefined;
   page: PageKey;
+  avatarUrl: string;
   onNavigate: (p: PageKey) => void;
 }) {
   const allTabs: { key: PageKey; label: string; Icon: typeof Compass }[] = [
