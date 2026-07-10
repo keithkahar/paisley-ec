@@ -383,7 +383,7 @@ function TopBar({
               }}
             >
               <img
-                src={CHARACTER_ASSETS.shirinPortrait}
+                src={avatarUrl}
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
