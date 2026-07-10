@@ -862,6 +862,7 @@ interface Activity {
   title: string;
   date: string;
   bpText: string;
+  positive?: boolean;
 }
 function logToActivity(log: SpendingLog): Activity {
   const date = new Date(log.createdAt).toISOString().slice(0, 10);
