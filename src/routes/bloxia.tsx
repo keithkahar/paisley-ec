@@ -481,14 +481,15 @@ function BadgesView({
                 setTab(t.key);
                 onSelect(null);
               }}
-              className="h-9 rounded-full text-[13px] font-semibold transition-colors"
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-1"
               style={
                 active
                   ? { background: T.goldGradient, color: T.goldOnDark }
                   : { color: T.sage, background: "transparent" }
               }
             >
-              {t.label}
+              <span className="text-[15px] font-bold">{t.text}</span>
+              <span>{t.count}</span>
             </button>
           );
         })}
