@@ -614,15 +614,25 @@ function BadgeTile({
 function CollectionView({
   progress,
   onSelectItem,
+  tab,
+  setTab,
 }: {
   progress: Progress;
   onSelectItem: (i: CollectionItem) => void;
+  tab: CollectionTab;
+  setTab: (t: CollectionTab) => void;
 }) {
   const groups = PLACES.map((place) => {
     const items = COLLECTION_ITEMS.filter((i) => i.placeId === place.id);
     const collected = items.filter((i) => progress.collectedItemIds.includes(i.id)).length;
     return { place, items, collected, placeUnlocked: progress.unlockedPlaceIds.includes(place.id) };
   });
+  const favoriteIds = progress.favoriteItemIds ?? [];
+  const favoriteItems = COLLECTION_ITEMS.filter((i) => favoriteIds.includes(i.id));
+  const tabs: { key: CollectionTab; text: string; count: string }[] = [
+    { key: "items", text: "Items", count: `${progress.collectedItemIds.length}/${COLLECTION_ITEMS.length}` },
+    { key: "favorite", text: "Favorite", count: `${favoriteItems.length}` },
+  ];
 
   return (
     <div className="space-y-4">
@@ -636,7 +646,57 @@ function CollectionView({
         </div>
       </div>
 
-      {groups.map((g) => (
+      {/* Tab strip — mirrors Badges tab pill (Items / Favorite) */}
+      <div
+        className="grid grid-cols-2 p-1 rounded-full"
+        style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
+      >
+        {tabs.map((t) => {
+          const active = t.key === tab;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => setTab(t.key)}
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-1"
+              style={
+                active
+                  ? { background: T.goldGradient, color: T.goldOnDark }
+                  : { color: T.sage, background: "transparent" }
+              }
+            >
+              <span className="text-[15px] font-bold">{t.text} </span>
+              <span>{t.count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {tab === "favorite" ? (
+        favoriteItems.length ? (
+          <div className="grid grid-cols-4 gap-3">
+            {favoriteItems.map((item) => (
+              <BadgeTile
+                key={item.id}
+                asset={item.asset}
+                name={item.name}
+                unlocked
+                selected={false}
+                onClick={() => onSelectItem(item)}
+                size="large"
+              />
+            ))}
+          </div>
+        ) : (
+          <div
+            className="rounded-[18px] text-center py-8 text-[13px] font-semibold"
+            style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
+          >
+            Tap on any collected item to Add to Favorite
+          </div>
+        )
+      ) : (
+        groups.map((g) => (
         <div key={g.place.id} className="space-y-3">
           {/* Place header — mirrors Badge tab label typography */}
           <div className="px-1 inline-flex items-center gap-1">
@@ -664,7 +724,8 @@ function CollectionView({
             })}
           </div>
         </div>
-      ))}
+        ))
+      )}
     </div>
   );
 }
