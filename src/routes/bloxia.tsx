@@ -257,17 +257,13 @@ function TopBar({
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
-  const allTabs: { key: PageKey; label: string; Icon: typeof MapIcon }[] = [
-    { key: "map", label: "Map", Icon: MapIcon },
-    { key: "badges", label: "Badges", Icon: Award },
-    { key: "collection", label: "Items", Icon: Package },
+  const allTabs: { key: PageKey; label: string; Icon: typeof Compass }[] = [
+    { key: "map", label: "Map", Icon: Compass },
+    { key: "badges", label: "Badges", Icon: Medal },
+    { key: "collection", label: "Items", Icon: Gem },
   ];
   // Hide the icon of the current page; profile is entered via the avatar.
-  // On profile, also hide "collection" so the row keeps the same 2-nav-pill
-  // shape as every other page (see image 3 reference).
-  const tabs = allTabs.filter((t) =>
-    page === "profile" ? t.key !== "collection" : t.key !== page,
-  );
+  const tabs = allTabs.filter((t) => t.key !== page);
   return (
     <div
       className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4"
