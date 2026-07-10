@@ -972,7 +972,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         {/* Background layer extends to the bottom of the screen, giving the nav bar the same base color */}
         <div
           className="absolute inset-0 -bottom-[100vh] rounded-t-[24px]"
-          style={{ background: "rgba(8, 36, 22, 0.72)", backdropFilter: "blur(6px)" }}
+          style={{ background: "rgba(8, 36, 22, 0.52)", backdropFilter: "blur(6px)" }}
         />
         <button
           type="button"
@@ -987,8 +987,8 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           className="relative p-5 overflow-y-auto"
           style={{
             maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
-            paddingTop: "calc(1.25rem + 24px)",
-            paddingBottom: "calc(1.25rem + 24px + env(safe-area-inset-bottom))",
+            paddingTop: "calc(1.25rem + 48px)",
+            paddingBottom: "calc(1.25rem + 48px + env(safe-area-inset-bottom))",
           }}
         >
           {children}
