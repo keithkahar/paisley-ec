@@ -266,8 +266,7 @@ function BloxiaPage() {
             initialAvatarId={b.progress.selectedAvatarId}
             initialName={b.progress.bloxianName}
             onStart={(id, name) => {
-              b.selectAvatar(id);
-              b.updateName(name);
+              b.completeWelcome(id, name);
             }}
           />
         )}
