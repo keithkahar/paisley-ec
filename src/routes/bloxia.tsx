@@ -123,7 +123,7 @@ function BloxiaPage() {
 
         {/* Content */}
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[100px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[120px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -512,7 +512,7 @@ function BadgesView({
             className="col-span-3 rounded-[18px] text-center py-8 text-[13px] font-semibold"
             style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
           >
-            No favorite badges yet — tap ♥ on any earned badge.
+            Tap ❤️ on any earned badge to Add to Favorite
           </div>
         )}
       </div>
@@ -1212,7 +1212,7 @@ function BadgeSheet({
           filter: unlocked ? undefined : "grayscale(60%)",
         }}
       />
-      <div className="mt-3 text-center text-[22px] font-extrabold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {badge.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
@@ -1265,7 +1265,7 @@ function BadgeSheet({
           }}
         >
           <Heart className="w-4 h-4" fill="none" />
-          {unlocked ? "Add to Favorites" : "Locked"}
+          {unlocked ? "Add to Favorite" : "Locked"}
         </button>
       )}
     </Sheet>
