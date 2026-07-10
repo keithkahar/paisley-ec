@@ -121,9 +121,23 @@ function BloxiaPage() {
           }}
         />
 
-        {/* Content */}
+        {/* Top mask: hides scrolling content once it reaches the TopBar / progress bar area */}
+        {page !== "map" && (
+          <div
+            aria-hidden
+            className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-30 pointer-events-none"
+            style={{
+              height: "calc(env(safe-area-inset-top) + 104px)",
+              background:
+                "linear-gradient(to bottom, rgba(8,36,22,0.95) 0%, rgba(8,36,22,0.92) 70%, rgba(8,36,22,0) 100%)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+            }}
+          />
+        )}
+
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-32 px-4 ${page === "badges" || page === "collection" ? "pt-[120px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" ? "pt-[120px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
