@@ -212,7 +212,7 @@ function TopBar({
   const tabs = allTabs.filter((t) => t.key !== page);
   return (
     <div
-      className="fixed top-[25px] left-1/2 -translate-x-1/2 w-full max-w-[404px] z-40 px-3"
+      className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[404px] z-40 px-3"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="relative">
