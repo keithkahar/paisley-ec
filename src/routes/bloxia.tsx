@@ -1492,55 +1492,103 @@ function ItemSheet({
 
 function NameEditor({
   initial,
-  avatarUrl,
-  onOpenAvatarPicker,
+  initialAvatarId,
   onClose,
   onSave,
 }: {
   initial: string;
-  avatarUrl: string;
-  onOpenAvatarPicker: () => void;
+  initialAvatarId: string;
   onClose: () => void;
-  onSave: (name: string) => void;
+  onSave: (avatarId: string, name: string) => void;
 }) {
   const [name, setName] = useState(initial);
+  const startIndex = Math.max(
+    0,
+    BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
+  );
+  const [index, setIndex] = useState(startIndex);
+  const touchStartX = useState<{ x: number | null }>({ x: null })[0];
+  const total = BLOXIAN_AVATARS.length;
+  const mod = (n: number) => ((n % total) + total) % total;
+  const current = BLOXIAN_AVATARS[index];
+  const prev = BLOXIAN_AVATARS[mod(index - 1)];
+  const next = BLOXIAN_AVATARS[mod(index + 1)];
+  const go = (delta: number) => setIndex((i) => mod(i + delta));
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.x = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.x == null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.x;
+    if (Math.abs(dx) > 30) go(dx < 0 ? 1 : -1);
+    touchStartX.x = null;
+  };
   return (
     <Sheet onClose={onClose}>
       <div className="flex flex-col min-h-full">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Edit Profile
         </div>
-        <div className="mt-10 flex flex-col items-center">
-          <div className="relative h-[134px] w-[134px]">
+        <div
+          className="mt-8 flex items-center justify-center gap-4 select-none"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous"
+            className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
+            style={{
+              background: T.ivory,
+              opacity: 0.55,
+              boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
+            }}
+          >
+            <img
+              src={prev.portrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              draggable={false}
+            />
+          </button>
+          <div className="relative h-[134px] w-[134px] shrink-0">
             <div
-              className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+              className="h-full w-full rounded-full overflow-hidden"
               style={{
-                background: "#173F29",
+                background: T.ivory,
                 boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
               }}
             >
               <img
-                src={avatarUrl}
+                src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
+                style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
                 draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
               />
             </div>
-            <button
-              type="button"
-              onClick={onOpenAvatarPicker}
-              aria-label="Change avatar"
-              className="absolute bottom-0 right-0 h-8 w-8 rounded-full grid place-items-center active:scale-95 transition-transform"
-              style={{
-                background: "#173F29",
-                border: `1.5px solid rgba(216,175,87,0.55)`,
-                boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-              }}
-            >
-              <Camera className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
-            </button>
           </div>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next"
+            className="h-[70px] w-[70px] rounded-full overflow-hidden active:scale-95 transition-transform shrink-0"
+            style={{
+              background: T.ivory,
+              opacity: 0.55,
+              boxShadow: `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
+            }}
+          >
+            <img
+              src={next.portrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
+              draggable={false}
+            />
+          </button>
         </div>
         <div className="mt-auto flex items-stretch gap-3">
           <div
@@ -1561,7 +1609,7 @@ function NameEditor({
           </div>
           <button
             type="button"
-            onClick={() => onSave(name)}
+            onClick={() => onSave(current.id, name)}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
