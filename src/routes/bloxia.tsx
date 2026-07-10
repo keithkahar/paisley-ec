@@ -315,8 +315,8 @@ function TopBar({
           </div>
 
           {/* Right cluster: name + milestone; milestone bottom-aligned with avatar */}
-          <div className="flex items-end gap-2 min-w-0">
-            <div className="min-w-0 text-right flex flex-col items-end justify-end leading-none shrink-0">
+          <div className="flex items-stretch gap-2 min-w-0 h-[48px]">
+            <div className="min-w-0 text-right flex flex-col items-end justify-between leading-none shrink-0 py-[1px]">
               <div
                 className="text-[14px] font-extrabold leading-tight truncate"
                 style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
@@ -324,7 +324,7 @@ function TopBar({
                 {progress.bloxianName}
               </div>
               <div
-                className="text-[10px] font-bold leading-snug mt-[7.5px] whitespace-nowrap"
+                className="text-[10px] font-bold leading-none whitespace-nowrap"
                 style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
               >
                 {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
@@ -853,7 +853,7 @@ function ProfileView({
             type="button"
             onClick={onEditName}
             aria-label="Edit profile"
-            className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
               background: "#173F29",
               border: `1.5px solid rgba(216,175,87,0.55)`,
