@@ -386,6 +386,7 @@ function TopBar({
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
+                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
               />
             </button>
           </div>
