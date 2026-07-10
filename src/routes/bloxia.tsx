@@ -262,8 +262,9 @@ function TopBar({
     { key: "badges", label: "Badges", Icon: Medal },
     { key: "collection", label: "Items", Icon: Gem },
   ];
-  // Hide the icon of the current page; profile is entered via the avatar.
-  const tabs = allTabs.filter((t) => t.key !== page);
+  // Show every nav icon on every page so the TopBar is identical across
+  // Map / Badges / Collection / Profile.
+  const tabs = allTabs;
   return (
     <div
       className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4"
