@@ -972,7 +972,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         {/* Background layer extends to the bottom of the screen, giving the nav bar the same base color */}
         <div
           className="absolute inset-0 -bottom-[100vh] rounded-t-[24px]"
-          style={{ background: "rgba(8, 36, 22, 0.72)", backdropFilter: "blur(6px)" }}
+          style={{ background: "rgba(8, 36, 22, 0.52)", backdropFilter: "blur(6px)" }}
         />
         <button
           type="button"
@@ -987,8 +987,8 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           className="relative p-5 overflow-y-auto"
           style={{
             maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
-            paddingTop: "calc(1.25rem + 24px)",
-            paddingBottom: "calc(1.25rem + 24px + env(safe-area-inset-bottom))",
+            paddingTop: "calc(1.25rem + 48px)",
+            paddingBottom: "calc(1.25rem + 48px + env(safe-area-inset-bottom))",
           }}
         >
           {children}
@@ -1029,10 +1029,10 @@ function PlaceSheet({
       <img
         src={badge.asset}
         alt=""
-        className="h-24 w-24 mx-auto"
+        className="h-28 w-28 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
-      <div className="mt-3 text-center text-[18px] font-extrabold" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-medium leading-none" style={{ color: T.ivory }}>
         {place.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
@@ -1088,14 +1088,14 @@ function ItemSheet({
       <img
         src={item.asset}
         alt=""
-        className="h-24 w-24 mx-auto"
+        className="h-28 w-28 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: collected ? 1 : 0.7,
           filter: collected ? undefined : "grayscale(50%)",
         }}
       />
-      <div className="mt-3 text-center text-[18px] font-extrabold" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-medium leading-none" style={{ color: T.ivory }}>
         {item.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
