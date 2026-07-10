@@ -168,6 +168,7 @@ function BloxiaPage() {
               progress={b.progress}
               logs={b.logs}
               totals={b.totals}
+              bp={b.bp}
               onEditName={() => setNameEditor(true)}
               onGoBadgesFavorite={() => {
                 setBadgeTab("favorite");
@@ -761,6 +762,7 @@ function ProfileView({
   progress,
   logs,
   totals,
+  bp,
   onEditName,
   onGoBadgesFavorite,
   onGoCollectionFavorite,
@@ -770,6 +772,7 @@ function ProfileView({
   progress: Progress;
   logs: SpendingLog[];
   totals: { places: number; placeBadges: number; growthBadges: number; collectionItems: number };
+  bp: number;
   onEditName: () => void;
   onGoBadgesFavorite: () => void;
   onGoCollectionFavorite: () => void;
@@ -779,6 +782,7 @@ function ProfileView({
   const [activityCount, setActivityCount] = useState(1);
 
   const pills = [
+    { label: "Bp", value: formatBp(bp) },
     { label: "Places", value: `${progress.earnedPlaceBadgeIds.length}/${totals.placeBadges}` },
     { label: "Growth", value: `${progress.unlockedGrowthBadgeIds.length}/${totals.growthBadges}` },
     { label: "Items", value: `${progress.collectedItemIds.length}/${totals.collectionItems}` },
