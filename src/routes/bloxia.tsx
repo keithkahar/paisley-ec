@@ -73,7 +73,6 @@ function BloxiaPage() {
     (PlaceBadge | GrowthBadge) & { kind: "place" | "growth" } | null
   >(null);
   const [nameEditor, setNameEditor] = useState(false);
-  const [activityOpen, setActivityOpen] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
 
@@ -166,9 +165,16 @@ function BloxiaPage() {
               logs={b.logs}
               totals={b.totals}
               onEditName={() => setNameEditor(true)}
-              onGoBadges={() => setPage("badges")}
-              onGoCollection={() => setPage("collection")}
-              onOpenActivity={() => setActivityOpen(true)}
+              onGoBadgesFavorite={() => {
+                setBadgeTab("favorite");
+                setPage("badges");
+              }}
+              onGoCollectionFavorite={() => {
+                setCollectionTab("favorite");
+                setPage("collection");
+              }}
+              onSelectBadge={(bd) => setSelectedBadge(bd)}
+              onSelectItem={(it) => setSelectedItem(it)}
             />
           )}
         </div>
@@ -214,9 +220,6 @@ function BloxiaPage() {
               setNameEditor(false);
             }}
           />
-        )}
-        {activityOpen && (
-          <ActivitySheet logs={b.logs} onClose={() => setActivityOpen(false)} />
         )}
       </div>
     </PhoneFrame>
