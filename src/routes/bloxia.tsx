@@ -963,12 +963,11 @@ function ProfileView({
           activities.length > 5
             ? () =>
                 setActivityCount((c) =>
-                  c >= activities.length ? 5 : Math.min(activities.length, c + 10),
+                  c >= activities.length ? 5 : Math.min(activities.length, c + 5),
                 )
             : undefined
         }
-        actionKind="down"
-        actionRotated={activityCount >= activities.length && activities.length > 5}
+        actionKind="right"
       >
         {visibleActivities.length ? (
           <div className="space-y-1.5">
