@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, Pencil } from "lucide-react";
+import { Heart, X, ChevronRight, Pencil, Map as MapIcon, Award, Package, User as UserIcon } from "lucide-react";
 import {
   CHARACTER_ASSETS,
   COLLECTION_ITEMS,
@@ -107,7 +107,7 @@ function BloxiaPage() {
             onSelectPlace={setSelectedPlace}
           />
         )}
-        <div className="pt-[168px] pb-32 px-4">
+        <div className="pt-[140px] pb-32 px-4">
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -207,11 +207,11 @@ function TopBar({
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
-  const tabs: { key: PageKey; label: string }[] = [
-    { key: "map", label: "Map" },
-    { key: "badges", label: "Badges" },
-    { key: "collection", label: "Items" },
-    { key: "profile", label: "Profile" },
+  const tabs: { key: PageKey; label: string; Icon: typeof MapIcon }[] = [
+    { key: "map", label: "Map", Icon: MapIcon },
+    { key: "badges", label: "Badges", Icon: Award },
+    { key: "collection", label: "Items", Icon: Package },
+    { key: "profile", label: "Profile", Icon: UserIcon },
   ];
   return (
     <div
@@ -230,22 +230,41 @@ function TopBar({
           <img
             src={CHARACTER_ASSETS.shirinPortrait}
             alt=""
-            className="h-[52px] w-[52px] rounded-[14px] object-cover border border-[color:#E8C46B]"
+            className="h-[52px] w-[52px] rounded-full object-cover border border-[color:#E8C46B] shrink-0"
             style={{ imageRendering: "pixelated", background: "#173F29" }}
           />
           <div className="min-w-0 flex-1">
             <div className="text-[15px] font-extrabold leading-tight truncate" style={{ color: T.ivory }}>
               {progress.bloxianName}
             </div>
-            <div className="text-[11px] truncate" style={{ color: T.sage }}>
-              at {currentPlaceName}
+            <div
+              className="mt-1 inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-extrabold leading-none"
+              style={{ background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }}
+            >
+              {formatBp(bp)}
             </div>
           </div>
-          <div
-            className="rounded-full px-3 py-1 text-[12px] font-extrabold shrink-0"
-            style={{ background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }}
-          >
-            {formatBp(bp)}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {tabs.map((t) => {
+              const active = t.key === page;
+              const Icon = t.Icon;
+              return (
+                <button
+                  key={t.key}
+                  type="button"
+                  onClick={() => onNavigate(t.key)}
+                  aria-label={t.label}
+                  className="h-9 w-9 rounded-full grid place-items-center transition-colors"
+                  style={
+                    active
+                      ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
+                      : { background: "#173F29", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.5)` }
+                  }
+                >
+                  <Icon className="h-4 w-4" strokeWidth={2.5} />
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -255,28 +274,6 @@ function TopBar({
           <div className="mt-1 h-[7px] rounded-full overflow-hidden" style={{ background: "#244833", border: "1px solid rgba(216,175,87,0.4)" }}>
             <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
           </div>
-        </div>
-
-        {/* nav tabs */}
-        <div className="mt-2 grid grid-cols-4 gap-1.5">
-          {tabs.map((t) => {
-            const active = t.key === page;
-            return (
-              <button
-                key={t.key}
-                type="button"
-                onClick={() => onNavigate(t.key)}
-                className="h-8 rounded-[11px] text-[12px] font-extrabold transition-colors"
-                style={
-                  active
-                    ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
-                    : { background: "#173F29", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.5)` }
-                }
-              >
-                {t.label}
-              </button>
-            );
-          })}
         </div>
       </div>
     </div>
