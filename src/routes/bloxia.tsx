@@ -217,7 +217,7 @@ function TopBar({
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="flex items-center gap-2">
-        {/* Left cluster: back + 4 nav icons */}
+        {/* Left cluster: back + nav icons + Bp pill */}
         <div className="flex items-center gap-1.5 min-w-0">
           <Link
             to="/"
@@ -246,9 +246,20 @@ function TopBar({
               </button>
             );
           })}
+          {/* Bp pill: same height as nav icons, same color scheme */}
+          <div
+            className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
+            style={{
+              background: "rgba(23,63,41,0.9)",
+              color: T.goldLight,
+              border: `1.5px solid rgba(216,175,87,0.55)`,
+            }}
+          >
+            {formatBp(bp)}
+          </div>
         </div>
 
-        {/* Right cluster: name + BP, then avatar as profile entry */}
+        {/* Right cluster: name + milestone text, then avatar as profile entry */}
         <div className="flex items-center gap-2 ml-auto min-w-0">
           <div className="min-w-0 text-right">
             <div
@@ -258,10 +269,10 @@ function TopBar({
               {progress.bloxianName}
             </div>
             <div
-              className="mt-0.5 inline-flex rounded-full px-2 py-0.5 text-[10.5px] font-extrabold leading-none"
-              style={{ background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }}
+              className="mt-0.5 text-[10px] font-bold truncate"
+              style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
             >
-              {formatBp(bp)}
+              {next ? `${formatBp(next.unlockBp - bp)} to ${next.shortName}` : "All places unlocked"}
             </div>
           </div>
           <button
