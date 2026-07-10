@@ -793,7 +793,7 @@ function ProfileView({
       if (pb) earnedEntries.push({ kind: "badge", ts: progress.createdAt, badge: { ...pb, kind: "place" } });
     }
   }
-  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 5);
+  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 4);
 
   // ---- Favorite badges / items (newest first by their favorite-order in state) ----
   const favBadgeIds = [...progress.favoriteBadgeIds].reverse();
@@ -966,7 +966,8 @@ function ProfileView({
                 )
             : undefined
         }
-        actionKind="right"
+        actionKind="down"
+        actionRotated={activityCount >= activities.length && activities.length > 5}
       >
         {visibleActivities.length ? (
           <div className="space-y-1.5">
@@ -1410,6 +1411,7 @@ function NameEditor({
   const [name, setName] = useState(initial);
   return (
     <Sheet onClose={onClose}>
+      <div className="min-h-[52vh] flex flex-col">
       <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         Edit Profile
       </div>
@@ -1436,15 +1438,14 @@ function NameEditor({
               /* Avatar chooser — codex integration pending. */
             }}
             aria-label="Change avatar"
-            className="absolute bottom-0 right-0 h-9 w-9 rounded-full grid place-items-center active:scale-95 transition-transform"
+            className="absolute bottom-0 right-0 h-8 w-8 rounded-full grid place-items-center active:scale-95 transition-transform"
             style={{
-              background: T.goldGradient,
-              border: `2px solid ${T.goldLight}`,
-              color: T.goldOnDark,
-              boxShadow: "0 3px 8px rgba(0,0,0,0.4)",
+              background: "#173F29",
+              border: `1.5px solid rgba(216,175,87,0.55)`,
+              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
           >
-            <Camera className="h-4 w-4" strokeWidth={2.25} />
+            <Camera className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
           </button>
         </div>
       </div>
@@ -1456,18 +1457,12 @@ function NameEditor({
             border: `1.5px solid ${T.borderSoft}`,
           }}
         >
-          <span
-            className="shrink-0 text-[15px] font-semibold leading-none"
-            style={{ color: T.goldLight, letterSpacing: "-0.01em" }}
-          >
-            Name
-          </span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             maxLength={24}
             placeholder="Enter name"
-            className="flex-1 min-w-0 bg-transparent outline-none text-right text-[15px] font-semibold"
+            className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
             style={{ color: T.ivory, letterSpacing: "-0.01em" }}
           />
         </div>
@@ -1475,10 +1470,11 @@ function NameEditor({
           type="button"
           onClick={() => onSave(name)}
           className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
-          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           Save
         </button>
+      </div>
       </div>
     </Sheet>
   );
