@@ -1262,9 +1262,9 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         <div
           className="relative p-5 overflow-y-auto"
           style={{
-            height: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
+            height: "calc(100vh - 22rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
-            paddingBottom: "calc(1.25rem + 6rem + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(4rem + 6rem + env(safe-area-inset-bottom))",
           }}
         >
           {children}
