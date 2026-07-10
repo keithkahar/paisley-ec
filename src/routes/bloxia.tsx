@@ -466,12 +466,6 @@ function BadgesView({
         </div>
       </div>
 
-      {/* Stat pills — same rounded-full brand style as home */}
-      <div className="grid grid-cols-2 gap-2">
-        <StatPill label="Places" value={`${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}`} />
-        <StatPill label="Growth" value={`${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}`} />
-      </div>
-
       {/* Tab strip — single rounded-full pill w/ gold active segment */}
       <div
         className="grid grid-cols-3 p-1 rounded-full"
