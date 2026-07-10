@@ -992,7 +992,7 @@ function PlaceSheet({
         className="h-28 w-28 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
-      <div className="mt-3 text-center text-[22px] font-extrabold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {place.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
