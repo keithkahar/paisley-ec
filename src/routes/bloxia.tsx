@@ -33,7 +33,7 @@ export const Route = createFileRoute("/bloxia")({
   head: () => ({
     meta: [
       { title: "Bloxia — Paisley EC" },
-      { name: "description", content: "Bloxia — a pixel growth world where kids spend BP to unlock places, badges, and collection items." },
+      { name: "description", content: "Bloxia — a pixel growth world where kids spend Bp to unlock places, badges, and collection items." },
       { property: "og:title", content: "Bloxia — Paisley EC" },
       { property: "og:description", content: "A pixel growth world of eight places, honoring adventures earned through learning." },
     ],
@@ -530,8 +530,8 @@ function BadgesView({
                   }}
                 >
                   {canAfford
-                    ? `Unlock · ${cost.toLocaleString()} BP`
-                    : `Need ${cost.toLocaleString()} BP`}
+                    ? `Unlock · ${cost.toLocaleString()} Bp`
+                    : `Need ${cost.toLocaleString()} Bp`}
                 </button>
               );
             })()
@@ -1005,7 +1005,7 @@ function PlaceSheet({
       </div>
 
       <div className="mt-3 space-y-2">
-        <SheetRow label="Required BP" value={formatBp(place.unlockBp)} />
+        <SheetRow label="Required Bp" value={formatBp(place.unlockBp)} />
         <SheetRow label="Status" value={statusText} />
       </div>
 
@@ -1079,7 +1079,7 @@ function ItemSheet({
           className="mt-4 w-full h-12 rounded-[14px] font-extrabold text-[14px] disabled:opacity-55"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
-          {!placeUnlocked ? "Unlock this place first" : canCollect ? "Collect Item" : "Not enough BP"}
+          {!placeUnlocked ? "Unlock this place first" : canCollect ? "Collect Item" : "Not enough Bp"}
         </button>
       )}
     </Sheet>
