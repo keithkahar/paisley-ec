@@ -639,7 +639,7 @@ function BadgeTile({
         <img
           src={asset}
           alt=""
-          className="h-full w-full object-contain"
+          className="h-[85%] w-[85%] object-contain"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
