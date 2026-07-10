@@ -410,10 +410,12 @@ function MapView({
   progress,
   bp,
   onSelectPlace,
+  avatarUrl,
 }: {
   progress: Progress;
   bp: number;
   onSelectPlace: (p: Place) => void;
+  avatarUrl: string;
 }) {
   const places = useMemo(
     () =>
@@ -459,7 +461,7 @@ function MapView({
         >
           {p.current && (
             <img
-              src={CHARACTER_ASSETS.shirinMap}
+              src={avatarUrl}
               alt=""
               className="h-11 w-11 -mb-1"
               style={{ imageRendering: "pixelated", filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.42))" }}
