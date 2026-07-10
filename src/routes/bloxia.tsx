@@ -281,12 +281,12 @@ function TopBar({
               type="button"
               onClick={() => onNavigate("profile")}
               aria-label="Profile"
-              className="h-[53px] w-[53px] rounded-full shrink-0 grid place-items-center"
+              className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center"
             >
               <img
                 src={CHARACTER_ASSETS.shirinPortrait}
                 alt=""
-                className="h-[53px] w-[53px] rounded-full object-cover border"
+                className="h-[48px] w-[48px] rounded-full object-cover border"
                 style={{
                   imageRendering: "pixelated",
                   background: "#173F29",
@@ -299,7 +299,7 @@ function TopBar({
 
         {/* Progress bar: completed = gold, unfinished = dark green */}
         <div
-          className="mt-2 h-[6px] rounded-full overflow-hidden"
+          className="mt-1.5 h-[6px] rounded-full overflow-hidden"
           style={{ background: "rgba(23,63,41,0.95)", border: "1px solid rgba(216,175,87,0.45)" }}
         >
           <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
