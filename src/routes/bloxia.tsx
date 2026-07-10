@@ -1530,7 +1530,7 @@ function NameEditor({
           Edit Profile
         </div>
         <div
-          className="mt-6 flex items-center justify-center gap-4 select-none"
+          className="mt-10 flex items-center justify-center gap-4 select-none"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
@@ -1756,7 +1756,7 @@ function WelcomeSheet({
         </div>
 
         <div
-          className="mt-6 flex items-center justify-center gap-4 select-none"
+          className="mt-10 flex items-center justify-center gap-4 select-none"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
