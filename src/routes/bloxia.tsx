@@ -447,8 +447,8 @@ function BadgesView({
 
   const visible = tab === "place" ? placeItems : tab === "growth" ? growthItems : favoriteItems;
   const tabs: { key: BadgeTab; text: string; count: string }[] = [
-    { key: "place", text: "Places", count: `${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}` },
-    { key: "growth", text: "Growth", count: `${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}` },
+    { key: "place", text: "Places", count: `${progress.earnedPlaceBadgeIds.length}/${PLACE_BADGES.length}` },
+    { key: "growth", text: "Growth", count: `${progress.unlockedGrowthBadgeIds.length}/${GROWTH_BADGES.length}` },
     { key: "favorite", text: "Favorite", count: `${favoriteItems.length}` },
   ];
 
@@ -488,7 +488,7 @@ function BadgesView({
                   : { color: T.sage, background: "transparent" }
               }
             >
-              <span className="text-[15px] font-bold">{t.text}</span>
+              <span className="text-[15px] font-bold">{t.text} </span>
               <span>{t.count}</span>
             </button>
           );
@@ -512,7 +512,7 @@ function BadgesView({
             className="col-span-3 rounded-[18px] text-center py-8 text-[13px] font-semibold"
             style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
           >
-            Tap ❤️ on any earned badge to Add to Favorite
+            Tap on any earned badge to Add to Favorite
           </div>
         )}
       </div>
