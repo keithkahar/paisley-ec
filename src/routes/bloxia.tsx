@@ -382,6 +382,8 @@ function BadgesView({
   selected,
   onSelect,
   onToggleFavorite,
+  onUnlockGrowth,
+  bp,
 }: {
   progress: Progress;
   tab: BadgeTab;
@@ -389,6 +391,8 @@ function BadgesView({
   selected: ((PlaceBadge | GrowthBadge) & { kind: "place" | "growth" }) | null;
   onSelect: (b: ((PlaceBadge | GrowthBadge) & { kind: "place" | "growth" }) | null) => void;
   onToggleFavorite: (id: string) => void;
+  onUnlockGrowth: (id: string) => { ok: boolean; error?: string };
+  bp: number;
 }) {
   const placeItems = PLACE_BADGES.map((b) => ({
     ...b,
