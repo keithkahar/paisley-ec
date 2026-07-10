@@ -1041,6 +1041,7 @@ function ItemSheet({
   const collected = progress.collectedItemIds.includes(item.id);
   const placeUnlocked = progress.unlockedPlaceIds.includes(item.placeId);
   const canCollect = !collected && placeUnlocked && bp >= item.bpCost;
+  const statusText = collected ? "Collected" : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
     <Sheet onClose={onClose}>
       <img
@@ -1049,11 +1050,11 @@ function ItemSheet({
         className="h-28 w-28 mx-auto"
         style={{
           imageRendering: "pixelated",
-          opacity: collected ? 1 : 0.7,
-          filter: collected ? undefined : "grayscale(50%)",
+          opacity: collected ? 1 : 0.4,
+          filter: collected ? undefined : "grayscale(60%)",
         }}
       />
-      <div className="mt-3 text-center text-[22px] font-medium leading-none" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {item.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
@@ -1062,18 +1063,29 @@ function ItemSheet({
       <div className="mt-3 space-y-2">
         <SheetRow label="Found in" value={placeById[item.placeId].name} />
         <SheetRow label="Rarity" value={item.rarity} />
-        <SheetRow label="Cost" value={formatBp(item.bpCost)} />
+        <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
+        <SheetRow label="Status" value={statusText} />
       </div>
       {!collected && (
-        <button
-          type="button"
-          onClick={onCollect}
-          disabled={!canCollect}
-          className="mt-4 w-full h-12 rounded-[14px] font-semibold text-[14px] disabled:opacity-55"
-          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
-        >
-          {!placeUnlocked ? "Unlock this place first" : canCollect ? "Collect Item" : "Not enough Bp"}
-        </button>
+        canCollect ? (
+          <button
+            type="button"
+            onClick={onCollect}
+            className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+            style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+          >
+            Collect · {item.bpCost.toLocaleString()} Bp
+          </button>
+        ) : (
+          <div
+            className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          >
+            {!placeUnlocked
+              ? "Unlock this place first"
+              : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
+          </div>
+        )
       )}
     </Sheet>
   );
