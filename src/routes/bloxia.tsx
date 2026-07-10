@@ -815,7 +815,6 @@ function ProfileView({
 
   const activities = logs.map(logToActivity);
   const visibleActivities = activities.slice(0, activityCount);
-  const canExpand = activityCount < activities.length;
 
   return (
     <div className="space-y-6">
