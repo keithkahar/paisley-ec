@@ -260,9 +260,9 @@ function TopBar({
             </div>
           </div>
 
-          {/* Right cluster: name + milestone centered with the avatar; pill-aligned */}
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="min-w-0 text-right flex flex-col items-end justify-center leading-none shrink-0">
+          {/* Right cluster: name + milestone; milestone bottom-aligned with avatar */}
+          <div className="flex items-end gap-2 min-w-0">
+            <div className="min-w-0 text-right flex flex-col items-end justify-end leading-none shrink-0">
               <div
                 className="text-[14px] font-extrabold leading-tight truncate"
                 style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
