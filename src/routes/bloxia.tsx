@@ -968,7 +968,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           borderBottom: "none",
           boxShadow: "0 -12px 30px rgba(0,0,0,0.45)",
           paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom))",
-          marginBottom: "calc(5rem + env(safe-area-inset-bottom))",
+          marginBottom: "calc(6rem + env(safe-area-inset-bottom))",
         }}
       >
         <button
