@@ -10,9 +10,9 @@ import {
   type PlaceId,
 } from "./config";
 
-const PROGRESS_KEY = "pec_bloxia_progress_v2";
-const LOGS_KEY = "pec_bloxia_spending_logs_v2";
-const BP_KEY = "pec_bloxia_bp_v2";
+const PROGRESS_KEY = "pec_bloxia_progress_v3";
+const LOGS_KEY = "pec_bloxia_spending_logs_v3";
+const BP_KEY = "pec_bloxia_bp_v3";
 
 export interface Progress {
   bloxianName: string;
@@ -46,10 +46,25 @@ const defaultProgress = (): Progress => ({
   currentPlaceId: DEFAULT_PLACE_ID,
   unlockedPlaceIds: [DEFAULT_PLACE_ID, "wonder_tree"],
   earnedPlaceBadgeIds: ["meadow_visitor", "wonder_tree_explorer"],
-  unlockedGrowthBadgeIds: [],
-  favoriteBadgeIds: [],
-  collectedItemIds: [],
-  favoriteItemIds: [],
+  unlockedGrowthBadgeIds: ["curious_explorer", "brave_learner"],
+  favoriteBadgeIds: [
+    "meadow_visitor",
+    "wonder_tree_explorer",
+    "curious_explorer",
+    "brave_learner",
+  ],
+  collectedItemIds: [
+    "collection_morning_dew_crystal",
+    "collection_welcome_flower",
+    "collection_glow_seed",
+    "collection_wonder_leaf",
+  ],
+  favoriteItemIds: [
+    "collection_morning_dew_crystal",
+    "collection_welcome_flower",
+    "collection_glow_seed",
+    "collection_wonder_leaf",
+  ],
   createdAt: Date.now(),
   updatedAt: Date.now(),
 });
