@@ -987,7 +987,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           className="relative p-5 overflow-y-auto"
           style={{
             maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
-            paddingTop: "calc(1rem + 28px)",
+            paddingTop: "calc(0.75rem + 24px)",
             paddingBottom: "calc(1.25rem + 48px + env(safe-area-inset-bottom))",
           }}
         >
@@ -1032,7 +1032,7 @@ function PlaceSheet({
         className="h-28 w-28 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
-      <div className="mt-3 text-center text-[22px] font-bold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-3 text-center text-[22px] font-extrabold leading-none" style={{ color: T.ivory }}>
         {place.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
