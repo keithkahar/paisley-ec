@@ -892,7 +892,7 @@ function StatPill({ label, value }: { label: string; value: string }) {
       className="rounded-full px-4 h-11 flex items-center justify-between"
       style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
     >
-      <span className="text-[13px] font-medium" style={{ color: T.sage }}>
+      <span className="text-[15px] font-semibold" style={{ color: T.sage }}>
         {label}
       </span>
       <span className="text-[15px] font-semibold" style={{ color: T.goldLight }}>
