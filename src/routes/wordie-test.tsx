@@ -341,6 +341,13 @@ function WordieTestPage() {
     return Math.min(20, b);
   }, [grading.score]);
 
+  useEffect(() => {
+    if (mode === "result" && !awardedRef.current) {
+      awardedRef.current = true;
+      earnBp(bp, "wordie", "Wordie Test");
+    }
+  }, [mode, bp, earnBp]);
+
   // ───── Render ─────
   return (
     <PhoneFrame bg="bg-white">
