@@ -451,20 +451,30 @@ function BadgesView({
     { key: "favorite", label: "Favorite" },
   ];
 
+  const totalEarned = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
+
   return (
-    <div className="space-y-3">
-      <PageHeading
-        title="My Badges"
-        subtitle="Honors earned, adventures remembered."
-      />
-      <div className="grid grid-cols-2 gap-2">
-        <StatCard label="Places" value={`${progress.earnedPlaceBadgeIds.length} / 8`} />
-        <StatCard label="Growth" value={`${progress.unlockedGrowthBadgeIds.length} / 16`} />
+    <div className="space-y-4">
+      {/* Page title — mirrors app typography (no heavy panel) */}
+      <div className="px-1">
+        <div className="text-[22px] font-extrabold leading-tight" style={{ color: T.ivory }}>
+          My Badges
+        </div>
+        <div className="text-[13px] mt-1" style={{ color: T.sage }}>
+          {totalEarned} of {PLACE_BADGES.length + GROWTH_BADGES.length} earned
+        </div>
       </div>
 
+      {/* Stat pills — same rounded-full brand style as home */}
+      <div className="grid grid-cols-2 gap-2">
+        <StatPill label="Places" value={`${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}`} />
+        <StatPill label="Growth" value={`${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}`} />
+      </div>
+
+      {/* Tab strip — single rounded-full pill w/ gold active segment */}
       <div
-        className="grid grid-cols-3 gap-1 p-1 rounded-[14px]"
-        style={{ background: "rgba(0,0,0,0.22)", border: `1.5px solid ${T.borderSoft}` }}
+        className="grid grid-cols-3 p-1 rounded-full"
+        style={{ background: "rgba(8,36,22,0.72)", border: `1.5px solid ${T.borderSoft}` }}
       >
         {tabs.map((t) => {
           const active = t.key === tab;
@@ -476,7 +486,7 @@ function BadgesView({
                 setTab(t.key);
                 onSelect(null);
               }}
-              className="h-9 rounded-[10px] text-[12px] font-extrabold"
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors"
               style={
                 active
                   ? { background: T.goldGradient, color: T.goldOnDark }
@@ -489,7 +499,8 @@ function BadgesView({
         })}
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      {/* Badge grid */}
+      <div className="grid grid-cols-3 gap-3">
         {visible.map((item) => (
           <BadgeTile
             key={item.id}
@@ -502,8 +513,8 @@ function BadgesView({
         ))}
         {!visible.length && (
           <div
-            className="col-span-3 rounded-[14px] text-center py-6 text-[13px]"
-            style={{ border: `2px dashed ${T.borderSoft}`, color: T.sage }}
+            className="col-span-3 rounded-[18px] text-center py-8 text-[13px]"
+            style={{ border: `1.5px dashed ${T.borderSoft}`, color: T.sage, background: "rgba(8,36,22,0.4)" }}
           >
             No favorite badges yet — tap ♥ on any earned badge.
           </div>
