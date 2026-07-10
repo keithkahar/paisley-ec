@@ -1394,35 +1394,81 @@ function NameEditor({
   const [name, setName] = useState(initial);
   return (
     <Sheet onClose={onClose}>
-      <img
-        src={CHARACTER_ASSETS.shirinFull}
-        alt=""
-        className="h-28 mx-auto"
-        style={{ imageRendering: "pixelated" }}
-      />
-      <div className="mt-3 text-center text-[18px] font-extrabold" style={{ color: T.ivory }}>
+      <div className="text-center text-[22px] font-extrabold" style={{ color: T.goldLight }}>
         Edit Profile
       </div>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        maxLength={24}
-        className="mt-4 w-full h-12 px-4 rounded-[14px] text-[15px] font-bold outline-none"
-        style={{
-          background: "rgba(255,244,191,0.1)",
-          border: `2px solid rgba(216,175,87,0.5)`,
-          color: T.ivory,
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => onSave(name)}
-        className="mt-4 w-full h-12 rounded-[14px] font-semibold text-[14px]"
-        style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
-      >
-        Save Profile
-      </button>
+      <div className="mt-5 flex flex-col items-center">
+        <div
+          className="h-24 w-24 rounded-full grid place-items-center overflow-hidden"
+          style={{
+            background: "#173F29",
+            border: `2px solid ${T.goldLight}`,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+          }}
+        >
+          <img
+            src={CHARACTER_ASSETS.shirinPortrait}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ imageRendering: "pixelated" }}
+          />
+        </div>
+      </div>
+      <div className="mt-6 space-y-3">
+        <SettingsRow label="Name">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={24}
+            placeholder="Enter name"
+            className="w-full bg-transparent outline-none text-right text-[15px] font-semibold"
+            style={{ color: T.ivory, letterSpacing: "-0.01em" }}
+          />
+        </SettingsRow>
+      </div>
+      <div className="mt-6 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={onClose}
+          className="h-12 rounded-full text-[15px] font-semibold"
+          style={{
+            background: "rgba(8,36,22,0.72)",
+            border: `1.5px solid ${T.borderSoft}`,
+            color: T.ivory,
+          }}
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          onClick={() => onSave(name)}
+          className="h-12 rounded-full text-[15px] font-semibold"
+          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+        >
+          Save
+        </button>
+      </div>
     </Sheet>
+  );
+}
+
+function SettingsRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div
+      className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[60px]"
+      style={{
+        background: "rgba(8,36,22,0.55)",
+        border: `1.5px solid ${T.borderSoft}`,
+      }}
+    >
+      <span
+        className="shrink-0 text-[15px] font-semibold leading-none"
+        style={{ color: T.goldLight, letterSpacing: "-0.01em" }}
+      >
+        {label}
+      </span>
+      <div className="flex-1 min-w-0">{children}</div>
+    </div>
   );
 }
 
