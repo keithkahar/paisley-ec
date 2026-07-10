@@ -301,7 +301,8 @@ function TopBar({
                 </button>
               );
             })}
-            {/* Bp pill: same height as nav icons, same color scheme */}
+            {/* Bp pill: hidden on profile (Bp is shown in the stat pills below) */}
+            {page !== "profile" && (
             <div
               className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
               style={{
@@ -312,6 +313,7 @@ function TopBar({
             >
               {formatBp(bp)}
             </div>
+            )}
           </div>
 
           {/* Right cluster: name + milestone; milestone bottom-aligned with avatar */}
