@@ -116,6 +116,8 @@ function BloxiaPage() {
               selected={selectedBadge}
               onSelect={setSelectedBadge}
               onToggleFavorite={(id) => b.toggleFavorite(id)}
+              onUnlockGrowth={(id) => b.unlockGrowthBadge(id)}
+              bp={b.bp}
             />
           )}
           {page === "collection" && (
@@ -380,6 +382,8 @@ function BadgesView({
   selected,
   onSelect,
   onToggleFavorite,
+  onUnlockGrowth,
+  bp,
 }: {
   progress: Progress;
   tab: BadgeTab;
@@ -387,6 +391,8 @@ function BadgesView({
   selected: ((PlaceBadge | GrowthBadge) & { kind: "place" | "growth" }) | null;
   onSelect: (b: ((PlaceBadge | GrowthBadge) & { kind: "place" | "growth" }) | null) => void;
   onToggleFavorite: (id: string) => void;
+  onUnlockGrowth: (id: string) => { ok: boolean; error?: string };
+  bp: number;
 }) {
   const placeItems = PLACE_BADGES.map((b) => ({
     ...b,
@@ -502,21 +508,52 @@ function BadgesView({
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => onToggleFavorite(selected.id)}
-            className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
-            style={{
-              background: progress.favoriteBadgeIds.includes(selected.id)
-                ? "linear-gradient(180deg, #FFDF87, #C05252)"
-                : T.goldGradient,
-              color: T.goldOnDark,
-              border: `1.5px solid ${T.goldLight}`,
-            }}
-          >
-            <Heart className="w-4 h-4" fill={progress.favoriteBadgeIds.includes(selected.id) ? "currentColor" : "none"} />
-            {progress.favoriteBadgeIds.includes(selected.id) ? "Favorite" : "Add to Favorites"}
-          </button>
+          {selected.kind === "growth" &&
+          !progress.unlockedGrowthBadgeIds.includes(selected.id) ? (
+            (() => {
+              const cost = (selected as GrowthBadge).bpCost;
+              const canAfford = bp >= cost;
+              return (
+                <button
+                  type="button"
+                  disabled={!canAfford}
+                  onClick={() => {
+                    const r = onUnlockGrowth(selected.id);
+                    if (!r.ok && r.error === "INSUFFICIENT_BP") {
+                      // silent — button is already disabled when unaffordable
+                    }
+                  }}
+                  className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
+                  style={{
+                    background: canAfford ? T.goldGradient : "rgba(255,244,191,0.08)",
+                    color: canAfford ? T.goldOnDark : T.sage,
+                    border: `1.5px solid ${canAfford ? T.goldLight : T.borderSoft}`,
+                    opacity: canAfford ? 1 : 0.75,
+                  }}
+                >
+                  {canAfford
+                    ? `Unlock · ${cost.toLocaleString()} BP`
+                    : `Need ${cost.toLocaleString()} BP`}
+                </button>
+              );
+            })()
+          ) : (
+            <button
+              type="button"
+              onClick={() => onToggleFavorite(selected.id)}
+              className="mt-3 w-full h-10 rounded-[12px] text-[13px] font-extrabold flex items-center justify-center gap-1.5"
+              style={{
+                background: progress.favoriteBadgeIds.includes(selected.id)
+                  ? "linear-gradient(180deg, #FFDF87, #C05252)"
+                  : T.goldGradient,
+                color: T.goldOnDark,
+                border: `1.5px solid ${T.goldLight}`,
+              }}
+            >
+              <Heart className="w-4 h-4" fill={progress.favoriteBadgeIds.includes(selected.id) ? "currentColor" : "none"} />
+              {progress.favoriteBadgeIds.includes(selected.id) ? "Favorite" : "Add to Favorites"}
+            </button>
+          )}
         </div>
       )}
     </div>
