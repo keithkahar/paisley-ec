@@ -793,7 +793,7 @@ function ProfileView({
       if (pb) earnedEntries.push({ kind: "badge", ts: progress.createdAt, badge: { ...pb, kind: "place" } });
     }
   }
-  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 4);
+  const latestEarned = earnedEntries.sort((a, b) => b.ts - a.ts).slice(0, 5);
 
   // ---- Favorite badges / items (newest first by their favorite-order in state) ----
   const favBadgeIds = [...progress.favoriteBadgeIds].reverse();
@@ -806,12 +806,12 @@ function ProfileView({
       return null;
     })
     .filter((x): x is SelectedBadge => !!x)
-    .slice(0, 4);
+    .slice(0, 5);
   const favItemIds = [...(progress.favoriteItemIds ?? [])].reverse();
   const favItems: CollectionItem[] = favItemIds
     .map((id) => collectionItemById[id])
     .filter((x): x is CollectionItem => !!x)
-    .slice(0, 4);
+    .slice(0, 5);
 
   const activities = logs.map(logToActivity);
   const visibleActivities = activities.slice(0, activityCount);
