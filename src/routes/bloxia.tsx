@@ -1491,10 +1491,14 @@ function ItemSheet({
 
 function NameEditor({
   initial,
+  avatarUrl,
+  onOpenAvatarPicker,
   onClose,
   onSave,
 }: {
   initial: string;
+  avatarUrl: string;
+  onOpenAvatarPicker: () => void;
   onClose: () => void;
   onSave: (name: string) => void;
 }) {
@@ -1515,7 +1519,7 @@ function NameEditor({
               }}
             >
               <img
-                src={CHARACTER_ASSETS.shirinPortrait}
+                src={avatarUrl}
                 alt=""
                 className="h-full w-full object-cover"
                 draggable={false}
@@ -1523,9 +1527,7 @@ function NameEditor({
             </div>
             <button
               type="button"
-              onClick={() => {
-                /* Avatar chooser — codex integration pending. */
-              }}
+              onClick={onOpenAvatarPicker}
               aria-label="Change avatar"
               className="absolute bottom-0 right-0 h-8 w-8 rounded-full grid place-items-center active:scale-95 transition-transform"
               style={{
