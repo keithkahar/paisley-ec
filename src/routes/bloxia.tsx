@@ -550,10 +550,10 @@ function BadgesView({
               }}
             />
             <div className="min-w-0">
-              <div className="text-[15px] font-semibold leading-tight" style={{ color: T.ivory }}>
+              <div className="text-[17px] font-semibold leading-tight" style={{ color: T.ivory }}>
                 {selected.name}
               </div>
-              <div className="text-[15px] font-semibold leading-snug mt-1" style={{ color: T.sage }}>
+              <div className="text-[13px] font-semibold leading-snug mt-1" style={{ color: T.sage }}>
                 {selected.description}
               </div>
             </div>
