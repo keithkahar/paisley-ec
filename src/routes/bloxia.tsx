@@ -1183,3 +1183,95 @@ function SheetRow({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+function BadgeSheet({
+  badge,
+  progress,
+  bp,
+  onClose,
+  onToggleFavorite,
+  onUnlockGrowth,
+}: {
+  badge: (PlaceBadge | GrowthBadge) & { kind: "place" | "growth" };
+  progress: Progress;
+  bp: number;
+  onClose: () => void;
+  onToggleFavorite: () => void;
+  onUnlockGrowth: () => void;
+}) {
+  const unlocked =
+    badge.kind === "place"
+      ? progress.earnedPlaceBadgeIds.includes(badge.id)
+      : progress.unlockedGrowthBadgeIds.includes(badge.id);
+  const isFavorite = progress.favoriteBadgeIds.includes(badge.id);
+  const isGrowthLocked = badge.kind === "growth" && !unlocked;
+  const growthCost = badge.kind === "growth" ? (badge as GrowthBadge).bpCost : 0;
+  const canAfford = bp >= growthCost;
+
+  return (
+    <Sheet onClose={onClose}>
+      <img
+        src={badge.asset}
+        alt=""
+        className="h-28 w-28 mx-auto"
+        style={{
+          imageRendering: "pixelated",
+          opacity: unlocked ? 1 : 0.4,
+          filter: unlocked ? undefined : "grayscale(60%)",
+        }}
+      />
+      <div className="mt-3 text-center text-[22px] font-extrabold leading-none" style={{ color: T.ivory }}>
+        {badge.name}
+      </div>
+      <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
+        {badge.description}
+      </div>
+
+      {isGrowthLocked ? (
+        canAfford ? (
+          <button
+            type="button"
+            onClick={onUnlockGrowth}
+            className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+            style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+          >
+            Unlock · {growthCost.toLocaleString()} Bp
+          </button>
+        ) : (
+          <div
+            className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          >
+            {(growthCost - bp).toLocaleString()} Bp still needed to unlock
+          </div>
+        )
+      ) : isFavorite ? (
+        <button
+          type="button"
+          onClick={onToggleFavorite}
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+        >
+          <Heart className="w-4 h-4" fill="currentColor" />
+          Favorite
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={onToggleFavorite}
+          disabled={!unlocked}
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{
+            background: unlocked ? T.goldGradient : "rgba(216,175,87,0.12)",
+            color: unlocked ? T.goldOnDark : T.sage,
+            border: unlocked ? `2px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
+            opacity: unlocked ? 1 : 0.75,
+          }}
+        >
+          <Heart className="w-4 h-4" fill="none" />
+          {unlocked ? "Add to Favorites" : "Locked"}
+        </button>
+      )}
+    </Sheet>
+  );
+}
