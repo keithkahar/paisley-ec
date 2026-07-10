@@ -902,12 +902,12 @@ function ProfileView({
             aria-label="Edit profile"
             className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
-              background: "white",
+              background: "#1C5732",
               border: `1.5px solid rgba(216,175,87,0.55)`,
               boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
             }}
           >
-            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.goldLight }} />
+            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
           </button>
         </div>
         <div
@@ -1500,8 +1500,7 @@ function NameEditor({
   onClose: () => void;
   onSave: (avatarId: string, name: string) => void;
 }) {
-  const [name, setName] = useState(initial);
-  const [nameFocused, setNameFocused] = useState(false);
+  const [name, setName] = useState(initial || "Bloxian");
   const startIndex = Math.max(
     0,
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
@@ -1601,31 +1600,17 @@ function NameEditor({
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onFocus={() => setNameFocused(true)}
-              onBlur={() => setNameFocused(false)}
               maxLength={24}
-              placeholder="Enter name"
               className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
               style={{
                 color: T.ivory,
                 letterSpacing: "-0.01em",
-                fieldSizing: "content",
-                width: "auto",
               } as React.CSSProperties}
             />
-            {!nameFocused && (
-              <span
-                aria-hidden
-                className="text-[15px] font-semibold bloxia-caret-blink"
-                style={{ color: T.ivory, marginLeft: -2 }}
-              >
-                _
-              </span>
-            )}
           </div>
           <button
             type="button"
-            onClick={() => onSave(current.id, name)}
+            onClick={() => onSave(current.id, name.trim() || "Bloxian")}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
@@ -1745,7 +1730,7 @@ function WelcomeSheet({
   );
   const [index, setIndex] = useState(startIndex);
   const [name, setName] = useState("Bloxian");
-  const [nameFocused, setNameFocused] = useState(false);
+  const [nameTouched, setNameTouched] = useState(false);
   const touchStartX = useState<{ x: number | null }>({ x: null })[0];
   const total = BLOXIAN_AVATARS.length;
   const mod = (n: number) => ((n % total) + total) % total;
@@ -1846,11 +1831,12 @@ function WelcomeSheet({
           >
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
-              onFocus={() => setNameFocused(true)}
-              onBlur={() => setNameFocused(false)}
+              onChange={(e) => {
+                setNameTouched(true);
+                setName(e.target.value);
+              }}
+              onFocus={() => setNameTouched(true)}
               maxLength={24}
-              placeholder="Enter name"
               className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
               style={{
                 color: T.ivory,
@@ -1859,7 +1845,7 @@ function WelcomeSheet({
                 width: "auto",
               } as React.CSSProperties}
             />
-            {!nameFocused && (
+            {!nameTouched && (
               <span
                 aria-hidden
                 className="text-[15px] font-semibold bloxia-caret-blink"
@@ -1871,7 +1857,7 @@ function WelcomeSheet({
           </div>
           <button
             type="button"
-            onClick={() => onStart(current.id, name.trim() || current.name)}
+            onClick={() => onStart(current.id, name.trim() || "Bloxian")}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
