@@ -377,14 +377,14 @@ function MapView({
             style={{ imageRendering: "pixelated", filter: "drop-shadow(0 4px 5px rgba(0,0,0,0.4))" }}
           />
           <div
-            className="px-2 py-[3px] rounded-full text-[10px] font-extrabold leading-none"
+            className="px-2 py-[3px] rounded-full text-[10px] font-extrabold leading-none whitespace-nowrap"
             style={{
               background: "rgba(8,36,22,0.86)",
               border: "1px solid rgba(248,230,164,0.7)",
               color: T.ivory,
             }}
           >
-            {p.shortName}
+            {p.name}
           </div>
         </button>
       ))}
