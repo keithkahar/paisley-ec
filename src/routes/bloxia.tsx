@@ -123,7 +123,7 @@ function BloxiaPage() {
 
         {/* Content */}
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[118px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-32 px-4 ${page === "badges" ? "pt-[100px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
