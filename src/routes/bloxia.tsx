@@ -446,10 +446,10 @@ function BadgesView({
   const favoriteItems = [...placeItems, ...growthItems].filter((b) => b.favorite);
 
   const visible = tab === "place" ? placeItems : tab === "growth" ? growthItems : favoriteItems;
-  const tabs: { key: BadgeTab; label: string }[] = [
-    { key: "place", label: `Places ${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}` },
-    { key: "growth", label: `Growth ${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}` },
-    { key: "favorite", label: "Favorite" },
+  const tabs: { key: BadgeTab; text: string; count: string }[] = [
+    { key: "place", text: "Places", count: `${progress.earnedPlaceBadgeIds.length} / ${PLACE_BADGES.length}` },
+    { key: "growth", text: "Growth", count: `${progress.unlockedGrowthBadgeIds.length} / ${GROWTH_BADGES.length}` },
+    { key: "favorite", text: "Favorite", count: `${favoriteItems.length}` },
   ];
 
   const totalEarned = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
@@ -481,14 +481,15 @@ function BadgesView({
                 setTab(t.key);
                 onSelect(null);
               }}
-              className="h-9 rounded-full text-[13px] font-semibold transition-colors"
+              className="h-9 rounded-full text-[13px] font-semibold transition-colors inline-flex items-center justify-center gap-1"
               style={
                 active
                   ? { background: T.goldGradient, color: T.goldOnDark }
                   : { color: T.sage, background: "transparent" }
               }
             >
-              {t.label}
+              <span className="text-[15px] font-bold">{t.text}</span>
+              <span>{t.count}</span>
             </button>
           );
         })}
