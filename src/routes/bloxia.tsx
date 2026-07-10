@@ -1600,7 +1600,7 @@ function AvatarPickerSheet({
             {subtitle}
           </div>
         )}
-        <div className="grid grid-cols-4 gap-3 mt-5">
+        <div className="grid grid-cols-4 gap-x-3 gap-y-6 mt-5">
           {BLOXIAN_AVATARS.map((a) => {
             const active = a.id === pending;
             return (
@@ -1613,7 +1613,7 @@ function AvatarPickerSheet({
                 <div
                   className="h-16 w-16 rounded-full overflow-hidden"
                   style={{
-                    background: "#173F29",
+                    background: T.ivory,
                     boxShadow: active
                       ? `0 0 0 2.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 10px rgba(0,0,0,0.45)`
                       : `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
