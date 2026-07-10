@@ -262,13 +262,12 @@ function BloxiaPage() {
           />
         )}
         {showFirstTime && !avatarPicker && (
-          <AvatarPickerSheet
-            title="Choose Your Bloxian"
-            subtitle="Pick the Bloxian who will explore Growth World with you."
-            selectedAvatarId={b.progress.selectedAvatarId}
-            confirmLabel="Continue"
-            onConfirm={(id) => {
+          <WelcomeSheet
+            initialAvatarId={b.progress.selectedAvatarId}
+            initialName={b.progress.bloxianName}
+            onStart={(id, name) => {
               b.selectAvatar(id);
+              b.updateName(name);
             }}
           />
         )}
