@@ -601,50 +601,40 @@ function CollectionView({
   });
 
   return (
-    <div className="space-y-3">
-      <PageHeading
-        title="My Collection"
-        subtitle={`${progress.collectedItemIds.length} / 32 collected`}
-      />
+    <div className="space-y-4">
+      {/* Page title — mirrors My Badges typography */}
+      <div className="px-1">
+        <div className="text-[22px] font-semibold leading-tight" style={{ color: T.ivory }}>
+          My Collection
+        </div>
+        <div className="text-[13px] font-semibold mt-1" style={{ color: T.sage }}>
+          {progress.collectedItemIds.length} of {COLLECTION_ITEMS.length} collected
+        </div>
+      </div>
+
       {groups.map((g) => (
-        <div
-          key={g.place.id}
-          className="rounded-[18px] p-3"
-          style={{ background: T.panel, border: `2px solid ${T.border}` }}
-        >
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-[14px] font-extrabold" style={{ color: T.ivory }}>
+        <div key={g.place.id} className="space-y-3">
+          {/* Place header — mirrors Badge tab label typography */}
+          <div className="px-1 inline-flex items-baseline gap-1">
+            <span className="text-[15px] font-bold" style={{ color: T.ivory }}>
               {g.place.name}
-            </div>
-            <div className="text-[11px] font-bold" style={{ color: T.goldLight }}>
-              {g.collected} / {g.items.length}
-            </div>
+            </span>
+            <span className="text-[13px] font-semibold" style={{ color: T.sage }}>
+              {g.collected}/{g.items.length}
+            </span>
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-3">
             {g.items.map((item) => {
               const unlocked = progress.collectedItemIds.includes(item.id);
               return (
-                <button
+                <BadgeTile
                   key={item.id}
-                  type="button"
+                  asset={item.asset}
+                  name={item.name}
+                  unlocked={unlocked}
+                  selected={false}
                   onClick={() => onSelectItem(item)}
-                  className="rounded-[12px] p-1.5 aspect-square grid place-items-center"
-                  style={{
-                    background: "rgba(255,244,191,0.06)",
-                    border: `1.5px solid ${unlocked ? T.gold : "rgba(216,175,87,0.28)"}`,
-                  }}
-                >
-                  <img
-                    src={item.asset}
-                    alt={item.name}
-                    className="h-full w-full object-contain"
-                    style={{
-                      imageRendering: "pixelated",
-                      opacity: unlocked ? 1 : 0.32,
-                      filter: unlocked ? undefined : "grayscale(100%)",
-                    }}
-                  />
-                </button>
+                />
               );
             })}
           </div>
