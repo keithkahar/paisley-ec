@@ -43,8 +43,8 @@ export interface SpendingLog {
 const defaultProgress = (): Progress => ({
   bloxianName: DEFAULT_BLOXIAN_NAME,
   currentPlaceId: DEFAULT_PLACE_ID,
-  unlockedPlaceIds: [DEFAULT_PLACE_ID],
-  earnedPlaceBadgeIds: ["meadow_visitor"],
+  unlockedPlaceIds: [DEFAULT_PLACE_ID, "wonder_tree"],
+  earnedPlaceBadgeIds: ["meadow_visitor", "wonder_tree_explorer"],
   unlockedGrowthBadgeIds: [],
   favoriteBadgeIds: [],
   collectedItemIds: [],
