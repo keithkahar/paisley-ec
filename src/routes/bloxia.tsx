@@ -1577,7 +1577,7 @@ function SettingsRow({ label, children }: { label: string; children: React.React
       className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[60px]"
       style={{
         background: "rgba(8,36,22,0.55)",
-        border: `1.5px solid ${T.borderSoft}`,
+        border: `1.5px solid ${T.borderSoft}`, // ap
       }}
     >
       <span
