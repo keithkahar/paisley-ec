@@ -217,7 +217,7 @@ function TopBar({
     >
       <div className="relative">
         {/* Top row: nav cluster on the left, name/milestone + avatar on the right */}
-        <div className="flex items-center justify-between gap-2 h-[53px]">
+        <div className="flex items-start justify-between gap-2 h-[53px]">
           {/* Left cluster: back + nav icons + Bp pill */}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
@@ -260,8 +260,8 @@ function TopBar({
             </div>
           </div>
 
-          {/* Right cluster: name/milestone text left of avatar */}
-          <div className="flex items-center gap-2 min-w-0">
+          {/* Right cluster: name/milestone text left of avatar, bottom-aligned with avatar */}
+          <div className="flex items-end gap-2 min-w-0">
             <div className="min-w-0 text-right">
               <div
                 className="text-[13px] font-extrabold leading-tight truncate"
@@ -297,12 +297,12 @@ function TopBar({
           </div>
         </div>
 
-        {/* Progress bar: completed = dark green, unfinished = gold */}
+        {/* Progress bar: completed = gold, unfinished = dark green */}
         <div
           className="mt-2 h-[6px] rounded-full overflow-hidden"
-          style={{ background: T.goldGradient, border: "1px solid rgba(216,175,87,0.45)" }}
+          style={{ background: "rgba(23,63,41,0.95)", border: "1px solid rgba(216,175,87,0.45)" }}
         >
-          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: "rgba(23,63,41,0.95)" }} />
+          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
         </div>
       </div>
     </div>
