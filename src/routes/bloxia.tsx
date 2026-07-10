@@ -142,7 +142,7 @@ function BloxiaPage() {
         )}
 
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" ? "pt-[120px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" || page === "profile" ? "pt-[120px]" : "pt-[140px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -833,7 +833,7 @@ function ProfileView({
   return (
     <div className="space-y-6">
       {/* --- Header: avatar + name + stat pills (no frame) --- */}
-      <div className="flex flex-col items-center pt-3">
+      <div className="flex flex-col items-center">
         <div className="relative h-[134px] w-[134px]">
           <div
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
