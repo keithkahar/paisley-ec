@@ -216,8 +216,8 @@ function TopBar({
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="relative">
-        {/* Top row: nav cluster only, leaves room for the avatar */}
-        <div className="flex items-center gap-2 h-11 pr-12">
+        {/* Top row: nav cluster on the left, name/milestone + avatar on the right */}
+        <div className="flex items-center justify-between gap-2 h-12">
           {/* Left cluster: back + nav icons + Bp pill */}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
@@ -259,52 +259,51 @@ function TopBar({
               {formatBp(bp)}
             </div>
           </div>
+
+          {/* Right cluster: name/milestone text left of avatar */}
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="min-w-0 text-right">
+              <div
+                className="text-[13px] font-extrabold leading-tight truncate"
+                style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+              >
+                {progress.bloxianName}
+              </div>
+              <div
+                className="text-[10px] font-bold truncate"
+                style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+              >
+                {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => onNavigate("profile")}
+              aria-label="Profile"
+              className="h-12 w-12 rounded-full shrink-0 grid place-items-center"
+            >
+              <img
+                src={CHARACTER_ASSETS.shirinPortrait}
+                alt=""
+                className="h-12 w-12 rounded-full object-cover border"
+                style={{
+                  imageRendering: "pixelated",
+                  background: "rgba(23,63,41,0.9)",
+                  borderWidth: "1.5px",
+                  borderColor: "rgba(216,175,87,0.55)",
+                }}
+              />
+            </button>
+          </div>
         </div>
 
-        {/* Shirin avatar: smaller, top-right, gap above the progress bar */}
-        <button
-          type="button"
-          onClick={() => onNavigate("profile")}
-          aria-label="Profile"
-          className="absolute top-0 right-0 h-11 w-11 rounded-full shrink-0 grid place-items-center z-10"
-        >
-          <img
-            src={CHARACTER_ASSETS.shirinPortrait}
-            alt=""
-            className="h-11 w-11 rounded-full object-cover border"
-            style={{
-              imageRendering: "pixelated",
-              background: "#173F29",
-              borderColor: T.goldLight,
-              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-            }}
-          />
-        </button>
-
-        {/* Progress bar */}
+        {/* Progress bar: completed = dark green, unfinished = gold */}
         <div
           className="mt-2 h-[6px] rounded-full overflow-hidden"
-          style={{ background: "rgba(36,72,51,0.85)", border: "1px solid rgba(216,175,87,0.45)" }}
+          style={{ background: T.goldGradient, border: "1px solid rgba(216,175,87,0.45)" }}
         >
-          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
-        </div>
-
-        {/* Name + milestone text below the progress bar, right-aligned, same gap as avatar */}
-        <div className="mt-2 flex justify-end">
-          <div className="min-w-0 text-right">
-            <div
-              className="text-[13px] font-extrabold leading-tight truncate"
-              style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
-            >
-              {progress.bloxianName}
-            </div>
-            <div
-              className="mt-0.5 text-[10px] font-bold truncate"
-              style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-            >
-              {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
-            </div>
-          </div>
+          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: "rgba(23,63,41,0.95)" }} />
         </div>
       </div>
     </div>
