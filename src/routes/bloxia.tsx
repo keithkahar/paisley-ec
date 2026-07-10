@@ -1046,7 +1046,7 @@ function PlaceSheet({
 
       {!unlocked && !canUnlock && (
         <div
-          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-extrabold"
+          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           {formatBp(place.unlockBp - bp)} still needed to unlock
@@ -1057,7 +1057,7 @@ function PlaceSheet({
         <button
           type="button"
           onClick={unlocked ? onExplore : onUnlock}
-          className="mt-4 w-full rounded-full py-4 px-4 font-extrabold text-[17px] text-center"
+          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
           {unlocked ? "Explore Place" : "Unlock Place"}
