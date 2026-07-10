@@ -83,7 +83,7 @@ function BloxiaPage() {
 
   return (
     <PhoneFrame bg="">
-      <div className="min-h-[100dvh] font-['Nunito',sans-serif] text-[color:#F8F1D2]" style={{ background: T.bg }}>
+      <div className="relative min-h-[100dvh] font-['Nunito',sans-serif] text-[color:#F8F1D2]" style={{ background: T.bg }}>
         {/* TopBar */}
         <TopBar
           progress={b.progress}
