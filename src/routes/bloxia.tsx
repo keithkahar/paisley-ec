@@ -1264,7 +1264,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           style={{
             height: "calc(100vh - 22rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
-            paddingBottom: "calc(4rem + 6rem + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(3.5rem + 6rem + env(safe-area-inset-bottom))",
           }}
         >
           {children}
