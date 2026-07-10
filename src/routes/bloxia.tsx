@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Map as MapIcon, Award, Package } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Medal, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   CHARACTER_ASSETS,
@@ -128,11 +128,15 @@ function BloxiaPage() {
             aria-hidden
             className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-30 pointer-events-none"
             style={{
-              height: "calc(env(safe-area-inset-top) + 104px)",
+              height: "calc(env(safe-area-inset-top) + 150px)",
               background:
-                "linear-gradient(to bottom, rgba(8,36,22,0.95) 0%, rgba(8,36,22,0.92) 70%, rgba(8,36,22,0) 100%)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
+                "linear-gradient(to bottom, rgba(8,36,22,0.95) 0%, rgba(8,36,22,0.9) 55%, rgba(8,36,22,0.55) 80%, rgba(8,36,22,0) 100%)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              maskImage:
+                "linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.7) 85%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, #000 0%, #000 65%, rgba(0,0,0,0.7) 85%, transparent 100%)",
             }}
           />
         )}
@@ -211,6 +215,16 @@ function BloxiaPage() {
             onToggleFavorite={() => b.toggleFavoriteItem(selectedItem.id)}
           />
         )}
+        {page !== "badges" && selectedBadge && (
+          <BadgeSheet
+            badge={selectedBadge}
+            progress={b.progress}
+            bp={b.bp}
+            onClose={() => setSelectedBadge(null)}
+            onToggleFavorite={() => b.toggleFavorite(selectedBadge.id)}
+            onUnlockGrowth={() => b.unlockGrowthBadge(selectedBadge.id)}
+          />
+        )}
         {nameEditor && (
           <NameEditor
             initial={b.progress.bloxianName}
@@ -243,17 +257,13 @@ function TopBar({
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
-  const allTabs: { key: PageKey; label: string; Icon: typeof MapIcon }[] = [
-    { key: "map", label: "Map", Icon: MapIcon },
-    { key: "badges", label: "Badges", Icon: Award },
-    { key: "collection", label: "Items", Icon: Package },
+  const allTabs: { key: PageKey; label: string; Icon: typeof Compass }[] = [
+    { key: "map", label: "Map", Icon: Compass },
+    { key: "badges", label: "Badges", Icon: Medal },
+    { key: "collection", label: "Items", Icon: Gem },
   ];
   // Hide the icon of the current page; profile is entered via the avatar.
-  // On profile, also hide "collection" so the row keeps the same 2-nav-pill
-  // shape as every other page (see image 3 reference).
-  const tabs = allTabs.filter((t) =>
-    page === "profile" ? t.key !== "collection" : t.key !== page,
-  );
+  const tabs = allTabs.filter((t) => t.key !== page);
   return (
     <div
       className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4"
@@ -1231,15 +1241,13 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
         style={{
           background: "transparent",
-          border: `2px solid ${T.border}`,
-          borderBottom: "none",
+          borderTop: `2px solid ${T.border}`,
           boxShadow: "0 -12px 30px rgba(0,0,0,0.45)",
-          marginBottom: "calc(6rem + env(safe-area-inset-bottom))",
         }}
       >
         {/* Background layer extends to the bottom of the screen, giving the nav bar the same base color */}
         <div
-          className="absolute inset-0 -bottom-[100vh] rounded-t-[24px]"
+          className="absolute inset-0 rounded-t-[24px]"
           style={{ background: "rgba(8, 36, 22, 0.52)", backdropFilter: "blur(6px)" }}
         />
         <button
@@ -1254,9 +1262,10 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         <div
           className="relative p-5 overflow-y-auto"
           style={{
+            minHeight: "440px",
             maxHeight: "calc(100vh - 12rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
-            paddingBottom: "calc(1.25rem + 48px + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(1.25rem + 6rem + env(safe-area-inset-bottom))",
           }}
         >
           {children}
