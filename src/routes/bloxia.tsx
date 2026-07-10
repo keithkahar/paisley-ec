@@ -1661,7 +1661,7 @@ function AvatarPickerSheet({
                 <div
                   className="h-16 w-16 rounded-full overflow-hidden"
                   style={{
-                    background: T.ivory,
+                    background: "white",
                     boxShadow: active
                       ? `0 0 0 2.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 4px 10px rgba(0,0,0,0.45)`
                       : `0 0 0 1.5px ${T.borderSoft}, inset 0 0 0 1px rgba(0,0,0,0.3)`,
@@ -1671,7 +1671,7 @@ function AvatarPickerSheet({
                     src={a.portrait}
                     alt=""
                     className="h-full w-full object-cover"
-                    style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
+                    style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
                     draggable={false}
                   />
                 </div>
