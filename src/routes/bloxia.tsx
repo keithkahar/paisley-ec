@@ -894,6 +894,7 @@ function ProfileView({
               alt=""
               className="h-full w-full object-cover"
               draggable={false}
+              style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
             />
           </div>
           <button
@@ -1523,6 +1524,7 @@ function NameEditor({
                 alt=""
                 className="h-full w-full object-cover"
                 draggable={false}
+                style={{ transform: "scale(2)", transformOrigin: "50% 14%" }}
               />
             </div>
             <button
