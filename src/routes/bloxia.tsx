@@ -756,14 +756,11 @@ function ProfileView({
   onSelectBadge: (b: SelectedBadge) => void;
   onSelectItem: (i: CollectionItem) => void;
 }) {
-  const [activityCount, setActivityCount] = useState(10);
-
-  const totalBadges = totals.placeBadges + totals.growthBadges;
-  const earnedBadges = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
+  const [activityCount, setActivityCount] = useState(5);
 
   const pills = [
-    { label: "Places", value: `${progress.unlockedPlaceIds.length}/${totals.places}` },
-    { label: "Badges", value: `${earnedBadges}/${totalBadges}` },
+    { label: "Places", value: `${progress.earnedPlaceBadgeIds.length}/${totals.placeBadges}` },
+    { label: "Growth", value: `${progress.unlockedGrowthBadgeIds.length}/${totals.growthBadges}` },
     { label: "Items", value: `${progress.collectedItemIds.length}/${totals.collectionItems}` },
   ];
 
@@ -820,24 +817,36 @@ function ProfileView({
     <div className="space-y-6">
       {/* --- Header: avatar + name + stat pills (no frame) --- */}
       <div className="flex flex-col items-center pt-1">
-        <button
-          type="button"
-          onClick={onEditName}
-          aria-label="Edit profile"
-          className="h-24 w-24 rounded-full grid place-items-center overflow-hidden active:scale-95 transition-transform"
-          style={{
-            background: "#173F29",
-            border: `2px solid ${T.goldLight}`,
-            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
-          }}
-        >
-          <img
-            src={CHARACTER_ASSETS.shirinPortrait}
-            alt=""
-            className="h-full w-full object-cover"
-            style={{ imageRendering: "pixelated" }}
-          />
-        </button>
+        <div className="relative h-[134px] w-[134px]">
+          <div
+            className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+            style={{
+              background: "#173F29",
+              border: `2px solid ${T.goldLight}`,
+              boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+            }}
+          >
+            <img
+              src={CHARACTER_ASSETS.shirinPortrait}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{ imageRendering: "pixelated" }}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={onEditName}
+            aria-label="Edit profile"
+            className="absolute top-5 left-5 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            style={{
+              background: T.ivory,
+              border: `1.5px solid ${T.goldLight}`,
+              boxShadow: "0 2px 6px rgba(0,0,0,0.35)",
+            }}
+          >
+            <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: T.goldOnDark }} />
+          </button>
+        </div>
         <div
           className="mt-3 text-[22px] font-semibold leading-none"
           style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
@@ -898,7 +907,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Badges --- */}
-      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right">
+      <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right" framed>
         {favBadges.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favBadges.map((b) => (
@@ -919,7 +928,7 @@ function ProfileView({
       </ProfileGroup>
 
       {/* --- Favorite Items --- */}
-      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right">
+      <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right" framed>
         {favItems.length ? (
           <div className="grid grid-cols-4 gap-3">
             {favItems.map((it) => (
@@ -963,11 +972,13 @@ function ProfileGroup({
   title,
   onAction,
   actionKind,
+  framed,
   children,
 }: {
   title: string;
   onAction?: () => void;
   actionKind?: "right" | "down";
+  framed?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -996,7 +1007,19 @@ function ProfileGroup({
           </button>
         )}
       </div>
-      {children}
+      {framed ? (
+        <div
+          className="rounded-[18px] p-3"
+          style={{
+            background: "rgba(8,36,22,0.55)",
+            border: `1.5px solid ${T.borderSoft}`,
+          }}
+        >
+          {children}
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 }
@@ -1371,35 +1394,81 @@ function NameEditor({
   const [name, setName] = useState(initial);
   return (
     <Sheet onClose={onClose}>
-      <img
-        src={CHARACTER_ASSETS.shirinFull}
-        alt=""
-        className="h-28 mx-auto"
-        style={{ imageRendering: "pixelated" }}
-      />
-      <div className="mt-3 text-center text-[18px] font-extrabold" style={{ color: T.ivory }}>
+      <div className="text-center text-[22px] font-extrabold" style={{ color: T.goldLight }}>
         Edit Profile
       </div>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        maxLength={24}
-        className="mt-4 w-full h-12 px-4 rounded-[14px] text-[15px] font-bold outline-none"
-        style={{
-          background: "rgba(255,244,191,0.1)",
-          border: `2px solid rgba(216,175,87,0.5)`,
-          color: T.ivory,
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => onSave(name)}
-        className="mt-4 w-full h-12 rounded-[14px] font-semibold text-[14px]"
-        style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
-      >
-        Save Profile
-      </button>
+      <div className="mt-5 flex flex-col items-center">
+        <div
+          className="h-24 w-24 rounded-full grid place-items-center overflow-hidden"
+          style={{
+            background: "#173F29",
+            border: `2px solid ${T.goldLight}`,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.35)",
+          }}
+        >
+          <img
+            src={CHARACTER_ASSETS.shirinPortrait}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ imageRendering: "pixelated" }}
+          />
+        </div>
+      </div>
+      <div className="mt-6 space-y-3">
+        <SettingsRow label="Name">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={24}
+            placeholder="Enter name"
+            className="w-full bg-transparent outline-none text-right text-[15px] font-semibold"
+            style={{ color: T.ivory, letterSpacing: "-0.01em" }}
+          />
+        </SettingsRow>
+      </div>
+      <div className="mt-6 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={onClose}
+          className="h-12 rounded-full text-[15px] font-semibold"
+          style={{
+            background: "rgba(8,36,22,0.72)",
+            border: `1.5px solid ${T.borderSoft}`,
+            color: T.ivory,
+          }}
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          onClick={() => onSave(name)}
+          className="h-12 rounded-full text-[15px] font-semibold"
+          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+        >
+          Save
+        </button>
+      </div>
     </Sheet>
+  );
+}
+
+function SettingsRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div
+      className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[60px]"
+      style={{
+        background: "rgba(8,36,22,0.55)",
+        border: `1.5px solid ${T.borderSoft}`,
+      }}
+    >
+      <span
+        className="shrink-0 text-[15px] font-semibold leading-none"
+        style={{ color: T.goldLight, letterSpacing: "-0.01em" }}
+      >
+        {label}
+      </span>
+      <div className="flex-1 min-w-0">{children}</div>
+    </div>
   );
 }
 
