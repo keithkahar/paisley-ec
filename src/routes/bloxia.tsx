@@ -195,6 +195,7 @@ function TopBar({
   bp,
   currentPlaceName,
   progressPct,
+  next,
   page,
   onNavigate,
 }: {
@@ -202,6 +203,7 @@ function TopBar({
   bp: number;
   currentPlaceName: string;
   progressPct: number;
+  next: Place | undefined;
   page: PageKey;
   onNavigate: (p: PageKey) => void;
 }) {
