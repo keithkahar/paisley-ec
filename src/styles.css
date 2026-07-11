@@ -169,11 +169,15 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { letter-spacing: -0.01em; }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 500;
+    letter-spacing: 0;
   }
+  /* English-only tighter tracking; opt-in via .en class so mixed CN/EN text
+     (which is common in this bilingual app) doesn't get its CJK glyphs
+     visually squeezed. */
+  .en, h1.en, h2.en, h3.en, h4.en { letter-spacing: -0.01em; }
   /* Chinese-aware typography: turn off the English -0.01em tracking and
      use a slightly taller line-height on runs marked as zh so PingFang /
      Noto Sans SC don't inherit English metrics. */

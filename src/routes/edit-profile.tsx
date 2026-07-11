@@ -17,11 +17,15 @@ export const Route = createFileRoute("/edit-profile")({
 // ---- Profile storage (mirrors utils/profile.js) ----
 const PROFILE_STORAGE_KEY = "my_profile_v1";
 const DEFAULT_BIRTHDAY = "2017-01-01";
-const PAISLEY = "var(--paisley)";
 const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
-const YELLOW = "var(--paisley-yellow)";
-const YELLOW_SOFT = `color-mix(in oklab, var(--paisley-yellow) 18%, white)`;
+const PAISLEY = "var(--paisley)";
+// Form accent — Paisley brand blue for borders, CTA, sheet headers, etc.
+// Aliased under the previous YELLOW/YELLOW_SOFT names so downstream sheets
+// stay in sync without a wide rename.
+const ACCENT = PAISLEY;
+const YELLOW = PAISLEY;
+const YELLOW_SOFT = `color-mix(in oklab, var(--paisley) 14%, white)`;
 
 type Gender = "" | "male" | "female";
 type ProfileForm = {
@@ -183,18 +187,8 @@ function EditProfilePage() {
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
         <AppHeader title="Edit Profile" back="/profile" bg="white" />
 
-        {/* Title */}
-        <section className="px-6 pt-12 pb-2 text-center">
-          <h1
-            className="text-[26px] leading-[1.2] font-medium tracking-tight"
-            style={{ color: YELLOW, letterSpacing: "-0.01em" }}
-          >
-            Edit Profile
-          </h1>
-        </section>
-
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-2 pb-[195px] overflow-y-auto flex flex-col">
+        <div className="flex-1 px-6 pt-4 pb-[195px] overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
           <div className="flex flex-col items-center pt-2 pb-5">
             <div className="relative h-40 w-40">
@@ -311,7 +305,7 @@ function EditProfilePage() {
             type="button"
             onClick={onSave}
             className="w-full h-12 rounded-full text-[15px] font-semibold active:scale-[0.99] transition-transform"
-            style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
+            style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
           >
             Save
           </button>
@@ -322,7 +316,7 @@ function EditProfilePage() {
           <div className="pointer-events-none absolute inset-x-0 bottom-24 z-40 flex justify-center">
             <div
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-semibold shadow-lg"
-              style={{ background: YELLOW, color: "white" }}
+              style={{ background: ACCENT, color: "white" }}
             >
               <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
               {toast}

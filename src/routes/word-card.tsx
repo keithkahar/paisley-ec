@@ -214,7 +214,7 @@ function WordCardPage() {
             <div
               className="absolute inset-0 rounded-[2rem] p-6 flex flex-col text-white overflow-hidden"
               style={{
-                background: "linear-gradient(160deg, var(--wordie) 0%, oklch(0.48 0.22 273) 100%)",
+                background: "linear-gradient(160deg, var(--wordie) 0%, color-mix(in oklab, var(--wordie) 78%, black) 100%)",
                 backfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
               }}
