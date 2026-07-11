@@ -4,7 +4,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
-import { Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
+import { Flame, MessageCircle, BookOpen, Lightbulb, ChevronRight } from "lucide-react";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import {
   MonthCalendarDialog,
@@ -47,7 +47,7 @@ function ShirinTalkPage() {
         <FloatingBack to="/" />
 
         {/* Hero */}
-        <section className="px-6 pt-12 pb-1 text-center">
+        <section className="px-6 pt-[53px] pb-1 text-center">
           <img
             src={shirinHero.url}
             alt="Shirin"
@@ -160,6 +160,7 @@ function ShirinTalkPage() {
                 <span className="text-[17px] font-semibold tracking-tight leading-none" style={{ letterSpacing: "-0.01em", color: PINK }}>
                   {c.title}
                 </span>
+                <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: PINK }} />
               </Link>
             );
           })}
