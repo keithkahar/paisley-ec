@@ -44,7 +44,7 @@ function ShirinTalkPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <AppHeader title="" back="/" bg="transparent" />
+        <FloatingBack to="/" />
 
         {/* Hero */}
         <section className="px-6 pt-12 pb-1 text-center">

@@ -46,7 +46,7 @@ function TopicsPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        <AppHeader title="" back="/shirin-talk" bg="transparent" />
+        <FloatingBack to="/shirin-talk" />
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
           <div className="mb-4 text-center">

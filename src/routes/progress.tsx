@@ -77,7 +77,7 @@ function ProgressPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <AppHeader title="" back="/profile" bg="white" />
+        <FloatingBack to="/profile" />
 
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">

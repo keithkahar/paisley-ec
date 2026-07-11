@@ -51,7 +51,7 @@ function AboutPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-[calc(100dvh)]">
-        <AppHeader title="About" back="/profile" bg="white" />
+        <FloatingBack to="/profile" />
 
         <main className="px-8 pt-14 pb-10 overflow-y-auto">
           {/* Intro */}

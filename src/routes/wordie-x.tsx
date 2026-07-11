@@ -448,7 +448,7 @@ function WordieXPage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <AppHeader title="" back="/mywordie" bg="white" />
+      <FloatingBack to="/mywordie" />
 
       <div className="px-5 pb-12">
         {/* Title */}

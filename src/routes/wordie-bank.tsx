@@ -237,7 +237,7 @@ function WordieBankPage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <AppHeader title="" back="/mywordie" bg="transparent" />
+      <FloatingBack to="/mywordie" />
 
       <div className="px-5 pb-10">
         {/* Title */}
