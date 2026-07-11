@@ -185,7 +185,7 @@ function EditProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
-        <AppHeader title="Edit Profile" back="/profile" bg="white" />
+        <AppHeader title="" back="/profile" bg="white" />
 
         {/* Scroll body */}
         <div className="flex-1 px-6 pt-4 pb-[195px] overflow-y-auto flex flex-col">

@@ -331,7 +331,7 @@ function ChatPage() {
         </div>
 
         {/* Scrollable area */}
-        <div className="flex-1 overflow-y-auto scroll-hide px-4 pt-4 pb-40">
+        <div className="flex-1 overflow-y-auto scroll-hide px-4 pt-16 pb-40">
           {/* Hero opening — shown once at top */}
           <div className="flex flex-col items-center text-center pb-4">
             <img src={shirinHero.url} alt="Shirin" className="h-40 w-40 object-contain" />
