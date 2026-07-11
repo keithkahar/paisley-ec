@@ -487,14 +487,14 @@ function MapView({
             filter: "blur(10px)",
           }}
         />
-        {/* Text-only logo tinted to the Wonder Tree blue/cyan glow palette */}
+        {/* Text-only logo in white with a cool cyan/blue halo */}
         <img
           src={bloxiaLogoText}
           alt="Bloxia — Growth World"
           className="relative w-[90px] object-contain opacity-95"
           style={{
             filter:
-              "hue-rotate(100deg) saturate(1.35) brightness(1.05) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
+              "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
           }}
         />
       </div>
