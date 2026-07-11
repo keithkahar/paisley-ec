@@ -58,7 +58,7 @@ function ProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <AppHeader title="Profile" back="/" bg="white" />
+        <AppHeader title="" back="/" bg="white" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-12 pb-1 text-center">
