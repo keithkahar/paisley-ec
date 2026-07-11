@@ -5,18 +5,20 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
+  BLOXIAN_AVATARS,
   CHARACTER_ASSETS,
   COLLECTION_ITEMS,
+  DEFAULT_BLOXIAN_NAME,
   GROWTH_BADGES,
   MAP_ASSETS,
   PLACES,
   PLACE_BADGES,
-  BLOXIAN_AVATARS,
-  type BloxianAvatar,
+  avatarById,
   collectionItemById,
   growthBadgeById,
   placeBadgeById,
   placeById,
+  type BloxianAvatar,
   type CollectionItem,
   type GrowthBadge,
   type Place,
@@ -1500,7 +1502,9 @@ function NameEditor({
   onClose: () => void;
   onSave: (avatarId: string, name: string) => void;
 }) {
-  const [name, setName] = useState(initial || "Bloxian");
+  const [name, setName] = useState(
+    initial && initial.trim() !== DEFAULT_BLOXIAN_NAME ? initial.trim() : "",
+  );
   const startIndex = Math.max(
     0,
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
@@ -1601,7 +1605,8 @@ function NameEditor({
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={24}
-              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              placeholder="Enter your name"
+              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold placeholder:font-normal placeholder:text-[rgba(183,217,183,0.55)]"
               style={{
                 color: T.ivory,
                 letterSpacing: "-0.01em",
@@ -1610,7 +1615,7 @@ function NameEditor({
           </div>
           <button
             type="button"
-            onClick={() => onSave(current.id, name.trim() || "Bloxian")}
+            onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
@@ -1729,8 +1734,7 @@ function WelcomeSheet({
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
   );
   const [index, setIndex] = useState(startIndex);
-  const [name, setName] = useState("Bloxian");
-  const [nameTouched, setNameTouched] = useState(false);
+  const [name, setName] = useState("");
   const touchStartX = useState<{ x: number | null }>({ x: null })[0];
   const total = BLOXIAN_AVATARS.length;
   const mod = (n: number) => ((n % total) + total) % total;
@@ -1831,13 +1835,10 @@ function WelcomeSheet({
           >
             <input
               value={name}
-              onChange={(e) => {
-                setNameTouched(true);
-                setName(e.target.value);
-              }}
-              onFocus={() => setNameTouched(true)}
+              onChange={(e) => setName(e.target.value)}
               maxLength={24}
-              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              placeholder="Enter your name"
+              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold placeholder:font-normal placeholder:text-[rgba(183,217,183,0.55)]"
               style={{
                 color: T.ivory,
                 letterSpacing: "-0.01em",
@@ -1845,19 +1846,10 @@ function WelcomeSheet({
                 width: "auto",
               } as React.CSSProperties}
             />
-            {!nameTouched && (
-              <span
-                aria-hidden
-                className="text-[15px] font-semibold bloxia-caret-blink"
-                style={{ color: T.ivory, marginLeft: -2 }}
-              >
-                _
-              </span>
-            )}
           </div>
           <button
             type="button"
-            onClick={() => onStart(current.id, name.trim() || "Bloxian")}
+            onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
