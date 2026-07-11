@@ -16,7 +16,7 @@ export function FloatingBack({
   return (
     <div
       className="absolute left-4 z-30"
-      style={{ top: "calc(0.5rem + env(safe-area-inset-top))" }}
+      style={{ top: "calc(0.75rem + env(safe-area-inset-top))" }}
     >
       <Link
         to={to}
