@@ -455,10 +455,10 @@ function MapView({
         style={{ imageRendering: "pixelated" }}
       />
       <div
-        className="absolute left-4 z-10 pointer-events-none flex items-center justify-center"
-        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem)" }}
+        className="absolute z-10 pointer-events-none flex items-center justify-center"
+        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem)", left: "34px" }}
       >
-        {/* Warm amber/gold background halo — more prominent so the white text pops off the forest map */}
+        {/* Warm amber/gold background halo — more prominent so the logo pops off the forest map */}
         <div
           aria-hidden
           className="absolute"
@@ -487,14 +487,14 @@ function MapView({
             filter: "blur(10px)",
           }}
         />
-        {/* Text-only logo — softened into the map */}
+        {/* Text-only logo in original brand colors */}
         <img
           src={bloxiaLogoText}
           alt="Bloxia — Growth World"
-          className="relative w-[90px] object-contain opacity-90"
+          className="relative w-[90px] object-contain opacity-95"
           style={{
             filter:
-              "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
+              "drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
           }}
         />
       </div>
