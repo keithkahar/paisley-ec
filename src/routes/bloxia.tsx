@@ -1605,7 +1605,8 @@ function NameEditor({
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={24}
-              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold"
+              placeholder="Enter your name"
+              className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold placeholder:font-normal placeholder:text-[rgba(183,217,183,0.55)]"
               style={{
                 color: T.ivory,
                 letterSpacing: "-0.01em",
