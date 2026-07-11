@@ -1502,7 +1502,9 @@ function NameEditor({
   onClose: () => void;
   onSave: (avatarId: string, name: string) => void;
 }) {
-  const [name, setName] = useState(initial || "Bloxian");
+  const [name, setName] = useState(
+    initial && initial.trim() !== DEFAULT_BLOXIAN_NAME ? initial.trim() : "",
+  );
   const startIndex = Math.max(
     0,
     BLOXIAN_AVATARS.findIndex((a) => a.id === initialAvatarId),
