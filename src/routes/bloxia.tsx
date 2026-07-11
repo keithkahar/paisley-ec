@@ -374,9 +374,9 @@ function TopBar({
 
         {/* Right: name + milestone + avatar */}
         <div className="flex items-center gap-2 justify-end min-w-0">
-          <div className="min-w-0 text-right flex flex-col items-end leading-none shrink-0">
+          <div className="min-w-0 text-right flex flex-col items-end leading-none max-w-[150px]">
             <div
-              className="text-[13px] font-semibold leading-tight truncate"
+              className="text-[14px] font-semibold leading-tight truncate"
               style={{
                 fontFamily: "var(--font-display)",
                 color: T.ivory,
@@ -386,7 +386,7 @@ function TopBar({
               {progress.bloxianName}
             </div>
             <div
-              className="text-[10px] font-bold leading-snug mt-[5px] whitespace-nowrap"
+              className="text-[10px] font-bold leading-snug mt-[5px] truncate max-w-[110px]"
               style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
             >
               {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
