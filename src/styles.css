@@ -65,8 +65,8 @@
   --color-bloxia-soft: var(--bloxia-soft);
   --color-bloxia-sky: var(--bloxia-sky);
   /* Fonts */
-  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
-  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fredoka", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Nunito", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   --font-pixel: "Press Start 2P", ui-monospace, monospace;
 }
 
@@ -173,6 +173,15 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 500;
+  }
+  /* Chinese-aware typography: turn off the English -0.01em tracking and
+     use a slightly taller line-height on runs marked as zh so PingFang /
+     Noto Sans SC don't inherit English metrics. */
+  h1:lang(zh), h2:lang(zh), h3:lang(zh), h4:lang(zh),
+  h1 [lang="zh"], h2 [lang="zh"], h3 [lang="zh"], h4 [lang="zh"],
+  [lang="zh"] {
+    letter-spacing: 0;
+    line-height: 1.35;
   }
 }
 

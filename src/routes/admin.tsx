@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { FloatingBack } from "@/components/app/FloatingBack";
+import { AppHeader } from "@/components/app/AppHeader";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -939,7 +939,7 @@ function AdminPageInner() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
-        <FloatingBack to="/profile" label="Back to profile" />
+        <AppHeader title="Admin Console" back="/profile" bg="white" />
 
         <div className="px-5 pt-12">
           {/* Header: title + menu (open groups drawer) + reset */}

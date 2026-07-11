@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { FloatingBack } from "@/components/app/FloatingBack";
+import { AppHeader } from "@/components/app/AppHeader";
 
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [
@@ -117,7 +117,7 @@ function ParentPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white pb-24">
-        <FloatingBack to="/profile" />
+        <AppHeader title="Parent" back="/profile" bg="white" />
 
         {/* Header */}
         <section className="px-6 pt-12 pb-2 text-center">

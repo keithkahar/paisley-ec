@@ -4,7 +4,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Layers, Zap, ClipboardCheck, Flame, Play } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
-import { FloatingBack } from "@/components/app/FloatingBack";
+import { AppHeader } from "@/components/app/AppHeader";
 import {
   MonthCalendarDialog,
   mockActivity,
@@ -46,7 +46,7 @@ function MyWordiePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <FloatingBack to="/" />
+        <AppHeader title="" back="/" bg="transparent" />
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-12 pb-1">
           <div

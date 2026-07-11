@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { FloatingBack } from "@/components/app/FloatingBack";
+import { AppHeader } from "@/components/app/AppHeader";
 import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
 
 export const Route = createFileRoute("/about")({
@@ -51,7 +51,7 @@ function AboutPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-[calc(100dvh)]">
-        <FloatingBack to="/profile" label="Back to profile" />
+        <AppHeader title="About" back="/profile" bg="white" />
 
         <main className="px-8 pt-14 pb-10 overflow-y-auto">
           {/* Intro */}

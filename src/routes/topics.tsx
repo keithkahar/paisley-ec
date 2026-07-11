@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { FloatingBack } from "@/components/app/FloatingBack";
+import { AppHeader } from "@/components/app/AppHeader";
 import freeTalkArt from "@/assets/topics/free_talk.png";
 import smartReadingArt from "@/assets/topics/smart_reading.png";
 import petTalkArt from "@/assets/topics/pet_talk.png";
@@ -46,7 +46,7 @@ function TopicsPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        <FloatingBack to="/shirin-talk" />
+        <AppHeader title="" back="/shirin-talk" bg="transparent" />
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
           <div className="mb-4 text-center">
