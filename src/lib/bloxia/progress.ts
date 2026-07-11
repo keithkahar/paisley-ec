@@ -175,8 +175,12 @@ export function useBloxia() {
           bloxianName: sanitizedName,
           selectedAvatarId:
             stored.selectedAvatarId && avatarById[stored.selectedAvatarId]
-            ? stored.selectedAvatarId
-            : base.selectedAvatarId,
+              ? stored.selectedAvatarId
+              : base.selectedAvatarId,
+          // Any persisted progress means the user has already seen the welcome
+          // sheet at least once. Prevent regressions where a missing/false
+          // flag re-opens the sheet on subsequent visits.
+          avatarSelectionCompleted: true,
         }
       : base;
     setProgress(merged);

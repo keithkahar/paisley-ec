@@ -56,19 +56,22 @@ function AboutPage() {
         <main className="px-8 pt-14 pb-10 overflow-y-auto">
           {/* Intro */}
           <section className="mb-7">
-            <div className="flex items-start gap-2 text-[15px] leading-[1.55] font-normal">
-              <span className="shrink-0 mt-[1px]">
-                <img
-                  src={paisleyLogo.url}
-                  alt="PEC"
-                  className="h-[1.15em] w-auto object-contain inline-block"
-                  style={{ filter: "grayscale(100%) brightness(0)" }}
-                />
-              </span>
-              <p style={{ color: "#000000" }}>
-                （简称PEC）是一家专业的英语教育工作室，致力于为低龄英语学习者提供全方位的语言学习支持服务。其核心项目与资源包括：
-              </p>
-            </div>
+            <p
+              className="text-[15px] leading-[1.55] font-normal"
+              style={{ color: "#000000" }}
+            >
+              <img
+                src={paisleyLogo.url}
+                alt="PEC"
+                className="inline-block h-[1em] w-auto object-contain"
+                style={{
+                  filter: "grayscale(100%) brightness(0)",
+                  verticalAlign: "-0.12em",
+                  marginRight: "0.2em",
+                }}
+              />
+              （简称PEC）是一家专业的英语教育工作室，致力于为低龄英语学习者提供全方位的语言学习支持服务。其核心项目与资源包括：
+            </p>
           </section>
 
           {/* Service Cards */}

@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { Volume2, RotateCw, ChevronLeft, Clock, X } from "lucide-react";
+import { Volume2, RotateCw, ChevronLeft, Clock } from "lucide-react";
 import { useBloxia } from "@/lib/bloxia/progress";
 
 export const Route = createFileRoute("/word-card")({
@@ -134,13 +134,8 @@ function WordCardPage() {
             {fmtTime(seconds)}
           </span>
         </div>
-        <Link
-          to="/mywordie"
-          aria-label="End session"
-          className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border"
-        >
-          <X className="h-5 w-5" />
-        </Link>
+        {/* Right spacer keeps the center cluster visually balanced with the back button */}
+        <div className="h-9 w-9" aria-hidden />
       </div>
 
       {/* Progress segments */}
