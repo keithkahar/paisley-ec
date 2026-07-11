@@ -178,7 +178,6 @@
      (which is common in this bilingual app) doesn't get its CJK glyphs
      visually squeezed. */
   .en, h1.en, h2.en, h3.en, h4.en { letter-spacing: -0.01em; }
-  }
   /* Chinese-aware typography: turn off the English -0.01em tracking and
      use a slightly taller line-height on runs marked as zh so PingFang /
      Noto Sans SC don't inherit English metrics. */
