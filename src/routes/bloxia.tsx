@@ -458,28 +458,36 @@ function MapView({
         className="absolute left-4 z-10 pointer-events-none"
         style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
       >
-        {/* Soft emerald halo that merges the logo into the forest map */}
+        {/* Wide soft emerald aura that merges the logo into the forest map */}
         <div
-          className="absolute -inset-5 rounded-full opacity-70 animate-pulse"
+          className="absolute -inset-8 rounded-full opacity-80"
           style={{
-            background: "radial-gradient(circle, rgba(60,180,110,0.55) 0%, rgba(28,87,50,0.22) 45%, transparent 70%)",
-            filter: "blur(14px)",
-            animationDuration: "3.5s",
+            background: "radial-gradient(circle, rgba(72,200,120,0.42) 0%, rgba(36,120,72,0.18) 45%, transparent 72%)",
+            filter: "blur(22px)",
           }}
         />
-        {/* Warm gold rim glow for the magical title feel */}
+        {/* Medium green glow with slow pulse */}
         <div
-          className="absolute -inset-1 rounded-[16px] opacity-60"
+          className="absolute -inset-4 rounded-full opacity-90 animate-pulse"
           style={{
-            background: "radial-gradient(ellipse at center, rgba(248,230,164,0.35) 0%, transparent 70%)",
-            filter: "blur(8px)",
+            background: "radial-gradient(circle, rgba(84,215,135,0.55) 0%, rgba(28,87,50,0.28) 50%, transparent 70%)",
+            filter: "blur(12px)",
+            animationDuration: "3s",
+          }}
+        />
+        {/* Warm gold rim highlight for the magical title feel */}
+        <div
+          className="absolute -inset-1 rounded-[14px] opacity-70"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(255,244,191,0.38) 0%, transparent 68%)",
+            filter: "blur(6px)",
           }}
         />
         <img
           src={bloxiaLogo.url}
           alt="Bloxia — Growth World"
           className="relative w-[120px] object-contain"
-          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.35)) drop-shadow(0 0 10px rgba(60,180,110,0.45))" }}
+          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.35)) drop-shadow(0 0 14px rgba(72,200,120,0.55))" }}
         />
       </div>
       {places.map((p) => (
