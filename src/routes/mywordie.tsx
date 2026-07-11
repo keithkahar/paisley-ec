@@ -213,7 +213,7 @@ function PillLink({
       >
         {title}
       </span>
-      <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: WORDIE }} />
+      <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: "white" }} />
     </Link>
   );
 }

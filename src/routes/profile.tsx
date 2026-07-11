@@ -62,7 +62,7 @@ function ProfilePage() {
         <FloatingBack to="/" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
-        <section className="px-6 pt-[53px] pb-1 text-center">
+        <section className="px-6 pt-[58px] pb-1 text-center">
           <div className="relative mx-auto h-40 w-40">
             <div
               className="h-40 w-40 rounded-full grid place-items-center overflow-hidden"
@@ -241,7 +241,7 @@ function PillLink({
       >
         {title}
       </span>
-      <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: PAISLEY }} />
+      <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: "white" }} />
     </Link>
   );
 }
