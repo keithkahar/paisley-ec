@@ -20,8 +20,12 @@ const DEFAULT_BIRTHDAY = "2017-01-01";
 const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
 const PAISLEY = "var(--paisley)";
-// Form accent — Paisley brand blue for borders and CTA.
+// Form accent — Paisley brand blue for borders, CTA, sheet headers, etc.
+// Aliased under the previous YELLOW/YELLOW_SOFT names so downstream sheets
+// stay in sync without a wide rename.
 const ACCENT = PAISLEY;
+const YELLOW = PAISLEY;
+const YELLOW_SOFT = `color-mix(in oklab, var(--paisley) 14%, white)`;
 
 type Gender = "" | "male" | "female";
 type ProfileForm = {
