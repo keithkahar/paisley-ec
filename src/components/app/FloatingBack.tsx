@@ -22,10 +22,10 @@ export function FloatingBack({
       <Link
         to={to}
         aria-label={label}
-        className="absolute left-4 h-10 w-10 grid place-items-center rounded-full bg-white/85 backdrop-blur border border-border shadow-sm active:scale-95 transition-transform"
+        className="absolute left-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
         style={{ top: "calc(0.75rem + env(safe-area-inset-top))" }}
       >
-        <ChevronLeft className="h-5 w-5" />
+        <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
       </Link>
     </div>
   );
