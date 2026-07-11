@@ -269,6 +269,9 @@ function BloxiaPage() {
             onStart={(id, name) => {
               b.completeWelcome(id, name);
             }}
+            onClose={() => {
+              b.completeWelcome(b.progress.selectedAvatarId, b.progress.bloxianName);
+            }}
           />
         )}
       </div>
