@@ -47,7 +47,7 @@ function ShirinTalkPage() {
         <FloatingBack to="/" />
 
         {/* Hero */}
-        <section className="px-6 pt-[58px] pb-1 text-center">
+        <section className="px-6 pt-[55px] pb-1 text-center">
           <img
             src={shirinHero.url}
             alt="Shirin"
