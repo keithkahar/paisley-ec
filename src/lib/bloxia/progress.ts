@@ -177,8 +177,6 @@ export function useBloxia() {
             stored.selectedAvatarId && avatarById[stored.selectedAvatarId]
             ? stored.selectedAvatarId
             : base.selectedAvatarId,
-          // Force welcome sheet open for testing; user can dismiss it normally.
-          avatarSelectionCompleted: false,
         }
       : base;
     setProgress(merged);
