@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import pecFromLogo from "@/assets/brand/pec-from-logo.png.asset.json";
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/profile")({
 });
 
 // ---- mock profile data ----
-const PROFILE = {
+const DEFAULT_PROFILE = {
   avatarPath:
     "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniella&backgroundColor=ffd5dc,c0aede,b6e3f4&radius=50",
   givenName: "Daniella",
@@ -36,8 +36,6 @@ const PROFILE = {
   cefr: "A2",
   registeredAt: new Date("2025-03-14"),
 };
-const DISPLAY_NAME = `${PROFILE.givenName} ${PROFILE.familyName}`.trim();
-const INITIALS = ((PROFILE.givenName[0] ?? "") + (PROFILE.familyName[0] ?? "")).toUpperCase();
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_YELLOW = "var(--paisley-yellow)";
@@ -45,6 +43,28 @@ const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
   const [calOpen, setCalOpen] = useState(false);
+  const [profile, setProfile] = useState(DEFAULT_PROFILE);
+  const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem("my_profile_v1");
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      setProfile((p) => ({
+        ...p,
+        avatarPath: typeof s.avatarPath === "string" && s.avatarPath ? s.avatarPath : p.avatarPath,
+        givenName: typeof s.givenName === "string" && s.givenName.trim() ? s.givenName.trim() : p.givenName,
+        familyName: typeof s.familyName === "string" && s.familyName.trim() ? s.familyName.trim() : p.familyName,
+      }));
+      setAvatarPos({
+        x: typeof s.avatarPosX === "number" ? s.avatarPosX : 50,
+        y: typeof s.avatarPosY === "number" ? s.avatarPosY : 50,
+        scale: typeof s.avatarScale === "number" ? s.avatarScale : 1,
+      });
+    } catch { /* ignore */ }
+  }, []);
+  const DISPLAY_NAME = `${profile.givenName} ${profile.familyName}`.trim();
+  const INITIALS = ((profile.givenName[0] ?? "") + (profile.familyName[0] ?? "")).toUpperCase();
   const today = new Date();
   const week = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date(today);
@@ -69,7 +89,17 @@ function ProfilePage() {
               style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
             >
               {PROFILE.avatarPath ? (
-                <img src={PROFILE.avatarPath} alt={DISPLAY_NAME} className="h-full w-full object-cover" />
+              {profile.avatarPath ? (
+                <img
+                  src={profile.avatarPath}
+                  alt={DISPLAY_NAME}
+                  className="h-full w-full object-cover"
+                  style={{
+                    objectPosition: `${avatarPos.x}% ${avatarPos.y}%`,
+                    transform: `scale(${avatarPos.scale})`,
+                    transformOrigin: `${avatarPos.x}% ${avatarPos.y}%`,
+                  }}
+                />
               ) : (
                 <span
                   className="text-[56px] font-medium leading-none"
@@ -99,20 +129,20 @@ function ProfilePage() {
             className="mt-1 text-[13px] leading-none font-semibold"
             style={{ color: PAISLEY_YELLOW }}
           >
-            Reg. {PROFILE.registeredAt.toLocaleString("en-US", { month: "short" })} {PROFILE.registeredAt.getDate()} {PROFILE.registeredAt.getFullYear()}
+            Reg. {profile.registeredAt.toLocaleString("en-US", { month: "short" })} {profile.registeredAt.getDate()} {profile.registeredAt.getFullYear()}
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
-              Age {PROFILE.age}
+              Age {profile.age}
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
-              CEFR {PROFILE.cefr}
+              CEFR {profile.cefr}
             </span>
           </div>
         </section>
