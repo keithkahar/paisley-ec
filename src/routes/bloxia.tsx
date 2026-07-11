@@ -458,7 +458,7 @@ function MapView({
         className="absolute z-10 pointer-events-none flex items-center justify-center"
         style={{ top: "calc(env(safe-area-inset-top) + 6.125rem - 6px)", left: "29px" }}
       >
-        {/* Soft green halo behind the white text logo */}
+        {/* Soft blue-cyan halo behind the white text logo */}
         <div
           aria-hidden
           className="absolute"
@@ -469,7 +469,7 @@ function MapView({
             top: "50%",
             transform: "translate(-50%, -50%)",
             background:
-              "radial-gradient(ellipse at center, rgba(120,230,140,0.50) 0%, rgba(60,190,100,0.28) 40%, rgba(30,150,70,0.10) 60%, transparent 72%)",
+              "radial-gradient(ellipse at center, rgba(100,220,255,0.50) 0%, rgba(50,170,255,0.28) 40%, rgba(30,140,255,0.10) 60%, transparent 72%)",
             filter: "blur(18px)",
           }}
         />
@@ -483,7 +483,7 @@ function MapView({
             top: "50%",
             transform: "translate(-50%, -50%)",
             background:
-              "radial-gradient(ellipse at center, rgba(170,255,190,0.58) 0%, rgba(110,230,150,0.22) 50%, transparent 68%)",
+              "radial-gradient(ellipse at center, rgba(170,245,255,0.58) 0%, rgba(110,220,255,0.22) 50%, transparent 68%)",
             filter: "blur(10px)",
           }}
         />
