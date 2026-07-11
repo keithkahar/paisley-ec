@@ -368,8 +368,12 @@ function TopBar({
                 {progress.bloxianName}
               </div>
               <div
-                className="text-[10px] font-bold leading-snug mt-[7.5px] whitespace-nowrap"
-                style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+                className="text-[10px] font-bold leading-snug mt-[3.5px] whitespace-nowrap overflow-hidden text-ellipsis"
+                style={{
+                  color: T.goldLight,
+                  textShadow: "0 1px 2px rgba(0,0,0,0.5)",
+                  width: "121px",
+                }}
               >
                 {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
               </div>
@@ -1373,7 +1377,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           style={{
             height: "calc(100vh - 22rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
-            paddingBottom: "calc(3.5rem + 6rem + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(5rem + 3.5rem + env(safe-area-inset-bottom))",
           }}
         >
           {children}
