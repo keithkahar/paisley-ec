@@ -454,12 +454,34 @@ function MapView({
         className="absolute inset-0 h-full w-full object-cover"
         style={{ imageRendering: "pixelated" }}
       />
-      <img
-        src={bloxiaLogo.url}
-        alt="Bloxia — Growth World"
-        className="absolute left-4 w-[120px] object-contain pointer-events-none z-10"
-        style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.35))" }}
-      />
+      <div
+        className="absolute left-4 z-10 pointer-events-none"
+        style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
+      >
+        {/* Soft emerald halo that merges the logo into the forest map */}
+        <div
+          className="absolute -inset-5 rounded-full opacity-70 animate-pulse"
+          style={{
+            background: "radial-gradient(circle, rgba(60,180,110,0.55) 0%, rgba(28,87,50,0.22) 45%, transparent 70%)",
+            filter: "blur(14px)",
+            animationDuration: "3.5s",
+          }}
+        />
+        {/* Warm gold rim glow for the magical title feel */}
+        <div
+          className="absolute -inset-1 rounded-[16px] opacity-60"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(248,230,164,0.35) 0%, transparent 70%)",
+            filter: "blur(8px)",
+          }}
+        />
+        <img
+          src={bloxiaLogo.url}
+          alt="Bloxia — Growth World"
+          className="relative w-[120px] object-contain"
+          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.35)) drop-shadow(0 0 10px rgba(60,180,110,0.45))" }}
+        />
+      </div>
       {places.map((p) => (
         <button
           key={p.id}
