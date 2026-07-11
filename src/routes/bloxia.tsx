@@ -156,7 +156,7 @@ function BloxiaPage() {
         )}
 
         {/* Content — Badges page sits a bit higher for a tighter title gap */}
-        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" || page === "profile" ? "pt-[120px]" : "pt-[140px]"}`}>
+        <div className={`relative pb-6 px-4 ${page === "badges" || page === "collection" || page === "profile" ? "pt-[136px]" : "pt-[156px]"}`}>
           {page === "badges" && (
             <BadgesView
               progress={b.progress}
@@ -304,49 +304,51 @@ function TopBar({
     { key: "badges", label: "Badges", Icon: Award },
     { key: "collection", label: "Items", Icon: Gem },
   ];
-  // Hide the icon of the current page; profile is entered via the avatar.
   const tabs = allTabs.filter((t) => t.key !== page);
+  const pageTitle: Record<PageKey, string> = {
+    map: "Bloxia",
+    badges: "Badges",
+    collection: "Items",
+    profile: "Profile",
+  };
   return (
     <div
-      className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4"
-      style={{ paddingTop: "env(safe-area-inset-top)" }}
+      className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 px-4 pt-[env(safe-area-inset-top)]"
     >
-      <div className="relative">
-        {/* Top row: nav cluster on the left, name + avatar on the right */}
-        <div className="flex items-start justify-between gap-2">
-          {/* Left cluster: back + nav icons + Bp pill */}
-          <div className="flex items-center gap-1.5 min-w-0">
-            <Link
-              to="/"
-              aria-label="Back"
-              className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
-            >
-              <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
-            </Link>
-            {tabs.map((t) => {
-              const active = t.key === page;
-              const Icon = t.Icon;
-              return (
-                <button
-                  key={t.key}
-                  type="button"
-                  onClick={() => onNavigate(t.key)}
-                  aria-label={t.label}
-                  className="h-9 w-9 rounded-full grid place-items-center transition-colors shrink-0"
-                  style={
-                    active
-                      ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
-                      : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.55)` }
-                  }
-                >
-                  <Icon className="h-4 w-4" strokeWidth={2.5} />
-                </button>
-              );
-            })}
-            {/* Bp pill: hidden on profile (Bp is shown in the stat pills below) */}
-            {page !== "profile" && (
+      <div className="grid h-14 grid-cols-[auto_1fr_auto] items-center gap-3">
+        {/* Left: back + nav icons + Bp pill */}
+        <div className="flex items-center gap-1.5 min-w-0">
+          <Link
+            to="/"
+            aria-label="Back"
+            className="grid h-10 w-10 place-items-center rounded-full bg-white/85 backdrop-blur border border-border shadow-sm active:scale-95 transition-transform shrink-0"
+          >
+            <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
+          </Link>
+          {tabs.map((t) => {
+            const active = t.key === page;
+            const Icon = t.Icon;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => onNavigate(t.key)}
+                aria-label={t.label}
+                className="h-10 w-10 rounded-full grid place-items-center transition-colors shrink-0"
+                style={
+                  active
+                    ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
+                    : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.55)` }
+                }
+              >
+                <Icon className="h-4 w-4" strokeWidth={2.5} />
+              </button>
+            );
+          })}
+          {/* Bp pill: hidden on profile (Bp is shown in the stat pills below) */}
+          {page !== "profile" && (
             <div
-              className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
+              className="h-10 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
               style={{
                 background: "rgba(23,63,41,0.9)",
                 color: T.goldLight,
@@ -355,54 +357,69 @@ function TopBar({
             >
               {formatBp(bp)}
             </div>
-            )}
-          </div>
+          )}
+        </div>
 
-          {/* Right cluster: name + milestone; milestone bottom-aligned with avatar */}
-          <div className="flex items-end gap-2 min-w-0">
-            <div className="min-w-0 text-right flex flex-col items-end justify-end leading-none shrink-0">
-              <div
-                className="text-[14px] font-extrabold leading-tight truncate"
-                style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
-              >
-                {progress.bloxianName}
-              </div>
-              <div
-                className="text-[10px] font-bold leading-snug mt-[7.5px] whitespace-nowrap"
-                style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-              >
-                {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
-              </div>
-            </div>
+        {/* Center: page title */}
+        <h1
+          className="min-w-0 truncate text-center text-lg font-semibold"
+          style={{
+            fontFamily: "var(--font-display)",
+            color: T.ivory,
+            textShadow: "0 1px 3px rgba(0,0,0,0.6)",
+          }}
+        >
+          {pageTitle[page]}
+        </h1>
 
-            <button
-              type="button"
-              onClick={() => onNavigate("profile")}
-              aria-label="Profile"
-              className="h-[48px] w-[48px] rounded-full shrink-0 grid place-items-center overflow-hidden"
+        {/* Right: name + milestone + avatar */}
+        <div className="flex items-center gap-2 justify-end min-w-0">
+          <div className="min-w-0 text-right flex flex-col items-end leading-none shrink-0">
+            <div
+              className="text-[13px] font-semibold leading-tight truncate"
               style={{
-                background: "white",
-                boxShadow: `0 0 0 1.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.45)`,
+                fontFamily: "var(--font-display)",
+                color: T.ivory,
+                textShadow: "0 1px 3px rgba(0,0,0,0.6)",
               }}
             >
-              <img
-                src={avatarUrl}
-                alt=""
-                className="h-full w-full rounded-full object-cover"
-                draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
-              />
-            </button>
+              {progress.bloxianName}
+            </div>
+            <div
+              className="text-[10px] font-bold leading-snug mt-[5px] whitespace-nowrap"
+              style={{ color: T.goldLight, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+            >
+              {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
+            </div>
           </div>
-        </div>
 
-        {/* Progress bar: completed = gold, unfinished = dark green */}
-        <div
-          className="mt-1.5 h-[6px] rounded-full overflow-hidden"
-          style={{ background: "rgba(23,63,41,0.95)", border: "1px solid rgba(216,175,87,0.45)" }}
-        >
-          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
+          <button
+            type="button"
+            onClick={() => onNavigate("profile")}
+            aria-label="Profile"
+            className="h-12 w-12 rounded-full shrink-0 grid place-items-center overflow-hidden"
+            style={{
+              background: "white",
+              boxShadow: `0 0 0 1.5px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.45)`,
+            }}
+          >
+            <img
+              src={avatarUrl}
+              alt=""
+              className="h-full w-full rounded-full object-cover"
+              draggable={false}
+              style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
+            />
+          </button>
         </div>
+      </div>
+
+      {/* Progress bar: completed = gold, unfinished = dark green */}
+      <div
+        className="mt-1.5 h-[6px] rounded-full overflow-hidden"
+        style={{ background: "rgba(23,63,41,0.95)", border: "1px solid rgba(216,175,87,0.45)" }}
+      >
+        <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: T.goldGradient }} />
       </div>
     </div>
   );
