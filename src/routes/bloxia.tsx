@@ -456,7 +456,7 @@ function MapView({
       />
       <div
         className="absolute z-10 pointer-events-none flex items-center justify-center"
-        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem)", left: "34px" }}
+        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem - 6px)", left: "31px" }}
       >
         {/* Cool cyan/blue background halo — matches the Wonder Tree marker glow */}
         <div
