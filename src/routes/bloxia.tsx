@@ -456,16 +456,16 @@ function MapView({
       />
       <div
         className="absolute left-4 z-10 pointer-events-none"
-        style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
+        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem)" }}
       >
-        {/* Text-only logo — white, no plaque, no icon */}
+        {/* Text-only logo — softened into the map */}
         <img
           src={bloxiaLogoText}
           alt="Bloxia — Growth World"
-          className="w-[120px] object-contain opacity-[0.98]"
+          className="w-[120px] object-contain opacity-90"
           style={{
             filter:
-              "brightness(0) invert(1) drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 8px rgba(255,255,255,0.45))",
+              "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
           }}
         />
       </div>
