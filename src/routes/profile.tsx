@@ -3,7 +3,7 @@ import pecFromLogo from "@/assets/brand/pec-from-logo.png.asset.json";
 import { useRef, useCallback, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { FloatingBack } from "@/components/app/FloatingBack";
+import { AppHeader } from "@/components/app/AppHeader";
 import {
   MonthCalendarDialog,
   mockActivity,
@@ -58,7 +58,7 @@ function ProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <FloatingBack to="/" label="Back to home" />
+        <AppHeader title="Profile" back="/" bg="white" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-12 pb-1 text-center">
