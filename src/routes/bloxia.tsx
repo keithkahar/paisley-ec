@@ -458,41 +458,46 @@ function MapView({
         className="absolute left-4 z-10 pointer-events-none"
         style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
       >
-        {/* White logo with a subtle dark mat + layered halo for contrast against the forest map */}
+        {/* Title plaque — frosted dark green card so the white logo lifts off the map */}
         <div
-          className="absolute -inset-8 rounded-2xl"
+          className="relative flex items-center justify-center px-3.5 py-2.5 rounded-2xl"
           style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(8,36,22,0.55) 0%, rgba(8,36,22,0.22) 50%, transparent 78%)",
-            filter: "blur(16px)",
+            background: "rgba(8, 36, 22, 0.52)",
+            border: "1px solid rgba(255, 255, 255, 0.18)",
+            boxShadow:
+              "0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.10)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
           }}
-        />
-        <div
-          className="absolute -inset-6 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.12) 45%, transparent 72%)",
-            filter: "blur(22px)",
-          }}
-        />
-        <div
-          className="absolute -inset-3 rounded-[14px] animate-pulse"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(255,205,110,0.34) 0%, transparent 68%)",
-            filter: "blur(12px)",
-            animationDuration: "3.6s",
-          }}
-        />
-        <img
-          src={bloxiaLogo.url}
-          alt="Bloxia — Growth World"
-          className="relative w-[120px] object-contain opacity-[0.97]"
-          style={{
-            filter:
-              "brightness(0) invert(1) drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 10px rgba(255,255,255,0.55)) drop-shadow(0 0 18px rgba(255,205,110,0.35))",
-          }}
-        />
+        >
+          {/* Soft top highlight */}
+          <div
+            className="absolute inset-0 rounded-2xl pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center top, rgba(255,255,255,0.16) 0%, transparent 65%)",
+            }}
+          />
+          {/* Warm amber pulse behind the logo */}
+          <div
+            className="absolute -inset-1 rounded-2xl animate-pulse pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(255,200,90,0.24) 0%, transparent 72%)",
+              filter: "blur(9px)",
+              animationDuration: "3.5s",
+            }}
+          />
+          <img
+            src={bloxiaLogo.url}
+            alt="Bloxia — Growth World"
+            className="relative w-[120px] object-contain opacity-[0.98]"
+            style={{
+              filter:
+                "brightness(0) invert(1) drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 10px rgba(255,255,255,0.55)) drop-shadow(0 0 18px rgba(255,205,110,0.35))",
+            }}
+          />
+        </div>
       </div>
       {places.map((p) => (
         <button
