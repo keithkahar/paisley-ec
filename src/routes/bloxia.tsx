@@ -1849,7 +1849,7 @@ function WelcomeSheet({
           </div>
           <button
             type="button"
-            onClick={() => onStart(current.id, name.trim() || "Bloxian")}
+            onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
