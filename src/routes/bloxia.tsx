@@ -457,8 +457,8 @@ function MapView({
       <img
         src={bloxiaLogo.url}
         alt="Bloxia — Growth World"
-        className="absolute left-1/2 -translate-x-1/2 w-[62%] max-w-[280px] object-contain pointer-events-none z-10"
-        style={{ top: "calc(env(safe-area-inset-top) + 5.25rem)", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.35))" }}
+        className="absolute left-4 w-[120px] object-contain pointer-events-none z-10"
+        style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.35))" }}
       />
       {places.map((p) => (
         <button
