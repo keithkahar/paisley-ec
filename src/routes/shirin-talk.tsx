@@ -5,7 +5,7 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
 import { Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import {
   MonthCalendarDialog,
   mockActivity,
@@ -44,7 +44,7 @@ function ShirinTalkPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <AppHeader title="" back="/" bg="transparent" />
+        <FloatingBack to="/" />
 
         {/* Hero */}
         <section className="px-6 pt-12 pb-1 text-center">

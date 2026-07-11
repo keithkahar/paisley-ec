@@ -2,9 +2,13 @@ import { Link } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 
 /**
- * Reusable circular back button that floats over the top-left of a hero
- * area. Use for screens where a full AppHeader bar would visually compete
- * with the hero content (avatar, big illustration, branded card, etc.).
+ * Global back button. Sits sticky at the top of the page so it stays
+ * clickable while the user scrolls, and shifts down by the iOS safe-area
+ * inset so the notch/Dynamic Island never covers it. Zero layout height —
+ * the button floats over page content without pushing anything down.
+ *
+ * This is the ONLY top-bar primitive in the app; every page uses it.
+ * Page-specific status/branding lives inside the page body, not here.
  */
 export function FloatingBack({
   to = "/",
@@ -14,14 +18,12 @@ export function FloatingBack({
   label?: string;
 }) {
   return (
-    <div
-      className="absolute left-4 z-30"
-      style={{ top: "calc(0.75rem + env(safe-area-inset-top))" }}
-    >
+    <div className="sticky top-0 z-30 h-0">
       <Link
         to={to}
         aria-label={label}
-        className="h-10 w-10 grid place-items-center rounded-full bg-white/85 backdrop-blur border border-border shadow-sm active:scale-95 transition-transform"
+        className="absolute left-4 h-10 w-10 grid place-items-center rounded-full bg-white/85 backdrop-blur border border-border shadow-sm active:scale-95 transition-transform"
+        style={{ top: "calc(0.75rem + env(safe-area-inset-top))" }}
       >
         <ChevronLeft className="h-5 w-5" />
       </Link>

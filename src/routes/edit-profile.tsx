@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/edit-profile")({
   head: () => ({ meta: [
@@ -185,7 +185,7 @@ function EditProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
-        <AppHeader title="" back="/profile" bg="white" />
+        <FloatingBack to="/profile" />
 
         {/* Scroll body */}
         <div className="flex-1 px-6 pt-4 pb-[195px] overflow-y-auto flex flex-col">

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Plus,
@@ -448,7 +448,7 @@ function WordieXPage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <AppHeader title="" back="/mywordie" bg="white" />
+      <FloatingBack to="/mywordie" />
 
       <div className="px-5 pb-12">
         {/* Title */}
