@@ -1,0 +1,109 @@
+# Paisley EC — Lovable UI Handoff
+
+This repo is the **UI source of truth** for the Paisley EC mini-program rebuild.
+Codex/downstream engineers should treat every file here as authoritative for
+visuals, spacing, colors, typography, and component structure.
+
+## Repo layout
+
+```
+src/
+  routes/            # TanStack Start file-based routes (22 pages)
+  components/
+    app/             # App-specific components (FloatingBack, BottomTabBar, etc.)
+    ui/              # shadcn/ui primitives
+  assets/
+    brand/           # Brand logos + icons (mix of PNG + .asset.json CDN pointers)
+    tabs/            # Bottom tab icons
+    topics/          # Topic illustrations (painted art)
+  hooks/
+  lib/
+    bloxia/          # Bloxia game config/progress
+  styles.css         # ALL design tokens (colors, fonts, radius) — single source
+  router.tsx
+  routes/__root.tsx  # Root layout + <head> (fonts loaded here)
+public/
+  assets/            # Static public assets served at /assets/*
+docs/
+  style-guide.md     # Human-readable style guide
+```
+
+## CRITICAL — CDN asset pointers (`*.asset.json`)
+
+**22 of 43 files under `src/assets/` are NOT binaries — they are JSON pointers
+to Lovable's CDN (Cloudflare R2).** Format:
+
+```json
+{
+  "url": "/__l5e/assets-v1/{uuid}/{filename}",
+  "original_filename": "bloxia-logo.png",
+  "content_type": "image/png"
+}
+```
+
+In code they are imported as JSON and the `.url` field is used:
+
+```tsx
+import logo from "@/assets/brand/bloxia-logo.png.asset.json";
+<img src={logo.url} alt="..." />
+```
+
+**For the WeChat mini-program port, Codex must download each `.asset.json`
+file's `url` from Lovable's CDN and re-host it locally** (WeChat cannot
+resolve `/__l5e/...` paths). A full mapping is in
+`handoff/lovable-missing-assets.md`.
+
+The remaining 21 files under `src/assets/` (and 2 under `public/assets/`)
+are real binaries committed to the repo.
+
+## Fonts
+
+Loaded via Google Fonts `<link>` in `src/routes/__root.tsx`:
+Fredoka, Nunito, Inter, JetBrains Mono, Press Start 2P.
+No local font files. Mini-program port must self-host or find CJK equivalents
+(design tokens already fall back to PingFang SC / Noto Sans SC).
+
+## Design tokens
+
+All colors/fonts/radius live in `src/styles.css` under `:root` and `@theme`.
+Brand palette:
+
+- Paisley Blue `#0146b9` → `--paisley`
+- Shirin Pink `#f93e6b` → `--shirin`
+- Wordie Blue `#5064f5` → `--wordie`
+- Bloxia Green `#52b22c` → `--bloxia` (deep `#024527`)
+- Sand `#cdae8d` → `--sand` / `--paisley-yellow`
+
+See `docs/style-guide.md` for full usage rules.
+
+## Environment
+
+- `.env.example` — template. Copy to `.env.local` and fill in for local dev.
+- **Never commit** `.env`, `.env.local`, service-role keys, or API tokens.
+- `.gitignore` already excludes `.env.local`, `.wrangler/`, `.dev.vars`.
+
+## Handoff documents (attach separately)
+
+Generated in the Lovable sandbox under `/mnt/documents/handoff/`, not in git:
+
+- `lovable-full-ui-source-export.md`
+- `lovable-ui-design-system.md`
+- `lovable-vs-miniprogram-ui-gap-report.md`
+- `lovable-migration-plan.md`
+- `lovable-missing-assets.md`
+
+## Build
+
+```bash
+bun install
+bun run dev       # local dev server (Vite)
+bun run build     # production build
+```
+
+## What Codex should NOT change
+
+- Business logic and Cloud/Supabase integration (this repo is UI-only; real
+  data logic lives in the mini-program's original `services/`, `utils/`,
+  `data/`, `cloudfunctions/`).
+- Mock values like `bp: 1000`, seeded activity lists, placeholder usernames.
+  These are visual scaffolding, not production seeds.
