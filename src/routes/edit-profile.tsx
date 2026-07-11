@@ -247,7 +247,7 @@ function EditProfilePage() {
             />
           </div>
 
-          <div className="space-y-3 mt-auto -translate-y-[10px]">
+          <div className="space-y-3 mt-auto -translate-y-[4px]">
 
           {/* Name */}
           <NamePill
