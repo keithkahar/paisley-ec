@@ -190,7 +190,7 @@ function EditProfilePage() {
         {/* Scroll body */}
         <div className="flex-1 px-6 pt-[55px] pb-[195px] overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
-          <div className="flex flex-col items-center pt-2 pb-5">
+          <div className="flex flex-col items-center pb-5">
             <div className="relative h-40 w-40">
               <AvatarDraggable
                 src={form.avatarPath}
@@ -247,7 +247,7 @@ function EditProfilePage() {
             />
           </div>
 
-          <div className="space-y-3 mt-auto -translate-y-[4px]">
+          <div className="space-y-3 mt-auto -translate-y-[10px]">
 
           {/* Name */}
           <NamePill
