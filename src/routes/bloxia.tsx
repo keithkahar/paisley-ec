@@ -246,8 +246,7 @@ function BloxiaPage() {
             initialAvatarId={b.progress.selectedAvatarId}
             onClose={() => setNameEditor(false)}
             onSave={(id, name) => {
-              b.selectAvatar(id);
-              b.updateName(name);
+              b.completeWelcome(id, name);
               setNameEditor(false);
             }}
           />
