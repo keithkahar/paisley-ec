@@ -156,7 +156,7 @@ function SmartReadingPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        <AppHeader title="Smart Reading" back={backTo} bg="white" />
+        <AppHeader title="" back={backTo} bg="white" />
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
           {/* Book picker */}

@@ -939,7 +939,7 @@ function AdminPageInner() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
-        <AppHeader title="Admin Console" back="/profile" bg="white" />
+        <AppHeader title="" back="/profile" bg="white" />
 
         <div className="px-5 pt-12">
           {/* Header: title + menu (open groups drawer) + reset */}
