@@ -368,15 +368,15 @@ function TopBar({
                 {progress.bloxianName}
               </div>
               <div
-                className="text-[10px] font-bold leading-snug mt-[3.5px] whitespace-nowrap overflow-hidden text-ellipsis"
+                className="text-[10px] font-bold leading-snug mt-[6px] whitespace-nowrap"
                 style={{
                   color: T.goldLight,
                   textShadow: "0 1px 2px rgba(0,0,0,0.5)",
-                  width: "121px",
-                  transform: "translateY(-4px)",
                 }}
               >
-                {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
+                {next
+                  ? `${formatBp(next.unlockBp - bp)} to ${next.shortName}`
+                  : "All places unlocked"}
               </div>
             </div>
 
