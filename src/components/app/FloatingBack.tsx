@@ -19,7 +19,7 @@ export function FloatingBack({
   label?: string;
 }) {
   return (
-    <div className="sticky top-0 z-30 h-0">
+    <div className="sticky top-0 z-30 h-0 pb-[5px]">
       <Link
         to={to}
         aria-label={label}
