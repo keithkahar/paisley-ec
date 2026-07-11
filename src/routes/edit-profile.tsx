@@ -188,7 +188,7 @@ function EditProfilePage() {
         <FloatingBack to="/profile" />
 
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-4 pb-[195px] overflow-y-auto flex flex-col">
+        <div className="flex-1 px-6 pt-[55px] pb-[195px] overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
           <div className="flex flex-col items-center pt-2 pb-5">
             <div className="relative h-40 w-40">
