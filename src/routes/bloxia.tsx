@@ -373,6 +373,7 @@ function TopBar({
                   color: T.goldLight,
                   textShadow: "0 1px 2px rgba(0,0,0,0.5)",
                   width: "121px",
+                  transform: "translateY(-4px)",
                 }}
               >
                 {next ? `${formatBp(next.unlockBp - bp)} to ${next.name}` : "All places unlocked"}
@@ -1373,9 +1374,9 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           <X className="w-4 h-4" />
         </button>
         <div
-          className="relative p-5 overflow-y-auto"
+          className="relative p-5 overflow-y-auto flex flex-col"
           style={{
-            height: "calc(100vh - 22rem - 2 * env(safe-area-inset-bottom))",
+            height: "calc(100dvh - 19.5rem - 2 * env(safe-area-inset-bottom))",
             paddingTop: "calc(0.75rem + 24px)",
             paddingBottom: "calc(5rem + 3.5rem + env(safe-area-inset-bottom))",
           }}
@@ -1435,7 +1436,7 @@ function PlaceSheet({
 
       {!unlocked && !canUnlock && (
         <div
-          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           {formatBp(place.unlockBp - bp)} still needed to unlock
@@ -1444,7 +1445,7 @@ function PlaceSheet({
 
       {unlocked && (
         <div
-          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           You are here
@@ -1454,7 +1455,7 @@ function PlaceSheet({
         <button
           type="button"
           onClick={onUnlock}
-          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
           style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
         >
           Unlock Place
@@ -1513,7 +1514,7 @@ function ItemSheet({
         <button
           type="button"
           onClick={onToggleFavorite}
-          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
@@ -1523,14 +1524,14 @@ function ItemSheet({
         <button
           type="button"
           onClick={onCollect}
-          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           Collect
         </button>
       ) : (
         <div
-          className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           {!placeUnlocked
@@ -2010,14 +2011,14 @@ function BadgeSheet({
           <button
             type="button"
             onClick={onUnlockGrowth}
-            className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center"
+            className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
             style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
           >
             Unlock · {growthCost.toLocaleString()} Bp
           </button>
         ) : (
           <div
-            className="mt-4 w-full rounded-full text-center py-4 px-4 text-[17px] font-semibold"
+            className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
             style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
           >
             {(growthCost - bp).toLocaleString()} Bp still needed to unlock
@@ -2027,7 +2028,7 @@ function BadgeSheet({
         <button
           type="button"
           onClick={onToggleFavorite}
-          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
         >
           <Heart className="w-4 h-4" fill="currentColor" />
@@ -2038,7 +2039,7 @@ function BadgeSheet({
           type="button"
           onClick={onToggleFavorite}
           disabled={!unlocked}
-          className="mt-4 w-full rounded-full py-4 px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{
             background: "rgba(216,175,87,0.12)",
             color: unlocked ? T.goldLight : T.sage,
