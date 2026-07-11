@@ -4,7 +4,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import bloxiaLogo from "@/assets/brand/bloxia-logo.png.asset.json";
+import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
 import {
   BLOXIAN_AVATARS,
   CHARACTER_ASSETS,
@@ -458,46 +458,16 @@ function MapView({
         className="absolute left-4 z-10 pointer-events-none"
         style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
       >
-        {/* Title plaque — frosted dark green card so the white logo lifts off the map */}
-        <div
-          className="relative flex items-center justify-center px-3.5 py-2.5 rounded-2xl"
+        {/* Text-only logo — white, no plaque, no icon */}
+        <img
+          src={bloxiaLogoText}
+          alt="Bloxia — Growth World"
+          className="w-[120px] object-contain opacity-[0.98]"
           style={{
-            background: "rgba(8, 36, 22, 0.52)",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
-            boxShadow:
-              "0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.10)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
+            filter:
+              "brightness(0) invert(1) drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 8px rgba(255,255,255,0.45))",
           }}
-        >
-          {/* Soft top highlight */}
-          <div
-            className="absolute inset-0 rounded-2xl pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse at center top, rgba(255,255,255,0.16) 0%, transparent 65%)",
-            }}
-          />
-          {/* Warm amber pulse behind the logo */}
-          <div
-            className="absolute -inset-1 rounded-2xl animate-pulse pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(255,200,90,0.24) 0%, transparent 72%)",
-              filter: "blur(9px)",
-              animationDuration: "3.5s",
-            }}
-          />
-          <img
-            src={bloxiaLogo.url}
-            alt="Bloxia — Growth World"
-            className="relative w-[120px] object-contain opacity-[0.98]"
-            style={{
-              filter:
-                "brightness(0) invert(1) drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 10px rgba(255,255,255,0.55)) drop-shadow(0 0 18px rgba(255,205,110,0.35))",
-            }}
-          />
-        </div>
+        />
       </div>
       {places.map((p) => (
         <button
