@@ -458,7 +458,7 @@ function MapView({
         className="absolute z-10 pointer-events-none flex items-center justify-center"
         style={{ top: "calc(env(safe-area-inset-top) + 6.125rem)", left: "34px" }}
       >
-        {/* Warm amber/gold background halo — more prominent so the logo pops off the forest map */}
+        {/* Cool cyan/blue background halo — matches the Wonder Tree marker glow */}
         <div
           aria-hidden
           className="absolute"
@@ -469,7 +469,7 @@ function MapView({
             top: "50%",
             transform: "translate(-50%, -50%)",
             background:
-              "radial-gradient(ellipse at center, rgba(248,230,164,0.50) 0%, rgba(216,175,87,0.28) 40%, rgba(216,175,87,0.10) 60%, transparent 72%)",
+              "radial-gradient(ellipse at center, rgba(100,220,255,0.50) 0%, rgba(50,170,255,0.28) 40%, rgba(30,140,255,0.10) 60%, transparent 72%)",
             filter: "blur(18px)",
           }}
         />
@@ -483,18 +483,18 @@ function MapView({
             top: "50%",
             transform: "translate(-50%, -50%)",
             background:
-              "radial-gradient(ellipse at center, rgba(255,244,191,0.58) 0%, rgba(248,230,164,0.22) 50%, transparent 68%)",
+              "radial-gradient(ellipse at center, rgba(170,245,255,0.58) 0%, rgba(110,220,255,0.22) 50%, transparent 68%)",
             filter: "blur(10px)",
           }}
         />
-        {/* Text-only logo in original brand colors */}
+        {/* Text-only logo tinted to the Wonder Tree blue/cyan glow palette */}
         <img
           src={bloxiaLogoText}
           alt="Bloxia — Growth World"
           className="relative w-[90px] object-contain opacity-95"
           style={{
             filter:
-              "drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
+              "hue-rotate(100deg) saturate(1.35) brightness(1.05) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
           }}
         />
       </div>
