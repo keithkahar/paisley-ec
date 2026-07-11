@@ -269,6 +269,9 @@ function BloxiaPage() {
             onStart={(id, name) => {
               b.completeWelcome(id, name);
             }}
+            onClose={() => {
+              b.completeWelcome(b.progress.selectedAvatarId, b.progress.bloxianName);
+            }}
           />
         )}
       </div>
@@ -1723,10 +1726,12 @@ function WelcomeSheet({
   initialAvatarId,
   initialName,
   onStart,
+  onClose,
 }: {
   initialAvatarId: string;
   initialName: string;
   onStart: (avatarId: string, name: string) => void;
+  onClose: () => void;
 }) {
   const startIndex = Math.max(
     0,
@@ -1754,7 +1759,7 @@ function WelcomeSheet({
   };
 
   return (
-    <Sheet onClose={() => {}}>
+    <Sheet onClose={onClose}>
       <div className="flex flex-col min-h-full">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Welcome to Bloxia
