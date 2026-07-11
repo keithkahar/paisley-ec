@@ -458,36 +458,36 @@ function MapView({
         className="absolute left-4 z-10 pointer-events-none"
         style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
       >
-        {/* Wide soft emerald aura that merges the logo into the forest map */}
+        {/* Wide forest aura — bright mint that merges with the map */}
         <div
-          className="absolute -inset-8 rounded-full opacity-80"
+          className="absolute -inset-10 rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(72,200,120,0.42) 0%, rgba(36,120,72,0.18) 45%, transparent 72%)",
-            filter: "blur(22px)",
+            background: "radial-gradient(circle, rgba(110,235,160,0.30) 0%, rgba(50,180,105,0.14) 45%, transparent 72%)",
+            filter: "blur(26px)",
           }}
         />
-        {/* Medium green glow with slow pulse */}
+        {/* Medium glow with slow pulse */}
         <div
-          className="absolute -inset-4 rounded-full opacity-90 animate-pulse"
+          className="absolute -inset-5 rounded-full animate-pulse"
           style={{
-            background: "radial-gradient(circle, rgba(84,215,135,0.55) 0%, rgba(28,87,50,0.28) 50%, transparent 70%)",
-            filter: "blur(12px)",
-            animationDuration: "3s",
+            background: "radial-gradient(circle, rgba(130,255,180,0.48) 0%, rgba(34,130,75,0.22) 55%, transparent 75%)",
+            filter: "blur(14px)",
+            animationDuration: "3.2s",
           }}
         />
-        {/* Warm gold rim highlight for the magical title feel */}
+        {/* Gold rim highlight for magical title feel */}
         <div
-          className="absolute -inset-1 rounded-[14px] opacity-70"
+          className="absolute -inset-1 rounded-[14px] opacity-75"
           style={{
-            background: "radial-gradient(ellipse at center, rgba(255,244,191,0.38) 0%, transparent 68%)",
-            filter: "blur(6px)",
+            background: "radial-gradient(ellipse at center, rgba(255,244,191,0.40) 0%, transparent 65%)",
+            filter: "blur(7px)",
           }}
         />
         <img
           src={bloxiaLogo.url}
           alt="Bloxia — Growth World"
           className="relative w-[120px] object-contain"
-          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.35)) drop-shadow(0 0 14px rgba(72,200,120,0.55))" }}
+          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.35)) drop-shadow(0 0 16px rgba(110,235,160,0.55))" }}
         />
       </div>
       {places.map((p) => (
