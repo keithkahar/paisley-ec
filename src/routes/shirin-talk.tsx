@@ -47,7 +47,7 @@ function ShirinTalkPage() {
         <FloatingBack to="/" />
 
         {/* Hero */}
-        <section className="px-6 pt-[53px] pb-1 text-center">
+        <section className="px-6 pt-[58px] pb-1 text-center">
           <img
             src={shirinHero.url}
             alt="Shirin"
@@ -160,7 +160,7 @@ function ShirinTalkPage() {
                 <span className="text-[17px] font-semibold tracking-tight leading-none" style={{ letterSpacing: "-0.01em", color: PINK }}>
                   {c.title}
                 </span>
-                <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: PINK }} />
+                <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: "white" }} />
               </Link>
             );
           })}
