@@ -458,41 +458,39 @@ function MapView({
         className="absolute left-4 z-10 pointer-events-none"
         style={{ top: "calc(env(safe-area-inset-top) + 6.75rem)" }}
       >
-        {/* Wide warm halo — amber/gold contrasts against forest greens */}
+        {/* White logo with a subtle dark mat + layered halo for contrast against the forest map */}
         <div
-          className="absolute -inset-10 rounded-full"
+          className="absolute -inset-8 rounded-2xl"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,196,102,0.34) 0%, rgba(240,150,70,0.16) 45%, transparent 72%)",
-            filter: "blur(26px)",
+              "radial-gradient(ellipse at center, rgba(8,36,22,0.55) 0%, rgba(8,36,22,0.22) 50%, transparent 78%)",
+            filter: "blur(16px)",
           }}
         />
-        {/* Pulsing sunset core */}
         <div
-          className="absolute -inset-5 rounded-full animate-pulse"
+          className="absolute -inset-6 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,220,150,0.55) 0%, rgba(232,148,60,0.24) 55%, transparent 76%)",
-            filter: "blur(14px)",
-            animationDuration: "3.2s",
+              "radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.12) 45%, transparent 72%)",
+            filter: "blur(22px)",
           }}
         />
-        {/* Cool violet-blue rim — separates logo from green canopy */}
         <div
-          className="absolute -inset-3 rounded-[14px] opacity-80"
+          className="absolute -inset-3 rounded-[14px] animate-pulse"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(150,130,255,0.32) 0%, transparent 68%)",
-            filter: "blur(10px)",
+              "radial-gradient(ellipse at center, rgba(255,205,110,0.34) 0%, transparent 68%)",
+            filter: "blur(12px)",
+            animationDuration: "3.6s",
           }}
         />
         <img
           src={bloxiaLogo.url}
           alt="Bloxia — Growth World"
-          className="relative w-[120px] object-contain"
+          className="relative w-[120px] object-contain opacity-[0.97]"
           style={{
             filter:
-              "drop-shadow(0 3px 6px rgba(20,10,40,0.45)) drop-shadow(0 0 14px rgba(255,208,120,0.7))",
+              "brightness(0) invert(1) drop-shadow(0 2px 3px rgba(0,0,0,0.55)) drop-shadow(0 0 10px rgba(255,255,255,0.55)) drop-shadow(0 0 18px rgba(255,205,110,0.35))",
           }}
         />
       </div>
