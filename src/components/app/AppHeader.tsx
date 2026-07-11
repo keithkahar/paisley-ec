@@ -17,22 +17,31 @@ export function AppHeader({
 }) {
   return (
     <header
-      className="sticky top-0 z-30 px-4 pt-3 pb-3 flex items-center gap-2"
+      className="sticky top-0 z-30 grid h-14 grid-cols-[2.75rem_1fr_2.75rem] items-center gap-3 px-4 pt-[env(safe-area-inset-top)]"
       style={{ background: bg, color: tone }}
     >
-      {back !== false ? (
-        <Link
-          to={back}
-          className="h-9 w-9 grid place-items-center rounded-full bg-white/80 backdrop-blur border border-border"
-          aria-label="Back"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </Link>
-      ) : (
-        <span className="h-9 w-9" />
-      )}
-      <h1 className="flex-1 text-center text-base font-medium truncate">{title}</h1>
-      <div className="min-w-9 h-9 flex items-center justify-end">{right}</div>
+      {/* Left: back button or fixed-width spacer to keep title centered */}
+      <div className="flex w-full items-center justify-start">
+        {back !== false ? (
+          <Link
+            to={back}
+            className="grid h-10 w-10 place-items-center rounded-full bg-white/85 backdrop-blur border border-border shadow-sm active:scale-95 transition-transform"
+            aria-label="Back"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Link>
+        ) : null}
+      </div>
+
+      {/* Center title */}
+      <h1 className="min-w-0 truncate text-center text-lg font-semibold">
+        {title}
+      </h1>
+
+      {/* Right slot */}
+      <div className="flex w-full items-center justify-end">
+        {right}
+      </div>
     </header>
   );
 }
