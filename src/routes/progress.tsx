@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/progress")({
   head: () => ({ meta: [

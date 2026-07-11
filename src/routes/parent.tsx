@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [

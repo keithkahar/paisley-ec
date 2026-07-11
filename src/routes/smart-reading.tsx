@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import { z } from "zod";
 
 const PINK = "var(--shirin)";
@@ -156,7 +156,7 @@ function SmartReadingPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
-        <AppHeader title="" back={backTo} bg="white" />
+        <FloatingBack to={backTo} />
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
           {/* Book picker */}

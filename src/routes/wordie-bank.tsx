@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import { useMemo, useState } from "react";
 import { Search, X, ChevronRight, ChevronDown, Check, Circle } from "lucide-react";
 import {

@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 
 export const Route = createFileRoute("/edit-profile")({
   head: () => ({ meta: [

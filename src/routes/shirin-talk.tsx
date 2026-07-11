@@ -5,7 +5,7 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
 import { Flame, MessageCircle, BookOpen, Lightbulb } from "lucide-react";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import {
   MonthCalendarDialog,
   mockActivity,

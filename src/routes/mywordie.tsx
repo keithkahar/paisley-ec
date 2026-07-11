@@ -4,7 +4,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Layers, Zap, ClipboardCheck, Flame, Play } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import {
   MonthCalendarDialog,
   mockActivity,

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
 
 export const Route = createFileRoute("/about")({

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { AppHeader } from "@/components/app/AppHeader";
+import { FloatingBack } from "@/components/app/FloatingBack";
 import freeTalkArt from "@/assets/topics/free_talk.png";
 import smartReadingArt from "@/assets/topics/smart_reading.png";
 import petTalkArt from "@/assets/topics/pet_talk.png";

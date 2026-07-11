@@ -1,5 +1,5 @@
 import { PhoneFrame } from "./PhoneFrame";
-import { AppHeader } from "./AppHeader";
+import { FloatingBack } from "./FloatingBack";
 import { Link } from "@tanstack/react-router";
 import { Sparkles } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
@@ -23,7 +23,7 @@ export function ComingSoon({
 }) {
   return (
     <PhoneFrame bg={bg}>
-      <AppHeader title={title} back={back} />
+      <FloatingBack to={back} />
       <div className="px-6 pt-16 pb-12 text-center flex flex-col items-center">
         <div
           className="relative h-24 w-24 rounded-[28px] grid place-items-center text-white shadow-lg"
