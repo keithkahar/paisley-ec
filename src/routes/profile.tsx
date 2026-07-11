@@ -88,7 +88,6 @@ function ProfilePage() {
               className="h-40 w-40 rounded-full grid place-items-center overflow-hidden"
               style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
             >
-              {PROFILE.avatarPath ? (
               {profile.avatarPath ? (
                 <img
                   src={profile.avatarPath}
