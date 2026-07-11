@@ -4,8 +4,9 @@ import { ChevronLeft } from "lucide-react";
 /**
  * Global back button. Sits sticky at the top of the page so it stays
  * clickable while the user scrolls, and shifts down by the iOS safe-area
- * inset so the notch/Dynamic Island never covers it. Zero layout height —
- * the button floats over page content without pushing anything down.
+ * inset so the notch/Dynamic Island never covers it. The sticky wrapper
+ * reserves a 5px buffer so the page content below never touches the
+ * floating button.
  *
  * This is the ONLY top-bar primitive in the app; every page uses it.
  * Page-specific status/branding lives inside the page body, not here.
