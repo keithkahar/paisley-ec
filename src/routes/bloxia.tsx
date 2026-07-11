@@ -455,14 +455,43 @@ function MapView({
         style={{ imageRendering: "pixelated" }}
       />
       <div
-        className="absolute left-4 z-10 pointer-events-none"
+        className="absolute left-4 z-10 pointer-events-none flex items-center justify-center"
         style={{ top: "calc(env(safe-area-inset-top) + 6.125rem)" }}
       >
+        {/* Warm amber/gold background halo — more prominent so the white text pops off the forest map */}
+        <div
+          aria-hidden
+          className="absolute"
+          style={{
+            width: "260px",
+            height: "120px",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            background:
+              "radial-gradient(ellipse at center, rgba(248,230,164,0.50) 0%, rgba(216,175,87,0.28) 40%, rgba(216,175,87,0.10) 60%, transparent 72%)",
+            filter: "blur(18px)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute"
+          style={{
+            width: "180px",
+            height: "80px",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            background:
+              "radial-gradient(ellipse at center, rgba(255,244,191,0.58) 0%, rgba(248,230,164,0.22) 50%, transparent 68%)",
+            filter: "blur(10px)",
+          }}
+        />
         {/* Text-only logo — softened into the map */}
         <img
           src={bloxiaLogoText}
           alt="Bloxia — Growth World"
-          className="w-[120px] object-contain opacity-90"
+          className="relative w-[90px] object-contain opacity-90"
           style={{
             filter:
               "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
