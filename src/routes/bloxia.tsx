@@ -4,7 +4,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png.asset.json";
+import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
 import {
   BLOXIAN_AVATARS,
   CHARACTER_ASSETS,
@@ -487,14 +487,14 @@ function MapView({
             filter: "blur(8px)",
           }}
         />
-        {/* Uploaded green pixel-art text logo */}
+        {/* Text-only logo in white with a cool cyan/blue halo */}
         <img
-          src={bloxiaLogoText.url}
-          alt="Bloxia"
+          src={bloxiaLogoText}
+          alt="Bloxia — Growth World"
           className="relative w-[90px] object-contain opacity-95"
           style={{
             filter:
-              "drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
+              "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
           }}
         />
       </div>
