@@ -5,18 +5,20 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
+  BLOXIAN_AVATARS,
   CHARACTER_ASSETS,
   COLLECTION_ITEMS,
+  DEFAULT_BLOXIAN_NAME,
   GROWTH_BADGES,
   MAP_ASSETS,
   PLACES,
   PLACE_BADGES,
-  BLOXIAN_AVATARS,
-  type BloxianAvatar,
+  avatarById,
   collectionItemById,
   growthBadgeById,
   placeBadgeById,
   placeById,
+  type BloxianAvatar,
   type CollectionItem,
   type GrowthBadge,
   type Place,
