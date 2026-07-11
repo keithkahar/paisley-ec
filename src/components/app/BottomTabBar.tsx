@@ -3,7 +3,7 @@ import shirinFilled from "@/assets/tabs/shirin-filled.png";
 import shirinOutline from "@/assets/tabs/shirin-outline-medium.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
 import wordieOutline from "@/assets/tabs/wordie-outline.png.asset.json";
-import bloxiaFilled from "@/assets/tabs/bloxia-filled.png.asset.json";
+import bloxiaFilled from "@/assets/tabs/bloxia-filled-v2.png.asset.json";
 import bloxiaOutline from "@/assets/tabs/bloxia-outline-medium.png.asset.json";
 import profileFilled from "@/assets/tabs/profile-filled.png.asset.json";
 import profileOutline from "@/assets/tabs/profile-outline.png.asset.json";
