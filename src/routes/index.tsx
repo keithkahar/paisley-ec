@@ -92,7 +92,6 @@ function Home() {
             >
               or practice with
               <img src={myWordieText.url} alt="myWordie" className="h-4 object-contain" />
-              →
             </Link>
           </div>
         </section>
