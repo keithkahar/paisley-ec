@@ -106,31 +106,31 @@ function MyWordiePage() {
           </div>
 
           {/* Streak + Bp pills — match ShirinTalk position (mt-3 inside hero) */}
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-          <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
-            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
-          >
-            7 days
-          </span>
-          <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
-            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
-          >
-            230 cards
-          </span>
-          <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
-            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
-          >
-            318 min
-          </span>
-          <span
-            className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
-            style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
-          >
-            {bp.toLocaleString()} Bp
-          </span>
+          <div className="mt-3 flex flex-nowrap items-center justify-center gap-2">
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
+              style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+            >
+              7 days
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
+              style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+            >
+              230 cards
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
+              style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+            >
+              318 min
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
+              style={{ color: WORDIE, border: `1px solid ${WORDIE}` }}
+            >
+              {bp.toLocaleString()} Bp
+            </span>
           </div>
         </section>
 
