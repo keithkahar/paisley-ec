@@ -63,7 +63,7 @@ function ShirinTalkPage() {
             className="mt-1 text-[15px] text-foreground/70 font-semibold tracking-tight"
             style={{ letterSpacing: "-0.01em" }}
           >
-            Let's practise English together.
+            Let's practice English together.
           </p>
           <div className="mt-3 flex flex-nowrap items-center justify-center gap-2">
             <span
