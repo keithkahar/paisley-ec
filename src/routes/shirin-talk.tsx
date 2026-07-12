@@ -15,9 +15,9 @@ import { useBloxia } from "@/lib/bloxia/progress";
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [
       { title: "ShirinTalk — Paisley EC" },
-      { name: "description", content: "Practise spoken English with Shirin: topic talks, smart reading and free chat." },
+      { name: "description", content: "Practice spoken English with Shirin: topic talks, smart reading and free chat." },
       { property: "og:title", content: "ShirinTalk — Paisley EC" },
-      { property: "og:description", content: "Practise spoken English with Shirin: topic talks, smart reading and free chat." },
+      { property: "og:description", content: "Practice spoken English with Shirin: topic talks, smart reading and free chat." },
     ] }),
   component: ShirinTalkPage,
 });
