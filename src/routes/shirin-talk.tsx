@@ -65,27 +65,27 @@ function ShirinTalkPage() {
           >
             Let's practise English together.
           </p>
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-          <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
+          <div className="mt-3 flex flex-nowrap items-center justify-center gap-2">
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               7 days
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               116 words
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               318 min
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
               style={{ color: PINK, border: `1px solid ${PINK}` }}
             >
               {bp.toLocaleString()} Bp
