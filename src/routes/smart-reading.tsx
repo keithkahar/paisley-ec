@@ -1,8 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
-
+import { BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { z } from "zod";
 
@@ -108,7 +107,6 @@ export const Route = createFileRoute("/smart-reading")({
 function SmartReadingPage() {
   const search = useSearch({ from: "/smart-reading" });
   const backTo = search.from === "topics" ? "/topics" : "/shirin-talk";
-  const [query, setQuery] = useState("");
   const [bookCode, setBookCode] = useState<string>(PACKS[0].book_code);
   const [pickerOpen, setPickerOpen] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
@@ -144,15 +142,7 @@ function SmartReadingPage() {
     } catch {}
   };
 
-  const units = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return currentPack.units;
-    return currentPack.units.filter(
-      (u) =>
-        u.story_title.toLowerCase().includes(q) ||
-        u.cover_question.toLowerCase().includes(q),
-    );
-  }, [query, currentPack]);
+  const units = currentPack.units;
 
   return (
     <PhoneFrame bg="bg-white">
@@ -160,6 +150,18 @@ function SmartReadingPage() {
         <FloatingBack to={backTo} />
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
+          <div className="mb-4 text-center">
+            <h1
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
+              style={{ color: PINK, letterSpacing: "-0.01em" }}
+            >
+              Pick A Story
+            </h1>
+            <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
+              Let's talk about it.
+            </p>
+          </div>
+
           {/* Book picker */}
           <div className="relative mb-3" ref={pickerRef}>
             <button
@@ -217,18 +219,6 @@ function SmartReadingPage() {
                 })}
               </div>
             )}
-          </div>
-
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: PINK }} />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search stories"
-              className="w-full rounded-full pl-11 pr-4 py-3.5 text-[15px] font-semibold outline-none focus:ring-2 focus:ring-[color:var(--shirin)] placeholder:font-semibold"
-              style={{ background: PINK_SOFT, color: "var(--foreground)" }}
-            />
           </div>
 
           {/* Unit list */}
