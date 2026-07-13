@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { Search, BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
+import { BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
 
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { z } from "zod";
@@ -108,7 +108,6 @@ export const Route = createFileRoute("/smart-reading")({
 function SmartReadingPage() {
   const search = useSearch({ from: "/smart-reading" });
   const backTo = search.from === "topics" ? "/topics" : "/shirin-talk";
-  const [query, setQuery] = useState("");
   const [bookCode, setBookCode] = useState<string>(PACKS[0].book_code);
   const [pickerOpen, setPickerOpen] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
@@ -144,15 +143,7 @@ function SmartReadingPage() {
     } catch {}
   };
 
-  const units = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return currentPack.units;
-    return currentPack.units.filter(
-      (u) =>
-        u.story_title.toLowerCase().includes(q) ||
-        u.cover_question.toLowerCase().includes(q),
-    );
-  }, [query, currentPack]);
+  const units = currentPack.units;
 
   return (
     <PhoneFrame bg="bg-white">
