@@ -160,6 +160,18 @@ function SmartReadingPage() {
         <FloatingBack to={backTo} />
 
         <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
+          <div className="mb-4 text-center">
+            <h1
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
+              style={{ color: PINK, letterSpacing: "-0.01em" }}
+            >
+              Pick A Story
+            </h1>
+            <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
+              Let's talk about it.
+            </p>
+          </div>
+
           {/* Book picker */}
           <div className="relative mb-3" ref={pickerRef}>
             <button
@@ -217,18 +229,6 @@ function SmartReadingPage() {
                 })}
               </div>
             )}
-          </div>
-
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: PINK }} />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search stories"
-              className="w-full rounded-full pl-11 pr-4 py-3.5 text-[15px] font-semibold outline-none focus:ring-2 focus:ring-[color:var(--shirin)] placeholder:font-semibold"
-              style={{ background: PINK_SOFT, color: "var(--foreground)" }}
-            />
           </div>
 
           {/* Unit list */}
