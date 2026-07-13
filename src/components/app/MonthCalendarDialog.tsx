@@ -77,7 +77,7 @@ export function MonthCalendarDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[360px] p-5 rounded-3xl">
         <DialogHeader>
-          <DialogTitle className="text-center text-[17px] font-semibold tracking-tight">
+          <DialogTitle className="text-center text-[17px] font-medium tracking-tight">
             {title}
           </DialogTitle>
         </DialogHeader>
