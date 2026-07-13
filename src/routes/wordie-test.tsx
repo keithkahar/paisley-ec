@@ -392,7 +392,7 @@ function WordieTestPage() {
 
         {/* Title — only show in info/locked */}
         {(mode === "info" || mode === "locked") && (
-          <div className="px-5 pt-3 text-center">
+          <div className="px-5 pt-14 text-center">
             <h1
               className="text-[26px] leading-[1.2] font-medium tracking-tight"
               style={{ color: "var(--wordie)", letterSpacing: "-0.01em" }}
