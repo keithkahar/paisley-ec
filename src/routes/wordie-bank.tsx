@@ -239,7 +239,7 @@ function WordieBankPage() {
     <PhoneFrame bg="bg-white">
       <FloatingBack to="/mywordie" />
 
-      <div className="px-5 pb-10">
+      <div className="px-5 pb-10 pt-14">
         {/* Title */}
         <div className="mb-4 text-center">
           <h1

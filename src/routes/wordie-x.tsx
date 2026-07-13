@@ -450,7 +450,7 @@ function WordieXPage() {
     <PhoneFrame bg="bg-white">
       <FloatingBack to="/mywordie" />
 
-      <div className="px-5 pb-12">
+      <div className="px-5 pb-12 pt-14">
         {/* Title */}
         <div className="mb-4 text-center">
           <h1
