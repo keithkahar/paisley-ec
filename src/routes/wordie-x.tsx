@@ -543,35 +543,18 @@ function WordieXPage() {
               )}
 
               <div className="mt-4 flex items-center gap-2">
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setShowPos((s) => !s)}
-                    className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold"
-                    style={{
-                      background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                      color: WORDIE
-                    }}
-                  >
-                    {PART_OF_SPEECH_OPTIONS[posIndex]}
-                    <ChevronDown className="h-3.5 w-3.5" />
-                  </button>
-                  {showPos && (
-                    <div className="absolute z-20 mt-1 max-h-56 overflow-auto rounded-2xl bg-white border border-border shadow-lg p-1 min-w-[140px]">
-                      {PART_OF_SPEECH_OPTIONS.map((p, i) => (
-                        <button
-                          key={p}
-                          type="button"
-                          onClick={() => { setPosIndex(i); setShowPos(false); }}
-                          className="w-full text-left px-3 py-1.5 text-[12px] font-semibold rounded-xl hover:bg-muted"
-                          style={{ color: i === posIndex ? WORDIE : "var(--foreground)" }}
-                        >
-                          {p}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setOpenSheet("pos")}
+                  className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold"
+                  style={{
+                    background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                    color: WORDIE
+                  }}
+                >
+                  {PART_OF_SPEECH_OPTIONS[posIndex]}
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
                 <span
                   className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold"
                   style={{
