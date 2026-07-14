@@ -223,7 +223,6 @@ function WordieXPage() {
   const [normalizedWord, setNormalizedWord] = useState("");
   const [wordSuggestion, setWordSuggestion] = useState("");
   const [posIndex, setPosIndex] = useState(0);
-  const [showPos, setShowPos] = useState(false);
   const [cefr, setCefr] = useState("A1");
   const [definition, setDefinition] = useState("");
   const [example, setExample] = useState("");
@@ -233,7 +232,7 @@ function WordieXPage() {
   // Filters
   const [sourceSel, setSourceSel] = useState<string[]>([]);
   const [statusSel, setStatusSel] = useState<string[]>([]);
-  const [openSheet, setOpenSheet] = useState<null | "source" | "status">(null);
+  const [openSheet, setOpenSheet] = useState<null | "source" | "status" | "pos">(null);
 
   // Select / preview / batch
   const [selectMode, setSelectMode] = useState(false);
