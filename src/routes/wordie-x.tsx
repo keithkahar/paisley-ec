@@ -733,11 +733,15 @@ function WordieXPage() {
             </div>
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <span className="w-12" />
-              <p
+            <p
                 className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
-                {openSheet === "source" ? "Choose Resource" : "Choose Status"}
+                {openSheet === "source"
+                  ? "Choose Resource"
+                  : openSheet === "status"
+                  ? "Choose Status"
+                  : "Choose Part of Speech"}
               </p>
               <button
                 type="button"
@@ -771,6 +775,18 @@ function WordieXPage() {
                       label={`${o.label} (${counts[o.key] ?? 0})`}
                       active={statusSel.includes(o.key)}
                       onClick={() => toggleIn(statusSel, setStatusSel, o.key)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "pos" && (
+                <>
+                  {PART_OF_SPEECH_OPTIONS.map((p, i) => (
+                    <SheetRow
+                      key={p}
+                      label={capitalize(p)}
+                      active={i === posIndex}
+                      onClick={() => { setPosIndex(i); setOpenSheet(null); }}
                     />
                   ))}
                 </>
