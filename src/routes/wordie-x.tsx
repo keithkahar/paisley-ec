@@ -223,7 +223,6 @@ function WordieXPage() {
   const [normalizedWord, setNormalizedWord] = useState("");
   const [wordSuggestion, setWordSuggestion] = useState("");
   const [posIndex, setPosIndex] = useState(0);
-  const [showPos, setShowPos] = useState(false);
   const [cefr, setCefr] = useState("A1");
   const [definition, setDefinition] = useState("");
   const [example, setExample] = useState("");
@@ -233,7 +232,7 @@ function WordieXPage() {
   // Filters
   const [sourceSel, setSourceSel] = useState<string[]>([]);
   const [statusSel, setStatusSel] = useState<string[]>([]);
-  const [openSheet, setOpenSheet] = useState<null | "source" | "status">(null);
+  const [openSheet, setOpenSheet] = useState<null | "source" | "status" | "pos">(null);
 
   // Select / preview / batch
   const [selectMode, setSelectMode] = useState(false);
@@ -544,35 +543,18 @@ function WordieXPage() {
               )}
 
               <div className="mt-4 flex items-center gap-2">
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setShowPos((s) => !s)}
-                    className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold"
-                    style={{
-                      background: "color-mix(in oklab, var(--wordie) 12%, white)",
-                      color: WORDIE
-                    }}
-                  >
-                    {PART_OF_SPEECH_OPTIONS[posIndex]}
-                    <ChevronDown className="h-3.5 w-3.5" />
-                  </button>
-                  {showPos && (
-                    <div className="absolute z-20 mt-1 max-h-56 overflow-auto rounded-2xl bg-white border border-border shadow-lg p-1 min-w-[140px]">
-                      {PART_OF_SPEECH_OPTIONS.map((p, i) => (
-                        <button
-                          key={p}
-                          type="button"
-                          onClick={() => { setPosIndex(i); setShowPos(false); }}
-                          className="w-full text-left px-3 py-1.5 text-[12px] font-semibold rounded-xl hover:bg-muted"
-                          style={{ color: i === posIndex ? WORDIE : "var(--foreground)" }}
-                        >
-                          {p}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setOpenSheet("pos")}
+                  className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold"
+                  style={{
+                    background: "color-mix(in oklab, var(--wordie) 12%, white)",
+                    color: WORDIE
+                  }}
+                >
+                  {PART_OF_SPEECH_OPTIONS[posIndex]}
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
                 <span
                   className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold"
                   style={{
@@ -751,11 +733,15 @@ function WordieXPage() {
             </div>
             <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
               <span className="w-12" />
-              <p
+            <p
                 className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
-                {openSheet === "source" ? "Choose Resource" : "Choose Status"}
+                {openSheet === "source"
+                  ? "Choose Resource"
+                  : openSheet === "status"
+                  ? "Choose Status"
+                  : "Choose Part of Speech"}
               </p>
               <button
                 type="button"
@@ -789,6 +775,18 @@ function WordieXPage() {
                       label={`${o.label} (${counts[o.key] ?? 0})`}
                       active={statusSel.includes(o.key)}
                       onClick={() => toggleIn(statusSel, setStatusSel, o.key)}
+                    />
+                  ))}
+                </>
+              )}
+              {openSheet === "pos" && (
+                <>
+                  {PART_OF_SPEECH_OPTIONS.map((p, i) => (
+                    <SheetRow
+                      key={p}
+                      label={capitalize(p)}
+                      active={i === posIndex}
+                      onClick={() => { setPosIndex(i); setOpenSheet(null); }}
                     />
                   ))}
                 </>
