@@ -158,12 +158,15 @@ function MyWordiePage() {
                     style={
                       isToday
                         ? { color: WORDIE, border: `1.5px solid ${WORDIE}` }
-                        : practiced
-                        ? { color: WORDIE, background: "color-mix(in oklab, var(--wordie) 14%, white)" }
                         : { color: "var(--foreground)" }
                     }
                   >
                     {d.getDate()}
+                  </span>
+                  <span className="h-1.5 flex items-center">
+                    {practiced && !isToday && (
+                      <span className="h-1 w-1 rounded-full" style={{ background: WORDIE }} />
+                    )}
                   </span>
                 </div>
               );
@@ -186,6 +189,8 @@ function MyWordiePage() {
         title="myWordie · Monthly"
         color={WORDIE}
         getActivity={(d) => ({ wordie: mockActivity(d, 2) })}
+        variant="dots"
+        wordieColor={WORDIE}
       />
     </PhoneFrame>
   );
