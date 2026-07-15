@@ -116,12 +116,15 @@ function ShirinTalkPage() {
                     style={
                       isToday
                         ? { color: PINK, border: `1.5px solid ${PINK}` }
-                        : practiced
-                        ? { color: PINK, background: "color-mix(in oklab, var(--shirin) 14%, white)" }
                         : { color: "var(--foreground)" }
                     }
                   >
                     {d.getDate()}
+                  </span>
+                  <span className="h-1.5 flex items-center">
+                    {practiced && !isToday && (
+                      <span className="h-1 w-1 rounded-full" style={{ background: PINK }} />
+                    )}
                   </span>
                 </div>
               );
@@ -179,6 +182,8 @@ function ShirinTalkPage() {
         title="ShirinTalk · Monthly"
         color={PINK}
         getActivity={(d) => ({ talk: mockActivity(d, 1) })}
+        variant="dots"
+        talkColor={PINK}
       />
     </PhoneFrame>
   );
