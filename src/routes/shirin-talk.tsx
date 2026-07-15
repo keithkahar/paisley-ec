@@ -123,7 +123,7 @@ function ShirinTalkPage() {
                   </span>
                   <span className="h-1.5 flex items-center">
                     {practiced && !isToday && (
-                      <span className="h-1 w-1 rounded-full" style={{ background: PINK }} />
+                      <span className="h-1.5 w-1.5 rounded-full" style={{ background: PINK }} />
                     )}
                   </span>
                 </div>
