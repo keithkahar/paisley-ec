@@ -128,7 +128,7 @@ function ProfilePage() {
             className="mt-1 text-[13px] leading-none font-semibold"
             style={{ color: PAISLEY_YELLOW }}
           >
-            Reg. {profile.registeredAt.toLocaleString("en-US", { month: "short" })} {profile.registeredAt.getDate()} {profile.registeredAt.getFullYear()}
+            Since {profile.registeredAt.toLocaleString("en-US", { month: "short" })} {profile.registeredAt.getDate()} {profile.registeredAt.getFullYear()}
           </p>
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
