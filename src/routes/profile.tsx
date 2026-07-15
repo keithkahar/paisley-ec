@@ -172,8 +172,6 @@ function ProfilePage() {
                     style={
                       isToday
                         ? { color: PAISLEY, border: `1.5px solid ${PAISLEY}` }
-                        : (hasTalk || hasWordie)
-                        ? { color: PAISLEY, background: "color-mix(in oklab, var(--paisley) 12%, white)" }
                         : { color: "var(--foreground)" }
                     }
                   >
