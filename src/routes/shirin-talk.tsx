@@ -40,6 +40,8 @@ function ShirinTalkPage() {
     return d;
   });
   const dayLabels = ["S", "M", "T", "W", "T", "F", "S"];
+  // Mock practice days within the week (relative day-of-week indices)
+  const practiceDows = new Set([1, 2, 3, today.getDay()]);
 
   return (
     <PhoneFrame bg="bg-white">
@@ -103,6 +105,7 @@ function ShirinTalkPage() {
           >
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
+              const practiced = practiceDows.has(d.getDay());
               return (
                 <div key={i} className="flex flex-col items-center gap-1">
                   <span className="text-[11px] font-medium" style={{ color: "color-mix(in oklab, var(--foreground) 50%, white)" }}>
@@ -113,6 +116,8 @@ function ShirinTalkPage() {
                     style={
                       isToday
                         ? { color: PINK, border: `1.5px solid ${PINK}` }
+                        : practiced
+                        ? { color: PINK, background: "color-mix(in oklab, var(--shirin) 14%, white)" }
                         : { color: "var(--foreground)" }
                     }
                   >

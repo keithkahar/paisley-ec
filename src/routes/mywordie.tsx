@@ -144,6 +144,7 @@ function MyWordiePage() {
           >
             {week.map((d, i) => {
               const isToday = d.toDateString() === today.toDateString();
+              const practiced = studiedDows.has(d.getDay());
               return (
                 <div key={i} className="flex flex-col items-center gap-1">
                   <span
@@ -157,6 +158,8 @@ function MyWordiePage() {
                     style={
                       isToday
                         ? { color: WORDIE, border: `1.5px solid ${WORDIE}` }
+                        : practiced
+                        ? { color: WORDIE, background: "color-mix(in oklab, var(--wordie) 14%, white)" }
                         : { color: "var(--foreground)" }
                     }
                   >
