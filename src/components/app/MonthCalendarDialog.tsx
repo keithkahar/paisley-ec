@@ -24,6 +24,8 @@ type Props = {
   talkColor?: string;
   /** Color for the wordie dot. Defaults to `color`. */
   wordieColor?: string;
+  /** "circle" fills day cell when active; "dots" shows dots below. */
+  variant?: "circle" | "dots";
 };
 
 const DAY_LABELS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -44,6 +46,7 @@ export function MonthCalendarDialog({
   getActivity,
   talkColor,
   wordieColor,
+  variant = "circle",
 }: Props) {
   const today = useMemo(() => new Date(), []);
   const [cursor, setCursor] = useState<Date>(() => startOfMonth(new Date()));
@@ -152,7 +155,7 @@ export function MonthCalendarDialog({
                   style={
                     isToday
                       ? { color, border: `1.5px solid ${color}` }
-                      : hasAny
+                      : hasAny && variant === "circle"
                       ? {
                           color,
                           background: `color-mix(in oklab, ${color} 12%, white)`,
@@ -168,13 +171,13 @@ export function MonthCalendarDialog({
                   {d.getDate()}
                 </span>
                 <span className="h-1.5 flex items-center gap-0.5">
-                  {act.talk && (
+                  {variant === "dots" && act.talk && (
                     <span
                       className="h-1 w-1 rounded-full"
                       style={{ background: talkColor ?? color }}
                     />
                   )}
-                  {act.wordie && (
+                  {variant === "dots" && act.wordie && (
                     <span
                       className="h-1 w-1 rounded-full"
                       style={{ background: wordieColor ?? color }}
