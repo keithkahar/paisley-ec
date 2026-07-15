@@ -4,6 +4,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { Volume2, RotateCw, ChevronLeft, Clock } from "lucide-react";
 import { useBloxia } from "@/lib/bloxia/progress";
 
+
 export const Route = createFileRoute("/word-card")({
   head: () => ({ meta: [
       { title: "Word Card — Paisley EC" },
