@@ -173,13 +173,13 @@ export function MonthCalendarDialog({
                 <span className="h-1.5 flex items-center gap-0.5">
                   {variant === "dots" && act.talk && (
                     <span
-                      className="h-1 w-1 rounded-full"
+                      className="h-1.5 w-1.5 rounded-full"
                       style={{ background: talkColor ?? color }}
                     />
                   )}
                   {variant === "dots" && act.wordie && (
                     <span
-                      className="h-1 w-1 rounded-full"
+                      className="h-1.5 w-1.5 rounded-full"
                       style={{ background: wordieColor ?? color }}
                     />
                   )}
