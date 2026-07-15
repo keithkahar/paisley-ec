@@ -231,6 +231,7 @@ function ProfilePage() {
           talk: mockActivity(d, 1),
           wordie: mockActivity(d, 2),
         })}
+        variant="dots"
       />
     </PhoneFrame>
   );
