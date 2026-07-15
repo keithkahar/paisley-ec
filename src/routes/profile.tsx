@@ -141,7 +141,7 @@ function ProfilePage() {
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
             >
-              CEFR {profile.cefr}
+              {profile.cefr}
             </span>
           </div>
         </section>
