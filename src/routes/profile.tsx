@@ -329,7 +329,7 @@ function AboutPecLink() {
           src={paizleyEcText.url}
           alt="Paizley EC"
           className="object-contain block"
-          style={{ height: "0.95em", width: "auto", filter: "grayscale(100%) brightness(0.75)" }}
+          style={{ height: "1.9em", width: "auto", filter: "grayscale(100%) brightness(0.75)" }}
         />
       </button>
     </div>
