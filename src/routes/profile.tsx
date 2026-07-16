@@ -325,12 +325,31 @@ function AboutPecLink() {
         aria-label="About PEC"
       >
         <span className="leading-none">About</span>
-        <img
-          src={paizleyEcText.url}
-          alt="Paizley EC"
-          className="object-contain block"
-          style={{ height: "1.9em", width: "auto", filter: "grayscale(100%) brightness(0.75)" }}
-        />
+        <span
+          className="relative inline-block"
+          style={{ height: "1.71em" }}
+          aria-hidden="true"
+        >
+          <img
+            src={paizleyEcText.url}
+            alt="Paizley EC"
+            className="object-contain block h-full w-auto opacity-0"
+          />
+          <span
+            className="absolute inset-0"
+            style={{
+              backgroundColor: gray,
+              maskImage: `url(${paizleyEcText.url})`,
+              WebkitMaskImage: `url(${paizleyEcText.url})`,
+              maskSize: "contain",
+              WebkitMaskSize: "contain",
+              maskRepeat: "no-repeat",
+              WebkitMaskRepeat: "no-repeat",
+              maskPosition: "center",
+              WebkitMaskPosition: "center",
+            }}
+          />
+        </span>
       </button>
     </div>
   );
