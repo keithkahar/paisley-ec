@@ -251,11 +251,6 @@ type SheetType = "" | "voice" | "theme" | "speechRate";
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
   const [unlocked, setUnlocked] = useState(false);
-  useEffect(() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem(PIN_SESSION_KEY) === "1") {
-      setUnlocked(true);
-    }
-  }, []);
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
