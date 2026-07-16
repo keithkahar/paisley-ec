@@ -308,6 +308,12 @@ function MyTestsPage() {
                           style={{ letterSpacing: "-0.01em" }}
                         >
                           {h.level}
+                          <span
+                            className="ml-2 text-[13px] font-semibold align-baseline"
+                            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                          >
+                            {h.dimensions.reduce((a, d) => a + d.correct, 0)}/{h.dimensions.reduce((a, d) => a + d.total, 0)}
+                          </span>
                         </p>
                         <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                           {h.summary}
