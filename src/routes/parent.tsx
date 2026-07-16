@@ -91,9 +91,15 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="text-[12px] leading-[1.55] text-center"
                 style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
               >
-                {isSet
-                  ? "请设置 6 位由字母和数字组合的密码；此密码用于避免儿童误入家长中心。"
-                  : "此密码用于避免儿童误入家长中心。"}
+                {isSet ? (
+                  <>
+                    请设置 6 位由字母和数字组合的密码
+                    <br />
+                    此密码用于避免儿童误入家长中心
+                  </>
+                ) : (
+                  "此密码用于避免儿童误入家长中心"
+                )}
               </p>
 
               <div className="mt-5 space-y-3">
