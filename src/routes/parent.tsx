@@ -98,14 +98,14 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 <PinInput
                   label="密码"
                   value={pin}
-                  onChange={(v) => setPin(digitsOnly(v))}
+                  onChange={(v) => setPin(sanitize(v))}
                   autoFocus
                 />
                 {isSet && (
                   <PinInput
                     label="确认"
                     value={confirmPin}
-                    onChange={(v) => setConfirmPin(digitsOnly(v))}
+                    onChange={(v) => setConfirmPin(sanitize(v))}
                   />
                 )}
               </div>
