@@ -30,12 +30,13 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   }, []);
 
   const isSet = mode === "set";
-  const digitsOnly = (s: string) => s.replace(/\D/g, "").slice(0, 6);
+  const sanitize = (s: string) => s.replace(/[^A-Za-z0-9]/g, "").slice(0, 6);
 
   const handleSubmit = () => {
     setError("");
     if (isSet) {
-      if (pin.length < 4) return setError("密码需为 4–6 位数字");
+      if (pin.length !== 6 || !/[A-Za-z]/.test(pin) || !/\d/.test(pin))
+        return setError("密码需为 6 位，且由字母与数字组合");
       if (pin !== confirmPin) return setError("两次输入的密码不一致");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
       onUnlock();
