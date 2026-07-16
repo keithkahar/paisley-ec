@@ -30,12 +30,13 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   }, []);
 
   const isSet = mode === "set";
-  const digitsOnly = (s: string) => s.replace(/\D/g, "").slice(0, 6);
+  const sanitize = (s: string) => s.replace(/[^A-Za-z0-9]/g, "").slice(0, 6);
 
   const handleSubmit = () => {
     setError("");
     if (isSet) {
-      if (pin.length < 4) return setError("密码需为 4–6 位数字");
+      if (pin.length !== 6 || !/[A-Za-z]/.test(pin) || !/\d/.test(pin))
+        return setError("密码需为 6 位，且由字母与数字组合");
       if (pin !== confirmPin) return setError("两次输入的密码不一致");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
       onUnlock();
@@ -90,21 +91,23 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="text-[12px] leading-[1.55] text-center"
                 style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
               >
-                此密码用于避免儿童误入家长中心。
+                {isSet
+                  ? "请设置 6 位由字母和数字组合的密码；此密码用于避免儿童误入家长中心。"
+                  : "此密码用于避免儿童误入家长中心。"}
               </p>
 
               <div className="mt-5 space-y-3">
                 <PinInput
                   label="密码"
                   value={pin}
-                  onChange={(v) => setPin(digitsOnly(v))}
+                  onChange={(v) => setPin(sanitize(v))}
                   autoFocus
                 />
                 {isSet && (
                   <PinInput
                     label="确认"
                     value={confirmPin}
-                    onChange={(v) => setConfirmPin(digitsOnly(v))}
+                    onChange={(v) => setConfirmPin(sanitize(v))}
                   />
                 )}
               </div>
