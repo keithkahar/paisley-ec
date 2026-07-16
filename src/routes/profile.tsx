@@ -5,6 +5,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import { ParentPinSheet, PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
 import {
   MonthCalendarDialog,
   mockActivity,
@@ -44,6 +45,8 @@ const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
   const [calOpen, setCalOpen] = useState(false);
+  const [parentPinOpen, setParentPinOpen] = useState(false);
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
   const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
   useEffect(() => {
@@ -204,7 +207,7 @@ function ProfilePage() {
         <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
-          <PillLink to="/parent" title="Parent Page" Icon={Users} />
+          <PillLink title="Parent Page" Icon={Users} onClick={() => setParentPinOpen(true)} />
         </section>
 
       </div>
@@ -219,6 +222,15 @@ function ProfilePage() {
         </div>
       </div>
       <BottomTabBar />
+      <ParentPinSheet
+        open={parentPinOpen}
+        onClose={() => setParentPinOpen(false)}
+        onUnlock={() => {
+          try { sessionStorage.setItem(PARENT_UNLOCK_FLAG, "1"); } catch {}
+          setParentPinOpen(false);
+          navigate({ to: "/parent" });
+        }}
+      />
       <MonthCalendarDialog
         open={calOpen}
         onOpenChange={setCalOpen}
