@@ -14,19 +14,39 @@ export const Route = createFileRoute("/my-tests")({
   component: MyTestsPage,
 });
 
+type CefrDim = { key: string; label: string; correct: number; total: number };
+
+type CefrHistory = {
+  id: string;
+  code: string;
+  level: string;
+  date: string;
+  summary: string;
+  reviewCount: number;
+  dimensions: CefrDim[];
+};
+
+const cefrDims = (L: number, R: number, G: number, V: number, W: number): CefrDim[] => [
+  { key: "listening", label: "Listening", correct: L, total: 10 },
+  { key: "reading", label: "Reading", correct: R, total: 15 },
+  { key: "grammar", label: "Grammar", correct: G, total: 15 },
+  { key: "vocabulary", label: "Vocabulary", correct: V, total: 10 },
+  { key: "writing", label: "Writing", correct: W, total: 10 },
+];
+
 // ---- Demo data ----
-const CEFR_HISTORY = [
-  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2 },
-  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3 },
-  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4 },
-  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5 },
-  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0 },
-  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6 },
-  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0 },
-  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1 },
-  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2 },
-  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0 },
-  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3 },
+const CEFR_HISTORY: CefrHistory[] = [
+  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2, dimensions: cefrDims(8, 12, 11, 9, 8) },
+  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3, dimensions: cefrDims(7, 11, 10, 8, 7) },
+  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4, dimensions: cefrDims(6, 10, 9, 7, 6) },
+  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5, dimensions: cefrDims(5, 9, 8, 7, 5) },
+  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0, dimensions: cefrDims(5, 9, 8, 6, 5) },
+  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6, dimensions: cefrDims(4, 8, 7, 5, 4) },
+  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0, dimensions: cefrDims(3, 7, 6, 5, 3) },
+  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1, dimensions: cefrDims(8, 12, 11, 9, 8) },
+  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2, dimensions: cefrDims(7, 11, 10, 8, 7) },
+  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0, dimensions: cefrDims(6, 10, 9, 7, 6) },
+  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3, dimensions: cefrDims(4, 8, 7, 5, 4) },
 ];
 
 type WordieDim = { key: string; label: string; correct: number; total: number };
@@ -164,6 +184,7 @@ const WORDIE_ACCENT = "var(--wordie)";
 function MyTestsPage() {
   const [openCefr, setOpenCefr] = useState(false);
   const [openWordie, setOpenWordie] = useState(false);
+  const [expandedCefr, setExpandedCefr] = useState<string>("");
   const [expandedWordie, setExpandedWordie] = useState<string>("");
 
   const latestCefr = CEFR_HISTORY[0];
@@ -237,41 +258,79 @@ function MyTestsPage() {
 
           {openCefr && (
             <div className="mt-2 rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
-              {CEFR_HISTORY.map((h) => (
-                <div key={h.id} className="w-full flex items-center gap-3 px-4 py-3">
-                  <div className="min-w-0 flex-1">
-                    <p
-                      className="font-semibold text-[15px] truncate leading-tight text-foreground"
-                      style={{ letterSpacing: "-0.01em" }}
+              {CEFR_HISTORY.map((h) => {
+                const expanded = expandedCefr === h.id;
+                return (
+                  <div key={h.id}>
+                    <button
+                      type="button"
+                      onClick={() => setExpandedCefr(expanded ? "" : h.id)}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left active:bg-muted/40 transition-colors"
                     >
-                      {h.level}
-                    </p>
-                    <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
-                      {h.summary}
-                    </p>
-                    <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
-                      <span
-                        className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                        style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
-                      >
-                        {h.code}
-                      </span>
-                      <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
-                        {h.date}
-                      </span>
-                      {h.reviewCount > 0 && (
-                        <span
-                          className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                          style={{ background: "var(--paisley-yellow-soft)", color: "color-mix(in oklab, var(--paisley-yellow) 65%, black)" }}
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="font-semibold text-[15px] truncate leading-tight text-foreground"
+                          style={{ letterSpacing: "-0.01em" }}
                         >
-                          {h.reviewCount} to review
-                        </span>
-                      )}
-                    </div>
+                          {h.level}
+                        </p>
+                        <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                          {h.summary}
+                        </p>
+                        <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                          <span
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                            style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
+                          >
+                            {h.code}
+                          </span>
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
+                            {h.date}
+                          </span>
+                          {h.reviewCount > 0 && (
+                            <span
+                              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                              style={{ background: "var(--paisley-yellow-soft)", color: "color-mix(in oklab, var(--paisley-yellow) 65%, black)" }}
+                            >
+                              {h.reviewCount} to review
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <ChevronRight
+                        className="h-4 w-4 text-muted-foreground transition-transform shrink-0 self-center"
+                        style={{ transform: expanded ? "rotate(90deg)" : "rotate(0deg)" }}
+                      />
+                    </button>
+
+                    {expanded && (
+                      <div className="px-4 pb-4 pt-1 bg-muted/30">
+                        <p className="mt-2 text-[11px] font-semibold" style={{ color: CEFR_ACCENT }}>
+                          Result
+                        </p>
+                        <div className="mt-2 space-y-2">
+                          {h.dimensions.map((d) => {
+                            const pct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0;
+                            return (
+                              <div key={d.key}>
+                                <div className="flex items-center justify-between text-[11px] font-semibold">
+                                  <span style={{ color: "var(--foreground)" }}>{d.label}</span>
+                                  <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
+                                    {d.correct}/{d.total}
+                                  </span>
+                                </div>
+                                <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
+                                  <div className="h-full rounded-full" style={{ width: `${pct}%`, background: CEFR_ACCENT }} />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 self-center" />
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </section>
