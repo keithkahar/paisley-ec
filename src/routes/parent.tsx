@@ -35,8 +35,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const handleSubmit = () => {
     setError("");
     if (isSet) {
-      if (pin.length < 4) return setError("PIN must be 4–6 digits");
-      if (pin !== confirmPin) return setError("PINs don't match");
+      if (pin.length < 4) return setError("密码需为 4–6 位数字");
+      if (pin !== confirmPin) return setError("两次输入的密码不一致");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
       sessionStorage.setItem(PIN_SESSION_KEY, "1");
       onUnlock();
@@ -46,7 +46,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         sessionStorage.setItem(PIN_SESSION_KEY, "1");
         onUnlock();
       } else {
-        setError("Incorrect PIN");
+        setError("密码不正确");
       }
     }
   };
@@ -74,7 +74,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: PAISLEY }}
               >
-                {isSet ? "Set Parent PIN" : "Enter Parent PIN"}
+                {isSet ? "设置家长密码" : "请输入家长密码"}
               </p>
             </div>
 
@@ -83,19 +83,19 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="text-[12px] leading-[1.55] text-center"
                 style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
               >
-                Password prevents children from entering the parent area.
+                此密码用于避免儿童误入家长中心。
               </p>
 
               <div className="mt-5 space-y-3">
                 <PinInput
-                  label="PIN"
+                  label="密码"
                   value={pin}
                   onChange={(v) => setPin(digitsOnly(v))}
                   autoFocus
                 />
                 {isSet && (
                   <PinInput
-                    label="Confirm"
+                    label="确认"
                     value={confirmPin}
                     onChange={(v) => setConfirmPin(digitsOnly(v))}
                   />
@@ -117,7 +117,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="mt-6 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                {isSet ? "Set PIN" : "Unlock"}
+                {isSet ? "设置密码" : "解锁"}
               </button>
 
               {!isSet && (
@@ -133,7 +133,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   className="mt-3 w-full text-[12px] font-semibold"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
-                  Forgot PIN? Reset
+                  忘记密码？重新设置
                 </button>
               )}
             </div>
