@@ -629,42 +629,46 @@ function QuizView({
 
       {/* Questions */}
       {stageKey === "writing" ? (
-        <section className="mt-4 rounded-3xl bg-white border border-border p-4">
-          <h3 className="text-[14px] font-semibold">Write about your school day. Please include:</h3>
-          <ul className="mt-3 space-y-1.5 text-[13px] font-semibold">
-            {WRITING_BULLETS.map((b) => (
-              <li key={b} className="flex items-start gap-2">
-                <span
-                  className="mt-0.5 h-4 w-4 shrink-0 rounded-full grid place-items-center"
-                  style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)" }}
-                >
-                  <Check className="h-2.5 w-2.5" style={{ color: "var(--paisley)" }} />
-                </span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-3 flex items-center justify-end">
-            <span
-              className="text-[11px] font-semibold"
-              style={{
-                color: words >= 35 ? "var(--paisley)" : "var(--paisley-yellow)",
-              }}
-            >
-              {words} words
-            </span>
-          </div>
-          <textarea
-            id="writing-answer"
-            value={writingAnswer}
-            onChange={(e) => setWritingAnswer(e.target.value)}
-            placeholder="Write here..."
-            className="mt-2 min-h-[180px] w-full resize-none rounded-2xl border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground"
-            style={{ borderColor: "var(--paisley-yellow)" }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = "var(--paisley)")}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "var(--paisley-yellow)")}
-          />
-        </section>
+        <div className="mt-4 space-y-3">
+          <section className="rounded-3xl bg-white border border-border p-4">
+            <h3 className="text-[14px] font-semibold">Write about your school day. Please include:</h3>
+            <ul className="mt-3 space-y-1.5 text-[13px] font-semibold">
+              {WRITING_BULLETS.map((b) => (
+                <li key={b} className="flex items-start gap-2">
+                  <span
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded-full grid place-items-center"
+                    style={{ background: "color-mix(in oklab, var(--paisley) 14%, white)" }}
+                  >
+                    <Check className="h-2.5 w-2.5" style={{ color: "var(--paisley)" }} />
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex items-center justify-end">
+              <span
+                className="text-[11px] font-semibold"
+                style={{
+                  color: words >= 35 ? "var(--paisley)" : "var(--paisley-yellow)",
+                }}
+              >
+                {words} words
+              </span>
+            </div>
+          </section>
+          <section className="rounded-3xl bg-white border border-border p-4">
+            <textarea
+              id="writing-answer"
+              value={writingAnswer}
+              onChange={(e) => setWritingAnswer(e.target.value)}
+              placeholder="Write here..."
+              className="min-h-[180px] w-full resize-none rounded-2xl border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground"
+              style={{ borderColor: "var(--paisley-yellow)" }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "var(--paisley)")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "var(--paisley-yellow)")}
+            />
+          </section>
+        </div>
       ) : (
         <div className="mt-4 space-y-3">
           {questions.map((q, i) => (
