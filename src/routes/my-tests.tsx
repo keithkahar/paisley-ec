@@ -184,6 +184,7 @@ const WORDIE_ACCENT = "var(--wordie)";
 function MyTestsPage() {
   const [openCefr, setOpenCefr] = useState(false);
   const [openWordie, setOpenWordie] = useState(false);
+  const [expandedCefr, setExpandedCefr] = useState<string>("");
   const [expandedWordie, setExpandedWordie] = useState<string>("");
 
   const latestCefr = CEFR_HISTORY[0];
