@@ -165,10 +165,10 @@ const QUESTIONS: Question[] = [
   ]),
   // Vocabulary (2)
   mk("V1", "vocabulary", 7, "Choose the word for what you use in the rain.", [
-    ["Ball", false],
-    ["Umbrella", true],
-    ["Chair", false],
-    ["Apple", false],
+    ["ball", false],
+    ["umbrella", true],
+    ["chair", false],
+    ["apple", false],
   ]),
   mk("V2", "vocabulary", 8, "Choose the opposite of: noisy", [
     ["quiet", true],
