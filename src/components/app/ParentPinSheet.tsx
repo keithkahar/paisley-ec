@@ -101,7 +101,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
           <button
             type="button"
             onClick={handleSubmit}
-            className="mt-6 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+            className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-semibold text-white transition-transform active:scale-[0.98]"
             style={{ background: PAISLEY }}
           >
             {isSet ? "设置密码" : "解锁"}
@@ -133,7 +133,7 @@ function PinInput({ label, value, onChange, autoFocus }: { label: string; value:
   return (
     <label className="block">
       <div
-        className="rounded-2xl px-4 py-3 flex items-center gap-3 transition-colors focus-within:bg-white"
+        className="rounded-full py-4 px-4 flex items-center gap-3 transition-colors focus-within:bg-white"
         style={{
           background: "color-mix(in oklab, var(--paisley) 6%, white)",
           border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
