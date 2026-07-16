@@ -14,19 +14,39 @@ export const Route = createFileRoute("/my-tests")({
   component: MyTestsPage,
 });
 
+type CefrDim = { key: string; label: string; correct: number; total: number };
+
+type CefrHistory = {
+  id: string;
+  code: string;
+  level: string;
+  date: string;
+  summary: string;
+  reviewCount: number;
+  dimensions: CefrDim[];
+};
+
+const cefrDims = (L: number, R: number, G: number, V: number, W: number): CefrDim[] => [
+  { key: "listening", label: "Listening", correct: L, total: 10 },
+  { key: "reading", label: "Reading", correct: R, total: 15 },
+  { key: "grammar", label: "Grammar", correct: G, total: 15 },
+  { key: "vocabulary", label: "Vocabulary", correct: V, total: 10 },
+  { key: "writing", label: "Writing", correct: W, total: 10 },
+];
+
 // ---- Demo data ----
-const CEFR_HISTORY = [
-  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2 },
-  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3 },
-  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4 },
-  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5 },
-  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0 },
-  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6 },
-  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0 },
-  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1 },
-  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2 },
-  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0 },
-  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3 },
+const CEFR_HISTORY: CefrHistory[] = [
+  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2, dimensions: cefrDims(8, 12, 11, 9, 8) },
+  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3, dimensions: cefrDims(7, 11, 10, 8, 7) },
+  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4, dimensions: cefrDims(6, 10, 9, 7, 6) },
+  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5, dimensions: cefrDims(5, 9, 8, 7, 5) },
+  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0, dimensions: cefrDims(5, 9, 8, 6, 5) },
+  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6, dimensions: cefrDims(4, 8, 7, 5, 4) },
+  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0, dimensions: cefrDims(3, 7, 6, 5, 3) },
+  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1, dimensions: cefrDims(8, 12, 11, 9, 8) },
+  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2, dimensions: cefrDims(7, 11, 10, 8, 7) },
+  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0, dimensions: cefrDims(6, 10, 9, 7, 6) },
+  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3, dimensions: cefrDims(4, 8, 7, 5, 4) },
 ];
 
 type WordieDim = { key: string; label: string; correct: number; total: number };
