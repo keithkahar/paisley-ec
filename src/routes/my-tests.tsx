@@ -24,6 +24,7 @@ type CefrHistory = {
   summary: string;
   reviewCount: number;
   dimensions: CefrDim[];
+  reviews: { idx: number; dim: string; correct: boolean; your: string; right: string }[];
 };
 
 const cefrDims = (L: number, R: number, G: number, V: number, W: number): CefrDim[] => [
