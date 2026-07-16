@@ -37,17 +37,51 @@ const cefrDims = (L: number, R: number, G: number, V: number, W: number): CefrDi
 
 // ---- Demo data ----
 const CEFR_HISTORY: CefrHistory[] = [
-  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2, dimensions: cefrDims(8, 12, 11, 9, 8) },
-  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3, dimensions: cefrDims(7, 11, 10, 8, 7) },
-  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4, dimensions: cefrDims(6, 10, 9, 7, 6) },
-  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5, dimensions: cefrDims(5, 9, 8, 7, 5) },
-  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0, dimensions: cefrDims(5, 9, 8, 6, 5) },
-  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6, dimensions: cefrDims(4, 8, 7, 5, 4) },
-  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0, dimensions: cefrDims(3, 7, 6, 5, 3) },
-  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1, dimensions: cefrDims(8, 12, 11, 9, 8) },
-  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2, dimensions: cefrDims(7, 11, 10, 8, 7) },
-  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0, dimensions: cefrDims(6, 10, 9, 7, 6) },
-  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3, dimensions: cefrDims(4, 8, 7, 5, 4) },
+  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2, dimensions: cefrDims(8, 12, 11, 9, 8), reviews: [
+    { idx: 12, dim: "Listening", correct: false, your: "sad", right: "upset" },
+    { idx: 8, dim: "Grammar", correct: false, your: "goed", right: "went" },
+  ]},
+  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3, dimensions: cefrDims(7, 11, 10, 8, 7), reviews: [
+    { idx: 5, dim: "Reading", correct: false, your: "cat", right: "kitten" },
+    { idx: 17, dim: "Vocabulary", correct: false, your: "big", right: "enormous" },
+    { idx: 3, dim: "Writing", correct: false, your: "He go to school.", right: "He goes to school." },
+  ]},
+  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4, dimensions: cefrDims(6, 10, 9, 7, 6), reviews: [
+    { idx: 1, dim: "Listening", correct: false, your: "no", right: "not yet" },
+    { idx: 7, dim: "Reading", correct: false, your: "happy", right: "delighted" },
+    { idx: 14, dim: "Grammar", correct: false, your: "she don't", right: "she doesn't" },
+    { idx: 9, dim: "Vocabulary", correct: false, your: "fast", right: "quick" },
+  ]},
+  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5, dimensions: cefrDims(5, 9, 8, 7, 5), reviews: [
+    { idx: 2, dim: "Listening", correct: false, your: "maybe", right: "perhaps" },
+    { idx: 6, dim: "Reading", correct: false, your: "tired", right: "exhausted" },
+    { idx: 11, dim: "Grammar", correct: false, your: "have went", right: "have gone" },
+    { idx: 15, dim: "Vocabulary", correct: false, your: "small", right: "tiny" },
+    { idx: 4, dim: "Writing", correct: false, your: "I am go.", right: "I am going." },
+  ]},
+  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0, dimensions: cefrDims(5, 9, 8, 6, 5), reviews: [] },
+  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6, dimensions: cefrDims(4, 8, 7, 5, 4), reviews: [
+    { idx: 10, dim: "Listening", correct: false, your: "yes", right: "sure" },
+    { idx: 13, dim: "Reading", correct: false, your: "angry", right: "furious" },
+    { idx: 16, dim: "Grammar", correct: false, your: "they was", right: "they were" },
+    { idx: 18, dim: "Vocabulary", correct: false, your: "smart", right: "clever" },
+    { idx: 20, dim: "Writing", correct: false, your: "She like apples.", right: "She likes apples." },
+    { idx: 22, dim: "Listening", correct: false, your: "good", right: "fine" },
+  ]},
+  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0, dimensions: cefrDims(3, 7, 6, 5, 3), reviews: [] },
+  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1, dimensions: cefrDims(8, 12, 11, 9, 8), reviews: [
+    { idx: 4, dim: "Grammar", correct: false, your: "He don't like", right: "He doesn't like" },
+  ]},
+  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2, dimensions: cefrDims(7, 11, 10, 8, 7), reviews: [
+    { idx: 9, dim: "Vocabulary", correct: false, your: "begin", right: "start" },
+    { idx: 21, dim: "Writing", correct: false, your: "They is friends.", right: "They are friends." },
+  ]},
+  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0, dimensions: cefrDims(6, 10, 9, 7, 6), reviews: [] },
+  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3, dimensions: cefrDims(4, 8, 7, 5, 4), reviews: [
+    { idx: 2, dim: "Listening", correct: false, your: "hi", right: "hello" },
+    { idx: 6, dim: "Reading", correct: false, your: "dog", right: "puppy" },
+    { idx: 19, dim: "Grammar", correct: false, your: "I has", right: "I have" },
+  ]},
 ];
 
 type WordieDim = { key: string; label: string; correct: number; total: number };
