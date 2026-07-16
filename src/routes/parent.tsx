@@ -276,7 +276,6 @@ function ParentPage() {
       setUnlocked(true);
     }
   }, []);
-  if (!unlocked) return <ParentPinGate onUnlock={() => setUnlocked(true)} />;
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
@@ -312,6 +311,8 @@ function ParentPage() {
   const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
   const accent = tab === "talk" ? SHIRIN : WORDIE;
   const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
+
+  if (!unlocked) return <ParentPinGate onUnlock={() => setUnlocked(true)} />;
 
   return (
     <PhoneFrame bg="bg-white">
