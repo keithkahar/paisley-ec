@@ -37,13 +37,10 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     if (isSet) {
       if (pin.length < 4) return setError("密码需为 4–6 位数字");
       if (pin !== confirmPin) return setError("两次输入的密码不一致");
-      localStorage.setItem(PIN_STORAGE_KEY, pin);
-      sessionStorage.setItem(PIN_SESSION_KEY, "1");
       onUnlock();
     } else {
       const saved = localStorage.getItem(PIN_STORAGE_KEY);
       if (pin === saved) {
-        sessionStorage.setItem(PIN_SESSION_KEY, "1");
         onUnlock();
       } else {
         setError("密码不正确");
