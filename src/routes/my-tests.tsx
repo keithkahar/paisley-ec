@@ -258,41 +258,79 @@ function MyTestsPage() {
 
           {openCefr && (
             <div className="mt-2 rounded-3xl bg-white border border-border divide-y divide-border overflow-hidden shadow-[0_8px_24px_-18px_rgba(80,100,245,0.35)]">
-              {CEFR_HISTORY.map((h) => (
-                <div key={h.id} className="w-full flex items-center gap-3 px-4 py-3">
-                  <div className="min-w-0 flex-1">
-                    <p
-                      className="font-semibold text-[15px] truncate leading-tight text-foreground"
-                      style={{ letterSpacing: "-0.01em" }}
+              {CEFR_HISTORY.map((h) => {
+                const expanded = expandedCefr === h.id;
+                return (
+                  <div key={h.id}>
+                    <button
+                      type="button"
+                      onClick={() => setExpandedCefr(expanded ? "" : h.id)}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left active:bg-muted/40 transition-colors"
                     >
-                      {h.level}
-                    </p>
-                    <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
-                      {h.summary}
-                    </p>
-                    <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
-                      <span
-                        className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                        style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
-                      >
-                        {h.code}
-                      </span>
-                      <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
-                        {h.date}
-                      </span>
-                      {h.reviewCount > 0 && (
-                        <span
-                          className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                          style={{ background: "var(--paisley-yellow-soft)", color: "color-mix(in oklab, var(--paisley-yellow) 65%, black)" }}
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="font-semibold text-[15px] truncate leading-tight text-foreground"
+                          style={{ letterSpacing: "-0.01em" }}
                         >
-                          {h.reviewCount} to review
-                        </span>
-                      )}
-                    </div>
+                          {h.level}
+                        </p>
+                        <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
+                          {h.summary}
+                        </p>
+                        <div className="flex items-center gap-1.5 min-w-0 mt-1.5">
+                          <span
+                            className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                            style={{ background: `color-mix(in oklab, ${CEFR_ACCENT} 12%, white)`, color: CEFR_ACCENT }}
+                          >
+                            {h.code}
+                          </span>
+                          <span className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground">
+                            {h.date}
+                          </span>
+                          {h.reviewCount > 0 && (
+                            <span
+                              className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                              style={{ background: "var(--paisley-yellow-soft)", color: "color-mix(in oklab, var(--paisley-yellow) 65%, black)" }}
+                            >
+                              {h.reviewCount} to review
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <ChevronRight
+                        className="h-4 w-4 text-muted-foreground transition-transform shrink-0 self-center"
+                        style={{ transform: expanded ? "rotate(90deg)" : "rotate(0deg)" }}
+                      />
+                    </button>
+
+                    {expanded && (
+                      <div className="px-4 pb-4 pt-1 bg-muted/30">
+                        <p className="mt-2 text-[11px] font-semibold" style={{ color: CEFR_ACCENT }}>
+                          Result
+                        </p>
+                        <div className="mt-2 space-y-2">
+                          {h.dimensions.map((d) => {
+                            const pct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0;
+                            return (
+                              <div key={d.key}>
+                                <div className="flex items-center justify-between text-[11px] font-semibold">
+                                  <span style={{ color: "var(--foreground)" }}>{d.label}</span>
+                                  <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
+                                    {d.correct}/{d.total}
+                                  </span>
+                                </div>
+                                <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
+                                  <div className="h-full rounded-full" style={{ width: `${pct}%`, background: CEFR_ACCENT }} />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 self-center" />
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </section>
