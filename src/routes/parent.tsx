@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
 
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [
@@ -268,7 +269,18 @@ type SheetType = "" | "voice" | "theme" | "speechRate";
 
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
+  const navigate = useNavigate();
   const [unlocked, setUnlocked] = useState(false);
+  useEffect(() => {
+    let ok = false;
+    try { ok = sessionStorage.getItem(PARENT_UNLOCK_FLAG) === "1"; } catch {}
+    if (!ok) {
+      navigate({ to: "/profile", replace: true });
+      return;
+    }
+    try { sessionStorage.removeItem(PARENT_UNLOCK_FLAG); } catch {}
+    setUnlocked(true);
+  }, [navigate]);
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
@@ -305,7 +317,7 @@ function ParentPage() {
   const accent = tab === "talk" ? SHIRIN : WORDIE;
   const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
 
-  if (!unlocked) return <ParentPinGate onUnlock={() => setUnlocked(true)} />;
+  if (!unlocked) return null;
 
   return (
     <PhoneFrame bg="bg-white">

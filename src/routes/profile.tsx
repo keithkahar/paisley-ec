@@ -5,6 +5,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import { ParentPinSheet, PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
 import {
   MonthCalendarDialog,
   mockActivity,
@@ -44,6 +45,8 @@ const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
 function ProfilePage() {
   const [calOpen, setCalOpen] = useState(false);
+  const [parentPinOpen, setParentPinOpen] = useState(false);
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
   const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
   useEffect(() => {
@@ -204,7 +207,7 @@ function ProfilePage() {
         <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
-          <PillLink to="/parent" title="Parent Page" Icon={Users} />
+          <PillLink title="Parent Page" Icon={Users} onClick={() => setParentPinOpen(true)} />
         </section>
 
       </div>
@@ -219,6 +222,15 @@ function ProfilePage() {
         </div>
       </div>
       <BottomTabBar />
+      <ParentPinSheet
+        open={parentPinOpen}
+        onClose={() => setParentPinOpen(false)}
+        onUnlock={() => {
+          try { sessionStorage.setItem(PARENT_UNLOCK_FLAG, "1"); } catch {}
+          setParentPinOpen(false);
+          navigate({ to: "/parent" });
+        }}
+      />
       <MonthCalendarDialog
         open={calOpen}
         onOpenChange={setCalOpen}
@@ -241,23 +253,22 @@ function PillLink({
   title,
   Icon,
   outlined,
+  onClick,
 }: {
-  to: string;
+  to?: string;
   title: string;
   Icon: React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>;
   outlined?: boolean;
+  onClick?: () => void;
 }) {
   const bg = "color-mix(in oklab, var(--paisley) 12%, white)";
-  return (
-    <Link
-      to={to}
-      className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={
+  const className = "relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform text-left";
+  const style =
         outlined
           ? { background: "white", border: `1.5px solid ${bg}` }
-          : { background: bg }
-      }
-    >
+          : { background: bg };
+  const inner = (
+    <>
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"
         style={{ background: outlined ? bg : "white" }}
@@ -271,6 +282,18 @@ function PillLink({
         {title}
       </span>
       <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: "white" }} />
+    </>
+  );
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={className} style={style}>
+        {inner}
+      </button>
+    );
+  }
+  return (
+    <Link to={to!} className={className} style={style}>
+      {inner}
     </Link>
   );
 }
