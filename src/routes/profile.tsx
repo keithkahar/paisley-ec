@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import pecFromLogo from "@/assets/brand/pec-from-logo.png.asset.json";
+import paizleyEcText from "@/assets/brand/paizley-ec-text.png.asset.json";
 import { useRef, useCallback, useState, useEffect } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
@@ -325,10 +326,10 @@ function AboutPecLink() {
       >
         <span className="leading-none">About</span>
         <img
-          src="/assets/pec-matched.png"
-          alt="PEC"
+          src={paizleyEcText.url}
+          alt="Paizley EC"
           className="object-contain block"
-          style={{ height: "0.75em", width: "auto" }}
+          style={{ height: "0.95em", width: "auto", filter: "grayscale(100%) brightness(0.75)" }}
         />
       </button>
     </div>
