@@ -74,6 +74,15 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               >
                 {isSet ? "设置家长密码" : "请输入家长密码"}
               </p>
+              <button
+                type="button"
+                aria-label="关闭"
+                onClick={() => history.back()}
+                className="absolute right-4 top-3 h-8 w-8 grid place-items-center rounded-full transition-colors active:scale-95"
+                style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)", color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
             </div>
 
             <div className="flex-1 overflow-y-auto px-6 pb-6">
