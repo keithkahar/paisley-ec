@@ -24,6 +24,7 @@ type CefrHistory = {
   summary: string;
   reviewCount: number;
   dimensions: CefrDim[];
+  reviews: { idx: number; dim: string; correct: boolean; your: string; right: string }[];
 };
 
 const cefrDims = (L: number, R: number, G: number, V: number, W: number): CefrDim[] => [
@@ -36,17 +37,51 @@ const cefrDims = (L: number, R: number, G: number, V: number, W: number): CefrDi
 
 // ---- Demo data ----
 const CEFR_HISTORY: CefrHistory[] = [
-  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2, dimensions: cefrDims(8, 12, 11, 9, 8) },
-  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3, dimensions: cefrDims(7, 11, 10, 8, 7) },
-  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4, dimensions: cefrDims(6, 10, 9, 7, 6) },
-  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5, dimensions: cefrDims(5, 9, 8, 7, 5) },
-  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0, dimensions: cefrDims(5, 9, 8, 6, 5) },
-  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6, dimensions: cefrDims(4, 8, 7, 5, 4) },
-  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0, dimensions: cefrDims(3, 7, 6, 5, 3) },
-  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1, dimensions: cefrDims(8, 12, 11, 9, 8) },
-  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2, dimensions: cefrDims(7, 11, 10, 8, 7) },
-  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0, dimensions: cefrDims(6, 10, 9, 7, 6) },
-  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3, dimensions: cefrDims(4, 8, 7, 5, 4) },
+  { id: "c20", code: "#20", level: "A2", date: "Jun 2 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 2, dimensions: cefrDims(8, 12, 11, 9, 8), reviews: [
+    { idx: 12, dim: "Listening", correct: false, your: "sad", right: "upset" },
+    { idx: 8, dim: "Grammar", correct: false, your: "goed", right: "went" },
+  ]},
+  { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3, dimensions: cefrDims(7, 11, 10, 8, 7), reviews: [
+    { idx: 5, dim: "Reading", correct: false, your: "cat", right: "kitten" },
+    { idx: 17, dim: "Vocabulary", correct: false, your: "big", right: "enormous" },
+    { idx: 3, dim: "Writing", correct: false, your: "He go to school.", right: "He goes to school." },
+  ]},
+  { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4, dimensions: cefrDims(6, 10, 9, 7, 6), reviews: [
+    { idx: 1, dim: "Listening", correct: false, your: "no", right: "not yet" },
+    { idx: 7, dim: "Reading", correct: false, your: "happy", right: "delighted" },
+    { idx: 14, dim: "Grammar", correct: false, your: "she don't", right: "she doesn't" },
+    { idx: 9, dim: "Vocabulary", correct: false, your: "fast", right: "quick" },
+  ]},
+  { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5, dimensions: cefrDims(5, 9, 8, 7, 5), reviews: [
+    { idx: 2, dim: "Listening", correct: false, your: "maybe", right: "perhaps" },
+    { idx: 6, dim: "Reading", correct: false, your: "tired", right: "exhausted" },
+    { idx: 11, dim: "Grammar", correct: false, your: "have went", right: "have gone" },
+    { idx: 15, dim: "Vocabulary", correct: false, your: "small", right: "tiny" },
+    { idx: 4, dim: "Writing", correct: false, your: "I am go.", right: "I am going." },
+  ]},
+  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0, dimensions: cefrDims(5, 9, 8, 6, 5), reviews: [] },
+  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6, dimensions: cefrDims(4, 8, 7, 5, 4), reviews: [
+    { idx: 10, dim: "Listening", correct: false, your: "yes", right: "sure" },
+    { idx: 13, dim: "Reading", correct: false, your: "angry", right: "furious" },
+    { idx: 16, dim: "Grammar", correct: false, your: "they was", right: "they were" },
+    { idx: 18, dim: "Vocabulary", correct: false, your: "smart", right: "clever" },
+    { idx: 20, dim: "Writing", correct: false, your: "She like apples.", right: "She likes apples." },
+    { idx: 22, dim: "Listening", correct: false, your: "good", right: "fine" },
+  ]},
+  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0, dimensions: cefrDims(3, 7, 6, 5, 3), reviews: [] },
+  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1, dimensions: cefrDims(8, 12, 11, 9, 8), reviews: [
+    { idx: 4, dim: "Grammar", correct: false, your: "He don't like", right: "He doesn't like" },
+  ]},
+  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2, dimensions: cefrDims(7, 11, 10, 8, 7), reviews: [
+    { idx: 9, dim: "Vocabulary", correct: false, your: "begin", right: "start" },
+    { idx: 21, dim: "Writing", correct: false, your: "They is friends.", right: "They are friends." },
+  ]},
+  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0, dimensions: cefrDims(6, 10, 9, 7, 6), reviews: [] },
+  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3, dimensions: cefrDims(4, 8, 7, 5, 4), reviews: [
+    { idx: 2, dim: "Listening", correct: false, your: "hi", right: "hello" },
+    { idx: 6, dim: "Reading", correct: false, your: "dog", right: "puppy" },
+    { idx: 19, dim: "Grammar", correct: false, your: "I has", right: "I have" },
+  ]},
 ];
 
 type WordieDim = { key: string; label: string; correct: number; total: number };
@@ -273,6 +308,12 @@ function MyTestsPage() {
                           style={{ letterSpacing: "-0.01em" }}
                         >
                           {h.level}
+                          <span
+                            className="ml-2 text-[13px] font-semibold align-baseline"
+                            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+                          >
+                            {h.dimensions.reduce((a, d) => a + d.correct, 0)}/{h.dimensions.reduce((a, d) => a + d.total, 0)}
+                          </span>
                         </p>
                         <p className="text-[12px] text-muted-foreground truncate mt-0.5 leading-snug">
                           {h.summary}
@@ -305,27 +346,63 @@ function MyTestsPage() {
 
                     {expanded && (
                       <div className="px-4 pb-4 pt-1 bg-muted/30">
-                        <p className="mt-2 text-[11px] font-semibold" style={{ color: CEFR_ACCENT }}>
+                        <p className="mt-2 text-[13px] font-semibold" style={{ color: CEFR_ACCENT }}>
                           Result
                         </p>
-                        <div className="mt-2 space-y-2">
+                        <div className="mt-2 space-y-3">
                           {h.dimensions.map((d) => {
                             const pct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0;
                             return (
                               <div key={d.key}>
-                                <div className="flex items-center justify-between text-[11px] font-semibold">
+                                <div className="flex items-center justify-between text-[13px] font-semibold">
                                   <span style={{ color: "var(--foreground)" }}>{d.label}</span>
                                   <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
                                     {d.correct}/{d.total}
                                   </span>
                                 </div>
-                                <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
+                                <div className="mt-1.5 h-2 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
                                   <div className="h-full rounded-full" style={{ width: `${pct}%`, background: CEFR_ACCENT }} />
                                 </div>
                               </div>
                             );
                           })}
                         </div>
+
+                        {h.reviews.length > 0 && (
+                          <>
+                            <p className="mt-4 text-[13px] font-semibold" style={{ color: CEFR_ACCENT }}>
+                              Questions · {h.reviews.length} to review
+                            </p>
+                            <ul className="mt-2 space-y-2">
+                              {h.reviews.map((r) => (
+                                <li
+                                  key={r.idx}
+                                  className="rounded-xl p-3"
+                                  style={{ background: "white" }}
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[13px] font-semibold" style={{ color: "var(--foreground)" }}>
+                                      Q{r.idx} · {r.dim}
+                                    </span>
+                                    <span
+                                      className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full"
+                                      style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", color: "var(--shirin)" }}
+                                    >
+                                      <RotateCcw className="h-3 w-3" />
+                                      To Review
+                                    </span>
+                                  </div>
+                                  <p className="mt-1.5 text-[12px]" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+                                    Your answer: <span style={{ color: "var(--foreground)" }}>{r.your}</span>
+                                  </p>
+                                  <p className="text-[12px]" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+                                    Right answer: <span style={{ color: "var(--foreground)" }}>{r.right}</span>
+                                  </p>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
