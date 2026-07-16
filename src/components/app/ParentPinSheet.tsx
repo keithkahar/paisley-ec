@@ -43,7 +43,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div
         className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
         style={{ height: "62vh" }}
