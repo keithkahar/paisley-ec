@@ -327,7 +327,7 @@ function AboutPecLink() {
         <span className="leading-none" style={{ transform: "translate(1.5px, 0px)" }}>About</span>
         <span
           className="relative inline-block"
-          style={{ height: "1.71em" }}
+          style={{ height: "1.6245em" }}
           aria-hidden="true"
         >
           <img
