@@ -614,8 +614,8 @@ function QuizView({
         <article
           className="mt-4 rounded-3xl p-4"
           style={{
-            background: "color-mix(in oklab, var(--paisley-yellow) 18%, white)",
-            border: "1px solid color-mix(in oklab, var(--paisley-yellow) 45%, white)",
+            background: "color-mix(in oklab, var(--paisley) 14%, white)",
+            border: "1px solid color-mix(in oklab, var(--paisley) 30%, white)",
           }}
         >
           <h3 className="text-[14px] font-semibold">{READING_PASSAGE.title}</h3>
