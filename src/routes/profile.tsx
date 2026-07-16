@@ -134,13 +134,13 @@ function ProfilePage() {
           <div className="mt-3 flex items-center justify-center gap-2">
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
-              style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
             >
               Age {profile.age}
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
-              style={{ color: PAISLEY_YELLOW, border: `1px solid ${PAISLEY_YELLOW}` }}
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
             >
               {profile.cefr}
             </span>
@@ -320,7 +320,7 @@ function AboutPecLink() {
       <button
         type="button"
         onClick={handleClick}
-        className="text-[14px] font-bold tracking-wide select-none inline-flex items-center leading-none"
+        className="text-[14.5px] font-bold tracking-wide select-none inline-flex items-center leading-none"
         style={{ color: gray, gap: "5px" }}
         aria-label="About PEC"
       >
