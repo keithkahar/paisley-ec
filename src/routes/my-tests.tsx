@@ -346,27 +346,63 @@ function MyTestsPage() {
 
                     {expanded && (
                       <div className="px-4 pb-4 pt-1 bg-muted/30">
-                        <p className="mt-2 text-[11px] font-semibold" style={{ color: CEFR_ACCENT }}>
+                        <p className="mt-2 text-[13px] font-semibold" style={{ color: CEFR_ACCENT }}>
                           Result
                         </p>
-                        <div className="mt-2 space-y-2">
+                        <div className="mt-2 space-y-3">
                           {h.dimensions.map((d) => {
                             const pct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0;
                             return (
                               <div key={d.key}>
-                                <div className="flex items-center justify-between text-[11px] font-semibold">
+                                <div className="flex items-center justify-between text-[13px] font-semibold">
                                   <span style={{ color: "var(--foreground)" }}>{d.label}</span>
                                   <span style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
                                     {d.correct}/{d.total}
                                   </span>
                                 </div>
-                                <div className="mt-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
+                                <div className="mt-1.5 h-2 rounded-full overflow-hidden" style={{ background: "var(--input)" }}>
                                   <div className="h-full rounded-full" style={{ width: `${pct}%`, background: CEFR_ACCENT }} />
                                 </div>
                               </div>
                             );
                           })}
                         </div>
+
+                        {h.reviews.length > 0 && (
+                          <>
+                            <p className="mt-4 text-[13px] font-semibold" style={{ color: CEFR_ACCENT }}>
+                              Questions · {h.reviews.length} to review
+                            </p>
+                            <ul className="mt-2 space-y-2">
+                              {h.reviews.map((r) => (
+                                <li
+                                  key={r.idx}
+                                  className="rounded-xl p-3"
+                                  style={{ background: "white" }}
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[13px] font-semibold" style={{ color: "var(--foreground)" }}>
+                                      Q{r.idx} · {r.dim}
+                                    </span>
+                                    <span
+                                      className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full"
+                                      style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)", color: "var(--shirin)" }}
+                                    >
+                                      <RotateCcw className="h-3 w-3" />
+                                      To Review
+                                    </span>
+                                  </div>
+                                  <p className="mt-1.5 text-[12px]" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+                                    Your answer: <span style={{ color: "var(--foreground)" }}>{r.your}</span>
+                                  </p>
+                                  <p className="text-[12px]" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
+                                    Right answer: <span style={{ color: "var(--foreground)" }}>{r.right}</span>
+                                  </p>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
