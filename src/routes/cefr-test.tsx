@@ -629,7 +629,7 @@ function QuizView({
 
       {/* Questions */}
       {stageKey === "writing" ? (
-        <div className="mt-4 space-y-3">
+        <div className="mt-4 space-y-2">
           <section className="rounded-3xl bg-white border border-border p-4">
             <h3 className="text-[14px] font-semibold">Write about your school day. Please include:</h3>
             <ul className="mt-3 space-y-1.5 text-[13px] font-semibold">
@@ -645,27 +645,24 @@ function QuizView({
                 </li>
               ))}
             </ul>
-            <div className="mt-3 flex items-center justify-end">
-              <span
-                className="text-[11px] font-semibold"
-                style={{
-                  color: words >= 35 ? "var(--paisley)" : "var(--paisley-yellow)",
-                }}
-              >
-                {words} words
-              </span>
-            </div>
           </section>
+          <div className="flex items-center justify-end px-2">
+            <span
+              className="text-[11px] font-semibold"
+              style={{
+                color: words >= 35 ? "var(--paisley)" : "var(--paisley-yellow)",
+              }}
+            >
+              {words} words
+            </span>
+          </div>
           <section className="rounded-3xl bg-white border border-border p-4">
             <textarea
               id="writing-answer"
               value={writingAnswer}
               onChange={(e) => setWritingAnswer(e.target.value)}
               placeholder="Write here..."
-              className="min-h-[180px] w-full resize-none rounded-2xl border bg-white p-3 text-[14px] leading-6 outline-none transition placeholder:text-muted-foreground"
-              style={{ borderColor: "var(--paisley-yellow)" }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "var(--paisley)")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "var(--paisley-yellow)")}
+              className="min-h-[180px] w-full resize-none bg-transparent p-1 text-[14px] leading-6 outline-none placeholder:text-muted-foreground"
             />
           </section>
         </div>
