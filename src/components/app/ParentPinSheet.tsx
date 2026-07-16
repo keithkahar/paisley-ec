@@ -153,8 +153,7 @@ function PinInput({ label, value, onChange, autoFocus }: { label: string; value:
           maxLength={6}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="••••"
-          className="flex-1 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em] placeholder:tracking-[0.2em] placeholder:font-normal"
+          className="flex-1 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
           style={{ color: PAISLEY }}
         />
       </div>
