@@ -35,8 +35,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const handleSubmit = () => {
     setError("");
     if (isSet) {
-      if (pin.length < 4) return setError("PIN 至少 4 位数字");
-      if (pin !== confirmPin) return setError("两次输入不一致");
+      if (pin.length < 4) return setError("PIN must be 4–6 digits");
+      if (pin !== confirmPin) return setError("PINs don't match");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
       sessionStorage.setItem(PIN_SESSION_KEY, "1");
       onUnlock();
@@ -46,7 +46,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         sessionStorage.setItem(PIN_SESSION_KEY, "1");
         onUnlock();
       } else {
-        setError("PIN 不正确");
+        setError("Incorrect PIN");
       }
     }
   };
@@ -57,106 +57,88 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         <FloatingBack to="/profile" />
-        <section className="px-6 pt-12 pb-2 text-center">
-          <h1 className="text-[26px] leading-[1.2] font-medium tracking-tight" style={{ color: PAISLEY }}>
-            Parent Page
-          </h1>
-          <p
-            className="mt-1 text-[13px] leading-none font-semibold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-          >
-            {isSet ? "首次进入 · 设置访问密码" : "请输入访问密码"}
-          </p>
-        </section>
 
-        <section className="px-6 pt-8">
+        {/* Bottom sheet — wordie-bank filter style */}
+        <div className="fixed inset-0 z-40 flex items-end justify-center">
+          <div className="absolute inset-0 bg-black/40" />
           <div
-            className="rounded-3xl bg-white p-6"
-            style={{
-              border: `1px solid color-mix(in oklab, ${PAISLEY} 14%, white)`,
-              boxShadow: "0 14px 40px rgba(11,37,69,0.055)",
-            }}
+            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
+            style={{ height: "62vh" }}
           >
-            <p
-              className="text-[11px] font-semibold tracking-[0.14em] uppercase"
-              style={{ color: PAISLEY }}
-            >
-              Parent Access
-            </p>
-            <h2 className="mt-2 text-[22px] font-semibold" style={{ color: "var(--foreground)" }}>
-              {isSet ? "Set Parent PIN" : "Enter Parent PIN"}
-            </h2>
-            <p
-              className="mt-1.5 text-[13px] leading-[1.55]"
-              style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
-            >
-              {isSet
-                ? "设置 4–6 位数字密码，用于进入家长中心查看学习数据与偏好设置。"
-                : "输入你之前设置的家长密码，以查看学习数据与偏好设置。"}
-            </p>
-
-            <div className="mt-5 space-y-3">
-              <PinInput
-                label="PIN"
-                value={pin}
-                onChange={(v) => setPin(digitsOnly(v))}
-                autoFocus
-              />
-              {isSet && (
-                <PinInput
-                  label="Confirm PIN"
-                  value={confirmPin}
-                  onChange={(v) => setConfirmPin(digitsOnly(v))}
-                />
-              )}
+            {/* Grabber */}
+            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+              <span className="h-1 w-10 rounded-full bg-border" />
+            </div>
+            <div className="flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+              <p
+                className="text-[17px] font-semibold tracking-tight leading-none"
+                style={{ letterSpacing: "-0.01em", color: PAISLEY }}
+              >
+                {isSet ? "Set Parent PIN" : "Enter Parent PIN"}
+              </p>
             </div>
 
-            {error && (
+            <div className="flex-1 overflow-y-auto px-6 pb-6">
               <p
-                className="mt-3 text-[12px] font-semibold"
-                style={{ color: "var(--destructive)" }}
-              >
-                {error}
-              </p>
-            )}
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="mt-6 w-full h-12 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{
-                background: PAISLEY,
-                boxShadow: `0 10px 24px color-mix(in oklab, ${PAISLEY} 32%, transparent)`,
-              }}
-            >
-              {isSet ? "Set PIN" : "Unlock"}
-            </button>
-
-            {!isSet && (
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.removeItem(PIN_STORAGE_KEY);
-                  setPin("");
-                  setConfirmPin("");
-                  setError("");
-                  setMode("set");
-                }}
-                className="mt-3 w-full text-[12px] font-semibold"
+                className="text-[12px] leading-[1.55] text-center"
                 style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
               >
-                忘记密码？重新设置
-              </button>
-            )}
-          </div>
+                Password prevents children from entering the parent area.
+              </p>
 
-          <p
-            className="mt-4 text-center text-[11px] leading-[1.6]"
-            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
-          >
-            密码仅保存在本机，用于避免儿童误入家长中心。
-          </p>
-        </section>
+              <div className="mt-5 space-y-3">
+                <PinInput
+                  label="PIN"
+                  value={pin}
+                  onChange={(v) => setPin(digitsOnly(v))}
+                  autoFocus
+                />
+                {isSet && (
+                  <PinInput
+                    label="Confirm"
+                    value={confirmPin}
+                    onChange={(v) => setConfirmPin(digitsOnly(v))}
+                  />
+                )}
+              </div>
+
+              {error && (
+                <p
+                  className="mt-3 text-[12px] font-semibold text-center"
+                  style={{ color: "var(--destructive)" }}
+                >
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="mt-6 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+                style={{ background: PAISLEY }}
+              >
+                {isSet ? "Set PIN" : "Unlock"}
+              </button>
+
+              {!isSet && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    localStorage.removeItem(PIN_STORAGE_KEY);
+                    setPin("");
+                    setConfirmPin("");
+                    setError("");
+                    setMode("set");
+                  }}
+                  className="mt-3 w-full text-[12px] font-semibold"
+                  style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+                >
+                  Forgot PIN? Reset
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </PhoneFrame>
   );
