@@ -101,7 +101,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
           <button
             type="button"
             onClick={handleSubmit}
-            className="mt-6 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+            className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-semibold text-white transition-transform active:scale-[0.98]"
             style={{ background: PAISLEY }}
           >
             {isSet ? "设置密码" : "解锁"}
