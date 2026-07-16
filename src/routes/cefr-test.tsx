@@ -997,7 +997,8 @@ function ReviewOverlay({
       <div className="relative w-full max-w-[360px] bg-white rounded-3xl p-5 max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between">
           <p className="text-[13px] font-semibold text-muted-foreground">
-            {STAGE_META[question.stage].label} · Q{question.number}
+            {STAGE_META[question.stage].label} · Q
+            {QUESTIONS.filter((q) => q.stage === question.stage).findIndex((q) => q.id === question.id) + 1}
           </p>
           <button onClick={onClose} className="h-7 w-7 grid place-items-center rounded-full bg-muted/40">
             <X className="h-4 w-4" />
