@@ -20,6 +20,13 @@ const CEFR_HISTORY = [
   { id: "c19", code: "#19", level: "A2", date: "May 18 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 3 },
   { id: "c18", code: "#18", level: "A1", date: "Apr 28 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 4 },
   { id: "c17", code: "#17", level: "A1", date: "Apr 6 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 7/10 · W 5/10", reviewCount: 5 },
+  { id: "c16", code: "#16", level: "A1", date: "Mar 22 2026", summary: "L 5/10 · R 9/15 · G 8/15 · V 6/10 · W 5/10", reviewCount: 0 },
+  { id: "c15", code: "#15", level: "Pre A1", date: "Mar 8 2026", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 6 },
+  { id: "c14", code: "#14", level: "Pre A1", date: "Feb 22 2026", summary: "L 3/10 · R 7/15 · G 6/15 · V 5/10 · W 3/10", reviewCount: 0 },
+  { id: "c13", code: "#13", level: "A2", date: "Feb 8 2026", summary: "L 8/10 · R 12/15 · G 11/15 · V 9/10 · W 8/10", reviewCount: 1 },
+  { id: "c12", code: "#12", level: "A2", date: "Jan 25 2026", summary: "L 7/10 · R 11/15 · G 10/15 · V 8/10 · W 7/10", reviewCount: 2 },
+  { id: "c11", code: "#11", level: "A1", date: "Jan 11 2026", summary: "L 6/10 · R 10/15 · G 9/15 · V 7/10 · W 6/10", reviewCount: 0 },
+  { id: "c10", code: "#10", level: "Pre A1", date: "Dec 28 2025", summary: "L 4/10 · R 8/15 · G 7/15 · V 5/10 · W 4/10", reviewCount: 3 },
 ];
 
 type WordieDim = { key: string; label: string; correct: number; total: number };
