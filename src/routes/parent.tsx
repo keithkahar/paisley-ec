@@ -1158,8 +1158,8 @@ function GoalRow({
   const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
   return (
     <div
-      className="relative flex items-center justify-between px-3 rounded-2xl bg-white h-16"
-      style={{ border: `1px solid ${tint(14)}` }}
+      className="relative flex items-center justify-between px-3 rounded-2xl bg-white box-border overflow-hidden"
+      style={{ border: `1px solid ${tint(14)}`, height: 64, minHeight: 64, maxHeight: 64 }}
     >
       <span
         className="text-[11px] font-semibold leading-none"
