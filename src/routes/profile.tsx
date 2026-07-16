@@ -320,7 +320,7 @@ function AboutPecLink() {
       <button
         type="button"
         onClick={handleClick}
-        className="text-[13px] font-bold tracking-wide select-none inline-flex items-center leading-none"
+        className="text-[13px] font-bold tracking-wide select-none inline-flex items-baseline leading-none"
         style={{ color: gray, gap: "5px" }}
         aria-label="About PEC"
       >
