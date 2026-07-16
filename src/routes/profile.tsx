@@ -324,7 +324,7 @@ function AboutPecLink() {
         style={{ color: gray, gap: "5px" }}
         aria-label="About PEC"
       >
-        <span className="leading-none">About</span>
+        <span className="leading-none" style={{ transform: "translate(1px, 1px)" }}>About</span>
         <span
           className="relative inline-block"
           style={{ height: "1.71em" }}
