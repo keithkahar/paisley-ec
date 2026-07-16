@@ -253,23 +253,22 @@ function PillLink({
   title,
   Icon,
   outlined,
+  onClick,
 }: {
-  to: string;
+  to?: string;
   title: string;
   Icon: React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>;
   outlined?: boolean;
+  onClick?: () => void;
 }) {
   const bg = "color-mix(in oklab, var(--paisley) 12%, white)";
-  return (
-    <Link
-      to={to}
-      className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
-      style={
+  const className = "relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform text-left";
+  const style =
         outlined
           ? { background: "white", border: `1.5px solid ${bg}` }
-          : { background: bg }
-      }
-    >
+          : { background: bg };
+  const inner = (
+    <>
       <span
         className="h-7 w-7 shrink-0 grid place-items-center rounded-full"
         style={{ background: outlined ? bg : "white" }}
@@ -283,6 +282,18 @@ function PillLink({
         {title}
       </span>
       <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: "white" }} />
+    </>
+  );
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={className} style={style}>
+        {inner}
+      </button>
+    );
+  }
+  return (
+    <Link to={to!} className={className} style={style}>
+      {inner}
     </Link>
   );
 }
