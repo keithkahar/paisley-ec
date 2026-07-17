@@ -456,16 +456,16 @@ function ParentPage() {
               onChange={(v) => setPrefs((p) => ({ ...p, dailyStudyReminder: v }))}
             />
             {prefs.dailyStudyReminder && (
-              <div className="flex items-center justify-between py-2.5 px-1">
+              <button
+                type="button"
+                onClick={() => setSheet({ type: "reminderTime", title: "提醒时间" })}
+                className="flex items-center justify-between py-2.5 px-1 w-full text-left"
+              >
                 <span className="text-[13px] font-semibold">提醒时间</span>
-                <input
-                  type="time"
-                  value={prefs.reminderTime}
-                  onChange={(e) => setPrefs((p) => ({ ...p, reminderTime: e.target.value }))}
-                  className="bg-transparent text-[13px] font-semibold outline-none"
-                  style={{ color: PAISLEY }}
-                />
-              </div>
+                <span className="text-[13px] font-semibold" style={{ color: PAISLEY }}>
+                  {prefs.reminderTime}
+                </span>
+              </button>
             )}
             <SwitchRow
               label="连续天数提醒"
@@ -507,6 +507,12 @@ function ParentPage() {
               <SpeechRateSheet
                 value={prefs.speechRate}
                 onChange={(v) => setPrefs((p) => ({ ...p, speechRate: v }))}
+              />
+            )}
+            {sheet.type === "reminderTime" && (
+              <TimePickerSheet
+                value={prefs.reminderTime}
+                onChange={(v) => setPrefs((p) => ({ ...p, reminderTime: v }))}
               />
             )}
           </BottomSheet>
