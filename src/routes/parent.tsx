@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -271,11 +271,13 @@ function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
   const navigate = useNavigate();
   const [unlocked, setUnlocked] = useState(false);
+  const accessCheckedRef = useRef(false);
   useEffect(() => {
+    if (accessCheckedRef.current) return;
+    accessCheckedRef.current = true;
     let ok = false;
     try {
-      ok = sessionStorage.getItem(PARENT_UNLOCK_FLAG) === "1"
-        || sessionStorage.getItem(PARENT_UNLOCK_FLAG + ".consumed") === "1";
+      ok = sessionStorage.getItem(PARENT_UNLOCK_FLAG) === "1";
     } catch {}
     if (!ok) {
       navigate({ to: "/profile", replace: true });
@@ -283,12 +285,8 @@ function ParentPage() {
     }
     try {
       sessionStorage.removeItem(PARENT_UNLOCK_FLAG);
-      sessionStorage.setItem(PARENT_UNLOCK_FLAG + ".consumed", "1");
     } catch {}
     setUnlocked(true);
-    return () => {
-      try { sessionStorage.removeItem(PARENT_UNLOCK_FLAG + ".consumed"); } catch {}
-    };
   }, [navigate]);
   const [open, setOpen] = useState({
     settingTalk: true,
