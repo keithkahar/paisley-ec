@@ -1510,10 +1510,12 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
     items,
     selected,
     onPick,
+    align = "center",
   }: {
     items: number[];
     selected: number;
     onPick: (v: number) => void;
+    align?: "start" | "center" | "end";
   }) => {
     const ref = useRef<HTMLDivElement>(null);
     const ITEM_H = 48;
@@ -1548,7 +1550,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
               onPick(n);
               if (ref.current) ref.current.scrollTo({ top: n * ITEM_H, behavior: "smooth" });
             }}
-            className="w-full flex items-center justify-center snap-center text-[15px] font-semibold tabular-nums"
+            className={`w-full flex items-center snap-center text-[15px] font-semibold tabular-nums ${align === "end" ? "justify-end pr-3" : align === "start" ? "justify-start pl-3" : "justify-center"}`}
             style={{
               height: ITEM_H,
               color: n === selected ? PAISLEY : "color-mix(in oklab, var(--foreground) 55%, white)",
