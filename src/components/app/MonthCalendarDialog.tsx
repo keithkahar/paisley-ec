@@ -198,7 +198,7 @@ export function MonthCalendarDialog({
           type="button"
           aria-label="Close"
           onClick={() => onOpenChange(false)}
-          className="absolute inset-0 bg-black/20 pointer-events-auto"
+          className={`absolute inset-0 bg-black/20 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
           style={{ backdropFilter: "blur(2px)" }}
         />
         <div
