@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CircleX } from "lucide-react";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
 const PAISLEY = "var(--paisley)";
@@ -64,10 +65,10 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             type="button"
             aria-label="关闭"
             onClick={onClose}
-            className="absolute right-4 top-3 h-8 w-8 grid place-items-center rounded-full transition-colors active:scale-95"
-            style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)", color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
+            className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
+            style={{ color: "#0F172A" }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <CircleX className="w-6 h-6" strokeWidth={1.75} />
           </button>
         </div>
 
