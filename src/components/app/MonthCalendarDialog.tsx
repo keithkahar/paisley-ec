@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, CircleX } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -202,41 +202,34 @@ export function MonthCalendarDialog({
           style={{ backdropFilter: "blur(2px)" }}
         />
         <div
-          className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
+          className="relative w-full max-w-[420px] rounded-t-3xl pointer-events-auto flex flex-col bg-white"
           style={{
-            background: "white",
+            height: "62vh",
             transform: open ? "translateY(0)" : "translateY(100%)",
             transition: "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)",
           }}
         >
-          <button
-            type="button"
-            onClick={() => onOpenChange(false)}
-            aria-label="Close"
-            className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full grid place-items-center"
-            style={{
-              background: "color-mix(in oklab, var(--paisley) 12%, white)",
-              color: "var(--paisley)",
-            }}
-          >
-            <X className="w-4 h-4" />
-          </button>
-          <div
-            className="relative p-5 overflow-y-auto flex flex-col"
-            style={{
-              maxHeight: "calc(100dvh - 12rem)",
-              paddingTop: "calc(0.75rem + 24px)",
-              paddingBottom: "calc(5.5rem + max(1rem, env(safe-area-inset-bottom)))",
-            }}
-          >
+          <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+            <span className="h-1 w-10 rounded-full bg-border" />
+          </div>
+          <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
             <h2
-              className="text-center text-[17px] font-medium tracking-tight mb-1"
-              style={{ color }}
+              className="text-[17px] font-semibold tracking-tight leading-none"
+              style={{ letterSpacing: "-0.01em", color }}
             >
               {title}
             </h2>
-            {calendarBody}
+            <button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              aria-label="Close"
+              className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
+              style={{ color: "#0F172A" }}
+            >
+              <CircleX className="w-6 h-6" strokeWidth={1.75} />
+            </button>
           </div>
+          <div className="flex-1 overflow-y-auto px-6 pb-6">{calendarBody}</div>
         </div>
       </div>
     );
