@@ -804,11 +804,12 @@ function StatCard({
   accentOverride?: string;
 }) {
   const color = accentOverride ?? accent;
-  // Use the same light gray as the progress-bar track (var(--input))
-  const bg = "var(--input)";
+  const bg = accentOverride
+    ? `color-mix(in oklab, ${accentOverride} 10%, white)`
+    : tint(10);
   const border = accentOverride
     ? `color-mix(in oklab, ${accentOverride} 22%, white)`
-    : `color-mix(in oklab, ${accent} 22%, white)`;
+    : tint(18);
   const labelColor = accentOverride
     ? `color-mix(in oklab, ${accentOverride} 75%, black)`
     : tint(82);
