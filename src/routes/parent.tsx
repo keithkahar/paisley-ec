@@ -1174,10 +1174,9 @@ function GoalRow({
   accent,
   onChange,
 }: GoalRowSpec & { accent: string }) {
-  const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
   // Border matches the “本周主动提问” card (Shirin-tinted stroke)
   const shirinBorder = "color-mix(in oklab, var(--shirin) 14%, white)";
-  const shirinText = "var(--shirin)";
+  const textColor = "color-mix(in oklab, var(--foreground) 65%, white)";
   return (
     <div
       className="relative flex items-center justify-between px-3 rounded-2xl bg-white box-border overflow-hidden"
@@ -1185,7 +1184,7 @@ function GoalRow({
     >
       <span
         className="text-[11px] font-semibold leading-none"
-        style={{ color: shirinText }}
+        style={{ color: textColor }}
       >
         {label}
       </span>
@@ -1202,7 +1201,7 @@ function GoalRow({
       />
       <span
         className="text-[11px] font-semibold leading-none"
-        style={{ color: shirinText }}
+        style={{ color: textColor }}
       >
         {unit}
       </span>
