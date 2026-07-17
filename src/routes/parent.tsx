@@ -273,13 +273,22 @@ function ParentPage() {
   const [unlocked, setUnlocked] = useState(false);
   useEffect(() => {
     let ok = false;
-    try { ok = sessionStorage.getItem(PARENT_UNLOCK_FLAG) === "1"; } catch {}
+    try {
+      ok = sessionStorage.getItem(PARENT_UNLOCK_FLAG) === "1"
+        || sessionStorage.getItem(PARENT_UNLOCK_FLAG + ".consumed") === "1";
+    } catch {}
     if (!ok) {
       navigate({ to: "/profile", replace: true });
       return;
     }
-    try { sessionStorage.removeItem(PARENT_UNLOCK_FLAG); } catch {}
+    try {
+      sessionStorage.removeItem(PARENT_UNLOCK_FLAG);
+      sessionStorage.setItem(PARENT_UNLOCK_FLAG + ".consumed", "1");
+    } catch {}
     setUnlocked(true);
+    return () => {
+      try { sessionStorage.removeItem(PARENT_UNLOCK_FLAG + ".consumed"); } catch {}
+    };
   }, [navigate]);
   const [open, setOpen] = useState({
     settingTalk: true,
