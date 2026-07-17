@@ -205,7 +205,6 @@ export function MonthCalendarDialog({
           className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
           style={{
             background: "white",
-            borderTop: `2px solid ${color}`,
             transform: open ? "translateY(0)" : "translateY(100%)",
             transition: "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)",
           }}
