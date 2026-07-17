@@ -514,17 +514,33 @@ function WordieBankPage() {
                     ? "Choose Category"
                     : "Choose Status"}
               </p>
-              <button
-                type="button"
-                onClick={() => setOpenSheet(null)}
-                aria-label="Done"
-                className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
-                style={{ color: "#0F172A" }}
-              >
-                <CircleCheck className="w-6 h-6" strokeWidth={1.75} />
-              </button>
+              {openSheet === "level" ? (
+                <button
+                  type="button"
+                  onClick={() => setOpenSheet(null)}
+                  aria-label="Done"
+                  className="absolute right-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+                  style={{ top: "calc(0.25rem)" }}
+                >
+                  <Check className="h-5 w-5" style={{ color: "#0F172A" }} strokeWidth={2.25} />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setOpenSheet(null)}
+                  aria-label="Done"
+                  className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
+                  style={{ color: "#0F172A" }}
+                >
+                  <CircleCheck className="w-6 h-6" strokeWidth={1.75} />
+                </button>
+              )}
             </div>
-            <div className="flex-1 overflow-y-auto px-5 pb-8 divide-y divide-border">
+            <div
+              className={`flex-1 overflow-y-auto px-5 pb-8 ${
+                openSheet === "level" ? "" : "divide-y divide-border"
+              }`}
+            >
               {openSheet === "level" && (
                 <>
                   <SheetRow
