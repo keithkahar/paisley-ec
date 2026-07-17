@@ -300,42 +300,9 @@ function PillLink({
 
 function AboutPecLink() {
   const navigate = useNavigate();
-  const clickCountRef = useRef(0);
-  const firstClickTimeRef = useRef<number | null>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const reset = useCallback(() => {
-    clickCountRef.current = 0;
-    firstClickTimeRef.current = null;
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-
   const handleClick = useCallback(() => {
-    const now = Date.now();
-    if (firstClickTimeRef.current === null || now - firstClickTimeRef.current > 5000) {
-      firstClickTimeRef.current = now;
-      clickCountRef.current = 0;
-    }
-    clickCountRef.current += 1;
-
-    if (clickCountRef.current === 5) {
-      reset();
-      navigate({ to: "/admin" });
-      return;
-    }
-
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      const count = clickCountRef.current;
-      reset();
-      if (count >= 1 && count < 5) {
-        navigate({ to: "/about" });
-      }
-    }, 500);
-  }, [navigate, reset]);
+    navigate({ to: "/about" });
+  }, [navigate]);
 
   const gray = "oklch(0.65 0.02 260)";
   return (
