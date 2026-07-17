@@ -1535,13 +1535,13 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
         onScroll={onScroll}
         className="relative overflow-y-auto snap-y snap-mandatory flex-1 [&::-webkit-scrollbar]:hidden"
         style={{
-          height: ITEM_H * 7,
+          height: ITEM_H * 8,
           scrollSnapType: "y mandatory",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
       >
-      <div style={{ height: ITEM_H * 3 }} />
+      <div style={{ height: ITEM_H * 3.5 }} />
         {items.map((n) => (
           <button
             key={n}
@@ -1559,7 +1559,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
             {pad(n)}
           </button>
         ))}
-        <div style={{ height: ITEM_H * 3 }} />
+        <div style={{ height: ITEM_H * 3.5 }} />
       </div>
     );
   };
@@ -1570,13 +1570,13 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
         <div
           className="absolute left-0 right-0 pointer-events-none rounded-full"
           style={{
-            top: 48 * 3,
+            top: 48 * 3.5,
             height: 48,
             background: "color-mix(in oklab, var(--paisley) 10%, transparent)",
           }}
         />
         <Column items={hours} selected={hour} onPick={(v) => onChange(`${pad(v)}:${pad(minute)}`)} align="end" />
-        <div className="flex items-center justify-center relative z-10" style={{ height: 48 * 7 }}>
+        <div className="flex items-center justify-center relative z-10" style={{ height: 48 * 8 }}>
           <span className="text-[15px] font-semibold" style={{ color: PAISLEY }}>:</span>
         </div>
         <Column items={minutes} selected={minute} onPick={(v) => onChange(`${pad(hour)}:${pad(v)}`)} align="start" />
