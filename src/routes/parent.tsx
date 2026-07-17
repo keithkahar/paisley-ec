@@ -1516,7 +1516,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
     onPick: (v: number) => void;
   }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const ITEM_H = 44;
+    const ITEM_H = 48;
     useEffect(() => {
       if (ref.current) ref.current.scrollTop = selected * ITEM_H;
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1531,10 +1531,15 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
       <div
         ref={ref}
         onScroll={onScroll}
-        className="relative overflow-y-auto snap-y snap-mandatory hide-scrollbar"
-        style={{ height: ITEM_H * 5, scrollSnapType: "y mandatory" }}
+        className="relative overflow-y-auto snap-y snap-mandatory flex-1 [&::-webkit-scrollbar]:hidden"
+        style={{
+          height: ITEM_H * 7,
+          scrollSnapType: "y mandatory",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
       >
-        <div style={{ height: ITEM_H * 2 }} />
+        <div style={{ height: ITEM_H * 3 }} />
         {items.map((n) => (
           <button
             key={n}
@@ -1543,7 +1548,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
               onPick(n);
               if (ref.current) ref.current.scrollTo({ top: n * ITEM_H, behavior: "smooth" });
             }}
-            className="w-full flex items-center justify-center snap-center text-[17px] font-semibold"
+            className="w-full flex items-center justify-center snap-center text-[22px] font-semibold tabular-nums"
             style={{
               height: ITEM_H,
               color: n === selected ? PAISLEY : "color-mix(in oklab, var(--foreground) 55%, white)",
@@ -1552,24 +1557,26 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
             {pad(n)}
           </button>
         ))}
-        <div style={{ height: ITEM_H * 2 }} />
+        <div style={{ height: ITEM_H * 3 }} />
       </div>
     );
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-center">
-      <div className="relative flex items-center justify-center gap-8">
+    <div className="h-full flex flex-col items-center justify-center px-2">
+      <div className="relative w-full flex items-stretch">
         <div
-          className="absolute left-0 right-0 pointer-events-none rounded-xl"
+          className="absolute left-0 right-0 pointer-events-none rounded-full"
           style={{
-            top: 44 * 2,
-            height: 44,
-            background: "color-mix(in oklab, var(--paisley) 8%, transparent)",
+            top: 48 * 3,
+            height: 48,
+            background: "color-mix(in oklab, var(--paisley) 10%, transparent)",
           }}
         />
         <Column items={hours} selected={hour} onPick={(v) => onChange(`${pad(v)}:${pad(minute)}`)} />
-        <span className="text-[20px] font-semibold" style={{ color: PAISLEY }}>:</span>
+        <div className="flex items-center justify-center px-2 relative z-10" style={{ height: 48 * 7 }}>
+          <span className="text-[22px] font-semibold" style={{ color: PAISLEY }}>:</span>
+        </div>
         <Column items={minutes} selected={minute} onPick={(v) => onChange(`${pad(hour)}:${pad(v)}`)} />
       </div>
     </div>
