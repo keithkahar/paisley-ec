@@ -1182,7 +1182,7 @@ function GoalRow({
     >
       <span
         className="text-[11px] font-semibold leading-none"
-        style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
+        style={{ color: SHIRIN }}
       >
         {label}
       </span>
