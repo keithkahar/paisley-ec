@@ -31,7 +31,9 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
         return setError("密码需为 6 位，且由字母与数字组合");
       if (pin !== confirmPin) return setError("两次输入的密码不一致");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
-      onUnlock();
+      setMode("enter");
+      setPin("");
+      setConfirmPin("");
     } else {
       const saved = localStorage.getItem(PIN_STORAGE_KEY);
       if (pin === saved) onUnlock();
