@@ -134,7 +134,7 @@ function ProfilePage() {
           >
             Since {profile.registeredAt.toLocaleString("en-US", { month: "short" })} {profile.registeredAt.getDate()} {profile.registeredAt.getFullYear()}
           </p>
-          <div className="mt-3 flex items-center justify-center gap-2">
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             <span
               className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
               style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
@@ -146,6 +146,18 @@ function ProfilePage() {
               style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
             >
               {profile.cefr}
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+            >
+              318 min
+            </span>
+            <span
+              className="inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[13px] leading-none font-semibold bg-white h-7"
+              style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+            >
+              1,011 Bp
             </span>
           </div>
         </section>
