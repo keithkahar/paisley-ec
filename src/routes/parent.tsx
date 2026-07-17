@@ -1376,15 +1376,30 @@ function BottomSheet({
         onClick={onClose}
         className="absolute inset-0 bg-black/40"
       />
-      <div className="relative w-full max-w-md bg-white rounded-t-3xl p-5 pb-8 shadow-2xl">
-        <div className="mx-auto w-10 h-1.5 rounded-full bg-[oklch(0.9_0.01_240)] mb-3" />
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-[16px] font-semibold">{title}</h3>
-          <button type="button" onClick={onClose} className="text-[13px] font-semibold" style={{ color: PAISLEY }}>
+      <div
+        className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col shadow-2xl"
+        style={{ height: "62vh" }}
+      >
+        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+          <span className="h-1 w-10 rounded-full bg-border" />
+        </div>
+        <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+          <h3
+            className="text-[17px] font-semibold tracking-tight leading-none"
+            style={{ letterSpacing: "-0.01em", color: PAISLEY }}
+          >
+            {title}
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-2 text-[13px] font-semibold"
+            style={{ color: PAISLEY }}
+          >
             完成
           </button>
         </div>
-        {children}
+        <div className="flex-1 overflow-y-auto px-5 pb-8">{children}</div>
       </div>
     </div>
   );
