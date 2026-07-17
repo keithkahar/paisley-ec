@@ -255,6 +255,7 @@ function ProfilePage() {
           wordie: mockActivity(d, 2),
         })}
         variant="dots"
+        presentation="sheet"
       />
     </PhoneFrame>
   );
