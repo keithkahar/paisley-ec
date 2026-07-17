@@ -191,6 +191,7 @@ function MyWordiePage() {
         getActivity={(d) => ({ wordie: mockActivity(d, 2) })}
         variant="dots"
         wordieColor={WORDIE}
+        presentation="sheet"
       />
     </PhoneFrame>
   );

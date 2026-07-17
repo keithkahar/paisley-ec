@@ -184,6 +184,7 @@ function ShirinTalkPage() {
         getActivity={(d) => ({ talk: mockActivity(d, 1) })}
         variant="dots"
         talkColor={PINK}
+        presentation="sheet"
       />
     </PhoneFrame>
   );
