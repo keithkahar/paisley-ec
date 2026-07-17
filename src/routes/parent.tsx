@@ -1500,9 +1500,9 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
     selected: number;
     onPick: (v: number) => void;
   }) => {
-    const ref = React.useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const ITEM_H = 44;
-    React.useEffect(() => {
+    useEffect(() => {
       if (ref.current) ref.current.scrollTop = selected * ITEM_H;
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
