@@ -381,8 +381,8 @@ function ParentPage() {
           )}
         </section>
 
-        {/* 计划 */}
-        <SectionTitle>计划</SectionTitle>
+        {/* 目标 */}
+        <SectionTitle>目标</SectionTitle>
 
         {/* 跟随顶部 ShirinTalk / myWordie 切换 */}
         {tab === "talk" ? (
@@ -390,7 +390,7 @@ function ParentPage() {
           open={open.settingTalk}
           onToggle={() => toggle("settingTalk")}
           title="ShirinTalk"
-          accent="oklch(0.55 0 0)"
+          accent={SHIRIN}
           rows={[
             { label: "连续练习", value: talkStreakGoal, unit: "天", step: 1, onChange: setTalkStreakGoal },
             { label: "主动提问", value: talkAskGoal, unit: "次", step: 1, onChange: setTalkAskGoal },
