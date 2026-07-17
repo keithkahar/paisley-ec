@@ -206,7 +206,6 @@ export function MonthCalendarDialog({
           style={{
             background: "white",
             borderTop: `2px solid ${color}`,
-            boxShadow: "0 -12px 30px rgba(0,0,0,0.18)",
             transform: open ? "translateY(0)" : "translateY(100%)",
             transition: "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)",
           }}
