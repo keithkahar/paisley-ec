@@ -479,12 +479,6 @@ function ParentPage() {
                 1.0.0
               </span>
             </div>
-            <div className="flex items-center justify-between py-2.5 px-1">
-              <span className="text-[13px] font-semibold">Admin Rules</span>
-              <span className="text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}>
-                —
-              </span>
-            </div>
           </div>
         </section>
 
