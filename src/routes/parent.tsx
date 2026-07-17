@@ -1573,11 +1573,11 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
             background: "color-mix(in oklab, var(--paisley) 10%, transparent)",
           }}
         />
-        <Column items={hours} selected={hour} onPick={(v) => onChange(`${pad(v)}:${pad(minute)}`)} />
+        <Column items={hours} selected={hour} onPick={(v) => onChange(`${pad(v)}:${pad(minute)}`)} align="end" />
         <div className="flex items-center justify-center relative z-10" style={{ height: 48 * 7 }}>
           <span className="text-[15px] font-semibold" style={{ color: PAISLEY }}>:</span>
         </div>
-        <Column items={minutes} selected={minute} onPick={(v) => onChange(`${pad(hour)}:${pad(v)}`)} />
+        <Column items={minutes} selected={minute} onPick={(v) => onChange(`${pad(hour)}:${pad(v)}`)} align="start" />
       </div>
     </div>
   );
