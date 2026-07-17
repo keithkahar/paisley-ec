@@ -265,7 +265,7 @@ const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
 
 type ProgressTab = "talk" | "wordie";
-type SheetType = "" | "voice" | "theme" | "speechRate";
+type SheetType = "" | "voice" | "theme" | "speechRate" | "reminderTime";
 
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
@@ -456,16 +456,16 @@ function ParentPage() {
               onChange={(v) => setPrefs((p) => ({ ...p, dailyStudyReminder: v }))}
             />
             {prefs.dailyStudyReminder && (
-              <div className="flex items-center justify-between py-2.5 px-1">
+              <button
+                type="button"
+                onClick={() => setSheet({ type: "reminderTime", title: "提醒时间" })}
+                className="flex items-center justify-between py-2.5 px-1 w-full text-left"
+              >
                 <span className="text-[13px] font-semibold">提醒时间</span>
-                <input
-                  type="time"
-                  value={prefs.reminderTime}
-                  onChange={(e) => setPrefs((p) => ({ ...p, reminderTime: e.target.value }))}
-                  className="bg-transparent text-[13px] font-semibold outline-none"
-                  style={{ color: PAISLEY }}
-                />
-              </div>
+                <span className="text-[13px] font-semibold" style={{ color: PAISLEY }}>
+                  {prefs.reminderTime}
+                </span>
+              </button>
             )}
             <SwitchRow
               label="连续天数提醒"
@@ -507,6 +507,12 @@ function ParentPage() {
               <SpeechRateSheet
                 value={prefs.speechRate}
                 onChange={(v) => setPrefs((p) => ({ ...p, speechRate: v }))}
+              />
+            )}
+            {sheet.type === "reminderTime" && (
+              <TimePickerSheet
+                value={prefs.reminderTime}
+                onChange={(v) => setPrefs((p) => ({ ...p, reminderTime: v }))}
               />
             )}
           </BottomSheet>
@@ -1472,6 +1478,84 @@ function SpeechRateSheet({ value, onChange }: { value: number; onChange: (v: num
         <span>0.6×</span>
         <span>1.0×</span>
         <span>1.4×</span>
+      </div>
+    </div>
+  );
+}
+
+function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [h, m] = value.split(":");
+  const hour = Number(h) || 0;
+  const minute = Number(m) || 0;
+  const hours = Array.from({ length: 24 }, (_, i) => i);
+  const minutes = Array.from({ length: 60 }, (_, i) => i);
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  const Column = ({
+    items,
+    selected,
+    onPick,
+  }: {
+    items: number[];
+    selected: number;
+    onPick: (v: number) => void;
+  }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const ITEM_H = 44;
+    useEffect(() => {
+      if (ref.current) ref.current.scrollTop = selected * ITEM_H;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    const onScroll = () => {
+      if (!ref.current) return;
+      const idx = Math.round(ref.current.scrollTop / ITEM_H);
+      const clamped = Math.max(0, Math.min(items.length - 1, idx));
+      if (clamped !== selected) onPick(items[clamped]);
+    };
+    return (
+      <div
+        ref={ref}
+        onScroll={onScroll}
+        className="relative overflow-y-auto snap-y snap-mandatory hide-scrollbar"
+        style={{ height: ITEM_H * 5, scrollSnapType: "y mandatory" }}
+      >
+        <div style={{ height: ITEM_H * 2 }} />
+        {items.map((n) => (
+          <button
+            key={n}
+            type="button"
+            onClick={() => {
+              onPick(n);
+              if (ref.current) ref.current.scrollTo({ top: n * ITEM_H, behavior: "smooth" });
+            }}
+            className="w-full flex items-center justify-center snap-center text-[17px] font-semibold"
+            style={{
+              height: ITEM_H,
+              color: n === selected ? PAISLEY : "color-mix(in oklab, var(--foreground) 55%, white)",
+            }}
+          >
+            {pad(n)}
+          </button>
+        ))}
+        <div style={{ height: ITEM_H * 2 }} />
+      </div>
+    );
+  };
+
+  return (
+    <div className="py-2">
+      <div className="relative flex items-center justify-center gap-8">
+        <div
+          className="absolute left-0 right-0 pointer-events-none rounded-xl"
+          style={{
+            top: 44 * 2,
+            height: 44,
+            background: "color-mix(in oklab, var(--paisley) 8%, transparent)",
+          }}
+        />
+        <Column items={hours} selected={hour} onPick={(v) => onChange(`${pad(v)}:${pad(minute)}`)} />
+        <span className="text-[20px] font-semibold" style={{ color: PAISLEY }}>:</span>
+        <Column items={minutes} selected={minute} onPick={(v) => onChange(`${pad(hour)}:${pad(v)}`)} />
       </div>
     </div>
   );
