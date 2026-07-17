@@ -1539,7 +1539,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
           msOverflowStyle: "none",
         }}
       >
-        <div style={{ height: ITEM_H * 3 }} />
+      <div style={{ height: ITEM_H * 3 }} />
         {items.map((n) => (
           <button
             key={n}
@@ -1548,7 +1548,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
               onPick(n);
               if (ref.current) ref.current.scrollTo({ top: n * ITEM_H, behavior: "smooth" });
             }}
-            className="w-full flex items-center justify-center snap-center text-[22px] font-semibold tabular-nums"
+            className="w-full flex items-center justify-center snap-center text-[15px] font-semibold tabular-nums"
             style={{
               height: ITEM_H,
               color: n === selected ? PAISLEY : "color-mix(in oklab, var(--foreground) 55%, white)",
@@ -1574,8 +1574,8 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
           }}
         />
         <Column items={hours} selected={hour} onPick={(v) => onChange(`${pad(v)}:${pad(minute)}`)} />
-        <div className="flex items-center justify-center px-2 relative z-10" style={{ height: 48 * 7 }}>
-          <span className="text-[22px] font-semibold" style={{ color: PAISLEY }}>:</span>
+        <div className="flex items-center justify-center relative z-10" style={{ height: 48 * 7 }}>
+          <span className="text-[15px] font-semibold" style={{ color: PAISLEY }}>:</span>
         </div>
         <Column items={minutes} selected={minute} onPick={(v) => onChange(`${pad(hour)}:${pad(v)}`)} />
       </div>
