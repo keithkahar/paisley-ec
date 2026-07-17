@@ -381,8 +381,8 @@ function ParentPage() {
           )}
         </section>
 
-        {/* 计划 */}
-        <SectionTitle>计划</SectionTitle>
+        {/* 目标 */}
+        <SectionTitle>目标</SectionTitle>
 
         {/* 跟随顶部 ShirinTalk / myWordie 切换 */}
         {tab === "talk" ? (
@@ -390,7 +390,7 @@ function ParentPage() {
           open={open.settingTalk}
           onToggle={() => toggle("settingTalk")}
           title="ShirinTalk"
-          accent="oklch(0.55 0 0)"
+          accent={SHIRIN}
           rows={[
             { label: "连续练习", value: talkStreakGoal, unit: "天", step: 1, onChange: setTalkStreakGoal },
             { label: "主动提问", value: talkAskGoal, unit: "次", step: 1, onChange: setTalkAskGoal },
@@ -1174,17 +1174,15 @@ function GoalRow({
   accent,
   onChange,
 }: GoalRowSpec & { accent: string }) {
-  // Border matches the “本周主动提问” card (Shirin-tinted stroke)
-  const shirinBorder = "color-mix(in oklab, var(--shirin) 14%, white)";
-  const textColor = "color-mix(in oklab, var(--foreground) 65%, white)";
+  const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
   return (
     <div
       className="relative flex items-center justify-between px-3 rounded-2xl bg-white box-border overflow-hidden"
-      style={{ border: `1px solid ${shirinBorder}`, height: 64, minHeight: 64, maxHeight: 64 }}
+      style={{ border: `1px solid ${tint(14)}`, height: 64, minHeight: 64, maxHeight: 64 }}
     >
       <span
         className="text-[11px] font-semibold leading-none"
-        style={{ color: textColor }}
+        style={{ color: SHIRIN }}
       >
         {label}
       </span>
@@ -1201,7 +1199,7 @@ function GoalRow({
       />
       <span
         className="text-[11px] font-semibold leading-none"
-        style={{ color: textColor }}
+        style={{ color: "color-mix(in oklab, var(--foreground) 65%, white)" }}
       >
         {unit}
       </span>
