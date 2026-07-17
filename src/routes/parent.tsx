@@ -265,7 +265,7 @@ const SHIRIN = "var(--shirin)";
 const WORDIE = "var(--wordie)";
 
 type ProgressTab = "talk" | "wordie";
-type SheetType = "" | "voice" | "theme" | "speechRate";
+type SheetType = "" | "voice" | "theme" | "speechRate" | "reminderTime";
 
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
