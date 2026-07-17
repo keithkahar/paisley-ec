@@ -1558,7 +1558,7 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
   };
 
   return (
-    <div className="py-2">
+    <div className="h-full flex flex-col items-center justify-center">
       <div className="relative flex items-center justify-center gap-8">
         <div
           className="absolute left-0 right-0 pointer-events-none rounded-xl"
