@@ -51,44 +51,45 @@ function TopicsPage() {
 
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[100dvh] flex flex-col bg-white">
+      <div className="relative h-[100dvh] w-full overflow-hidden bg-white">
+        {/* Full-bleed illustration */}
+        <div className="absolute inset-0">
+          <img
+            src={topicsMap.url}
+            alt="Topics"
+            className="w-full h-full object-cover select-none"
+            draggable={false}
+          />
+          {TOPICS.map((t) => (
+            <Link
+              key={t.topic_id}
+              {...getLinkProps(t)}
+              aria-label={t.title}
+              className="absolute active:scale-[0.96] transition-transform"
+              style={{
+                top: `${t.top}%`,
+                left: `${t.left}%`,
+                width: `${t.width}%`,
+                height: `${t.height}%`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Floating back button */}
         <FloatingBack to="/shirin-talk" />
 
-        <div className="flex-1 overflow-y-auto scroll-hide px-5 pb-16 pt-14">
-          <div className="mb-4 text-center">
-            <h1
-              className="text-[26px] leading-[1.2] font-medium tracking-tight"
-              style={{ color: PINK, letterSpacing: "-0.01em" }}
-            >
-              Pick A Topic
-            </h1>
-            <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
-              Let's talk about it.
-            </p>
-          </div>
-
-          <div className="relative w-full overflow-hidden rounded-3xl">
-            <img
-              src={topicsMap.url}
-              alt="Topics"
-              className="block w-full h-auto select-none"
-              draggable={false}
-            />
-            {TOPICS.map((t) => (
-              <Link
-                key={t.topic_id}
-                {...getLinkProps(t)}
-                aria-label={t.title}
-                className="absolute active:scale-[0.96] transition-transform"
-                style={{
-                  top: `${t.top}%`,
-                  left: `${t.left}%`,
-                  width: `${t.width}%`,
-                  height: `${t.height}%`,
-                }}
-              />
-            ))}
-          </div>
+        {/* Title overlay */}
+        <div className="absolute top-0 left-0 right-0 z-10 pt-14 text-center pointer-events-none">
+          <h1
+            className="text-[26px] leading-[1.2] font-medium tracking-tight"
+            style={{ color: PINK, letterSpacing: "-0.01em" }}
+          >
+            Pick A Topic
+          </h1>
+          <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
+            Let's talk about it.
+          </p>
         </div>
       </div>
     </PhoneFrame>
