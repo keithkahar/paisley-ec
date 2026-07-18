@@ -157,10 +157,10 @@ function SmartReadingPage() {
             <button
               type="button"
               onClick={() => setSheetOpen(true)}
-              className="w-full flex items-center justify-between gap-3 rounded-3xl px-5 py-4 text-left active:scale-[0.98] transition-transform"
-              style={{ background: PINK_SOFT }}
+              className="w-full flex items-center justify-between gap-3 rounded-3xl px-5 py-5 text-left active:scale-[0.98] transition-transform"
+              style={{ background: "color-mix(in oklab, var(--shirin) 10%, white)" }}
             >
-              <div className="min-w-0 flex flex-col gap-1">
+              <div className="min-w-0 flex flex-col gap-2">
                 <p
                   className="text-[17px] font-semibold tracking-tight leading-none"
                   style={{ color: PINK, letterSpacing: "-0.01em" }}
