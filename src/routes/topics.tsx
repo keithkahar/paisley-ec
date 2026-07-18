@@ -135,6 +135,8 @@ function TopicsPage() {
             draggable={false}
           />
           {TOPICS.map((t) => {
+            const pillTopPercent =
+              ((t.pillTop - t.hitArea.top) / t.hitArea.height) * 100;
             const pillLeftPercent =
               ((t.pillLeft - t.hitArea.left) / t.hitArea.width) * 100;
             return (
@@ -153,7 +155,7 @@ function TopicsPage() {
                 <div
                   className="absolute group-active:scale-95 transition-transform"
                   style={{
-                    top: "50%",
+                    top: `${pillTopPercent}%`,
                     left: `${pillLeftPercent}%`,
                     transform: "translate(-50%, -50%)",
                   }}
