@@ -111,6 +111,7 @@ function SmartReadingPage() {
   const backTo = search.from === "topics" ? "/topics" : "/shirin-talk";
   const [bookCode, setBookCode] = useState<string>(PACKS[0].book_code);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [sheetBookCode, setSheetBookCode] = useState<string>(bookCode);
 
   // restore last selected book
   useEffect(() => {
@@ -120,16 +121,20 @@ function SmartReadingPage() {
     } catch {}
   }, []);
 
+  useEffect(() => {
+    if (sheetOpen) setSheetBookCode(bookCode);
+  }, [sheetOpen, bookCode]);
+
   const currentPack = useMemo(
     () => PACKS.find((p) => p.book_code === bookCode) ?? PACKS[0],
     [bookCode],
   );
 
-  const selectBook = (code: string) => {
-    setBookCode(code);
+  const confirmBook = () => {
+    setBookCode(sheetBookCode);
     setSheetOpen(false);
     try {
-      localStorage.setItem(LAST_BOOK_KEY, code);
+      localStorage.setItem(LAST_BOOK_KEY, sheetBookCode);
     } catch {}
   };
 
@@ -184,15 +189,16 @@ function SmartReadingPage() {
             title="Choose Book"
             brandColor={PINK}
             onClose={() => setSheetOpen(false)}
+            onDone={confirmBook}
           >
             <>
               {PACKS.map((p) => {
-                const active = p.book_code === bookCode;
+                const active = p.book_code === sheetBookCode;
                 return (
                   <button
                     key={p.pack_id}
                     type="button"
-                    onClick={() => selectBook(p.book_code)}
+                    onClick={() => setSheetBookCode(p.book_code)}
                     className="w-full flex items-center justify-between py-3 text-left text-[14px] font-semibold"
                     style={{ color: active ? PINK : "var(--foreground)" }}
                   >
