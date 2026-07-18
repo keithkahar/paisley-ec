@@ -322,8 +322,8 @@ function PaisleyIcon({
     WebkitMaskRepeat: "no-repeat",
     maskPosition: "center",
     WebkitMaskPosition: "center",
-    filter: "drop-shadow(0 0 2px currentColor) drop-shadow(0 0 2px currentColor) drop-shadow(0 0 2px currentColor)",
-    transform: "scale(1.15)",
+    filter: "drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 2.5px currentColor)",
+    transform: "scale(1.2)",
   } as React.CSSProperties;
   return (
     <span
