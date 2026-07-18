@@ -108,7 +108,7 @@ function TopicsPage() {
         <div className="absolute top-0 left-0 right-0 z-10 pt-14 flex justify-center pointer-events-none">
           <div className="px-5 py-3 text-center">
             <h1
-              className="text-[26px] leading-[1.2] font-medium tracking-tight"
+              className="text-[28px] leading-[1.2] font-medium tracking-tight"
               style={{ color: PINK, letterSpacing: "-0.01em", textShadow: "0 1px 5px rgba(0,0,0,0.2)" }}
             >
               Pick A Topic
