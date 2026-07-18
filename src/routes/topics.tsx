@@ -180,8 +180,8 @@ function TopicsPage() {
               Pick A Topic
             </h1>
             <p
-              className="mt-1 text-[14px] font-semibold tracking-tight text-gray-500"
-              style={{ textShadow: "0 1px 4px rgba(0,0,0,0.25)" }}
+              className="mt-1 text-[14px] font-semibold tracking-tight"
+              style={{ color: `color-mix(in oklab, ${PINK} 75%, white)`, textShadow: "0 1px 4px rgba(0,0,0,0.25)" }}
             >
               Let's talk about it.
             </p>
