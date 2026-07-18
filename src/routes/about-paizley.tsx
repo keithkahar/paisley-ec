@@ -80,7 +80,7 @@ function AboutPaizleyPage() {
                       <img
                         src={paizleyLogo.url}
                         alt={s.title}
-                        className="float-left mr-4 mb-2 h-12 w-12 object-contain align-top"
+                        className="float-left mr-4 mb-4 h-16 w-16 object-contain align-top"
                       />
                       <p
                         className="text-[15px] font-normal leading-relaxed"
