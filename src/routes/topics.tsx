@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
-import freeTalkArt from "@/assets/topics/free_talk.png";
 import smartReadingArt from "@/assets/topics/smart_reading.png";
 import petTalkArt from "@/assets/topics/pet_talk.png";
 import minecraftArt from "@/assets/topics/minecraft_adventure.png";
@@ -13,7 +12,7 @@ import mywordieArt from "@/assets/topics/mywordie.png";
 
 const PINK = "var(--shirin)";
 
-// Canonical topics rendered as a 3x3 brand gallery of pink line-art paintings.
+// Topic gallery: 8 cards arranged in a tidy 2-column grid.
 // `smart_reading` routes to its own flow; `mywordie` opens the myWordie chat.
 type Topic = {
   topic_id: string;
@@ -21,7 +20,6 @@ type Topic = {
   art: string;
 };
 const TOPICS: Topic[] = [
-  { topic_id: "free_talk", title: "Free Talk", art: freeTalkArt },
   { topic_id: "smart_reading", title: "Smart Reading", art: smartReadingArt },
   { topic_id: "pet_talk", title: "Pet Talk", art: petTalkArt },
   { topic_id: "minecraft_adventure", title: "Minecraft Adventure Talk", art: minecraftArt },
@@ -43,6 +41,18 @@ export const Route = createFileRoute("/topics")({
 });
 
 function TopicsPage() {
+  const getLinkProps = (t: Topic) =>
+    t.topic_id === "smart_reading"
+      ? ({ to: "/smart-reading", search: { from: "topics" } } as const)
+      : t.topic_id === "mywordie"
+        ? ({ to: "/chat", search: { mode: "mywordie", from: "topics" } } as const)
+        : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
+
+  const cardStyle = {
+    background: "color-mix(in oklab, var(--shirin) 8%, white)",
+    border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
+  } as const;
+
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
@@ -61,74 +71,36 @@ function TopicsPage() {
             </p>
           </div>
 
-          {(() => {
-            const getLinkProps = (t: Topic) =>
-              t.topic_id === "smart_reading"
-                ? ({ to: "/smart-reading", search: { from: "topics" } } as const)
-                : t.topic_id === "mywordie"
-                  ? ({ to: "/chat", search: { mode: "mywordie", from: "topics" } } as const)
-                  : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
-
-            const cardStyle = {
-              background: "color-mix(in oklab, var(--shirin) 8%, white)",
-              border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
-            } as const;
-
-            // Hero card: aspect drives height, or an explicit style override.
-            const HeroCard = ({ t, ratio, imgStyle, fit = "cover", imgScale }: { t: Topic; ratio?: string; imgStyle?: React.CSSProperties; fit?: "cover" | "contain"; imgScale?: number }) => (
+          <div className="grid grid-cols-2 gap-2.5">
+            {TOPICS.map((t) => (
               <Link
+                key={t.topic_id}
                 {...getLinkProps(t)}
-                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform h-full"
+                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform"
                 style={cardStyle}
               >
-                <div className={`relative overflow-hidden bg-white ${ratio ?? ""}`} style={imgStyle}>
+                <div className="relative overflow-hidden bg-white aspect-square">
                   <img
                     src={t.art}
                     alt={t.title}
                     loading="lazy"
                     width={1024}
                     height={1024}
-                    className={`block h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
-                    style={imgScale ? { transform: `scale(${imgScale})`, transformOrigin: "center" } : undefined}
+                    className="block h-full w-full object-cover"
                     draggable={false}
                   />
                 </div>
                 <div className="px-3 py-3">
                   <p
-                    className="text-[17px] font-semibold tracking-tight leading-none whitespace-nowrap text-center"
+                    className="text-[17px] font-semibold tracking-tight leading-none text-center"
                     style={{ color: PINK, letterSpacing: "-0.015em" }}
                   >
                     {t.title}
                   </p>
                 </div>
               </Link>
-            );
-
-            const byId = Object.fromEntries(TOPICS.map((t) => [t.topic_id, t])) as Record<string, Topic>;
-
-            return (
-              <div className="grid grid-cols-2 gap-2.5">
-                <HeroCard t={byId.free_talk} ratio="aspect-square" />
-                <HeroCard t={byId.football_talk} ratio="aspect-square" />
-                {/* Minecraft Adventure spans both columns right under Pet Talk & Football Talk */}
-                <div className="col-span-2" style={{ containerType: "inline-size" }}>
-                  {/* Image height = (grid width - gap) / 2 = single-column width, so the minecraft card matches a square card's total height exactly. */}
-                  <HeroCard
-                    t={byId.minecraft_adventure}
-                    imgStyle={{ height: "calc((100cqw - 10px) / 2)" }}
-                    fit="contain"
-                    imgScale={1.2}
-                  />
-                </div>
-                <HeroCard t={byId.pet_talk} ratio="aspect-square" />
-                <HeroCard t={byId.magic_adventure} ratio="aspect-square" />
-                <HeroCard t={byId.nature_explorer} ratio="aspect-square" />
-                <HeroCard t={byId.smart_reading} ratio="aspect-square" />
-                <HeroCard t={byId.food_talk} ratio="aspect-square" />
-                <HeroCard t={byId.mywordie} ratio="aspect-square" />
-              </div>
-            );
-          })()}
+            ))}
+          </div>
         </div>
       </div>
     </PhoneFrame>
