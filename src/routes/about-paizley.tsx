@@ -87,7 +87,7 @@ function AboutPaizleyPage() {
                         style={{ color: "#000000" }}
                       >
                         <span
-                          className="font-semibold"
+                          className="font-bold"
                           style={{ color: PAISLEY }}
                         >
                           Paizley EC
