@@ -27,64 +27,65 @@ type Topic = {
 
 const TOPICS: Topic[] = [
   // Left column (top -> bottom): Smart Reading, Pet Talk, Football Talk, Magic Adventure.
-  // Each hit area spans from the top of the character's head to the midpoint between
-  // adjacent characters so the whole figure (including the head) is an entrance.
+  // Hit areas are confined to the left character/prop area only, leaving the
+  // central path between the two columns untouched.
   {
     topic_id: "smart_reading",
     title: "Smart Reading",
     pillTop: 34,
     pillLeft: 22.8,
-    hitArea: { top: 0, left: 0, width: 45, height: 42.5 },
+    hitArea: { top: 0, left: 0, width: 40, height: 42.5 },
   },
   {
     topic_id: "pet_talk",
     title: "Pet Talk",
     pillTop: 51,
     pillLeft: 17.8,
-    hitArea: { top: 42.5, left: 0, width: 45, height: 18.4 },
+    hitArea: { top: 42.5, left: 0, width: 40, height: 18.4 },
   },
   {
     topic_id: "football_talk",
     title: "Football Talk",
     pillTop: 70.8,
     pillLeft: 20.2,
-    hitArea: { top: 60.9, left: 0, width: 45, height: 21.5 },
+    hitArea: { top: 60.9, left: 0, width: 40, height: 21.5 },
   },
   {
     topic_id: "magic_adventure",
     title: "Magic Adventure",
     pillTop: 94,
     pillLeft: 23.8,
-    hitArea: { top: 82.4, left: 0, width: 45, height: 17.6 },
+    hitArea: { top: 82.4, left: 0, width: 40, height: 17.6 },
   },
   // Right column (top -> bottom): Minecraft Talk, Food Talk, Nature Explore, myWordie Talk.
+  // Starts at 50 % so the central path stays unclickable.
   {
     topic_id: "minecraft_adventure",
     title: "Minecraft Talk",
     pillTop: 35.6,
     pillLeft: 65.6,
-    hitArea: { top: 0, left: 45, width: 55, height: 44.8 },
+    hitArea: { top: 0, left: 50, width: 50, height: 44.8 },
   },
   {
     topic_id: "food_talk",
     title: "Food Talk",
     pillTop: 54,
     pillLeft: 57.8,
-    hitArea: { top: 44.8, left: 45, width: 55, height: 18.8 },
+    hitArea: { top: 44.8, left: 50, width: 50, height: 18.8 },
   },
   {
     topic_id: "nature_explorer",
     title: "Nature Explore",
     pillTop: 73.2,
     pillLeft: 80,
-    hitArea: { top: 63.6, left: 45, width: 55, height: 18.7 },
+    hitArea: { top: 63.6, left: 50, width: 50, height: 18.7 },
   },
   {
     topic_id: "mywordie",
     title: "myWordie Talk",
     pillTop: 91.4,
     pillLeft: 74.6,
-    hitArea: { top: 82.3, left: 45, width: 55, height: 17.7 },
+    hitArea: { top: 82.3, left: 50, width: 50, height: 17.7 },
   },
 ];
 
