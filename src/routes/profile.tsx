@@ -13,10 +13,10 @@ import {
   TrendingUp,
   ClipboardList,
   Users,
-  Info,
   Pencil,
   ChevronRight,
 } from "lucide-react";
+import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [
