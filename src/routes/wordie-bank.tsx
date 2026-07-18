@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck, CircleX } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck } from "lucide-react";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import {
   FilterChip,
   EmptyState,
@@ -491,45 +492,21 @@ function WordieBankPage() {
       )}
 
       {/* Filter sheets */}
-      {openSheet && (
-        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setOpenSheet(null)}>
-          <div className="absolute inset-0 bg-black/40" />
-          <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-            style={{ height: "62vh" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Grabber */}
-            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-              <span className="h-1 w-10 rounded-full bg-border" />
-            </div>
-            <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
-              <p
-                className="text-[17px] font-semibold tracking-tight leading-none"
-                style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
-              >
-                {openSheet === "level"
-                  ? "Choose Level"
-                  : openSheet === "category"
-                    ? "Choose Category"
-                    : "Choose Status"}
-              </p>
-              <button
-                type="button"
-                onClick={() => setOpenSheet(null)}
-                aria-label="Done"
-                className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-              >
-                <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-              </button>
-            </div>
-            <div
-              className={`flex-1 overflow-y-auto px-5 pb-8 ${
-                openSheet === "level" || openSheet === "status" ? "" : "divide-y divide-border"
-              }`}
-              style={openSheet === "status" ? { paddingTop: 10 } : undefined}
-            >
-              {openSheet === "level" && (
+      <StandardSheet
+        open={!!openSheet}
+        title={
+          openSheet === "level"
+            ? "Choose Level"
+            : openSheet === "category"
+              ? "Choose Category"
+              : "Choose Status"
+        }
+        brandColor={SHEET_BRAND.wordie}
+        onDone={() => setOpenSheet(null)}
+        onClose={() => setOpenSheet(null)}
+      >
+        <>
+          {openSheet === "level" && (
                 <>
                   <SheetRow
                     label="Clear all"
@@ -580,10 +557,8 @@ function WordieBankPage() {
                   ))}
                 </>
               )}
-            </div>
-          </div>
-        </div>
-      )}
+        </>
+      </StandardSheet>
 
       {/* Reset confirm */}
       {resetConfirm && (

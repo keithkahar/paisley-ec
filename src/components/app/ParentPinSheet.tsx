@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CircleX } from "lucide-react";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
 const PAISLEY = "var(--paisley)";
@@ -45,34 +45,13 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
   if (mode === "loading") return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div
-        className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-        style={{ height: "62vh" }}
-      >
-        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-          <span className="h-1 w-10 rounded-full bg-border" />
-        </div>
-        <div className="flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
-          <p
-            className="text-[17px] font-semibold tracking-tight leading-none"
-            style={{ letterSpacing: "-0.01em", color: PAISLEY }}
-          >
-            {isSet ? "设置家长密码" : "请输入家长密码"}
-          </p>
-          <button
-            type="button"
-            aria-label="关闭"
-            onClick={onClose}
-            className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
-            style={{ color: "#0F172A" }}
-          >
-            <CircleX className="w-6 h-6" strokeWidth={1.75} />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-6 pb-6">
+    <StandardSheet
+      open={open}
+      title={isSet ? "设置家长密码" : "请输入家长密码"}
+      brandColor={SHEET_BRAND.paisley}
+      onClose={onClose}
+    >
+      <div>
           <p
             className="text-[12px] leading-[1.55] text-center"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -126,9 +105,8 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
               忘记密码？重新设置
             </button>
           )}
-        </div>
       </div>
-    </div>
+    </StandardSheet>
   );
 }
 
