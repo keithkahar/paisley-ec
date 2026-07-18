@@ -70,7 +70,7 @@ const TOPICS: Topic[] = [
     topic_id: "food_talk",
     title: "Food Talk",
     pillTop: 54,
-    pillLeft: 57.8,
+    pillLeft: 59.6,
     hitArea: { top: 44.8, left: 55, width: 38, height: 18.8 },
   },
   {
