@@ -107,7 +107,7 @@ function AboutPaizleyPage() {
                   className="text-[15px] font-normal"
                   style={{ color: "#000000", lineHeight: "25.8333px" }}
                 >
-                  <span className="font-extrabold" style={{ color: s.color }}>
+                  <span className="text-[16px] font-extrabold" style={{ color: s.color }}>
                     {s.title}
                   </span>
                   {s.body.slice(s.title.length)}
