@@ -31,7 +31,7 @@ const TOPICS: Topic[] = [
   { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 31.6, left: 41.6, width: 48, height: 8 },
   { topic_id: "food_talk", title: "Food Talk", top: 50.2, left: 32, width: 48, height: 8 },
   { topic_id: "nature_explorer", title: "Nature Explore", top: 69.2, left: 56, width: 48, height: 8 },
-  { topic_id: "mywordie", title: "myWordie Talk", top: 89.2, left: 50, width: 48, height: 8 },
+  { topic_id: "mywordie", title: "myWordie Talk", top: 88.6, left: 48.8, width: 48, height: 8 },
 ];
 
 function TopicPill({ title }: { title: string }) {
