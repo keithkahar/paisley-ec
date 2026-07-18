@@ -84,8 +84,8 @@ function AboutPaizleyPage() {
                         style={{ shapeOutside: "margin-box" }}
                       />
                       <p
-                        className="text-[15px] font-normal leading-relaxed"
-                        style={{ color: "#000000" }}
+                        className="text-[15px] font-normal"
+                        style={{ color: "#000000", lineHeight: "26.1667px" }}
                       >
                       <span
                         className="font-extrabold"
