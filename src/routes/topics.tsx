@@ -25,7 +25,7 @@ const TOPICS: Topic[] = [
   { topic_id: "smart_reading", title: "Smart Reading", top: 30, left: 2, width: 46, height: 8 },
   { topic_id: "pet_talk", title: "Pet Talk", top: 45.8, left: -5.2, width: 46, height: 8 },
   { topic_id: "football_talk", title: "Football Talk", top: 56, left: 2, width: 46, height: 8 },
-  { topic_id: "magic_adventure", title: "Magic Adventure", top: 88.8, left: 2, width: 46, height: 8 },
+  { topic_id: "magic_adventure", title: "Magic Adventure", top: 89.4, left: 2, width: 46, height: 8 },
   // Right column (top -> bottom): Minecraft Talk (cat chest), Food Talk (pink cup),
   // Nature Explore (Shirin's right knee), myWordie Talk (between blue book and laptop).
   { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 40, left: 50, width: 48, height: 8 },
