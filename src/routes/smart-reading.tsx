@@ -222,11 +222,11 @@ function SmartReadingPage() {
                     style={{ background: "white", border: "1px solid oklch(0.94 0.02 10)" }}
                   >
                     <div
-                      className="h-11 w-11 shrink-0 grid place-items-center text-xl my-2 ml-2 rounded-full"
-                      style={{ background: coverFor(u.lesson_id) }}
+                      className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[14px] font-bold tracking-tight"
+                      style={{ background: PINK_BADGE_BG, color: PINK }}
                       aria-hidden
                     >
-                      {u.emoji}
+                      {String(u.unit_number).padStart(2, "0")}
                     </div>
                     <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
                       <p className="text-[17px] font-semibold tracking-tight leading-tight" style={{ letterSpacing: "-0.01em" }}>
