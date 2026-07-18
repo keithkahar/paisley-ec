@@ -15,7 +15,7 @@ const tabs = [
   { to: "/profile", label: "Me", filled: profileFilled.url, outline: profileOutline.url, color: "var(--paisley)" },
 ] as const;
 
-export function BottomTabBar() {
+export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -27,7 +27,7 @@ export function BottomTabBar() {
         aria-hidden
       />
       <nav
-        className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10"
+        className={`fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] z-50 px-10 ${hidden ? "hidden" : ""}`}
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
         <div

@@ -225,7 +225,7 @@ function ProfilePage() {
 
       </div>
 
-      <BottomTabBar />
+      <BottomTabBar hidden={calOpen || parentPinOpen} />
       <ParentPinSheet
         open={parentPinOpen}
         onClose={() => setParentPinOpen(false)}

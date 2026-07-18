@@ -183,7 +183,7 @@ function MyWordiePage() {
         </section>
       </div>
 
-      <BottomTabBar />
+      <BottomTabBar hidden={calOpen} />
       <MonthCalendarDialog
         open={calOpen}
         onOpenChange={setCalOpen}
