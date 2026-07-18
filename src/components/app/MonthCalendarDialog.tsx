@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, CircleX } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -198,8 +198,7 @@ export function MonthCalendarDialog({
           type="button"
           aria-label="Close"
           onClick={() => onOpenChange(false)}
-          className={`absolute inset-0 bg-black/20 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
-          style={{ backdropFilter: "blur(2px)" }}
+          className={`absolute inset-0 bg-black/40 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
         />
         <div
           className="relative w-full max-w-[420px] rounded-t-3xl pointer-events-auto flex flex-col bg-white"
@@ -222,14 +221,13 @@ export function MonthCalendarDialog({
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              aria-label="Close"
-              className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
-              style={{ color: "#0F172A" }}
+              aria-label="Done"
+              className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
             >
-              <CircleX className="w-6 h-6" strokeWidth={1.75} />
+              <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-6 pb-6">{calendarBody}</div>
+          <div className="flex-1 overflow-y-auto px-6 pb-6" style={{ paddingTop: 10 }}>{calendarBody}</div>
         </div>
       </div>
     );
