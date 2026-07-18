@@ -1438,7 +1438,7 @@ function ThemeSheet({ value, onPick }: { value: string; onPick: (id: string) => 
             }}
           >
             <span className="text-[14px] font-semibold">{t.label}</span>
-            {active && <span className="text-[12px] font-semibold">✓</span>}
+            {active && <Check className="h-4 w-4" />}
           </button>
         );
       })}
