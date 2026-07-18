@@ -105,7 +105,7 @@ function AboutPaizleyPage() {
                   className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
                 />
                 <p
-                  className="text-[15px] font-normal"
+                  className="relative text-[15px] font-normal pr-5"
                   style={{ color: "#000000", lineHeight: "25.8333px" }}
                 >
                   <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
@@ -115,7 +115,7 @@ function AboutPaizleyPage() {
                   <ChevronRight
                     size={16}
                     color={s.color}
-                    className="inline-block align-middle ml-0.5"
+                    className="absolute bottom-[5px] right-0"
                   />
                 </p>
               </article>
