@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck, CircleX } from "lucide-react";
 import {
   FilterChip,
   EmptyState,
@@ -514,7 +514,18 @@ function WordieBankPage() {
                     ? "Choose Category"
                     : "Choose Status"}
               </p>
-              {openSheet === "level" ? (
+              {openSheet === "status" && (
+                <button
+                  type="button"
+                  onClick={() => setOpenSheet(null)}
+                  aria-label="Close"
+                  className="absolute left-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+                  style={{ top: "calc(0.25rem)" }}
+                >
+                  <X className="h-5 w-5" style={{ color: "#0F172A" }} strokeWidth={2.25} />
+                </button>
+              )}
+              {openSheet === "level" || openSheet === "status" ? (
                 <button
                   type="button"
                   onClick={() => setOpenSheet(null)}
@@ -538,8 +549,9 @@ function WordieBankPage() {
             </div>
             <div
               className={`flex-1 overflow-y-auto px-5 pb-8 ${
-                openSheet === "level" ? "" : "divide-y divide-border"
+                openSheet === "level" || openSheet === "status" ? "" : "divide-y divide-border"
               }`}
+              style={openSheet === "status" ? { paddingTop: 10 } : undefined}
             >
               {openSheet === "level" && (
                 <>
