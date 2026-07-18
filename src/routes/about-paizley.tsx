@@ -80,11 +80,11 @@ function AboutPaizleyPage() {
                       <img
                         src={paizleyLogo.url}
                         alt={s.title}
-                        className="float-left mr-4 mb-4 h-16 w-16 object-contain align-top"
+                        className="float-left mr-4 h-16 w-16 object-contain align-top"
                       />
                       <p
-                        className="text-[15px] font-normal leading-relaxed"
-                        style={{ color: "#000000" }}
+                        className="text-[15px] font-normal"
+                        style={{ color: "#000000", lineHeight: "25.8333px" }}
                       >
                       <span
                         className="font-extrabold"
