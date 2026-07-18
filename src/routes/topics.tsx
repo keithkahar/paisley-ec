@@ -22,7 +22,7 @@ type Topic = {
 const TOPICS: Topic[] = [
   { topic_id: "smart_reading", title: "Smart Reading", art: smartReadingArt },
   { topic_id: "pet_talk", title: "Pet Talk", art: petTalkArt },
-  { topic_id: "minecraft_adventure", title: "Minecraft Adventure Talk", art: minecraftArt },
+  { topic_id: "minecraft_adventure", title: "Minecraft Talk", art: minecraftArt },
   { topic_id: "food_talk", title: "Food Talk", art: foodTalkArt },
   { topic_id: "football_talk", title: "Football Talk", art: footballArt },
   { topic_id: "magic_adventure", title: "Magic Adventure", art: magicArt },
