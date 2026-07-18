@@ -29,9 +29,9 @@ const TOPICS: Topic[] = [
   // Right column (top -> bottom): Minecraft Talk (cat chest), Food Talk (pink cup),
   // Nature Explore (Shirin's right knee), myWordie Talk (between blue book and laptop).
   { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 31.6, left: 41.6, width: 48, height: 8 },
-  { topic_id: "food_talk", title: "Food Talk", top: 50.0, left: 32.6, width: 48, height: 8 },
+  { topic_id: "food_talk", title: "Food Talk", top: 50.0, left: 33.8, width: 48, height: 8 },
   { topic_id: "nature_explorer", title: "Nature Explore", top: 69.2, left: 56, width: 48, height: 8 },
-  { topic_id: "mywordie", title: "myWordie Talk", top: 88.0, left: 50.6, width: 48, height: 8 },
+  { topic_id: "mywordie", title: "myWordie Talk", top: 87.4, left: 50.6, width: 48, height: 8 },
 ];
 
 function TopicPill({ title }: { title: string }) {
