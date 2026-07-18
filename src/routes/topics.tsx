@@ -20,18 +20,18 @@ type Topic = {
 };
 
 const TOPICS: Topic[] = [
-  // Row 1
-  { topic_id: "smart_reading", title: "Smart Reading", top: 10, left: 2, width: 46, height: 22 },
-  { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 14, left: 50, width: 48, height: 22 },
-  // Row 2
-  { topic_id: "pet_talk", title: "Pet Talk", top: 36, left: 2, width: 46, height: 20 },
-  { topic_id: "food_talk", title: "Food Talk", top: 36, left: 50, width: 48, height: 22 },
-  // Row 3
-  { topic_id: "football_talk", title: "Football Talk", top: 56, left: 2, width: 46, height: 20 },
-  { topic_id: "nature_explorer", title: "Nature Explore", top: 58, left: 50, width: 48, height: 20 },
-  // Row 4
-  { topic_id: "magic_adventure", title: "Magic Adventure", top: 76, left: 2, width: 46, height: 22 },
-  { topic_id: "mywordie", title: "myWordie Talk", top: 76, left: 50, width: 48, height: 22 },
+  // Left column (top -> bottom): Smart Reading (Shirin's lap), Pet Talk (cat chest),
+  // Football Talk (unchanged), Magic Adventure (Shirin's knee).
+  { topic_id: "smart_reading", title: "Smart Reading", top: 22, left: 2, width: 46, height: 8 },
+  { topic_id: "pet_talk", title: "Pet Talk", top: 40, left: 2, width: 46, height: 8 },
+  { topic_id: "football_talk", title: "Football Talk", top: 56, left: 2, width: 46, height: 8 },
+  { topic_id: "magic_adventure", title: "Magic Adventure", top: 72, left: 2, width: 46, height: 8 },
+  // Right column (top -> bottom): Minecraft Talk (cat chest), Food Talk (pink cup),
+  // Nature Explore (Shirin's right knee), myWordie Talk (between blue book and laptop).
+  { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 40, left: 50, width: 48, height: 8 },
+  { topic_id: "food_talk", title: "Food Talk", top: 52, left: 50, width: 48, height: 8 },
+  { topic_id: "nature_explorer", title: "Nature Explore", top: 68, left: 50, width: 48, height: 8 },
+  { topic_id: "mywordie", title: "myWordie Talk", top: 82, left: 50, width: 48, height: 8 },
 ];
 
 function TopicPill({ title }: { title: string }) {
