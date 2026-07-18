@@ -77,18 +77,11 @@ function AboutPaizleyPage() {
                 >
                   {isFirst ? (
                     <>
-                      <div
-                        className="float-left mr-4 mb-2 h-16 w-16 rounded-2xl bg-white grid place-items-center overflow-hidden"
-                        style={{
-                          boxShadow: "0 4px 16px rgba(11, 37, 69, 0.06)",
-                        }}
-                      >
-                        <img
-                          src={paizleyLogo.url}
-                          alt={s.title}
-                          className="h-12 w-12 object-contain"
-                        />
-                      </div>
+                      <img
+                        src={paizleyLogo.url}
+                        alt={s.title}
+                        className="float-left mr-4 mb-2 h-16 w-16 object-contain"
+                      />
                       <p
                         className="text-[15px] font-normal leading-relaxed"
                         style={{ color: "#000000" }}
