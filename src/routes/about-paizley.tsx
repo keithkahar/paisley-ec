@@ -109,7 +109,7 @@ function AboutPaizleyPage() {
                 >
                   <span className="text-[16px] font-extrabold" style={{ color: s.color }}>
                     {s.title}
-                  </span>
+                  </span>{" "}
                   {s.body.slice(s.title.length)}
                 </p>
               </article>
