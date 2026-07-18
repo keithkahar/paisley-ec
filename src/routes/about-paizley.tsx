@@ -89,17 +89,12 @@ function AboutPaizleyPage() {
                           className="h-12 w-12 object-contain"
                         />
                       </div>
-                      <h2
-                        className="text-[17px] font-semibold leading-tight tracking-tight mb-1.5"
-                        style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
-                      >
-                        {s.title}
-                      </h2>
                       <p
                         className="text-[15px] font-normal leading-relaxed"
                         style={{ color: "#000000" }}
                       >
-                        {s.body}
+                        <span style={{ color: PAISLEY }}>Paizley EC</span>
+                        {s.body.slice("Paizley EC".length)}
                       </p>
                     </>
                   ) : (
