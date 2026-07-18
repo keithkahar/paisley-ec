@@ -514,35 +514,14 @@ function WordieBankPage() {
                     ? "Choose Category"
                     : "Choose Status"}
               </p>
-              {openSheet === "status" && (
-                <button
-                  type="button"
-                  onClick={() => setOpenSheet(null)}
-                  aria-label="Close"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-                >
-                  <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-                </button>
-              )}
-              {openSheet === "level" || openSheet === "status" ? (
-                <button
-                  type="button"
-                  onClick={() => setOpenSheet(null)}
-                  aria-label="Done"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-                >
-                  <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setOpenSheet(null)}
-                  aria-label="Done"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-                >
-                  <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => setOpenSheet(null)}
+                aria-label="Done"
+                className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+              >
+                <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+              </button>
             </div>
             <div
               className={`flex-1 overflow-y-auto px-5 pb-8 ${
