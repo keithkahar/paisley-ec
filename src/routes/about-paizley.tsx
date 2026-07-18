@@ -1,7 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
-import paizleyLogo from "@/assets/brand/paizley-ec-logo-placeholder.png.asset.json";
+import logoPaizley from "@/assets/about/about-paizley.png.asset.json";
+import logoShirin from "@/assets/about/about-shirintalk.png.asset.json";
+import logoWordie from "@/assets/about/about-mywordie.png.asset.json";
+import logoBloxia from "@/assets/about/about-bloxia.png.asset.json";
+import logoSmartReading from "@/assets/about/about-smart-reading.png.asset.json";
+import logoMyon from "@/assets/about/about-myon.png.asset.json";
+import logoClassin from "@/assets/about/about-classin.png.asset.json";
+import logoHomeSchool from "@/assets/about/about-home-school.png.asset.json";
+import logoPlp from "@/assets/about/about-plp.png.asset.json";
 
 export const Route = createFileRoute("/about-paizley")({
   head: () => ({
@@ -20,38 +28,47 @@ const PAISLEY = "var(--paisley)";
 const sections = [
   {
     title: "Paizley EC",
+    logo: logoPaizley.url,
     body: "Paizley EC致力于为低龄英语学习者提供完整、温和、可持续的英语学习支持。我们结合 AI 口语互动、个性化词汇复习、成长激励、原版分级阅读、线上学习课程、家庭学习资源与专业学习规划指导，帮助孩子逐步建立英语听、说、读、写综合能力，重点提升表达能力。",
   },
   {
     title: "ShirinTalk",
+    logo: logoShirin.url,
     body: "ShirinTalk是特别为儿童定制的 AI 口语伙伴教练。Shirin 会通过温和、循序渐进的引导式对话，帮助孩子建立每日开口说英语的自信心。她会鼓励孩子用完整、简洁的英语句子作答，并友善地纠正语法或用词错误，让口语练习更自然、更高效。",
   },
   {
     title: "myWordie",
+    logo: logoWordie.url,
     body: "myWordie是面向儿童英语学习的个性化词汇学习与复习系统。词库涵盖 A1-B2 级别，帮助孩子把阅读和口语中遇到的新词沉淀为自己的词库，并通过词卡、复习、测试和 myWordie Talk，把单词从“认识”逐步变成“会用”。",
   },
   {
     title: "Bloxia",
+    logo: logoBloxia.url,
     body: "Bloxia是 Paizley EC 的学习成长世界。孩子通过完成口语、阅读、词汇和测评任务获得 Bp 成长积分，并在 Bloxia 中解锁地点、徽章和收藏物，让学习进步变得可见、有趣，也更有持续动力。",
   },
   {
     title: "Smart Reading",
+    logo: logoSmartReading.url,
     body: "Smart Reading是一套优质的原版分级阅读项目，适合低龄英语学习者进行系统阅读训练。孩子可根据自身需求选择线上或线下模式，在阅读理解、关键词积累、故事复述和口语表达中持续提升英语能力。",
   },
   {
     title: "myON Reader",
+    logo: logoMyon.url,
     body: "myON Reader是面向儿童的英文数字阅读平台，提供丰富多样的英语原版读物。它尤其适合家庭环境下的广泛阅读实践，帮助孩子在家长陪伴下养成稳定的课外阅读习惯。",
   },
   {
     title: "ClassIn Learning Hub",
+    logo: logoClassin.url,
     body: "ClassIn Learning Hub是 Paizley EC 基于 ClassIn 搭建的线上学习中心，集合阅读、自然拼读、家庭学习讲座等多元教育产品，为孩子与家长提供灵活、连贯的学习支持。它是 Paizley EC 实现“教、学、练、测、评”闭环生态的重要在线平台，帮助孩子在系统课程与持续练习中提升阅读能力和表达能力，也帮助家长更科学地参与家庭学习陪伴。",
   },
   {
     title: "Home School Resources",
+    logo: logoHomeSchool.url,
     body: "Home School Resources是专为家长在家支持孩子英语学习而设计的家庭学习资源体系，提供分级搭配的动画、视频等内容。这些资源以趣味性和自然习得为核心，帮助孩子在轻松的家庭环境中迈出英语启蒙的第一步。",
   },
   {
     title: "Personalized Learning Plans",
+    logo: logoPlp.url,
     body: "Personalized Learning Plans是基于一对一专业咨询形成的个性化学习规划服务。我们会为每位学习者定制符合其年龄、基础、能力水平和学习目标的学习方案，让学习过程更有方向，也更具针对性和成效。",
   },
 ];
@@ -73,7 +90,7 @@ function AboutPaizleyPage() {
                 }}
               >
                 <img
-                  src={paizleyLogo.url}
+                  src={s.logo}
                   alt={s.title}
                   className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
                 />
