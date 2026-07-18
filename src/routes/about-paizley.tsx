@@ -53,54 +53,85 @@ const sections = [
   },
 ];
 
+const positions = [
+  "col-start-1 row-start-1",
+  "col-start-2 row-start-1",
+  "col-start-3 row-start-1",
+  "col-start-1 row-start-2",
+  "col-start-3 row-start-2",
+  "col-start-1 row-start-3",
+  "col-start-2 row-start-3",
+  "col-start-3 row-start-3",
+];
+
 function AboutPaizleyPage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] bg-white">
         <FloatingBack to="/profile" />
 
-        <main className="px-6 pt-16 pb-10">
-          <img
-            src={paisleyLogo.url}
-            alt="Paizley EC"
-            className="h-8 w-auto object-contain mb-6"
-          />
-
-          <div className="flex flex-col gap-4">
-            {sections.map((s) => (
-              <article
-                key={s.title}
-                className="flex items-start gap-4 rounded-[22px] bg-white p-4"
+        <main className="px-2 pt-16 pb-10">
+          <div
+            className="relative grid grid-cols-3 grid-rows-3 gap-2 items-start"
+            style={{ minHeight: "calc(100dvh - 6rem)" }}
+          >
+            {/* Center logo */}
+            <div className="col-start-2 row-start-2 flex flex-col items-center justify-center self-center py-2">
+              <div
+                className="relative w-32 h-32 rounded-full flex items-center justify-center"
                 style={{
-                  boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
+                  background:
+                    "radial-gradient(circle, rgba(1,70,185,0.12) 0%, rgba(255,255,255,0) 72%)",
                 }}
               >
-                <div
-                  className="h-16 w-16 shrink-0 rounded-2xl bg-white grid place-items-center overflow-hidden"
-                  style={{
-                    boxShadow: "0 4px 16px rgba(11, 37, 69, 0.06)",
-                  }}
-                >
-                  <img
-                    src={paizleyLogo.url}
-                    alt={s.title}
-                    className="h-12 w-12 object-contain"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
+                <img
+                  src={paisleyLogo.url}
+                  alt="Paizley EC"
+                  className="w-28 h-28 object-contain"
+                />
+              </div>
+              <span
+                className="text-[13px] font-semibold mt-1.5"
+                style={{ color: PAISLEY }}
+              >
+                Paizley EC
+              </span>
+            </div>
+
+            {sections.map((s, i) => (
+              <article
+                key={s.title}
+                className={`${positions[i]} flex flex-col gap-1.5 rounded-[18px] bg-white p-2.5`}
+                style={{
+                  boxShadow: "0 8px 24px rgba(11, 37, 69, 0.055)",
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className="h-7 w-7 shrink-0 rounded-xl bg-white grid place-items-center overflow-hidden"
+                    style={{
+                      boxShadow: "0 2px 8px rgba(11, 37, 69, 0.06)",
+                    }}
+                  >
+                    <img
+                      src={paizleyLogo.url}
+                      alt={s.title}
+                      className="h-5 w-5 object-contain"
+                    />
+                  </div>
                   <h2
-                    className="text-[17px] font-semibold leading-tight tracking-tight mb-1.5"
+                    className="text-[12px] font-semibold leading-tight"
                     style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
                   >
                     {s.title}
                   </h2>
-                  <p
-                    className="text-[15px] font-normal leading-relaxed"
-                    style={{ color: "#000000" }}
-                  >
-                    {s.body}
-                  </p>
                 </div>
+                <p
+                  className="text-[11px] font-normal leading-relaxed"
+                  style={{ color: "#000000", lineHeight: "1.45" }}
+                >
+                  {s.body}
+                </p>
               </article>
             ))}
           </div>
