@@ -47,7 +47,7 @@ const sections = [
   {
     title: "Bloxia",
     logo: logoBloxia.url,
-    color: "#5064f5",
+    color: "#55a029",
     body: "Bloxia是 Paizley EC 的学习成长世界。孩子通过完成口语、阅读、词汇和测评任务获得 Bp 成长积分，并在 Bloxia 中解锁地点、徽章和收藏物，让学习进步变得可见、有趣，也更有持续动力。",
   },
   {
