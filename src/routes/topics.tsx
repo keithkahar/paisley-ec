@@ -1,33 +1,34 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
-import smartReadingArt from "@/assets/topics/smart_reading.png";
-import petTalkArt from "@/assets/topics/pet_talk.png";
-import minecraftArt from "@/assets/topics/minecraft_adventure.png";
-import foodTalkArt from "@/assets/topics/food_talk.png";
-import footballArt from "@/assets/topics/football_talk.png";
-import magicArt from "@/assets/topics/magic_adventure.png";
-import natureArt from "@/assets/topics/nature_explorer.png";
-import mywordieArt from "@/assets/topics/mywordie.png";
+import topicsMap from "@/assets/topics/topics-map.png.asset.json";
 
 const PINK = "var(--shirin)";
 
-// Topic gallery: 8 cards arranged in a tidy 2-column grid.
-// `smart_reading` routes to its own flow; `mywordie` opens the myWordie chat.
+// Topic map: one illustration with clickable hotspots over each character.
+// Rows top→bottom; two columns per row.
 type Topic = {
   topic_id: string;
   title: string;
-  art: string;
+  // Hotspot in % of the image (top-left origin).
+  top: number;
+  left: number;
+  width: number;
+  height: number;
 };
 const TOPICS: Topic[] = [
-  { topic_id: "smart_reading", title: "Smart Reading", art: smartReadingArt },
-  { topic_id: "pet_talk", title: "Pet Talk", art: petTalkArt },
-  { topic_id: "minecraft_adventure", title: "Minecraft Talk", art: minecraftArt },
-  { topic_id: "food_talk", title: "Food Talk", art: foodTalkArt },
-  { topic_id: "football_talk", title: "Football Talk", art: footballArt },
-  { topic_id: "magic_adventure", title: "Magic Adventure", art: magicArt },
-  { topic_id: "nature_explorer", title: "Nature Explore", art: natureArt },
-  { topic_id: "mywordie", title: "myWordie Talk", art: mywordieArt },
+  // Row 1
+  { topic_id: "smart_reading", title: "Smart Reading", top: 10, left: 2, width: 46, height: 22 },
+  { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 14, left: 50, width: 48, height: 22 },
+  // Row 2
+  { topic_id: "pet_talk", title: "Pet Talk", top: 36, left: 2, width: 46, height: 20 },
+  { topic_id: "food_talk", title: "Food Talk", top: 36, left: 50, width: 48, height: 22 },
+  // Row 3
+  { topic_id: "football_talk", title: "Football Talk", top: 56, left: 2, width: 46, height: 20 },
+  { topic_id: "nature_explorer", title: "Nature Explore", top: 58, left: 50, width: 48, height: 20 },
+  // Row 4
+  { topic_id: "magic_adventure", title: "Magic Adventure", top: 76, left: 2, width: 46, height: 22 },
+  { topic_id: "mywordie", title: "myWordie Talk", top: 76, left: 50, width: 48, height: 22 },
 ];
 
 export const Route = createFileRoute("/topics")({
@@ -48,11 +49,6 @@ function TopicsPage() {
         ? ({ to: "/chat", search: { mode: "mywordie", from: "topics" } } as const)
         : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
 
-  const cardStyle = {
-    background: "color-mix(in oklab, var(--shirin) 8%, white)",
-    border: "1px solid color-mix(in oklab, var(--shirin) 18%, white)",
-  } as const;
-
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[100dvh] flex flex-col bg-white">
@@ -71,34 +67,26 @@ function TopicsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="relative w-full overflow-hidden rounded-3xl">
+            <img
+              src={topicsMap.url}
+              alt="Topics"
+              className="block w-full h-auto select-none"
+              draggable={false}
+            />
             {TOPICS.map((t) => (
               <Link
                 key={t.topic_id}
                 {...getLinkProps(t)}
-                className="group flex flex-col rounded-3xl overflow-hidden active:scale-[0.98] transition-transform"
-                style={cardStyle}
-              >
-                <div className="relative overflow-hidden bg-white aspect-square">
-                  <img
-                    src={t.art}
-                    alt={t.title}
-                    loading="lazy"
-                    width={1024}
-                    height={1024}
-                    className="block h-full w-full object-cover"
-                    draggable={false}
-                  />
-                </div>
-                <div className="px-3 py-3">
-                  <p
-                    className="text-[17px] font-semibold tracking-tight leading-none text-center"
-                    style={{ color: PINK, letterSpacing: "-0.015em" }}
-                  >
-                    {t.title}
-                  </p>
-                </div>
-              </Link>
+                aria-label={t.title}
+                className="absolute active:scale-[0.96] transition-transform"
+                style={{
+                  top: `${t.top}%`,
+                  left: `${t.left}%`,
+                  width: `${t.width}%`,
+                  height: `${t.height}%`,
+                }}
+              />
             ))}
           </div>
         </div>
