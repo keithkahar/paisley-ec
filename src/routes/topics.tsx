@@ -6,32 +6,84 @@ import topicsMap from "@/assets/topics/topics-map.png.asset.json";
 
 const PINK = "var(--shirin)";
 
-// Topic map: one full-screen illustration with small labeled entry pills.
-// The coordinates below describe the bounding box of each character / area
-// in % of the container. The visible pill is centered on that box.
+// Topic map: one full-screen illustration with labeled entry pills.
+// Each topic has a visible title pill and a larger invisible clickable area
+// covering the character / scene it represents, so both the title and the
+// character act as an entrance to the chat.
 type Topic = {
   topic_id: string;
   title: string;
-  // Bounding box in % of the container (top-left origin).
-  top: number;
-  left: number;
-  width: number;
-  height: number;
+  // Center of the visible title pill in % of the container.
+  pillTop: number;
+  pillLeft: number;
+  // Invisible clickable area covering the character / scene (top-left origin).
+  hitArea: {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  };
 };
 
 const TOPICS: Topic[] = [
-  // Left column (top -> bottom): Smart Reading (Shirin's lap), Pet Talk (cat chest),
-  // Football Talk (unchanged), Magic Adventure (Shirin's knee).
-  { topic_id: "smart_reading", title: "Smart Reading", top: 30, left: -0.2, width: 46, height: 8 },
-  { topic_id: "pet_talk", title: "Pet Talk", top: 47, left: -5.2, width: 46, height: 8 },
-  { topic_id: "football_talk", title: "Football Talk", top: 66.8, left: -2.8, width: 46, height: 8 },
-  { topic_id: "magic_adventure", title: "Magic Adventure", top: 90.0, left: 0.8, width: 46, height: 8 },
-  // Right column (top -> bottom): Minecraft Talk (cat chest), Food Talk (pink cup),
-  // Nature Explore (Shirin's right knee), myWordie Talk (between blue book and laptop).
-  { topic_id: "minecraft_adventure", title: "Minecraft Talk", top: 31.6, left: 41.6, width: 48, height: 8 },
-  { topic_id: "food_talk", title: "Food Talk", top: 50.0, left: 33.8, width: 48, height: 8 },
-  { topic_id: "nature_explorer", title: "Nature Explore", top: 69.2, left: 56, width: 48, height: 8 },
-  { topic_id: "mywordie", title: "myWordie Talk", top: 87.4, left: 50.6, width: 48, height: 8 },
+  // Left column (top -> bottom): Smart Reading, Pet Talk, Football Talk, Magic Adventure.
+  {
+    topic_id: "smart_reading",
+    title: "Smart Reading",
+    pillTop: 34,
+    pillLeft: 22.8,
+    hitArea: { top: 26, left: 0, width: 45, height: 16 },
+  },
+  {
+    topic_id: "pet_talk",
+    title: "Pet Talk",
+    pillTop: 51,
+    pillLeft: 17.8,
+    hitArea: { top: 43, left: 0, width: 45, height: 16 },
+  },
+  {
+    topic_id: "football_talk",
+    title: "Football Talk",
+    pillTop: 70.8,
+    pillLeft: 20.2,
+    hitArea: { top: 63.8, left: 0, width: 45, height: 14 },
+  },
+  {
+    topic_id: "magic_adventure",
+    title: "Magic Adventure",
+    pillTop: 94,
+    pillLeft: 23.8,
+    hitArea: { top: 88, left: 0, width: 45, height: 12 },
+  },
+  // Right column (top -> bottom): Minecraft Talk, Food Talk, Nature Explore, myWordie Talk.
+  {
+    topic_id: "minecraft_adventure",
+    title: "Minecraft Talk",
+    pillTop: 35.6,
+    pillLeft: 65.6,
+    hitArea: { top: 27.6, left: 45, width: 55, height: 16 },
+  },
+  {
+    topic_id: "food_talk",
+    title: "Food Talk",
+    pillTop: 54,
+    pillLeft: 57.8,
+    hitArea: { top: 46, left: 45, width: 55, height: 16 },
+  },
+  {
+    topic_id: "nature_explorer",
+    title: "Nature Explore",
+    pillTop: 73.2,
+    pillLeft: 80,
+    hitArea: { top: 65.2, left: 45, width: 55, height: 16 },
+  },
+  {
+    topic_id: "mywordie",
+    title: "myWordie Talk",
+    pillTop: 91.4,
+    pillLeft: 74.6,
+    hitArea: { top: 85.4, left: 45, width: 55, height: 12 },
+  },
 ];
 
 function TopicPill({ title }: { title: string }) {
