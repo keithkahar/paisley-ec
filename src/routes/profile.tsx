@@ -311,7 +311,7 @@ function PaisleyIcon({
   style?: React.CSSProperties;
 }) {
   const color = style?.color ?? PAISLEY;
-  const spanStyle: React.CSSProperties = {
+  const spanStyle = {
     color,
     backgroundColor: color,
     maskImage: `url(${paizleyIcon.url})`,
@@ -323,7 +323,7 @@ function PaisleyIcon({
     maskPosition: "center",
     WebkitMaskPosition: "center",
     filter: `drop-shadow(0 0 1.5px ${color}) drop-shadow(0 0 1.5px ${color}) drop-shadow(0 0 1.5px ${color})`,
-  };
+  } as React.CSSProperties;
   return (
     <span
       className={className}
