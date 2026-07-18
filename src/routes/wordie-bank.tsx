@@ -519,10 +519,10 @@ function WordieBankPage() {
                   type="button"
                   onClick={() => setOpenSheet(null)}
                   aria-label="Close"
-                  className="absolute left-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+                  className="absolute left-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
                   style={{ top: -4 }}
                 >
-                  <X className="h-5 w-5" style={{ color: "#0F172A" }} strokeWidth={2.25} />
+                  <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
                 </button>
               )}
               {openSheet === "level" || openSheet === "status" ? (
@@ -530,10 +530,10 @@ function WordieBankPage() {
                   type="button"
                   onClick={() => setOpenSheet(null)}
                   aria-label="Done"
-                  className="absolute right-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+                  className="absolute right-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
                   style={{ top: -4 }}
                 >
-                  <Check className="h-5 w-5" style={{ color: "#0F172A" }} strokeWidth={2.25} />
+                  <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
                 </button>
               ) : (
                 <button
