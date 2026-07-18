@@ -197,7 +197,7 @@ function SmartReadingPage() {
                     className="w-full flex items-center justify-between py-3 text-left text-[14px] font-semibold"
                     style={{ color: active ? PINK : "var(--foreground)" }}
                   >
-                    <span>{`${p.title} (${p.wordCount})`}</span>
+                    <span>{p.title}</span>
                     {active && <Check className="h-4 w-4" />}
                   </button>
                 );
