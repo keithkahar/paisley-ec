@@ -1,21 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import topicsMap from "@/assets/topics/topics-map.png.asset.json";
 
 const PINK = "var(--shirin)";
 
-// Topic map: one illustration with clickable hotspots over each character.
-// Rows top→bottom; two columns per row.
+// Topic map: one full-screen illustration with small labeled entry pills.
+// The coordinates below describe the bounding box of each character / area
+// in % of the container. The visible pill is centered on that box.
 type Topic = {
   topic_id: string;
   title: string;
-  // Hotspot in % of the image (top-left origin).
+  // Bounding box in % of the container (top-left origin).
   top: number;
   left: number;
   width: number;
   height: number;
 };
+
 const TOPICS: Topic[] = [
   // Row 1
   { topic_id: "smart_reading", title: "Smart Reading", top: 10, left: 2, width: 46, height: 22 },
@@ -31,13 +34,30 @@ const TOPICS: Topic[] = [
   { topic_id: "mywordie", title: "myWordie Talk", top: 76, left: 50, width: 48, height: 22 },
 ];
 
+function TopicPill({ title }: { title: string }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[13px] font-semibold tracking-tight border shadow-sm bg-white/90 backdrop-blur-sm whitespace-nowrap select-none"
+      style={{
+        borderColor: `color-mix(in oklab, ${PINK} 22%, white)`,
+        color: PINK,
+      }}
+    >
+      {title}
+      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+    </span>
+  );
+}
+
 export const Route = createFileRoute("/topics")({
-  head: () => ({ meta: [
+  head: () => ({
+    meta: [
       { title: "Topic Talk — Paisley EC" },
       { name: "description", content: "Pick a topic and start an English conversation with Shirin." },
       { property: "og:title", content: "Topic Talk — Paisley EC" },
       { property: "og:description", content: "Pick a topic and start an English conversation with Shirin." },
-    ] }),
+    ],
+  }),
   component: TopicsPage,
 });
 
@@ -60,36 +80,43 @@ function TopicsPage() {
             className="w-full h-full object-cover select-none"
             draggable={false}
           />
-          {TOPICS.map((t) => (
-            <Link
-              key={t.topic_id}
-              {...getLinkProps(t)}
-              aria-label={t.title}
-              className="absolute active:scale-[0.96] transition-transform"
-              style={{
-                top: `${t.top}%`,
-                left: `${t.left}%`,
-                width: `${t.width}%`,
-                height: `${t.height}%`,
-              }}
-            />
-          ))}
+          {TOPICS.map((t) => {
+            const centerTop = t.top + t.height / 2;
+            const centerLeft = t.left + t.width / 2;
+            return (
+              <Link
+                key={t.topic_id}
+                {...getLinkProps(t)}
+                aria-label={t.title}
+                className="absolute active:scale-95 transition-transform"
+                style={{
+                  top: `${centerTop}%`,
+                  left: `${centerLeft}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <TopicPill title={t.title} />
+              </Link>
+            );
+          })}
         </div>
 
         {/* Floating back button */}
         <FloatingBack to="/shirin-talk" />
 
-        {/* Title overlay */}
-        <div className="absolute top-0 left-0 right-0 z-10 pt-14 text-center pointer-events-none">
-          <h1
-            className="text-[26px] leading-[1.2] font-medium tracking-tight"
-            style={{ color: PINK, letterSpacing: "-0.01em" }}
-          >
-            Pick A Topic
-          </h1>
-          <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
-            Let's talk about it.
-          </p>
+        {/* Title card */}
+        <div className="absolute top-0 left-0 right-0 z-10 pt-14 flex justify-center pointer-events-none">
+          <div className="rounded-2xl bg-white/90 px-5 py-3 shadow-sm backdrop-blur-sm">
+            <h1
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
+              style={{ color: PINK, letterSpacing: "-0.01em" }}
+            >
+              Pick A Topic
+            </h1>
+            <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
+              Let's talk about it.
+            </p>
+          </div>
         </div>
       </div>
     </PhoneFrame>
