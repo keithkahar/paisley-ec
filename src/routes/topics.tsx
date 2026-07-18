@@ -22,7 +22,7 @@ type Topic = {
 const TOPICS: Topic[] = [
   // Left column (top -> bottom): Smart Reading (Shirin's lap), Pet Talk (cat chest),
   // Football Talk (unchanged), Magic Adventure (Shirin's knee).
-  { topic_id: "smart_reading", title: "Smart Reading", top: 30, left: 0.9, width: 46, height: 8 },
+  { topic_id: "smart_reading", title: "Smart Reading", top: 30, left: -0.2, width: 46, height: 8 },
   { topic_id: "pet_talk", title: "Pet Talk", top: 47, left: -5.2, width: 46, height: 8 },
   { topic_id: "football_talk", title: "Football Talk", top: 66.8, left: -2.8, width: 46, height: 8 },
   { topic_id: "magic_adventure", title: "Magic Adventure", top: 89.4, left: 2, width: 46, height: 8 },
