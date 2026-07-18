@@ -186,7 +186,7 @@ function SmartReadingPage() {
             brandColor={PINK}
             onClose={() => setSheetOpen(false)}
           >
-            <div className="space-y-6">
+            <>
               {PACKS.map((p) => {
                 const active = p.book_code === bookCode;
                 return (
@@ -194,19 +194,15 @@ function SmartReadingPage() {
                     key={p.pack_id}
                     type="button"
                     onClick={() => selectBook(p.book_code)}
-                    className="w-full text-left flex items-center justify-between gap-3"
+                    className="w-full flex items-center justify-between py-3 text-left text-[14px] font-semibold"
+                    style={{ color: active ? PINK : "var(--foreground)" }}
                   >
-                    <p
-                      className="text-[20px] font-normal tracking-tight leading-none"
-                      style={{ color: active ? PINK : "var(--foreground)", letterSpacing: "-0.01em" }}
-                    >
-                      {p.title} ({p.wordCount})
-                    </p>
-                    {active && <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: PINK }} />}
+                    <span>{`${p.title} (${p.wordCount})`}</span>
+                    {active && <Check className="h-4 w-4" />}
                   </button>
                 );
               })}
-            </div>
+            </>
           </StandardSheet>
 
           {/* Unit list */}
