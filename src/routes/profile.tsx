@@ -13,10 +13,10 @@ import {
   TrendingUp,
   ClipboardList,
   Users,
-  Info,
   Pencil,
   ChevronRight,
 } from "lucide-react";
+import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [
@@ -220,7 +220,7 @@ function ProfilePage() {
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink title="Parent Page" Icon={Users} onClick={() => setParentPinOpen(true)} />
-          <PillLink to="/about" title="Paizley EC" Icon={Info} />
+          <PillLink to="/about" title="Paizley EC" Icon={PaisleyIcon} />
         </section>
 
       </div>
@@ -300,5 +300,32 @@ function PillLink({
     <Link to={to!} className={className} style={style}>
       {inner}
     </Link>
+  );
+}
+
+function PaisleyIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <span
+      className={className}
+      style={{
+        ...style,
+        backgroundColor: style?.color ?? PAISLEY,
+        maskImage: `url(${paizleyIcon.url})`,
+        WebkitMaskImage: `url(${paizleyIcon.url})`,
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+      }}
+      aria-hidden="true"
+    />
   );
 }
