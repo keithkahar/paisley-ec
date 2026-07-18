@@ -44,6 +44,7 @@ const MODE_TITLES: Record<string, string> = {
   topic: "ShirinTalk",
   mywordie: "myWordie Talk",
   smart_reading: "Smart Reading Talk",
+  free: "Free Talk",
 };
 
 const MODE_OPENING: Record<string, string> = {
@@ -52,6 +53,7 @@ const MODE_OPENING: Record<string, string> = {
     "Hi! Let's use your myWordie words in real talking. Today we can try: brave, curious, gentle. Ready?",
   smart_reading:
     "Great reading today! Let's chat about the story. What was your favourite part?",
+  free: "Hi! I'm Shirin. What do you want to talk about today?",
 };
 
 // Per-spec: when mode=topic, opening comes from this map keyed by topic_id.
