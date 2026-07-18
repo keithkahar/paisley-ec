@@ -198,7 +198,7 @@ export function MonthCalendarDialog({
           type="button"
           aria-label="Close"
           onClick={() => onOpenChange(false)}
-          className={`absolute inset-0 bg-black/40 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+          className={`absolute inset-0 bg-sheet-backdrop ${open ? "pointer-events-auto" : "pointer-events-none"}`}
         />
         <div
           className="relative w-full max-w-[420px] rounded-t-3xl pointer-events-auto flex flex-col bg-white"
