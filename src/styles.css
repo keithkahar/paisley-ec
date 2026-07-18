@@ -64,6 +64,7 @@
   --color-bloxia-deep: var(--bloxia-deep);
   --color-bloxia-soft: var(--bloxia-soft);
   --color-bloxia-sky: var(--bloxia-sky);
+  --color-sheet-backdrop: var(--sheet-backdrop);
   /* Fonts */
   --font-display: "Fredoka", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", ui-rounded, system-ui, sans-serif;
   --font-sans: "Nunito", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
