@@ -71,27 +71,25 @@ function AboutPaizleyPage() {
         <FloatingBack to="/profile" />
 
         <main className="px-2 pt-16 pb-10">
-          <div
-            className="relative grid grid-cols-3 grid-rows-3 gap-2 items-start"
-            style={{ minHeight: "calc(100dvh - 6rem)" }}
-          >
+          <div className="relative grid grid-cols-3 grid-rows-3 gap-2 items-start">
             {/* Center logo */}
-            <div className="col-start-2 row-start-2 flex flex-col items-center justify-center self-center py-2">
+            <div className="col-start-2 row-start-2 flex flex-col items-center justify-center self-center py-1">
               <div
-                className="relative w-32 h-32 rounded-full flex items-center justify-center"
+                className="relative w-36 h-36 rounded-full flex items-center justify-center"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(1,70,185,0.12) 0%, rgba(255,255,255,0) 72%)",
+                    "radial-gradient(circle, rgba(1,70,185,0.15) 0%, rgba(255,255,255,0) 70%)",
+                  boxShadow: "0 0 48px rgba(1,70,185,0.08)",
                 }}
               >
                 <img
                   src={paisleyLogo.url}
                   alt="Paizley EC"
-                  className="w-28 h-28 object-contain"
+                  className="w-32 h-32 object-contain drop-shadow-[0_8px_16px_rgba(11,37,69,0.12)]"
                 />
               </div>
               <span
-                className="text-[13px] font-semibold mt-1.5"
+                className="text-[13px] font-semibold mt-1"
                 style={{ color: PAISLEY }}
               >
                 Paizley EC
@@ -101,12 +99,12 @@ function AboutPaizleyPage() {
             {sections.map((s, i) => (
               <article
                 key={s.title}
-                className={`${positions[i]} flex flex-col gap-1.5 rounded-[18px] bg-white p-2.5`}
+                className={`${positions[i]} flex flex-col gap-1.5 rounded-[18px] bg-white p-2`}
                 style={{
                   boxShadow: "0 8px 24px rgba(11, 37, 69, 0.055)",
                 }}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <div
                     className="h-7 w-7 shrink-0 rounded-xl bg-white grid place-items-center overflow-hidden"
                     style={{
@@ -127,7 +125,7 @@ function AboutPaizleyPage() {
                   </h2>
                 </div>
                 <p
-                  className="text-[11px] font-normal leading-relaxed"
+                  className="text-[12px] font-normal leading-relaxed"
                   style={{ color: "#000000", lineHeight: "1.45" }}
                 >
                   {s.body}
