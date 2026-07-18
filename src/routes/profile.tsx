@@ -220,19 +220,11 @@ function ProfilePage() {
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink title="Parent Page" Icon={Users} onClick={() => setParentPinOpen(true)} />
+          <PillLink to="/about" title="About Paizley EC" Icon={Info} />
         </section>
 
       </div>
 
-      {/* About PEC link — fixed just above the bottom tab bar */}
-      <div
-        className="fixed left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 pointer-events-none"
-        style={{ bottom: "calc(max(1rem, env(safe-area-inset-bottom)) + 5.5rem)" }}
-      >
-        <div className="pointer-events-auto">
-          <AboutPecLink />
-        </div>
-      </div>
       <BottomTabBar />
       <ParentPinSheet
         open={parentPinOpen}
