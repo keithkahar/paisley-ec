@@ -186,7 +186,7 @@ function SmartReadingPage() {
             brandColor={PINK}
             onClose={() => setSheetOpen(false)}
           >
-            <div className="space-y-2">
+            <div className="space-y-6">
               {PACKS.map((p) => {
                 const active = p.book_code === bookCode;
                 return (
@@ -194,20 +194,15 @@ function SmartReadingPage() {
                     key={p.pack_id}
                     type="button"
                     onClick={() => selectBook(p.book_code)}
-                    className="w-full text-left rounded-2xl px-4 py-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform"
-                    style={active ? { background: PINK_SOFT } : { background: "var(--muted)" }}
+                    className="w-full text-left flex items-center justify-between gap-3"
                   >
-                    <div className="min-w-0 flex flex-col gap-1.5">
-                      <p className="text-[15px] font-semibold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
-                        {p.title}
-                      </p>
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <MiniPill>{p.CEFR}</MiniPill>
-                        <MiniPill>{p.Lexile}</MiniPill>
-                        <MiniPill>{p.wordCount} Words</MiniPill>
-                      </div>
-                    </div>
-                    {active && <Check className="h-4 w-4 shrink-0" strokeWidth={3} style={{ color: PINK }} />}
+                    <p
+                      className="text-[20px] font-normal tracking-tight leading-none"
+                      style={{ color: active ? PINK : "var(--foreground)", letterSpacing: "-0.01em" }}
+                    >
+                      {p.title} ({p.wordCount})
+                    </p>
+                    {active && <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: PINK }} />}
                   </button>
                 );
               })}
