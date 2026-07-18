@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import logoPaizley from "@/assets/about/about-paizley.png.asset.json";
@@ -111,6 +112,11 @@ function AboutPaizleyPage() {
                     {s.title}
                   </span>{" "}
                   {s.body.slice(s.title.length)}
+                  <ChevronRight
+                    size={16}
+                    color={s.color}
+                    className="inline-block align-middle ml-0.5"
+                  />
                 </p>
               </article>
             ))}
