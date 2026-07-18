@@ -35,7 +35,7 @@ const sections = [
   {
     title: "ShirinTalk",
     logo: logoShirin.url,
-    color: "#FA6688",
+    color: "#E55671",
     body: "ShirinTalk是特别为儿童定制的 AI 口语伙伴教练。Shirin 会通过温和、循序渐进的引导式对话，帮助孩子建立每日开口说英语的自信心。她会鼓励孩子用完整、简洁的英语句子作答，并友善地纠正语法或用词错误，让口语练习更自然、更高效。",
   },
   {
