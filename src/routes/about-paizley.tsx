@@ -84,7 +84,7 @@ function AboutPaizleyPage() {
                       />
                       <p
                         className="text-[15px] font-normal"
-                        style={{ color: "#000000", lineHeight: "26.1667px" }}
+                        style={{ color: "#000000", lineHeight: "25.8333px" }}
                       >
                       <span
                         className="font-extrabold"
