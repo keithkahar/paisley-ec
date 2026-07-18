@@ -189,15 +189,16 @@ function SmartReadingPage() {
             title="Choose Book"
             brandColor={PINK}
             onClose={() => setSheetOpen(false)}
+            onDone={confirmBook}
           >
             <>
               {PACKS.map((p) => {
-                const active = p.book_code === bookCode;
+                const active = p.book_code === sheetBookCode;
                 return (
                   <button
                     key={p.pack_id}
                     type="button"
-                    onClick={() => selectBook(p.book_code)}
+                    onClick={() => setSheetBookCode(p.book_code)}
                     className="w-full flex items-center justify-between py-3 text-left text-[14px] font-semibold"
                     style={{ color: active ? PINK : "var(--foreground)" }}
                   >
