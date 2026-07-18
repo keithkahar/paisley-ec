@@ -223,7 +223,7 @@ function SmartReadingPage() {
                   >
                     <div
                       className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[14px] font-bold tracking-tight"
-                      style={{ background: PINK_BADGE_BG, color: "white" }}
+                      style={{ background: PINK_BADGE_BG, color: PINK }}
                       aria-hidden
                     >
                       {String(u.unit_number).padStart(2, "0")}
