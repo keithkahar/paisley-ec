@@ -44,7 +44,7 @@ function TopicPill({ title }: { title: string }) {
       }}
     >
       {title}
-      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "color-mix(in oklab, var(--shirin) 55%, white)" }} />
     </span>
   );
 }
