@@ -133,21 +133,31 @@ function TopicsPage() {
             draggable={false}
           />
           {TOPICS.map((t) => {
-            const centerTop = t.top + t.height / 2;
-            const centerLeft = t.left + t.width / 2;
+            const pillLeftPercent =
+              ((t.pillLeft - t.hitArea.left) / t.hitArea.width) * 100;
             return (
               <Link
                 key={t.topic_id}
                 {...getLinkProps(t)}
                 aria-label={t.title}
-                className="absolute active:scale-95 transition-transform"
+                className="absolute group touch-manipulation"
                 style={{
-                  top: `${centerTop}%`,
-                  left: `${centerLeft}%`,
-                  transform: "translate(-50%, -50%)",
+                  top: `${t.hitArea.top}%`,
+                  left: `${t.hitArea.left}%`,
+                  width: `${t.hitArea.width}%`,
+                  height: `${t.hitArea.height}%`,
                 }}
               >
-                <TopicPill title={t.title} />
+                <div
+                  className="absolute group-active:scale-95 transition-transform"
+                  style={{
+                    top: "50%",
+                    left: `${pillLeftPercent}%`,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <TopicPill title={t.title} />
+                </div>
               </Link>
             );
           })}
