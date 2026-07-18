@@ -152,11 +152,11 @@ function SmartReadingPage() {
             </p>
           </div>
 
-          {/* Book picker */}
-          <div className="relative mb-3" ref={pickerRef}>
+          {/* Book picker opens bottom sheet */}
+          <div className="mb-3">
             <button
               type="button"
-              onClick={() => setPickerOpen((v) => !v)}
+              onClick={() => setSheetOpen(true)}
               className="w-full flex items-center justify-between gap-3 rounded-full px-4 py-4 text-left active:scale-[0.98] transition-transform"
               style={{ background: PINK_SOFT }}
             >
@@ -174,42 +174,45 @@ function SmartReadingPage() {
                 </div>
               </div>
               <ChevronDown
-                className="h-5 w-5 shrink-0 transition-transform"
-                style={{ color: PINK, transform: pickerOpen ? "rotate(180deg)" : "none" }}
+                className="h-5 w-5 shrink-0"
+                style={{ color: PINK }}
               />
             </button>
-            {pickerOpen && (
-              <div
-                className="absolute z-40 left-0 right-0 mt-1.5 rounded-3xl bg-white border overflow-hidden"
-                style={{ borderColor: "oklch(0.94 0.02 10)", boxShadow: "0 12px 32px -8px rgba(0,0,0,0.12)" }}
-              >
-                {PACKS.map((p) => {
-                  const active = p.book_code === bookCode;
-                  return (
-                    <button
-                      key={p.pack_id}
-                      type="button"
-                      onClick={() => selectBook(p.book_code)}
-                      className="w-full text-left px-4 py-3 flex items-center justify-between gap-3 hover:bg-[color:var(--muted)]"
-                      style={active ? { background: PINK_SOFT } : undefined}
-                    >
-                      <div className="min-w-0 flex flex-col gap-1.5">
-                        <p className="text-[15px] font-semibold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
-                          {p.title}
-                        </p>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <MiniPill>{p.CEFR}</MiniPill>
-                          <MiniPill>{p.Lexile}</MiniPill>
-                          <MiniPill>{p.wordCount} Words</MiniPill>
-                        </div>
-                      </div>
-                      {active && <Check className="h-4 w-4 shrink-0" strokeWidth={3} style={{ color: PINK }} />}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
           </div>
+
+          <StandardSheet
+            open={sheetOpen}
+            title="Choose Book"
+            brandColor={PINK}
+            onClose={() => setSheetOpen(false)}
+          >
+            <div className="space-y-2">
+              {PACKS.map((p) => {
+                const active = p.book_code === bookCode;
+                return (
+                  <button
+                    key={p.pack_id}
+                    type="button"
+                    onClick={() => selectBook(p.book_code)}
+                    className="w-full text-left rounded-2xl px-4 py-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform"
+                    style={active ? { background: PINK_SOFT } : { background: "var(--muted)" }}
+                  >
+                    <div className="min-w-0 flex flex-col gap-1.5">
+                      <p className="text-[15px] font-semibold tracking-tight leading-none" style={{ color: active ? PINK : "var(--foreground)" }}>
+                        {p.title}
+                      </p>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <MiniPill>{p.CEFR}</MiniPill>
+                        <MiniPill>{p.Lexile}</MiniPill>
+                        <MiniPill>{p.wordCount} Words</MiniPill>
+                      </div>
+                    </div>
+                    {active && <Check className="h-4 w-4 shrink-0" strokeWidth={3} style={{ color: PINK }} />}
+                  </button>
+                );
+              })}
+            </div>
+          </StandardSheet>
 
           {/* Unit list */}
           <section className="mt-4">
