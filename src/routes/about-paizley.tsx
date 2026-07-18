@@ -80,8 +80,7 @@ function AboutPaizleyPage() {
                       <img
                         src={paizleyLogo.url}
                         alt={s.title}
-                        className="float-left mr-4 mb-[19px] h-16 w-16 object-contain align-top"
-                        style={{ shapeOutside: "margin-box" }}
+                        className="float-left mr-4 h-16 w-16 object-contain align-top"
                       />
                       <p
                         className="text-[15px] font-normal"
