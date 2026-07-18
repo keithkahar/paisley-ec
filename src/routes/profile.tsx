@@ -311,23 +311,24 @@ function PaisleyIcon({
   style?: React.CSSProperties;
 }) {
   const color = style?.color ?? PAISLEY;
+  const spanStyle = {
+    color,
+    backgroundColor: color,
+    maskImage: `url(${paizleyIcon.url})`,
+    WebkitMaskImage: `url(${paizleyIcon.url})`,
+    maskSize: "contain",
+    WebkitMaskSize: "contain",
+    maskRepeat: "no-repeat",
+    WebkitMaskRepeat: "no-repeat",
+    maskPosition: "center",
+    WebkitMaskPosition: "center",
+    filter: "drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 2.5px currentColor) drop-shadow(0 0 2.5px currentColor)",
+    transform: "scale(1.2)",
+  } as React.CSSProperties;
   return (
     <span
       className={className}
-      style={{
-        ...style,
-        color,
-        backgroundColor: color,
-        maskImage: `url(${paizleyIcon.url})`,
-        WebkitMaskImage: `url(${paizleyIcon.url})`,
-        maskSize: "contain",
-        WebkitMaskSize: "contain",
-        maskRepeat: "no-repeat",
-        WebkitMaskRepeat: "no-repeat",
-        maskPosition: "center",
-        WebkitMaskPosition: "center",
-        filter: `drop-shadow(0 0 1px ${color}) drop-shadow(0 0 1px ${color})`,
-      }}
+      style={spanStyle}
       aria-hidden="true"
     />
   );
