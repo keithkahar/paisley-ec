@@ -519,8 +519,7 @@ function WordieBankPage() {
                   type="button"
                   onClick={() => setOpenSheet(null)}
                   aria-label="Close"
-                  className="absolute left-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-                  style={{ top: -2 }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
                 >
                   <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
                 </button>
@@ -530,8 +529,7 @@ function WordieBankPage() {
                   type="button"
                   onClick={() => setOpenSheet(null)}
                   aria-label="Done"
-                  className="absolute right-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-                  style={{ top: -2 }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
                 >
                   <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
                 </button>
@@ -540,10 +538,9 @@ function WordieBankPage() {
                   type="button"
                   onClick={() => setOpenSheet(null)}
                   aria-label="Done"
-                  className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
-                  style={{ color: "#0F172A" }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
                 >
-                  <CircleCheck className="w-6 h-6" strokeWidth={1.75} />
+                  <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
                 </button>
               )}
             </div>
