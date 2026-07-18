@@ -1,8 +1,9 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BookOpen, Check, ChevronDown, ChevronRight } from "lucide-react";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import { StandardSheet } from "@/components/app/StandardSheet";
 import { z } from "zod";
 
 const PINK = "var(--shirin)";
