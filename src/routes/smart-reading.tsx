@@ -109,8 +109,7 @@ function SmartReadingPage() {
   const search = useSearch({ from: "/smart-reading" });
   const backTo = search.from === "topics" ? "/topics" : "/shirin-talk";
   const [bookCode, setBookCode] = useState<string>(PACKS[0].book_code);
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const pickerRef = useRef<HTMLDivElement>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   // restore last selected book
   useEffect(() => {
@@ -119,16 +118,6 @@ function SmartReadingPage() {
       if (saved && PACKS.some((p) => p.book_code === saved)) setBookCode(saved);
     } catch {}
   }, []);
-
-  // close picker on outside click
-  useEffect(() => {
-    if (!pickerOpen) return;
-    const onDown = (e: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setPickerOpen(false);
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [pickerOpen]);
 
   const currentPack = useMemo(
     () => PACKS.find((p) => p.book_code === bookCode) ?? PACKS[0],
