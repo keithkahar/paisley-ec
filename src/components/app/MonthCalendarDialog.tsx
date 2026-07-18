@@ -119,7 +119,7 @@ export function MonthCalendarDialog({
       </div>
 
       {/* Weekday labels */}
-      <div className="mt-3 grid grid-cols-7 gap-1">
+      <div className="mt-3 grid grid-cols-7 gap-x-1 gap-y-3">
         {DAY_LABELS.map((d, i) => (
           <div
             key={i}
@@ -134,9 +134,9 @@ export function MonthCalendarDialog({
       </div>
 
       {/* Day grid */}
-      <div className="mt-1 grid grid-cols-7 gap-1">
+      <div className="mt-3 grid grid-cols-7 gap-x-1 gap-y-4">
         {cells.map((d, i) => {
-          if (!d) return <div key={i} className="h-10" />;
+          if (!d) return <div key={i} className="h-11" />;
           const isToday = sameDay(d, today);
           const isFuture = d.getTime() > today.getTime() && !isToday;
           const act = isFuture ? {} : getActivity(d);
@@ -144,7 +144,7 @@ export function MonthCalendarDialog({
           return (
             <div
               key={i}
-              className="h-10 flex flex-col items-center justify-center gap-0.5"
+              className="h-11 flex flex-col items-center justify-center gap-0.5"
             >
               <span
                 className="h-7 w-7 grid place-items-center rounded-full text-[12.5px] font-semibold"
