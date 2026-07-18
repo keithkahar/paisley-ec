@@ -302,3 +302,30 @@ function PillLink({
     </Link>
   );
 }
+
+function PaisleyIcon({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <span
+      className={className}
+      style={{
+        ...style,
+        backgroundColor: style?.color ?? PAISLEY,
+        maskImage: `url(${paizleyIcon.url})`,
+        WebkitMaskImage: `url(${paizleyIcon.url})`,
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+      }}
+      aria-hidden="true"
+    />
+  );
+}
