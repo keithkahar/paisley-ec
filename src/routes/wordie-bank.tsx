@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck, CircleX } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck } from "lucide-react";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import {
   FilterChip,
   EmptyState,
