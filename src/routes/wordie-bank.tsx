@@ -520,7 +520,7 @@ function WordieBankPage() {
                   onClick={() => setOpenSheet(null)}
                   aria-label="Close"
                   className="absolute left-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
-                  style={{ top: "calc(0.25rem)" }}
+                  style={{ top: 0 }}
                 >
                   <X className="h-5 w-5" style={{ color: "#0F172A" }} strokeWidth={2.25} />
                 </button>
@@ -531,7 +531,7 @@ function WordieBankPage() {
                   onClick={() => setOpenSheet(null)}
                   aria-label="Done"
                   className="absolute right-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
-                  style={{ top: "calc(0.25rem)" }}
+                  style={{ top: 0 }}
                 >
                   <Check className="h-5 w-5" style={{ color: "#0F172A" }} strokeWidth={2.25} />
                 </button>
