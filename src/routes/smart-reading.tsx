@@ -157,7 +157,7 @@ function SmartReadingPage() {
             <button
               type="button"
               onClick={() => setSheetOpen(true)}
-              className="w-full flex items-center justify-between gap-3 rounded-full px-4 py-4 text-left active:scale-[0.98] transition-transform"
+              className="w-full flex items-center justify-between gap-3 rounded-3xl px-5 py-4 text-left active:scale-[0.98] transition-transform"
               style={{ background: PINK_SOFT }}
             >
               <div className="min-w-0 flex flex-col gap-1.5">
