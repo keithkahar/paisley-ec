@@ -312,7 +312,6 @@ function PaisleyIcon({
 }) {
   const color = style?.color ?? PAISLEY;
   const spanStyle: React.CSSProperties = {
-    ...style,
     color,
     backgroundColor: color,
     maskImage: `url(${paizleyIcon.url})`,
