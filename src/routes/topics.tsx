@@ -37,7 +37,7 @@ const TOPICS: Topic[] = [
 function TopicPill({ title }: { title: string }) {
   return (
     <span
-      className="inline-flex items-center gap-1 h-9 px-4 rounded-full text-[17px] font-semibold tracking-tight border shadow-sm bg-white/90 backdrop-blur-sm whitespace-nowrap select-none"
+      className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight border shadow-sm bg-white/90 backdrop-blur-sm whitespace-nowrap select-none"
       style={{
         borderColor: `color-mix(in oklab, ${PINK} 22%, white)`,
         color: PINK,
