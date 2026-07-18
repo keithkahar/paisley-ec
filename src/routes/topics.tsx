@@ -70,8 +70,8 @@ function TopicsPage() {
         : ({ to: "/chat", search: { mode: "topic", topic_id: t.topic_id } } as const);
 
   return (
-    <PhoneFrame bg="bg-white">
-      <div className="relative h-[100dvh] w-full overflow-hidden bg-white">
+    <PhoneFrame bg="bg-transparent">
+      <div className="relative h-[100dvh] w-full overflow-hidden bg-transparent">
         {/* Full-bleed illustration */}
         <div className="absolute inset-0">
           <img
@@ -104,16 +104,19 @@ function TopicsPage() {
         {/* Floating back button */}
         <FloatingBack to="/shirin-talk" />
 
-        {/* Title card */}
+        {/* Floating title */}
         <div className="absolute top-0 left-0 right-0 z-10 pt-14 flex justify-center pointer-events-none">
-          <div className="rounded-2xl bg-white/90 px-5 py-3 shadow-sm backdrop-blur-sm">
+          <div className="px-5 py-3 text-center">
             <h1
               className="text-[26px] leading-[1.2] font-medium tracking-tight"
-              style={{ color: PINK, letterSpacing: "-0.01em" }}
+              style={{ color: PINK, letterSpacing: "-0.01em", textShadow: "0 1px 5px rgba(0,0,0,0.2)" }}
             >
               Pick A Topic
             </h1>
-            <p className="mt-1 text-[14px] font-semibold tracking-tight text-muted-foreground">
+            <p
+              className="mt-1 text-[14px] font-semibold tracking-tight text-white"
+              style={{ textShadow: "0 1px 4px rgba(0,0,0,0.25)" }}
+            >
               Let's talk about it.
             </p>
           </div>
