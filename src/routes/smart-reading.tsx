@@ -160,18 +160,16 @@ function SmartReadingPage() {
               className="w-full flex items-center justify-between gap-3 rounded-3xl px-5 py-4 text-left active:scale-[0.98] transition-transform"
               style={{ background: PINK_SOFT }}
             >
-              <div className="min-w-0 flex flex-col gap-1.5">
+              <div className="min-w-0 flex flex-col gap-1">
                 <p
                   className="text-[17px] font-semibold tracking-tight leading-none"
                   style={{ color: PINK, letterSpacing: "-0.01em" }}
                 >
                   {currentPack.title}
                 </p>
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <MiniPill>{currentPack.CEFR}</MiniPill>
-                  <MiniPill>{currentPack.Lexile}</MiniPill>
-                  <MiniPill>{currentPack.wordCount} Words</MiniPill>
-                </div>
+                <p className="text-[12px] font-medium text-foreground/70 leading-none">
+                  {currentPack.CEFR} · {currentPack.Lexile} · {currentPack.wordCount} Words
+                </p>
               </div>
               <ChevronDown
                 className="h-5 w-5 shrink-0"
