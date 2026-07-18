@@ -59,13 +59,7 @@ function AboutPaizleyPage() {
       <div className="relative min-h-[100dvh] bg-white">
         <FloatingBack to="/profile" />
 
-        <main className="px-6 pt-16 pb-10">
-          <img
-            src={paisleyLogo.url}
-            alt="Paizley EC"
-            className="h-8 w-auto object-contain mb-6"
-          />
-
+        <main className="px-6 pt-[53px] pb-10">
           <div className="flex flex-col gap-4">
             {sections.map((s) => (
               <article
