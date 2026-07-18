@@ -326,7 +326,7 @@ function PaisleyIcon({
         WebkitMaskRepeat: "no-repeat",
         maskPosition: "center",
         WebkitMaskPosition: "center",
-        filter: `drop-shadow(0 0 1px ${color}) drop-shadow(0 0 1px ${color})`,
+        filter: `drop-shadow(0 0 1.5px ${color}) drop-shadow(0 0 1.5px ${color}) drop-shadow(0 0 1.5px ${color})`,
       }}
       aria-hidden="true"
     />
