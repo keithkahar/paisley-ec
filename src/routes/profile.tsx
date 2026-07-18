@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import pecFromLogo from "@/assets/brand/pec-from-logo.png.asset.json";
-import paizleyEcText from "@/assets/brand/paizley-ec-text.png.asset.json";
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -14,6 +13,7 @@ import {
   TrendingUp,
   ClipboardList,
   Users,
+  Info,
   Pencil,
   ChevronRight,
 } from "lucide-react";
