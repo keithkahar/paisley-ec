@@ -176,7 +176,7 @@ function ShirinTalkPage() {
         </section>
       </div>
 
-      <BottomTabBar />
+      <BottomTabBar hidden={calOpen} />
       <MonthCalendarDialog
         open={calOpen}
         onOpenChange={setCalOpen}
