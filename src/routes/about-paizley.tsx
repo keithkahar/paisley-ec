@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
 import paizleyLogo from "@/assets/brand/paizley-ec-logo-placeholder.png.asset.json";
 
 export const Route = createFileRoute("/about-paizley")({
@@ -59,12 +60,11 @@ function AboutPaizleyPage() {
         <FloatingBack to="/profile" />
 
         <main className="px-6 pt-16 pb-10">
-          <h1
-            className="text-[26px] leading-tight font-medium tracking-tight mb-6"
-            style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
-          >
-            About Paizley EC
-          </h1>
+          <img
+            src={paisleyLogo.url}
+            alt="Paizley EC"
+            className="h-8 w-auto object-contain mb-6"
+          />
 
           <div className="flex flex-col gap-4">
             {sections.map((s) => (
