@@ -587,7 +587,7 @@ function BirthdaySheet({
       aria-modal="true"
       onClick={onCancel}
     >
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-sheet-backdrop" />
       <div
         className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
         style={{ height: "62vh" }}

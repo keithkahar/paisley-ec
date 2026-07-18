@@ -61,7 +61,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
 
         {/* Bottom sheet — wordie-bank filter style */}
         <div className="fixed inset-0 z-40 flex items-end justify-center">
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-sheet-backdrop" />
           <div
             className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
             style={{ height: "62vh" }}
