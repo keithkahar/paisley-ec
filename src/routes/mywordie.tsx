@@ -179,6 +179,7 @@ function MyWordiePage() {
           <PillLink to="/wordie-bank" title="Wordie Bank" Icon={Layers} />
           <PillLink to="/wordie-x" title="Wordie-X" Icon={Zap} />
           <PillLink to="/wordie-test" title="Wordie Test" Icon={ClipboardCheck} />
+          <PillLink to="/cefr-test" title="CEFR Test" Icon={GraduationCap} />
         </section>
       </div>
 
