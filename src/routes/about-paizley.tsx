@@ -64,38 +64,30 @@ function AboutPaizleyPage() {
 
         <main className="px-6 pt-[53px] pb-10">
           <div className="flex flex-col gap-4">
-            {sections.map((s, index) => {
-              const isFirst = index === 0;
-              return (
-                <article
-                  key={s.title}
-                  className="rounded-[22px] bg-white p-4 overflow-hidden"
-                  style={{
-                    boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
-                  }}
+            {sections.map((s) => (
+              <article
+                key={s.title}
+                className="rounded-[22px] bg-white p-4 overflow-hidden"
+                style={{
+                  boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
+                }}
+              >
+                <img
+                  src={paizleyLogo.url}
+                  alt={s.title}
+                  className="float-left object-contain align-top mr-4 mb-4 h-16 w-16"
+                />
+                <p
+                  className="text-[15px] font-normal"
+                  style={{ color: "#000000", lineHeight: "25.8333px" }}
                 >
-                  <img
-                    src={paizleyLogo.url}
-                    alt={s.title}
-                    className={`float-left object-contain align-top ${
-                      isFirst ? "mr-4 mb-4 h-16 w-16" : "mr-3 mb-3 h-12 w-12"
-                    }`}
-                  />
-                  <p
-                    className="text-[15px] font-normal"
-                    style={{ color: "#000000", lineHeight: "25.8333px" }}
-                  >
-                    <span
-                      className="font-extrabold"
-                      style={{ color: PAISLEY }}
-                    >
-                      {s.title}
-                    </span>
-                    {s.body.slice(s.title.length)}
-                  </p>
-                </article>
-              );
-            })}
+                  <span className="font-extrabold" style={{ color: PAISLEY }}>
+                    {s.title}
+                  </span>
+                  {s.body.slice(s.title.length)}
+                </p>
+              </article>
+            ))}
           </div>
         </main>
       </div>
