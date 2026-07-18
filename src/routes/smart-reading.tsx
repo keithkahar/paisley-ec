@@ -126,7 +126,7 @@ function SmartReadingPage() {
 
   const selectBook = (code: string) => {
     setBookCode(code);
-    setPickerOpen(false);
+    setSheetOpen(false);
     try {
       localStorage.setItem(LAST_BOOK_KEY, code);
     } catch {}
