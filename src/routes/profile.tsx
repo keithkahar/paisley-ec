@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import pecFromLogo from "@/assets/brand/pec-from-logo.png.asset.json";
-import paizleyEcText from "@/assets/brand/paizley-ec-text.png.asset.json";
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -14,6 +13,7 @@ import {
   TrendingUp,
   ClipboardList,
   Users,
+  Info,
   Pencil,
   ChevronRight,
 } from "lucide-react";
@@ -220,19 +220,11 @@ function ProfilePage() {
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
           <PillLink title="Parent Page" Icon={Users} onClick={() => setParentPinOpen(true)} />
+          <PillLink to="/about" title="About Paizley EC" Icon={Info} />
         </section>
 
       </div>
 
-      {/* About PEC link — fixed just above the bottom tab bar */}
-      <div
-        className="fixed left-1/2 -translate-x-1/2 w-full max-w-[420px] z-40 pointer-events-none"
-        style={{ bottom: "calc(max(1rem, env(safe-area-inset-bottom)) + 5.5rem)" }}
-      >
-        <div className="pointer-events-auto">
-          <AboutPecLink />
-        </div>
-      </div>
       <BottomTabBar />
       <ParentPinSheet
         open={parentPinOpen}
@@ -308,52 +300,5 @@ function PillLink({
     <Link to={to!} className={className} style={style}>
       {inner}
     </Link>
-  );
-}
-
-function AboutPecLink() {
-  const navigate = useNavigate();
-  const handleClick = useCallback(() => {
-    navigate({ to: "/about" });
-  }, [navigate]);
-
-  const gray = "oklch(0.65 0.02 260)";
-  return (
-    <div className="pb-4 flex justify-center">
-      <button
-        type="button"
-        onClick={handleClick}
-        className="font-bold tracking-wide select-none inline-flex items-center leading-none"
-        style={{ color: gray, gap: "4.7px", fontSize: "14.3px", transform: "translateY(5px)" }}
-        aria-label="About PEC"
-      >
-        <span className="leading-none" style={{ transform: "translate(1px, 0px)" }}>About</span>
-        <span
-          className="relative inline-block"
-          style={{ height: "1.6245em" }}
-          aria-hidden="true"
-        >
-          <img
-            src={paizleyEcText.url}
-            alt="Paizley EC"
-            className="object-contain block h-full w-auto opacity-0"
-          />
-          <span
-            className="absolute inset-0"
-            style={{
-              backgroundColor: gray,
-              maskImage: `url(${paizleyEcText.url})`,
-              WebkitMaskImage: `url(${paizleyEcText.url})`,
-              maskSize: "contain",
-              WebkitMaskSize: "contain",
-              maskRepeat: "no-repeat",
-              WebkitMaskRepeat: "no-repeat",
-              maskPosition: "center",
-              WebkitMaskPosition: "center",
-            }}
-          />
-        </span>
-      </button>
-    </div>
   );
 }
