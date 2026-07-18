@@ -68,7 +68,7 @@ function AboutPaizleyPage() {
                   key={s.title}
                   className={
                     isFirst
-                      ? "flex flex-col gap-3 rounded-[22px] bg-white p-4"
+                      ? "rounded-[22px] bg-white p-4 overflow-hidden"
                       : "flex items-start gap-4 rounded-[22px] bg-white p-4"
                   }
                   style={{
@@ -77,26 +77,24 @@ function AboutPaizleyPage() {
                 >
                   {isFirst ? (
                     <>
-                      <div className="flex items-center gap-4">
-                        <div
-                          className="h-16 w-16 shrink-0 rounded-2xl bg-white grid place-items-center overflow-hidden"
-                          style={{
-                            boxShadow: "0 4px 16px rgba(11, 37, 69, 0.06)",
-                          }}
-                        >
-                          <img
-                            src={paizleyLogo.url}
-                            alt={s.title}
-                            className="h-12 w-12 object-contain"
-                          />
-                        </div>
-                        <h2
-                          className="text-[17px] font-semibold leading-tight tracking-tight"
-                          style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
-                        >
-                          {s.title}
-                        </h2>
+                      <div
+                        className="float-left mr-4 mb-2 h-16 w-16 rounded-2xl bg-white grid place-items-center overflow-hidden"
+                        style={{
+                          boxShadow: "0 4px 16px rgba(11, 37, 69, 0.06)",
+                        }}
+                      >
+                        <img
+                          src={paizleyLogo.url}
+                          alt={s.title}
+                          className="h-12 w-12 object-contain"
+                        />
                       </div>
+                      <h2
+                        className="text-[17px] font-semibold leading-tight tracking-tight mb-1.5"
+                        style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
+                      >
+                        {s.title}
+                      </h2>
                       <p
                         className="text-[15px] font-normal leading-relaxed"
                         style={{ color: "#000000" }}
