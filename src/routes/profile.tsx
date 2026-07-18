@@ -324,8 +324,6 @@ function PaisleyIcon({
         WebkitMaskRepeat: "no-repeat",
         maskPosition: "center",
         WebkitMaskPosition: "center",
-        maskMode: "luminance",
-        ["WebkitMaskSourceType" as any]: "luminance",
       }}
       aria-hidden="true"
     />
