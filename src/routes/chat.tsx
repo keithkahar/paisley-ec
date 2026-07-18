@@ -814,7 +814,7 @@ function CommentsSheet({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="absolute inset-0 bg-sheet-backdrop" onClick={onClose} />
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
         <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b border-border">
           <h3 className="text-[15px] font-semibold">Comments {count}</h3>

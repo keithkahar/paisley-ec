@@ -779,7 +779,7 @@ function WordieXPage() {
       {/* Batch sheet */}
       {batchOpen && (
         <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-sheet-backdrop" />
           <div
             className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
             style={{ height: "58vh" }}
@@ -828,7 +828,7 @@ function WordieXPage() {
       {/* Delete confirm */}
       {confirmDelete && (
         <div
-          className="fixed inset-0 z-50 grid place-items-center bg-black/40 px-6"
+          className="fixed inset-0 z-50 grid place-items-center bg-sheet-backdrop px-6"
           onClick={() => setConfirmDelete(null)}
         >
           <div className="w-full max-w-[320px] rounded-3xl bg-white p-5" onClick={(e) => e.stopPropagation()}>
