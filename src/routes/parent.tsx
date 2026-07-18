@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown, HelpCircle, Check } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
@@ -1438,7 +1438,7 @@ function ThemeSheet({ value, onPick }: { value: string; onPick: (id: string) => 
             }}
           >
             <span className="text-[14px] font-semibold">{t.label}</span>
-            {active && <span className="text-[12px] font-semibold">✓</span>}
+            {active && <Check className="h-4 w-4" />}
           </button>
         );
       })}
@@ -1453,7 +1453,7 @@ function SpeechRateSheet({ value, onChange }: { value: number; onChange: (v: num
         <span className="text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
           当前
         </span>
-        <span className="text-[20px] font-semibold" style={{ color: PAISLEY }}>
+        <span className="text-[18px] font-semibold" style={{ color: PAISLEY }}>
           {value.toFixed(1)}×
         </span>
       </div>
