@@ -31,6 +31,7 @@ function ShirinTalkPage() {
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen, search: { from: "shirin-talk" } as const },
     { to: "/chat", title: "myWordie Talk", icon: null, search: { mode: "mywordie", from: "shirin-talk" } as const },
+    { to: "/chat", title: "Free Talk", icon: MessageCircle, search: { mode: "free", from: "shirin-talk" } as const },
   ];
 
   const today = new Date();
