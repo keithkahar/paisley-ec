@@ -222,7 +222,7 @@ function SmartReadingPage() {
                     style={{ background: "white", border: "1px solid oklch(0.94 0.02 10)" }}
                   >
                     <div
-                      className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[14px] font-bold tracking-tight"
+                      className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[14px] font-light tracking-tight"
                       style={{ background: PINK_BADGE_BG, color: PINK }}
                       aria-hidden
                     >
