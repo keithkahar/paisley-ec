@@ -86,12 +86,12 @@ function AboutPaizleyPage() {
                         className="text-[15px] font-normal leading-relaxed"
                         style={{ color: "#000000" }}
                       >
-                        <span
-                          className="font-bold"
-                          style={{ color: PAISLEY }}
-                        >
-                          Paizley EC
-                        </span>
+                      <span
+                        className="font-extrabold"
+                        style={{ color: PAISLEY }}
+                      >
+                        Paizley EC
+                      </span>
                         {s.body.slice("Paizley EC".length)}
                       </p>
                     </>
