@@ -134,7 +134,7 @@ export function MonthCalendarDialog({
       </div>
 
       {/* Day grid */}
-      <div className="mt-3 grid grid-cols-7 gap-x-1 gap-y-6">
+      <div className="mt-[22px] grid grid-cols-7 gap-x-1 gap-y-[22px]">
         {cells.map((d, i) => {
           if (!d) return <div key={i} className="h-12" />;
           const isToday = sameDay(d, today);
