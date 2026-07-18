@@ -24,7 +24,7 @@ const TOPICS: Topic[] = [
   // Football Talk (unchanged), Magic Adventure (Shirin's knee).
   { topic_id: "smart_reading", title: "Smart Reading", top: 30, left: 2, width: 46, height: 8 },
   { topic_id: "pet_talk", title: "Pet Talk", top: 45.8, left: -5.2, width: 46, height: 8 },
-  { topic_id: "football_talk", title: "Football Talk", top: 75.2, left: 2, width: 46, height: 8 },
+  { topic_id: "football_talk", title: "Football Talk", top: 68, left: 2, width: 46, height: 8 },
   { topic_id: "magic_adventure", title: "Magic Adventure", top: 89.4, left: 2, width: 46, height: 8 },
   // Right column (top -> bottom): Minecraft Talk (cat chest), Food Talk (pink cup),
   // Nature Explore (Shirin's right knee), myWordie Talk (between blue book and laptop).
