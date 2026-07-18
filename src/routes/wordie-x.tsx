@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 import { WordPreview } from "@/components/app/WordPreview";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [
@@ -720,39 +721,20 @@ function WordieXPage() {
       </div>
 
       {/* Resource / Status sheet */}
-      {openSheet && (
-        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setOpenSheet(null)}>
-          <div className="absolute inset-0 bg-black/40" />
-          <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-            style={{ height: "62vh" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-              <span className="h-1 w-10 rounded-full bg-border" />
-            </div>
-            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
-              <span className="w-12" />
-            <p
-                className="text-[17px] font-semibold tracking-tight leading-none"
-                style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
-              >
-                {openSheet === "source"
-                  ? "Choose Resource"
-                  : openSheet === "status"
-                  ? "Choose Status"
-                  : "Choose Part of Speech"}
-              </p>
-              <button
-                type="button"
-                onClick={() => setOpenSheet(null)}
-                className="text-[13px] font-semibold w-12 text-right"
-                style={{ color: "var(--wordie)" }}
-              >
-                Done
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto px-5 pb-8 divide-y divide-border">
+      <StandardSheet
+        open={!!openSheet}
+        title={
+          openSheet === "source"
+            ? "Choose Resource"
+            : openSheet === "status"
+              ? "Choose Status"
+              : "Choose Part of Speech"
+        }
+        brandColor={SHEET_BRAND.wordie}
+        onDone={() => setOpenSheet(null)}
+        onClose={() => setOpenSheet(null)}
+      >
+        <>
               {openSheet === "source" && (
                 <>
                   <SheetRow label="Clear all" active={sourceSel.length === 0} onClick={() => setSourceSel([])} />
@@ -791,10 +773,8 @@ function WordieXPage() {
                   ))}
                 </>
               )}
-            </div>
-          </div>
-        </div>
-      )}
+        </>
+      </StandardSheet>
 
       {/* Batch sheet */}
       {batchOpen && (
