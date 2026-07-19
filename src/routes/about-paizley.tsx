@@ -145,23 +145,6 @@ function ContactCard() {
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <div className="flex items-center gap-3 mb-5">
-        <img
-          src={logoPaizley.url}
-          alt="Paizley EC"
-          className="h-14 w-14 object-contain rounded-[12px]"
-          style={{ backgroundColor: PAISLEY }}
-        />
-        <div>
-          <p className="text-[17px] font-extrabold" style={{ color: PAISLEY }}>
-            Paizley EC
-          </p>
-          <p className="text-[13px] font-normal text-gray-400">
-            帕兹利英语中心
-          </p>
-        </div>
-      </div>
-
       <div className="flex items-start gap-4">
         <div className="flex flex-col gap-2">
           <p className="text-[13px] font-normal text-gray-400">Social</p>
