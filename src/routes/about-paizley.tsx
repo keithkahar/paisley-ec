@@ -115,21 +115,12 @@ function AboutPaizleyPage() {
                     alt={s.title}
                     className="float-left object-contain align-top mr-4 h-[42px] w-[42px]"
                   />
-                  <p
-                    className="relative text-[13px] font-normal leading-[21px] text-gray-600"
-                  >
-                    <span className={`text-[13px] font-extrabold ${s.title === "Paizley EC" ? "relative -left-2.5" : ""}`} style={{ color: s.color }}>
+                  <p className="relative text-[13px] font-normal leading-[21px] text-gray-600">
+                    <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
-                    </span>{" "}
-                    {s.title === "Paizley EC" ? (
-                      <>
-                        {s.body.slice(s.title.length, s.body.indexOf("AI 口语互动"))}
-                        <span className="block" style={{ clear: "left" }} />
-                        {s.body.slice(s.body.indexOf("AI 口语互动"))}
-                      </>
-                    ) : (
-                      s.body.slice(s.title.length)
-                    )}
+                    </span>
+                    {s.title === "Paizley EC" ? "\u00A0\u00A0" : " "}
+                    {s.body.slice(s.title.length)}
                     <ChevronRight
                       size={16}
                       color={s.color}
