@@ -187,18 +187,18 @@ function ContactCard() {
         <div className="pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
           <a
             href="mailto:pec@paizley.cn"
-            className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800 transition-colors group"
           >
-            <Mail size={16} className="text-gray-400 group-hover:text-gray-900" />
+            <Mail size={16} className="text-gray-400 group-hover:text-gray-700" />
             <span className="text-[15px] font-normal">pec@paizley.cn</span>
           </a>
           <a
             href="https://www.paizley.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800 transition-colors group"
           >
-            <Globe size={16} className="text-gray-400 group-hover:text-gray-900" />
+            <Globe size={16} className="text-gray-400 group-hover:text-gray-700" />
             <span className="text-[15px] font-normal">www.paizley.cn</span>
           </a>
         </div>
