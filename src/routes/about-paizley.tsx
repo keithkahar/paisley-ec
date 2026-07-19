@@ -112,8 +112,8 @@ function AboutPaizleyPage() {
                   className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
                 />
                 <p
-                  className="relative text-[15px] font-normal"
-                  style={{ color: "#000000", lineHeight: "25.8333px" }}
+                  className="relative text-[15px] font-normal text-gray-600"
+                  style={{ lineHeight: "25.8333px" }}
                 >
                   <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
                     {s.title}
@@ -160,7 +160,7 @@ function ContactCard() {
 
       <div className="relative p-5">
         {/* Header */}
-        <h3 className="text-[17px] font-extrabold tracking-tight mb-5" style={{ fontFamily: "'Nunito', sans-serif" }}>
+        <h3 className="text-[17px] font-extrabold tracking-tight mb-5" style={{ fontFamily: "'Nunito', sans-serif", color: PAISLEY }}>
           Follow Us on
         </h3>
 
@@ -176,7 +176,7 @@ function ContactCard() {
                 alt={s.label}
                 className="h-12 w-12 object-contain"
               />
-              <span className="text-[12px] font-medium text-gray-700 whitespace-nowrap">
+              <span className="text-[12px] font-medium text-gray-600 whitespace-nowrap">
                 Paizley EC
               </span>
             </div>
@@ -187,18 +187,18 @@ function ContactCard() {
         <div className="pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
           <a
             href="mailto:pec@paizley.cn"
-            className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800 transition-colors group"
           >
-            <Mail size={16} className="text-gray-400 group-hover:text-gray-900" />
+            <Mail size={16} className="text-gray-400 group-hover:text-gray-700" />
             <span className="text-[15px] font-normal">pec@paizley.cn</span>
           </a>
           <a
             href="https://www.paizley.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800 transition-colors group"
           >
-            <Globe size={16} className="text-gray-400 group-hover:text-gray-900" />
+            <Globe size={16} className="text-gray-400 group-hover:text-gray-700" />
             <span className="text-[15px] font-normal">www.paizley.cn</span>
           </a>
         </div>
