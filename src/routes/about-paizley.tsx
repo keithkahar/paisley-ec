@@ -165,7 +165,7 @@ function ContactCard() {
         </h3>
 
         {/* Social platforms */}
-        <div className="flex items-start justify-between mb-5 px-1">
+        <div className="flex items-start justify-center gap-8 mb-5 px-4">
           {socials.map((s) => (
             <div
               key={s.label}
