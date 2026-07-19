@@ -27,7 +27,9 @@ function Home() {
 
   const handleLogoClick = () => {
     clickCount.current += 1;
+
     if (clickCount.current === 5) {
+      // 5 rapid clicks -> admin
       clickCount.current = 0;
       if (clickTimer.current) {
         clearTimeout(clickTimer.current);
@@ -36,16 +38,17 @@ function Home() {
       navigate({ to: "/admin" });
       return;
     }
+
+    // Reset the timer on every click so it only expires after the user stops tapping
     if (clickTimer.current) clearTimeout(clickTimer.current);
     clickTimer.current = setTimeout(() => {
+      const count = clickCount.current;
       clickCount.current = 0;
       clickTimer.current = null;
+      if (count > 0 && count < 5) {
+        navigate({ to: "/about-paizley" });
+      }
     }, 800);
-
-    // First click in a sequence still navigates to about-paizley
-    if (clickCount.current === 1) {
-      navigate({ to: "/about-paizley" });
-    }
   };
 
   return (
