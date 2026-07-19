@@ -152,7 +152,7 @@ function ContactCard() {
               className="h-7 w-7 object-contain"
             />
             {i < socials.length - 1 && (
-              <div className="ml-4 w-px h-5 bg-gray-200" />
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
             )}
           </div>
         ))}
