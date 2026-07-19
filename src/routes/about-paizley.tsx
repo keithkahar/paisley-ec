@@ -151,7 +151,7 @@ function ContactCard() {
               alt={s.label}
               className="h-10 w-10 object-contain"
             />
-            <span className="text-[11px] font-normal text-gray-400">@ Paizley EC</span>
+            <span className="text-[9px] font-normal text-gray-400">@ Paizley EC</span>
             {i < socials.length - 1 && (
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
             )}
