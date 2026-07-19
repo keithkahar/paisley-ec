@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Globe, Mail } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import logoPaizley from "@/assets/about/about-paizley.png.asset.json";
@@ -11,6 +11,10 @@ import logoMyon from "@/assets/about/about-myon.png.asset.json";
 import logoClassin from "@/assets/about/about-classin.png.asset.json";
 import logoHomeSchool from "@/assets/about/about-home-school.png.asset.json";
 import logoPlp from "@/assets/about/about-plp.png.asset.json";
+import iconVideoChannel from "@/assets/contact/video-channel.png.asset.json";
+import iconXiaohongshu from "@/assets/contact/xiaohongshu.png.asset.json";
+import iconDouyin from "@/assets/contact/douyin.png.asset.json";
+import iconWechat from "@/assets/contact/wechat.png.asset.json";
 
 export const Route = createFileRoute("/about-paizley")({
   head: () => ({
@@ -121,8 +125,51 @@ function AboutPaizleyPage() {
               </article>
             ))}
           </div>
+
+          <ContactCard />
         </main>
       </div>
     </PhoneFrame>
+  );
+}
+
+function ContactCard() {
+  const socials = [
+    { label: "视频号", icon: iconVideoChannel.url },
+    { label: "小红书", icon: iconXiaohongshu.url },
+    { label: "抖音", icon: iconDouyin.url },
+  ];
+  return (
+    <article
+      className="mt-4 rounded-[22px] bg-white p-5"
+      style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
+    >
+      <h3
+        className="text-[17px] font-extrabold mb-3"
+        style={{ color: PAISLEY }}
+      >
+        Contact Us 联系我们
+      </h3>
+      <ul className="flex flex-col gap-2.5 text-[15px]" style={{ color: "#000000", lineHeight: "25.8333px" }}>
+        <li className="flex items-center gap-2">
+          {socials.map((s) => (
+            <img key={s.label} src={s.icon} alt={s.label} className="h-5 w-5 rounded-[5px] object-contain" />
+          ))}
+          <span className="ml-1">Paizley EC</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <Globe size={20} color={PAISLEY} strokeWidth={2} />
+          <span>paizley.cn</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <Mail size={20} color={PAISLEY} strokeWidth={2} />
+          <span>pec@paizley.cn</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <img src={iconWechat.url} alt="微信" className="h-5 w-5 rounded-[5px] object-contain" />
+          <span>keith_peace</span>
+        </li>
+      </ul>
+    </article>
   );
 }
