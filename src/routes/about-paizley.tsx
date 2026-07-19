@@ -127,7 +127,7 @@ function AboutPaizleyPage() {
                 </p>
                 <div className="clear-both mt-4 -mx-4 -mb-4">
                   <div
-                    className="h-2 w-full"
+                    className="h-1 w-full"
                     style={{ backgroundColor: s.color }}
                   />
                 </div>
