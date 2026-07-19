@@ -158,7 +158,7 @@ function AboutPaizleyPage() {
 
 function ContactCard() {
   const socials = [
-    { icon: iconGongzhonghao.url, label: "公众号", iconClass: "h-10 w-10" },
+    { icon: iconGongzhonghao.url, label: "公众号", iconClass: "h-[37px] w-[37px]" },
     { icon: iconVideoChannel.url, label: "视频号", iconClass: "h-9 w-9" },
     { icon: iconXiaohongshu.url, label: "小红书", iconClass: "h-9 w-9" },
     { icon: iconDouyin.url, label: "抖音", iconClass: "h-9 w-9" },
