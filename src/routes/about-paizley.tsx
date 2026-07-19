@@ -14,7 +14,6 @@ import logoPlp from "@/assets/about/about-plp.png.asset.json";
 import iconVideoChannel from "@/assets/contact/video-channel.png.asset.json";
 import iconXiaohongshu from "@/assets/contact/xiaohongshu.png.asset.json";
 import iconDouyin from "@/assets/contact/douyin.png.asset.json";
-import iconWechat from "@/assets/contact/wechat.png.asset.json";
 
 export const Route = createFileRoute("/about-paizley")({
   head: () => ({
