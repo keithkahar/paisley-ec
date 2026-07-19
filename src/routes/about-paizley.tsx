@@ -102,41 +102,53 @@ function AboutPaizleyPage() {
 
         <main className="px-6 pt-[53px] pb-10">
           <div className="flex flex-col gap-4">
-            {sections.map((s) => (
-              <article
-                key={s.title}
-                className="rounded-[22px] bg-white p-4 overflow-hidden"
-                style={{
-                  boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
-                }}
-              >
-                <img
-                  src={s.logo}
-                  alt={s.title}
-                  className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
-                />
-                <p
-                  className="relative text-[15px] font-normal text-gray-600"
-                  style={{ lineHeight: "25.8333px" }}
+            {sections.map((s) => {
+              const card = (
+                <article
+                  className="rounded-[22px] bg-white p-4 overflow-hidden"
+                  style={{
+                    boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
+                  }}
                 >
-                  <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
-                    {s.title}
-                  </span>{" "}
-                  {s.body.slice(s.title.length)}
-                  <ChevronRight
-                    size={16}
-                    color={s.color}
-                    className="absolute bottom-[5px] right-0"
+                  <img
+                    src={s.logo}
+                    alt={s.title}
+                    className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
                   />
-                </p>
-                <div className="clear-both mt-4 -mx-4 -mb-4">
-                  <div
-                    className="h-[2px] w-full"
-                    style={{ backgroundColor: s.color }}
-                  />
-                </div>
-              </article>
-            ))}
+                  <p
+                    className="relative text-[15px] font-normal text-gray-600"
+                    style={{ lineHeight: "25.8333px" }}
+                  >
+                    <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
+                      {s.title}
+                    </span>{" "}
+                    {s.body.slice(s.title.length)}
+                    <ChevronRight
+                      size={16}
+                      color={s.color}
+                      className="absolute bottom-[5px] right-0"
+                    />
+                  </p>
+                  <div className="clear-both mt-4 -mx-4 -mb-4">
+                    <div
+                      className="h-[2px] w-full"
+                      style={{ backgroundColor: s.color }}
+                    />
+                  </div>
+                </article>
+              );
+              return s.to ? (
+                <Link
+                  key={s.title}
+                  to={s.to}
+                  className="block no-underline"
+                >
+                  {card}
+                </Link>
+              ) : (
+                <div key={s.title}>{card}</div>
+              );
+            })}
           </div>
 
           <ContactCard />
