@@ -145,7 +145,7 @@ function ContactCard() {
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <h3 className="text-center text-[15px] font-normal text-gray-700">
+      <h3 className="text-center text-[15px] font-normal text-gray-700 mb-2">
         Follow Us on
       </h3>
       <div className="flex items-center">
