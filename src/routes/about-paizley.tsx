@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChevronRight, Globe, Mail } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import logoPaizley from "@/assets/about/about-paizley.png.asset.json";
@@ -151,7 +151,10 @@ function ContactCard() {
               alt={s.label}
               className="h-10 w-10 object-contain"
             />
-            <span className="text-[9px] font-normal text-gray-400">@ Paizley EC</span>
+            <span className="font-normal text-gray-400">
+              <span className="text-[9px]">@</span>{" "}
+              <span className="text-[11px]">Paizley EC</span>
+            </span>
             {i < socials.length - 1 && (
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
             )}
@@ -160,14 +163,8 @@ function ContactCard() {
       </div>
 
       <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
-        <div className="flex items-center gap-2">
-          <Globe size={18} color={PAISLEY} strokeWidth={2} />
-          <span className="text-[13px] font-normal text-gray-700">paizley.cn</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Mail size={18} color={PAISLEY} strokeWidth={2} />
-          <span className="text-[13px] font-normal text-gray-700">pec@paizley.cn</span>
-        </div>
+        <span className="text-[13px] font-normal text-gray-700">pec@paizley.cn</span>
+        <span className="text-[13px] font-normal text-gray-700">www.paizley.cn</span>
       </div>
     </article>
   );
