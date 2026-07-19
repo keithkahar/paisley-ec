@@ -118,7 +118,7 @@ function AboutPaizleyPage() {
                   <p
                     className="relative text-[13px] font-normal leading-[21px] text-gray-600"
                   >
-                    <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
+                    <span className={`text-[13px] font-extrabold ${s.title === "Paizley EC" ? "relative -left-2.5" : ""}`} style={{ color: s.color }}>
                       {s.title}
                     </span>{" "}
                     {s.title === "Paizley EC" ? (
