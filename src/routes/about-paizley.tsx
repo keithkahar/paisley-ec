@@ -81,7 +81,7 @@ const sections = [
     title: "Home School Resources",
     logo: logoHomeSchool.url,
     color: "#06a3e4",
-    body: "Home School Resources是专为家长在家支持孩子英语学习而设计的家庭学习资源体系，提供分级搭配的动画、视频等内容。这些资源以趣味性和自然习得为核心，帮助孩子在轻松的家庭环境中迈出英语启蒙的第一步。",
+    body: "Home School Resources是专为家长在家支持孩子英语学习而设计的家庭学习资源体系，提供分级搭配的动画、视频等内容。\n这些资源以趣味性和自然习得为核心，帮助孩子在轻松的家庭环境中迈出英语启蒙的第一步。",
   },
   {
     title: "Personalized Learning Plans",
@@ -115,7 +115,7 @@ function AboutPaizleyPage() {
                     alt={s.title}
                     className="float-left object-contain align-top mr-1.5 h-9 w-9"
                   />
-                  <p className="relative text-[13px] font-normal leading-[21px] text-gray-600">
+                  <p className="relative text-[13px] font-normal leading-[21px] text-gray-600" style={{ whiteSpace: "pre-line" }}>
                     <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
                     </span>
@@ -124,7 +124,7 @@ function AboutPaizleyPage() {
                     <ChevronRight
                       size={16}
                       color={s.color}
-                      className="absolute bottom-[5px] right-0"
+                      className="absolute bottom-[3px] right-0"
                     />
                   </p>
                   <div className="clear-both mt-4 -mx-4 -mb-4">
