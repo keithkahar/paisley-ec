@@ -142,34 +142,81 @@ function ContactCard() {
   ];
   return (
     <article
-      className="mt-4 rounded-[22px] bg-white p-5"
+      className="mt-4 rounded-[22px] bg-white overflow-hidden relative"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <h3 className="text-center text-[15px] font-normal text-gray-700 mb-2">
-        Follow Us on
-      </h3>
-      <div className="flex items-center">
-        {socials.map((s, i) => (
-          <div key={i} className="relative flex flex-col items-center justify-center flex-1 gap-1">
-            <img
-              src={s.icon}
-              alt={s.label}
-              className="h-10 w-10 object-contain"
-            />
-            <span className="font-normal text-[11px] text-gray-400">
-              Paizley EC
-            </span>
-            {i < socials.length - 1 && (
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
-            )}
-          </div>
-        ))}
+      {/* Decorative glows */}
+      <div
+        className="absolute -top-16 -right-16 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+        style={{ background: "rgba(1, 70, 185, 0.06)" }}
+      />
+      <div
+        className="absolute -bottom-16 -left-16 w-32 h-32 rounded-full blur-3xl pointer-events-none"
+        style={{ background: "rgba(1, 70, 185, 0.04)" }}
+      />
+
+      <div className="relative p-5">
+        {/* Header */}
+        <div className="mb-5">
+          <span className="block text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-1">
+            Social Presence
+          </span>
+          <h3 className="text-[17px] font-semibold text-gray-800 tracking-tight">
+            Follow Us on
+          </h3>
+        </div>
+
+        {/* Social platforms */}
+        <div className="grid grid-cols-4 gap-3 mb-5">
+          {socials.map((s) => (
+            <div
+              key={s.label}
+              className="flex flex-col items-center gap-2 group cursor-pointer"
+            >
+              <div
+                className="w-12 h-12 rounded-[14px] flex items-center justify-center transition-all duration-300 group-hover:bg-[#0146b9] border border-gray-100"
+                style={{ background: "#f9fafb" }}
+              >
+                <img
+                  src={s.icon}
+                  alt={s.label}
+                  className="h-6 w-6 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
+                />
+              </div>
+              <span className="text-[9px] font-medium text-gray-400 whitespace-nowrap">
+                Paizley EC
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Contact footer */}
+        <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+          <a
+            href="mailto:pec@paizley.cn"
+            className="flex items-center gap-3 text-sm text-gray-600 hover:text-black transition-colors group"
+          >
+            <div className="w-5 h-5 flex items-center justify-center">
+              <Mail size={16} className="text-gray-400 group-hover:text-gray-900" />
+            </div>
+            <span className="text-[15px] font-normal">pec@paizley.cn</span>
+          </a>
+          <a
+            href="https://www.paizley.cn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-sm text-gray-600 hover:text-black transition-colors group"
+          >
+            <div className="w-5 h-5 flex items-center justify-center">
+              <Globe size={16} className="text-gray-400 group-hover:text-gray-900" />
+            </div>
+            <span className="text-[15px] font-normal">www.paizley.cn</span>
+          </a>
+        </div>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
-        <span className="text-[15px] font-normal text-gray-700">pec@paizley.cn</span>
-        <span className="text-[15px] font-normal text-gray-700">www.paizley.cn</span>
-      </div>
+      {/* Bottom accent bar */}
+      <div className="h-1 w-full bg-[#0146b9]" />
     </article>
   );
 }
