@@ -32,7 +32,7 @@ type Props = {
   showCancel?: boolean;
   /** Body padding-top offset, defaults to 10px per spec. */
   contentPaddingTop?: number;
-  /** Optional override height (default 62vh). */
+  /** Optional override height (default: 62vh capped by safe bottom clearance). */
   height?: string;
   children: ReactNode;
 };
@@ -45,7 +45,7 @@ export function StandardSheet({
   onDone,
   showCancel,
   contentPaddingTop = 10,
-  height = "62vh",
+  height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   children,
 }: Props) {
   useEffect(() => {
