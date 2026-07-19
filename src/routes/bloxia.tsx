@@ -1349,7 +1349,7 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute inset-0 bg-transparent pointer-events-auto"
+        className="absolute inset-0 bg-sheet-backdrop pointer-events-auto"
       />
       <div
         className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
