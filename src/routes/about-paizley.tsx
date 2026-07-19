@@ -162,7 +162,7 @@ function ContactCard() {
         </h3>
 
         {/* Social platforms */}
-        <div className="flex items-start justify-between mb-5 w-full">
+        <div className="flex items-start justify-between mb-5 px-1">
           {socials.map((s) => (
             <div
               key={s.label}
@@ -181,7 +181,7 @@ function ContactCard() {
         </div>
 
         {/* Contact footer */}
-        <div className="pt-4 border-t border-gray-100 flex items-center justify-between w-full">
+        <div className="pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
           <a
             href="mailto:pec@paizley.cn"
             className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
