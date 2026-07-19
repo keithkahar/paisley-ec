@@ -11,10 +11,11 @@ import logoMyon from "@/assets/about/about-myon.png.asset.json";
 import logoClassin from "@/assets/about/about-classin.png.asset.json";
 import logoHomeSchool from "@/assets/about/about-home-school.png.asset.json";
 import logoPlp from "@/assets/about/about-plp.png.asset.json";
-const GONGZHONGHAO_URL = "/assets/contact/gongzhonghao.png";
 import iconVideoChannel from "@/assets/contact/video-channel.png.asset.json";
 import iconXiaohongshu from "@/assets/contact/xiaohongshu.png.asset.json";
 import iconDouyin from "@/assets/contact/douyin.png.asset.json";
+
+const GONGZHONGHAO_URL = "/assets/contact/gongzhonghao.png";
 
 export const Route = createFileRoute("/about-paizley")({
   head: () => ({
