@@ -163,14 +163,8 @@ function ContactCard() {
       </div>
 
       <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
-        <div className="flex items-center gap-2">
-          <Globe size={18} color={PAISLEY} strokeWidth={2} />
-          <span className="text-[13px] font-normal text-gray-700">paizley.cn</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Mail size={18} color={PAISLEY} strokeWidth={2} />
-          <span className="text-[13px] font-normal text-gray-700">pec@paizley.cn</span>
-        </div>
+        <span className="text-[13px] font-normal text-gray-700">pec@paizley.cn</span>
+        <span className="text-[13px] font-normal text-gray-700">www.paizley.cn</span>
       </div>
     </article>
   );
