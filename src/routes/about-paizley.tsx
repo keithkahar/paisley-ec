@@ -14,8 +14,7 @@ import logoPlp from "@/assets/about/about-plp.png.asset.json";
 import iconVideoChannel from "@/assets/contact/video-channel.png.asset.json";
 import iconXiaohongshu from "@/assets/contact/xiaohongshu.png.asset.json";
 import iconDouyin from "@/assets/contact/douyin.png.asset.json";
-
-const GONGZHONGHAO_URL = "/assets/contact/gongzhonghao.png";
+import iconGongzhonghao from "@/assets/contact/gongzhonghao.png.asset.json";
 
 export const Route = createFileRoute("/about-paizley")({
   head: () => ({
@@ -136,7 +135,7 @@ function AboutPaizleyPage() {
 
 function ContactCard() {
   const socials = [
-    { icon: GONGZHONGHAO_URL, label: "公众号" },
+    { icon: iconGongzhonghao.url, label: "公众号" },
     { icon: iconVideoChannel.url, label: "视频号" },
     { icon: iconXiaohongshu.url, label: "小红书" },
     { icon: iconDouyin.url, label: "抖音" },
