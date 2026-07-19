@@ -113,11 +113,10 @@ function AboutPaizleyPage() {
                   <img
                     src={s.logo}
                     alt={s.title}
-                    className="float-left object-contain align-top mr-4 mb-[13px] h-12 w-12"
+                    className="float-left object-contain align-top mr-4 h-11 w-11"
                   />
                   <p
-                    className="relative text-[13px] font-normal text-gray-600"
-                    style={{ lineHeight: "25.8333px" }}
+                    className="relative text-[13px] font-normal leading-[22px] text-gray-600"
                   >
                     <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
