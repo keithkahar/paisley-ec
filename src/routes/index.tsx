@@ -22,7 +22,34 @@ export const Route = createFileRoute("/")({
 function Home() {
   const name = "Daniella Wang";
   const navigate = useNavigate();
+  const clickCount = useRef(0);
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleLogoClick = () => {
+    clickCount.current += 1;
+    if (clickCount.current === 5) {
+      clickCount.current = 0;
+      if (clickTimer.current) {
+        clearTimeout(clickTimer.current);
+        clickTimer.current = null;
+      }
+      navigate({ to: "/admin" });
+      return;
+    }
+    if (clickTimer.current) clearTimeout(clickTimer.current);
+    clickTimer.current = setTimeout(() => {
+      clickCount.current = 0;
+      clickTimer.current = null;
+    }, 800);
+
+    // First click in a sequence still navigates to about-paizley
+    if (clickCount.current === 1) {
+      navigate({ to: "/about-paizley" });
+    }
+  };
+
   return (
+
     <PhoneFrame bg="bg-card">
       <div className="relative h-[calc(100dvh-6rem)] overflow-hidden flex flex-col bg-[color:var(--paisley-soft)]">
         {/* App logo top-left */}
