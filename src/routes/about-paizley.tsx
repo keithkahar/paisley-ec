@@ -116,10 +116,10 @@ function AboutPaizleyPage() {
                     className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
                   />
                   <p
-                    className="relative text-[15px] font-normal text-gray-600"
+                    className="relative text-[13px] font-normal text-gray-600"
                     style={{ lineHeight: "25.8333px" }}
                   >
-                    <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
+                    <span className="text-[15px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
                     </span>{" "}
                     {s.body.slice(s.title.length)}
