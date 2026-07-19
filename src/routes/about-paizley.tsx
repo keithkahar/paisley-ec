@@ -145,12 +145,13 @@ function ContactCard() {
     >
       <div className="flex items-center">
         {socials.map((s, i) => (
-          <div key={i} className="relative flex items-center justify-center flex-1">
+          <div key={i} className="relative flex flex-col items-center justify-center flex-1 gap-1">
             <img
               src={s.icon}
               alt={s.label}
               className="h-10 w-10 object-contain"
             />
+            <span className="text-[11px] font-normal text-gray-400">@ Paizley EC</span>
             {i < socials.length - 1 && (
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
             )}
