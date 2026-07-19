@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight, Mail, Globe } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -35,24 +35,28 @@ const sections = [
     title: "Paizley EC",
     logo: logoPaizley.url,
     color: PAISLEY,
+    to: "/",
     body: "Paizley EC为低龄英语学习者提供完整、温和、可持续的英语学习支持。我们结合 AI 口语互动、个性化词汇复习、成长激励、原版分级阅读、线上学习课程、家庭学习资源与专业学习规划指导，帮助孩子逐步建立英语听、说、读、写综合能力，重点提升表达能力。",
   },
   {
     title: "ShirinTalk",
     logo: logoShirin.url,
     color: "#f83e6a",
+    to: "/shirin-talk",
     body: "ShirinTalk是特别定制的 AI 口语伙伴教练。Shirin 会通过温和、循序渐进的引导式对话，帮助孩子建立每日开口说英语的自信心。她会鼓励孩子用完整、简洁的英语句子作答，并友善地纠正语法或用词错误，让口语练习更自然、更高效。",
   },
   {
     title: "myWordie",
     logo: logoWordie.url,
     color: "#5064f5",
+    to: "/mywordie",
     body: "myWordie是自带记忆算法的个性化词汇学习与复习系统。词库涵盖 A1-B2 级别，帮助孩子把阅读和口语中遇到的新词沉淀为自己的词库，并通过词卡、复习、测试和 myWordie Talk，把单词从“认识”逐步变成“会用”。",
   },
   {
     title: "Bloxia",
     logo: logoBloxia.url,
     color: "#55a029",
+    to: "/bloxia",
     body: "Bloxia是学习成长世界。孩子通过完成口语、阅读、词汇和测评任务获得 Bp 成长积分，并在 Bloxia 中解锁地点、徽章和收藏物，让学习进步变得可见、有趣，也更有持续动力。",
   },
   {
@@ -98,41 +102,53 @@ function AboutPaizleyPage() {
 
         <main className="px-6 pt-[53px] pb-10">
           <div className="flex flex-col gap-4">
-            {sections.map((s) => (
-              <article
-                key={s.title}
-                className="rounded-[22px] bg-white p-4 overflow-hidden"
-                style={{
-                  boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
-                }}
-              >
-                <img
-                  src={s.logo}
-                  alt={s.title}
-                  className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
-                />
-                <p
-                  className="relative text-[15px] font-normal text-gray-600"
-                  style={{ lineHeight: "25.8333px" }}
+            {sections.map((s) => {
+              const card = (
+                <article
+                  className="rounded-[22px] bg-white p-4 overflow-hidden"
+                  style={{
+                    boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
+                  }}
                 >
-                  <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
-                    {s.title}
-                  </span>{" "}
-                  {s.body.slice(s.title.length)}
-                  <ChevronRight
-                    size={16}
-                    color={s.color}
-                    className="absolute bottom-[5px] right-0"
+                  <img
+                    src={s.logo}
+                    alt={s.title}
+                    className="float-left object-contain align-top mr-4 mb-[13px] h-16 w-16"
                   />
-                </p>
-                <div className="clear-both mt-4 -mx-4 -mb-4">
-                  <div
-                    className="h-[2px] w-full"
-                    style={{ backgroundColor: s.color }}
-                  />
-                </div>
-              </article>
-            ))}
+                  <p
+                    className="relative text-[15px] font-normal text-gray-600"
+                    style={{ lineHeight: "25.8333px" }}
+                  >
+                    <span className="text-[17px] font-extrabold" style={{ color: s.color }}>
+                      {s.title}
+                    </span>{" "}
+                    {s.body.slice(s.title.length)}
+                    <ChevronRight
+                      size={16}
+                      color={s.color}
+                      className="absolute bottom-[5px] right-0"
+                    />
+                  </p>
+                  <div className="clear-both mt-4 -mx-4 -mb-4">
+                    <div
+                      className="h-[2px] w-full"
+                      style={{ backgroundColor: s.color }}
+                    />
+                  </div>
+                </article>
+              );
+              return s.to ? (
+                <Link
+                  key={s.title}
+                  to={s.to}
+                  className="block no-underline"
+                >
+                  {card}
+                </Link>
+              ) : (
+                <div key={s.title}>{card}</div>
+              );
+            })}
           </div>
 
           <ContactCard />
@@ -166,7 +182,7 @@ function ContactCard() {
 
       <div className="relative p-5">
         {/* Header */}
-        <h3 className="text-[17px] font-extrabold tracking-tight mb-5" style={{ fontFamily: "'Nunito', sans-serif", color: PAISLEY }}>
+        <h3 className="text-[17px] font-extrabold tracking-tight mb-5 text-gray-600" style={{ fontFamily: "'Nunito', sans-serif" }}>
           Follow Us on
         </h3>
 
