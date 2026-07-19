@@ -211,7 +211,7 @@ function ContactCard() {
       </div>
 
       {/* Bottom accent bar */}
-      <div className="h-1 w-full bg-[#0146b9]" />
+      <div className="h-[2px] w-full bg-[#0146b9]" />
     </article>
   );
 }
