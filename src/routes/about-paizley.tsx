@@ -146,10 +146,20 @@ function ContactCard() {
       <div className="flex items-center">
         {socials.map((s, i) => (
           <div key={i} className="relative flex items-center justify-center flex-1">
-            <img
-              src={s.icon}
-              alt={s.label}
-              className="h-10 w-10 object-contain grayscale opacity-70"
+            <div
+              className="h-10 w-10"
+              aria-label={s.label}
+              style={{
+                backgroundColor: "#808080",
+                maskImage: `url("${s.icon}")`,
+                WebkitMaskImage: `url("${s.icon}")`,
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+              }}
             />
             {i < socials.length - 1 && (
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
