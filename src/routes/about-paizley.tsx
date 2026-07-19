@@ -119,7 +119,7 @@ function AboutPaizleyPage() {
                     className="relative text-[13px] font-normal text-gray-600"
                     style={{ lineHeight: "25.8333px" }}
                   >
-                    <span className="text-[15px] font-extrabold" style={{ color: s.color }}>
+                    <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
                     </span>{" "}
                     {s.body.slice(s.title.length)}
