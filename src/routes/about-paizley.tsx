@@ -171,9 +171,9 @@ function ContactCard() {
               <img
                 src={s.icon}
                 alt={s.label}
-                className="h-10 w-10 object-contain"
+                className="h-12 w-12 object-contain"
               />
-              <span className="text-[9px] font-medium text-gray-400 whitespace-nowrap">
+              <span className="text-[9px] font-medium text-gray-700 whitespace-nowrap">
                 Paizley EC
               </span>
             </div>
