@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChevronRight, Globe, Mail } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import logoPaizley from "@/assets/about/about-paizley.png.asset.json";
