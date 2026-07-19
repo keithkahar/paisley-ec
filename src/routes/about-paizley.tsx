@@ -125,6 +125,12 @@ function AboutPaizleyPage() {
                     className="absolute bottom-[5px] right-0"
                   />
                 </p>
+                <div className="clear-both mt-4">
+                  <div
+                    className="h-2 w-full rounded-full"
+                    style={{ backgroundColor: s.color }}
+                  />
+                </div>
               </article>
             ))}
           </div>
