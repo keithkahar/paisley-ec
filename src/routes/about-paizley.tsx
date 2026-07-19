@@ -134,24 +134,27 @@ function AboutPaizleyPage() {
 
 function ContactCard() {
   const socials = [
-    { icon: iconVideoChannel.url },
-    { icon: iconXiaohongshu.url },
-    { icon: iconDouyin.url },
+    { icon: iconVideoChannel.url, label: "视频号" },
+    { icon: iconXiaohongshu.url, label: "小红书" },
+    { icon: iconDouyin.url, label: "抖音" },
   ];
   return (
     <article
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center">
         {socials.map((s, i) => (
-          <img
-            key={i}
-            src={s.icon}
-            alt="social"
-            className="h-8 w-8 rounded-[8px] object-contain"
-            style={{ backgroundColor: "rgba(1, 70, 185, 0.06)" }}
-          />
+          <div key={i} className="relative flex items-center justify-center flex-1">
+            <img
+              src={s.icon}
+              alt={s.label}
+              className="h-7 w-7 object-contain"
+            />
+            {i < socials.length - 1 && (
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
+            )}
+          </div>
         ))}
       </div>
 
