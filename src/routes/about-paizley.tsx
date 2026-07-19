@@ -167,16 +167,12 @@ function ContactCard() {
         </div>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-2 gap-3">
+      <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-3">
         <div className="flex items-center gap-2">
           <Globe size={18} color={PAISLEY} strokeWidth={2} />
           <span className="text-[13px] font-normal text-gray-700">paizley.cn</span>
         </div>
         <div className="flex items-center gap-2">
-          <img src={iconWechat.url} alt="微信" className="h-4 w-4 rounded-[4px] object-contain" />
-          <span className="text-[13px] font-normal text-gray-700">keith_peace</span>
-        </div>
-        <div className="col-span-2 flex items-center gap-2">
           <Mail size={18} color={PAISLEY} strokeWidth={2} />
           <span className="text-[13px] font-normal text-gray-700">pec@paizley.cn</span>
         </div>
