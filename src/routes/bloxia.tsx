@@ -1355,7 +1355,6 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         className="relative w-full max-w-[420px] rounded-t-[24px] pointer-events-auto flex flex-col"
         style={{
           background: "transparent",
-          borderTop: `2px solid ${T.border}`,
           boxShadow: "0 -12px 30px rgba(0,0,0,0.45)",
         }}
       >
