@@ -158,10 +158,10 @@ function AboutPaizleyPage() {
 
 function ContactCard() {
   const socials = [
-    { icon: iconGongzhonghao.url, label: "公众号" },
-    { icon: iconVideoChannel.url, label: "视频号" },
-    { icon: iconXiaohongshu.url, label: "小红书" },
-    { icon: iconDouyin.url, label: "抖音" },
+    { icon: iconGongzhonghao.url, label: "公众号", iconClass: "h-[42px] w-[42px]" },
+    { icon: iconVideoChannel.url, label: "视频号", iconClass: "h-9 w-9" },
+    { icon: iconXiaohongshu.url, label: "小红书", iconClass: "h-9 w-9" },
+    { icon: iconDouyin.url, label: "抖音", iconClass: "h-9 w-9" },
   ];
   return (
     <article
