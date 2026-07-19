@@ -157,12 +157,12 @@ function ContactCard() {
 
       <div className="relative p-5">
         {/* Header */}
-        <h3 className="text-center text-[17px] font-semibold tracking-tight mb-5" style={{ fontFamily: "'Nunito', sans-serif" }}>
+        <h3 className="text-[17px] font-extrabold tracking-tight mb-5" style={{ fontFamily: "'Nunito', sans-serif" }}>
           Follow Us on
         </h3>
 
         {/* Social platforms */}
-        <div className="flex items-start justify-center gap-6 mb-5">
+        <div className="flex items-start justify-between mb-5 px-1">
           {socials.map((s) => (
             <div
               key={s.label}
