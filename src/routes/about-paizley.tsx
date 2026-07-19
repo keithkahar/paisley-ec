@@ -143,7 +143,7 @@ function ContactCard() {
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         {socials.map((s, i) => (
           <div key={i} className="flex items-center justify-center flex-1">
             <img
@@ -151,6 +151,9 @@ function ContactCard() {
               alt={s.label}
               className="h-7 w-7 object-contain"
             />
+            {i < socials.length - 1 && (
+              <div className="ml-4 w-px h-5 bg-gray-200" />
+            )}
           </div>
         ))}
       </div>
