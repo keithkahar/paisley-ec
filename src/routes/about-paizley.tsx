@@ -138,38 +138,66 @@ function ContactCard() {
     { label: "视频号", icon: iconVideoChannel.url },
     { label: "小红书", icon: iconXiaohongshu.url },
     { label: "抖音", icon: iconDouyin.url },
+    { label: "微信", icon: iconWechat.url },
   ];
   return (
     <article
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <h3
-        className="text-[17px] font-extrabold mb-3"
-        style={{ color: PAISLEY }}
-      >
-        Contact Us 联系我们
-      </h3>
-      <ul className="flex flex-col gap-2.5 text-[15px]" style={{ color: "#000000", lineHeight: "25.8333px" }}>
-        <li className="flex items-center gap-2">
-          {socials.map((s) => (
-            <img key={s.label} src={s.icon} alt={s.label} className="h-5 w-5 rounded-[5px] object-contain" />
-          ))}
-          <span className="ml-1">Paizley EC</span>
-        </li>
-        <li className="flex items-center gap-2">
-          <Globe size={20} color={PAISLEY} strokeWidth={2} />
-          <span>paizley.cn</span>
-        </li>
-        <li className="flex items-center gap-2">
-          <Mail size={20} color={PAISLEY} strokeWidth={2} />
-          <span>pec@paizley.cn</span>
-        </li>
-        <li className="flex items-center gap-2">
-          <img src={iconWechat.url} alt="微信" className="h-5 w-5 rounded-[5px] object-contain" />
-          <span>keith_peace</span>
-        </li>
-      </ul>
+      <div className="flex items-center gap-3 mb-5">
+        <img
+          src={logoPaizley.url}
+          alt="Paizley EC"
+          className="h-14 w-14 object-contain rounded-[12px]"
+          style={{ backgroundColor: PAISLEY }}
+        />
+        <div>
+          <p className="text-[17px] font-extrabold" style={{ color: PAISLEY }}>
+            Paizley EC
+          </p>
+          <p className="text-[13px] font-normal text-gray-400">
+            帕兹利英语中心
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-start gap-4">
+        <div className="flex flex-col gap-2">
+          <p className="text-[13px] font-normal text-gray-400">Social</p>
+          <div className="flex items-center gap-3">
+            {socials.map((s) => (
+              <div key={s.label} className="flex flex-col items-center gap-1">
+                <img
+                  src={s.icon}
+                  alt={s.label}
+                  className="h-8 w-8 rounded-[8px] object-contain"
+                  style={{ backgroundColor: "rgba(1, 70, 185, 0.06)" }}
+                />
+                <span className="text-[11px] font-normal text-gray-500">{s.label}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-[13px] font-medium" style={{ color: PAISLEY }}>
+            Paizley EC
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-2 gap-3">
+        <div className="flex items-center gap-2">
+          <Globe size={18} color={PAISLEY} strokeWidth={2} />
+          <span className="text-[13px] font-normal text-gray-700">paizley.cn</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <img src={iconWechat.url} alt="微信" className="h-4 w-4 rounded-[4px] object-contain" />
+          <span className="text-[13px] font-normal text-gray-700">keith_peace</span>
+        </div>
+        <div className="col-span-2 flex items-center gap-2">
+          <Mail size={18} color={PAISLEY} strokeWidth={2} />
+          <span className="text-[13px] font-normal text-gray-700">pec@paizley.cn</span>
+        </div>
+      </div>
     </article>
   );
 }
