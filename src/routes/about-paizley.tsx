@@ -193,7 +193,7 @@ function ContactCard() {
                 alt={s.label}
                 className="h-9 w-9 object-contain"
               />
-              <span className="text-[12px] font-medium text-gray-600 whitespace-nowrap">
+              <span className="text-[11px] font-medium text-gray-600 whitespace-nowrap">
                 Paizley EC
               </span>
             </div>
@@ -222,7 +222,7 @@ function ContactCard() {
       </div>
 
       {/* Bottom accent bar */}
-      <div className="h-[2px] w-full bg-[#0146b9]" />
+      <div className="h-[1.4px] w-full bg-[#0146b9]" />
     </article>
   );
 }
