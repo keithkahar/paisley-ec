@@ -149,7 +149,7 @@ function ContactCard() {
             <img
               src={s.icon}
               alt={s.label}
-              className="h-7 w-7 object-contain"
+              className="h-10 w-10 object-contain grayscale opacity-70"
             />
             {i < socials.length - 1 && (
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
