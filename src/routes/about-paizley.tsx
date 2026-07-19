@@ -116,9 +116,9 @@ function AboutPaizleyPage() {
                     className="float-left object-contain align-top mr-1.5 h-9 w-9"
                   />
                   <p className="relative text-[13px] font-normal leading-[21px] text-gray-600" style={{ whiteSpace: "pre-line" }}>
-                    <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
-                      {s.title}
-                    </span>
+                  <span className="text-[14px] font-extrabold" style={{ color: s.color }}>
+                    {s.title}
+                  </span>
                     {s.title === "Paizley EC" ? "\u00A0" : "\u00A0"}
                     {s.body.slice(s.title.length)}
                     <ChevronRight
