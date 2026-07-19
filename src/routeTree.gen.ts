@@ -26,6 +26,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CefrTestRouteImport } from './routes/cefr-test'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as BloxiaRouteImport } from './routes/bloxia'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutPaizleyRouteImport } from './routes/about-paizley'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -115,6 +116,11 @@ const BloxiaRoute = BloxiaRouteImport.update({
   path: '/bloxia',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutPaizleyRoute = AboutPaizleyRouteImport.update({
   id: '/about-paizley',
   path: '/about-paizley',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-paizley': typeof AboutPaizleyRoute
+  '/admin': typeof AdminRoute
   '/bloxia': typeof BloxiaRoute
   '/calendar': typeof CalendarRoute
   '/cefr-test': typeof CefrTestRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-paizley': typeof AboutPaizleyRoute
+  '/admin': typeof AdminRoute
   '/bloxia': typeof BloxiaRoute
   '/calendar': typeof CalendarRoute
   '/cefr-test': typeof CefrTestRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-paizley': typeof AboutPaizleyRoute
+  '/admin': typeof AdminRoute
   '/bloxia': typeof BloxiaRoute
   '/calendar': typeof CalendarRoute
   '/cefr-test': typeof CefrTestRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-paizley'
+    | '/admin'
     | '/bloxia'
     | '/calendar'
     | '/cefr-test'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-paizley'
+    | '/admin'
     | '/bloxia'
     | '/calendar'
     | '/cefr-test'
@@ -248,6 +259,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-paizley'
+    | '/admin'
     | '/bloxia'
     | '/calendar'
     | '/cefr-test'
@@ -271,6 +283,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AboutPaizleyRoute: typeof AboutPaizleyRoute
+  AdminRoute: typeof AdminRoute
   BloxiaRoute: typeof BloxiaRoute
   CalendarRoute: typeof CalendarRoute
   CefrTestRoute: typeof CefrTestRoute
@@ -411,6 +424,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BloxiaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about-paizley': {
       id: '/about-paizley'
       path: '/about-paizley'
@@ -439,6 +459,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AboutPaizleyRoute: AboutPaizleyRoute,
+  AdminRoute: AdminRoute,
   BloxiaRoute: BloxiaRoute,
   CalendarRoute: CalendarRoute,
   CefrTestRoute: CefrTestRoute,
