@@ -6,6 +6,8 @@ import myWordieText from "@/assets/brand/mywordie-text.png.asset.json";
 import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
 import shirinTalkText from "@/assets/brand/shirintalk-text.png.asset.json";
 import { Mic } from "lucide-react";
+import { useRef } from "react";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
