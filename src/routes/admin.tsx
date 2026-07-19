@@ -941,21 +941,30 @@ function AdminPageInner() {
       <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
         <FloatingBack to="/profile" />
 
+        <button
+          onClick={() => setConfirmReset(true)}
+          className="absolute right-5 top-[14px] z-10 h-[30px] px-3 rounded-full text-[12px] font-semibold"
+          style={{ background: SOFT_BG, color: SUB }}
+        >
+          重置
+        </button>
+
         <div className="px-5 pt-12">
-          {/* Header: title + menu (open groups drawer) + reset */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="min-w-0">
-              <h1 className="text-[20px] font-semibold leading-tight truncate" style={{ color: NAVY }}>管理员后台</h1>
-              <p className="text-[11px] mt-0.5 truncate" style={{ color: MUTED }}>参数与 Smart Reading 内容管理</p>
-            </div>
-            <button
-              onClick={() => setConfirmReset(true)}
-              className="shrink-0 h-[30px] px-3 rounded-full text-[12px] font-semibold"
-              style={{ background: SOFT_BG, color: SUB }}
+          {/* Header — centered title/subtitle (matches My Progress) */}
+          <section className="text-center">
+            <h1
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
+              style={{ color: NAVY, letterSpacing: "-0.01em" }}
             >
-              重置
-            </button>
-          </div>
+              管理员后台
+            </h1>
+            <p
+              className="mt-1 text-[13px] leading-none font-semibold"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              参数与 Smart Reading 内容管理
+            </p>
+          </section>
 
           {/* Mode tabs — hamburger + scrollable tabs in one pill */}
           <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
