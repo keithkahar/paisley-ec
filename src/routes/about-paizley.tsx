@@ -145,6 +145,9 @@ function ContactCard() {
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
+      <h3 className="text-center text-[15px] font-normal text-gray-700 mb-2">
+        Follow Us on
+      </h3>
       <div className="flex items-center">
         {socials.map((s, i) => (
           <div key={i} className="relative flex flex-col items-center justify-center flex-1 gap-1">
@@ -153,9 +156,8 @@ function ContactCard() {
               alt={s.label}
               className="h-10 w-10 object-contain"
             />
-            <span className="font-normal text-gray-400">
-              <span className="text-[9px]">@</span>{" "}
-              <span className="text-[11px]">Paizley EC</span>
+            <span className="font-normal text-[11px] text-gray-400">
+              Paizley EC
             </span>
             {i < socials.length - 1 && (
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-200" />
