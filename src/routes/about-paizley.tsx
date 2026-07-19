@@ -135,36 +135,25 @@ function AboutPaizleyPage() {
 
 function ContactCard() {
   const socials = [
-    { label: "视频号", icon: iconVideoChannel.url },
-    { label: "小红书", icon: iconXiaohongshu.url },
-    { label: "抖音", icon: iconDouyin.url },
-    { label: "微信", icon: iconWechat.url },
+    { icon: iconVideoChannel.url },
+    { icon: iconXiaohongshu.url },
+    { icon: iconDouyin.url },
   ];
   return (
     <article
       className="mt-4 rounded-[22px] bg-white p-5"
       style={{ boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)" }}
     >
-      <div className="flex items-start gap-4">
-        <div className="flex flex-col gap-2">
-          <p className="text-[13px] font-normal text-gray-400">Social</p>
-          <div className="flex items-center gap-3">
-            {socials.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-1">
-                <img
-                  src={s.icon}
-                  alt={s.label}
-                  className="h-8 w-8 rounded-[8px] object-contain"
-                  style={{ backgroundColor: "rgba(1, 70, 185, 0.06)" }}
-                />
-                <span className="text-[11px] font-normal text-gray-500">{s.label}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-[13px] font-medium" style={{ color: PAISLEY }}>
-            Paizley EC
-          </p>
-        </div>
+      <div className="flex items-center gap-3">
+        {socials.map((s, i) => (
+          <img
+            key={i}
+            src={s.icon}
+            alt="social"
+            className="h-8 w-8 rounded-[8px] object-contain"
+            style={{ backgroundColor: "rgba(1, 70, 185, 0.06)" }}
+          />
+        ))}
       </div>
 
       <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-3">
