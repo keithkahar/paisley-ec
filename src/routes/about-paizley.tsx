@@ -31,25 +31,25 @@ const sections = [
     title: "Paizley EC",
     logo: logoPaizley.url,
     color: PAISLEY,
-    body: "Paizley EC致力于为低龄英语学习者提供完整、温和、可持续的英语学习支持。我们结合 AI 口语互动、个性化词汇复习、成长激励、原版分级阅读、线上学习课程、家庭学习资源与专业学习规划指导，帮助孩子逐步建立英语听、说、读、写综合能力，重点提升表达能力。",
+    body: "Paizley EC为低龄英语学习者提供完整、温和、可持续的英语学习支持。我们结合 AI 口语互动、个性化词汇复习、成长激励、原版分级阅读、线上学习课程、家庭学习资源与专业学习规划指导，帮助孩子逐步建立英语听、说、读、写综合能力，重点提升表达能力。",
   },
   {
     title: "ShirinTalk",
     logo: logoShirin.url,
     color: "#f83e6a",
-    body: "ShirinTalk是特别为儿童定制的 AI 口语伙伴教练。Shirin 会通过温和、循序渐进的引导式对话，帮助孩子建立每日开口说英语的自信心。她会鼓励孩子用完整、简洁的英语句子作答，并友善地纠正语法或用词错误，让口语练习更自然、更高效。",
+    body: "ShirinTalk是特别定制的 AI 口语伙伴教练。Shirin 会通过温和、循序渐进的引导式对话，帮助孩子建立每日开口说英语的自信心。她会鼓励孩子用完整、简洁的英语句子作答，并友善地纠正语法或用词错误，让口语练习更自然、更高效。",
   },
   {
     title: "myWordie",
     logo: logoWordie.url,
     color: "#5064f5",
-    body: "myWordie是面向儿童英语学习的个性化词汇学习与复习系统。词库涵盖 A1-B2 级别，帮助孩子把阅读和口语中遇到的新词沉淀为自己的词库，并通过词卡、复习、测试和 myWordie Talk，把单词从“认识”逐步变成“会用”。",
+    body: "myWordie是自带记忆算法的个性化词汇学习与复习系统。词库涵盖 A1-B2 级别，帮助孩子把阅读和口语中遇到的新词沉淀为自己的词库，并通过词卡、复习、测试和 myWordie Talk，把单词从“认识”逐步变成“会用”。",
   },
   {
     title: "Bloxia",
     logo: logoBloxia.url,
     color: "#55a029",
-    body: "Bloxia是 Paizley EC 的学习成长世界。孩子通过完成口语、阅读、词汇和测评任务获得 Bp 成长积分，并在 Bloxia 中解锁地点、徽章和收藏物，让学习进步变得可见、有趣，也更有持续动力。",
+    body: "Bloxia是学习成长世界。孩子通过完成口语、阅读、词汇和测评任务获得 Bp 成长积分，并在 Bloxia 中解锁地点、徽章和收藏物，让学习进步变得可见、有趣，也更有持续动力。",
   },
   {
     title: "Smart Reading",
@@ -67,7 +67,7 @@ const sections = [
     title: "ClassIn Learning Hub",
     logo: logoClassin.url,
     color: "#009265",
-    body: "ClassIn Learning Hub是 Paizley EC 基于 ClassIn 搭建的线上学习中心，集合阅读、自然拼读、家庭学习讲座等多元教育产品，为孩子与家长提供灵活、连贯的学习支持。它是 Paizley EC 实现“教、学、练、测、评”闭环生态的重要在线平台，帮助孩子在系统课程与持续练习中提升阅读能力和表达能力，也帮助家长更科学地参与家庭学习陪伴。",
+    body: "ClassIn Learning Hub是线上学习中心，集合阅读、自然拼读、家庭学习讲座等多元教育产品，为孩子与家长提供灵活、连贯的学习支持。它是 Paizley EC 实现“教、学、练、测、评”闭环生态的重要在线平台，帮助孩子在系统课程与持续练习中提升阅读能力和表达能力，也帮助家长更科学地参与家庭学习陪伴。",
   },
   {
     title: "Home School Resources",
