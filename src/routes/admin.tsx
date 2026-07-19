@@ -939,18 +939,27 @@ function AdminPageInner() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
-        <FloatingBack to="/profile" />
-
-        <button
-          onClick={() => setConfirmReset(true)}
-          className="absolute right-5 top-[14px] z-10 h-[30px] px-3 rounded-full text-[12px] font-semibold"
-          style={{ background: SOFT_BG, color: SUB }}
-        >
-          重置
-        </button>
+        <div className="sticky top-0 z-30 h-0 pb-[5px]">
+          <div className="absolute left-4 flex items-center gap-2" style={{ top: "calc(1rem + env(safe-area-inset-top))" }}>
+            <Link
+              to="/profile"
+              aria-label="Back"
+              className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+            >
+              <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
+            </Link>
+            <button
+              onClick={() => setConfirmReset(true)}
+              aria-label="重置"
+              className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+            >
+              <RotateCcw className="h-5 w-5" style={{ color: SUB }} />
+            </button>
+          </div>
+        </div>
 
         <div className="px-5 pt-12">
-          {/* Header — centered title/subtitle (matches My Progress) */}
+          {/* Header — centered title (matches My Progress) */}
           <section className="text-center">
             <h1
               className="text-[26px] leading-[1.2] font-medium tracking-tight"
@@ -958,12 +967,6 @@ function AdminPageInner() {
             >
               管理员后台
             </h1>
-            <p
-              className="mt-1 text-[13px] leading-none font-semibold"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-            >
-              参数与 Smart Reading 内容管理
-            </p>
           </section>
 
           {/* Mode tabs — hamburger + scrollable tabs in one pill */}
