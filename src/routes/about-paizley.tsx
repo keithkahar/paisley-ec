@@ -110,27 +110,27 @@ function AboutPaizleyPage() {
                     boxShadow: "0 14px 40px rgba(11, 37, 69, 0.055)",
                   }}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3">
                     <img
                       src={s.logo}
                       alt={s.title}
                       className="object-contain h-12 w-12 shrink-0"
                     />
-                    <p
-                      className="relative flex-1 text-[13px] font-normal text-gray-600"
-                      style={{ lineHeight: "25.8333px" }}
-                    >
-                      <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
-                        {s.title}
-                      </span>{" "}
-                      {s.body.slice(s.title.length)}
-                      <ChevronRight
-                        size={16}
-                        color={s.color}
-                        className="absolute bottom-[5px] right-0"
-                      />
-                    </p>
+                    <span className="text-[13px] font-extrabold pt-0" style={{ color: s.color }}>
+                      {s.title}
+                    </span>
                   </div>
+                  <p
+                    className="relative mt-1 text-[13px] font-normal text-gray-600"
+                    style={{ lineHeight: "25.8333px" }}
+                  >
+                    {s.body.slice(s.title.length).trim()}
+                    <ChevronRight
+                      size={16}
+                      color={s.color}
+                      className="absolute bottom-[5px] right-0"
+                    />
+                  </p>
                   <div className="mt-4 -mx-4 -mb-4">
                     <div
                       className="h-[2px] w-full"
