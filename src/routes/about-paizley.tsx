@@ -157,32 +157,22 @@ function ContactCard() {
 
       <div className="relative p-5">
         {/* Header */}
-        <div className="mb-5">
-          <span className="block text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-1">
-            Social Presence
-          </span>
-          <h3 className="text-[17px] font-semibold text-gray-800 tracking-tight">
-            Follow Us on
-          </h3>
-        </div>
+        <h3 className="text-center text-[17px] font-semibold tracking-tight mb-5" style={{ fontFamily: "'Nunito', sans-serif" }}>
+          Follow Us on
+        </h3>
 
         {/* Social platforms */}
-        <div className="grid grid-cols-4 gap-3 mb-5">
+        <div className="flex items-start justify-center gap-6 mb-5">
           {socials.map((s) => (
             <div
               key={s.label}
-              className="flex flex-col items-center gap-2 group cursor-pointer"
+              className="flex flex-col items-center gap-2 cursor-pointer"
             >
-              <div
-                className="w-12 h-12 rounded-[14px] flex items-center justify-center transition-all duration-300 group-hover:bg-[#0146b9] border border-gray-100"
-                style={{ background: "#f9fafb" }}
-              >
-                <img
-                  src={s.icon}
-                  alt={s.label}
-                  className="h-6 w-6 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                />
-              </div>
+              <img
+                src={s.icon}
+                alt={s.label}
+                className="h-10 w-10 object-contain"
+              />
               <span className="text-[9px] font-medium text-gray-400 whitespace-nowrap">
                 Paizley EC
               </span>
@@ -191,25 +181,21 @@ function ContactCard() {
         </div>
 
         {/* Contact footer */}
-        <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+        <div className="pt-4 border-t border-gray-100 flex items-center justify-center gap-6">
           <a
             href="mailto:pec@paizley.cn"
-            className="flex items-center gap-3 text-sm text-gray-600 hover:text-black transition-colors group"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
           >
-            <div className="w-5 h-5 flex items-center justify-center">
-              <Mail size={16} className="text-gray-400 group-hover:text-gray-900" />
-            </div>
+            <Mail size={16} className="text-gray-400 group-hover:text-gray-900" />
             <span className="text-[15px] font-normal">pec@paizley.cn</span>
           </a>
           <a
             href="https://www.paizley.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 text-sm text-gray-600 hover:text-black transition-colors group"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors group"
           >
-            <div className="w-5 h-5 flex items-center justify-center">
-              <Globe size={16} className="text-gray-400 group-hover:text-gray-900" />
-            </div>
+            <Globe size={16} className="text-gray-400 group-hover:text-gray-900" />
             <span className="text-[15px] font-normal">www.paizley.cn</span>
           </a>
         </div>
