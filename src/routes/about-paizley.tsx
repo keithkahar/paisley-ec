@@ -176,7 +176,7 @@ function ContactCard() {
                 alt={s.label}
                 className="h-12 w-12 object-contain"
               />
-              <span className="text-[12px] font-medium text-gray-700 whitespace-nowrap">
+              <span className="text-[12px] font-medium text-gray-600 whitespace-nowrap">
                 Paizley EC
               </span>
             </div>
