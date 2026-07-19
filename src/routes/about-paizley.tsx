@@ -90,7 +90,10 @@ const sections = [
 function AboutPaizleyPage() {
   return (
     <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[100dvh] bg-white">
+      <div
+        className="relative min-h-[100dvh] bg-white"
+        style={{ fontFamily: "'Nunito', sans-serif" }}
+      >
         <FloatingBack to="/profile" />
 
         <main className="px-6 pt-[53px] pb-10">
