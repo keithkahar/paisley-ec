@@ -36,7 +36,7 @@ const sections = [
     logo: logoPaizley.url,
     color: PAISLEY,
     to: "/",
-    body: "Paizley EC为低龄英语学习者提供完整、温和、可持续的英语学习支持。我们结合 AI 口语互动、个性化词汇复习、成长激励、原版分级阅读、线上学习课程、家庭学习资源与专业学习规划指导，帮助孩子逐步建立英语听、说、读、写综合能力，重点提升表达能力。",
+    body: "Paizley EC为低龄英语学习者提供完整、温和、可持续的英语学习支持。我们结合AI 口语互动、个性化词汇复习、成长激励、原版分级阅读、线上学习课程、家庭学习资源与专业学习规划指导，帮助孩子逐步建立英语听、说、读、写综合能力，重点提升表达能力。",
   },
   {
     title: "ShirinTalk",
@@ -115,21 +115,12 @@ function AboutPaizleyPage() {
                     alt={s.title}
                     className="float-left object-contain align-top mr-4 h-[42px] w-[42px]"
                   />
-                  <p
-                    className="relative text-[13px] font-normal leading-[21px] text-gray-600"
-                  >
-                    <span className={`text-[13px] font-extrabold ${s.title === "Paizley EC" ? "relative -left-2.5" : ""}`} style={{ color: s.color }}>
+                  <p className="relative text-[13px] font-normal leading-[21px] text-gray-600">
+                    <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
-                    </span>{" "}
-                    {s.title === "Paizley EC" ? (
-                      <>
-                        {s.body.slice(s.title.length, s.body.indexOf("AI 口语互动"))}
-                        <span className="block" style={{ clear: "left" }} />
-                        {s.body.slice(s.body.indexOf("AI 口语互动"))}
-                      </>
-                    ) : (
-                      s.body.slice(s.title.length)
-                    )}
+                    </span>
+                    {s.title === "Paizley EC" ? "\u00A0\u00A0" : " "}
+                    {s.body.slice(s.title.length)}
                     <ChevronRight
                       size={16}
                       color={s.color}
