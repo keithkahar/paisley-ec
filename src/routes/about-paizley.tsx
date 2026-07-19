@@ -113,7 +113,7 @@ function AboutPaizleyPage() {
                   <img
                     src={s.logo}
                     alt={s.title}
-                    className="float-left object-contain align-top mr-4 h-10 w-10"
+                    className="float-left object-contain align-top mr-4 h-[42px] w-[42px]"
                   />
                   <p
                     className="relative text-[13px] font-normal leading-[21px] text-gray-600"
@@ -121,7 +121,15 @@ function AboutPaizleyPage() {
                     <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
                     </span>{" "}
-                    {s.body.slice(s.title.length)}
+                    {s.title === "Paizley EC" ? (
+                      <>
+                        {s.body.slice(s.title.length, s.body.indexOf("AI 口语互动"))}
+                        <span className="block" style={{ clear: "left" }} />
+                        {s.body.slice(s.body.indexOf("AI 口语互动"))}
+                      </>
+                    ) : (
+                      s.body.slice(s.title.length)
+                    )}
                     <ChevronRight
                       size={16}
                       color={s.color}
