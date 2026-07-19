@@ -119,7 +119,7 @@ function AboutPaizleyPage() {
                     <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
                     </span>
-                    {s.title === "Paizley EC" ? "\u00A0\u00A0" : "\u00A0\u00A0"}
+                    {s.title === "Paizley EC" ? "\u00A0" : "\u00A0"}
                     {s.body.slice(s.title.length)}
                     <ChevronRight
                       size={16}
@@ -180,9 +180,6 @@ function ContactCard() {
 
       <div className="relative p-5">
         {/* Header */}
-        <h3 className="text-[17px] font-extrabold tracking-tight mb-5 text-gray-600" style={{ fontFamily: "'Nunito', sans-serif" }}>
-          Follow on
-        </h3>
 
         {/* Social platforms */}
         <div className="flex items-start justify-center gap-8 mb-5 px-4">
@@ -196,7 +193,7 @@ function ContactCard() {
                 alt={s.label}
                 className="h-9 w-9 object-contain"
               />
-              <span className="text-[12px] font-medium text-gray-600 whitespace-nowrap">
+              <span className="text-[11px] font-medium text-gray-600 whitespace-nowrap">
                 Paizley EC
               </span>
             </div>
@@ -225,7 +222,7 @@ function ContactCard() {
       </div>
 
       {/* Bottom accent bar */}
-      <div className="h-[2px] w-full bg-[#0146b9]" />
+      <div className="h-[1.4px] w-full bg-[#0146b9]" />
     </article>
   );
 }
