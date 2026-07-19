@@ -183,7 +183,7 @@ function ContactCard() {
       <div className="relative p-5">
         {/* Header */}
         <h3 className="text-[17px] font-extrabold tracking-tight mb-5 text-gray-600" style={{ fontFamily: "'Nunito', sans-serif" }}>
-          Follow Us on
+          Follow on
         </h3>
 
         {/* Social platforms */}
