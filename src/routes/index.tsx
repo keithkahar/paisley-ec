@@ -55,10 +55,11 @@ function Home() {
         {/* App logo top-left */}
         <button
           type="button"
-          onClick={() => navigate({ to: "/about-paizley" })}
+          onClick={handleLogoClick}
           className="absolute top-7 left-7 z-20 cursor-pointer active:scale-[0.98] transition-transform"
           aria-label="About PEC"
         >
+
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </button>
         {/* PRIMARY: Shirin hero */}
