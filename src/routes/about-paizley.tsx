@@ -191,7 +191,7 @@ function ContactCard() {
               <img
                 src={s.icon}
                 alt={s.label}
-                className="h-9 w-9 object-contain"
+                className={`${s.iconClass} object-contain`}
               />
               <span className="text-[11px] font-medium text-gray-600 whitespace-nowrap">
                 Paizley EC
