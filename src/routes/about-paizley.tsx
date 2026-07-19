@@ -119,7 +119,7 @@ function AboutPaizleyPage() {
                     <span className="text-[13px] font-extrabold" style={{ color: s.color }}>
                       {s.title}
                     </span>
-                    {s.title === "Paizley EC" ? "\u00A0\u00A0" : " "}
+                    {s.title === "Paizley EC" ? "\u00A0\u00A0" : "\u00A0\u00A0"}
                     {s.body.slice(s.title.length)}
                     <ChevronRight
                       size={16}
