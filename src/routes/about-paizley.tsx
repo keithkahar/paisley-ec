@@ -135,7 +135,7 @@ function AboutPaizleyPage() {
 
 function ContactCard() {
   const socials = [
-    { icon: GONGZHONGHAO_URL, label: "公众号" },
+    { icon: iconGongzhonghao.url, label: "公众号" },
     { icon: iconVideoChannel.url, label: "视频号" },
     { icon: iconXiaohongshu.url, label: "小红书" },
     { icon: iconDouyin.url, label: "抖音" },
