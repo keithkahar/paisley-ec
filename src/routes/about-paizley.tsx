@@ -129,7 +129,7 @@ function AboutPaizleyPage() {
                   </p>
                   <div className="clear-both mt-4 -mx-4 -mb-4">
                     <div
-                      className="h-[2px] w-full"
+                      className="h-[1.4px] w-full"
                       style={{ backgroundColor: s.color }}
                     />
                   </div>
@@ -194,7 +194,7 @@ function ContactCard() {
               <img
                 src={s.icon}
                 alt={s.label}
-                className="h-12 w-12 object-contain"
+                className="h-9 w-9 object-contain"
               />
               <span className="text-[12px] font-medium text-gray-600 whitespace-nowrap">
                 Paizley EC
