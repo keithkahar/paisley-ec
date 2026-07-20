@@ -1164,8 +1164,8 @@ function AdminPageInner() {
               <button
                 key={row.path}
                 onClick={() => openEditor(row)}
-                className="w-full text-left relative flex items-center gap-3 rounded-full py-4 pl-5 pr-5 active:scale-[0.98] transition-transform overflow-hidden"
-                style={{ background: "color-mix(in oklab, var(--paisley) 10%, white)" }}
+                className="w-full text-left relative flex items-center gap-3 rounded-full py-4 pl-5 pr-5 active:scale-[0.98] transition-transform overflow-hidden border bg-white min-h-[60px]"
+                style={{ borderColor: "#EEF2F7" }}
               >
                 {row.customized && (
                   <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: PAISLEY }} />
@@ -1179,8 +1179,8 @@ function AdminPageInner() {
                 <span
                   role="button"
                   onClick={(e) => { e.stopPropagation(); setHelpFor(row); }}
-                  className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full text-[11px] font-medium leading-none bg-white"
-                  style={{ color: SUB }}
+                  className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full text-[11px] font-medium leading-none"
+                  style={{ background: "#EEF2F7", color: SUB }}
                 >
                   ?
                 </span>
