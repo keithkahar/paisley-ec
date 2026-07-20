@@ -1642,18 +1642,18 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
               <button
                 type="button"
                 onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1))}
-                className="h-9 w-9 grid place-items-center rounded-full active:scale-95 transition-transform"
-                style={{ border: `1.5px solid ${props.accent}`, color: props.accent }}
+                className="h-9 w-9 grid place-items-center active:scale-95 transition-transform"
+                style={{ color: props.accent }}
                 aria-label="Previous month"
               >
                 <CalPrev className="h-5 w-5" />
               </button>
-              <span className="text-[15px] font-semibold tracking-tight" style={{ color: NAVY_C }}>{monthLabel}</span>
+              <span className="text-[17px] font-medium tracking-tight" style={{ color: props.accent }}>{monthLabel}</span>
               <button
                 type="button"
                 onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1))}
-                className="h-9 w-9 grid place-items-center rounded-full active:scale-95 transition-transform"
-                style={{ color: MUTED_C }}
+                className="h-9 w-9 grid place-items-center active:scale-95 transition-transform"
+                style={{ color: props.accent, opacity: 0.45 }}
                 aria-label="Next month"
               >
                 <CalNext className="h-5 w-5" />
@@ -1683,25 +1683,13 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
                         className="absolute"
                         style={{
                           width: 40,
-                          height: 44,
-                          borderRadius: "50%",
-                          background: "#f4e3c6",
-                        }}
-                      />
-                    )}
-                    {isToday && !isSelected && (
-                      <span
-                        aria-hidden
-                        className="absolute"
-                        style={{
-                          width: 40,
-                          height: 44,
+                          height: 40,
                           borderRadius: "50%",
                           border: `1.5px solid ${props.accent}`,
                         }}
                       />
                     )}
-                    <span className="relative">{d.getDate()}</span>
+                    <span className="relative" style={{ color: isSelected ? props.accent : NAVY_C }}>{d.getDate()}</span>
                   </button>
                 );
               })}
