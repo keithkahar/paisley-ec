@@ -708,7 +708,7 @@ function SRView(props: {
               type="button"
               onClick={onEditBook}
               aria-label="编辑"
-              className="absolute top-3 right-3 h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white z-10"
+              className="absolute top-14 right-4 h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
               style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
             >
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
