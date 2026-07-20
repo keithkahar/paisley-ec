@@ -1286,11 +1286,11 @@ function AdminPageInner() {
         {helpFor && (
           <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setHelpFor(null)}>
             <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-medium" style={{ color: NAVY }}>{helpFor.label}</div>
+              <div className="text-[16px] font-normal" style={{ color: NAVY }}>{helpFor.label}</div>
               <div className="text-[13px] mt-2 leading-relaxed" style={{ color: SUB }}>{helpFor.helpText || "暂无说明。"}</div>
               <button
                 onClick={() => setHelpFor(null)}
-                className="mt-4 w-full h-10 rounded-full text-[14px] font-medium text-white"
+                className="mt-4 w-full h-10 rounded-full text-[14px] font-normal text-white"
                 style={{ background: PAISLEY }}
               >
                 知道了
@@ -1303,11 +1303,11 @@ function AdminPageInner() {
         {confirmReset && (
           <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setConfirmReset(false)}>
             <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-medium" style={{ color: NAVY }}>重置后台参数？</div>
+              <div className="text-[16px] font-normal" style={{ color: NAVY }}>重置后台参数？</div>
               <div className="text-[13px] mt-2" style={{ color: SUB }}>这会把所有前端参数恢复为默认值。</div>
               <div className="mt-4 flex gap-3">
-                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[14px] font-medium" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[14px] font-medium text-white" style={{ background: "#D9534F" }}>重置</button>
+                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[14px] font-normal" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[14px] font-normal text-white" style={{ background: "#D9534F" }}>重置</button>
               </div>
             </div>
           </div>
