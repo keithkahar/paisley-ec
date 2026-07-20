@@ -5,7 +5,7 @@ import { Check, X } from "lucide-react";
  * Global bottom-sheet standard.
  * - Height: 62vh, white, top rounded 3xl, max-w-[420px]
  * - Grabber: 1px x 40px
- * - Title: 17px / font-semibold / tracking-tight / leading-none, centered,
+ * - Title: 17px / font-medium / tracking-tight / leading-none, centered,
  *   colored by `brandColor` (section brand color)
  * - Corner buttons: 32px white round with 1px border, no shadow.
  *   Icon 16px / #0F172A / strokeWidth 2.5.
@@ -93,7 +93,7 @@ export function StandardSheet({
         {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
         <div className={`relative flex ${subtitle ? "flex-col items-center" : "items-center"} justify-center px-5 pt-2 pb-3 shrink-0`}>
           <h2
-            className="text-[17px] font-semibold tracking-tight leading-none"
+            className="text-[17px] font-medium tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor }}
           >
             {title}
