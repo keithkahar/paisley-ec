@@ -90,14 +90,19 @@ export function StandardSheet({
         <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
           <span className="h-1 w-10 rounded-full bg-border" />
         </div>
-        {/* Header: centered title, corner buttons vertically aligned with title */}
-        <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+        {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
+        <div className={`relative flex ${subtitle ? "flex-col items-center" : "items-center"} justify-center px-5 pt-2 pb-3 shrink-0`}>
           <h2
             className="text-[17px] font-normal tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor }}
           >
             {title}
           </h2>
+          {subtitle && (
+            <div className="mt-1 text-[11px] text-center break-all" style={{ color: subtitleColor }}>
+              {subtitle}
+            </div>
+          )}
           {showX && (
             <button
               type="button"
