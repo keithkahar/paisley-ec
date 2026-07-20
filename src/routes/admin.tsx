@@ -1458,7 +1458,7 @@ function AdminPageInner() {
             onClose={() => setSrBookEditForm(null)}
           >
             <div className="flex flex-col h-full min-h-0">
-              <div className="mt-5 space-y-3 flex-1 min-h-0 overflow-y-auto">
+              <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="书名">
                     <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1533,7 +1533,7 @@ function AdminPageInner() {
             onClose={() => setSrUnitEditForm(null)}
           >
             <div className="flex flex-col h-full min-h-0">
-              <div className="mt-5 space-y-3 flex-1 min-h-0 overflow-y-auto">
+              <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="标题">
                     <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1597,7 +1597,7 @@ function SRSelect(props: {
   const SOFT_BG_C = "#F6F8FC";
   const accent = props.accentColor || "#0146B9";
   // derive a soft tint for the accent (yellow -> pale gold, blue -> pale blue)
-  const activeBg = accent.toLowerCase() === "#0146b9" ? "#EAF3FF" : "#FFF6DA";
+  const activeBg = accent.toLowerCase() === "#0146b9" ? "#EAF3FF" : "#f7f2ec";
   return (
     <div className="relative">
       <button
