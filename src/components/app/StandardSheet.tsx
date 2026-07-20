@@ -36,6 +36,8 @@ type Props = {
   subtitleColor?: string;
   /** Body padding-top offset, defaults to 10px per spec. */
   contentPaddingTop?: number;
+  /** Subtitle margin-top in px (default 6). */
+  subtitleSpacing?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
   height?: string;
   children: ReactNode;
