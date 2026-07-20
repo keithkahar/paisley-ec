@@ -641,31 +641,74 @@ function SRView(props: {
 
       {/* Books — horizontal-scrolling pill */}
       <Section title="书籍" count={`${srBooks.length} 本`} />
-      <div
-        className="flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar"
+      <button
+        type="button"
+        onClick={() => setBookSheetOpen(true)}
+        className="w-full flex items-center justify-between gap-3 rounded-full pl-5 pr-3 h-[52px] text-left active:scale-[0.99] transition-transform"
         style={{ background: YELLOW_SOFT_C }}
       >
-        {srBooks.map((b) => {
-          const active = b.book_code === srActiveBookCode;
-          return (
-            <button
-              key={b.book_code}
-              onClick={() => {
-                setSrActiveBookCode(b.book_code);
-                setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
-              }}
-              className="shrink-0 h-[34px] px-4 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
-              style={{
-                background: active ? "#fff" : "transparent",
-                color: active ? YELLOW_C : MUTED_C,
-                boxShadow: active ? "0 2px 8px rgba(205,174,141,0.30)" : "none",
-              }}
-            >
-              {b.book_title}
-            </button>
-          );
-        })}
-      </div>
+        <span
+          className="text-[15px] font-semibold tracking-tight truncate"
+          style={{ color: YELLOW_C }}
+        >
+          {srActiveBook?.book_title ?? "选择书籍"}
+        </span>
+        <span
+          className="h-8 w-8 shrink-0 grid place-items-center rounded-full bg-white"
+          style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+        >
+          <ChevronDown className="h-4 w-4" strokeWidth={2.5} style={{ color: YELLOW_C }} />
+        </span>
+      </button>
+
+      <StandardSheet
+        open={bookSheetOpen}
+        title="选择书籍"
+        brandColor={YELLOW_C}
+        onClose={() => setBookSheetOpen(false)}
+      >
+        <div className="space-y-2">
+          {srBooks.map((b) => {
+            const active = b.book_code === srActiveBookCode;
+            return (
+              <button
+                key={b.book_code}
+                type="button"
+                onClick={() => {
+                  setSrActiveBookCode(b.book_code);
+                  setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
+                  setBookSheetOpen(false);
+                }}
+                className="w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-4 text-left active:scale-[0.98] transition-transform"
+                style={{
+                  background: active ? YELLOW_SOFT_C : "transparent",
+                  border: `1px solid ${active ? YELLOW_BORDER_C : "#EEF2F7"}`,
+                }}
+              >
+                <div className="min-w-0 flex flex-col gap-1.5">
+                  <p
+                    className="text-[16px] font-semibold tracking-tight leading-none"
+                    style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
+                  >
+                    {b.book_title}
+                  </p>
+                  <p className="text-[12px] font-medium leading-none" style={{ color: MUTED_C }}>
+                    {b.series_name} · {b.book_code}
+                  </p>
+                </div>
+                {active && (
+                  <span
+                    className="h-6 w-6 shrink-0 grid place-items-center rounded-full"
+                    style={{ background: "#fff", border: `1px solid ${YELLOW_BORDER_C}` }}
+                  >
+                    <Check className="h-3.5 w-3.5" strokeWidth={3} style={{ color: YELLOW_C }} />
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </StandardSheet>
 
       {/* Book info */}
       {srActiveBook && (
