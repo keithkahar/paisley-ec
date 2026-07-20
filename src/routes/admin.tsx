@@ -553,7 +553,7 @@ function SRView(props: {
       {/* Book info */}
       {srActiveBook && (
         <>
-          <div className="relative rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
+          <div className="relative rounded-2xl bg-white p-4 mt-2" style={{ border: "1px solid #EEF2F7" }}>
             <button
               type="button"
               onClick={onEditBook}
