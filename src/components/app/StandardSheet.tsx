@@ -38,6 +38,8 @@ type Props = {
   contentPaddingTop?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
   height?: string;
+  /** Optional title weight override. Default: font-semibold. */
+  titleWeight?: "font-normal" | "font-medium" | "font-semibold" | "font-bold";
   children: ReactNode;
 };
 
@@ -52,6 +54,7 @@ export function StandardSheet({
   subtitleColor = "rgba(15, 23, 42, 0.55)",
   contentPaddingTop = 10,
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
+  titleWeight = "font-semibold",
   children,
 }: Props) {
   useEffect(() => {
@@ -93,7 +96,7 @@ export function StandardSheet({
         {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
         <div className={`relative flex ${subtitle ? "flex-col items-center" : "items-center"} justify-center px-5 pt-2 pb-3 shrink-0`}>
           <h2
-            className="text-[17px] font-semibold tracking-tight leading-none"
+            className={`text-[17px] ${titleWeight} tracking-tight leading-none`}
             style={{ letterSpacing: "-0.01em", color: brandColor }}
           >
             {title}
