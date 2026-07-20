@@ -1167,7 +1167,7 @@ function AdminPageInner() {
                 className="w-full text-left relative rounded-2xl p-3.5 transition-all"
                 style={{
                   background: "#fff",
-                  border: `1px solid ${row.customized ? "rgba(1,70,185,0.22)" : "#EEF2F7"}`,
+                  border: `1px solid #EEF2F7`,
                   overflow: "hidden",
                 }}
               >
