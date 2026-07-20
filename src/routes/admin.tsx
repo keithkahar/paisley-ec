@@ -1600,7 +1600,7 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
     return arr;
   }, [cursor]);
 
-  const DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  const DAY_LABELS = ["S", "M", "T", "W", "T", "F", "S"];
   const monthLabel = cursor.toLocaleString("en-US", { month: "long", year: "numeric" });
 
   const pick = (d: Date) => {
@@ -1659,12 +1659,12 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
                 <CalNext className="h-5 w-5" />
               </button>
             </div>
-            <div className="px-5 mt-2 grid grid-cols-7 gap-x-1">
-              {DAY_LABELS.map((d) => (
-                <div key={d} className="text-center text-[12px] font-medium py-2" style={{ color: MUTED_C }}>{d}</div>
+            <div className="px-6 mt-3 grid grid-cols-7">
+              {DAY_LABELS.map((d, i) => (
+                <div key={i} className="text-center text-[13px] font-medium py-2" style={{ color: MUTED_C }}>{d}</div>
               ))}
             </div>
-            <div className="flex-1 px-5 pb-5 grid grid-cols-7 gap-x-1 gap-y-2 auto-rows-fr">
+            <div className="flex-1 px-6 pb-6 grid grid-cols-7 gap-y-4 auto-rows-fr">
               {cells.map((d, i) => {
                 if (!d) return <div key={i} />;
                 const isToday = d.toDateString() === today.toDateString();
