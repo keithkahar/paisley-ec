@@ -681,7 +681,7 @@ function SRView(props: {
             <button
               type="button"
               onClick={() => setBookSheetOpen(true)}
-              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-4 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
+              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-12 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
               style={{ background: YELLOW_SOFT_C }}
             >
               <span
