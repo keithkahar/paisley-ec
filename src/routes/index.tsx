@@ -82,7 +82,7 @@ function Home() {
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6 mt-2.5"
+          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
