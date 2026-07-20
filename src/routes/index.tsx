@@ -71,7 +71,7 @@ function Home() {
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
 
-          <div className="relative flex justify-center">
+          <div className="relative flex justify-center translate-y-5">
             <img
               src={shirinHero.url}
               alt="Shirin"
