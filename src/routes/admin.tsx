@@ -1453,7 +1453,7 @@ function AdminPageInner() {
         {srBookEditForm && (
           <StandardSheet
             open={!!srBookEditForm}
-            title="编辑书籍基础信息"
+            title="书籍信息"
             brandColor={YELLOW}
             subtitle={srBookEditForm.bookCode}
             onClose={() => setSrBookEditForm(null)}
