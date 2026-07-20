@@ -1321,6 +1321,7 @@ function AdminPageInner() {
           onClose={closeEditor}
           subtitle={editing ? `${editing.path} · 默认：${editing.defaultText}` : undefined}
           subtitleColor={MUTED}
+          titleWeight="font-normal"
         >
           {editing && (
             <div className="flex flex-col h-full min-h-0">
