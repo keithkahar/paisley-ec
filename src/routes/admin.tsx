@@ -696,10 +696,10 @@ function SRView(props: {
               type="button"
               onClick={onEditBook}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-[34px] w-[34px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
-              style={{ border: `1px solid ${MUTED_C}` }}
+              className="absolute top-14 right-[11px] h-[30px] w-[30px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              style={{ border: `1px solid #A8B4C0` }}
             >
-              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: MUTED_C }} />
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#A8B4C0" }} />
             </button>
             <div className="space-y-3">
               {/* Row 1: keep 3-column grid to align with rows 2 & 3; edit button sits in the empty third column */}
@@ -771,10 +771,10 @@ function SRView(props: {
               type="button"
               onClick={onEditUnit}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-[34px] w-[34px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
-              style={{ border: `1px solid ${MUTED_C}` }}
+              className="absolute top-14 right-[11px] h-[30px] w-[30px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              style={{ border: `1px solid #A8B4C0` }}
             >
-              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: MUTED_C }} />
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#A8B4C0" }} />
             </button>
             <div className="pr-10">
               <div className="text-[11px]" style={{ color: MUTED_C }}>单元码</div>
