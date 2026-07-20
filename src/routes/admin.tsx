@@ -696,7 +696,7 @@ function SRView(props: {
               type="button"
               onClick={onEditBook}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
+              className="absolute top-[9px] right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
             >
               <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
