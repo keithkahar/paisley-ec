@@ -48,6 +48,8 @@ export function StandardSheet({
   onClose,
   onDone,
   showCancel,
+  subtitle,
+  subtitleColor = "rgba(15, 23, 42, 0.55)",
   contentPaddingTop = 10,
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   children,
