@@ -90,11 +90,11 @@ export function StandardSheet({
         }}
       >
         {/* Grabber */}
-        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
+        <div className="pt-1.5 pb-1 grid place-items-center shrink-0">
           <span className="h-1 w-10 rounded-full bg-border" />
         </div>
         {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
-        <div className="relative flex flex-col items-center px-5 pt-2 pb-0 shrink-0">
+        <div className="relative flex flex-col items-center px-5 pt-1 pb-0 shrink-0">
           <h2
             className="text-[17px] tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor, fontWeight: 400 }}

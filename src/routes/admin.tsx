@@ -1455,10 +1455,8 @@ function AdminPageInner() {
             open={!!srBookEditForm}
             title="书籍信息"
             brandColor={YELLOW}
-            subtitle={srBookEditForm.bookCode}
             onClose={() => setSrBookEditForm(null)}
             contentPaddingTop={16}
-            subtitleSpacing={21}
           >
             <div className="flex flex-col h-full min-h-0">
               <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
@@ -1527,10 +1525,8 @@ function AdminPageInner() {
             open={!!srUnitEditForm}
             title="单元信息"
             brandColor={YELLOW}
-            subtitle={srUnitEditForm.lessonId}
             onClose={() => setSrUnitEditForm(null)}
             contentPaddingTop={16}
-            subtitleSpacing={21}
           >
             <div className="flex flex-col h-full min-h-0">
               <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
