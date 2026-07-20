@@ -66,7 +66,7 @@ function Home() {
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </button>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-[6.5rem] pb-0 mt-5">
+        <section className="relative px-6 pt-[6.5rem] pb-0 mt-[35px]">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -99,7 +99,7 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="relative isolate mt-[40px] flex items-center justify-center gap-[8px] rounded-full py-5 font-semibold text-white active:scale-[0.98] transition-transform"
+            className="relative isolate mt-[25px] flex items-center justify-center gap-[8px] rounded-full py-5 font-semibold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               fontSize: "17.25px"
