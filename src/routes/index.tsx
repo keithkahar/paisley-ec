@@ -59,7 +59,7 @@ function Home() {
         <button
           type="button"
           onClick={handleLogoClick}
-          className="absolute top-7 left-7 z-20 cursor-pointer active:scale-[0.98] transition-transform"
+          className="absolute top-12 left-7 z-20 cursor-pointer active:scale-[0.98] transition-transform"
           aria-label="About PEC"
         >
 
@@ -121,7 +121,7 @@ function Home() {
           <div className="mt-3 text-center">
             <Link
               to="/mywordie"
-              className="inline-flex items-center gap-1 text-xs text-muted-foreground font-semibold underline-offset-4 hover:underline"
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground font-semibold"
             >
               or practice with
               <img src={myWordieText.url} alt="myWordie" className="h-4 object-contain" />
