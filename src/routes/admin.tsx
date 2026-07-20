@@ -1406,48 +1406,47 @@ function AdminPageInner() {
         )}
 
         {/* SR Import sheet */}
-        {srImportOpen && (
-          <>
-            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
-                <div className="shrink-0">
-                  <div className="text-[16px] font-semibold mt-3" style={{ color: NAVY }}>导入 Smart Reading JSON</div>
-                  <div className="text-[11px] mt-1" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
-                </div>
-                <div className="mt-3 flex-1 min-h-0 overflow-y-auto">
-                  <textarea
-                    value={srImportText}
-                    onChange={(e) => setSrImportText(e.target.value)}
-                    placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
-                    className="w-full h-[160px] px-3 py-2 rounded-xl text-[12px] outline-none resize-none"
-                    style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
-                  />
-                  {srValidationText && (
-                    <pre
-                      className="mt-2 w-full px-3 py-2 rounded-xl text-[11px] whitespace-pre-wrap"
-                      style={{
-                        background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
-                        color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
-                        fontFamily: MONO,
-                        border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
-                      }}
-                    >
-                      {srValidationText}
-                    </pre>
-                  )}
-                </div>
-                <div className="mt-4 grid grid-cols-4 gap-2 shrink-0">
-                  <button onClick={() => { setSrImportOpen(false); setSrValidationText(""); setSrValidationOk(null); }} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
-                  <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
-                  <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>合并</button>
-                </div>
-              </div>
+        <StandardSheet
+          open={srImportOpen}
+          title="导入 Smart Reading JSON"
+          brandColor={YELLOW}
+          onClose={() => {
+            setSrImportOpen(false);
+            setSrValidationText("");
+            setSrValidationOk(null);
+          }}
+        >
+          <div className="flex flex-col h-full min-h-0">
+            <div className="text-[13px] font-medium" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
+            <div className="mt-2 flex-1 min-h-0 overflow-y-auto">
+              <textarea
+                value={srImportText}
+                onChange={(e) => setSrImportText(e.target.value)}
+                placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
+                className="w-full h-[280px] px-3 py-2 rounded-xl text-[13px] outline-none resize-none"
+                style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
+              />
+              {srValidationText && (
+                <pre
+                  className="mt-2 w-full px-3 py-2 rounded-xl text-[12px] whitespace-pre-wrap"
+                  style={{
+                    background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
+                    color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
+                    fontFamily: MONO,
+                    border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
+                  }}
+                >
+                  {srValidationText}
+                </pre>
+              )}
             </div>
-          </>
-        )}
+            <div className="mt-4 grid grid-cols-3 gap-2 shrink-0">
+              <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
+              <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
+              <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>合并</button>
+            </div>
+          </div>
+        </StandardSheet>
 
         {/* SR Book editor sheet */}
         {srBookEditForm && (
