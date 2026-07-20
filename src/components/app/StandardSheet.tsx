@@ -36,6 +36,8 @@ type Props = {
   subtitleColor?: string;
   /** Body padding-top offset, defaults to 10px per spec. */
   contentPaddingTop?: number;
+  /** Subtitle margin-top in px (default 6). */
+  subtitleSpacing?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
   height?: string;
   children: ReactNode;
@@ -51,6 +53,7 @@ export function StandardSheet({
   subtitle,
   subtitleColor = "rgba(15, 23, 42, 0.55)",
   contentPaddingTop = 10,
+  subtitleSpacing = 6,
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   children,
 }: Props) {
@@ -99,7 +102,7 @@ export function StandardSheet({
             {title}
           </h2>
           {subtitle && (
-            <div className="mt-1.5 text-[12px] leading-[1.55] text-center break-all" style={{ color: subtitleColor }}>
+            <div className="text-[12px] leading-[1.55] text-center break-all" style={{ color: subtitleColor, marginTop: subtitleSpacing }}>
               {subtitle}
             </div>
           )}
