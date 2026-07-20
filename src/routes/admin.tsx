@@ -866,15 +866,6 @@ function AdminPageInner() {
 
   const activeGroup = groups.find((g) => g.key === activeKey) ?? groups[0];
 
-  const summary = useMemo(() => {
-    const params = groups.reduce((n, g) => n + g.rows.length, 0);
-    const cust = groups.reduce((n, g) => n + customizedCount(g), 0);
-    return [
-      { label: "分组", value: groups.length },
-      { label: "参数", value: params },
-      { label: "已自定义", value: cust },
-    ];
-  }, [groups]);
 
   const filteredRows = useMemo(() => {
     if (!activeGroup) return [];
