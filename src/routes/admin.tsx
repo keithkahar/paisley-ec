@@ -951,7 +951,7 @@ function AdminPageInner() {
           </div>
         </div>
 
-        <div className="px-5 pt-32">
+        <div className="px-5 pt-44">
           {/* Mode tabs — hamburger + scrollable tabs + reset in one pill */}
           <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
             <button
