@@ -707,7 +707,7 @@ function SRView(props: {
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
             <div className="pr-10">
-              <div className="text-[11px]" style={{ color: MUTED_C }}>编码</div>
+              <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
               <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
