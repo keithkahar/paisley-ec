@@ -1338,7 +1338,7 @@ function AdminPageInner() {
                             style={{
                               background: active ? ACTIVE_BG : SOFT_BG,
                               color: active ? PAISLEY : NAVY,
-                              fontWeight: active ? 500 : 400,
+                              fontWeight: 400,
                             }}
                           >
                             <span>{opt.label}</span>
@@ -1353,7 +1353,7 @@ function AdminPageInner() {
                       className="w-full flex items-center justify-between px-4 py-3 rounded-xl"
                       style={{ background: SOFT_BG }}
                     >
-                      <span className="text-[14px] font-medium" style={{ color: NAVY }}>{editValue === "true" ? "开启" : "关闭"}</span>
+                      <span className="text-[14px] font-normal" style={{ color: NAVY }}>{editValue === "true" ? "开启" : "关闭"}</span>
                       <span
                         className="relative inline-block w-[44px] h-[24px] rounded-full transition-colors"
                         style={{ background: editValue === "true" ? PAISLEY : "#CBD5E1" }}
@@ -1378,7 +1378,7 @@ function AdminPageInner() {
               <div className="mt-4 shrink-0">
                 <button
                   onClick={saveEditor}
-                  className="w-full h-12 rounded-full text-[14px] font-medium text-white active:scale-[0.99] transition-transform"
+                  className="w-full h-12 rounded-full text-[14px] font-normal text-white active:scale-[0.99] transition-transform"
                   style={{ background: PAISLEY }}
                 >
                   保存
