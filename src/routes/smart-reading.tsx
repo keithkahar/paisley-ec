@@ -193,11 +193,31 @@ function SmartReadingPage() {
                     key={p.pack_id}
                     type="button"
                     onClick={() => selectBook(p.book_code)}
-                    className="w-full flex items-center justify-between py-3 text-left text-[14px] font-semibold"
-                    style={{ color: active ? PINK : "var(--foreground)" }}
+                    className="w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-4 text-left active:scale-[0.98] transition-transform"
+                    style={{
+                      background: active ? PINK_SOFT : "transparent",
+                      border: `1px solid ${active ? PINK : "oklch(0.94 0.02 10)"}`,
+                    }}
                   >
-                    <span>{p.title}</span>
-                    {active && <Check className="h-4 w-4" />}
+                    <div className="min-w-0 flex flex-col gap-1.5">
+                      <p
+                        className="text-[16px] font-semibold tracking-tight leading-none"
+                        style={{ color: active ? PINK : "var(--foreground)", letterSpacing: "-0.01em" }}
+                      >
+                        {p.title}
+                      </p>
+                      <p className="text-[12px] font-medium text-foreground/60 leading-none">
+                        {p.CEFR} · {p.Lexile} · {p.wordCount} Words
+                      </p>
+                    </div>
+                    {active && (
+                      <span
+                        className="h-6 w-6 shrink-0 grid place-items-center rounded-full"
+                        style={{ background: PINK_SOFT }}
+                      >
+                        <Check className="h-3.5 w-3.5" strokeWidth={3} style={{ color: PINK }} />
+                      </span>
+                    )}
                   </button>
                 );
               })}
