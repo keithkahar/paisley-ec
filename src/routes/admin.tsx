@@ -1135,7 +1135,7 @@ function AdminPageInner() {
                 <button
                   key={t.k}
                   onClick={() => setMode(t.k as "params" | "smartReading")}
-                  className="shrink-0 flex-1 h-[34px] px-4 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
+                  className="shrink-0 flex-1 h-[34px] px-4 rounded-full text-[13px] font-medium transition-all whitespace-nowrap"
                   style={{
                     background: active ? "#fff" : "transparent",
                     color: active ? accent : SUB,
@@ -1171,7 +1171,7 @@ function AdminPageInner() {
                   <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: PAISLEY }} />
                 )}
                 <span
-                  className="text-[15px] font-semibold tracking-tight leading-none truncate"
+                  className="text-[15px] font-medium tracking-tight leading-none truncate"
                   style={{ letterSpacing: "-0.01em", color: NAVY }}
                 >
                   {row.label}
@@ -1185,7 +1185,7 @@ function AdminPageInner() {
                   ?
                 </span>
                 <span
-                  className="ml-auto text-[15px] font-semibold text-right leading-none truncate max-w-[45%]"
+                  className="ml-auto text-[15px] font-medium text-right leading-none truncate max-w-[45%]"
                   style={{ color: row.customized ? PAISLEY : NAVY }}
                 >
                   {row.valueText}
@@ -1244,11 +1244,11 @@ function AdminPageInner() {
                           boxShadow: active ? "0 4px 12px rgba(1,70,185,0.22)" : "none",
                         }}
                       >
-                        <span className="text-[13px] font-semibold truncate">{g.title}</span>
+                        <span className="text-[13px] font-medium truncate">{g.title}</span>
                         <span className="flex items-center gap-1 shrink-0">
                           {cc > 0 && (
                             <span
-                              className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-bold leading-none"
+                              className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-medium leading-none"
                               style={{ background: active ? "rgba(255,255,255,0.22)" : PAISLEY, color: "#fff" }}
                             >
                               {cc}
@@ -1264,7 +1264,7 @@ function AdminPageInner() {
               <div className="p-4 border-t" style={{ borderColor: "#DDE6F2" }}>
                 <button
                   onClick={() => { setNavOpen(false); setConfirmReset(true); }}
-                  className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-semibold"
+                  className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-medium"
                   style={{ background: "#fff", color: NAVY, border: "1px solid #D5DEEC" }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
@@ -1286,11 +1286,11 @@ function AdminPageInner() {
         {helpFor && (
           <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setHelpFor(null)}>
             <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-semibold" style={{ color: NAVY }}>{helpFor.label}</div>
+              <div className="text-[16px] font-medium" style={{ color: NAVY }}>{helpFor.label}</div>
               <div className="text-[13px] mt-2 leading-relaxed" style={{ color: SUB }}>{helpFor.helpText || "暂无说明。"}</div>
               <button
                 onClick={() => setHelpFor(null)}
-                className="mt-4 w-full h-10 rounded-full text-[14px] font-semibold text-white"
+                className="mt-4 w-full h-10 rounded-full text-[14px] font-medium text-white"
                 style={{ background: PAISLEY }}
               >
                 知道了
@@ -1303,11 +1303,11 @@ function AdminPageInner() {
         {confirmReset && (
           <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setConfirmReset(false)}>
             <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-semibold" style={{ color: NAVY }}>重置后台参数？</div>
+              <div className="text-[16px] font-medium" style={{ color: NAVY }}>重置后台参数？</div>
               <div className="text-[13px] mt-2" style={{ color: SUB }}>这会把所有前端参数恢复为默认值。</div>
               <div className="mt-4 flex gap-3">
-                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>重置</button>
+                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[14px] font-medium" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[14px] font-medium text-white" style={{ background: "#D9534F" }}>重置</button>
               </div>
             </div>
           </div>
@@ -1337,7 +1337,7 @@ function AdminPageInner() {
                             style={{
                               background: active ? ACTIVE_BG : SOFT_BG,
                               color: active ? PAISLEY : NAVY,
-                              fontWeight: active ? 700 : 500,
+                              fontWeight: active ? 500 : 400,
                             }}
                           >
                             <span>{opt.label}</span>
@@ -1352,7 +1352,7 @@ function AdminPageInner() {
                       className="w-full flex items-center justify-between px-4 py-3 rounded-xl"
                       style={{ background: SOFT_BG }}
                     >
-                      <span className="text-[14px] font-semibold" style={{ color: NAVY }}>{editValue === "true" ? "开启" : "关闭"}</span>
+                      <span className="text-[14px] font-medium" style={{ color: NAVY }}>{editValue === "true" ? "开启" : "关闭"}</span>
                       <span
                         className="relative inline-block w-[44px] h-[24px] rounded-full transition-colors"
                         style={{ background: editValue === "true" ? PAISLEY : "#CBD5E1" }}
@@ -1377,7 +1377,7 @@ function AdminPageInner() {
               <div className="mt-4 shrink-0">
                 <button
                   onClick={saveEditor}
-                  className="w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
+                  className="w-full h-12 rounded-full text-[14px] font-medium text-white active:scale-[0.99] transition-transform"
                   style={{ background: PAISLEY }}
                 >
                   保存
