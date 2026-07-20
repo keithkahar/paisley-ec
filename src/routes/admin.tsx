@@ -738,7 +738,7 @@ function SRView(props: {
                 </div>
                 <div>
                   <div className="text-[11px]" style={{ color: MUTED_C }}>来源</div>
-                  <div className="text-[13px] font-normal mt-0.5 break-all" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
+                  <div className="text-[12px] font-normal mt-0.5 break-all" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
                 </div>
               </div>
             </div>
