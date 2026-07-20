@@ -6,7 +6,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "管理员后台 — Paisley EC" },
+      { title: "参数分组 — Paisley EC" },
       { name: "description", content: "前端参数管理中心。" },
     ],
   }),
