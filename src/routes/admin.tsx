@@ -667,7 +667,7 @@ function SRView(props: {
         brandColor={YELLOW_C}
         onClose={() => setBookSheetOpen(false)}
       >
-        <div className="space-y-2">
+        <>
           {srBooks.map((b) => {
             const active = b.book_code === srActiveBookCode;
             return (
@@ -679,35 +679,21 @@ function SRView(props: {
                   setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
                   setBookSheetOpen(false);
                 }}
-                className="w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-4 text-left active:scale-[0.98] transition-transform"
-                style={{
-                  background: active ? YELLOW_SOFT_C : "transparent",
-                  border: `1px solid ${active ? YELLOW_BORDER_C : "#EEF2F7"}`,
-                }}
+                className="w-full flex items-center justify-between gap-3 px-1 py-4 text-left"
               >
-                <div className="min-w-0 flex flex-col gap-1.5">
-                  <p
-                    className="text-[16px] font-semibold tracking-tight leading-none"
-                    style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
-                  >
-                    {b.book_title}
-                  </p>
-                  <p className="text-[12px] font-medium leading-none" style={{ color: MUTED_C }}>
-                    {b.series_name} · {b.book_code}
-                  </p>
-                </div>
+                <p
+                  className="text-[17px] font-semibold tracking-tight leading-none"
+                  style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
+                >
+                  {b.book_title}
+                </p>
                 {active && (
-                  <span
-                    className="h-6 w-6 shrink-0 grid place-items-center rounded-full"
-                    style={{ background: "#fff", border: `1px solid ${YELLOW_BORDER_C}` }}
-                  >
-                    <Check className="h-3.5 w-3.5" strokeWidth={3} style={{ color: YELLOW_C }} />
-                  </span>
+                  <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
                 )}
               </button>
             );
           })}
-        </div>
+        </>
       </StandardSheet>
 
       {/* Book info */}
