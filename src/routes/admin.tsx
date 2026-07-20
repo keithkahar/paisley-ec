@@ -699,30 +699,48 @@ function SRView(props: {
             >
               <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
-            <div className="pr-10 grid grid-cols-2 gap-4">
-              <div>
-                <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
-                <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
-              </div>
-              <div>
-                <div className="text-[11px]" style={{ color: MUTED_C }}>来源</div>
-                <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
-              </div>
-            </div>
-            <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
-              {[
-                ["CEFR", srActiveBook.cefr_range],
-                ["Lexile", srActiveBook.lexile_range],
-                ["Words", srActiveBook.word_count_range],
-                ["排序", String(srActiveBook.sort_order)],
-                ["更新日期", toUsShortDate(srActiveBook.updated_at)],
-                ["授权", srActiveBook.content_license],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <div className="text-[11px]" style={{ color: MUTED_C }}>{k}</div>
-                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{v}</div>
+            <div className="pr-10 space-y-3">
+              {/* Row 1 */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
                 </div>
-              ))}
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>排序</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.sort_order}</div>
+                </div>
+              </div>
+              {/* Row 2 */}
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>CEFR</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.cefr_range}</div>
+                </div>
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>Lexile</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.lexile_range}</div>
+                </div>
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>Words</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.word_count_range}</div>
+                </div>
+              </div>
+              {/* Row 3 */}
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>更新</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{toUsShortDate(srActiveBook.updated_at)}</div>
+                </div>
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>授权</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.content_license}</div>
+                </div>
+                <div>
+                  <div className="text-[11px]" style={{ color: MUTED_C }}>来源</div>
+                  <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
+                </div>
+              </div>
             </div>
           </div>
         </>
@@ -1417,7 +1435,7 @@ function AdminPageInner() {
           }}
         >
           <div className="flex flex-col h-full min-h-0">
-            <div className="text-[13px] font-medium text-center" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
+            <div className="text-[13px] font-medium text-center" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象</div>
           <div className="mt-2 flex-1 min-h-0 overflow-y-auto">
             <textarea
               value={srImportText}
