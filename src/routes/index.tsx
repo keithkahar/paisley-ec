@@ -75,14 +75,14 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 mt-[15px] translate-y-[5px] w-[58%] max-w-[220px] object-contain"
+              className="relative z-10 translate-y-[5px] w-[58%] max-w-[220px] object-contain"
             />
           </div>
         </section>
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6"
+          className="relative -mt-[35px] flex-1 bg-card px-7 pt-[60px] pb-6"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
@@ -91,7 +91,7 @@ function Home() {
             style={{ letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
-            <span className="block mt-7 text-[26px] text-foreground/80 font-normal leading-[1.7]">
+            <span className="block mt-[43px] text-[26px] text-foreground/80 font-normal leading-[1.7]">
               Are you ready for today's English adventure?
             </span>
           </h1>
