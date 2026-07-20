@@ -3,7 +3,7 @@ import { ChevronLeft, Pencil, ChevronDown, Check, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { StandardSheet } from "@/components/app/StandardSheet";
-import { CalendarIcon, ChevronLeft as CalPrev, ChevronRight as CalNext } from "lucide-react";
+import { CalendarIcon, ChevronLeft as CalPrev, ChevronRight as CalNext, X as CloseX } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -1638,7 +1638,17 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
               background: SOFT_BG_C,
             }}
           >
-            <div className="flex items-center justify-between px-5 pt-4 pb-2 shrink-0">
+            {/* Close button (standard sheet position: top-right, aligned with title row) */}
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+              className="absolute right-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+              style={{ top: 12 }}
+            >
+              <CloseX className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+            </button>
+            <div className="flex items-center justify-between px-5 pt-14 pb-2 shrink-0">
               <button
                 type="button"
                 onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1))}
