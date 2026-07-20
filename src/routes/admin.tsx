@@ -1164,49 +1164,32 @@ function AdminPageInner() {
               <button
                 key={row.path}
                 onClick={() => openEditor(row)}
-                className="w-full text-left relative rounded-2xl p-3.5 transition-all"
-                style={{
-                  background: "#fff",
-                  border: `1px solid #EEF2F7`,
-                  overflow: "hidden",
-                }}
+                className="w-full text-left relative flex items-center gap-3 rounded-full py-4 pl-5 pr-5 active:scale-[0.98] transition-transform overflow-hidden"
+                style={{ background: "color-mix(in oklab, var(--paisley) 10%, white)" }}
               >
                 {row.customized && (
                   <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: PAISLEY }} />
                 )}
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[14px] font-medium leading-tight" style={{ color: NAVY }}>{row.label}</span>
-                      {row.customized && (
-                        <span
-                          className="px-1.5 py-0.5 rounded text-[10px] font-medium leading-none"
-                          style={{ background: SOFT_BLUE, color: PAISLEY }}
-                        >
-                          已改
-                        </span>
-                      )}
-                      <span
-                        role="button"
-                        onClick={(e) => { e.stopPropagation(); setHelpFor(row); }}
-                        className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full text-[10px] font-medium leading-none"
-                        style={{ background: SOFT_BG, color: SUB }}
-                      >
-                        ?
-                      </span>
-                    </div>
-                    <code
-                      className="inline-block mt-1.5 px-1.5 py-0.5 rounded text-[10.5px] break-all"
-                      style={{ background: SOFT_BLUE, color: PAISLEY, fontFamily: MONO }}
-                    >
-                      {row.path}
-                    </code>
-                  </div>
-                  <div className="flex flex-col items-end gap-0.5 shrink-0 max-w-[42%]">
-                    <div className="text-[13.5px] font-semibold text-right break-all leading-tight" style={{ color: row.customized ? PAISLEY : NAVY }}>{row.valueText}</div>
-                    <div className="text-[9.5px]" style={{ color: "#A0AEC0" }}>默认: {row.defaultText}</div>
-                  </div>
-                </div>
+                <span
+                  className="text-[15px] font-semibold tracking-tight leading-none truncate"
+                  style={{ letterSpacing: "-0.01em", color: row.customized ? PAISLEY : NAVY }}
+                >
+                  {row.label}
+                </span>
+                <span
+                  role="button"
+                  onClick={(e) => { e.stopPropagation(); setHelpFor(row); }}
+                  className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full text-[11px] font-medium leading-none bg-white"
+                  style={{ color: SUB }}
+                >
+                  ?
+                </span>
+                <span
+                  className="ml-auto text-[15px] font-semibold text-right leading-none truncate max-w-[45%]"
+                  style={{ color: row.customized ? PAISLEY : NAVY }}
+                >
+                  {row.valueText}
+                </span>
               </button>
             ))}
           </div>
@@ -1341,8 +1324,9 @@ function AdminPageInner() {
           {editing && (
             <div className="flex flex-col h-full min-h-0">
               <div className="shrink-0 text-center">
-                <div className="text-[11px] break-all" style={{ color: MUTED }}>{editing.path}</div>
-                <div className="text-[11px] mt-0.5" style={{ color: MUTED }}>默认：{editing.defaultText}</div>
+                <div className="text-[11px] break-all" style={{ color: MUTED }}>
+                  {editing.path} · 默认：{editing.defaultText}
+                </div>
               </div>
               <div className="mt-4 flex-1 min-h-0 overflow-y-auto">
                 {editing.options && editing.options.length > 0 ? (
