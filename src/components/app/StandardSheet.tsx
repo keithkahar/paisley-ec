@@ -94,7 +94,7 @@ export function StandardSheet({
           <span className="h-1 w-10 rounded-full bg-border" />
         </div>
         {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
-        <div className="relative flex flex-col items-center px-5 pt-2 pb-3 shrink-0">
+        <div className="relative flex flex-col items-center px-5 pt-2 pb-0 shrink-0">
           <h2
             className="text-[17px] tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor, fontWeight: 400 }}
