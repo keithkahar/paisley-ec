@@ -1452,7 +1452,7 @@ function AdminPageInner() {
               <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
                 <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
                 <div className="shrink-0">
-                  <div className="text-[16px] font-medium mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
+                  <div className="text-[16px] font-normal mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
                   <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
                 </div>
                 <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
@@ -1530,7 +1530,7 @@ function AdminPageInner() {
               <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
                 <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
                 <div className="shrink-0">
-                  <div className="text-[16px] font-medium mt-3" style={{ color: NAVY }}>编辑单元</div>
+                  <div className="text-[16px] font-normal mt-3" style={{ color: NAVY }}>编辑单元</div>
                   <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
                 </div>
                 <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
