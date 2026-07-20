@@ -1580,6 +1580,119 @@ function SRField(props: { label: string; children: React.ReactNode }) {
   );
 }
 
+function SRDatePicker(props: { value: string; onChange: (v: string) => void; accent: string }) {
+  const NAVY_C = "#0B2545";
+  const MUTED_C = "#8A97A6";
+  const SOFT_BG_C = "#F6F8FC";
+  const [open, setOpen] = useState(false);
+  const initial = props.value ? new Date(props.value + "T00:00:00") : new Date();
+  const [cursor, setCursor] = useState<Date>(new Date(initial.getFullYear(), initial.getMonth(), 1));
+  const today = useMemo(() => new Date(), []);
+  const selected = props.value ? new Date(props.value + "T00:00:00") : null;
+
+  const cells = useMemo(() => {
+    const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+    const startDow = first.getDay();
+    const total = 6 * 7;
+    return Array.from({ length: total }).map((_, i) => {
+      const d = new Date(cursor.getFullYear(), cursor.getMonth(), i - startDow + 1);
+      return d;
+    });
+  }, [cursor]);
+
+  const DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  const monthLabel = cursor.toLocaleString("en-US", { month: "long", year: "numeric" });
+
+  const pick = (d: Date) => {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    props.onChange(`${yyyy}-${mm}-${dd}`);
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="w-full px-3 py-2 rounded-xl text-[14px] outline-none flex items-center justify-between"
+        style={{ background: SOFT_BG_C, color: props.value ? NAVY_C : MUTED_C }}
+      >
+        <span className="tabular-nums">{props.value || "YYYY-MM-DD"}</span>
+        <CalendarIcon className="h-4 w-4 opacity-60" />
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center">
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0"
+            style={{ background: "rgba(11,37,69,0.25)" }}
+          />
+          <div
+            className="relative w-full max-w-[420px] rounded-t-3xl pointer-events-auto flex flex-col"
+            style={{
+              height: "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
+              background: SOFT_BG_C,
+            }}
+          >
+            <div className="flex items-center justify-between px-5 pt-4 pb-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1))}
+                className="h-9 w-9 grid place-items-center rounded-full active:scale-95 transition-transform"
+                style={{ border: `1.5px solid ${props.accent}`, color: props.accent }}
+                aria-label="Previous month"
+              >
+                <CalPrev className="h-5 w-5" />
+              </button>
+              <span className="text-[15px] font-semibold tracking-tight" style={{ color: NAVY_C }}>{monthLabel}</span>
+              <button
+                type="button"
+                onClick={() => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1))}
+                className="h-9 w-9 grid place-items-center rounded-full active:scale-95 transition-transform"
+                style={{ color: MUTED_C }}
+                aria-label="Next month"
+              >
+                <CalNext className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="px-5 mt-2 grid grid-cols-7 gap-x-1">
+              {DAY_LABELS.map((d) => (
+                <div key={d} className="text-center text-[12px] font-medium py-2" style={{ color: MUTED_C }}>{d}</div>
+              ))}
+            </div>
+            <div className="flex-1 px-5 pb-5 grid grid-cols-7 gap-x-1 gap-y-1 auto-rows-fr">
+              {cells.map((d, i) => {
+                const inMonth = d.getMonth() === cursor.getMonth();
+                const isToday = d.toDateString() === today.toDateString();
+                const isSelected = !!selected && d.toDateString() === selected.toDateString();
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => pick(d)}
+                    className="grid place-items-center rounded-2xl text-[15px] font-medium active:scale-95 transition-transform"
+                    style={{
+                      color: isSelected ? NAVY_C : inMonth ? NAVY_C : MUTED_C,
+                      background: isSelected ? "#f7e6cc" : "transparent",
+                      border: isToday && !isSelected ? `1.5px solid ${props.accent}` : "none",
+                    }}
+                  >
+                    {d.getDate()}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 function SRSelect(props: {
   value: string;
   options: string[];
