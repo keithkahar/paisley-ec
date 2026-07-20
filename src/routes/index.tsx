@@ -91,7 +91,7 @@ function Home() {
             style={{ letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
-            <span className="block mt-[44.63px] text-[26px] text-foreground/80 font-normal leading-[1.7]">
+            <span className="block mt-[41.63px] text-[26px] text-foreground/80 font-normal leading-[1.7]">
               Are you ready for today's English adventure?
             </span>
           </h1>
@@ -99,7 +99,7 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="relative isolate mt-[53.03px] flex items-center justify-center gap-[8px] rounded-full py-5 font-semibold text-white active:scale-[0.98] transition-transform"
+            className="relative isolate mt-[56.03px] flex items-center justify-center gap-[8px] rounded-full py-5 font-semibold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               fontSize: "17.25px"
