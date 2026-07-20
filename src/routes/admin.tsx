@@ -1506,16 +1506,33 @@ function AdminPageInner() {
                     <input value={srBookEditForm.sortOrder} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, sortOrder: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                   <SRField label="更新日期">
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="date"
-                        value={srBookEditForm.updatedAt}
-                        onChange={(e) => setSrBookEditForm({ ...srBookEditForm, updatedAt: e.target.value })}
-                        className="flex-1 px-3 py-2 rounded-xl text-[14px] outline-none"
-                        style={{ background: SOFT_BG, color: NAVY }}
-                      />
-                      <span className="text-[12px] tabular-nums" style={{ color: MUTED }}>{toUsShortDate(srBookEditForm.updatedAt) || "mm-dd-yy"}</span>
-                    </div>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          className="w-full px-3 py-2 rounded-xl text-[14px] outline-none flex items-center justify-between"
+                          style={{ background: SOFT_BG, color: srBookEditForm.updatedAt ? NAVY : MUTED }}
+                        >
+                          <span className="tabular-nums">{srBookEditForm.updatedAt || "YYYY-MM-DD"}</span>
+                          <CalendarIcon className="h-4 w-4 opacity-60" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0 rounded-2xl" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={srBookEditForm.updatedAt ? new Date(srBookEditForm.updatedAt) : undefined}
+                          onSelect={(d) => {
+                            if (!d) return;
+                            const yyyy = d.getFullYear();
+                            const mm = String(d.getMonth() + 1).padStart(2, "0");
+                            const dd = String(d.getDate()).padStart(2, "0");
+                            setSrBookEditForm({ ...srBookEditForm, updatedAt: `${yyyy}-${mm}-${dd}` });
+                          }}
+                          initialFocus
+                          className={cn("p-4 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </SRField>
                   <SRField label="授权">
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" accentColor={YELLOW} />
