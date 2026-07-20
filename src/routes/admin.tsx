@@ -1172,7 +1172,7 @@ function AdminPageInner() {
                 )}
                 <span
                   className="text-[15px] font-semibold tracking-tight leading-none truncate"
-                  style={{ letterSpacing: "-0.01em", color: row.customized ? PAISLEY : NAVY }}
+                  style={{ letterSpacing: "-0.01em", color: NAVY }}
                 >
                   {row.label}
                 </span>
