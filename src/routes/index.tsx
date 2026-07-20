@@ -59,7 +59,7 @@ function Home() {
         <button
           type="button"
           onClick={handleLogoClick}
-          className="absolute top-12 left-7 z-20 cursor-pointer active:scale-[0.98] transition-transform"
+          className="absolute top-7 left-7 z-20 cursor-pointer active:scale-[0.98] transition-transform"
           aria-label="About PEC"
         >
 
