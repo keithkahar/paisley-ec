@@ -66,16 +66,16 @@ function Home() {
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </button>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative z-10 px-6 pt-[6.5rem] pb-0 mt-5">
+        <section className="relative px-6 pt-[6.5rem] pb-0 mt-5">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
 
-          <div className="relative flex justify-center translate-y-5">
+          <div className="relative flex justify-center">
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 w-[58%] max-w-[220px] object-contain"
+              className="relative z-10 mt-[15px] w-[58%] max-w-[220px] object-contain"
             />
           </div>
         </section>
