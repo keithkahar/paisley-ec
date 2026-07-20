@@ -696,9 +696,10 @@ function SRView(props: {
               type="button"
               onClick={onEditBook}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
+              className="absolute top-14 right-4 h-[34px] w-[34px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              style={{ border: `1px solid ${MUTED_C}` }}
             >
-              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: MUTED_C }} />
             </button>
             <div className="space-y-3">
               {/* Row 1: keep 3-column grid to align with rows 2 & 3; edit button sits in the empty third column */}
