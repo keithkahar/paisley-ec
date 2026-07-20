@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, RotateCcw, Pencil, ChevronDown, Check } from "lucide-react";
+import { ChevronLeft, RotateCcw, Pencil, ChevronDown, Check, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { StandardSheet } from "@/components/app/StandardSheet";
@@ -608,35 +608,36 @@ function SRView(props: {
 
   return (
     <div className="mt-4">
-      {/* Status strip — quiet, no dots, no heavy fonts */}
-      <div className="rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-3" style={{ background: "#FAFBFD", border: "1px solid #EEF2F7" }}>
-        <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px]" style={{ color: MUTED_C }}>来源</span>
-          <span className="text-[13px] font-medium" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</span>
+      {/* 4 pills in one row */}
+      <div className="flex items-center gap-2">
+        <div
+          className="flex-1 min-w-0 h-10 rounded-xl px-3 flex items-center justify-center text-[12px] font-semibold truncate"
+          style={{ background: "#FAFBFD", color: NAVY_C, border: "1px solid #EEF2F7" }}
+          title={isAdmin ? "Admin 导入" : "默认代码"}
+        >
+          {isAdmin ? "Admin 导入" : "默认代码"}
         </div>
-        <div className="flex items-baseline gap-2 shrink-0">
-          <span className="text-[11px]" style={{ color: MUTED_C }}>规模</span>
-          <span className="text-[13px] font-medium" style={{ color: NAVY_C }}>
-            {srBooks.length} 本 · {srTotalUnits} 单元
-          </span>
+        <div
+          className="flex-1 min-w-0 h-10 rounded-xl px-3 flex items-center justify-center text-[12px] font-semibold truncate"
+          style={{ background: "#FAFBFD", color: NAVY_C, border: "1px solid #EEF2F7" }}
+          title={`${srBooks.length} 本 · ${srTotalUnits} 单元`}
+        >
+          {srBooks.length} 本 · {srTotalUnits} 单元
         </div>
-      </div>
-
-      {/* Actions */}
-      <div className="mt-3 grid grid-cols-2 gap-2">
         <button
           onClick={onImport}
-          className="h-10 rounded-xl text-[13px] font-semibold text-white"
+          className="flex-1 min-w-0 h-10 rounded-xl px-2 flex items-center justify-center text-[13px] font-semibold text-white active:scale-95 transition-transform"
           style={{ background: YELLOW_C }}
         >
-          导入 JSON
+          +JSOn
         </button>
         <button
           onClick={onClear}
-          className="h-10 rounded-xl text-[13px] font-semibold"
-          style={{ background: "#fff", color: NAVY_C, border: `1px solid ${YELLOW_BORDER_C}` }}
+          aria-label="清除导入"
+          className="h-10 w-10 shrink-0 rounded-xl flex items-center justify-center text-white active:scale-95 transition-transform"
+          style={{ background: "#D9534F" }}
         >
-          清除导入
+          <Trash2 className="h-4 w-4" strokeWidth={2.25} />
         </button>
       </div>
 
@@ -701,10 +702,9 @@ function SRView(props: {
               type="button"
               onClick={onEditBook}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
-              style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
             >
-              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
             <div className="pr-10">
               <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
@@ -752,10 +752,9 @@ function SRView(props: {
               type="button"
               onClick={onEditUnit}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
-              style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
             >
-              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
             <div className="pr-10">
               <div className="text-[11px]" style={{ color: MUTED_C }}>单元码</div>
