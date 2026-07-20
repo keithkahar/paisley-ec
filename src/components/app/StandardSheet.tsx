@@ -93,7 +93,7 @@ export function StandardSheet({
         {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
         <div className={`relative flex ${subtitle ? "flex-col items-center" : "items-center"} justify-center px-5 pt-2 pb-3 shrink-0`}>
           <h2
-            className="text-[17px] font-semibold tracking-tight leading-none"
+            className="text-[17px] font-medium tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor }}
           >
             {title}
