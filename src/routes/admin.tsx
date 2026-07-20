@@ -699,9 +699,9 @@ function SRView(props: {
             >
               <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
-            <div className="pr-10 space-y-3">
-              {/* Row 1 */}
-              <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-3">
+              {/* Row 1: keep 3-column grid to align with rows 2 & 3; edit button sits in the empty third column */}
+              <div className="grid grid-cols-3 gap-4">
                 <div>
                   <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
                   <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
