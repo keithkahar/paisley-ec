@@ -6,7 +6,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "管理员后台 — Paisley EC" },
+      { title: "参数分组 — Paisley EC" },
       { name: "description", content: "前端参数管理中心。" },
     ],
   }),
@@ -1101,7 +1101,7 @@ function AdminPageInner() {
               onClick={() => setNavOpen(false)}
             />
             <aside
-              className="fixed top-0 left-0 bottom-0 z-50 w-[78%] max-w-[300px] flex flex-col"
+              className="fixed top-0 left-0 bottom-0 z-50 w-[50%] flex flex-col"
               style={{ background: SOFT_BLUE, boxShadow: "4px 0 24px rgba(11,37,69,0.18)" }}
             >
               <div className="px-5 pt-12 pb-3">
@@ -1110,13 +1110,11 @@ function AdminPageInner() {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[15px] font-bold leading-tight" style={{ color: NAVY }}>管理员后台</div>
-                    <div className="text-[10px]" style={{ color: SUB }}>选择参数分组</div>
+                    <div className="text-[15px] font-bold leading-tight" style={{ color: NAVY }}>参数分组</div>
                   </div>
                 </div>
               </div>
               <div className="flex-1 overflow-y-auto px-3 pb-3">
-                <div className="px-2 text-[9px] font-bold uppercase tracking-[0.14em] mb-1.5" style={{ color: "rgba(11,37,69,0.45)" }}>参数分组</div>
                 <nav className="space-y-1">
                   {groups.map((g) => {
                     const active = g.key === activeKey;
