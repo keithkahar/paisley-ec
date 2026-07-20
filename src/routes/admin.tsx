@@ -1418,14 +1418,14 @@ function AdminPageInner() {
         >
           <div className="flex flex-col h-full min-h-0">
             <div className="text-[13px] font-medium" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
-            <div className="mt-2 flex-1 min-h-0 overflow-y-auto">
-              <textarea
-                value={srImportText}
-                onChange={(e) => setSrImportText(e.target.value)}
-                placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
-                className="w-full h-[280px] px-3 py-2 rounded-xl text-[13px] outline-none resize-none"
-                style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
-              />
+          <div className="mt-2 flex-1 min-h-0 overflow-y-auto">
+            <textarea
+              value={srImportText}
+              onChange={(e) => setSrImportText(e.target.value)}
+              placeholder='[{"book_code":"...","book_title":"...","units":[...]}]'
+              className="w-full h-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none"
+              style={{ background: SOFT_BG, color: NAVY, fontFamily: MONO, border: "1px solid #E6ECF5" }}
+            />
               {srValidationText && (
                 <pre
                   className="mt-2 w-full px-3 py-2 rounded-xl text-[12px] whitespace-pre-wrap"
