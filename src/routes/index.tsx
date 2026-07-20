@@ -66,7 +66,7 @@ function Home() {
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </button>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-[6.5rem] pb-0">
+        <section className="relative px-6 pt-[6.5rem] pb-0 mt-3">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
