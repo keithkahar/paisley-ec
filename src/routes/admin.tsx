@@ -653,12 +653,7 @@ function SRView(props: {
         >
           {srActiveBook?.book_title ?? "选择书籍"}
         </span>
-        <span
-          className="h-8 w-8 shrink-0 grid place-items-center rounded-full bg-white"
-          style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
-        >
-          <ChevronDown className="h-4 w-4" strokeWidth={2.5} style={{ color: YELLOW_C }} />
-        </span>
+        <ChevronDown className="h-5 w-5 shrink-0 mr-1" strokeWidth={2.5} style={{ color: YELLOW_C }} />
       </button>
 
       <StandardSheet
@@ -709,8 +704,10 @@ function SRView(props: {
             >
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
-            <div className="text-[17px] font-semibold leading-tight pr-10" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
-            <div className="text-[12px] mt-1" style={{ color: MUTED_C }}>{srActiveBook.series_name} · {srActiveBook.book_code}</div>
+            <div className="pr-10">
+              <div className="text-[11px]" style={{ color: MUTED_C }}>{srActiveBook.book_code}</div>
+              <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+            </div>
             <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
               {[
                 ["CEFR", srActiveBook.cefr_range],
