@@ -682,7 +682,7 @@ function SRView(props: {
                 className="w-full flex items-center justify-between gap-3 px-1 py-4 text-left"
               >
                 <p
-                  className="text-[17px] font-semibold tracking-tight leading-none"
+                  className="text-[18px] font-semibold tracking-tight leading-none"
                   style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
                 >
                   {b.book_title}
