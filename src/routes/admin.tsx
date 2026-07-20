@@ -771,9 +771,10 @@ function SRView(props: {
               type="button"
               onClick={onEditUnit}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
+              className="absolute top-14 right-4 h-[34px] w-[34px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
+              style={{ border: `1px solid ${MUTED_C}` }}
             >
-              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+              <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: MUTED_C }} />
             </button>
             <div className="pr-10">
               <div className="text-[11px]" style={{ color: MUTED_C }}>单元码</div>
