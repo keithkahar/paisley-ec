@@ -699,7 +699,7 @@ function SRView(props: {
               className="absolute top-14 right-[11px] h-[30px] w-[30px] grid place-items-center rounded-full bg-white active:scale-95 transition-transform"
               style={{ border: `1px solid #A8B4C0` }}
             >
-              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: #A8B4C0" }} />
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "#A8B4C0" }} />
             </button>
             <div className="space-y-3">
               {/* Row 1: keep 3-column grid to align with rows 2 & 3; edit button sits in the empty third column */}
