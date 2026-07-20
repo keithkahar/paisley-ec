@@ -629,7 +629,7 @@ function SRView(props: {
           className="flex-1 min-w-0 h-10 rounded-xl px-2 flex items-center justify-center text-[13px] font-semibold text-white active:scale-95 transition-transform"
           style={{ background: YELLOW_C }}
         >
-          +JSOn
+          + JSON
         </button>
         <button
           onClick={onClear}
