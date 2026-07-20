@@ -636,7 +636,15 @@ function SRView(props: {
           <Section
             title="单元预览"
             action={
-              <button onClick={onEditUnit} className="h-[26px] px-3 rounded-full text-[12px] font-medium text-white" style={{ background: YELLOW_C }}>编辑</button>
+              <button
+                type="button"
+                onClick={onEditUnit}
+                aria-label="编辑"
+                className="h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
+                style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+              >
+                <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+              </button>
             }
           />
           <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
