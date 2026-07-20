@@ -1244,13 +1244,7 @@ function AdminPageInner() {
               className="fixed top-0 left-0 bottom-0 z-50 w-[75%] flex flex-col"
               style={{ background: SOFT_BLUE, boxShadow: "4px 0 24px rgba(11,37,69,0.18)" }}
             >
-              <div className="px-5 pt-12 pb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="min-w-0">
-                    <div className="text-[15px] font-bold leading-tight" style={{ color: NAVY }}>参数分组</div>
-                  </div>
-                </div>
-              </div>
+              <div className="px-5 pt-12 pb-3" />
               <div className="flex-1 overflow-y-auto px-3 pb-3">
                 <nav className="space-y-1">
                   {groups.map((g) => {
