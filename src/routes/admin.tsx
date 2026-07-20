@@ -1319,15 +1319,11 @@ function AdminPageInner() {
           title={editing?.label ?? ""}
           brandColor={PAISLEY}
           onClose={closeEditor}
-          contentPaddingTop={0}
+          subtitle={editing ? `${editing.path} · 默认：${editing.defaultText}` : undefined}
+          subtitleColor={MUTED}
         >
           {editing && (
             <div className="flex flex-col h-full min-h-0">
-              <div className="shrink-0 text-center">
-                <div className="text-[11px] break-all" style={{ color: MUTED }}>
-                  {editing.path} · 默认：{editing.defaultText}
-                </div>
-              </div>
               <div className="mt-4 flex-1 min-h-0 overflow-y-auto">
                 {editing.options && editing.options.length > 0 ? (
                     <div className="flex flex-col gap-2">
