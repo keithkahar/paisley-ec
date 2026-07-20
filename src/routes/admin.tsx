@@ -951,7 +951,7 @@ function AdminPageInner() {
           </div>
         </div>
 
-        <div className="px-5 pt-32">
+        <div className="px-5 pt-[12rem]">
           {/* Mode tabs — hamburger + scrollable tabs + reset in one pill */}
           <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
             <button
@@ -1014,17 +1014,6 @@ function AdminPageInner() {
               );
             })}
           </div>
-
-          {/* Current group header */}
-          {activeGroup && (
-            <div className="mt-5 flex items-baseline justify-between gap-3">
-              <h2 className="text-[16px] font-semibold leading-tight truncate" style={{ color: NAVY }}>{activeGroup.title}</h2>
-              <span className="text-[12px] shrink-0" style={{ color: MUTED }}>{activeGroup.rows.length}</span>
-            </div>
-          )}
-          {activeGroup && (
-            <p className="text-[11px] mt-1 leading-relaxed" style={{ color: MUTED }}>{activeGroup.subtitle}</p>
-          )}
 
           {/* Param cards */}
           <div className="mt-4 space-y-2.5">
