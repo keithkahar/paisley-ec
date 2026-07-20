@@ -38,6 +38,8 @@ type Props = {
   contentPaddingTop?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
   height?: string;
+  /** Optional title weight override. Default: font-semibold. */
+  titleWeight?: "font-normal" | "font-medium" | "font-semibold" | "font-bold";
   children: ReactNode;
 };
 
