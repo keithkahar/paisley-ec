@@ -109,7 +109,7 @@ export function StandardSheet({
               onClick={onClose}
               aria-label="Cancel"
               className={`absolute ${hasDone ? "left-4" : "right-4"} h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform`}
-              style={{ top: 8, transform: "translateY(0)" }}
+              style={{ top: 0 }}
             >
               <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>
@@ -120,7 +120,7 @@ export function StandardSheet({
               onClick={onDone}
               aria-label="Done"
               className="absolute right-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-              style={{ top: 8, transform: "translateY(0)" }}
+              style={{ top: 0 }}
             >
               <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>
