@@ -5,7 +5,7 @@ import { Check, X } from "lucide-react";
  * Global bottom-sheet standard.
  * - Height: 62vh, white, top rounded 3xl, max-w-[420px]
  * - Grabber: 1px x 40px
- * - Title: 17px / font-semibold / tracking-tight / leading-none, centered,
+ * - Title: 17px / font-medium / tracking-tight / leading-none, centered,
  *   colored by `brandColor` (section brand color)
  * - Corner buttons: 32px white round with 1px border, no shadow.
  *   Icon 16px / #0F172A / strokeWidth 2.5.
