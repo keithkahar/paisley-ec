@@ -1450,21 +1450,20 @@ function AdminPageInner() {
 
         {/* SR Book editor sheet */}
         {srBookEditForm && (
-          <>
-            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrBookEditForm(null)} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
-                <div className="shrink-0">
-                  <div className="text-[16px] font-normal mt-3" style={{ color: NAVY }}>编辑书籍基础信息</div>
-                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srBookEditForm.bookCode}</div>
-                </div>
-                <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
+          <StandardSheet
+            open={!!srBookEditForm}
+            title="编辑书籍基础信息"
+            brandColor={YELLOW}
+            subtitle={srBookEditForm.bookCode}
+            onClose={() => setSrBookEditForm(null)}
+          >
+            <div className="flex flex-col h-full min-h-0">
+              <div className="mt-5 space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="书名">
                     <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                   <SRField label="CEFR">
-                    <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" />
+                    <SRSelect value={srBookEditForm.cefrRange} options={SR_CEFR_OPTIONS} open={srCefrPickerOpen} setOpen={setSrCefrPickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, cefrRange: v })} placeholder="请选择 CEFR" accentColor={YELLOW} />
                   </SRField>
                   <SRField label="Lexile">
                     <div className="flex items-center gap-2">
@@ -1514,30 +1513,27 @@ function AdminPageInner() {
                     </div>
                   </SRField>
                   <SRField label="授权">
-                    <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" />
+                    <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" accentColor={YELLOW} />
                   </SRField>
-                </div>
-                <div className="mt-5 flex gap-3 shrink-0">
-                  <button onClick={() => setSrBookEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={saveSrBookEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
-                </div>
+              </div>
+              <div className="mt-4 shrink-0">
+                <button onClick={saveSrBookEditor} className="w-full h-12 rounded-full text-[14px] font-medium" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
-          </>
+          </StandardSheet>
         )}
 
         {/* SR Unit editor sheet */}
         {srUnitEditForm && (
-          <>
-            <div className="fixed inset-0 z-40" style={{ background: "rgba(11,37,69,0.24)" }} onClick={() => setSrUnitEditForm(null)} />
-            <div className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 w-full max-w-[420px] bg-white flex flex-col" style={{ borderTopLeftRadius: 22, borderTopRightRadius: 22, boxShadow: "0 -9px 22px rgba(11,37,69,0.12)", height: "62vh" }}>
-              <div className="px-5 pt-2 pb-[max(18px,env(safe-area-inset-bottom))] flex flex-col h-full min-h-0">
-                <div className="mx-auto w-10 h-1 rounded-full bg-[#E4EAF3] shrink-0" />
-                <div className="shrink-0">
-                  <div className="text-[16px] font-normal mt-3" style={{ color: NAVY }}>编辑单元</div>
-                  <div className="text-[11px] mt-1 break-all" style={{ color: MUTED, fontFamily: MONO }}>{srUnitEditForm.lessonId}</div>
-                </div>
-                <div className="mt-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
+          <StandardSheet
+            open={!!srUnitEditForm}
+            title="编辑单元"
+            brandColor={YELLOW}
+            subtitle={srUnitEditForm.lessonId}
+            onClose={() => setSrUnitEditForm(null)}
+          >
+            <div className="flex flex-col h-full min-h-0">
+              <div className="mt-5 space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="标题">
                     <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
@@ -1545,7 +1541,7 @@ function AdminPageInner() {
                     <input value={srUnitEditForm.coverQuestion} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, coverQuestion: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
                   <SRField label="授权">
-                    <SRSelect value={srUnitEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srLicensePickerOpen} setOpen={setSrLicensePickerOpen} onChange={(v) => setSrUnitEditForm({ ...srUnitEditForm, contentLicense: v as SRUnit["content_license"] })} placeholder="请选择授权" />
+                    <SRSelect value={srUnitEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srLicensePickerOpen} setOpen={setSrLicensePickerOpen} onChange={(v) => setSrUnitEditForm({ ...srUnitEditForm, contentLicense: v as SRUnit["content_license"] })} placeholder="请选择授权" accentColor={YELLOW} />
                   </SRField>
                   <SRField label="Reading Focus">
                     <input value={srUnitEditForm.readingFocus} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, readingFocus: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
@@ -1565,14 +1561,12 @@ function AdminPageInner() {
                   <SRField label="Shirin Opening">
                     <input value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
-                </div>
-                <div className="mt-5 flex gap-3 shrink-0">
-                  <button onClick={() => setSrUnitEditForm(null)} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                  <button onClick={saveSrUnitEditor} className="flex-1 h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
-                </div>
+              </div>
+              <div className="mt-4 shrink-0">
+                <button onClick={saveSrUnitEditor} className="w-full h-12 rounded-full text-[14px] font-medium" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
-          </>
+          </StandardSheet>
         )}
       </div>
     </PhoneFrame>
@@ -1596,11 +1590,14 @@ function SRSelect(props: {
   onChange: (v: string) => void;
   placeholder?: string;
   suffix?: string;
+  accentColor?: string;
 }) {
   const NAVY_C = "#0B2545";
   const MUTED_C = "#8A97A6";
-  const PAISLEY_C = "#0146B9";
   const SOFT_BG_C = "#F6F8FC";
+  const accent = props.accentColor || "#0146B9";
+  // derive a soft tint for the accent (yellow -> pale gold, blue -> pale blue)
+  const activeBg = accent.toLowerCase() === "#0146b9" ? "#EAF3FF" : "#FFF6DA";
   return (
     <div className="relative">
       <button
@@ -1622,7 +1619,7 @@ function SRSelect(props: {
                 type="button"
                 onClick={() => { props.onChange(o); props.setOpen(false); }}
                 className="w-full text-left px-3 py-2 text-[13px]"
-                style={{ background: active ? "#EAF3FF" : "transparent", color: active ? PAISLEY_C : NAVY_C, fontWeight: active ? 700 : 500 }}
+                style={{ background: active ? activeBg : "transparent", color: active ? accent : NAVY_C, fontWeight: active ? 700 : 500 }}
               >
                 {o}{props.suffix ? " " + props.suffix : ""}
               </button>
