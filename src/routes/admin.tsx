@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, RotateCcw } from "lucide-react";
+import { ChevronLeft, RotateCcw, Pencil } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 
