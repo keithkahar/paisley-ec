@@ -940,7 +940,7 @@ function AdminPageInner() {
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white min-h-full pb-12" style={{ color: NAVY }}>
         <div className="sticky top-0 z-30 h-0 pb-[5px]">
-          <div className="absolute left-4 flex items-center gap-2" style={{ top: "calc(1rem + env(safe-area-inset-top))" }}>
+          <div className="absolute left-4" style={{ top: "calc(1rem + env(safe-area-inset-top))" }}>
             <Link
               to="/profile"
               aria-label="Back"
@@ -948,28 +948,11 @@ function AdminPageInner() {
             >
               <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
             </Link>
-            <button
-              onClick={() => setConfirmReset(true)}
-              aria-label="重置"
-              className="h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
-            >
-              <RotateCcw className="h-5 w-5" style={{ color: SUB }} />
-            </button>
           </div>
         </div>
 
         <div className="px-5 pt-12">
-          {/* Header — centered title (matches My Progress) */}
-          <section className="text-center">
-            <h1
-              className="text-[26px] leading-[1.2] font-medium tracking-tight"
-              style={{ color: NAVY, letterSpacing: "-0.01em" }}
-            >
-              管理员后台
-            </h1>
-          </section>
-
-          {/* Mode tabs — hamburger + scrollable tabs in one pill */}
+          {/* Mode tabs — hamburger + scrollable tabs + reset in one pill */}
           <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
             <button
               onClick={() => setNavOpen(true)}
@@ -1004,6 +987,14 @@ function AdminPageInner() {
                 </button>
               );
             })}
+            <button
+              onClick={() => setConfirmReset(true)}
+              aria-label="重置"
+              className="shrink-0 inline-flex items-center justify-center h-[34px] w-[34px] rounded-full transition-all"
+              style={{ background: "#fff", color: "#D9534F", boxShadow: "0 2px 8px rgba(217,83,79,0.14)" }}
+            >
+              <RotateCcw className="h-5 w-5" />
+            </button>
           </div>
 
         {mode === "params" && (
