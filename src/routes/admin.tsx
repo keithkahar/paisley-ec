@@ -1593,11 +1593,11 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
   const cells = useMemo(() => {
     const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
     const startDow = first.getDay();
-    const total = 6 * 7;
-    return Array.from({ length: total }).map((_, i) => {
-      const d = new Date(cursor.getFullYear(), cursor.getMonth(), i - startDow + 1);
-      return d;
-    });
+    const daysInMonth = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0).getDate();
+    const arr: (Date | null)[] = [];
+    for (let i = 0; i < startDow; i++) arr.push(null);
+    for (let d = 1; d <= daysInMonth; d++) arr.push(new Date(cursor.getFullYear(), cursor.getMonth(), d));
+    return arr;
   }, [cursor]);
 
   const DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -1664,9 +1664,9 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
                 <div key={d} className="text-center text-[12px] font-medium py-2" style={{ color: MUTED_C }}>{d}</div>
               ))}
             </div>
-            <div className="flex-1 px-5 pb-5 grid grid-cols-7 gap-x-1 gap-y-1 auto-rows-fr">
+            <div className="flex-1 px-5 pb-5 grid grid-cols-7 gap-x-1 gap-y-2 auto-rows-fr">
               {cells.map((d, i) => {
-                const inMonth = d.getMonth() === cursor.getMonth();
+                if (!d) return <div key={i} />;
                 const isToday = d.toDateString() === today.toDateString();
                 const isSelected = !!selected && d.toDateString() === selected.toDateString();
                 return (
@@ -1674,14 +1674,34 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
                     key={i}
                     type="button"
                     onClick={() => pick(d)}
-                    className="grid place-items-center rounded-2xl text-[15px] font-medium active:scale-95 transition-transform"
-                    style={{
-                      color: isSelected ? NAVY_C : inMonth ? NAVY_C : MUTED_C,
-                      background: isSelected ? "#f7e6cc" : "transparent",
-                      border: isToday && !isSelected ? `1.5px solid ${props.accent}` : "none",
-                    }}
+                    className="relative grid place-items-center text-[16px] font-medium active:scale-95 transition-transform"
+                    style={{ color: NAVY_C }}
                   >
-                    {d.getDate()}
+                    {isSelected && (
+                      <span
+                        aria-hidden
+                        className="absolute"
+                        style={{
+                          width: 40,
+                          height: 44,
+                          borderRadius: "50%",
+                          background: "#f4e3c6",
+                        }}
+                      />
+                    )}
+                    {isToday && !isSelected && (
+                      <span
+                        aria-hidden
+                        className="absolute"
+                        style={{
+                          width: 40,
+                          height: 44,
+                          borderRadius: "50%",
+                          border: `1.5px solid ${props.accent}`,
+                        }}
+                      />
+                    )}
+                    <span className="relative">{d.getDate()}</span>
                   </button>
                 );
               })}
