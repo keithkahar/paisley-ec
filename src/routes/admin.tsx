@@ -744,7 +744,7 @@ function SRView(props: {
                 className="text-[15px] font-semibold tracking-tight truncate pr-2"
                 style={{ color: YELLOW_C }}
               >
-                {srActiveUnit.story_title}
+                U{String(srActiveUnit.unit_number).padStart(2, '0')}-{srActiveUnit.story_title}
               </span>
               <ChevronDown className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
             </button>
@@ -804,7 +804,7 @@ function SRView(props: {
                       className="text-[18px] font-semibold tracking-tight leading-none"
                       style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
                     >
-                      {u.story_title}
+                      U{String(u.unit_number).padStart(2, '0')}-{u.story_title}
                     </p>
                     {active && (
                       <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
@@ -819,7 +819,7 @@ function SRView(props: {
             <h3 className="text-[13px] font-medium leading-tight" style={{ color: SUB_C }}>AI Context Preview</h3>
             <span className="text-[11px]" style={{ color: MUTED_C }}>context.json</span>
           </div>
-          <pre className="rounded-2xl p-4 text-[11px] leading-relaxed overflow-x-auto" style={{ background: "#F5F7FB", color: NAVY_C, border: "1px solid #E6ECF5", fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+          <pre className="rounded-2xl p-4 text-[14px] leading-relaxed overflow-x-auto" style={{ background: "#F5F7FB", color: NAVY_C, border: "1px solid #E6ECF5", fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
 {JSON.stringify(aiContext, null, 2)}
           </pre>
         </>
