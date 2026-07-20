@@ -66,7 +66,7 @@ function Home() {
           <img src={paisleyLogo.url} alt="Paisley EC" className="h-8 w-auto object-contain" />
         </button>
         {/* PRIMARY: Shirin hero */}
-        <section className="relative px-6 pt-[6.5rem] pb-0 mt-2.5">
+        <section className="relative px-6 pt-[6.5rem] pb-0 mt-5">
           <Cloud className="absolute top-10 right-6 w-24 opacity-80" />
           <Cloud className="absolute top-28 left-4 w-16 opacity-70" />
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
@@ -82,7 +82,7 @@ function Home() {
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6"
+          className="relative -mt-5 flex-1 bg-card px-7 pt-[60px] pb-6 mt-2.5"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
