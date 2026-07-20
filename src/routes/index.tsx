@@ -87,7 +87,7 @@ function Home() {
         >
           {/* SECONDARY: greeting + question, one refined block */}
           <h1
-            className="text-[26px] leading-[1.4] font-medium tracking-tight text-foreground text-center"
+            className="text-[26px] leading-[1.4] font-medium tracking-tight text-foreground text-center -mt-[5px]"
             style={{ letterSpacing: "-0.01em" }}
           >
             Hi, {name}.
