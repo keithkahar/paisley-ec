@@ -1407,7 +1407,6 @@ function AdminPageInner() {
           open={srImportOpen}
           title="导入JSON"
           brandColor={YELLOW}
-          titleWeight="font-normal"
           onClose={() => {
             setSrImportOpen(false);
             setSrValidationText("");
