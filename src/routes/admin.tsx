@@ -104,7 +104,7 @@ const INITIAL_SR_BOOKS: SRBook[] = [
   {
     book_code: "SR-PA1-01",
     series_name: "Smart Reading",
-    book_title: "Hello, Sunny Day",
+    book_title: "Smart Reading 2.1",
     cefr_range: "PreA1-A1",
     lexile_range: "BR-100L",
     word_count_range: "50",
@@ -163,7 +163,7 @@ const INITIAL_SR_BOOKS: SRBook[] = [
   {
     book_code: "SR-A1-02",
     series_name: "Smart Reading",
-    book_title: "Around My Town",
+    book_title: "Smart Reading 2.2",
     cefr_range: "A1",
     lexile_range: "100L-250L",
     word_count_range: "100",
@@ -201,6 +201,122 @@ const INITIAL_SR_BOOKS: SRBook[] = [
         oral_questions: [{ question: "Where does the bus go?" }],
         retelling_frame: "Ben takes ___ . He goes to ___ .",
         shirin_opening: "All aboard! Let's ride the bus with Ben.",
+      },
+    ],
+  },
+  {
+    book_code: "SR-A1-03",
+    series_name: "Smart Reading",
+    book_title: "Smart Reading 2.3",
+    cefr_range: "A1",
+    lexile_range: "150L-300L",
+    word_count_range: "120",
+    sort_order: 3,
+    updated_at: "2026-05-01",
+    content_license: "authorized",
+    unit_count: 1,
+    units: [
+      {
+        lesson_id: "SR-A1-03-U01",
+        unit_number: 1,
+        story_title: "My Family",
+        cover_question: "Who is in your family?",
+        content_license: "authorized",
+        reading_focus: "Family members vocabulary.",
+        keywords: ["mom","dad","sister","brother"],
+        characters: ["Sam"],
+        speaking_goals: ["Introduce family"],
+        target_sentences: ["This is my mom.","I have a sister."],
+        oral_questions: [{ question: "Who is in Sam's family?" }],
+        retelling_frame: "Sam has ___ .",
+        shirin_opening: "Let's meet Sam's family!",
+      },
+    ],
+  },
+  {
+    book_code: "SR-A1-04",
+    series_name: "Smart Reading",
+    book_title: "Smart Reading 2.4",
+    cefr_range: "A1-A2",
+    lexile_range: "200L-350L",
+    word_count_range: "150",
+    sort_order: 4,
+    updated_at: "2026-04-18",
+    content_license: "authorized",
+    unit_count: 1,
+    units: [
+      {
+        lesson_id: "SR-A1-04-U01",
+        unit_number: 1,
+        story_title: "At the Zoo",
+        cover_question: "What animals do you see?",
+        content_license: "authorized",
+        reading_focus: "Animal names and actions.",
+        keywords: ["lion","monkey","zoo","jump"],
+        characters: ["Kim"],
+        speaking_goals: ["Describe animals"],
+        target_sentences: ["The monkey can jump.","I like lions."],
+        oral_questions: [{ question: "What can the monkey do?" }],
+        retelling_frame: "At the zoo, ___ .",
+        shirin_opening: "Roar! Let's go to the zoo.",
+      },
+    ],
+  },
+  {
+    book_code: "SR-A2-05",
+    series_name: "Smart Reading",
+    book_title: "Smart Reading 2.5",
+    cefr_range: "A2",
+    lexile_range: "300L-450L",
+    word_count_range: "200",
+    sort_order: 5,
+    updated_at: "2026-03-30",
+    content_license: "authorized",
+    unit_count: 1,
+    units: [
+      {
+        lesson_id: "SR-A2-05-U01",
+        unit_number: 1,
+        story_title: "A Summer Trip",
+        cover_question: "Where would you like to go?",
+        content_license: "authorized",
+        reading_focus: "Travel vocabulary and past simple.",
+        keywords: ["beach","travel","summer","fun"],
+        characters: ["Nora"],
+        speaking_goals: ["Talk about a trip"],
+        target_sentences: ["We went to the beach.","It was fun."],
+        oral_questions: [{ question: "Where did Nora go?" }],
+        retelling_frame: "Nora went to ___ . She ___ .",
+        shirin_opening: "Pack your bag! Let's travel with Nora.",
+      },
+    ],
+  },
+  {
+    book_code: "SR-A2-06",
+    series_name: "Smart Reading",
+    book_title: "Smart Reading 2.6",
+    cefr_range: "A2-B1",
+    lexile_range: "400L-550L",
+    word_count_range: "240",
+    sort_order: 6,
+    updated_at: "2026-03-10",
+    content_license: "authorized",
+    unit_count: 1,
+    units: [
+      {
+        lesson_id: "SR-A2-06-U01",
+        unit_number: 1,
+        story_title: "The Little Inventor",
+        cover_question: "What would you invent?",
+        content_license: "authorized",
+        reading_focus: "Inventions and problem solving.",
+        keywords: ["invent","idea","build","robot"],
+        characters: ["Leo"],
+        speaking_goals: ["Share an idea"],
+        target_sentences: ["Leo built a small robot.","The robot can help him."],
+        oral_questions: [{ question: "What did Leo build?" }],
+        retelling_frame: "Leo wanted to ___ . So he ___ .",
+        shirin_opening: "Ready to invent? Let's meet Leo!",
       },
     ],
   },
@@ -521,9 +637,12 @@ function SRView(props: {
         </button>
       </div>
 
-      {/* Books — full-width grid */}
+      {/* Books — horizontal-scrolling pill */}
       <Section title="书籍" count={`${srBooks.length} 本`} />
-      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.max(srBooks.length, 1)}, minmax(0, 1fr))` }}>
+      <div
+        className="flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar"
+        style={{ background: YELLOW_SOFT_C }}
+      >
         {srBooks.map((b) => {
           const active = b.book_code === srActiveBookCode;
           return (
@@ -533,18 +652,14 @@ function SRView(props: {
                 setSrActiveBookCode(b.book_code);
                 setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
               }}
-              className="rounded-xl px-3 py-2.5 text-left transition-all"
+              className="shrink-0 h-[34px] px-4 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
               style={{
-                background: active ? YELLOW_SOFT_C : "#fff",
-                color: NAVY_C,
-                border: `1px solid ${active ? YELLOW_BORDER_C : "#E6ECF5"}`,
-                boxShadow: "none",
+                background: active ? "#fff" : "transparent",
+                color: active ? YELLOW_C : MUTED_C,
+                boxShadow: active ? "0 2px 8px rgba(205,174,141,0.30)" : "none",
               }}
             >
-              <div className="text-[14px] font-semibold leading-tight truncate">{b.book_title}</div>
-              <div className="text-[12px] mt-1 truncate" style={{ color: MUTED_C }}>
-                {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
-              </div>
+              {b.book_title}
             </button>
           );
         })}
