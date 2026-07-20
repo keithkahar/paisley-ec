@@ -30,6 +30,10 @@ type Props = {
   onDone?: () => void;
   /** Show the X button on the left corner (only when onDone is set). */
   showCancel?: boolean;
+  /** Optional centered subtitle rendered below the title. */
+  subtitle?: ReactNode;
+  /** Color for the subtitle text (default: muted navy). */
+  subtitleColor?: string;
   /** Body padding-top offset, defaults to 10px per spec. */
   contentPaddingTop?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
@@ -44,6 +48,8 @@ export function StandardSheet({
   onClose,
   onDone,
   showCancel,
+  subtitle,
+  subtitleColor = "rgba(15, 23, 42, 0.55)",
   contentPaddingTop = 10,
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   children,
@@ -84,14 +90,19 @@ export function StandardSheet({
         <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
           <span className="h-1 w-10 rounded-full bg-border" />
         </div>
-        {/* Header: centered title, corner buttons vertically aligned with title */}
-        <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+        {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
+        <div className={`relative flex ${subtitle ? "flex-col items-center" : "items-center"} justify-center px-5 pt-2 pb-3 shrink-0`}>
           <h2
             className="text-[17px] font-normal tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor }}
           >
             {title}
           </h2>
+          {subtitle && (
+            <div className="mt-1 text-[11px] text-center break-all" style={{ color: subtitleColor }}>
+              {subtitle}
+            </div>
+          )}
           {showX && (
             <button
               type="button"
