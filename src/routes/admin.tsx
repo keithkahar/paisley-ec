@@ -1597,7 +1597,7 @@ function SRSelect(props: {
   const SOFT_BG_C = "#F6F8FC";
   const accent = props.accentColor || "#0146B9";
   // derive a soft tint for the accent (yellow -> pale gold, blue -> pale blue)
-  const activeBg = accent.toLowerCase() === "#0146b9" ? "#EAF3FF" : "#FFF6DA";
+  const activeBg = accent.toLowerCase() === "#0146b9" ? "#EAF3FF" : "#f7f2ec";
   return (
     <div className="relative">
       <button
