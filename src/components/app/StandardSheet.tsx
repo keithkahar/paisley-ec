@@ -30,6 +30,10 @@ type Props = {
   onDone?: () => void;
   /** Show the X button on the left corner (only when onDone is set). */
   showCancel?: boolean;
+  /** Optional centered subtitle rendered below the title. */
+  subtitle?: ReactNode;
+  /** Color for the subtitle text (default: muted navy). */
+  subtitleColor?: string;
   /** Body padding-top offset, defaults to 10px per spec. */
   contentPaddingTop?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
