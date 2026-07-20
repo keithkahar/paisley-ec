@@ -681,7 +681,7 @@ function SRView(props: {
             <button
               type="button"
               onClick={() => setBookSheetOpen(true)}
-              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-4 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
+              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-12 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
               style={{ background: YELLOW_SOFT_C }}
             >
               <span
@@ -696,7 +696,7 @@ function SRView(props: {
               type="button"
               onClick={onEditBook}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
+              className="absolute top-[9px] right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
             >
               <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
@@ -755,7 +755,7 @@ function SRView(props: {
             <button
               type="button"
               onClick={() => setUnitSheetOpen(true)}
-              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-4 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
+              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-12 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
               style={{ background: YELLOW_SOFT_C }}
             >
               <span
@@ -770,7 +770,7 @@ function SRView(props: {
               type="button"
               onClick={onEditUnit}
               aria-label="编辑"
-              className="absolute top-14 right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
+              className="absolute top-[9px] right-4 h-7 w-7 grid place-items-center active:scale-95 transition-transform"
             >
               <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
