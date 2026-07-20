@@ -613,13 +613,6 @@ function SRView(props: {
         <div
           className="flex-1 min-w-0 h-10 rounded-xl px-3 flex items-center justify-center text-[12px] font-semibold truncate"
           style={{ background: "#FAFBFD", color: NAVY_C, border: "1px solid #EEF2F7" }}
-          title={isAdmin ? "Admin 导入" : "默认代码"}
-        >
-          {isAdmin ? "Admin 导入" : "默认代码"}
-        </div>
-        <div
-          className="flex-1 min-w-0 h-10 rounded-xl px-3 flex items-center justify-center text-[12px] font-semibold truncate"
-          style={{ background: "#FAFBFD", color: NAVY_C, border: "1px solid #EEF2F7" }}
           title={`${srBooks.length} 本 · ${srTotalUnits} 单元`}
         >
           {srBooks.length} 本 · {srTotalUnits} 单元
@@ -706,9 +699,15 @@ function SRView(props: {
             >
               <Pencil className="h-4 w-4" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
-            <div className="pr-10">
-              <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
-              <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
+            <div className="pr-10 grid grid-cols-2 gap-4">
+              <div>
+                <div className="text-[11px]" style={{ color: MUTED_C }}>书码</div>
+                <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
+              </div>
+              <div>
+                <div className="text-[11px]" style={{ color: MUTED_C }}>来源</div>
+                <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{isAdmin ? "Admin 导入" : "默认代码"}</div>
+              </div>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
               {[
@@ -1142,33 +1141,10 @@ function AdminPageInner() {
                 </button>
               );
             })}
-            <button
-              onClick={() => setConfirmReset(true)}
-              aria-label="重置"
-              className="shrink-0 inline-flex items-center justify-center h-[34px] w-[34px] rounded-full transition-all"
-              style={{ background: "#fff", color: "#D9534F", boxShadow: "0 2px 8px rgba(217,83,79,0.14)" }}
-            >
-              <RotateCcw className="h-4 w-4" />
-            </button>
           </div>
 
         {mode === "params" && (
           <>
-          {/* Summary stats — height matches the SR status strip */}
-          <div className="grid grid-cols-3 gap-[7px] mt-4">
-            {summary.map((s) => {
-              return (
-                <div
-                  key={s.label}
-                  className="rounded-full px-3.5 py-2.5 flex items-baseline justify-between gap-2"
-                  style={{ background: SOFT_BLUE, border: "1px solid #E2EAF6" }}
-                >
-                  <span className="text-[11px] truncate" style={{ color: SUB }}>{s.label}</span>
-                  <span className="text-[13px] font-semibold leading-none shrink-0" style={{ color: NAVY }}>{s.value}</span>
-                </div>
-              );
-            })}
-          </div>
 
           {/* Param cards */}
           <div className="mt-4 space-y-2.5">
