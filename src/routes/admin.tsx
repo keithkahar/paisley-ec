@@ -576,6 +576,7 @@ function SRView(props: {
   } = props;
   const isAdmin = srSource === "admin";
   const [bookSheetOpen, setBookSheetOpen] = useState(false);
+  const [unitSheetOpen, setUnitSheetOpen] = useState(false);
 
   const Section = ({ title, count, action }: { title: string; count?: string; action?: React.ReactNode }) => (
     <div className="flex items-baseline justify-between mt-6 mb-2.5">
@@ -736,73 +737,39 @@ function SRView(props: {
         </>
       )}
 
-      {/* Unit list */}
-      {srActiveBook && (
-        <>
-          <Section title="单元" count={`${srActiveBook.units.length} 个`} />
-          <div className="space-y-2.5">
-            {srActiveBook.units.map((u) => {
-              const active = u.lesson_id === srActiveLessonId;
-              return (
-                <button
-                  key={u.lesson_id}
-                  onClick={() => setSrActiveLessonId(u.lesson_id)}
-                  className="w-full flex items-stretch text-left rounded-full overflow-hidden active:scale-[0.98] transition-transform"
-                  style={{
-                    background: active ? YELLOW_SOFT_C : "#fff",
-                    border: `1px solid ${active ? YELLOW_BORDER_C : "#EEF2F7"}`,
-                  }}
-                >
-                  <div
-                    className="h-11 w-11 shrink-0 grid place-items-center my-2 ml-2 rounded-full text-[15px] font-semibold"
-                    style={{ background: active ? YELLOW_C : YELLOW_SOFT_C, color: active ? "#fff" : NAVY_C }}
-                  >
-                    {u.unit_number}
-                  </div>
-                  <div className="flex-1 px-3.5 py-2.5 flex flex-col justify-center min-w-0">
-                    <p className="text-[15px] font-semibold tracking-tight leading-tight truncate" style={{ color: NAVY_C, letterSpacing: "-0.01em" }}>
-                      {u.story_title}
-                    </p>
-                    <p className="mt-0.5 text-[11px] font-medium truncate" style={{ color: MUTED_C }}>
-                      {u.cover_question}
-                    </p>
-                  </div>
-                  <div className="shrink-0 pr-4 pl-1 flex items-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={active ? YELLOW_C : "#C8D2E0"} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </>
-      )}
-
-      {/* Unit preview */}
+      {/* Unit info */}
       {srActiveUnit && (
         <>
-          <Section
-            title="单元预览"
-            action={
-              <button
-                type="button"
-                onClick={onEditUnit}
-                aria-label="编辑"
-                className="h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
-                style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+          <Section title="单元" count={`${srActiveBook?.units.length ?? 0} 个`} />
+          <div className="relative rounded-2xl bg-white p-4 pt-14 mt-2 overflow-hidden" style={{ border: "1px solid #EEF2F7" }}>
+            <button
+              type="button"
+              onClick={() => setUnitSheetOpen(true)}
+              className="absolute top-0 left-0 right-0 flex items-center justify-between gap-3 pl-5 pr-4 h-[46px] text-left active:scale-[0.99] transition-transform rounded-t-2xl rounded-bl-none rounded-br-none"
+              style={{ background: YELLOW_SOFT_C }}
+            >
+              <span
+                className="text-[15px] font-semibold tracking-tight truncate pr-2"
+                style={{ color: YELLOW_C }}
               >
-                <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
-              </button>
-            }
-          />
-          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
-            <div className="flex items-center gap-3">
-              <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-[15px] font-semibold" style={{ background: YELLOW_SOFT_C, color: NAVY_C }}>U{srActiveUnit.unit_number}</div>
-              <div className="min-w-0">
-                <div className="text-[11px]" style={{ color: MUTED_C }}>{srActiveBook?.book_code} · {srActiveUnit.lesson_id}</div>
-                <div className="text-[16px] font-semibold leading-tight mt-0.5 truncate" style={{ color: NAVY_C }}>{srActiveUnit.story_title}</div>
-              </div>
+                {srActiveUnit.story_title}
+              </span>
+              <ChevronDown className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
+            </button>
+            <button
+              type="button"
+              onClick={onEditUnit}
+              aria-label="编辑"
+              className="absolute top-14 right-4 h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
+              style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+            >
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+            </button>
+            <div className="pr-10">
+              <div className="text-[11px]" style={{ color: MUTED_C }}>单元码</div>
+              <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveUnit.lesson_id}</div>
             </div>
-            <div className="mt-4 space-y-3.5">
+            <div className="mt-3 space-y-3.5">
               {[
                 ["Cover Question", srActiveUnit.cover_question],
                 ["Reading Focus", srActiveUnit.reading_focus],
@@ -821,6 +788,48 @@ function SRView(props: {
               ))}
             </div>
           </div>
+
+          <StandardSheet
+            open={unitSheetOpen}
+            title="选择单元"
+            brandColor={YELLOW_C}
+            onClose={() => setUnitSheetOpen(false)}
+          >
+            <>
+              {srActiveBook?.units.map((u) => {
+                const active = u.lesson_id === srActiveLessonId;
+                return (
+                  <button
+                    key={u.lesson_id}
+                    type="button"
+                    onClick={() => {
+                      setSrActiveLessonId(u.lesson_id);
+                      setUnitSheetOpen(false);
+                    }}
+                    className="w-full flex flex-col items-start gap-0.5 px-1 py-3.5 text-left"
+                  >
+                    <div className="w-full flex items-center justify-between gap-3">
+                      <p
+                        className="text-[18px] font-semibold tracking-tight leading-none"
+                        style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
+                      >
+                        {u.story_title}
+                      </p>
+                      {active && (
+                        <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
+                      )}
+                    </div>
+                    <p
+                      className="text-[13px] leading-none"
+                      style={{ color: MUTED_C }}
+                    >
+                      {u.lesson_id}
+                    </p>
+                  </button>
+                );
+              })}
+            </>
+          </StandardSheet>
 
           <div className="flex items-baseline justify-between mt-6 mb-2.5">
             <h3 className="text-[13px] font-medium leading-tight" style={{ color: SUB_C }}>AI Context Preview</h3>
