@@ -75,14 +75,14 @@ function Home() {
             <img
               src={shirinHero.url}
               alt="Shirin"
-              className="relative z-10 translate-y-[10px] w-[58%] max-w-[220px] object-contain"
+              className="relative z-10 translate-y-[25px] w-[58%] max-w-[220px] object-contain"
             />
           </div>
         </section>
 
         {/* Bottom white panel with curved top */}
         <section
-          className="relative -mt-[35px] flex-1 bg-card px-7 pt-[60px] pb-6"
+          className="relative -mt-[20px] flex-1 bg-card px-7 pt-[60px] pb-6"
           style={{ borderTopLeftRadius: "60% 60px", borderTopRightRadius: "60% 60px" }}
         >
           {/* SECONDARY: greeting + question, one refined block */}
@@ -99,7 +99,7 @@ function Home() {
           {/* TERTIARY: primary action */}
           <Link
             to="/shirin-talk"
-            className="relative isolate mt-[73.45px] flex items-center justify-center gap-[8px] rounded-full py-5 font-semibold text-white active:scale-[0.98] transition-transform"
+            className="relative isolate mt-[58.45px] flex items-center justify-center gap-[8px] rounded-full py-5 font-semibold text-white active:scale-[0.98] transition-transform"
             style={{
               background: "var(--shirin)",
               fontSize: "17.25px"
