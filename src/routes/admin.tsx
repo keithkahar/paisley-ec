@@ -581,7 +581,7 @@ function SRView(props: {
   const Section = ({ title, count, action }: { title: string; count?: string; action?: React.ReactNode }) => (
     <div className="flex items-baseline justify-between mt-6 mb-2.5">
       <div className="flex items-baseline gap-2 min-w-0">
-        <h3 className="text-[15px] font-semibold leading-tight truncate" style={{ color: NAVY_C }}>{title}</h3>
+        <h3 className="text-[15px] font-normal leading-tight truncate" style={{ color: NAVY_C }}>{title}</h3>
         {count && <span className="text-[12px] shrink-0" style={{ color: MUTED_C }}>{count}</span>}
       </div>
       {action}
@@ -1392,11 +1392,11 @@ function AdminPageInner() {
         {srConfirmClear && (
           <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setSrConfirmClear(false)}>
             <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-semibold" style={{ color: NAVY }}>清除导入内容？</div>
+              <div className="text-[16px] font-normal" style={{ color: NAVY }}>清除导入内容？</div>
               <div className="text-[13px] mt-2" style={{ color: SUB }}>清除后 Smart Reading 将回到默认代码内容。</div>
               <div className="mt-4 flex gap-3">
-                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>清除</button>
+                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[14px] font-normal" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[14px] font-normal text-white" style={{ background: "#D9534F" }}>清除</button>
               </div>
             </div>
           </div>
@@ -1407,6 +1407,7 @@ function AdminPageInner() {
           open={srImportOpen}
           title="导入JSON"
           brandColor={YELLOW}
+          titleWeight="font-normal"
           onClose={() => {
             setSrImportOpen(false);
             setSrValidationText("");
@@ -1438,9 +1439,9 @@ function AdminPageInner() {
               )}
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2 shrink-0">
-              <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
-              <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
-              <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>合并</button>
+              <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-normal" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
+              <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-normal" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
+              <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[13px] font-normal" style={{ background: YELLOW, color: "#fff" }}>合并</button>
             </div>
           </div>
         </StandardSheet>
