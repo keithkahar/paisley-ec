@@ -1524,7 +1524,7 @@ function AdminPageInner() {
         {srUnitEditForm && (
           <StandardSheet
             open={!!srUnitEditForm}
-            title="编辑单元"
+            title="单元信息"
             brandColor={YELLOW}
             subtitle={srUnitEditForm.lessonId}
             onClose={() => setSrUnitEditForm(null)}
