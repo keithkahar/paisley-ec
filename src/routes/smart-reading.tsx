@@ -196,7 +196,7 @@ function SmartReadingPage() {
                     className="w-full flex items-center justify-between gap-3 px-1 py-4 text-left"
                   >
                     <p
-                      className="text-[18px] font-semibold tracking-tight leading-none"
+                      className="text-[14px] font-semibold tracking-tight leading-none"
                       style={{ color: active ? PINK : "var(--foreground)", letterSpacing: "-0.01em" }}
                     >
                       {p.title}
