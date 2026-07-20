@@ -637,9 +637,12 @@ function SRView(props: {
         </button>
       </div>
 
-      {/* Books — full-width grid */}
+      {/* Books — horizontal-scrolling pill */}
       <Section title="书籍" count={`${srBooks.length} 本`} />
-      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.max(srBooks.length, 1)}, minmax(0, 1fr))` }}>
+      <div
+        className="flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar"
+        style={{ background: YELLOW_SOFT_C }}
+      >
         {srBooks.map((b) => {
           const active = b.book_code === srActiveBookCode;
           return (
@@ -649,18 +652,14 @@ function SRView(props: {
                 setSrActiveBookCode(b.book_code);
                 setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
               }}
-              className="rounded-xl px-3 py-2.5 text-left transition-all"
+              className="shrink-0 h-[34px] px-4 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap"
               style={{
-                background: active ? YELLOW_SOFT_C : "#fff",
-                color: NAVY_C,
-                border: `1px solid ${active ? YELLOW_BORDER_C : "#E6ECF5"}`,
-                boxShadow: "none",
+                background: active ? "#fff" : "transparent",
+                color: active ? YELLOW_C : MUTED_C,
+                boxShadow: active ? "0 2px 8px rgba(205,174,141,0.30)" : "none",
               }}
             >
-              <div className="text-[14px] font-semibold leading-tight truncate">{b.book_title}</div>
-              <div className="text-[12px] mt-1 truncate" style={{ color: MUTED_C }}>
-                {b.cefr_range} · {b.lexile_range} · {b.word_count_range}w
-              </div>
+              {b.book_title}
             </button>
           );
         })}
