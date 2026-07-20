@@ -662,25 +662,17 @@ function SRView(props: {
                   setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
                   setBookSheetOpen(false);
                 }}
-                className="w-full flex flex-col items-start gap-0.5 px-1 py-3.5 text-left"
+                className="w-full flex items-center justify-between gap-3 px-1 py-4 text-left"
               >
-                <div className="w-full flex items-center justify-between gap-3">
-                  <p
-                    className="text-[18px] font-semibold tracking-tight leading-none"
-                    style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
-                  >
-                    {b.book_code}
-                  </p>
-                  {active && (
-                    <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
-                  )}
-                </div>
                 <p
-                  className="text-[13px] leading-none"
-                  style={{ color: MUTED_C }}
+                  className="text-[18px] font-semibold tracking-tight leading-none"
+                  style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
                 >
                   {b.book_title}
                 </p>
+                {active && (
+                  <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
+                )}
               </button>
             );
           })}
@@ -806,25 +798,17 @@ function SRView(props: {
                       setSrActiveLessonId(u.lesson_id);
                       setUnitSheetOpen(false);
                     }}
-                    className="w-full flex flex-col items-start gap-0.5 px-1 py-3.5 text-left"
+                    className="w-full flex items-center justify-between gap-3 px-1 py-4 text-left"
                   >
-                    <div className="w-full flex items-center justify-between gap-3">
-                      <p
-                        className="text-[18px] font-semibold tracking-tight leading-none"
-                        style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
-                      >
-                        {u.story_title}
-                      </p>
-                      {active && (
-                        <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
-                      )}
-                    </div>
                     <p
-                      className="text-[13px] leading-none"
-                      style={{ color: MUTED_C }}
+                      className="text-[18px] font-semibold tracking-tight leading-none"
+                      style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
                     >
-                      {u.lesson_id}
+                      {u.story_title}
                     </p>
+                    {active && (
+                      <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
+                    )}
                   </button>
                 );
               })}
