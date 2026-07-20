@@ -1517,7 +1517,7 @@ function AdminPageInner() {
                           <CalendarIcon className="h-4 w-4 opacity-60" />
                         </button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 rounded-2xl" align="start">
+                      <PopoverContent className="w-auto p-0 rounded-2xl shadow-lg" align="start" sideOffset={8}>
                         <Calendar
                           mode="single"
                           selected={srBookEditForm.updatedAt ? new Date(srBookEditForm.updatedAt) : undefined}
@@ -1529,7 +1529,7 @@ function AdminPageInner() {
                             setSrBookEditForm({ ...srBookEditForm, updatedAt: `${yyyy}-${mm}-${dd}` });
                           }}
                           initialFocus
-                          className={cn("p-4 pointer-events-auto")}
+                          className={cn("p-4 pointer-events-auto [--cell-size:2.75rem]")}
                         />
                       </PopoverContent>
                     </Popover>
