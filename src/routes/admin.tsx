@@ -612,7 +612,7 @@ function SRView(props: {
       <div className="flex items-center gap-2">
         <div
           className="flex-1 min-w-0 h-10 rounded-xl px-3 flex items-center justify-center text-[12px] font-semibold truncate"
-          style={{ background: "#FAFBFD", color: NAVY_C, border: "1px solid #EEF2F7" }}
+          style={{ background: YELLOW_SOFT_C, color: YELLOW_C, border: "1px solid #EEF2F7" }}
           title={`${srBooks.length} 本 · ${srTotalUnits} 单元`}
         >
           {srBooks.length} 本 · {srTotalUnits} 单元
@@ -627,8 +627,8 @@ function SRView(props: {
         <button
           onClick={onClear}
           aria-label="清除导入"
-          className="h-10 w-10 shrink-0 rounded-xl flex items-center justify-center text-white active:scale-95 transition-transform"
-          style={{ background: "#D9534F" }}
+          className="h-10 w-10 shrink-0 rounded-xl flex items-center justify-center active:scale-95 transition-transform"
+          style={{ background: "#fff", color: "#D9534F", border: "1px solid #D9534F" }}
         >
           <Trash2 className="h-4 w-4" strokeWidth={2.25} />
         </button>
@@ -1408,7 +1408,7 @@ function AdminPageInner() {
         {/* SR Import sheet */}
         <StandardSheet
           open={srImportOpen}
-          title="导入 Smart Reading JSON"
+          title="导入JSON"
           brandColor={YELLOW}
           onClose={() => {
             setSrImportOpen(false);
@@ -1417,7 +1417,7 @@ function AdminPageInner() {
           }}
         >
           <div className="flex flex-col h-full min-h-0">
-            <div className="text-[13px] font-medium" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
+            <div className="text-[13px] font-medium text-center" style={{ color: MUTED }}>粘贴标准 books 数组或 {`{ books: [...] }`} 对象。</div>
           <div className="mt-2 flex-1 min-h-0 overflow-y-auto">
             <textarea
               value={srImportText}
