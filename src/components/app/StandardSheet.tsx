@@ -99,7 +99,7 @@ export function StandardSheet({
             {title}
           </h2>
           {subtitle && (
-            <div className="mt-1 text-[11px] text-center break-all" style={{ color: subtitleColor }}>
+            <div className="mt-3 text-[12px] leading-[1.55] text-center break-all" style={{ color: subtitleColor }}>
               {subtitle}
             </div>
           )}
