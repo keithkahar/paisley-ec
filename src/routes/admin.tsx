@@ -651,7 +651,7 @@ function SRView(props: {
           className="text-[15px] font-semibold tracking-tight truncate"
           style={{ color: YELLOW_C }}
         >
-          {srActiveBook?.book_title ?? "选择书籍"}
+          {srActiveBook?.book_code ?? "选择书籍"}
         </span>
         <ChevronDown className="h-5 w-5 shrink-0 mr-1" strokeWidth={2.5} style={{ color: YELLOW_C }} />
       </button>
@@ -674,17 +674,25 @@ function SRView(props: {
                   setSrActiveLessonId(b.units[0]?.lesson_id ?? "");
                   setBookSheetOpen(false);
                 }}
-                className="w-full flex items-center justify-between gap-3 px-1 py-4 text-left"
+                className="w-full flex flex-col items-start gap-0.5 px-1 py-3.5 text-left"
               >
+                <div className="w-full flex items-center justify-between gap-3">
+                  <p
+                    className="text-[18px] font-semibold tracking-tight leading-none"
+                    style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
+                  >
+                    {b.book_code}
+                  </p>
+                  {active && (
+                    <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
+                  )}
+                </div>
                 <p
-                  className="text-[18px] font-semibold tracking-tight leading-none"
-                  style={{ color: active ? YELLOW_C : NAVY_C, letterSpacing: "-0.01em" }}
+                  className="text-[13px] leading-none"
+                  style={{ color: MUTED_C }}
                 >
                   {b.book_title}
                 </p>
-                {active && (
-                  <Check className="h-5 w-5 shrink-0" strokeWidth={2.5} style={{ color: YELLOW_C }} />
-                )}
               </button>
             );
           })}
@@ -705,8 +713,8 @@ function SRView(props: {
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
             </button>
             <div className="pr-10">
-              <div className="text-[11px]" style={{ color: MUTED_C }}>{srActiveBook.book_code}</div>
-              <div className="text-[13px] font-medium mt-0.5 break-all" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+              <div className="text-[13px] font-medium break-all" style={{ color: NAVY_C }}>{srActiveBook.book_code}</div>
+              <div className="text-[11px] mt-0.5" style={{ color: MUTED_C }}>{srActiveBook.book_title}</div>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
               {[
