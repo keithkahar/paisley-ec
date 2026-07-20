@@ -575,6 +575,7 @@ function SRView(props: {
     onImport, onClear, onEditBook, onEditUnit,
   } = props;
   const isAdmin = srSource === "admin";
+  const [bookSheetOpen, setBookSheetOpen] = useState(false);
 
   const Section = ({ title, count, action }: { title: string; count?: string; action?: React.ReactNode }) => (
     <div className="flex items-baseline justify-between mt-6 mb-2.5">
