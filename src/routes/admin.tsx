@@ -639,22 +639,9 @@ function SRView(props: {
         </button>
       </div>
 
-      {/* Books — horizontal-scrolling pill */}
+      {/* Books */}
       <Section title="书籍" count={`${srBooks.length} 本`} />
-      <button
-        type="button"
-        onClick={() => setBookSheetOpen(true)}
-        className="w-full flex items-center justify-between gap-3 rounded-full pl-5 pr-3 h-[52px] text-left active:scale-[0.99] transition-transform"
-        style={{ background: YELLOW_SOFT_C }}
-      >
-        <span
-          className="text-[15px] font-semibold tracking-tight truncate"
-          style={{ color: YELLOW_C }}
-        >
-          {srActiveBook?.book_code ?? "选择书籍"}
-        </span>
-        <ChevronDown className="h-5 w-5 shrink-0 mr-1" strokeWidth={2.5} style={{ color: YELLOW_C }} />
-      </button>
+
 
       <StandardSheet
         open={bookSheetOpen}
