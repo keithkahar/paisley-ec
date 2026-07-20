@@ -951,7 +951,7 @@ function AdminPageInner() {
           </div>
         </div>
 
-        <div className="px-5 pt-12">
+        <div className="px-5 pt-24">
           {/* Mode tabs — hamburger + scrollable tabs + reset in one pill */}
           <div className="mt-4 flex items-center gap-[6px] p-[4px] rounded-full overflow-x-auto no-scrollbar" style={{ background: SOFT_BLUE }}>
             <button
@@ -993,7 +993,7 @@ function AdminPageInner() {
               className="shrink-0 inline-flex items-center justify-center h-[34px] w-[34px] rounded-full transition-all"
               style={{ background: "#fff", color: "#D9534F", boxShadow: "0 2px 8px rgba(217,83,79,0.14)" }}
             >
-              <RotateCcw className="h-5 w-5" />
+              <RotateCcw className="h-4 w-4" />
             </button>
           </div>
 
