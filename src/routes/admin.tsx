@@ -553,22 +553,17 @@ function SRView(props: {
       {/* Book info */}
       {srActiveBook && (
         <>
-          <Section
-            title="书籍信息"
-            action={
-              <button
-                type="button"
-                onClick={onEditBook}
-                aria-label="编辑"
-                className="h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
-                style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
-              >
-                <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
-              </button>
-            }
-          />
-          <div className="rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
-            <div className="text-[17px] font-semibold leading-tight" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
+          <div className="relative rounded-2xl bg-white p-4" style={{ border: "1px solid #EEF2F7" }}>
+            <button
+              type="button"
+              onClick={onEditBook}
+              aria-label="编辑"
+              className="absolute top-3 right-3 h-7 w-7 grid place-items-center rounded-full active:scale-95 transition-transform bg-white"
+              style={{ border: `1px solid ${YELLOW_BORDER_C}` }}
+            >
+              <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: YELLOW_C }} />
+            </button>
+            <div className="text-[17px] font-semibold leading-tight pr-10" style={{ color: NAVY_C }}>{srActiveBook.book_title}</div>
             <div className="text-[12px] mt-1" style={{ color: MUTED_C }}>{srActiveBook.series_name} · {srActiveBook.book_code}</div>
             <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5">
               {[
