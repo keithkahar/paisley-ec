@@ -1135,7 +1135,7 @@ function AdminPageInner() {
                 <button
                   key={t.k}
                   onClick={() => setMode(t.k as "params" | "smartReading")}
-                  className="shrink-0 flex-1 h-[34px] px-4 rounded-full text-[13px] font-medium transition-all whitespace-nowrap"
+                  className="shrink-0 flex-1 h-[34px] px-4 rounded-full text-[13px] font-normal transition-all whitespace-nowrap"
                   style={{
                     background: active ? "#fff" : "transparent",
                     color: active ? accent : SUB,
@@ -1171,7 +1171,7 @@ function AdminPageInner() {
                   <span className="absolute top-0 left-0 h-full w-[3px]" style={{ background: PAISLEY }} />
                 )}
                 <span
-                  className="text-[15px] font-medium tracking-tight leading-none truncate"
+                  className="text-[15px] font-normal tracking-tight leading-none truncate"
                   style={{ letterSpacing: "-0.01em", color: NAVY }}
                 >
                   {row.label}
@@ -1185,7 +1185,7 @@ function AdminPageInner() {
                   ?
                 </span>
                 <span
-                  className="ml-auto text-[15px] font-medium text-right leading-none truncate max-w-[45%]"
+                  className="ml-auto text-[15px] font-normal text-right leading-none truncate max-w-[45%]"
                   style={{ color: row.customized ? PAISLEY : NAVY }}
                 >
                   {row.valueText}
@@ -1244,11 +1244,11 @@ function AdminPageInner() {
                           boxShadow: active ? "0 4px 12px rgba(1,70,185,0.22)" : "none",
                         }}
                       >
-                        <span className="text-[13px] font-medium truncate">{g.title}</span>
+                        <span className="text-[13px] font-normal truncate">{g.title}</span>
                         <span className="flex items-center gap-1 shrink-0">
                           {cc > 0 && (
                             <span
-                              className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-medium leading-none"
+                              className="inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9.5px] font-normal leading-none"
                               style={{ background: active ? "rgba(255,255,255,0.22)" : PAISLEY, color: "#fff" }}
                             >
                               {cc}
@@ -1264,7 +1264,7 @@ function AdminPageInner() {
               <div className="p-4 border-t" style={{ borderColor: "#DDE6F2" }}>
                 <button
                   onClick={() => { setNavOpen(false); setConfirmReset(true); }}
-                  className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-medium"
+                  className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-normal"
                   style={{ background: "#fff", color: NAVY, border: "1px solid #D5DEEC" }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
