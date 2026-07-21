@@ -1435,7 +1435,7 @@ function PlaceSheet({
         {place.description}
       </div>
 
-      <div className="mt-2 space-y-2">
+      <div className="mt-1 space-y-2">
         <SheetRow label="Required Bp" value={formatBp(place.unlockBp)} />
         <SheetRow label="Status" value={statusText} />
       </div>
