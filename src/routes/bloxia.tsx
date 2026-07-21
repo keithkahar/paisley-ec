@@ -1452,7 +1452,7 @@ function PlaceSheet({
       {unlocked && (
         <div
           className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           You are here
         </div>
@@ -1521,7 +1521,7 @@ function ItemSheet({
           type="button"
           onClick={onToggleFavorite}
           className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
           {isFavorite ? "Favorite" : "Add to Favorite"}
@@ -1531,14 +1531,14 @@ function ItemSheet({
           type="button"
           onClick={onCollect}
           className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           Collect
         </button>
       ) : (
         <div
           className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           {!placeUnlocked
             ? "Unlock this place first"
@@ -1675,7 +1675,7 @@ function NameEditor({
             type="button"
             onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
-            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Save
           </button>
@@ -1748,7 +1748,7 @@ function AvatarPickerSheet({
             type="button"
             onClick={() => onConfirm(pending)}
             className="w-full h-12 rounded-full text-[15px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             {confirmLabel}
           </button>
@@ -1911,7 +1911,7 @@ function WelcomeSheet({
             type="button"
             onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
             className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
-            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Start
           </button>
@@ -2025,7 +2025,7 @@ function BadgeSheet({
         ) : (
           <div
             className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             {(growthCost - bp).toLocaleString()} Bp still needed to unlock
           </div>
@@ -2035,7 +2035,7 @@ function BadgeSheet({
           type="button"
           onClick={onToggleFavorite}
           className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{ background: "rgba(216,175,87,0.12)", color: T.goldLight }}
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           <Heart className="w-4 h-4" fill="currentColor" />
           Favorite
@@ -2047,7 +2047,7 @@ function BadgeSheet({
           disabled={!unlocked}
           className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{
-            background: "rgba(216,175,87,0.12)",
+            background: "rgba(216,175,87,0.32)",
             color: unlocked ? T.goldLight : T.sage,
             opacity: unlocked ? 1 : 0.75,
           }}
