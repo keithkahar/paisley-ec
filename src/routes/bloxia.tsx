@@ -86,7 +86,8 @@ function BloxiaPage() {
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
 
   // First-time avatar selection: prompt once when the user has never chosen.
-  const showFirstTime = b.ready && !b.progress.avatarSelectionCompleted;
+  // DEBUG: always show welcome sheet on entry for debugging.
+  const showFirstTime = b.ready;
 
   const next = nextPlace(b.progress);
   const progressPct = next
