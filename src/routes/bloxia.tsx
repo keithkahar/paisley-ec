@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
@@ -84,10 +84,14 @@ function BloxiaPage() {
   const [avatarPicker, setAvatarPicker] = useState(false);
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
+  const [welcomeOpen, setWelcomeOpen] = useState(false);
 
   // First-time avatar selection: prompt once when the user has never chosen.
   // DEBUG: always show welcome sheet on entry for debugging.
-  const showFirstTime = b.ready;
+  useEffect(() => {
+    if (b.ready) setWelcomeOpen(true);
+  }, [b.ready]);
+  const showFirstTime = welcomeOpen;
 
   const next = nextPlace(b.progress);
   const progressPct = next
@@ -270,9 +274,11 @@ function BloxiaPage() {
             initialName={b.progress.bloxianName}
             onStart={(id, name) => {
               b.completeWelcome(id, name);
+              setWelcomeOpen(false);
             }}
             onClose={() => {
               b.completeWelcome(b.progress.selectedAvatarId, b.progress.bloxianName);
+              setWelcomeOpen(false);
             }}
           />
         )}
