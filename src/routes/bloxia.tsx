@@ -1345,7 +1345,7 @@ function formatActivityDate(ts: number): string {
 
 function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-40 flex items-end justify-center pointer-events-none">
+    <div className="fixed inset-0 z-[60] flex items-end justify-center pointer-events-none">
       <button
         type="button"
         aria-label="Close"
