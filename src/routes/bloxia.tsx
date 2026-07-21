@@ -1651,7 +1651,7 @@ function NameEditor({
             />
           </button>
         </div>
-        <div className="mt-auto flex items-stretch gap-3">
+        <div className="mt-10 flex items-stretch gap-3">
           <div
             className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14 relative"
             style={{
@@ -1885,7 +1885,7 @@ function WelcomeSheet({
           </button>
         </div>
 
-        <div className="mt-auto flex items-stretch gap-3">
+        <div className="mt-10 flex items-stretch gap-3">
           <div
             className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14"
             style={{
