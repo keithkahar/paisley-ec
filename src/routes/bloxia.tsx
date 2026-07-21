@@ -1511,7 +1511,7 @@ function ItemSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {item.description}
       </div>
-      <div className="mt-3 space-y-2">
+      <div className="mt-5 space-y-2">
         <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
