@@ -2007,7 +2007,7 @@ function BadgeSheet({
         {badge.description}
       </div>
 
-      <div className="mt-3 space-y-2">
+      <div className="mt-5 space-y-2">
         <SheetRow label={unlocked ? "Used Bp" : "Required Bp"} value={formatBp(cost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
