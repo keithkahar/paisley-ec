@@ -468,7 +468,7 @@ function MapView({
       />
       <div
         className="absolute z-10 pointer-events-none flex items-center justify-center"
-        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem - 6px)", left: "29px" }}
+        style={{ top: "calc(env(safe-area-inset-top) + 6.125rem - 6px)", left: "16px" }}
       >
         {/* Smaller blue-cyan halo behind the white text logo */}
         <div
