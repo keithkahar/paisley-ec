@@ -370,14 +370,14 @@ function TopBar({
             <div className="min-w-0 text-right flex flex-col items-end justify-end leading-none shrink-0">
               <div
                 className="text-[14px] font-extrabold leading-tight truncate"
-                style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
+                style={{ color: page === "map" ? "#FFFFFF" : T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
               >
                 {progress.bloxianName}
               </div>
               <div
                 className="text-[10px] font-bold leading-snug mt-[6px] whitespace-nowrap"
                 style={{
-                  color: T.goldLight,
+                  color: page === "map" ? "#FFFFFF" : T.goldLight,
                   textShadow: "0 1px 2px rgba(0,0,0,0.5)",
                 }}
               >
