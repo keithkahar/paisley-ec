@@ -60,7 +60,7 @@ export const BLOXIA_URLS: Record<string, string> = {
   "place_badge_forest_explorer": "/__l5e/assets-v1/38c58d52-5a7f-49ce-905e-e9dafec269e7/place_badge_forest_explorer.png",
   "place_badge_hill_adventurer": "/__l5e/assets-v1/014f91bc-0c54-4e86-a277-8938a9e0106f/place_badge_hill_adventurer.png",
   "place_badge_lake_observer": "/__l5e/assets-v1/85c5a2f0-e581-4578-b11a-adba4b57339a/place_badge_lake_observer.png",
-  "place_badge_meadow_visitor": "/__l5e/assets-v1/320680b3-74d7-4607-92f7-c29f1db9198f/place_badge_meadow_visitor.png",
+  "place_badge_meadow_visitor": "/__l5e/assets-v1/3dd15777-3576-4831-a6f0-350b90468491/place_badge_meadow_visitor.png",
   "place_badge_river_traveler": "/__l5e/assets-v1/d600d341-9e66-4ac1-b669-70f5cd64a764/place_badge_river_traveler.png",
   "place_badge_wonder_tree_explorer": "/__l5e/assets-v1/a828834c-72a6-46e1-8f97-caf9845a0ea7/place_badge_wonder_tree_explorer.png",
   "shirin_and_bloxie": "/__l5e/assets-v1/9c3c81be-61ea-408b-9559-3665bcda6044/shirin_and_bloxie.png",
