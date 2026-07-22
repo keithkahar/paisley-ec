@@ -180,6 +180,7 @@ function BloxiaPage() {
               onSelectItem={setSelectedItem}
               tab={collectionTab}
               setTab={setCollectionTab}
+              selectedItemId={selectedItem?.id ?? null}
             />
           )}
           {page === "profile" && (
@@ -739,11 +740,13 @@ function CollectionView({
   onSelectItem,
   tab,
   setTab,
+  selectedItemId,
 }: {
   progress: Progress;
   onSelectItem: (i: CollectionItem) => void;
   tab: CollectionTab;
   setTab: (t: CollectionTab) => void;
+  selectedItemId?: string | null;
 }) {
   const groups = PLACES.map((place) => {
     const items = COLLECTION_ITEMS.filter((i) => i.placeId === place.id);
@@ -803,7 +806,7 @@ function CollectionView({
                 asset={item.asset}
                 name={item.name}
                 unlocked
-                selected={false}
+                selected={selectedItemId === item.id}
                 onClick={() => onSelectItem(item)}
                 size="large"
               />
@@ -838,7 +841,7 @@ function CollectionView({
                   asset={item.asset}
                   name={item.name}
                   unlocked={unlocked}
-                  selected={false}
+                  selected={selectedItemId === item.id}
                   onClick={() => onSelectItem(item)}
                   size="large"
                 />
