@@ -2048,8 +2048,7 @@ function BadgeSheet({
           className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{
             background: "rgba(216,175,87,0.32)",
-            color: unlocked ? T.goldLight : T.sage,
-            opacity: unlocked ? 1 : 0.75,
+            color: T.goldLight,
           }}
         >
           <Heart className="w-4 h-4" fill="none" />
