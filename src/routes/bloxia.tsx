@@ -180,6 +180,7 @@ function BloxiaPage() {
               onSelectItem={setSelectedItem}
               tab={collectionTab}
               setTab={setCollectionTab}
+              selectedItemId={selectedItem?.id ?? null}
             />
           )}
           {page === "profile" && (
