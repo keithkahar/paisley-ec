@@ -1462,7 +1462,7 @@ function PlaceSheet({
           type="button"
           onClick={onUnlock}
           className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
-          style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           Unlock Place
         </button>
@@ -2018,7 +2018,7 @@ function BadgeSheet({
             type="button"
             onClick={onUnlockGrowth}
             className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
-            style={{ background: T.goldGradient, color: T.goldOnDark, border: `2px solid ${T.goldLight}` }}
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Unlock · {growthCost.toLocaleString()} Bp
           </button>
