@@ -191,6 +191,7 @@ function BloxiaPage() {
               totals={b.totals}
               bp={b.bp}
               avatarUrl={avatarUrl}
+              avatarFullUrl={avatarFullUrl}
               onEditName={() => setNameEditor(true)}
               onGoBadgesFavorite={() => {
                 setBadgeTab("favorite");
