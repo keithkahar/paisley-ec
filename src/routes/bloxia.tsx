@@ -946,46 +946,48 @@ function ProfileView({
 
   return (
     <div className="space-y-6">
-      {/* --- Header: circular avatar + name + pills (left), full avatar (right) --- */}
-      <div className="mx-auto w-max max-w-full flex items-start gap-3">
-        <div className="w-[134px] flex flex-col items-start shrink-0">
-          <div className="relative h-[134px] w-[134px]">
-            <div
-              className="h-full w-full rounded-full grid place-items-center overflow-hidden"
-              style={{
-                background: "white",
-                boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
-              }}
-            >
-              <img
-                src={avatarUrl}
-                alt=""
-                className="h-full w-full object-cover"
-                draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
-              />
-            </div>
-            <button
-              type="button"
-              onClick={onEditName}
-              aria-label="Edit profile"
-              className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
-              style={{
-                background: "#1C5732",
-                border: `1.5px solid rgba(216,175,87,0.55)`,
-                boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-              }}
-            >
-              <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
-            </button>
-          </div>
+      {/* --- Header: full avatar (left) | divider | name + pills (right) --- */}
+      <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
+        {/* Center vertical divider, aligned to screen center */}
+        <div
+          aria-hidden
+          className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-px"
+          style={{ background: T.borderSoft }}
+        />
+
+        {/* Left: enlarged full-body avatar with edit button overlay */}
+        <div className="relative flex justify-center pr-4">
+          <img
+            src={avatarFullUrl}
+            alt=""
+            className="h-[220px] w-auto object-contain"
+            draggable={false}
+            style={{ imageRendering: "auto", filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))" }}
+          />
+          <button
+            type="button"
+            onClick={onEditName}
+            aria-label="Edit profile"
+            className="absolute top-1 right-3 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            style={{
+              background: "#1C5732",
+              border: `1.5px solid rgba(216,175,87,0.55)`,
+              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+            }}
+          >
+            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
+          </button>
+        </div>
+
+        {/* Right: name + pills, right-aligned */}
+        <div className="flex flex-col items-end pl-4 text-right">
           <div
-            className="mt-3 text-[22px] font-semibold leading-none"
+            className="text-[22px] font-semibold leading-none"
             style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
           >
             {progress.bloxianName}
           </div>
-          <div className="mt-3 flex items-center justify-start gap-1 flex-wrap">
+          <div className="mt-3 flex items-center justify-end gap-1 flex-wrap">
             <span
               className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
               style={{
@@ -1016,17 +1018,6 @@ function ProfileView({
               </span>
             ))}
           </div>
-        </div>
-
-        {/* Full avatar: top aligned with circle, bottom aligned with pill top */}
-        <div className="relative h-[180px] w-auto shrink-0" style={{ marginTop: 0 }}>
-          <img
-            src={avatarFullUrl}
-            alt=""
-            className="h-full w-auto object-contain"
-            draggable={false}
-            style={{ imageRendering: "auto" }}
-          />
         </div>
       </div>
 
