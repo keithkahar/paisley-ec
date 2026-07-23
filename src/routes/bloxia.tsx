@@ -73,6 +73,7 @@ function BloxiaPage() {
   const b = useBloxia();
   const avatar = b.selectedAvatar;
   const avatarUrl = avatar?.portrait ?? CHARACTER_ASSETS.shirinPortrait;
+  const avatarFullUrl = avatar?.full ?? CHARACTER_ASSETS.shirinFull;
   const avatarMap = avatar?.map ?? CHARACTER_ASSETS.shirinMap;
   const [page, setPage] = useState<PageKey>("map");
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
