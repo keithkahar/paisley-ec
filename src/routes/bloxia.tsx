@@ -1017,7 +1017,7 @@ function ProfileView({
           </div>
 
           {/* Right: name + pills, left-aligned for a natural reading flow */}
-          <div className="flex flex-col items-start pl-4 text-left">
+          <div className="mt-[5px] flex flex-col items-start pl-4 text-left">
             <div
               className="text-[22px] font-semibold leading-none"
               style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
