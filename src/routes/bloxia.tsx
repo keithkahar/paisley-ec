@@ -470,7 +470,7 @@ function MapView({
         style={{ imageRendering: "pixelated" }}
       />
       <div
-        className="absolute z-10 pointer-events-none flex items-center justify-center"
+        className="absolute z-10 pointer-events-none flex flex-col items-center justify-center gap-1"
         style={{ top: "calc(env(safe-area-inset-top) + 6.125rem - 6px)", left: "16px" }}
       >
         {/* Smaller blue-cyan halo behind the white text logo */}
@@ -481,7 +481,7 @@ function MapView({
             width: "200px",
             height: "90px",
             left: "50%",
-            top: "50%",
+            top: "40%",
             transform: "translate(-50%, -50%)",
             background:
               "radial-gradient(ellipse at center, rgba(100,220,255,0.50) 0%, rgba(50,170,255,0.28) 40%, rgba(30,140,255,0.10) 60%, transparent 72%)",
@@ -495,7 +495,7 @@ function MapView({
             width: "130px",
             height: "58px",
             left: "50%",
-            top: "50%",
+            top: "40%",
             transform: "translate(-50%, -50%)",
             background:
               "radial-gradient(ellipse at center, rgba(170,245,255,0.58) 0%, rgba(110,220,255,0.22) 50%, transparent 68%)",
@@ -512,6 +512,18 @@ function MapView({
               "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.5)) drop-shadow(0 0 14px rgba(0,0,0,0.25))",
           }}
         />
+        <div
+          className="relative px-2.5 py-1 rounded-full text-[11px] font-extrabold tracking-wide"
+          style={{
+            color: T.goldLight,
+            background: "rgba(8,36,22,0.62)",
+            border: `1px solid ${T.borderSoft}`,
+            textShadow: "0 1px 2px rgba(0,0,0,0.5)",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+          }}
+        >
+          1,000 Bp to review
+        </div>
       </div>
       {places.map((p) => (
         <button
@@ -955,15 +967,15 @@ function ProfileView({
           style={{ background: T.borderSoft }}
         />
 
-        {/* Left: name + pills, left-aligned */}
-        <div className="flex flex-col items-start pr-4 text-left">
+        {/* Left: name + pills, right-aligned */}
+        <div className="flex flex-col items-end pr-4 text-right">
           <div
             className="text-[22px] font-semibold leading-none"
             style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
           >
             {progress.bloxianName}
           </div>
-          <div className="mt-3 flex items-center justify-start gap-1.5 flex-wrap">
+          <div className="mt-3 flex items-center justify-end gap-1.5 flex-wrap">
             <span
               className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
               style={{
