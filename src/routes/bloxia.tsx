@@ -73,6 +73,7 @@ function BloxiaPage() {
   const b = useBloxia();
   const avatar = b.selectedAvatar;
   const avatarUrl = avatar?.portrait ?? CHARACTER_ASSETS.shirinPortrait;
+  const avatarFullUrl = avatar?.full ?? CHARACTER_ASSETS.shirinFull;
   const avatarMap = avatar?.map ?? CHARACTER_ASSETS.shirinMap;
   const [page, setPage] = useState<PageKey>("map");
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
@@ -190,6 +191,7 @@ function BloxiaPage() {
               totals={b.totals}
               bp={b.bp}
               avatarUrl={avatarUrl}
+              avatarFullUrl={avatarFullUrl}
               onEditName={() => setNameEditor(true)}
               onGoBadgesFavorite={() => {
                 setBadgeTab("favorite");
@@ -865,6 +867,7 @@ function ProfileView({
   totals,
   bp,
   avatarUrl,
+  avatarFullUrl,
   onEditName,
   onGoBadgesFavorite,
   onGoCollectionFavorite,
@@ -876,6 +879,7 @@ function ProfileView({
   totals: { places: number; placeBadges: number; growthBadges: number; collectionItems: number };
   bp: number;
   avatarUrl: string;
+  avatarFullUrl: string;
   onEditName: () => void;
   onGoBadgesFavorite: () => void;
   onGoCollectionFavorite: () => void;
@@ -942,74 +946,87 @@ function ProfileView({
 
   return (
     <div className="space-y-6">
-      {/* --- Header: avatar + name + stat pills (no frame) --- */}
-      <div className="mx-auto w-max max-w-full flex flex-col items-start">
-        <div className="relative h-[134px] w-[134px]">
-          <div
-            className="h-full w-full rounded-full grid place-items-center overflow-hidden"
-            style={{
-              background: "white",
-              boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
-            }}
-          >
-            <img
-              src={avatarUrl}
-              alt=""
-              className="h-full w-full object-cover"
-              draggable={false}
-              style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
-            />
+      {/* --- Header: circular avatar + name + pills (left), full avatar (right) --- */}
+      <div className="mx-auto w-max max-w-full flex items-start gap-3">
+        <div className="w-[134px] flex flex-col items-start shrink-0">
+          <div className="relative h-[134px] w-[134px]">
+            <div
+              className="h-full w-full rounded-full grid place-items-center overflow-hidden"
+              style={{
+                background: "white",
+                boxShadow: `0 0 0 2px ${T.goldLight}, inset 0 0 0 1px rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.45)`,
+              }}
+            >
+              <img
+                src={avatarUrl}
+                alt=""
+                className="h-full w-full object-cover"
+                draggable={false}
+                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={onEditName}
+              aria-label="Edit profile"
+              className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+              style={{
+                background: "#1C5732",
+                border: `1.5px solid rgba(216,175,87,0.55)`,
+                boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+              }}
+            >
+              <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={onEditName}
-            aria-label="Edit profile"
-            className="absolute top-[20px] left-[20px] -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
-            style={{
-              background: "#1C5732",
-              border: `1.5px solid rgba(216,175,87,0.55)`,
-              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-            }}
+          <div
+            className="mt-3 text-[22px] font-semibold leading-none"
+            style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
           >
-            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
-          </button>
-        </div>
-        <div
-          className="mt-3 text-[22px] font-semibold leading-none"
-          style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
-        >
-          {progress.bloxianName}
-        </div>
-        <div className="mt-3 flex items-center justify-start gap-2 flex-wrap">
-          <span
-            className="inline-flex items-center gap-1 rounded-full px-3 h-8 text-[13px] font-semibold"
-            style={{
-              background: "rgba(8,36,22,0.72)",
-              border: `1.5px solid ${T.borderSoft}`,
-              color: T.sage,
-            }}
-          >
-            <span style={{ color: T.ivory }}>{bp.toLocaleString()}</span>
-            <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
-              Bp
-            </span>
-          </span>
-          {pills.map((p) => (
+            {progress.bloxianName}
+          </div>
+          <div className="mt-3 flex items-center justify-start gap-1 flex-wrap">
             <span
-              key={p.label}
-              className="inline-flex items-center gap-1 rounded-full px-3 h-8 text-[13px] font-semibold"
+              className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
               style={{
                 background: "rgba(8,36,22,0.72)",
                 border: `1.5px solid ${T.borderSoft}`,
                 color: T.sage,
               }}
             >
+              <span style={{ color: T.ivory }}>{bp.toLocaleString()}</span>
               <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
-                {p.label}
+                Bp
               </span>
-              <span>{p.value}</span>
             </span>
-          ))}
+            {pills.map((p) => (
+              <span
+                key={p.label}
+                className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
+                style={{
+                  background: "rgba(8,36,22,0.72)",
+                  border: `1.5px solid ${T.borderSoft}`,
+                  color: T.sage,
+                }}
+              >
+                <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
+                  {p.label}
+                </span>
+                <span>{p.value}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Full avatar: top aligned with circle, bottom aligned with pill top */}
+        <div className="relative h-[180px] w-auto shrink-0" style={{ marginTop: 0 }}>
+          <img
+            src={avatarFullUrl}
+            alt=""
+            className="h-full w-auto object-contain"
+            draggable={false}
+            style={{ imageRendering: "auto" }}
+          />
         </div>
       </div>
 

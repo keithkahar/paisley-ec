@@ -76,7 +76,7 @@ export const BLOXIAN_AVATARS: BloxianAvatar[] = [
     id: "shirin",
     name: "Bloxian",
     portrait: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
-    full: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
+    full: U.shirin_full,
     map: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
     isDefault: true,
   },
