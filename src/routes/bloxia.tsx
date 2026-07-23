@@ -899,7 +899,7 @@ function ProfileView({
   onSelectItem: (i: CollectionItem) => void;
 }) {
   const [activityCount, setActivityCount] = useState(1);
-  const selectedAvatar = avatarById[progress.selectedAvatarId] ?? avatarById[DEFAULT_AVATAR_ID];
+  const selectedAvatar = avatarById[progress.selectedAvatarId];
 
   const totalBadges = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
   const totalBadgesAll = totals.placeBadges + totals.growthBadges;
