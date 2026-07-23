@@ -960,42 +960,52 @@ function ProfileView({
     <div className="space-y-6">
       {/* --- Header card: avatar (left) | divider | name + pills (right) --- */}
       <div
-        className="rounded-[18px] p-4"
+        className="rounded-[18px] p-4 relative"
         style={{
           background: "rgba(8,36,22,0.55)",
           border: `1.5px solid ${T.borderSoft}`,
           boxShadow: "0 6px 18px rgba(0,0,0,0.18)",
         }}
       >
-        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
+        {/* Edit button: top-right corner of the card */}
+        <button
+          type="button"
+          onClick={onEditName}
+          aria-label="Edit profile"
+          className="absolute top-3 right-3 z-10 h-8 w-8 grid place-items-center rounded-full active:scale-95 transition-transform"
+          style={{
+            background: "rgba(255,244,191,0.9)",
+            boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+          }}
+        >
+          <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: "#1C5732" }} />
+        </button>
+
+        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 280 }}>
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
-            className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-px"
+            className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-px"
             style={{ background: T.borderSoft }}
           />
 
-          {/* Left: enlarged full-body avatar as the visual anchor */}
+          {/* Left: enlarged full-body avatar as the visual anchor, normalized to a fixed box so all avatars appear at roughly the same size */}
           <div className="relative flex justify-center items-center pr-3">
-            <img
-              src={avatarFullUrl}
-              alt=""
-              className="h-[220px] w-auto object-contain"
-              draggable={false}
-              style={{ imageRendering: "auto", filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))" }}
-            />
-            <button
-              type="button"
-              onClick={onEditName}
-              aria-label="Edit profile"
-              className="absolute bottom-2 right-2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
-              style={{
-                background: "rgba(255,244,191,0.9)",
-                boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-              }}
+            <div
+              className="relative flex items-end justify-center"
+              style={{ height: 260, width: 160 }}
             >
-              <Pencil className="h-[13px] w-[13px]" strokeWidth={2} style={{ color: "#1C5732" }} />
-            </button>
+              <img
+                src={avatarFullUrl}
+                alt=""
+                className="max-h-full max-w-full object-contain"
+                draggable={false}
+                style={{
+                  imageRendering: "auto",
+                  filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))",
+                }}
+              />
+            </div>
           </div>
 
           {/* Right: name + pills, left-aligned for a natural reading flow */}
