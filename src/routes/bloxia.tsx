@@ -943,7 +943,7 @@ function ProfileView({
   return (
     <div className="space-y-6">
       {/* --- Header: avatar + name + stat pills (no frame) --- */}
-      <div className="flex flex-col items-start">
+      <div className="mx-auto w-max max-w-full flex flex-col items-start">
         <div className="relative h-[134px] w-[134px]">
           <div
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
