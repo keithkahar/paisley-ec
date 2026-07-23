@@ -990,11 +990,16 @@ function ProfileView({
             style={{ background: T.borderSoft }}
           />
 
-          {/* Left: full-body avatar centered in the card between left edge and center divider */}
+          {/* Left: full-body avatar. We normalize different source PNGs (which
+              have different transparent padding) to a common on-screen size
+              via a per-avatar profileScale multiplier from config. */}
           <div className="relative flex justify-center items-center h-full w-full overflow-hidden">
             <div
-              className="relative flex items-center justify-center h-full w-[150px]"
-              style={{ transform: "scale(1.25)", transformOrigin: "center center" }}
+              className="relative flex items-end justify-center h-full w-[160px]"
+              style={{
+                transform: `scale(${1.25 * (progress.selectedAvatar?.profileScale ?? 1)})`,
+                transformOrigin: "center bottom",
+              }}
             >
               <img
                 src={avatarFullUrl}
@@ -1002,6 +1007,7 @@ function ProfileView({
                 className="h-full w-full object-contain"
                 draggable={false}
                 style={{
+                  objectPosition: "center bottom",
                   imageRendering: "auto",
                   filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))",
                 }}
@@ -1017,7 +1023,7 @@ function ProfileView({
             >
               {progress.bloxianName}
             </div>
-            <div className="mt-2 flex flex-col items-start gap-1.5">
+            <div className="mt-4 flex flex-col items-start gap-1.5">
               <span
                 className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-bold"
                 style={{
