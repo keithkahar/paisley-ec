@@ -956,7 +956,7 @@ function ProfileView({
         />
 
         {/* Left: enlarged full-body avatar with edit button overlay */}
-        <div className="relative flex justify-center pr-4">
+        <div className="relative flex justify-center items-center pr-3">
           <img
             src={avatarFullUrl}
             alt=""
@@ -968,7 +968,7 @@ function ProfileView({
             type="button"
             onClick={onEditName}
             aria-label="Edit profile"
-            className="absolute top-1 right-3 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            className="absolute top-2 right-2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
             style={{
               background: "#1C5732",
               border: `1.5px solid rgba(216,175,87,0.55)`,
@@ -979,15 +979,15 @@ function ProfileView({
           </button>
         </div>
 
-        {/* Right: name + pills, right-aligned */}
-        <div className="flex flex-col items-end pl-4 text-right">
+        {/* Right: name + pills, left-aligned */}
+        <div className="flex flex-col items-start pl-4 text-left">
           <div
             className="text-[22px] font-semibold leading-none"
             style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
           >
             {progress.bloxianName}
           </div>
-          <div className="mt-3 flex items-center justify-end gap-1 flex-wrap">
+          <div className="mt-3 flex items-center justify-start gap-1.5 flex-wrap">
             <span
               className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
               style={{
