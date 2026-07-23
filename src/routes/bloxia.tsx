@@ -867,6 +867,7 @@ function ProfileView({
   totals,
   bp,
   avatarUrl,
+  avatarFullUrl,
   onEditName,
   onGoBadgesFavorite,
   onGoCollectionFavorite,
@@ -878,6 +879,7 @@ function ProfileView({
   totals: { places: number; placeBadges: number; growthBadges: number; collectionItems: number };
   bp: number;
   avatarUrl: string;
+  avatarFullUrl: string;
   onEditName: () => void;
   onGoBadgesFavorite: () => void;
   onGoCollectionFavorite: () => void;
