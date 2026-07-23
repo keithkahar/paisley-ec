@@ -974,11 +974,12 @@ function ProfileView({
           aria-label="Edit profile"
           className="absolute top-3 right-3 z-10 h-8 w-8 grid place-items-center rounded-full active:scale-95 transition-transform"
           style={{
-            background: "rgba(255,244,191,0.9)",
+            background: "rgba(8,36,22,0.72)",
+            border: `1.5px solid ${T.borderSoft}`,
             boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
           }}
         >
-          <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: "#1C5732" }} />
+          <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
         </button>
 
         <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
