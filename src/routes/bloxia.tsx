@@ -899,6 +899,7 @@ function ProfileView({
   onSelectItem: (i: CollectionItem) => void;
 }) {
   const [activityCount, setActivityCount] = useState(1);
+  const selectedAvatar = avatarById[progress.selectedAvatarId] ?? avatarById[DEFAULT_AVATAR_ID];
 
   const totalBadges = progress.earnedPlaceBadgeIds.length + progress.unlockedGrowthBadgeIds.length;
   const totalBadgesAll = totals.placeBadges + totals.growthBadges;
@@ -997,7 +998,7 @@ function ProfileView({
             <div
               className="relative flex items-end justify-center h-full w-[160px]"
               style={{
-                transform: `scale(${1.25 * (progress.selectedAvatar?.profileScale ?? 1)})`,
+                transform: `scale(${1.25 * (selectedAvatar?.profileScale ?? 1)})`,
                 transformOrigin: "center bottom",
               }}
             >
