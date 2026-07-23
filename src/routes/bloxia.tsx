@@ -998,7 +998,7 @@ function ProfileView({
             <div
               className="relative flex items-end justify-center h-full w-[160px]"
               style={{
-                transform: `scale(${1.25 * (selectedAvatar?.profileScale ?? 1)})`,
+                transform: `scale(${1.05 * (selectedAvatar?.profileScale ?? 1)})`,
                 transformOrigin: "center bottom",
               }}
             >
