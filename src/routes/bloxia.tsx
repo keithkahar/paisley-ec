@@ -981,19 +981,19 @@ function ProfileView({
           <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: "#1C5732" }} />
         </button>
 
-        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 280 }}>
+        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
-            className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-px"
+            className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-px"
             style={{ background: T.borderSoft }}
           />
 
-          {/* Left: enlarged full-body avatar as the visual anchor, normalized to a fixed box so all avatars appear at roughly the same size */}
-          <div className="relative flex justify-center items-center pr-3">
+          {/* Left: enlarged full-body avatar as the visual anchor, overflowing the card so it appears larger while the card stays compact */}
+          <div className="relative flex justify-center items-center pr-3 h-full overflow-visible">
             <div
-              className="relative flex items-end justify-center"
-              style={{ height: 260, width: 160 }}
+              className="absolute left-1/2 -translate-x-1/2 flex items-end justify-center overflow-visible"
+              style={{ height: 300, width: 170, bottom: -44 }}
             >
               <img
                 src={avatarFullUrl}
