@@ -943,7 +943,7 @@ function ProfileView({
   return (
     <div className="space-y-6">
       {/* --- Header: avatar + name + stat pills (no frame) --- */}
-      <div className="flex flex-col items-center">
+      <div className="mx-auto w-max max-w-full flex flex-col items-start">
         <div className="relative h-[134px] w-[134px]">
           <div
             className="h-full w-full rounded-full grid place-items-center overflow-hidden"
@@ -980,7 +980,7 @@ function ProfileView({
         >
           {progress.bloxianName}
         </div>
-        <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+        <div className="mt-3 flex items-center justify-start gap-2 flex-wrap">
           <span
             className="inline-flex items-center gap-1 rounded-full px-3 h-8 text-[13px] font-semibold"
             style={{
