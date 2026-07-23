@@ -960,7 +960,7 @@ function ProfileView({
     <div className="space-y-6">
       {/* --- Header card: avatar (left) | divider | name + pills (right) --- */}
       <div
-        className="rounded-[18px] p-4 relative"
+        className="rounded-[18px] p-4 relative overflow-hidden"
         style={{
           background: "rgba(8,36,22,0.55)",
           border: `1.5px solid ${T.borderSoft}`,
@@ -989,16 +989,16 @@ function ProfileView({
             style={{ background: T.borderSoft }}
           />
 
-          {/* Left: enlarged full-body avatar as the visual anchor, overflowing the card so it appears larger while the card stays compact */}
-          <div className="relative flex justify-center items-center pr-3 h-full overflow-visible">
+          {/* Left: full-body avatar stays inside the card, scaled up so it fills the frame */}
+          <div className="relative flex justify-center items-end h-full w-full overflow-hidden">
             <div
-              className="absolute left-1/2 -translate-x-1/2 flex items-end justify-center overflow-visible"
-              style={{ height: 300, width: 170, bottom: -44 }}
+              className="relative flex items-end justify-center h-full w-[150px]"
+              style={{ transform: "scale(1.15)", transformOrigin: "bottom center" }}
             >
               <img
                 src={avatarFullUrl}
                 alt=""
-                className="max-h-full max-w-full object-contain"
+                className="h-full w-full object-contain"
                 draggable={false}
                 style={{
                   imageRendering: "auto",
