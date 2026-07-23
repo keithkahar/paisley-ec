@@ -994,7 +994,7 @@ function ProfileView({
           {/* Left: full-body avatar. We normalize different source PNGs (which
               have different transparent padding) to a common on-screen size
               via a per-avatar profileScale multiplier from config. */}
-          <div className="relative flex justify-center items-center h-full w-full overflow-hidden">
+          <div className="relative flex justify-center items-center h-full w-full">
             <div
               className="relative flex items-end justify-center h-full w-[160px]"
               style={{
