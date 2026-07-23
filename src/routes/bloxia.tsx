@@ -946,7 +946,7 @@ function ProfileView({
 
   return (
     <div className="space-y-6">
-      {/* --- Header: full avatar (left) | divider | name + pills (right) --- */}
+      {/* --- Header: name + pills (left) | divider | full avatar (right) --- */}
       <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
         {/* Center vertical divider, aligned to screen center */}
         <div
@@ -955,32 +955,8 @@ function ProfileView({
           style={{ background: T.borderSoft }}
         />
 
-        {/* Left: enlarged full-body avatar with edit button overlay */}
-        <div className="relative flex justify-center items-center pr-3">
-          <img
-            src={avatarFullUrl}
-            alt=""
-            className="h-[220px] w-auto object-contain"
-            draggable={false}
-            style={{ imageRendering: "auto", filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))" }}
-          />
-          <button
-            type="button"
-            onClick={onEditName}
-            aria-label="Edit profile"
-            className="absolute top-2 right-2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
-            style={{
-              background: "#1C5732",
-              border: `1.5px solid rgba(216,175,87,0.55)`,
-              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-            }}
-          >
-            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
-          </button>
-        </div>
-
-        {/* Right: name + pills, left-aligned */}
-        <div className="flex flex-col items-start pl-4 text-left">
+        {/* Left: name + pills, left-aligned */}
+        <div className="flex flex-col items-start pr-4 text-left">
           <div
             className="text-[22px] font-semibold leading-none"
             style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
@@ -1018,6 +994,30 @@ function ProfileView({
               </span>
             ))}
           </div>
+        </div>
+
+        {/* Right: enlarged full-body avatar with edit button overlay */}
+        <div className="relative flex justify-center items-center pl-3">
+          <img
+            src={avatarFullUrl}
+            alt=""
+            className="h-[220px] w-auto object-contain"
+            draggable={false}
+            style={{ imageRendering: "auto", filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))" }}
+          />
+          <button
+            type="button"
+            onClick={onEditName}
+            aria-label="Edit profile"
+            className="absolute bottom-2 right-2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
+            style={{
+              background: "#1C5732",
+              border: `1.5px solid rgba(216,175,87,0.55)`,
+              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+            }}
+          >
+            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
+          </button>
         </div>
       </div>
 
