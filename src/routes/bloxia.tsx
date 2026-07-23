@@ -948,7 +948,7 @@ function ProfileView({
     <div className="space-y-6">
       {/* --- Header: circular avatar + name + pills (left), full avatar (right) --- */}
       <div className="mx-auto w-max max-w-full flex items-start gap-3">
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start shrink-0">
           <div className="relative h-[134px] w-[134px]">
             <div
               className="h-full w-full rounded-full grid place-items-center overflow-hidden"
