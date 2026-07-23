@@ -69,6 +69,12 @@ export interface BloxianAvatar {
   full: string;
   map: string;
   isDefault?: boolean;
+  /**
+   * Per-avatar visual scale multiplier used in the Profile header card.
+   * Different source PNGs have different amounts of transparent padding, so
+   * we normalize their on-screen size with this factor. 1 = base size.
+   */
+  profileScale?: number;
 }
 
 export const BLOXIAN_AVATARS: BloxianAvatar[] = [
