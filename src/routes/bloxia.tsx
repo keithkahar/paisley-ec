@@ -990,11 +990,11 @@ function ProfileView({
             style={{ background: T.borderSoft }}
           />
 
-          {/* Left: full-body avatar stays inside the card, scaled up so it fills the frame */}
-          <div className="relative flex justify-center items-end h-full w-full overflow-hidden">
+          {/* Left: full-body avatar centered in the card between left edge and center divider */}
+          <div className="relative flex justify-center items-center h-full w-full overflow-hidden">
             <div
-              className="relative flex items-end justify-center h-full w-[150px]"
-              style={{ transform: "scale(1.15)", transformOrigin: "bottom center" }}
+              className="relative flex items-center justify-center h-full w-[150px]"
+              style={{ transform: "scale(1.25)", transformOrigin: "center center" }}
             >
               <img
                 src={avatarFullUrl}
