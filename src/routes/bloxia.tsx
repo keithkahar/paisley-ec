@@ -958,78 +958,82 @@ function ProfileView({
 
   return (
     <div className="space-y-6">
-      {/* --- Header: name + pills (left) | divider | full avatar (right) --- */}
-      <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
-        {/* Center vertical divider, aligned to screen center */}
-        <div
-          aria-hidden
-          className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-px"
-          style={{ background: T.borderSoft }}
-        />
-
-        {/* Left: name + pills, right-aligned */}
-        <div className="flex flex-col items-end pr-4 text-right">
+      {/* --- Header card: avatar (left) | divider | name + pills (right) --- */}
+      <div
+        className="rounded-[18px] p-4"
+        style={{
+          background: "rgba(8,36,22,0.55)",
+          border: `1.5px solid ${T.borderSoft}`,
+          boxShadow: "0 6px 18px rgba(0,0,0,0.18)",
+        }}
+      >
+        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
+          {/* Center vertical divider, aligned to screen center */}
           <div
-            className="text-[22px] font-semibold leading-none"
-            style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
-          >
-            {progress.bloxianName}
-          </div>
-          <div className="mt-3 flex items-center justify-end gap-1.5 flex-wrap">
-            <span
-              className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
+            aria-hidden
+            className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-px"
+            style={{ background: T.borderSoft }}
+          />
+
+          {/* Left: enlarged full-body avatar as the visual anchor */}
+          <div className="relative flex justify-center items-center pr-3">
+            <img
+              src={avatarFullUrl}
+              alt=""
+              className="h-[220px] w-auto object-contain"
+              draggable={false}
+              style={{ imageRendering: "auto", filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))" }}
+            />
+            <button
+              type="button"
+              onClick={onEditName}
+              aria-label="Edit profile"
+              className="absolute bottom-2 right-2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
               style={{
-                background: "rgba(8,36,22,0.72)",
-                border: `1.5px solid ${T.borderSoft}`,
-                color: T.sage,
+                background: "rgba(255,244,191,0.9)",
+                boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
               }}
             >
-              <span style={{ color: T.ivory }}>{bp.toLocaleString()}</span>
-              <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
-                Bp
-              </span>
-            </span>
-            {pills.map((p) => (
+              <Pencil className="h-[13px] w-[13px]" strokeWidth={2} style={{ color: "#1C5732" }} />
+            </button>
+          </div>
+
+          {/* Right: name + pills, left-aligned for a natural reading flow */}
+          <div className="flex flex-col items-start pl-4 text-left">
+            <div
+              className="text-[22px] font-semibold leading-none"
+              style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
+            >
+              {progress.bloxianName}
+            </div>
+            <div className="mt-2 flex flex-col items-start gap-1.5">
               <span
-                key={p.label}
-                className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
+                className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-bold"
                 style={{
                   background: "rgba(8,36,22,0.72)",
                   border: `1.5px solid ${T.borderSoft}`,
                   color: T.sage,
                 }}
               >
-                <span className="text-[13px] font-bold" style={{ color: T.ivory }}>
-                  {p.label}
-                </span>
-                <span>{p.value}</span>
+                <span style={{ color: T.ivory }}>{bp.toLocaleString()}</span>
+                <span style={{ color: T.ivory }}>Bp</span>
               </span>
-            ))}
+              {pills.map((p) => (
+                <span
+                  key={p.label}
+                  className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-bold"
+                  style={{
+                    background: "rgba(8,36,22,0.72)",
+                    border: `1.5px solid ${T.borderSoft}`,
+                    color: T.sage,
+                  }}
+                >
+                  <span style={{ color: T.ivory }}>{p.label}</span>
+                  <span>{p.value}</span>
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-
-        {/* Right: enlarged full-body avatar with edit button overlay */}
-        <div className="relative flex justify-center items-center pl-3">
-          <img
-            src={avatarFullUrl}
-            alt=""
-            className="h-[220px] w-auto object-contain"
-            draggable={false}
-            style={{ imageRendering: "auto", filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))" }}
-          />
-          <button
-            type="button"
-            onClick={onEditName}
-            aria-label="Edit profile"
-            className="absolute bottom-2 right-2 h-8 w-8 grid place-items-center rounded-full z-10 active:scale-95 transition-transform"
-            style={{
-              background: "#1C5732",
-              border: `1.5px solid rgba(216,175,87,0.55)`,
-              boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
-            }}
-          >
-            <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
-          </button>
         </div>
       </div>
 
