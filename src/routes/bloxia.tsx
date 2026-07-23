@@ -955,15 +955,15 @@ function ProfileView({
           style={{ background: T.borderSoft }}
         />
 
-        {/* Left: name + pills, left-aligned */}
-        <div className="flex flex-col items-start pr-4 text-left">
+        {/* Left: name + pills, right-aligned */}
+        <div className="flex flex-col items-end pr-4 text-right">
           <div
             className="text-[22px] font-semibold leading-none"
             style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
           >
             {progress.bloxianName}
           </div>
-          <div className="mt-3 flex items-center justify-start gap-1.5 flex-wrap">
+          <div className="mt-3 flex items-center justify-end gap-1.5 flex-wrap">
             <span
               className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-semibold"
               style={{
