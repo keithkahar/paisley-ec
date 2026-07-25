@@ -989,7 +989,7 @@ function ProfileView({
           <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
         </button>
 
-        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 300 }}>
+        <div className="relative grid grid-cols-2 items-stretch" style={{ minHeight: 240 }}>
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
@@ -1000,30 +1000,24 @@ function ProfileView({
           {/* Left: full-body avatar. We normalize different source PNGs (which
               have different transparent padding) to a common on-screen size
               via a per-avatar profileScale multiplier from config. */}
-          <div className="relative flex justify-center items-center h-full w-full">
-            <div
-              className="relative flex items-center justify-center h-full w-[180px]"
+          <div className="relative h-full w-full">
+            <img
+              src={avatarFullUrl}
+              alt=""
+              draggable={false}
+              className="absolute inset-0 h-full w-full object-contain"
               style={{
-                transform: `scale(${(selectedAvatar?.profileScale ?? 1) * 1.45})`,
+                objectPosition: "center center",
+                transform: `scale(${(selectedAvatar?.profileScale ?? 1) * 1.15})`,
                 transformOrigin: "center center",
+                imageRendering: "auto",
+                filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))",
               }}
-            >
-              <img
-                src={avatarFullUrl}
-                alt=""
-                className="h-full w-full object-contain"
-                draggable={false}
-                style={{
-                  objectPosition: "center bottom",
-                  imageRendering: "auto",
-                  filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))",
-                }}
-              />
-            </div>
+            />
           </div>
 
-          {/* Right: name + pills, left-aligned for a natural reading flow */}
-          <div className="mt-[5px] ml-[10px] flex flex-col items-start pl-4 text-left">
+          {/* Right: name + pills, vertically centered */}
+          <div className="ml-[10px] flex h-full flex-col items-start justify-center pl-4 text-left">
             <div
               className="pl-[11.5px] text-[22px] font-semibold leading-none"
               style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
