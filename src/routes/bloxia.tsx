@@ -65,6 +65,12 @@ const T = {
   goldOnDark: "#1C2A12",
 };
 
+// Circular avatar crop: zoom to the head so the circle shows the whole head only.
+const AVATAR_HEAD_STYLE = {
+  transform: "scale(4)",
+  transformOrigin: "50% 0%",
+};
+
 function formatBp(n: number) {
   return `${Math.max(0, Math.floor(n)).toLocaleString()} Bp`;
 }
