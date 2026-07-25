@@ -67,7 +67,7 @@ const T = {
 
 // Circular avatar crop: zoom to the head so the circle shows the whole head only.
 const AVATAR_HEAD_STYLE = {
-  transform: "scale(1.85) translateY(-6.25%)",
+  transform: "scale(2.2) translateY(-6.25%)",
   transformOrigin: "50% 0%",
 };
 
