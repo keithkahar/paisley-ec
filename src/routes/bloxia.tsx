@@ -1063,44 +1063,26 @@ function ProfileView({
           </div>
           <div className="flex flex-col items-start" style={{ gap: 7 }}>
             <span
-              className="inline-flex items-center"
+              className="inline-flex items-center gap-1"
               style={{
-                height: 29,
-                minWidth: 77,
-                padding: "0 12px",
-                borderRadius: 999,
-                background: "rgba(8,36,22,0.72)",
-                border: "1.5px solid rgba(216,175,87,0.42)",
-                color: "#B7D9B7",
+                color: "#FFF4BF",
                 fontSize: 13,
-                fontWeight: 600,
-                gap: 4,
-                boxSizing: "border-box",
+                fontWeight: 700,
               }}
             >
-              <span style={{ color: "#FFF4BF", fontWeight: 700 }}>{bp.toLocaleString()}</span>
-              <span style={{ color: "#FFF4BF", fontWeight: 700 }}>Bp</span>
+              {bp.toLocaleString()} Bp
             </span>
             {pills.map((p) => (
               <span
                 key={p.label}
-                className="inline-flex items-center"
+                className="inline-flex items-center gap-1"
                 style={{
-                  height: 29,
-                  minWidth: 80,
-                  padding: "0 12px",
-                  borderRadius: 999,
-                  background: "rgba(8,36,22,0.72)",
-                  border: "1.5px solid rgba(216,175,87,0.42)",
-                  color: "#B7D9B7",
+                  color: "#FFF4BF",
                   fontSize: 13,
-                  fontWeight: 600,
-                  gap: 4,
-                  boxSizing: "border-box",
+                  fontWeight: 700,
                 }}
               >
-                <span style={{ color: "#FFF4BF", fontWeight: 700 }}>{p.label}</span>
-                <span style={{ color: "#B7D9B7" }}>{p.value}</span>
+                {p.label} <span style={{ color: "#B7D9B7", fontWeight: 600 }}>{p.value}</span>
               </span>
             ))}
           </div>
