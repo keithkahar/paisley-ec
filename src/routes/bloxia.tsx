@@ -994,7 +994,7 @@ function ProfileView({
           <div
             aria-hidden
             className="absolute top-3 bottom-3 w-px -translate-x-1/2"
-            style={{ left: "calc(50% + 10px)", background: T.borderSoft }}
+            style={{ left: "calc(50% + 15px)", background: T.borderSoft }}
           />
 
           {/* Left: full-body avatar. We normalize different source PNGs (which
