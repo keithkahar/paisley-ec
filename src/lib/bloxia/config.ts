@@ -77,64 +77,26 @@ export interface BloxianAvatar {
   profileScale?: number;
 }
 
+const AV = {
+  a1: "/__l5e/assets-v1/561353f5-4309-4ad7-8cef-3f695dfd3ce7/bloxian_avatar_01.png",
+  a2: "/__l5e/assets-v1/dca18d1c-9130-4886-9fcb-82174d8c62ab/bloxian_avatar_02.png",
+  a3: "/__l5e/assets-v1/1ed30cd4-5351-4e63-8c7e-dd8b9606cc84/bloxian_avatar_03.png",
+  a4: "/__l5e/assets-v1/54a93250-2455-4ad7-b9c4-a76f1d29b898/bloxian_avatar_04.png",
+  a5: "/__l5e/assets-v1/93766303-cf12-4093-9c28-399dd8d57f37/bloxian_avatar_05.png",
+  a6: "/__l5e/assets-v1/4cb10b8f-2fad-43dc-97c0-c28b45d68e5c/bloxian_avatar_06.png",
+  a7: "/__l5e/assets-v1/0f878ac6-da09-449d-b83a-82341b758c0f/bloxian_avatar_07.png",
+  a8: "/__l5e/assets-v1/3688c316-6c6e-463c-b385-f28a57535c72/bloxian_avatar_08.png",
+};
+
 export const BLOXIAN_AVATARS: BloxianAvatar[] = [
-  {
-    id: "shirin",
-    name: "Bloxian",
-    portrait: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
-    full: U.shirin_full,
-    map: "/__l5e/assets-v1/1ed594f5-3694-4129-8db7-fca213a0e04f/avatar_shirin_icon.png",
-    isDefault: true,
-  },
-  {
-    id: "ezra",
-    name: "Ezra",
-    portrait: "/__l5e/assets-v1/9ad7f0fe-0b5a-4b47-b7b0-123fdc25cb36/avatar_ezra_icon.png",
-    full: "/__l5e/assets-v1/9ad7f0fe-0b5a-4b47-b7b0-123fdc25cb36/avatar_ezra_icon.png",
-    map: "/__l5e/assets-v1/9ad7f0fe-0b5a-4b47-b7b0-123fdc25cb36/avatar_ezra_icon.png",
-  },
-  {
-    id: "luna",
-    name: "Luna",
-    portrait: "/__l5e/assets-v1/5f418210-1e33-4ea9-9d52-a9666072bf3c/avatar_luna_icon.png",
-    full: "/__l5e/assets-v1/5f418210-1e33-4ea9-9d52-a9666072bf3c/avatar_luna_icon.png",
-    map: "/__l5e/assets-v1/5f418210-1e33-4ea9-9d52-a9666072bf3c/avatar_luna_icon.png",
-  },
-  {
-    id: "rex",
-    name: "Rex",
-    portrait: "/__l5e/assets-v1/6fd00c92-b709-456a-9e79-1ab00aad07b2/avatar_rex_icon.png",
-    full: "/__l5e/assets-v1/6fd00c92-b709-456a-9e79-1ab00aad07b2/avatar_rex_icon.png",
-    map: "/__l5e/assets-v1/6fd00c92-b709-456a-9e79-1ab00aad07b2/avatar_rex_icon.png",
-  },
-  {
-    id: "milo",
-    name: "Milo",
-    portrait: "/__l5e/assets-v1/ce76d42b-24bc-4d5b-9f65-fe67c79e8599/avatar_milo_icon.png",
-    full: "/__l5e/assets-v1/ce76d42b-24bc-4d5b-9f65-fe67c79e8599/avatar_milo_icon.png",
-    map: "/__l5e/assets-v1/ce76d42b-24bc-4d5b-9f65-fe67c79e8599/avatar_milo_icon.png",
-  },
-  {
-    id: "nova",
-    name: "Nova",
-    portrait: "/__l5e/assets-v1/13588986-7df4-4c99-987a-2125dc8f915b/avatar_nova_icon.png",
-    full: "/__l5e/assets-v1/13588986-7df4-4c99-987a-2125dc8f915b/avatar_nova_icon.png",
-    map: "/__l5e/assets-v1/13588986-7df4-4c99-987a-2125dc8f915b/avatar_nova_icon.png",
-  },
-  {
-    id: "kai",
-    name: "Kai",
-    portrait: "/__l5e/assets-v1/29785c3f-cfec-40fc-9a61-e409611b415a/avatar_kai_icon.png",
-    full: "/__l5e/assets-v1/29785c3f-cfec-40fc-9a61-e409611b415a/avatar_kai_icon.png",
-    map: "/__l5e/assets-v1/29785c3f-cfec-40fc-9a61-e409611b415a/avatar_kai_icon.png",
-  },
-  {
-    id: "iris",
-    name: "Iris",
-    portrait: "/__l5e/assets-v1/cb61520f-194b-4b53-9024-5febf5701821/avatar_iris_icon.png",
-    full: "/__l5e/assets-v1/cb61520f-194b-4b53-9024-5febf5701821/avatar_iris_icon.png",
-    map: "/__l5e/assets-v1/cb61520f-194b-4b53-9024-5febf5701821/avatar_iris_icon.png",
-  },
+  { id: "shirin", name: "Bloxian", portrait: AV.a1, full: AV.a1, map: AV.a1, isDefault: true },
+  { id: "ezra",   name: "Ezra",    portrait: AV.a2, full: AV.a2, map: AV.a2 },
+  { id: "luna",   name: "Luna",    portrait: AV.a3, full: AV.a3, map: AV.a3 },
+  { id: "rex",    name: "Rex",     portrait: AV.a4, full: AV.a4, map: AV.a4 },
+  { id: "milo",   name: "Milo",    portrait: AV.a5, full: AV.a5, map: AV.a5 },
+  { id: "nova",   name: "Nova",    portrait: AV.a6, full: AV.a6, map: AV.a6 },
+  { id: "kai",    name: "Kai",     portrait: AV.a7, full: AV.a7, map: AV.a7 },
+  { id: "iris",   name: "Iris",    portrait: AV.a8, full: AV.a8, map: AV.a8 },
 ];
 
 export const DEFAULT_AVATAR_ID = "shirin";
