@@ -965,92 +965,145 @@ function ProfileView({
 
   return (
     <div className="space-y-6">
-      {/* --- Header card: avatar (left) | divider | name + pills (right) --- */}
+      {/* --- Header card: avatar (left) | divider | name + pills (right) ---
+          Values below mirror the miniprogram profile-hero spec (rpx / 2 = px). */}
       <div
-        className="rounded-[18px] p-4 relative overflow-hidden"
+        className="relative flex flex-row items-center overflow-hidden"
         style={{
-          background: "rgba(8,36,22,0.55)",
-          border: `1.5px solid ${T.borderSoft}`,
-          boxShadow: "0 6px 18px rgba(0,0,0,0.18)",
+          minHeight: 216,
+          padding: "18px 22px 18px 17px",
+          borderRadius: 18,
+          border: "2px solid rgba(216,175,87,0.42)",
+          background: "rgba(8,36,22,0.58)",
+          boxSizing: "border-box",
         }}
       >
-        {/* Edit button: top-right corner of the card */}
+        {/* Edit button */}
         <button
           type="button"
           onClick={onEditName}
           aria-label="Edit profile"
-          className="absolute top-3 right-3 z-10 h-8 w-8 grid place-items-center rounded-full active:scale-95 transition-transform"
+          className="absolute grid place-items-center rounded-full active:scale-95 transition-transform"
           style={{
-            background: "rgba(8,36,22,0.72)",
-            border: `1.5px solid ${T.borderSoft}`,
-            boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+            top: 12,
+            right: 16,
+            width: 30,
+            height: 30,
+            background: "rgba(8,36,22,0.32)",
+            border: "1.5px solid rgba(216,175,87,0.26)",
+            boxShadow: "0 1.5px 4px rgba(0,0,0,0.18)",
+            zIndex: 2,
           }}
         >
-          <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <path d="M12 20h9" stroke="#9D7C3F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" stroke="#9D7C3F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
 
-        <div className="relative grid grid-cols-2 items-stretch" style={{ minHeight: 240 }}>
-          {/* Center vertical divider, aligned to screen center */}
-          <div
-            aria-hidden
-            className="absolute top-3 bottom-3 w-px -translate-x-1/2"
-            style={{ left: "calc(50% + 15px)", background: T.borderSoft }}
+        {/* Avatar area */}
+        <div
+          className="flex items-center justify-center"
+          style={{
+            width: 187,
+            height: 180,
+            flex: "0 0 187px",
+            overflow: "visible",
+          }}
+        >
+          <img
+            src={avatarFullUrl}
+            alt=""
+            draggable={false}
+            style={{
+              width: "242%",
+              height: "242%",
+              objectFit: "contain",
+              imageRendering: "auto",
+              transform: `translateX(-22px) scale(${selectedAvatar?.profileScale ?? 1})`,
+              transformOrigin: "center center",
+              filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))",
+            }}
           />
+        </div>
 
-          {/* Left: full-body avatar. We normalize different source PNGs (which
-              have different transparent padding) to a common on-screen size
-              via a per-avatar profileScale multiplier from config. */}
-          <div className="relative h-full w-full">
-            <img
-              src={avatarFullUrl}
-              alt=""
-              draggable={false}
-              className="absolute inset-0 h-full w-full object-contain"
-              style={{
-                objectPosition: "center center",
-                transform: `scale(${(selectedAvatar?.profileScale ?? 1) * 1.15})`,
-                transformOrigin: "center center",
-                imageRendering: "auto",
-                filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.45))",
-              }}
-            />
+        {/* Divider */}
+        <div
+          aria-hidden
+          style={{
+            width: 1.5,
+            height: 166.5,
+            margin: "0 21px 0 -28px",
+            flex: "0 0 1.5px",
+            background: "rgba(216,175,87,0.22)",
+          }}
+        />
+
+        {/* Right info group: name + pills, bottom-aligned */}
+        <div
+          className="flex flex-col"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            minHeight: 166.5,
+            justifyContent: "flex-end",
+            transform: "translateX(3px)",
+          }}
+        >
+          <div
+            style={{
+              margin: "-5px 0 22px",
+              color: "#FFF4BF",
+              fontSize: 21,
+              fontWeight: 600,
+              lineHeight: 1,
+              textShadow: "0 1px 3px rgba(0,0,0,0.5)",
+            }}
+          >
+            {progress.bloxianName}
           </div>
-
-          {/* Right: name + pills, vertically centered */}
-          <div className="ml-[10px] flex h-full flex-col items-start justify-center pl-4 text-left">
-            <div
-              className="pl-[11.5px] text-[22px] font-semibold leading-none"
-              style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
+          <div className="flex flex-col items-start" style={{ gap: 7 }}>
+            <span
+              className="inline-flex items-center"
+              style={{
+                height: 29,
+                minWidth: 77,
+                padding: "0 12px",
+                borderRadius: 999,
+                background: "rgba(8,36,22,0.72)",
+                border: "1.5px solid rgba(216,175,87,0.42)",
+                color: "#B7D9B7",
+                fontSize: 13,
+                fontWeight: 600,
+                gap: 4,
+                boxSizing: "border-box",
+              }}
             >
-              {progress.bloxianName}
-            </div>
-            <div className="mt-[21px] pl-[11.5px] flex flex-col items-start gap-1.5">
+              <span style={{ color: "#FFF4BF", fontWeight: 700 }}>{bp.toLocaleString()}</span>
+              <span style={{ color: "#FFF4BF", fontWeight: 700 }}>Bp</span>
+            </span>
+            {pills.map((p) => (
               <span
-                className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-bold"
+                key={p.label}
+                className="inline-flex items-center"
                 style={{
+                  height: 29,
+                  minWidth: 80,
+                  padding: "0 12px",
+                  borderRadius: 999,
                   background: "rgba(8,36,22,0.72)",
-                  border: `1.5px solid ${T.borderSoft}`,
-                  color: T.sage,
+                  border: "1.5px solid rgba(216,175,87,0.42)",
+                  color: "#B7D9B7",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  gap: 4,
+                  boxSizing: "border-box",
                 }}
               >
-                <span style={{ color: T.ivory }}>{bp.toLocaleString()}</span>
-                <span style={{ color: T.ivory }}>Bp</span>
+                <span style={{ color: "#FFF4BF", fontWeight: 700 }}>{p.label}</span>
+                <span style={{ color: "#B7D9B7" }}>{p.value}</span>
               </span>
-              {pills.map((p) => (
-                <span
-                  key={p.label}
-                  className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-bold"
-                  style={{
-                    background: "rgba(8,36,22,0.72)",
-                    border: `1.5px solid ${T.borderSoft}`,
-                    color: T.sage,
-                  }}
-                >
-                  <span style={{ color: T.ivory }}>{p.label}</span>
-                  <span>{p.value}</span>
-                </span>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </div>
