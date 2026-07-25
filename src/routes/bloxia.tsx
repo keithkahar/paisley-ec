@@ -1002,10 +1002,10 @@ function ProfileView({
               via a per-avatar profileScale multiplier from config. */}
           <div className="relative flex justify-center items-center h-full w-full">
             <div
-              className="relative flex items-end justify-center h-full w-[160px]"
+              className="relative flex items-center justify-center h-full w-[160px]"
               style={{
-                transform: `translateX(0px) scale(${1.561875 * (selectedAvatar?.profileScale ?? 1)})`,
-                transformOrigin: "center bottom",
+                transform: `scale(${1.561875 * (selectedAvatar?.profileScale ?? 1)})`,
+                transformOrigin: "center center",
               }}
             >
               <img
