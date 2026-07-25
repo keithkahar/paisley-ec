@@ -1030,7 +1030,7 @@ function ProfileView({
             >
               {progress.bloxianName}
             </div>
-            <div className="mt-[21px] flex flex-col items-start gap-1.5">
+            <div className="mt-[21px] pl-[11.5px] flex flex-col items-start gap-1.5">
               <span
                 className="inline-flex items-center gap-1 rounded-full px-2.5 h-8 text-[13px] font-bold"
                 style={{
