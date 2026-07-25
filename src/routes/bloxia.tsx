@@ -65,6 +65,12 @@ const T = {
   goldOnDark: "#1C2A12",
 };
 
+// Circular avatar crop: zoom to the head so the circle shows the whole head only.
+const AVATAR_HEAD_STYLE = {
+  transform: "scale(2.2) translateY(-6.25%)",
+  transformOrigin: "50% 0%",
+};
+
 function formatBp(n: number) {
   return `${Math.max(0, Math.floor(n)).toLocaleString()} Bp`;
 }
@@ -405,7 +411,7 @@ function TopBar({
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
+                style={AVATAR_HEAD_STYLE}
               />
             </button>
           </div>
@@ -983,7 +989,7 @@ function ProfileView({
           <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
         </button>
 
-        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
+        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 260 }}>
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
@@ -998,7 +1004,7 @@ function ProfileView({
             <div
               className="relative flex items-end justify-center h-full w-[160px]"
               style={{
-                transform: `scale(${1.05 * (selectedAvatar?.profileScale ?? 1)})`,
+                transform: `scale(${1.75 * (selectedAvatar?.profileScale ?? 1)})`,
                 transformOrigin: "center bottom",
               }}
             >
@@ -1655,7 +1661,7 @@ function NameEditor({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
@@ -1671,7 +1677,7 @@ function NameEditor({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+                style={AVATAR_HEAD_STYLE}
                 draggable={false}
               />
             </div>
@@ -1691,7 +1697,7 @@ function NameEditor({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
@@ -1780,7 +1786,7 @@ function AvatarPickerSheet({
                     src={a.portrait}
                     alt=""
                     className="h-full w-full object-cover"
-                    style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
+                    style={AVATAR_HEAD_STYLE}
                     draggable={false}
                   />
                 </div>
@@ -1886,7 +1892,7 @@ function WelcomeSheet({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
@@ -1903,7 +1909,7 @@ function WelcomeSheet({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
                 draggable={false}
               />
             </div>
@@ -1924,7 +1930,7 @@ function WelcomeSheet({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+                style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
