@@ -993,8 +993,8 @@ function ProfileView({
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
-            className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-px"
-            style={{ background: T.borderSoft }}
+            className="absolute top-3 bottom-3 w-px -translate-x-1/2"
+            style={{ left: "calc(50% + 10px)", background: T.borderSoft }}
           />
 
           {/* Left: full-body avatar. We normalize different source PNGs (which
