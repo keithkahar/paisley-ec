@@ -989,7 +989,7 @@ function ProfileView({
           <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
         </button>
 
-        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 260 }}>
+        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
