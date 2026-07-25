@@ -411,7 +411,7 @@ function TopBar({
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
-                style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
+                style={AVATAR_HEAD_STYLE}
               />
             </button>
           </div>
@@ -1661,7 +1661,7 @@ function NameEditor({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
@@ -1677,7 +1677,7 @@ function NameEditor({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+                style={AVATAR_HEAD_STYLE}
                 draggable={false}
               />
             </div>
@@ -1697,7 +1697,7 @@ function NameEditor({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
@@ -1786,7 +1786,7 @@ function AvatarPickerSheet({
                     src={a.portrait}
                     alt=""
                     className="h-full w-full object-cover"
-                    style={{ transform: "scale(2)", transformOrigin: "50% 10%" }}
+                    style={AVATAR_HEAD_STYLE}
                     draggable={false}
                   />
                 </div>
@@ -1892,7 +1892,7 @@ function WelcomeSheet({
               src={prev.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
@@ -1909,7 +1909,7 @@ function WelcomeSheet({
                 src={current.portrait}
                 alt=""
                 className="h-full w-full object-cover"
-                style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+              style={AVATAR_HEAD_STYLE}
                 draggable={false}
               />
             </div>
@@ -1930,7 +1930,7 @@ function WelcomeSheet({
               src={next.portrait}
               alt=""
               className="h-full w-full object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 10%" }}
+                style={AVATAR_HEAD_STYLE}
               draggable={false}
             />
           </button>
