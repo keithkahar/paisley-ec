@@ -989,7 +989,7 @@ function ProfileView({
           <Pencil className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: T.ivory }} />
         </button>
 
-        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 220 }}>
+        <div className="relative grid grid-cols-2 items-center" style={{ minHeight: 300 }}>
           {/* Center vertical divider, aligned to screen center */}
           <div
             aria-hidden
@@ -1002,9 +1002,9 @@ function ProfileView({
               via a per-avatar profileScale multiplier from config. */}
           <div className="relative flex justify-center items-center h-full w-full">
             <div
-              className="relative flex items-center justify-center h-full w-[160px]"
+              className="relative flex items-center justify-center h-full w-[180px]"
               style={{
-                transform: `scale(${selectedAvatar?.profileScale ?? 1})`,
+                transform: `scale(${(selectedAvatar?.profileScale ?? 1) * 1.45})`,
                 transformOrigin: "center center",
               }}
             >
