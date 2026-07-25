@@ -989,15 +989,15 @@ function ProfileView({
             right: 16,
             width: 30,
             height: 30,
-            background: "rgba(8,36,22,0.32)",
-            border: "1.5px solid rgba(216,175,87,0.26)",
+            background: "rgba(8,36,22,0.72)",
+            border: "1.5px solid rgba(216,175,87,0.18)",
             boxShadow: "0 1.5px 4px rgba(0,0,0,0.18)",
             zIndex: 2,
           }}
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <path d="M12 20h9" stroke="#9D7C3F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" stroke="#9D7C3F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 20h9" stroke="#FFF4BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" stroke="#FFF4BF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
 
