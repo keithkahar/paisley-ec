@@ -1004,7 +1004,7 @@ function ProfileView({
             <div
               className="relative flex items-end justify-center h-full w-[160px]"
               style={{
-                transform: `translateX(5px) scale(${1.561875 * (selectedAvatar?.profileScale ?? 1)})`,
+                transform: `translateX(0px) scale(${1.561875 * (selectedAvatar?.profileScale ?? 1)})`,
                 transformOrigin: "center bottom",
               }}
             >
@@ -1023,7 +1023,7 @@ function ProfileView({
           </div>
 
           {/* Right: name + pills, left-aligned for a natural reading flow */}
-          <div className="mt-[5px] flex flex-col items-start pl-4 text-left">
+          <div className="mt-[5px] ml-[5px] flex flex-col items-start pl-4 text-left">
             <div
               className="pl-[11.5px] text-[22px] font-semibold leading-none"
               style={{ color: T.ivory, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
