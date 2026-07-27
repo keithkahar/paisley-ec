@@ -95,7 +95,7 @@ function WordCardPage() {
     return () => clearInterval(id);
   }, []);
 
-  const next = (rating: "forgot" | "hard" | "easy") => {
+  const next = (rating: "forgot" | "hard" | "known" | "easy") => {
     void rating;
     if (idx + 1 >= total) {
       earnBp(15, "wordie", "Word Card");
