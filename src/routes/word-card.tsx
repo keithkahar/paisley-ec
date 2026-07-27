@@ -95,7 +95,7 @@ function WordCardPage() {
     return () => clearInterval(id);
   }, []);
 
-  const next = (rating: "forgot" | "hard" | "easy") => {
+  const next = (rating: "forgot" | "hard" | "known" | "easy") => {
     void rating;
     if (idx + 1 >= total) {
       earnBp(15, "wordie", "Word Card");
@@ -287,23 +287,24 @@ function WordCardPage() {
 
       {/* Three-emoji rating */}
       <section
-        className="px-5 mt-6 grid grid-cols-3 gap-3 transition-opacity"
+        className="px-5 mt-6 grid grid-cols-4 gap-2 transition-opacity"
         style={{ opacity: flipped ? 1 : 0, pointerEvents: flipped ? "auto" : "none" }}
         aria-hidden={!flipped}
       >
         {([
-          { key: "forgot", emoji: "😟", label: "Forgot" },
-          { key: "hard", emoji: "🙂", label: "Hard" },
-          { key: "easy", emoji: "😄", label: "Easy" },
+          { key: "forgot", emoji: "😟", label: "I forgot" },
+          { key: "hard", emoji: "😕", label: "A bit hard" },
+          { key: "known", emoji: "🙂", label: "I know it" },
+          { key: "easy", emoji: "😄", label: "Too easy" },
         ] as const).map((r) => (
           <button
             key={r.key}
             type="button"
             onClick={() => next(r.key)}
-            className="py-3 flex flex-col items-center gap-2 active:scale-[0.95] transition-transform font-sans"
+            className="py-2 flex flex-col items-center gap-1.5 active:scale-[0.95] transition-transform font-sans"
           >
-            <span className="text-[52px] leading-none">{r.emoji}</span>
-            <span className="text-[17px] font-medium text-foreground font-sans">{r.label}</span>
+            <span className="text-[44px] leading-none">{r.emoji}</span>
+            <span className="text-[14px] font-medium text-foreground font-sans">{r.label}</span>
           </button>
         ))}
       </section>
