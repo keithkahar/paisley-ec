@@ -343,13 +343,12 @@ function ParentPage() {
           >
             {/* Learner name + AI progress */}
             <div className="flex flex-col items-center text-center">
-              {/* Child selector: name + chevron as a unified pill */}
+              {/* Child selector: name + chevron inline, no outer pill */}
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
-                className="group inline-flex items-center gap-1.5 rounded-full pl-4 pr-3 h-9 active:scale-[0.98] transition-transform"
+                className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform"
                 aria-label="选择孩子"
-                style={{ background: "rgba(255,255,255,0.16)", border: "1px solid rgba(255,255,255,0.24)" }}
               >
                 <span
                   className="text-[20px] font-bold leading-none text-white"
