@@ -338,14 +338,15 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative min-h-[176px] rounded-[28px] p-5 overflow-hidden flex flex-col items-center justify-center text-center gap-2"
+            className="relative min-h-[176px] rounded-[28px] p-4 overflow-hidden flex flex-col items-center justify-center text-center"
             style={{ background: PAISLEY }}
           >
-            {/* Child selector: name + chevron inline */}
+            {/* Name + progress bar: 1:1 with Today's Practice (title, then mt-2 bar) */}
+            <div className="w-full">
             <button
               type="button"
               onClick={() => setLearnerOpen(true)}
-              className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform"
+              className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform align-top"
               aria-label="选择孩子"
             >
               <span
@@ -360,17 +361,18 @@ function ParentPage() {
                 style={{ color: "rgba(255,255,255,0.85)" }}
               />
             </button>
-
-            {/* Progress bar: directly below name, like Today's Practice */}
-            <div className="mt-2 h-1 w-full rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.22)" }}>
-              <div
-                className="h-full rounded-full transition-all"
-                style={{ width: "50%", background: "var(--paisley-yellow)" }}
+            <div className="mt-2">
+              <ProgressBar
+                value={50}
+                color="var(--paisley-yellow)"
+                track="rgba(255,255,255,0.22)"
+                height={4}
               />
+            </div>
             </div>
 
             {/* AI quota: bento-card typography, between progress bar and pill */}
-            <div className="flex items-baseline justify-center gap-2">
+            <div className="mt-4 flex items-baseline justify-center gap-2">
               <span
                 className="text-[11px] font-semibold leading-none"
                 style={{ color: "rgba(255,255,255,0.82)" }}
@@ -388,7 +390,7 @@ function ParentPage() {
               type="button"
               onClick={() => { /* TODO: open membership management */ }}
               aria-label="升级或管理会员"
-              className="w-full mt-1 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
+              className="w-full mt-4 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
             >
               <span
