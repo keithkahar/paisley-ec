@@ -338,7 +338,7 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative min-h-[200px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-5"
+            className="relative min-h-[176px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-4"
             style={{ background: PAISLEY }}
           >
             {/* Learner name + AI progress */}
@@ -364,15 +364,15 @@ function ParentPage() {
               </button>
 
               {/* AI quota progress */}
-              <div className="mt-5 w-full">
+              <div className="mt-4 w-full">
                 <div className="flex items-baseline justify-between">
                   <span
-                    className="text-[12px] font-semibold leading-none"
-                    style={{ color: "rgba(255,255,255,0.78)" }}
+                    className="text-[14px] font-medium leading-none"
+                    style={{ color: "rgba(255,255,255,0.82)" }}
                   >
                     今日AI额度
                   </span>
-                  <span className="text-[12px] font-semibold leading-none text-white">
+                  <span className="text-[15px] font-semibold leading-none text-white">
                     10 / 20 min
                   </span>
                 </div>
@@ -388,9 +388,12 @@ function ParentPage() {
               </div>
             </div>
 
-            {/* Membership segmented pill */}
-            <div
-              className="w-full flex items-center gap-1 rounded-full p-1"
+            {/* Membership pill: single actionable row */}
+            <button
+              type="button"
+              onClick={() => { /* TODO: open membership management */ }}
+              aria-label="升级或管理会员"
+              className="w-full flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
             >
               <span
@@ -405,15 +408,13 @@ function ParentPage() {
               >
                 Jun 18, 2026
               </span>
-              <button
-                type="button"
-                aria-label="升级会员"
-                className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
+              <span
+                className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center"
                 style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
                 <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
-              </button>
-            </div>
+              </span>
+            </button>
           </div>
         </section>
 
