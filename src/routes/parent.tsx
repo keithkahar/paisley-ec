@@ -347,7 +347,7 @@ function ParentPage() {
             <button
               type="button"
               onClick={() => setLearnerOpen(true)}
-              className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform align-top leading-none"
+              className="group mx-auto flex h-[22px] w-fit items-center gap-1.5 active:scale-[0.98] transition-transform leading-none"
               aria-label="选择孩子"
             >
               <span
