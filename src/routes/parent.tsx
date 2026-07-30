@@ -382,7 +382,7 @@ function ParentPage() {
                 >
                   <div
                     className="h-full rounded-full transition-all"
-                    style={{ width: "50%", background: "#ffffff" }}
+                    style={{ width: "50%", background: "var(--paisley-yellow)" }}
                   />
                 </div>
               </div>
@@ -395,7 +395,7 @@ function ParentPage() {
             >
               <span
                 className="flex-1 flex h-9 items-center justify-center rounded-full bg-white text-[13px] font-semibold whitespace-nowrap"
-                style={{ color: PAISLEY, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+                style={{ color: "var(--paisley-yellow)", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
                 Premium Plus
               </span>
