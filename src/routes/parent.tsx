@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, Plus, Trash2, Crown } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, Plus, Trash2, TrendingUp } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
@@ -389,17 +389,29 @@ function ParentPage() {
 
             <div className="flex items-stretch gap-2">
               <div
-                className="flex-1 flex items-center justify-center rounded-full py-3 font-semibold bg-white"
-                style={{ color: PAISLEY, fontSize: "17.25px" }}
+                className="flex-1 grid grid-cols-2 items-center gap-1 rounded-full p-1"
+                style={{ background: "#E9EFFA" }}
               >
-                Premium Plus｜Jun 18, 2026
+                <span
+                  className="flex items-center justify-center rounded-full bg-white py-2 font-semibold whitespace-nowrap"
+                  style={{ color: PAISLEY, fontSize: "16px" }}
+                >
+                  Premium Plus
+                </span>
+                <span
+                  className="flex items-center justify-center py-2 font-semibold whitespace-nowrap"
+                  style={{ color: "#7C8AA0", fontSize: "16px" }}
+                >
+                  Jun 18, 2026
+                </span>
               </div>
               <button
                 type="button"
                 aria-label="升级会员"
-                className="aspect-square shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
+                className="aspect-square shrink-0 rounded-full grid place-items-center active:scale-[0.97] transition-transform"
+                style={{ background: "#E9EFFA" }}
               >
-                <Crown className="h-5 w-5" strokeWidth={2.25} style={{ color: PAISLEY }} />
+                <TrendingUp className="h-5 w-5" strokeWidth={2.5} style={{ color: PAISLEY }} />
               </button>
             </div>
           </div>
