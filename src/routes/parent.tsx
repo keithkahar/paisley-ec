@@ -338,54 +338,48 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative min-h-[176px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-4"
+            className="relative min-h-[176px] rounded-[28px] p-5 overflow-hidden flex flex-col items-center justify-center text-center gap-2"
             style={{ background: PAISLEY }}
           >
-            {/* Learner name + AI progress */}
-            <div className="flex flex-col items-center text-center">
-              {/* Child selector: name + chevron inline, no outer pill */}
-              <button
-                type="button"
-                onClick={() => setLearnerOpen(true)}
-                className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform"
-                aria-label="选择孩子"
+            {/* Child selector: name + chevron inline */}
+            <button
+              type="button"
+              onClick={() => setLearnerOpen(true)}
+              className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform"
+              aria-label="选择孩子"
+            >
+              <span
+                className="text-[20px] font-bold leading-none text-white"
+                style={{ letterSpacing: "-0.01em" }}
               >
-                <span
-                  className="text-[20px] font-bold leading-none text-white"
-                  style={{ letterSpacing: "-0.01em" }}
-                >
-                  {learner}
-                </span>
-                <ChevronDown
-                  className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-y-0.5"
-                  strokeWidth={2.5}
-                  style={{ color: "rgba(255,255,255,0.85)" }}
-                />
-              </button>
+                {learner}
+              </span>
+              <ChevronDown
+                className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-y-0.5"
+                strokeWidth={2.5}
+                style={{ color: "rgba(255,255,255,0.85)" }}
+              />
+            </button>
 
-              {/* AI quota progress */}
-              <div className="mt-4 w-full">
-                <div className="flex items-baseline justify-between">
-                  <span
-                    className="text-[14px] font-medium leading-none"
-                    style={{ color: "rgba(255,255,255,0.82)" }}
-                  >
-                    今日AI额度
-                  </span>
-                  <span className="text-[15px] font-semibold leading-none text-white">
-                    10 / 20 min
-                  </span>
-                </div>
-                <div
-                  className="mt-2 h-1 w-full rounded-full overflow-hidden"
-                  style={{ background: "rgba(255,255,255,0.28)" }}
-                >
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{ width: "50%", background: "var(--paisley-yellow)" }}
-                  />
-                </div>
-              </div>
+            {/* Progress bar: directly below name, like Today's Practice */}
+            <div className="mt-0.5 h-1 w-full rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.22)" }}>
+              <div
+                className="h-full rounded-full transition-all"
+                style={{ width: "50%", background: "var(--paisley-yellow)" }}
+              />
+            </div>
+
+            {/* AI quota: bento-card typography, between progress bar and pill */}
+            <div className="flex flex-col items-center gap-0.5">
+              <span
+                className="text-[11px] font-semibold leading-none"
+                style={{ color: "rgba(255,255,255,0.82)" }}
+              >
+                今日AI额度
+              </span>
+              <span className="text-[22px] font-medium leading-none text-white tabular-nums" style={{ letterSpacing: "-0.02em" }}>
+                10 / 20 min
+              </span>
             </div>
 
             {/* Membership pill: single actionable row */}
@@ -393,12 +387,12 @@ function ParentPage() {
               type="button"
               onClick={() => { /* TODO: open membership management */ }}
               aria-label="升级或管理会员"
-              className="w-full flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
+              className="w-full mt-1 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
             >
               <span
                 className="flex-1 flex h-9 items-center justify-center rounded-full bg-white text-[13px] font-semibold whitespace-nowrap"
-                style={{ color: "var(--paisley-yellow)", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+                style={{ color: "var(--paisley)", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
                 Premium Plus
               </span>
@@ -417,6 +411,7 @@ function ParentPage() {
             </button>
           </div>
         </section>
+
 
         {/* Source tabs (segmented pill, same as /progress) */}
         <section className="px-6 pt-4">
