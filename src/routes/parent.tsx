@@ -521,6 +521,71 @@ function ParentPage() {
         </section>
 
         {/* Bottom sheet */}
+        <StandardSheet
+          open={learnerOpen}
+          title="Select A Learner"
+          brandColor={SHEET_BRAND.paisley}
+          onClose={() => setLearnerOpen(false)}
+        >
+          <div className="flex flex-col h-full">
+            <div className="flex-1">
+              {learners.map((n) => {
+                const active = n === learner;
+                return (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => {
+                      setLearner(n);
+                      setLearnerOpen(false);
+                    }}
+                    className="w-full flex items-center justify-between py-3.5 text-left"
+                  >
+                    <span
+                      className="text-[15px] font-semibold"
+                      style={{ color: active ? PAISLEY : "var(--foreground)" }}
+                    >
+                      {n}
+                    </span>
+                    {active && <Check className="h-5 w-5" strokeWidth={2.5} style={{ color: PAISLEY }} />}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="pt-4 flex items-center gap-3">
+              <button
+                type="button"
+                aria-label="删除学习者"
+                onClick={() =>
+                  setLearners((ls) => {
+                    if (ls.length <= 1) return ls;
+                    const next = ls.filter((n) => n !== learner);
+                    setLearner(next[0]);
+                    return next;
+                  })
+                }
+                className="h-11 w-11 shrink-0 grid place-items-center rounded-full active:scale-95 transition-transform"
+                style={{ border: "1px solid color-mix(in oklab, var(--destructive) 45%, white)" }}
+              >
+                <Trash2 className="h-5 w-5" style={{ color: "var(--destructive)" }} strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setLearners((ls) => [...ls, `Learner ${ls.length + 1}`])
+                }
+                className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
+              >
+                <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
+                  <Plus className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                </span>
+                <span className="text-[15px] font-semibold">Add A Learner</span>
+              </button>
+            </div>
+          </div>
+        </StandardSheet>
+
         {sheet.type && (
           <BottomSheet title={sheet.title} onClose={() => setSheet({ type: "", title: "" })}>
             {sheet.type === "voice" && (
