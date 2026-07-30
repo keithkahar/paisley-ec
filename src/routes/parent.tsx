@@ -372,7 +372,7 @@ function ParentPage() {
             </div>
             </div>
 
-            {/* AI quota: bento-card typography, between progress bar and pill */}
+            {/* AI quota: 10 large like Today's Practice "5", label + unit match 本周对话时长 */}
             <div className="mt-4 flex items-baseline justify-center gap-2">
               <span
                 className="text-[11px] font-semibold leading-none"
@@ -380,10 +380,18 @@ function ParentPage() {
               >
                 今日AI额度
               </span>
-              <span className="text-[22px] font-medium leading-none text-white tabular-nums" style={{ letterSpacing: "-0.02em" }}>
-                10 / 20
+              <span
+                className="text-[46px] font-medium leading-none text-white tabular-nums"
+                style={{ letterSpacing: "-0.02em" }}
+              >
+                10
               </span>
-              <span className="text-[11px] font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>min</span>
+              <span
+                className="text-[11px] font-semibold leading-none"
+                style={{ color: "rgba(255,255,255,0.7)" }}
+              >
+                / 20 min
+              </span>
             </div>
 
             {/* Membership pill: single actionable row */}
