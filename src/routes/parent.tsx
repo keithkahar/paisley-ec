@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight, HelpCircle, Check, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronRight, HelpCircle, Check, Plus, Trash2, Crown } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
@@ -339,16 +339,9 @@ function ParentPage() {
         <section className="px-5 pt-[53px] pb-1">
           <div
             className="relative h-[228px] rounded-[28px] p-4 overflow-hidden flex flex-col justify-between"
-            style={{ background: "color-mix(in oklab, var(--paisley) 10%, white)" }}
+            style={{ background: "var(--input)" }}
           >
-            <h2
-              className="text-center text-[22px] font-medium leading-none"
-              style={{ letterSpacing: "-0.01em", color: PAISLEY }}
-            >
-              今日AI使用
-            </h2>
-
-            <div>
+            <div className="pt-1">
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
@@ -363,8 +356,22 @@ function ParentPage() {
                 </span>
                 <ChevronRight className="h-6 w-6" strokeWidth={2.5} style={{ color: PAISLEY }} />
               </button>
-              <div className="mt-2.5 flex flex-nowrap items-center justify-center gap-2">
-                {["Age 9", "CEFR A2", "AI Today: 10 / 20 min"].map((t) => (
+
+              {/* AI Today progress */}
+              <div
+                className="mt-3 h-2 w-full rounded-full overflow-hidden"
+                style={{ background: "color-mix(in oklab, var(--paisley) 16%, white)" }}
+              >
+                <div
+                  className="h-full rounded-full transition-all"
+                  style={{ width: "50%", background: PAISLEY }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex flex-nowrap items-center justify-center gap-2">
+                {["Age 9", "CEFR A2", "今日AI: 10 / 20 min"].map((t) => (
                   <span
                     key={t}
                     className="inline-flex items-center rounded-full px-3 py-1.5 text-[12px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
@@ -376,11 +383,20 @@ function ParentPage() {
               </div>
             </div>
 
-            <div
-              className="flex items-center justify-center gap-2 rounded-full py-3 font-semibold bg-white"
-              style={{ color: PAISLEY, fontSize: "17.25px" }}
-            >
-              Premium｜Jun 18, 2026
+            <div className="flex items-center gap-2">
+              <div
+                className="flex-1 h-[50px] flex items-center justify-center rounded-full font-semibold bg-white"
+                style={{ color: PAISLEY, fontSize: "17.25px" }}
+              >
+                Premium｜Jun 18, 2026
+              </div>
+              <button
+                type="button"
+                aria-label="升级会员"
+                className="h-[50px] w-[50px] shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
+              >
+                <Crown className="h-5 w-5" strokeWidth={2.25} style={{ color: PAISLEY }} />
+              </button>
             </div>
           </div>
         </section>
