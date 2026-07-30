@@ -339,7 +339,7 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative min-h-[176px] rounded-[28px] p-4 overflow-hidden flex flex-col items-center justify-center text-center"
+            className="relative min-h-[176px] rounded-[28px] p-4 overflow-hidden flex flex-col items-center justify-between text-center"
             style={{ background: PAISLEY }}
           >
             {/* Name + progress bar: 1:1 with Today's Practice (title, then mt-2 bar) */}
@@ -347,7 +347,7 @@ function ParentPage() {
             <button
               type="button"
               onClick={() => setLearnerOpen(true)}
-              className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform align-top"
+              className="group inline-flex items-center gap-1.5 active:scale-[0.98] transition-transform align-top leading-none"
               aria-label="选择孩子"
             >
               <span
