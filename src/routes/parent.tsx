@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check } from "lucide-react";
+import { ChevronDown, ChevronRight, HelpCircle, Check, Plus, Trash2 } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
@@ -320,6 +320,9 @@ function ParentPage() {
   });
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
+  const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
+  const [learner, setLearner] = useState("Amy");
+  const [learnerOpen, setLearnerOpen] = useState(false);
 
   const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
   const accent = tab === "talk" ? SHIRIN : WORDIE;
@@ -332,20 +335,54 @@ function ParentPage() {
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white pb-24">
         <FloatingBack to="/profile" />
 
-        {/* Header */}
-        <section className="px-6 pt-12 pb-2 text-center">
-          <h1
-            className="text-[26px] leading-[1.2] font-medium tracking-tight"
-            style={{ color: PAISLEY }}
+        {/* Learner card */}
+        <section className="px-5 pt-[53px] pb-1">
+          <div
+            className="relative h-[228px] rounded-[28px] p-4 overflow-hidden flex flex-col justify-between"
+            style={{ background: "color-mix(in oklab, var(--paisley) 10%, white)" }}
           >
-            Parent Page
-          </h1>
-          <p
-            className="mt-1 text-[13px] leading-none font-semibold"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-          >
-            {new Date().toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-          </p>
+            <h2
+              className="text-center text-[22px] font-medium leading-none"
+              style={{ letterSpacing: "-0.01em", color: PAISLEY }}
+            >
+              今日AI使用
+            </h2>
+
+            <div>
+              <button
+                type="button"
+                onClick={() => setLearnerOpen(true)}
+                className="mx-auto flex items-center gap-1 active:scale-[0.98] transition-transform"
+                aria-label="选择学习者"
+              >
+                <span
+                  className="text-[32px] font-semibold leading-none"
+                  style={{ letterSpacing: "-0.02em", color: PAISLEY }}
+                >
+                  {learner}
+                </span>
+                <ChevronRight className="h-6 w-6" strokeWidth={2.5} style={{ color: PAISLEY }} />
+              </button>
+              <div className="mt-2.5 flex flex-nowrap items-center justify-center gap-2">
+                {["Age 9", "CEFR A2", "AI Today: 10 / 20 min"].map((t) => (
+                  <span
+                    key={t}
+                    className="inline-flex items-center rounded-full px-3 py-1.5 text-[12px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
+                    style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="flex items-center justify-center gap-2 rounded-full py-3 font-semibold bg-white"
+              style={{ color: PAISLEY, fontSize: "17.25px" }}
+            >
+              Premium｜Jun 18, 2026
+            </div>
+          </div>
         </section>
 
         {/* Source tabs (segmented pill, same as /progress) */}
