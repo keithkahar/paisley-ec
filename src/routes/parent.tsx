@@ -341,7 +341,7 @@ function ParentPage() {
             className="relative h-[228px] rounded-[28px] p-4 overflow-hidden flex flex-col justify-between"
             style={{ background: "var(--input)" }}
           >
-            <div className="pt-1">
+            <div>
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
@@ -349,17 +349,17 @@ function ParentPage() {
                 aria-label="选择学习者"
               >
                 <span
-                  className="text-[32px] font-semibold leading-none"
-                  style={{ letterSpacing: "-0.02em", color: PAISLEY }}
+                  className="text-[22px] font-medium leading-none"
+                  style={{ letterSpacing: "-0.01em", color: PAISLEY }}
                 >
                   {learner}
                 </span>
-                <ChevronRight className="h-6 w-6" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                <ChevronRight className="h-5 w-5" strokeWidth={2.25} style={{ color: PAISLEY }} />
               </button>
 
               {/* AI Today progress */}
               <div
-                className="mt-3 h-2 w-full rounded-full overflow-hidden"
+                className="mt-2 h-1 w-full rounded-full overflow-hidden"
                 style={{ background: "color-mix(in oklab, var(--paisley) 16%, white)" }}
               >
                 <div
@@ -383,9 +383,9 @@ function ParentPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-stretch gap-2">
               <div
-                className="flex-1 h-[50px] flex items-center justify-center rounded-full font-semibold bg-white"
+                className="flex-1 flex items-center justify-center rounded-full py-3 font-semibold bg-white"
                 style={{ color: PAISLEY, fontSize: "17.25px" }}
               >
                 Premium｜Jun 18, 2026
@@ -393,7 +393,7 @@ function ParentPage() {
               <button
                 type="button"
                 aria-label="升级会员"
-                className="h-[50px] w-[50px] shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
+                className="aspect-square shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
               >
                 <Crown className="h-5 w-5" strokeWidth={2.25} style={{ color: PAISLEY }} />
               </button>
