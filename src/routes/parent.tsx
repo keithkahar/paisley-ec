@@ -338,14 +338,15 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative h-[228px] rounded-[28px] p-4 overflow-hidden flex flex-col justify-between"
+            className="relative min-h-[228px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-4"
             style={{ background: PAISLEY }}
           >
+            {/* Learner name */}
             <div>
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
-                className="relative block w-full active:scale-[0.98] transition-transform"
+                className="relative block w-full text-center active:scale-[0.98] transition-transform"
                 aria-label="选择学习者"
               >
                 <span
@@ -362,6 +363,17 @@ function ParentPage() {
               </button>
 
               {/* AI Today progress */}
+              <div className="mt-3 flex items-baseline justify-between">
+                <span
+                  className="text-[12px] font-semibold leading-none"
+                  style={{ color: "rgba(255,255,255,0.78)" }}
+                >
+                  今日 AI
+                </span>
+                <span className="text-[12px] font-semibold leading-none text-white">
+                  10 / 20 min
+                </span>
+              </div>
               <div
                 className="mt-2 h-1 w-full rounded-full overflow-hidden"
                 style={{ background: "rgba(255,255,255,0.28)" }}
@@ -373,26 +385,26 @@ function ParentPage() {
               </div>
             </div>
 
-            <div>
-              <div className="flex flex-nowrap items-center justify-center gap-2">
-                {["Age 9", "CEFR A2", "今日AI: 10 / 20 min"].map((t) => (
-                  <span
-                    key={t}
-                    className="inline-flex items-center rounded-full px-3 py-1.5 text-[12px] leading-none font-semibold h-7 whitespace-nowrap text-white"
-                    style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.55)" }}
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
+            {/* Stat pills */}
+            <div className="flex flex-nowrap items-center justify-center gap-2">
+              {["Age 9", "CEFR A2", "Streak 14d"].map((t) => (
+                <span
+                  key={t}
+                  className="inline-flex items-center rounded-full px-3 text-[12px] leading-none font-semibold h-7 whitespace-nowrap text-white"
+                  style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.55)" }}
+                >
+                  {t}
+                </span>
+              ))}
             </div>
 
+            {/* Membership segmented pill */}
             <div
               className="w-full flex items-center gap-1 rounded-full p-1"
               style={{ background: "#E9EFFA" }}
             >
               <span
-                className="flex h-9 items-center justify-center rounded-full bg-white px-4 text-[13px] font-semibold whitespace-nowrap"
+                className="flex-1 flex h-9 items-center justify-center rounded-full bg-white text-[13px] font-semibold whitespace-nowrap"
                 style={{ color: PAISLEY, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
                 Premium Plus
@@ -409,7 +421,7 @@ function ParentPage() {
                 className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
                 style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
-                <TrendingUp className="h-4.5 w-4.5" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                <TrendingUp className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
               </button>
             </div>
           </div>
