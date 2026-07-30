@@ -349,20 +349,20 @@ function ParentPage() {
               aria-label="选择孩子"
             >
               <span
-                className="text-[20px] font-bold leading-none text-white"
+                className="text-[22px] font-medium leading-none text-white"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 {learner}
               </span>
               <ChevronDown
-                className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-y-0.5"
+                className="h-4 w-4 shrink-0 transition-transform group-hover:translate-y-0.5"
                 strokeWidth={2.5}
                 style={{ color: "rgba(255,255,255,0.85)" }}
               />
             </button>
 
             {/* Progress bar: directly below name, like Today's Practice */}
-            <div className="mt-0.5 h-1 w-full rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.22)" }}>
+            <div className="mt-2 h-1 w-full rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.22)" }}>
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: "50%", background: "var(--paisley-yellow)" }}
@@ -370,7 +370,7 @@ function ParentPage() {
             </div>
 
             {/* AI quota: bento-card typography, between progress bar and pill */}
-            <div className="flex flex-col items-center gap-0.5">
+            <div className="flex items-baseline justify-center gap-2">
               <span
                 className="text-[11px] font-semibold leading-none"
                 style={{ color: "rgba(255,255,255,0.82)" }}
@@ -378,8 +378,9 @@ function ParentPage() {
                 今日AI额度
               </span>
               <span className="text-[22px] font-medium leading-none text-white tabular-nums" style={{ letterSpacing: "-0.02em" }}>
-                10 / 20 min
+                10 / 20
               </span>
+              <span className="text-[11px] font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>min</span>
             </div>
 
             {/* Membership pill: single actionable row */}
