@@ -338,64 +338,53 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative min-h-[228px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-4"
+            className="relative min-h-[186px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-5"
             style={{ background: PAISLEY }}
           >
-            {/* Learner name */}
-            <div>
+            {/* Learner name + AI progress */}
+            <div className="flex flex-col items-center text-center">
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
-                className="relative block w-full text-center active:scale-[0.98] transition-transform"
+                className="relative inline-flex items-center active:scale-[0.98] transition-transform"
                 aria-label="选择学习者"
               >
                 <span
-                  className="relative inline-flex items-center text-[22px] font-bold leading-none text-white"
+                  className="text-[22px] font-bold leading-none text-white"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {learner}
-                  <ChevronDown
-                    className="absolute left-full ml-1.5 h-4 w-4 shrink-0"
-                    strokeWidth={2.5}
-                    style={{ color: "rgba(255,255,255,0.75)" }}
-                  />
                 </span>
+                <ChevronDown
+                  className="ml-1.5 h-4 w-4 shrink-0"
+                  strokeWidth={2.5}
+                  style={{ color: "rgba(255,255,255,0.75)" }}
+                />
               </button>
 
               {/* AI Today progress */}
-              <div className="mt-3 flex items-baseline justify-between">
-                <span
-                  className="text-[12px] font-semibold leading-none"
-                  style={{ color: "rgba(255,255,255,0.78)" }}
-                >
-                  今日 AI
-                </span>
-                <span className="text-[12px] font-semibold leading-none text-white">
-                  10 / 20 min
-                </span>
-              </div>
-              <div
-                className="mt-2 h-1 w-full rounded-full overflow-hidden"
-                style={{ background: "rgba(255,255,255,0.28)" }}
-              >
+              <div className="mt-4 w-full max-w-[240px]">
+                <div className="flex items-baseline justify-between">
+                  <span
+                    className="text-[12px] font-semibold leading-none"
+                    style={{ color: "rgba(255,255,255,0.78)" }}
+                  >
+                    今日 AI
+                  </span>
+                  <span className="text-[12px] font-semibold leading-none text-white">
+                    10 / 20 min
+                  </span>
+                </div>
                 <div
-                  className="h-full rounded-full transition-all"
-                  style={{ width: "50%", background: "#ffffff" }}
-                />
-              </div>
-            </div>
-
-            {/* Stat pills */}
-            <div className="flex flex-nowrap items-center justify-center gap-2">
-              {["Age 9", "CEFR A2", "Streak 14d"].map((t) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center rounded-full px-3 text-[12px] leading-none font-semibold h-7 whitespace-nowrap text-white"
-                  style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.55)" }}
+                  className="mt-2 h-1 w-full rounded-full overflow-hidden"
+                  style={{ background: "rgba(255,255,255,0.28)" }}
                 >
-                  {t}
-                </span>
-              ))}
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{ width: "50%", background: "#ffffff" }}
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Membership segmented pill */}
