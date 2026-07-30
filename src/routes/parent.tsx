@@ -5,6 +5,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { ProgressBar } from "@/components/app/WordieKit";
 
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [
