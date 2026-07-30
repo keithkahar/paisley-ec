@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight, HelpCircle, Check, Plus, Trash2, Crown } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, Plus, Trash2, Crown } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
@@ -339,32 +339,36 @@ function ParentPage() {
         <section className="px-5 pt-[53px] pb-1">
           <div
             className="relative h-[228px] rounded-[28px] p-4 overflow-hidden flex flex-col justify-between"
-            style={{ background: "var(--input)" }}
+            style={{ background: PAISLEY }}
           >
             <div>
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
-                className="mx-auto flex items-center gap-1 active:scale-[0.98] transition-transform"
+                className="relative block w-full active:scale-[0.98] transition-transform"
                 aria-label="选择学习者"
               >
                 <span
-                  className="text-[22px] font-medium leading-none"
-                  style={{ letterSpacing: "-0.01em", color: PAISLEY }}
+                  className="relative inline-flex items-center text-[22px] font-bold leading-none text-white"
+                  style={{ letterSpacing: "-0.01em" }}
                 >
                   {learner}
+                  <ChevronDown
+                    className="absolute left-full ml-1.5 h-4 w-4 shrink-0"
+                    strokeWidth={2.5}
+                    style={{ color: "rgba(255,255,255,0.75)" }}
+                  />
                 </span>
-                <ChevronRight className="h-5 w-5" strokeWidth={2.25} style={{ color: PAISLEY }} />
               </button>
 
               {/* AI Today progress */}
               <div
                 className="mt-2 h-1 w-full rounded-full overflow-hidden"
-                style={{ background: "color-mix(in oklab, var(--paisley) 16%, white)" }}
+                style={{ background: "rgba(255,255,255,0.28)" }}
               >
                 <div
                   className="h-full rounded-full transition-all"
-                  style={{ width: "50%", background: PAISLEY }}
+                  style={{ width: "50%", background: "#ffffff" }}
                 />
               </div>
             </div>
@@ -374,8 +378,8 @@ function ParentPage() {
                 {["Age 9", "CEFR A2", "今日AI: 10 / 20 min"].map((t) => (
                   <span
                     key={t}
-                    className="inline-flex items-center rounded-full px-3 py-1.5 text-[12px] leading-none font-semibold bg-white h-7 whitespace-nowrap"
-                    style={{ color: PAISLEY, border: `1px solid ${PAISLEY}` }}
+                    className="inline-flex items-center rounded-full px-3 py-1.5 text-[12px] leading-none font-semibold h-7 whitespace-nowrap text-white"
+                    style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.55)" }}
                   >
                     {t}
                   </span>
@@ -388,7 +392,7 @@ function ParentPage() {
                 className="flex-1 flex items-center justify-center rounded-full py-3 font-semibold bg-white"
                 style={{ color: PAISLEY, fontSize: "17.25px" }}
               >
-                Premium｜Jun 18, 2026
+                Premium Plus｜Jun 18, 2026
               </div>
               <button
                 type="button"
