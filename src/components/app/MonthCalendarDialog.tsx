@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
