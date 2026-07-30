@@ -338,38 +338,40 @@ function ParentPage() {
         {/* Learner card */}
         <section className="px-5 pt-[53px] pb-1">
           <div
-            className="relative min-h-[186px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-5"
+            className="relative min-h-[200px] rounded-[28px] p-5 overflow-hidden flex flex-col justify-between gap-5"
             style={{ background: PAISLEY }}
           >
             {/* Learner name + AI progress */}
             <div className="flex flex-col items-center text-center">
+              {/* Child selector: name + chevron as a unified pill */}
               <button
                 type="button"
                 onClick={() => setLearnerOpen(true)}
-                className="relative inline-flex items-center active:scale-[0.98] transition-transform"
-                aria-label="选择学习者"
+                className="group inline-flex items-center gap-1.5 rounded-full pl-4 pr-3 h-9 active:scale-[0.98] transition-transform"
+                aria-label="选择孩子"
+                style={{ background: "rgba(255,255,255,0.16)", border: "1px solid rgba(255,255,255,0.24)" }}
               >
                 <span
-                  className="text-[22px] font-bold leading-none text-white"
+                  className="text-[20px] font-bold leading-none text-white"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {learner}
                 </span>
                 <ChevronDown
-                  className="ml-1.5 h-4 w-4 shrink-0"
+                  className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-y-0.5"
                   strokeWidth={2.5}
-                  style={{ color: "rgba(255,255,255,0.75)" }}
+                  style={{ color: "rgba(255,255,255,0.85)" }}
                 />
               </button>
 
-              {/* AI Today progress */}
-              <div className="mt-4 w-full max-w-[240px]">
+              {/* AI quota progress */}
+              <div className="mt-5 w-full">
                 <div className="flex items-baseline justify-between">
                   <span
                     className="text-[12px] font-semibold leading-none"
                     style={{ color: "rgba(255,255,255,0.78)" }}
                   >
-                    今日 AI
+                    今日AI额度
                   </span>
                   <span className="text-[12px] font-semibold leading-none text-white">
                     10 / 20 min
@@ -390,7 +392,7 @@ function ParentPage() {
             {/* Membership segmented pill */}
             <div
               className="w-full flex items-center gap-1 rounded-full p-1"
-              style={{ background: "#E9EFFA" }}
+              style={{ background: "rgba(255,255,255,0.92)" }}
             >
               <span
                 className="flex-1 flex h-9 items-center justify-center rounded-full bg-white text-[13px] font-semibold whitespace-nowrap"
@@ -400,7 +402,7 @@ function ParentPage() {
               </span>
               <span
                 className="flex-1 flex h-9 items-center justify-center text-[13px] font-semibold whitespace-nowrap"
-                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+                style={{ color: "color-mix(in oklab, var(--paisley) 70%, var(--foreground))" }}
               >
                 Jun 18, 2026
               </span>
@@ -410,7 +412,7 @@ function ParentPage() {
                 className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
                 style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
-                <TrendingUp className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
               </button>
             </div>
           </div>
