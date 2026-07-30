@@ -387,31 +387,29 @@ function ParentPage() {
               </div>
             </div>
 
-            <div className="flex items-stretch gap-2">
-              <div
-                className="flex-1 grid grid-cols-2 items-center gap-1 rounded-full p-1"
-                style={{ background: "#E9EFFA" }}
+            <div
+              className="w-full flex items-center gap-1 rounded-full p-1"
+              style={{ background: "#E9EFFA" }}
+            >
+              <span
+                className="flex h-9 items-center justify-center rounded-full bg-white px-4 text-[13px] font-semibold whitespace-nowrap"
+                style={{ color: PAISLEY, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
-                <span
-                  className="flex items-center justify-center rounded-full bg-white py-2 font-semibold whitespace-nowrap"
-                  style={{ color: PAISLEY, fontSize: "16px" }}
-                >
-                  Premium Plus
-                </span>
-                <span
-                  className="flex items-center justify-center py-2 font-semibold whitespace-nowrap"
-                  style={{ color: "#7C8AA0", fontSize: "16px" }}
-                >
-                  Jun 18, 2026
-                </span>
-              </div>
+                Premium Plus
+              </span>
+              <span
+                className="flex-1 flex h-9 items-center justify-center text-[13px] font-semibold whitespace-nowrap"
+                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              >
+                Jun 18, 2026
+              </span>
               <button
                 type="button"
                 aria-label="升级会员"
-                className="aspect-square shrink-0 rounded-full grid place-items-center active:scale-[0.97] transition-transform"
-                style={{ background: "#E9EFFA" }}
+                className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center active:scale-[0.97] transition-transform"
+                style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
-                <TrendingUp className="h-5 w-5" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                <TrendingUp className="h-4.5 w-4.5" strokeWidth={2.5} style={{ color: PAISLEY }} />
               </button>
             </div>
           </div>
