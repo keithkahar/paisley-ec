@@ -561,7 +561,7 @@ function ParentPage() {
           brandColor={SHEET_BRAND.paisley}
           onClose={() => setMembershipOpen(false)}
         >
-          <MembershipCards />
+          <MembershipCards open={membershipOpen} />
         </StandardSheet>
 
 
@@ -1709,11 +1709,13 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
   );
 }
 
-function MembershipCards() {
+function MembershipCards({ open }: { open: boolean }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
   const cards = [
     {
       title: "Basic",
       subtitle: "建立英语学习习惯",
+      tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥48/月",
       original: "¥68",
       benefits: [
@@ -1727,6 +1729,7 @@ function MembershipCards() {
     {
       title: "Premium",
       subtitle: "完整AI英语成长方案",
+      tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥88/月",
       original: "¥128",
       benefits: [
@@ -1743,6 +1746,7 @@ function MembershipCards() {
     {
       title: "Premium Plus",
       subtitle: "高频AI英语成长方案",
+      tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥128/月",
       original: "¥168",
       benefits: [
@@ -1754,18 +1758,41 @@ function MembershipCards() {
     },
   ];
 
+  // Default to the Premium card, centered
+  useEffect(() => {
+    if (!open) return;
+    const el = scrollerRef.current;
+    if (!el) return;
+    const id = window.setTimeout(() => {
+      const card = el.querySelector<HTMLElement>('[data-index="1"]');
+      if (card) {
+        el.scrollLeft = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
+      }
+    }, 30);
+    return () => window.clearTimeout(id);
+  }, [open]);
+
   return (
     <div className="flex-1 flex flex-col min-h-0">
       <div
-        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-hide -mx-5 px-5 gap-3 h-full"
-        style={{ WebkitOverflowScrolling: "touch" }}
+        ref={scrollerRef}
+        className="flex overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5 gap-3 h-full"
+        style={{
+          WebkitOverflowScrolling: "touch",
+          scrollPaddingLeft: "9%",
+          scrollPaddingRight: "9%",
+          paddingLeft: "9%",
+          paddingRight: "9%",
+          overscrollBehaviorX: "contain",
+        }}
       >
         {cards.map((card, i) => (
           <div
             key={i}
             data-card
             data-index={i}
-            className="snap-center shrink-0 w-[85%] h-full"
+            className="snap-center shrink-0 h-full"
+            style={{ width: "82%", scrollSnapStop: "always" }}
           >
             <div
               className="rounded-[28px] p-6 h-full flex flex-col"
@@ -1782,10 +1809,16 @@ function MembershipCards() {
                 {card.title}
               </h3>
               <p
-                className="mt-2 text-[15px] leading-snug"
-                style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
+                className="mt-2 text-[17px] font-medium leading-snug"
+                style={{ color: "var(--foreground)" }}
               >
                 {card.subtitle}
+              </p>
+              <p
+                className="mt-1 text-[12px] leading-[1.5]"
+                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              >
+                {card.tagline}
               </p>
               <div className="mt-3 flex items-baseline gap-2">
                 <span
