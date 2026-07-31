@@ -1733,7 +1733,6 @@ function MembershipCards({ open }: { open: boolean }) {
       yearly: 456,
       features: [
         { icon: "device", label: "多设备" },
-        { icon: "cloud", label: "云储存" },
       ],
       benefits: [
         "每日 10 分钟 AI 口语练习",
