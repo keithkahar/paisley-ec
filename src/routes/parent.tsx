@@ -5,6 +5,8 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { ProgressBar } from "@/components/app/WordieKit";
+import { formatNumber } from "@/lib/utils";
+
 
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [
@@ -1698,10 +1700,10 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Basic",
       subtitle: "建力习惯",
-      price: "¥48",
-      yearlyPrice: "¥38",
-      original: "¥48",
-      yearly: "¥456",
+      price: 48,
+      yearlyPrice: 38,
+      original: 48,
+      yearly: 456,
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1717,10 +1719,10 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Premium",
       subtitle: "成长方案",
-      price: "¥88",
-      yearlyPrice: "¥68",
-      original: "¥88",
-      yearly: "¥816",
+      price: 88,
+      yearlyPrice: 68,
+      original: 88,
+      yearly: 816,
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1736,10 +1738,10 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Premium Plus",
       subtitle: "高能优选",
-      price: "¥128",
-      yearlyPrice: "¥98",
-      original: "¥128",
-      yearly: "¥1176",
+      price: 128,
+      yearlyPrice: 98,
+      original: 128,
+      yearly: 1176,
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1753,8 +1755,9 @@ function MembershipCards({ open }: { open: boolean }) {
   ];
 
   const maxSavings = Math.max(
-    ...cards.map((c) => parseInt(c.price.replace("¥", ""), 10) * 12 - parseInt(c.yearly.replace("¥", ""), 10))
+    ...cards.map((c) => c.price * 12 - c.yearly)
   );
+
 
   const [cycle, setCycle] = useState<"month" | "year">("month");
 
@@ -1796,14 +1799,15 @@ function MembershipCards({ open }: { open: boolean }) {
                     连续包月
                   </span>
                 ) : (
-                <span className="inline-flex items-center gap-1.5">
-                  <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
-                    连续包年
+                  <span className="inline-flex items-center gap-1.5">
+                    <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                      连续包年
+                    </span>
+                    <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
+                      最高立省 ¥{formatNumber(maxSavings)}
+                    </span>
                   </span>
-                  <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
-                    最高立省 ¥{maxSavings}
-                  </span>
-                </span>
+
                 )}
               </button>
             );
@@ -1870,7 +1874,7 @@ function MembershipCards({ open }: { open: boolean }) {
                       className="text-[28px] leading-none tracking-tight"
                       style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
                     >
-                      {(cycle === "month" ? card.price : card.yearlyPrice).replace("¥", "")}
+                      {formatNumber(cycle === "month" ? card.price : card.yearlyPrice)}
                     </span>
                     <span
                       className="text-[13px] leading-none ml-1"
@@ -1883,7 +1887,7 @@ function MembershipCards({ open }: { open: boolean }) {
                         className="text-[13px] leading-none ml-1"
                         style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
                       >
-                        {card.original}
+                        ¥{formatNumber(card.original)}
                       </span>
                     )}
                   </div>
@@ -1908,9 +1912,10 @@ function MembershipCards({ open }: { open: boolean }) {
                   className="mt-2 text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
-                  {cycle === "month" ? "按月计费" : `按年计费 ${card.yearly}`}
+                  {cycle === "month" ? "按月计费" : `按年计费 ¥${formatNumber(card.yearly)}`}
                 </p>
               </div>
+
 
               {/* Benefits */}
               <div
