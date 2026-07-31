@@ -1701,6 +1701,7 @@ function MembershipCards({ open }: { open: boolean }) {
       tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥48",
       original: "¥68",
+      yearly: "¥368",
       features: [{ icon: "device", label: "多个设备" }],
       benefits: [
         "每日 10 分钟 AI 口语练习",
@@ -1716,6 +1717,7 @@ function MembershipCards({ open }: { open: boolean }) {
       tagline: "适合：希望孩子系统提升英语能力的家庭",
       price: "¥88",
       original: "¥128",
+      yearly: "¥688",
       features: [
         { icon: "device", label: "多个设备" },
         { icon: "cloud", label: "云储存" },
@@ -1734,6 +1736,7 @@ function MembershipCards({ open }: { open: boolean }) {
       tagline: "适合：希望孩子高频进阶的家庭",
       price: "¥128",
       original: "¥168",
+      yearly: "¥1136",
       features: [
         { icon: "device", label: "多个设备" },
         { icon: "cloud", label: "云储存" },
