@@ -1765,7 +1765,7 @@ function MembershipCards({ open }: { open: boolean }) {
   return (
     <div className="h-full flex flex-col min-h-0">
       {/* Billing cycle segmented pill */}
-      <div className="shrink-0 pb-3 mt-[5px]">
+      <div className="shrink-0 pb-3 mt-[10px]">
         <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
           {(["month", "year"] as const).map((k) => {
             const active = cycle === k;
