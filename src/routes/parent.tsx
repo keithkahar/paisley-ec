@@ -1839,7 +1839,7 @@ function MembershipCards({ open }: { open: boolean }) {
               {/* Subtitle */}
               <div className="mt-2">
                 <p
-                  className="text-[17px] leading-snug"
+                  className="text-[13px] leading-snug"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   {card.subtitle}
