@@ -561,7 +561,7 @@ function ParentPage() {
           brandColor={SHEET_BRAND.paisley}
           onClose={() => setMembershipOpen(false)}
         >
-          <MembershipCards />
+          <MembershipCards open={membershipOpen} />
         </StandardSheet>
 
 
