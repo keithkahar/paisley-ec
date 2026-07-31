@@ -1716,7 +1716,7 @@ function MembershipCards({ open }: { open: boolean }) {
       title: "Basic",
       subtitle: "建立英语学习习惯",
       tagline: "适合：希望孩子养成每日英语习惯的家庭",
-      price: "¥48/月",
+      price: "¥48",
       original: "¥68",
       features: [{ icon: "device", label: "多个设备" }],
       benefits: [
@@ -1730,8 +1730,8 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Premium",
       subtitle: "完整AI英语成长方案",
-      tagline: "适合：希望孩子养成每日英语习惯的家庭",
-      price: "¥88/月",
+      tagline: "适合：希望孩子系统提升英语能力的家庭",
+      price: "¥88",
       original: "¥128",
       features: [
         { icon: "device", label: "多个设备" },
@@ -1740,19 +1740,17 @@ function MembershipCards({ open }: { open: boolean }) {
       benefits: [
         "包含 Basic 全部权益",
         "每日 20 分钟 AI 口语练习",
-        "AI 语音对话",
         "AI 反馈纠错",
         "AI 记忆",
         "完整 Parent Page 学习报告",
         "学习趋势与目标管理",
-        "多设备储存",
       ],
     },
     {
       title: "Premium Plus",
       subtitle: "高频AI英语成长方案",
-      tagline: "适合：希望孩子养成每日英语习惯的家庭",
-      price: "¥128/月",
+      tagline: "适合：希望孩子高频进阶的家庭",
+      price: "¥128",
       original: "¥168",
       features: [
         { icon: "device", label: "多个设备" },
@@ -1761,8 +1759,7 @@ function MembershipCards({ open }: { open: boolean }) {
       benefits: [
         "包含 Premium 全部权益",
         "每日 30 分钟 AI 口语练习",
-        "Bloxia 新内容体验",
-        "更丰富的成长记录",
+        "新功能优先体验",
       ],
     },
   ];
@@ -1804,46 +1801,50 @@ function MembershipCards({ open }: { open: boolean }) {
             style={{ width: "82%", scrollSnapStop: "always" }}
           >
             <div
-              className="rounded-[28px] p-6 h-full flex flex-col"
+              className="rounded-[28px] p-5 h-full flex flex-col"
               style={{
                 background: "white",
                 border: "1.5px solid color-mix(in oklab, var(--paisley) 10%, white)",
                 boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
               }}
             >
+              {/* Title + subtitle + tagline */}
               <h3
-                className="text-[32px] font-medium leading-none"
-                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)" }}
+                className="text-[28px] leading-none tracking-tight"
+                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500 }}
               >
                 {card.title}
               </h3>
               <p
-                className="mt-2 text-[17px] font-medium leading-snug"
+                className="mt-2 text-[17px] font-semibold leading-snug"
                 style={{ color: "var(--foreground)" }}
               >
                 {card.subtitle}
               </p>
               <p
-                className="mt-1 text-[12px] leading-[1.5]"
-                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+                className="mt-1 text-[13px] leading-[1.5]"
+                style={{ color: "var(--muted-foreground)" }}
               >
                 {card.tagline}
               </p>
+
+              {/* Price */}
               <div className="mt-3 flex items-baseline gap-2">
                 <span
-                  className="text-[28px] font-semibold leading-none"
-                  style={{ color: "var(--paisley)" }}
+                  className="text-[28px] leading-none tracking-tight"
+                  style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500 }}
                 >
                   {card.price}
                 </span>
                 <span
-                  className="text-[14px] leading-none"
-                  style={{ color: "color-mix(in oklab, var(--foreground) 40%, white)", textDecoration: "line-through" }}
+                  className="text-[13px] leading-none"
+                  style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
                 >
                   {card.original}
                 </span>
               </div>
-              {/* Feature tags between price and benefits */}
+
+              {/* Feature tags */}
               <div className="mt-2.5 flex flex-wrap items-center gap-2">
                 {card.features.map((f, fi) => (
                   <span
@@ -1863,20 +1864,21 @@ function MembershipCards({ open }: { open: boolean }) {
                   </span>
                 ))}
               </div>
+
+              {/* Benefits */}
               <div
                 className="mt-4 flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {card.benefits.map((benefit, j) => (
-                    <li key={j} className="flex items-start gap-2">
+                    <li key={j} className="flex items-start gap-2.5">
+                      <span className="shrink-0 mt-0.5 grid h-4 w-4 place-items-center rounded-full" style={{ background: "var(--paisley)" }}>
+                        <Check className="h-2.5 w-2.5" strokeWidth={3} style={{ color: "white" }} />
+                      </span>
                       <span
-                        className="shrink-0 mt-1.5 h-1.5 w-1.5 rounded-full"
-                        style={{ background: "var(--paisley)" }}
-                      />
-                      <span
-                        className="text-[14px] leading-[1.5]"
-                        style={{ color: "var(--foreground)" }}
+                        className="text-[15px] leading-[1.5]"
+                        style={{ color: "var(--foreground)", fontWeight: 500 }}
                       >
                         {benefit}
                       </span>
@@ -1884,9 +1886,11 @@ function MembershipCards({ open }: { open: boolean }) {
                   ))}
                 </ul>
               </div>
+
+              {/* CTA */}
               <button
                 type="button"
-                className="mt-4 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+                className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: "var(--paisley)" }}
               >
                 升级会员
@@ -1898,6 +1902,7 @@ function MembershipCards({ open }: { open: boolean }) {
     </div>
   );
 }
+
 
 
 
