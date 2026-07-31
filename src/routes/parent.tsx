@@ -1825,16 +1825,13 @@ function MembershipCards({ open }: { open: boolean }) {
                 {card.features.map((f, fi) => (
                   <span
                     key={fi}
-                    className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[15px] font-semibold"
-                    style={{
-                      background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                      color: "var(--paisley)",
-                    }}
+                    className="inline-flex items-center gap-1 text-[11px] font-normal"
+                    style={{ color: "var(--muted-foreground)" }}
                   >
                     {f.icon === "device" ? (
-                      <Smartphone className="h-4 w-4" strokeWidth={2} />
+                      <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
                     ) : (
-                      <Cloud className="h-4 w-4" strokeWidth={2} />
+                      <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
                     )}
                     {f.label}
                   </span>
@@ -1848,11 +1845,11 @@ function MembershipCards({ open }: { open: boolean }) {
               >
                 <ul className="space-y-2.5">
                   {card.benefits.map((benefit, j) => (
-                    <li key={j} className="flex items-start gap-2.5">
-                      <Check className="shrink-0 mt-[3px] h-4 w-4" strokeWidth={3} style={{ color: "var(--paisley)" }} />
+                    <li key={j} className="flex items-start gap-2">
+                      <Check className="shrink-0 mt-[2px] h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "var(--foreground)" }} />
                       <span
-                        className="text-[15px] font-semibold leading-[1.5]"
-                        style={{ color: "var(--foreground)" }}
+                        className="text-[11px] leading-[1.5]"
+                        style={{ color: "var(--foreground)", fontWeight: 400 }}
                       >
                         {benefit}
                       </span>
@@ -1863,11 +1860,12 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Tagline */}
               <p
-                className="mt-3 text-[15px] font-semibold leading-[1.5]"
-                style={{ color: "var(--muted-foreground)" }}
+                className="mt-3 text-[11px] leading-[1.5]"
+                style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
               >
                 {card.tagline}
               </p>
+
 
               {/* CTA */}
               <button
