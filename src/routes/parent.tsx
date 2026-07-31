@@ -1864,8 +1864,7 @@ function MembershipCards({ open }: { open: boolean }) {
               className="rounded-[28px] p-5 h-full flex flex-col"
               style={{
                 background: "white",
-                border: "1.5px solid color-mix(in oklab, var(--paisley) 10%, white)",
-                boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
+                border: "1px solid var(--border)",
               }}
             >
               {/* Title */}
