@@ -323,7 +323,7 @@ function ParentPage() {
         <FloatingBack to="/profile" />
 
         {/* Learner card */}
-        <section className="px-5 pt-[53px]">
+        <section className="px-6 pt-[53px]">
           <div
             className="relative min-h-[176px] rounded-[28px] p-4 overflow-hidden flex flex-col items-center justify-between text-center"
             style={{ background: PAISLEY }}
