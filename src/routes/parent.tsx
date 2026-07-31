@@ -1792,10 +1792,10 @@ function MembershipCards({ open }: { open: boolean }) {
         className="flex flex-1 min-h-0 overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5"
         style={{
           WebkitOverflowScrolling: "touch",
-          scrollPaddingLeft: 28,
-          scrollPaddingRight: 28,
-          paddingLeft: 28,
-          paddingRight: 28,
+          scrollPaddingLeft: 14,
+          scrollPaddingRight: 14,
+          paddingLeft: 14,
+          paddingRight: 14,
           overscrollBehaviorX: "contain",
         }}
       >
@@ -1804,8 +1804,8 @@ function MembershipCards({ open }: { open: boolean }) {
             key={i}
             data-card
             data-index={i}
-            className="snap-center shrink-0 h-full px-1.5"
-            style={{ width: "calc(100% - 56px)", scrollSnapStop: "always" }}
+            className="snap-center shrink-0 h-full px-1"
+            style={{ width: "100%", scrollSnapStop: "always" }}
           >
             <div
               className="rounded-[28px] p-5 h-full flex flex-col"
@@ -1890,19 +1890,19 @@ function MembershipCards({ open }: { open: boolean }) {
               >
                 {card.tagline}
               </p>
-
-
-              {/* CTA */}
-              <button
-                type="button"
-                className="mt-3 w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: "var(--paisley)" }}
-              >
-                升级会员
-              </button>
             </div>
           </div>
         ))}
+      </div>
+      {/* Shared bottom CTA */}
+      <div className="shrink-0 pt-4">
+        <button
+          type="button"
+          className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
+          style={{ background: "var(--paisley)" }}
+        >
+          订阅升级
+        </button>
       </div>
     </div>
   );
