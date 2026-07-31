@@ -352,10 +352,7 @@ function ParentPage() {
                   min
                 </span>
               </span>
-              <span
-                className="text-[11px] font-semibold leading-none"
-                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-              >
+              <span className="text-[11px] font-semibold leading-none text-white/85">
                 剩余 10 min
               </span>
             </div>
