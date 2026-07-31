@@ -1786,12 +1786,14 @@ function MembershipCards({ open }: { open: boolean }) {
                     连续包月
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1.5">
-                    <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
-                      连续包年
-                    </span>
-                    <span style={{ color: "var(--paisley)", fontWeight: 300 }}>最高立省 ¥400</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                    连续包年
                   </span>
+                  <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
+                    最高立省 ¥400
+                  </span>
+                </span>
                 )}
               </button>
             );
@@ -1891,7 +1893,7 @@ function MembershipCards({ open }: { open: boolean }) {
                   </div>
                 </div>
                 <p
-                  className="mt-2 text-[12px] leading-none"
+                  className="mt-2 text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   按年计费 {card.yearly}
