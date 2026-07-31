@@ -352,7 +352,7 @@ function ParentPage() {
             >
               <span
                 className="text-[22px] font-medium leading-none text-white"
-                style={{ letterSpacing: "-0.01em" }}
+                style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-display)" }}
               >
                 {learner}
               </span>
