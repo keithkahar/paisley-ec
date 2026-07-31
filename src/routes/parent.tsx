@@ -503,7 +503,7 @@ function ParentPage() {
         {/* 设置 */}
         <SectionTitle>设置</SectionTitle>
 
-        <section className="px-5 pt-3">
+        <section className="px-6 pt-3">
           <div
             className="rounded-2xl bg-white px-4 py-2 space-y-1"
             style={{ border: "1px solid color-mix(in oklab, oklch(0.55 0 0) 14%, white)" }}
@@ -1317,7 +1317,7 @@ function GoalCard({
   rows: GoalRowSpec[];
 }) {
   return (
-    <section className="px-5 pt-3">
+    <section className="px-6 pt-3">
       <div className="grid grid-cols-2 gap-2.5">
         {rows.map((r) => (
           <GoalRow key={r.label} accent={accent} {...r} />
