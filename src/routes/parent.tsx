@@ -1902,7 +1902,7 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Benefits */}
               <div
-                className="mt-5 flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
+                className="mt-[26px] flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 <ul className="space-y-3">
