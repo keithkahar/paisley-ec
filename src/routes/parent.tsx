@@ -5,6 +5,8 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { ProgressBar } from "@/components/app/WordieKit";
+import { formatNumber } from "@/lib/utils";
+
 
 export const Route = createFileRoute("/parent")({
   head: () => ({ meta: [
