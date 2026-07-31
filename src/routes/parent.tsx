@@ -561,26 +561,9 @@ function ParentPage() {
           brandColor={SHEET_BRAND.paisley}
           onClose={() => setMembershipOpen(false)}
         >
-          <div className="flex flex-col gap-3">
-            <div
-              className="rounded-3xl p-4"
-              style={{ background: "color-mix(in oklab, var(--paisley) 8%, white)" }}
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "color-mix(in oklab, var(--paisley) 60%, white)" }}>
-                当前等级
-              </p>
-              <p className="mt-1 text-[22px] font-medium leading-none" style={{ color: PAISLEY, fontFamily: "var(--font-display)" }}>
-                Premium Plus
-              </p>
-              <p className="mt-2 text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
-                有效期至 Jun 18, 2026
-              </p>
-            </div>
-            <p className="text-[13px] text-center" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-              Membership detail page 设计中…
-            </p>
-          </div>
+          <MembershipCards />
         </StandardSheet>
+
 
         {/* Bottom sheet */}
         <StandardSheet
@@ -1725,3 +1708,120 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
     </div>
   );
 }
+
+function MembershipCards() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute("data-index"));
+            setActiveIndex(index);
+          }
+        });
+      },
+      { root: container, threshold: 0.5 }
+    );
+    container.querySelectorAll("[data-card]").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const cards = [
+    {
+      label: "当前等级",
+      title: "Premium Plus",
+      body: "占位内容：当前会员等级与权益说明。",
+      accent: "var(--paisley)",
+    },
+    {
+      label: "有效期",
+      title: "Jun 18, 2026",
+      body: "占位内容：会员到期日与续费提醒。",
+      accent: "var(--paisley-yellow)",
+    },
+    {
+      label: "权益一览",
+      title: "专属权益",
+      body: "占位内容：本等级可解锁的 AI 额度与功能。",
+      accent: "var(--paisley)",
+    },
+    {
+      label: "升级方案",
+      title: "更多选择",
+      body: "占位内容：可选升级方案与对比。",
+      accent: "var(--paisley-yellow)",
+    },
+  ];
+
+  return (
+    <div className="flex flex-col h-full">
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-hide -mx-5 px-5 pb-4 gap-3"
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
+        {cards.map((card, i) => (
+          <div
+            key={i}
+            data-card
+            data-index={i}
+            className="snap-center shrink-0 w-[85%]"
+          >
+            <div
+              className="rounded-[28px] p-7 h-full min-h-[380px] flex flex-col justify-between"
+              style={{
+                background: "white",
+                border: "1.5px solid color-mix(in oklab, var(--paisley) 10%, white)",
+                boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
+              }}
+            >
+              <div>
+                <span
+                  className="text-[11px] font-semibold uppercase tracking-[0.12em]"
+                  style={{ color: "color-mix(in oklab, var(--paisley) 65%, white)" }}
+                >
+                  {card.label}
+                </span>
+                <h3
+                  className="mt-3 text-[28px] font-medium leading-none"
+                  style={{ fontFamily: "var(--font-display)", color: "var(--paisley)" }}
+                >
+                  {card.title}
+                </h3>
+                <p
+                  className="mt-5 text-[14px] leading-[1.6]"
+                  style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+                >
+                  {card.body}
+                </p>
+              </div>
+              <div
+                className="h-1.5 w-12 rounded-full mt-6"
+                style={{ background: card.accent }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center justify-center gap-2 pt-2">
+        {cards.map((_, i) => (
+          <span
+            key={i}
+            className="rounded-full transition-all"
+            style={{
+              width: activeIndex === i ? 20 : 6,
+              height: 6,
+              background: activeIndex === i ? "var(--paisley)" : "color-mix(in oklab, var(--foreground) 15%, white)",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
