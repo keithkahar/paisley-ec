@@ -219,7 +219,7 @@ function ProfilePage() {
         <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           <PillLink to="/progress" title="My Progress" Icon={TrendingUp} />
           <PillLink to="/my-tests" title="My Tests" Icon={ClipboardList} />
-          <PillLink title="Parent Page" Icon={Users} onClick={() => setParentPinOpen(true)} />
+          <PillLink to="/parent" title="Parent Page" Icon={Users} />
           <PillLink to="/about-paizley" title="Paizley EC" Icon={PaisleyIcon} />
         </section>
 
