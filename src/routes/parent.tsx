@@ -1831,7 +1831,7 @@ function MembershipCards({ open }: { open: boolean }) {
               {/* Title */}
               <h3
                 className="text-[24px] leading-none"
-                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: card.title === "Premium" ? 450 : 400, letterSpacing: "-0.01em" }}
+                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 400, letterSpacing: "-0.01em" }}
               >
                 {card.title}
               </h3>
