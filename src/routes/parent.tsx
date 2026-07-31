@@ -402,19 +402,19 @@ function ParentPage() {
               }}
             >
               <span
-                className="flex h-10 items-center justify-center px-5 rounded-full text-[14px] font-semibold tracking-tight whitespace-nowrap shadow-sm"
+                className="flex h-9 items-center justify-center px-8 rounded-full text-[14px] font-semibold tracking-tight whitespace-nowrap shadow-sm"
                 style={{ background: "rgba(255,255,255,0.15)", color: "white" }}
               >
                 Premium Plus
               </span>
               <span
-                className="flex-1 flex h-10 items-center justify-center text-[14px] font-medium tabular-nums whitespace-nowrap"
+                className="flex-1 flex h-9 items-center justify-center text-[14px] font-medium tabular-nums whitespace-nowrap"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Jun 18, 2026止
               </span>
               <span
-                className="h-10 w-10 shrink-0 rounded-full grid place-items-center"
+                className="h-9 w-9 shrink-0 rounded-full grid place-items-center"
                 style={{ background: "rgba(255,255,255,0.15)" }}
               >
                 <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={2.5} style={{ color: "white" }} />
