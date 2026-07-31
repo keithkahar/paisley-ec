@@ -1922,6 +1922,17 @@ function MembershipCards({ open }: { open: boolean }) {
                   ))}
                 </ul>
               </div>
+              {/* Upgrade hint for non-Plus tiers */}
+              {i < 2 && (
+                <div className="mt-3 flex justify-end">
+                  <span
+                    className="text-[13px] font-semibold"
+                    style={{ color: "var(--paisley)" }}
+                  >
+                    升级 &gt;
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         ))}
