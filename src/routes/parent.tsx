@@ -366,15 +366,15 @@ function ParentPage() {
             </div>
             <button
               type="button"
-              onClick={() => setLearnerOpen(true)}
+              onClick={() => setMembershipOpen(true)}
               className="group mx-auto mt-3 flex h-[22px] w-fit items-center gap-1.5 active:scale-[0.98] transition-transform leading-none"
-              aria-label="选择孩子"
+              aria-label="升级或管理会员"
             >
               <span
                 className="text-[22px] font-medium leading-none text-white"
                 style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-display)" }}
               >
-                {learner}
+                Premium Plus
               </span>
               <ChevronDown
                 className="h-4 w-4 shrink-0 transition-transform group-hover:translate-y-0.5"
@@ -384,11 +384,11 @@ function ParentPage() {
             </button>
             </div>
 
-            {/* Membership pill: single actionable row */}
+            {/* Learner selector pill: single actionable row */}
             <button
               type="button"
-              onClick={() => setMembershipOpen(true)}
-              aria-label="升级或管理会员"
+              onClick={() => setLearnerOpen(true)}
+              aria-label="选择孩子"
               className="w-full mt-4 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
             >
@@ -396,7 +396,7 @@ function ParentPage() {
                 className="flex-1 flex h-9 items-center justify-center rounded-full bg-white text-[13px] font-semibold whitespace-nowrap"
                 style={{ color: "var(--paisley)", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
               >
-                Premium Plus
+                {learner}
               </span>
               <span
                 className="flex-1 flex h-9 items-center justify-center text-[13px] font-semibold whitespace-nowrap"
