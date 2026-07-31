@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight, HelpCircle, Check, Plus, Trash2, ArrowUpRight, Smartphone, Cloud } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, Plus, Trash2, ArrowUpRight, Smartphone, Cloud } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
@@ -1922,18 +1922,6 @@ function MembershipCards({ open }: { open: boolean }) {
                   ))}
                 </ul>
               </div>
-              {/* Upgrade arrow for non-Plus tiers */}
-              {i < 2 && (
-                <div className="mt-3 flex justify-end">
-                  <button
-                    type="button"
-                    aria-label="升级"
-                    className="h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-                  >
-                    <ChevronRight className="h-4 w-4" strokeWidth={2.5} style={{ color: "var(--paisley)" }} />
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         ))}
@@ -1945,7 +1933,7 @@ function MembershipCards({ open }: { open: boolean }) {
           className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
           style={{ background: "var(--paisley)" }}
         >
-          订阅
+          订阅升级
         </button>
       </div>
     </div>
