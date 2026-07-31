@@ -1922,6 +1922,17 @@ function MembershipCards({ open }: { open: boolean }) {
                   ))}
                 </ul>
               </div>
+              {/* Upgrade hint for non-Plus tiers */}
+              {i < 2 && (
+                <div className="mt-3 flex justify-end">
+                  <span
+                    className="text-[13px] font-semibold"
+                    style={{ color: "var(--paisley)" }}
+                  >
+                    升级 &gt;
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -1933,7 +1944,7 @@ function MembershipCards({ open }: { open: boolean }) {
           className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
           style={{ background: "var(--paisley)" }}
         >
-          订阅升级
+          订阅
         </button>
       </div>
     </div>
