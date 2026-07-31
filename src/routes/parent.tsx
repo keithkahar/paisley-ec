@@ -374,21 +374,15 @@ function ParentPage() {
 
             {/* AI quota: 10 large like Today's Practice "5", label + unit match 本周对话时长 */}
             <div className="mt-4 flex items-baseline justify-center gap-2">
-              <span
-                className="text-[11px] font-semibold leading-none"
-                style={{ color: "rgba(255,255,255,0.82)" }}
-              >
-                今日AI额度
+              <span className="text-[11px] font-semibold leading-none text-white">
+                今日AI已用
               </span>
               <span
                 className="text-[22px] font-medium leading-none text-white tabular-nums"
               >
                 10
               </span>
-              <span
-                className="text-[11px] font-semibold leading-none"
-                style={{ color: "rgba(255,255,255,0.7)" }}
-              >
+              <span className="text-[11px] font-semibold leading-none text-white">
                 / 20 min
               </span>
             </div>
