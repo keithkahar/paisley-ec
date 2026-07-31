@@ -1716,18 +1716,41 @@ function MembershipCards() {
       subtitle: "建立英语学习习惯",
       price: "¥48/月",
       original: "¥68",
+      benefits: [
+        "每日 10 分钟 AI 口语练习",
+        "myWordie 基础词汇学习",
+        "基础能力测试",
+        "Bloxia 完整成长地图",
+        "学习进度查看",
+      ],
     },
     {
       title: "Premium",
       subtitle: "完整AI英语成长方案",
       price: "¥88/月",
       original: "¥128",
+      benefits: [
+        "包含 Basic 全部权益",
+        "每日 20 分钟 AI 口语练习",
+        "AI 语音对话",
+        "AI 反馈纠错",
+        "AI 记忆",
+        "完整 Parent Page 学习报告",
+        "学习趋势与目标管理",
+        "多设备储存",
+      ],
     },
     {
       title: "Premium Plus",
       subtitle: "高频AI英语成长方案",
       price: "¥128/月",
       original: "¥168",
+      benefits: [
+        "包含 Premium 全部权益",
+        "每日 30 分钟 AI 口语练习",
+        "Bloxia 新内容体验",
+        "更丰富的成长记录",
+      ],
     },
   ];
 
@@ -1764,7 +1787,7 @@ function MembershipCards() {
               >
                 {card.subtitle}
               </p>
-              <div className="mt-auto pt-4 flex items-baseline gap-2">
+              <div className="mt-3 flex items-baseline gap-2">
                 <span
                   className="text-[28px] font-semibold leading-none"
                   style={{ color: "var(--paisley)" }}
@@ -1778,6 +1801,27 @@ function MembershipCards() {
                   {card.original}
                 </span>
               </div>
+              <div
+                className="mt-4 flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                <ul className="space-y-2">
+                  {card.benefits.map((benefit, j) => (
+                    <li key={j} className="flex items-start gap-2">
+                      <span
+                        className="shrink-0 mt-1.5 h-1.5 w-1.5 rounded-full"
+                        style={{ background: "var(--paisley)" }}
+                      />
+                      <span
+                        className="text-[14px] leading-[1.5]"
+                        style={{ color: "var(--foreground)" }}
+                      >
+                        {benefit}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         ))}
@@ -1785,5 +1829,6 @@ function MembershipCards() {
     </div>
   );
 }
+
 
 
