@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, Plus, Trash2, ArrowUpRight } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, Plus, Trash2, ArrowUpRight, Smartphone, Cloud } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { PARENT_UNLOCK_FLAG } from "@/components/app/ParentPinSheet";
@@ -1718,6 +1718,7 @@ function MembershipCards({ open }: { open: boolean }) {
       tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥48/月",
       original: "¥68",
+      features: [{ icon: "device", label: "多个设备" }],
       benefits: [
         "每日 10 分钟 AI 口语练习",
         "myWordie 基础词汇学习",
@@ -1732,6 +1733,10 @@ function MembershipCards({ open }: { open: boolean }) {
       tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥88/月",
       original: "¥128",
+      features: [
+        { icon: "device", label: "多个设备" },
+        { icon: "cloud", label: "云储存" },
+      ],
       benefits: [
         "包含 Basic 全部权益",
         "每日 20 分钟 AI 口语练习",
@@ -1749,6 +1754,10 @@ function MembershipCards({ open }: { open: boolean }) {
       tagline: "适合：希望孩子养成每日英语习惯的家庭",
       price: "¥128/月",
       original: "¥168",
+      features: [
+        { icon: "device", label: "多个设备" },
+        { icon: "cloud", label: "云储存" },
+      ],
       benefits: [
         "包含 Premium 全部权益",
         "每日 30 分钟 AI 口语练习",
@@ -1834,6 +1843,26 @@ function MembershipCards({ open }: { open: boolean }) {
                   {card.original}
                 </span>
               </div>
+              {/* Feature tags between price and benefits */}
+              <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                {card.features.map((f, fi) => (
+                  <span
+                    key={fi}
+                    className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold"
+                    style={{
+                      background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                      color: "var(--paisley)",
+                    }}
+                  >
+                    {f.icon === "device" ? (
+                      <Smartphone className="h-3.5 w-3.5" strokeWidth={2} />
+                    ) : (
+                      <Cloud className="h-3.5 w-3.5" strokeWidth={2} />
+                    )}
+                    {f.label}
+                  </span>
+                ))}
+              </div>
               <div
                 className="mt-4 flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
@@ -1855,6 +1884,13 @@ function MembershipCards({ open }: { open: boolean }) {
                   ))}
                 </ul>
               </div>
+              <button
+                type="button"
+                className="mt-4 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+                style={{ background: "var(--paisley)" }}
+              >
+                升级会员
+              </button>
             </div>
           </div>
         ))}
