@@ -1870,7 +1870,7 @@ function MembershipCards({ open }: { open: boolean }) {
                       className="text-[28px] leading-none tracking-tight"
                       style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
                     >
-                      {card.price.replace("¥", "")}
+                      {(cycle === "month" ? card.price : card.yearlyPrice).replace("¥", "")}
                     </span>
                     <span
                       className="text-[13px] leading-none ml-1"
@@ -1878,12 +1878,14 @@ function MembershipCards({ open }: { open: boolean }) {
                     >
                       /月
                     </span>
-                    <span
-                      className="text-[13px] leading-none ml-1"
-                      style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
-                    >
-                      {card.original}
-                    </span>
+                    {cycle === "year" && (
+                      <span
+                        className="text-[13px] leading-none ml-1"
+                        style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
+                      >
+                        {card.original}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-wrap items-center justify-end gap-2 shrink-0 pb-[1px]">
                     {card.features.map((f, fi) => (
