@@ -272,24 +272,8 @@ type SheetType = "" | "voice" | "theme" | "speechRate" | "reminderTime";
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
   const navigate = useNavigate();
-  const [unlocked, setUnlocked] = useState(false);
-  const accessCheckedRef = useRef(false);
-  useEffect(() => {
-    if (accessCheckedRef.current) return;
-    accessCheckedRef.current = true;
-    let ok = false;
-    try {
-      ok = sessionStorage.getItem(PARENT_UNLOCK_FLAG) === "1";
-    } catch {}
-    if (!ok) {
-      navigate({ to: "/profile", replace: true });
-      return;
-    }
-    try {
-      sessionStorage.removeItem(PARENT_UNLOCK_FLAG);
-    } catch {}
-    setUnlocked(true);
-  }, [navigate]);
+  // 调试期间暂时关闭家长密码验证（原逻辑校验 PARENT_UNLOCK_FLAG 后才允许进入）
+  const unlocked = true;
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
