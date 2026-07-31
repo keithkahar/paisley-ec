@@ -1697,8 +1697,7 @@ function MembershipCards({ open }: { open: boolean }) {
   const cards = [
     {
       title: "Basic",
-      subtitle: "建立英语学习习惯",
-      tagline: "适合：希望孩子养成每日英语习惯的家庭",
+      subtitle: "建力习惯",
       price: "¥48",
       original: "¥68",
       yearly: "¥368",
@@ -1713,8 +1712,7 @@ function MembershipCards({ open }: { open: boolean }) {
     },
     {
       title: "Premium",
-      subtitle: "完整AI英语成长方案",
-      tagline: "适合：希望孩子系统提升英语能力的家庭",
+      subtitle: "成长方案",
       price: "¥88",
       original: "¥128",
       yearly: "¥688",
@@ -1732,8 +1730,7 @@ function MembershipCards({ open }: { open: boolean }) {
     },
     {
       title: "Premium Plus",
-      subtitle: "高频AI英语成长方案",
-      tagline: "适合：希望孩子高频进阶的家庭",
+      subtitle: "高能优选",
       price: "¥128",
       original: "¥168",
       yearly: "¥1136",
