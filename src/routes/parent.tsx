@@ -1746,6 +1746,8 @@ function MembershipCards({ open }: { open: boolean }) {
     },
   ];
 
+  const [cycle, setCycle] = useState<"month" | "year">("month");
+
   // Default to the Premium card, centered
   useEffect(() => {
     if (!open) return;
@@ -1761,16 +1763,39 @@ function MembershipCards({ open }: { open: boolean }) {
   }, [open]);
 
   return (
-    <div className="flex-1 flex flex-col min-h-0">
+    <div className="h-full flex flex-col min-h-0">
+      {/* Billing cycle segmented pill */}
+      <div className="shrink-0 pb-3">
+        <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
+          {(["month", "year"] as const).map((k) => {
+            const active = cycle === k;
+            return (
+              <button
+                key={k}
+                type="button"
+                onClick={() => setCycle(k)}
+                className="h-9 rounded-full text-[13px] font-semibold transition-colors"
+                style={{
+                  background: active ? "white" : "transparent",
+                  color: active ? "var(--paisley)" : "color-mix(in oklab, var(--foreground) 55%, white)",
+                  boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
+                }}
+              >
+                {k === "month" ? "月度" : "年度"}
+              </button>
+            );
+          })}
+        </div>
+      </div>
       <div
         ref={scrollerRef}
-        className="flex overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5 gap-3 h-full"
+        className="flex flex-1 min-h-0 overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5"
         style={{
           WebkitOverflowScrolling: "touch",
-          scrollPaddingLeft: "9%",
-          scrollPaddingRight: "9%",
-          paddingLeft: "9%",
-          paddingRight: "9%",
+          scrollPaddingLeft: 28,
+          scrollPaddingRight: 28,
+          paddingLeft: 28,
+          paddingRight: 28,
           overscrollBehaviorX: "contain",
         }}
       >
@@ -1779,8 +1804,8 @@ function MembershipCards({ open }: { open: boolean }) {
             key={i}
             data-card
             data-index={i}
-            className="snap-center shrink-0 h-full"
-            style={{ width: "82%", scrollSnapStop: "always" }}
+            className="snap-center shrink-0 h-full px-1.5"
+            style={{ width: "calc(100% - 56px)", scrollSnapStop: "always" }}
           >
             <div
               className="rounded-[28px] p-5 h-full flex flex-col"
@@ -1798,8 +1823,8 @@ function MembershipCards({ open }: { open: boolean }) {
                 {card.title}
               </h3>
               <p
-                className="mt-2 text-[17px] font-semibold leading-snug"
-                style={{ color: "var(--foreground)" }}
+                className="mt-2 text-[17px] leading-snug"
+                style={{ color: "var(--foreground)", fontWeight: 400 }}
               >
                 {card.subtitle}
               </p>
@@ -1808,7 +1833,7 @@ function MembershipCards({ open }: { open: boolean }) {
               <div className="mt-3 flex items-baseline gap-2">
                 <span
                   className="text-[28px] leading-none tracking-tight"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500 }}
+                  style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 300 }}
                 >
                   {card.price}
                 </span>
