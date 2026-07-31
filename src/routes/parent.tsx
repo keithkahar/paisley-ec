@@ -402,16 +402,20 @@ function ParentPage() {
               }}
             >
               <span
-                className="flex h-9 items-center justify-center px-8 rounded-full text-[14px] font-semibold tracking-tight whitespace-nowrap shadow-sm"
+                className="flex h-9 items-center justify-center px-8 rounded-full text-[14px] font-bold tracking-tight whitespace-nowrap shadow-sm"
                 style={{ background: "rgba(255,255,255,0.15)", color: "white" }}
               >
                 Premium Plus
               </span>
               <span
-                className="flex-1 flex h-9 items-center justify-center text-[14px] font-medium tabular-nums whitespace-nowrap"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                className="flex-1 flex h-9 items-center justify-center whitespace-nowrap"
               >
-                Jun 18, 2026止
+                <span className="text-[14px] font-medium tabular-nums" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  Jun 18, 2026
+                </span>
+                <span className="text-[13px] font-medium leading-none" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  止
+                </span>
               </span>
               <span
                 className="h-9 w-9 shrink-0 rounded-full grid place-items-center"
@@ -423,6 +427,9 @@ function ParentPage() {
           </div>
         </section>
 
+
+        {/* 进展 */}
+        <SectionTitle>进展</SectionTitle>
 
         {/* Source tabs (segmented pill, same as /progress) */}
         <section className="px-6 pt-4">
