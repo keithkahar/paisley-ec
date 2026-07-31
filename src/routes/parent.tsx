@@ -1740,8 +1740,7 @@ function MembershipCards({ open }: { open: boolean }) {
       benefits: [
         "包含 Basic 全部权益",
         "每日 20 分钟 AI 口语练习",
-        "AI 反馈纠错",
-        "AI 记忆",
+        "AI 反馈纠错&记忆",
         "完整 Parent Page 学习报告",
         "学习趋势与目标管理",
       ],
@@ -1810,8 +1809,8 @@ function MembershipCards({ open }: { open: boolean }) {
             >
               {/* Title + subtitle + tagline */}
               <h3
-                className="text-[28px] leading-none tracking-tight"
-                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500 }}
+                className="text-[22px] leading-none"
+                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500, letterSpacing: "-0.01em" }}
               >
                 {card.title}
               </h3>
@@ -1820,12 +1819,6 @@ function MembershipCards({ open }: { open: boolean }) {
                 style={{ color: "var(--foreground)" }}
               >
                 {card.subtitle}
-              </p>
-              <p
-                className="mt-1 text-[13px] leading-[1.5]"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                {card.tagline}
               </p>
 
               {/* Price */}
@@ -1849,16 +1842,16 @@ function MembershipCards({ open }: { open: boolean }) {
                 {card.features.map((f, fi) => (
                   <span
                     key={fi}
-                    className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold"
+                    className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[15px] font-semibold"
                     style={{
                       background: "color-mix(in oklab, var(--paisley) 8%, white)",
                       color: "var(--paisley)",
                     }}
                   >
                     {f.icon === "device" ? (
-                      <Smartphone className="h-3.5 w-3.5" strokeWidth={2} />
+                      <Smartphone className="h-4 w-4" strokeWidth={2} />
                     ) : (
-                      <Cloud className="h-3.5 w-3.5" strokeWidth={2} />
+                      <Cloud className="h-4 w-4" strokeWidth={2} />
                     )}
                     {f.label}
                   </span>
@@ -1873,12 +1866,10 @@ function MembershipCards({ open }: { open: boolean }) {
                 <ul className="space-y-2.5">
                   {card.benefits.map((benefit, j) => (
                     <li key={j} className="flex items-start gap-2.5">
-                      <span className="shrink-0 mt-0.5 grid h-4 w-4 place-items-center rounded-full" style={{ background: "var(--paisley)" }}>
-                        <Check className="h-2.5 w-2.5" strokeWidth={3} style={{ color: "white" }} />
-                      </span>
+                      <Check className="shrink-0 mt-[3px] h-4 w-4" strokeWidth={3} style={{ color: "var(--paisley)" }} />
                       <span
-                        className="text-[15px] leading-[1.5]"
-                        style={{ color: "var(--foreground)", fontWeight: 500 }}
+                        className="text-[15px] font-semibold leading-[1.5]"
+                        style={{ color: "var(--foreground)" }}
                       >
                         {benefit}
                       </span>
@@ -1887,10 +1878,18 @@ function MembershipCards({ open }: { open: boolean }) {
                 </ul>
               </div>
 
+              {/* Tagline */}
+              <p
+                className="mt-3 text-[15px] font-semibold leading-[1.5]"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                {card.tagline}
+              </p>
+
               {/* CTA */}
               <button
                 type="button"
-                className="mt-4 w-full h-12 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
+                className="mt-3 w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: "var(--paisley)" }}
               >
                 升级会员
