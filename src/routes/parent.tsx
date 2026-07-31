@@ -1701,7 +1701,7 @@ function MembershipCards({ open }: { open: boolean }) {
       price: "¥48",
       original: "¥68",
       yearly: "¥368",
-      features: [{ icon: "device", label: "多个设备" }],
+      features: [{ icon: "device", label: "多设备" }],
       benefits: [
         "每日 10 分钟 AI 口语练习",
         "myWordie 基础词汇学习",
@@ -1717,7 +1717,7 @@ function MembershipCards({ open }: { open: boolean }) {
       original: "¥128",
       yearly: "¥688",
       features: [
-        { icon: "device", label: "多个设备" },
+        { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
       ],
       benefits: [
@@ -1735,7 +1735,7 @@ function MembershipCards({ open }: { open: boolean }) {
       original: "¥168",
       yearly: "¥1136",
       features: [
-        { icon: "device", label: "多个设备" },
+        { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
       ],
       benefits: [
@@ -1765,7 +1765,7 @@ function MembershipCards({ open }: { open: boolean }) {
   return (
     <div className="h-full flex flex-col min-h-0">
       {/* Billing cycle segmented pill */}
-      <div className="shrink-0 pb-3">
+      <div className="shrink-0 pb-3 mt-[5px]">
         <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
           {(["month", "year"] as const).map((k) => {
             const active = cycle === k;
@@ -1777,15 +1777,19 @@ function MembershipCards({ open }: { open: boolean }) {
                 className="h-9 rounded-full text-[13px] font-semibold transition-colors"
                 style={{
                   background: active ? "white" : "transparent",
-                  color: active ? "var(--paisley)" : "color-mix(in oklab, var(--foreground) 55%, white)",
+                  color: active ? "var(--foreground)" : "var(--muted-foreground)",
                   boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
                 }}
               >
                 {k === "month" ? (
-                  "连续包月"
+                  <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                    连续包月
+                  </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
-                    <span>连续包年</span>
+                    <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                      连续包年
+                    </span>
                     <span className="font-light" style={{ color: "var(--paisley)" }}>最高立省 ¥400</span>
                   </span>
                 )}
