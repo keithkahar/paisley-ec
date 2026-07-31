@@ -1834,59 +1834,61 @@ function MembershipCards({ open }: { open: boolean }) {
                 {card.title}
               </h3>
 
-              {/* Subtitle + feature tags on one row */}
-              <div className="mt-2 flex items-start justify-between gap-2">
+              {/* Subtitle */}
+              <div className="mt-2">
                 <p
                   className="text-[17px] leading-snug"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   {card.subtitle}
                 </p>
-                <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
-                  {card.features.map((f, fi) => (
-                    <span
-                      key={fi}
-                      className="inline-flex items-center gap-1 text-[11px] font-normal"
-                      style={{ color: "var(--muted-foreground)" }}
-                    >
-                      {f.icon === "device" ? (
-                        <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                      ) : (
-                        <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                      )}
-                      {f.label}
-                    </span>
-                  ))}
-                </div>
               </div>
 
               {/* Price */}
               <div className="mt-4">
-                <div className="flex items-baseline gap-0.5">
-                  <span
-                    className="text-[18px] leading-none self-start mt-1"
-                    style={{ color: "var(--foreground)", fontWeight: 300 }}
-                  >
-                    ¥
-                  </span>
-                  <span
-                    className="text-[28px] leading-none tracking-tight"
-                    style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
-                  >
-                    {card.price.replace("¥", "")}
-                  </span>
-                  <span
-                    className="text-[13px] leading-none ml-1"
-                    style={{ color: "var(--muted-foreground)" }}
-                  >
-                    /月
-                  </span>
-                  <span
-                    className="text-[13px] leading-none ml-1"
-                    style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
-                  >
-                    {card.original}
-                  </span>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-baseline gap-0.5">
+                    <span
+                      className="text-[18px] leading-none self-start mt-1"
+                      style={{ color: card.title === "Premium" ? "var(--paisley)" : "var(--foreground)", fontWeight: 300 }}
+                    >
+                      ¥
+                    </span>
+                    <span
+                      className="text-[28px] leading-none tracking-tight"
+                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--paisley)" : "var(--foreground)", fontWeight: 300 }}
+                    >
+                      {card.price.replace("¥", "")}
+                    </span>
+                    <span
+                      className="text-[13px] leading-none ml-1"
+                      style={{ color: "var(--muted-foreground)" }}
+                    >
+                      /月
+                    </span>
+                    <span
+                      className="text-[13px] leading-none ml-1"
+                      style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
+                    >
+                      {card.original}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
+                    {card.features.map((f, fi) => (
+                      <span
+                        key={fi}
+                        className="inline-flex items-center gap-1 text-[11px] font-normal"
+                        style={{ color: "var(--foreground)" }}
+                      >
+                        {f.icon === "device" ? (
+                          <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--foreground)" }} />
+                        ) : (
+                          <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--foreground)" }} />
+                        )}
+                        {f.label}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <p
                   className="mt-2 text-[12px] leading-none"
