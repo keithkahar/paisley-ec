@@ -395,26 +395,29 @@ function ParentPage() {
               type="button"
               onClick={() => setMembershipOpen(true)}
               aria-label="升级或管理会员"
-              className="w-full flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
-              style={{ background: "rgba(255,255,255,0.92)" }}
+              className="group w-full flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform backdrop-blur-md"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
             >
               <span
-                className="flex-1 flex h-9 items-center justify-center rounded-full bg-white text-[13px] font-semibold whitespace-nowrap"
-                style={{ color: "var(--paisley)", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+                className="flex h-9 items-center justify-center px-4 rounded-full text-[13px] font-semibold tracking-tight whitespace-nowrap shadow-sm"
+                style={{ background: "rgba(255,255,255,0.15)", color: "white" }}
               >
                 Premium Plus
               </span>
               <span
-                className="flex-1 flex h-9 items-center justify-center text-[13px] font-semibold whitespace-nowrap"
-                style={{ color: "color-mix(in oklab, var(--paisley) 70%, var(--foreground))" }}
+                className="flex-1 flex h-9 items-center justify-center text-[13px] font-medium tabular-nums whitespace-nowrap"
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Jun 18, 2026
               </span>
               <span
-                className="h-9 w-9 shrink-0 rounded-full bg-white grid place-items-center"
-                style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+                className="h-9 w-9 shrink-0 rounded-full grid place-items-center"
+                style={{ background: "rgba(255,255,255,0.15)" }}
               >
-                <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} style={{ color: "white" }} />
               </span>
             </button>
           </div>
