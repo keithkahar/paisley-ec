@@ -323,7 +323,7 @@ function ParentPage() {
         <FloatingBack to="/profile" />
 
         {/* Learner card */}
-        <section className="px-5 pt-[53px] pb-1">
+        <section className="px-5 pt-[53px]">
           <div
             className="relative min-h-[176px] rounded-[28px] p-4 overflow-hidden flex flex-col items-center justify-between text-center"
             style={{ background: PAISLEY }}
@@ -335,19 +335,19 @@ function ParentPage() {
                 <span className="flex items-baseline gap-1.5">
                   <span
                     className="text-[11px] font-semibold leading-none"
-                    style={{ color: "var(--paisley-yellow)" }}
+                    style={{ color: "white" }}
                   >
                     今日AI已用
                   </span>
                   <span
                     className="text-[22px] font-medium leading-none tabular-nums"
-                    style={{ color: "var(--paisley-yellow)" }}
+                    style={{ color: "white" }}
                   >
                     10
                   </span>
                   <span
                     className="text-[11px] font-semibold leading-none"
-                    style={{ color: "var(--paisley-yellow)" }}
+                    style={{ color: "white" }}
                   >
                     min
                   </span>
@@ -359,7 +359,7 @@ function ParentPage() {
               <div className="mt-2">
                 <ProgressBar
                   value={50}
-                  color="var(--paisley-yellow)"
+                  color="white"
                   track="rgba(255,255,255,0.22)"
                   height={4}
                 />
@@ -428,11 +428,11 @@ function ParentPage() {
         </section>
 
 
-        {/* 进展 */}
-        <SectionTitle>进展</SectionTitle>
+        {/* 成效 */}
+        <SectionTitle>成效</SectionTitle>
 
         {/* Source tabs (segmented pill, same as /progress) */}
-        <section className="px-6 pt-4">
+        <section className="px-6 pt-3">
           <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
             {(["talk", "wordie"] as const).map((k) => {
               const active = tab === k;
