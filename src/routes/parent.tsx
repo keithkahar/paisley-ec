@@ -1710,59 +1710,31 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
 }
 
 function MembershipCards() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute("data-index"));
-            setActiveIndex(index);
-          }
-        });
-      },
-      { root: container, threshold: 0.5 }
-    );
-    container.querySelectorAll("[data-card]").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   const cards = [
     {
-      label: "当前等级",
+      title: "Basic",
+      subtitle: "建立英语学习习惯",
+      price: "¥48/月",
+      original: "¥68",
+    },
+    {
+      title: "Premium",
+      subtitle: "完整AI英语成长方案",
+      price: "¥88/月",
+      original: "¥128",
+    },
+    {
       title: "Premium Plus",
-      body: "占位内容：当前会员等级与权益说明。",
-      accent: "var(--paisley)",
-    },
-    {
-      label: "有效期",
-      title: "Jun 18, 2026",
-      body: "占位内容：会员到期日与续费提醒。",
-      accent: "var(--paisley-yellow)",
-    },
-    {
-      label: "权益一览",
-      title: "专属权益",
-      body: "占位内容：本等级可解锁的 AI 额度与功能。",
-      accent: "var(--paisley)",
-    },
-    {
-      label: "升级方案",
-      title: "更多选择",
-      body: "占位内容：可选升级方案与对比。",
-      accent: "var(--paisley-yellow)",
+      subtitle: "高频AI英语成长方案",
+      price: "¥128/月",
+      original: "¥168",
     },
   ];
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex-1 flex flex-col min-h-0">
       <div
-        ref={scrollRef}
-        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-hide -mx-5 px-5 pb-4 gap-3"
+        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scroll-hide -mx-5 px-5 gap-3 h-full"
         style={{ WebkitOverflowScrolling: "touch" }}
       >
         {cards.map((card, i) => (
@@ -1770,58 +1742,48 @@ function MembershipCards() {
             key={i}
             data-card
             data-index={i}
-            className="snap-center shrink-0 w-[85%]"
+            className="snap-center shrink-0 w-[85%] h-full"
           >
             <div
-              className="rounded-[28px] p-7 h-full min-h-[380px] flex flex-col justify-between"
+              className="rounded-[28px] p-6 h-full flex flex-col"
               style={{
                 background: "white",
                 border: "1.5px solid color-mix(in oklab, var(--paisley) 10%, white)",
                 boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
               }}
             >
-              <div>
+              <h3
+                className="text-[32px] font-medium leading-none"
+                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)" }}
+              >
+                {card.title}
+              </h3>
+              <p
+                className="mt-2 text-[15px] leading-snug"
+                style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
+              >
+                {card.subtitle}
+              </p>
+              <div className="mt-auto pt-4 flex items-baseline gap-2">
                 <span
-                  className="text-[11px] font-semibold uppercase tracking-[0.12em]"
-                  style={{ color: "color-mix(in oklab, var(--paisley) 65%, white)" }}
+                  className="text-[28px] font-semibold leading-none"
+                  style={{ color: "var(--paisley)" }}
                 >
-                  {card.label}
+                  {card.price}
                 </span>
-                <h3
-                  className="mt-3 text-[28px] font-medium leading-none"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--paisley)" }}
+                <span
+                  className="text-[14px] leading-none"
+                  style={{ color: "color-mix(in oklab, var(--foreground) 40%, white)", textDecoration: "line-through" }}
                 >
-                  {card.title}
-                </h3>
-                <p
-                  className="mt-5 text-[14px] leading-[1.6]"
-                  style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-                >
-                  {card.body}
-                </p>
+                  {card.original}
+                </span>
               </div>
-              <div
-                className="h-1.5 w-12 rounded-full mt-6"
-                style={{ background: card.accent }}
-              />
             </div>
           </div>
-        ))}
-      </div>
-      <div className="flex items-center justify-center gap-2 pt-2">
-        {cards.map((_, i) => (
-          <span
-            key={i}
-            className="rounded-full transition-all"
-            style={{
-              width: activeIndex === i ? 20 : 6,
-              height: 6,
-              background: activeIndex === i ? "var(--paisley)" : "color-mix(in oklab, var(--foreground) 15%, white)",
-            }}
-          />
         ))}
       </div>
     </div>
   );
 }
+
 
