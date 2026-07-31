@@ -1847,18 +1847,18 @@ function MembershipCards({ open }: { open: boolean }) {
               </div>
 
               {/* Price */}
-              <div className="mt-4">
+              <div className="mt-[18px]">
                 <div className="flex items-end justify-between gap-2">
                   <div className="flex items-baseline gap-0.5">
                     <span
                       className="text-[18px] leading-none self-start mt-1"
-                      style={{ color: card.title === "Premium" ? "var(--paisley)" : "var(--muted-foreground)", fontWeight: 300 }}
+                      style={{ color: card.title === "Premium" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: 300 }}
                     >
                       ¥
                     </span>
                     <span
                       className="text-[28px] leading-none tracking-tight"
-                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--paisley)" : "var(--muted-foreground)", fontWeight: 300 }}
+                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: 300 }}
                     >
                       {card.price.replace("¥", "")}
                     </span>
