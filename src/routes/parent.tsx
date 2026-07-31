@@ -1799,14 +1799,15 @@ function MembershipCards({ open }: { open: boolean }) {
                     连续包月
                   </span>
                 ) : (
-                <span className="inline-flex items-center gap-1.5">
-                  <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
-                    连续包年
+                  <span className="inline-flex items-center gap-1.5">
+                    <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                      连续包年
+                    </span>
+                    <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
+                      最高立省 ¥{formatNumber(maxSavings)}
+                    </span>
                   </span>
-                  <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
-                    最高立省 ¥{maxSavings}
-                  </span>
-                </span>
+
                 )}
               </button>
             );
