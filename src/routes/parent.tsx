@@ -1852,13 +1852,13 @@ function MembershipCards({ open }: { open: boolean }) {
                   <div className="flex items-baseline gap-0.5">
                     <span
                       className="text-[18px] leading-none self-start mt-1"
-                      style={{ color: card.title === "Premium" ? "var(--paisley)" : "var(--foreground)", fontWeight: 300 }}
+                      style={{ color: card.title === "Premium" ? "var(--paisley)" : "var(--muted-foreground)", fontWeight: 300 }}
                     >
                       ¥
                     </span>
                     <span
                       className="text-[28px] leading-none tracking-tight"
-                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--paisley)" : "var(--foreground)", fontWeight: 300 }}
+                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--paisley)" : "var(--muted-foreground)", fontWeight: 300 }}
                     >
                       {card.price.replace("¥", "")}
                     </span>
