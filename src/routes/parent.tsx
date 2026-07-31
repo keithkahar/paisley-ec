@@ -1699,8 +1699,9 @@ function MembershipCards({ open }: { open: boolean }) {
       title: "Basic",
       subtitle: "建力习惯",
       price: "¥48",
-      original: "¥68",
-      yearly: "¥368",
+      yearlyPrice: "¥38",
+      original: "¥48",
+      yearly: "¥456",
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1717,8 +1718,9 @@ function MembershipCards({ open }: { open: boolean }) {
       title: "Premium",
       subtitle: "成长方案",
       price: "¥88",
-      original: "¥128",
-      yearly: "¥688",
+      yearlyPrice: "¥68",
+      original: "¥88",
+      yearly: "¥816",
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1735,8 +1737,9 @@ function MembershipCards({ open }: { open: boolean }) {
       title: "Premium Plus",
       subtitle: "高能优选",
       price: "¥128",
-      original: "¥168",
-      yearly: "¥1136",
+      yearlyPrice: "¥98",
+      original: "¥128",
+      yearly: "¥1176",
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1748,6 +1751,10 @@ function MembershipCards({ open }: { open: boolean }) {
       ],
     },
   ];
+
+  const maxSavings = Math.max(
+    ...cards.map((c) => parseInt(c.price.replace("¥", ""), 10) * 12 - parseInt(c.yearly.replace("¥", ""), 10))
+  );
 
   const [cycle, setCycle] = useState<"month" | "year">("month");
 
@@ -1794,7 +1801,7 @@ function MembershipCards({ open }: { open: boolean }) {
                     连续包年
                   </span>
                   <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
-                    最高立省 ¥400
+                    最高立省 ¥{maxSavings}
                   </span>
                 </span>
                 )}
@@ -1863,7 +1870,7 @@ function MembershipCards({ open }: { open: boolean }) {
                       className="text-[28px] leading-none tracking-tight"
                       style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
                     >
-                      {card.price.replace("¥", "")}
+                      {(cycle === "month" ? card.price : card.yearlyPrice).replace("¥", "")}
                     </span>
                     <span
                       className="text-[13px] leading-none ml-1"
@@ -1871,12 +1878,14 @@ function MembershipCards({ open }: { open: boolean }) {
                     >
                       /月
                     </span>
-                    <span
-                      className="text-[13px] leading-none ml-1"
-                      style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
-                    >
-                      {card.original}
-                    </span>
+                    {cycle === "year" && (
+                      <span
+                        className="text-[13px] leading-none ml-1"
+                        style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
+                      >
+                        {card.original}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-wrap items-center justify-end gap-2 shrink-0 pb-[1px]">
                     {card.features.map((f, fi) => (
