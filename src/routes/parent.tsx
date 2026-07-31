@@ -328,60 +328,64 @@ function ParentPage() {
             className="relative min-h-[176px] rounded-[28px] p-4 overflow-hidden flex flex-col items-center justify-between text-center"
             style={{ background: PAISLEY }}
           >
-            {/* Name + progress bar: 1:1 with Today's Practice (title, then mt-2 bar) */}
+            {/* Top: AI quota + progress bar */}
             <div className="w-full">
-            {/* AI quota row: label left, usage right */}
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="flex items-baseline gap-1.5">
-                <span
-                  className="text-[11px] font-semibold leading-none"
-                  style={{ color: "var(--paisley-yellow)" }}
-                >
-                  今日AI已用
+              {/* AI quota row: label left, usage right */}
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="flex items-baseline gap-1.5">
+                  <span
+                    className="text-[11px] font-semibold leading-none"
+                    style={{ color: "var(--paisley-yellow)" }}
+                  >
+                    今日AI已用
+                  </span>
+                  <span
+                    className="text-[22px] font-medium leading-none tabular-nums"
+                    style={{ color: "var(--paisley-yellow)" }}
+                  >
+                    10
+                  </span>
+                  <span
+                    className="text-[11px] font-semibold leading-none"
+                    style={{ color: "var(--paisley-yellow)" }}
+                  >
+                    min
+                  </span>
                 </span>
-                <span
-                  className="text-[22px] font-medium leading-none tabular-nums"
-                  style={{ color: "var(--paisley-yellow)" }}
-                >
-                  10
+                <span className="text-[11px] font-semibold leading-none text-white/85">
+                  剩余 10 min
                 </span>
-                <span
-                  className="text-[11px] font-semibold leading-none"
-                  style={{ color: "var(--paisley-yellow)" }}
-                >
-                  min
-                </span>
-              </span>
-              <span className="text-[11px] font-semibold leading-none text-white/85">
-                剩余 10 min
-              </span>
+              </div>
+              <div className="mt-2">
+                <ProgressBar
+                  value={50}
+                  color="var(--paisley-yellow)"
+                  track="rgba(255,255,255,0.22)"
+                  height={4}
+                />
+              </div>
             </div>
-            <div className="mt-2">
-              <ProgressBar
-                value={50}
-                color="var(--paisley-yellow)"
-                track="rgba(255,255,255,0.22)"
-                height={4}
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => setLearnerOpen(true)}
-              className="group mx-auto mt-3 flex h-[22px] w-fit items-center gap-1.5 active:scale-[0.98] transition-transform leading-none"
-              aria-label="选择孩子"
-            >
-              <span
-                className="text-[22px] font-medium leading-none text-white"
-                style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-display)" }}
+
+            {/* Middle: learner name, vertically centered between progress bar and pill */}
+            <div className="flex-1 flex items-center justify-center w-full">
+              <button
+                type="button"
+                onClick={() => setLearnerOpen(true)}
+                className="group flex h-[22px] w-fit items-center gap-1.5 active:scale-[0.98] transition-transform leading-none"
+                aria-label="选择孩子"
               >
-                {learner}
-              </span>
-              <ChevronDown
-                className="h-4 w-4 shrink-0 transition-transform group-hover:translate-y-0.5"
-                strokeWidth={2.5}
-                style={{ color: "rgba(255,255,255,0.85)" }}
-              />
-            </button>
+                <span
+                  className="text-[22px] font-medium leading-none text-white"
+                  style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-display)" }}
+                >
+                  {learner}
+                </span>
+                <ChevronDown
+                  className="h-4 w-4 shrink-0 transition-transform group-hover:translate-y-0.5"
+                  strokeWidth={2.5}
+                  style={{ color: "rgba(255,255,255,0.85)" }}
+                />
+              </button>
             </div>
 
             {/* Membership pill: single actionable row */}
@@ -389,7 +393,7 @@ function ParentPage() {
               type="button"
               onClick={() => setMembershipOpen(true)}
               aria-label="升级或管理会员"
-              className="w-full mt-4 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
+              className="w-full flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
             >
               <span
