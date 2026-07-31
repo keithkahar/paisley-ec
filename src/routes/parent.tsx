@@ -1790,7 +1790,7 @@ function MembershipCards({ open }: { open: boolean }) {
                     <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
                       连续包年
                     </span>
-                    <span className="font-light" style={{ color: "var(--paisley)" }}>最高立省 ¥400</span>
+                    <span style={{ color: "var(--paisley)", fontWeight: 300 }}>最高立省 ¥400</span>
                   </span>
                 )}
               </button>
@@ -1828,8 +1828,8 @@ function MembershipCards({ open }: { open: boolean }) {
             >
               {/* Title */}
               <h3
-                className="text-[22px] leading-none"
-                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500, letterSpacing: "-0.01em" }}
+                className="text-[24px] leading-none"
+                style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 400, letterSpacing: "-0.01em" }}
               >
                 {card.title}
               </h3>
@@ -1846,7 +1846,7 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Price */}
               <div className="mt-4">
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex items-end justify-between gap-2">
                   <div className="flex items-baseline gap-0.5">
                     <span
                       className="text-[18px] leading-none self-start mt-1"
@@ -1873,7 +1873,7 @@ function MembershipCards({ open }: { open: boolean }) {
                       {card.original}
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
+                  <div className="flex flex-wrap items-center justify-end gap-2 shrink-0 pb-[1px]">
                     {card.features.map((f, fi) => (
                       <span
                         key={fi}
