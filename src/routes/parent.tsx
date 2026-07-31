@@ -324,6 +324,7 @@ function ParentPage() {
   const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
   const [learner, setLearner] = useState("Amy");
   const [learnerOpen, setLearnerOpen] = useState(false);
+  const [membershipOpen, setMembershipOpen] = useState(false);
 
   const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
   const accent = tab === "talk" ? SHIRIN : WORDIE;
@@ -390,7 +391,7 @@ function ParentPage() {
             {/* Membership pill: single actionable row */}
             <button
               type="button"
-              onClick={() => { /* TODO: open membership management */ }}
+              onClick={() => setMembershipOpen(true)}
               aria-label="升级或管理会员"
               className="w-full mt-4 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
@@ -552,6 +553,34 @@ function ParentPage() {
             </div>
           </div>
         </section>
+
+        {/* Membership detail sheet */}
+        <StandardSheet
+          open={membershipOpen}
+          title="Membership"
+          brandColor={SHEET_BRAND.paisley}
+          onClose={() => setMembershipOpen(false)}
+        >
+          <div className="flex flex-col gap-3">
+            <div
+              className="rounded-3xl p-4"
+              style={{ background: "color-mix(in oklab, var(--paisley) 8%, white)" }}
+            >
+              <p className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "color-mix(in oklab, var(--paisley) 60%, white)" }}>
+                当前等级
+              </p>
+              <p className="mt-1 text-[22px] font-medium leading-none" style={{ color: PAISLEY, fontFamily: "var(--font-display)" }}>
+                Premium Plus
+              </p>
+              <p className="mt-2 text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
+                有效期至 Jun 18, 2026
+              </p>
+            </div>
+            <p className="text-[13px] text-center" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
+              Membership detail page 设计中…
+            </p>
+          </div>
+        </StandardSheet>
 
         {/* Bottom sheet */}
         <StandardSheet
