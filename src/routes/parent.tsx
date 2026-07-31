@@ -1701,7 +1701,7 @@ function MembershipCards({ open }: { open: boolean }) {
       price: "¥48",
       original: "¥68",
       yearly: "¥368",
-      features: [{ icon: "device", label: "多个设备" }],
+      features: [{ icon: "device", label: "多设备" }],
       benefits: [
         "每日 10 分钟 AI 口语练习",
         "myWordie 基础词汇学习",
@@ -1717,7 +1717,7 @@ function MembershipCards({ open }: { open: boolean }) {
       original: "¥128",
       yearly: "¥688",
       features: [
-        { icon: "device", label: "多个设备" },
+        { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
       ],
       benefits: [
@@ -1735,7 +1735,7 @@ function MembershipCards({ open }: { open: boolean }) {
       original: "¥168",
       yearly: "¥1136",
       features: [
-        { icon: "device", label: "多个设备" },
+        { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
       ],
       benefits: [
@@ -1765,7 +1765,7 @@ function MembershipCards({ open }: { open: boolean }) {
   return (
     <div className="h-full flex flex-col min-h-0">
       {/* Billing cycle segmented pill */}
-      <div className="shrink-0 pb-3">
+      <div className="shrink-0 pb-3 mt-[5px]">
         <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[var(--input)]">
           {(["month", "year"] as const).map((k) => {
             const active = cycle === k;
@@ -1777,15 +1777,19 @@ function MembershipCards({ open }: { open: boolean }) {
                 className="h-9 rounded-full text-[13px] font-semibold transition-colors"
                 style={{
                   background: active ? "white" : "transparent",
-                  color: active ? "var(--paisley)" : "color-mix(in oklab, var(--foreground) 55%, white)",
+                  color: active ? "var(--foreground)" : "var(--muted-foreground)",
                   boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
                 }}
               >
                 {k === "month" ? (
-                  "连续包月"
+                  <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                    连续包月
+                  </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
-                    <span>连续包年</span>
+                    <span style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}>
+                      连续包年
+                    </span>
                     <span className="font-light" style={{ color: "var(--paisley)" }}>最高立省 ¥400</span>
                   </span>
                 )}
@@ -1830,59 +1834,61 @@ function MembershipCards({ open }: { open: boolean }) {
                 {card.title}
               </h3>
 
-              {/* Subtitle + feature tags on one row */}
-              <div className="mt-2 flex items-start justify-between gap-2">
+              {/* Subtitle */}
+              <div className="mt-2">
                 <p
                   className="text-[17px] leading-snug"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   {card.subtitle}
                 </p>
-                <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
-                  {card.features.map((f, fi) => (
-                    <span
-                      key={fi}
-                      className="inline-flex items-center gap-1 text-[11px] font-normal"
-                      style={{ color: "var(--muted-foreground)" }}
-                    >
-                      {f.icon === "device" ? (
-                        <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                      ) : (
-                        <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                      )}
-                      {f.label}
-                    </span>
-                  ))}
-                </div>
               </div>
 
               {/* Price */}
               <div className="mt-4">
-                <div className="flex items-baseline gap-0.5">
-                  <span
-                    className="text-[18px] leading-none self-start mt-1"
-                    style={{ color: "var(--foreground)", fontWeight: 300 }}
-                  >
-                    ¥
-                  </span>
-                  <span
-                    className="text-[28px] leading-none tracking-tight"
-                    style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
-                  >
-                    {card.price.replace("¥", "")}
-                  </span>
-                  <span
-                    className="text-[13px] leading-none ml-1"
-                    style={{ color: "var(--muted-foreground)" }}
-                  >
-                    /月
-                  </span>
-                  <span
-                    className="text-[13px] leading-none ml-1"
-                    style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
-                  >
-                    {card.original}
-                  </span>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-baseline gap-0.5">
+                    <span
+                      className="text-[18px] leading-none self-start mt-1"
+                      style={{ color: card.title === "Premium" ? "var(--paisley)" : "var(--foreground)", fontWeight: 300 }}
+                    >
+                      ¥
+                    </span>
+                    <span
+                      className="text-[28px] leading-none tracking-tight"
+                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--paisley)" : "var(--foreground)", fontWeight: 300 }}
+                    >
+                      {card.price.replace("¥", "")}
+                    </span>
+                    <span
+                      className="text-[13px] leading-none ml-1"
+                      style={{ color: "var(--muted-foreground)" }}
+                    >
+                      /月
+                    </span>
+                    <span
+                      className="text-[13px] leading-none ml-1"
+                      style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
+                    >
+                      {card.original}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
+                    {card.features.map((f, fi) => (
+                      <span
+                        key={fi}
+                        className="inline-flex items-center gap-1 text-[11px] font-normal"
+                        style={{ color: "var(--foreground)" }}
+                      >
+                        {f.icon === "device" ? (
+                          <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--foreground)" }} />
+                        ) : (
+                          <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--foreground)" }} />
+                        )}
+                        {f.label}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <p
                   className="mt-2 text-[12px] leading-none"
@@ -1900,7 +1906,7 @@ function MembershipCards({ open }: { open: boolean }) {
                 <ul className="space-y-3">
                   {card.benefits.map((benefit, j) => (
                     <li key={j} className="flex items-start gap-2">
-                      <Check className="shrink-0 mt-[2px] h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "var(--foreground)" }} />
+                      <Check className="shrink-0 mt-[2px] h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "var(--foreground)" }} />
                       <span
                         className="text-[11px] leading-[1.55]"
                         style={{ color: "var(--foreground)", fontWeight: 400 }}
