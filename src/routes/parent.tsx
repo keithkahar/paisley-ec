@@ -1789,7 +1789,7 @@ function MembershipCards({ open }: { open: boolean }) {
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
                     <span>连续包年</span>
-                    <span style={{ color: "var(--paisley)" }}>最高立省 ¥1,680</span>
+                    <span className="font-light" style={{ color: "var(--paisley)" }}>最高立省 ¥400</span>
                   </span>
                 )}
               </button>
@@ -1825,52 +1825,68 @@ function MembershipCards({ open }: { open: boolean }) {
                 boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
               }}
             >
-              {/* Title + subtitle + tagline */}
+              {/* Title */}
               <h3
                 className="text-[22px] leading-none"
                 style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 500, letterSpacing: "-0.01em" }}
               >
                 {card.title}
               </h3>
-              <p
-                className="mt-2 text-[17px] leading-snug"
-                style={{ color: "var(--foreground)", fontWeight: 400 }}
-              >
-                {card.subtitle}
-              </p>
 
-              {/* Price */}
-              <div className="mt-3 flex items-baseline gap-2">
-                <span
-                  className="text-[28px] leading-none tracking-tight"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--paisley)", fontWeight: 300 }}
+              {/* Subtitle + feature tags on one row */}
+              <div className="mt-2 flex items-start justify-between gap-2">
+                <p
+                  className="text-[17px] leading-snug"
+                  style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
-                  {card.price}
-                </span>
-                <span
-                  className="text-[13px] leading-none"
-                  style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
-                >
-                  {card.original}
-                </span>
+                  {card.subtitle}
+                </p>
+                <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
+                  {card.features.map((f, fi) => (
+                    <span
+                      key={fi}
+                      className="inline-flex items-center gap-1 text-[11px] font-normal"
+                      style={{ color: "var(--muted-foreground)" }}
+                    >
+                      {f.icon === "device" ? (
+                        <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+                      ) : (
+                        <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+                      )}
+                      {f.label}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              {/* Feature tags */}
-              <div className="mt-2.5 flex flex-wrap items-center gap-2">
-                {card.features.map((f, fi) => (
+              {/* Price */}
+              <div className="mt-3">
+                <div className="flex items-baseline gap-1">
                   <span
-                    key={fi}
-                    className="inline-flex items-center gap-1 text-[11px] font-normal"
+                    className="text-[28px] leading-none tracking-tight"
+                    style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
+                  >
+                    {card.price}
+                  </span>
+                  <span
+                    className="text-[13px] leading-none"
                     style={{ color: "var(--muted-foreground)" }}
                   >
-                    {f.icon === "device" ? (
-                      <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                    ) : (
-                      <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                    )}
-                    {f.label}
+                    /月
                   </span>
-                ))}
+                  <span
+                    className="text-[13px] leading-none"
+                    style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
+                  >
+                    {card.original}
+                  </span>
+                </div>
+                <p
+                  className="mt-1 text-[12px] leading-none"
+                  style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
+                >
+                  按年计费 {card.yearly}
+                </p>
               </div>
 
               {/* Benefits */}
