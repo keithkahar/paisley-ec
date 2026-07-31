@@ -1801,7 +1801,7 @@ function MembershipCards({ open }: { open: boolean }) {
                     连续包年
                   </span>
                   <span style={{ color: "var(--paisley)", fontWeight: 400, fontSize: 13 }}>
-                    最高立省 ¥400
+                    最高立省 ¥{maxSavings}
                   </span>
                 </span>
                 )}
