@@ -1944,7 +1944,7 @@ function MembershipCards({ open }: { open: boolean }) {
           className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
           style={{ background: "var(--paisley)" }}
         >
-          订阅升级
+          订阅
         </button>
       </div>
     </div>
