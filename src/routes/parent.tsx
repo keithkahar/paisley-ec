@@ -1857,29 +1857,35 @@ function MembershipCards({ open }: { open: boolean }) {
               </div>
 
               {/* Price */}
-              <div className="mt-3">
-                <div className="flex items-baseline gap-1">
+              <div className="mt-4">
+                <div className="flex items-baseline gap-0.5">
+                  <span
+                    className="text-[18px] leading-none self-start mt-1"
+                    style={{ color: "var(--foreground)", fontWeight: 300 }}
+                  >
+                    ¥
+                  </span>
                   <span
                     className="text-[28px] leading-none tracking-tight"
                     style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
                   >
-                    {card.price}
+                    {card.price.replace("¥", "")}
                   </span>
                   <span
-                    className="text-[13px] leading-none"
+                    className="text-[13px] leading-none ml-1"
                     style={{ color: "var(--muted-foreground)" }}
                   >
                     /月
                   </span>
                   <span
-                    className="text-[13px] leading-none"
+                    className="text-[13px] leading-none ml-1"
                     style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
                   >
                     {card.original}
                   </span>
                 </div>
                 <p
-                  className="mt-1 text-[12px] leading-none"
+                  className="mt-2 text-[12px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   按年计费 {card.yearly}
@@ -1888,15 +1894,15 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Benefits */}
               <div
-                className="mt-4 flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
+                className="mt-5 flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                <ul className="space-y-2.5">
+                <ul className="space-y-3">
                   {card.benefits.map((benefit, j) => (
                     <li key={j} className="flex items-start gap-2">
                       <Check className="shrink-0 mt-[2px] h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "var(--foreground)" }} />
                       <span
-                        className="text-[11px] leading-[1.5]"
+                        className="text-[11px] leading-[1.55]"
                         style={{ color: "var(--foreground)", fontWeight: 400 }}
                       >
                         {benefit}
@@ -1905,14 +1911,6 @@ function MembershipCards({ open }: { open: boolean }) {
                   ))}
                 </ul>
               </div>
-
-              {/* Tagline */}
-              <p
-                className="mt-3 text-[11px] leading-[1.5]"
-                style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
-              >
-                {card.tagline}
-              </p>
             </div>
           </div>
         ))}
