@@ -324,6 +324,7 @@ function ParentPage() {
   const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
   const [learner, setLearner] = useState("Amy");
   const [learnerOpen, setLearnerOpen] = useState(false);
+  const [membershipOpen, setMembershipOpen] = useState(false);
 
   const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
   const accent = tab === "talk" ? SHIRIN : WORDIE;
@@ -390,7 +391,7 @@ function ParentPage() {
             {/* Membership pill: single actionable row */}
             <button
               type="button"
-              onClick={() => { /* TODO: open membership management */ }}
+              onClick={() => setMembershipOpen(true)}
               aria-label="升级或管理会员"
               className="w-full mt-4 flex items-center gap-1 rounded-full p-1 active:scale-[0.98] transition-transform"
               style={{ background: "rgba(255,255,255,0.92)" }}
