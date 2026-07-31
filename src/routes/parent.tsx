@@ -1873,7 +1873,7 @@ function MembershipCards({ open }: { open: boolean }) {
                       className="text-[28px] leading-none tracking-tight"
                       style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
                     >
-                      {(cycle === "month" ? card.price : card.yearlyPrice).replace("¥", "")}
+                      {formatNumber(cycle === "month" ? card.price : card.yearlyPrice)}
                     </span>
                     <span
                       className="text-[13px] leading-none ml-1"
@@ -1886,7 +1886,7 @@ function MembershipCards({ open }: { open: boolean }) {
                         className="text-[13px] leading-none ml-1"
                         style={{ color: "var(--muted-foreground)", textDecoration: "line-through" }}
                       >
-                        {card.original}
+                        ¥{formatNumber(card.original)}
                       </span>
                     )}
                   </div>
@@ -1911,9 +1911,10 @@ function MembershipCards({ open }: { open: boolean }) {
                   className="mt-2 text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
-                  {cycle === "month" ? "按月计费" : `按年计费 ${card.yearly}`}
+                  {cycle === "month" ? "按月计费" : `按年计费 ¥${formatNumber(card.yearly)}`}
                 </p>
               </div>
+
 
               {/* Benefits */}
               <div
