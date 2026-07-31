@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
@@ -111,6 +112,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
 }
 
 function PinInput({ label, value, onChange, autoFocus }: { label: string; value: string; onChange: (v: string) => void; autoFocus?: boolean }) {
+  const [visible, setVisible] = useState(false);
   return (
     <label className="block">
       <div
@@ -127,7 +129,7 @@ function PinInput({ label, value, onChange, autoFocus }: { label: string; value:
           {label}
         </span>
         <input
-          type="password"
+          type={visible ? "text" : "password"}
           inputMode="text"
           autoComplete="off"
           autoFocus={autoFocus}
@@ -137,6 +139,18 @@ function PinInput({ label, value, onChange, autoFocus }: { label: string; value:
           className="flex-1 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
           style={{ color: PAISLEY }}
         />
+        {value.length > 0 && (
+          <button
+            type="button"
+            aria-label={visible ? "隐藏密码" : "显示密码"}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => setVisible((v) => !v)}
+            className="shrink-0 grid place-items-center h-7 w-7 rounded-full transition-opacity active:opacity-60"
+            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+          >
+            {visible ? <EyeOff size={17} strokeWidth={2} /> : <Eye size={17} strokeWidth={2} />}
+          </button>
+        )}
       </div>
     </label>
   );
