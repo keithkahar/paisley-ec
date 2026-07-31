@@ -1906,20 +1906,17 @@ function MembershipCards({ open }: { open: boolean }) {
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 <ul className="space-y-3">
-                  {card.benefits.map((benefit, j) => {
-                    const isInclude = benefit.includes("包含");
-                    return (
+                  {card.benefits.map((benefit, j) => (
                     <li key={j} className="flex items-start gap-2">
                       <Check className="shrink-0 mt-[2px] h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "var(--foreground)" }} />
                       <span
-                        className={`leading-[1.55] ${isInclude ? "text-[13px]" : "text-[11px]"}`}
+                        className="text-[11px] leading-[1.55]"
                         style={{ color: "var(--foreground)", fontWeight: 400 }}
                       >
                         {benefit}
                       </span>
                     </li>
-                    );
-                  })}
+                  ))}
                 </ul>
               </div>
             </div>
