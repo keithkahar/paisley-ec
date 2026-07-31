@@ -1752,6 +1752,10 @@ function MembershipCards({ open }: { open: boolean }) {
     },
   ];
 
+  const maxSavings = Math.max(
+    ...cards.map((c) => parseInt(c.price.replace("¥", ""), 10) * 12 - parseInt(c.yearly.replace("¥", ""), 10))
+  );
+
   const [cycle, setCycle] = useState<"month" | "year">("month");
 
   // Default to the Premium card, centered
