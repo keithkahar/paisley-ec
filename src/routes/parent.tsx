@@ -332,14 +332,23 @@ function ParentPage() {
             <div className="w-full">
             {/* AI quota row: label left, usage right */}
             <div className="flex items-baseline justify-between gap-2">
-              <span className="text-[11px] font-semibold leading-none text-white">
+              <span
+                className="text-[11px] font-semibold leading-none"
+                style={{ color: "var(--paisley-yellow)" }}
+              >
                 今日AI已用
               </span>
               <span className="flex items-baseline gap-1.5">
-                <span className="text-[22px] font-medium leading-none text-white tabular-nums">
+                <span
+                  className="text-[22px] font-medium leading-none tabular-nums"
+                  style={{ color: "var(--paisley-yellow)" }}
+                >
                   10
                 </span>
-                <span className="text-[11px] font-semibold leading-none text-white">
+                <span
+                  className="text-[11px] font-semibold leading-none"
+                  style={{ color: "var(--paisley-yellow)" }}
+                >
                   min
                 </span>
                 <span className="text-[11px] font-semibold leading-none text-white/85">
