@@ -1899,7 +1899,7 @@ function MembershipCards({ open }: { open: boolean }) {
                   className="mt-2 text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
-                  按年计费 {card.yearly}
+                  {cycle === "month" ? "按月计费" : `按年计费 ${card.yearly}`}
                 </p>
               </div>
 
