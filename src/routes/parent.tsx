@@ -1781,7 +1781,14 @@ function MembershipCards({ open }: { open: boolean }) {
                   boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
                 }}
               >
-                {k === "month" ? "月度" : "年度"}
+                {k === "month" ? (
+                  "连续包月"
+                ) : (
+                  <span className="inline-flex items-center gap-1.5">
+                    <span>连续包年</span>
+                    <span style={{ color: "var(--paisley)" }}>最高立省 ¥1,680</span>
+                  </span>
+                )}
               </button>
             );
           })}
