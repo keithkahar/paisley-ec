@@ -1893,7 +1893,7 @@ function MembershipCards({ open }: { open: boolean }) {
                   </div>
                 </div>
                 <p
-                  className="mt-2 text-[12px] leading-none"
+                  className="mt-2 text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   按年计费 {card.yearly}
