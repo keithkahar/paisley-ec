@@ -1701,7 +1701,10 @@ function MembershipCards({ open }: { open: boolean }) {
       price: "¥48",
       original: "¥68",
       yearly: "¥368",
-      features: [{ icon: "device", label: "多设备" }],
+      features: [
+        { icon: "device", label: "多设备" },
+        { icon: "cloud", label: "云储存" },
+      ],
       benefits: [
         "每日 10 分钟 AI 口语练习",
         "myWordie 基础词汇学习",
@@ -1852,13 +1855,13 @@ function MembershipCards({ open }: { open: boolean }) {
                   <div className="flex items-baseline gap-0.5">
                     <span
                       className="text-[18px] leading-none self-start mt-1"
-                      style={{ color: card.title === "Premium" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: 300 }}
+                      style={{ color: "var(--foreground)", fontWeight: 300 }}
                     >
                       ¥
                     </span>
                     <span
                       className="text-[28px] leading-none tracking-tight"
-                      style={{ fontFamily: "var(--font-display)", color: card.title === "Premium" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: 300 }}
+                      style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
                     >
                       {card.price.replace("¥", "")}
                     </span>
