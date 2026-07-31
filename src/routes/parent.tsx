@@ -1805,7 +1805,7 @@ function MembershipCards({ open }: { open: boolean }) {
             data-card
             data-index={i}
             className="snap-center shrink-0 h-full px-1"
-            style={{ width: "calc(100% - 28px)", scrollSnapStop: "always" }}
+            style={{ width: "100%", scrollSnapStop: "always" }}
           >
             <div
               className="rounded-[28px] p-5 h-full flex flex-col"
