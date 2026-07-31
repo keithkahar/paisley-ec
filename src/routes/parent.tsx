@@ -381,8 +381,7 @@ function ParentPage() {
                 今日AI额度
               </span>
               <span
-                className="text-[46px] font-medium leading-none text-white tabular-nums"
-                style={{ letterSpacing: "-0.02em" }}
+                className="text-[22px] font-medium leading-none text-white tabular-nums"
               >
                 10
               </span>
