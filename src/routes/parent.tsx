@@ -561,26 +561,9 @@ function ParentPage() {
           brandColor={SHEET_BRAND.paisley}
           onClose={() => setMembershipOpen(false)}
         >
-          <div className="flex flex-col gap-3">
-            <div
-              className="rounded-3xl p-4"
-              style={{ background: "color-mix(in oklab, var(--paisley) 8%, white)" }}
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "color-mix(in oklab, var(--paisley) 60%, white)" }}>
-                当前等级
-              </p>
-              <p className="mt-1 text-[22px] font-medium leading-none" style={{ color: PAISLEY, fontFamily: "var(--font-display)" }}>
-                Premium Plus
-              </p>
-              <p className="mt-2 text-[13px] font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 60%, white)" }}>
-                有效期至 Jun 18, 2026
-              </p>
-            </div>
-            <p className="text-[13px] text-center" style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}>
-              Membership detail page 设计中…
-            </p>
-          </div>
+          <MembershipCards />
         </StandardSheet>
+
 
         {/* Bottom sheet */}
         <StandardSheet
