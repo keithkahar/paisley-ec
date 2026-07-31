@@ -1700,10 +1700,10 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Basic",
       subtitle: "建力习惯",
-      price: "¥48",
-      yearlyPrice: "¥38",
-      original: "¥48",
-      yearly: "¥456",
+      price: 48,
+      yearlyPrice: 38,
+      original: 48,
+      yearly: 456,
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1719,10 +1719,10 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Premium",
       subtitle: "成长方案",
-      price: "¥88",
-      yearlyPrice: "¥68",
-      original: "¥88",
-      yearly: "¥816",
+      price: 88,
+      yearlyPrice: 68,
+      original: 88,
+      yearly: 816,
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1738,10 +1738,10 @@ function MembershipCards({ open }: { open: boolean }) {
     {
       title: "Premium Plus",
       subtitle: "高能优选",
-      price: "¥128",
-      yearlyPrice: "¥98",
-      original: "¥128",
-      yearly: "¥1176",
+      price: 128,
+      yearlyPrice: 98,
+      original: 128,
+      yearly: 1176,
       features: [
         { icon: "device", label: "多设备" },
         { icon: "cloud", label: "云储存" },
@@ -1755,8 +1755,9 @@ function MembershipCards({ open }: { open: boolean }) {
   ];
 
   const maxSavings = Math.max(
-    ...cards.map((c) => parseInt(c.price.replace("¥", ""), 10) * 12 - parseInt(c.yearly.replace("¥", ""), 10))
+    ...cards.map((c) => c.price * 12 - c.yearly)
   );
+
 
   const [cycle, setCycle] = useState<"month" | "year">("month");
 
