@@ -2270,43 +2270,43 @@ function AddLearnerSheet({
       <StandardSheet open={open} title="Add A Learner" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
         <div className="flex flex-col h-full">
           <div className="mt-5 flex flex-col items-center">
-            <div className="relative h-28 w-28">
+            <div className="relative h-40 w-40">
               <div
                 className="h-full w-full rounded-full grid place-items-center"
                 style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
               >
-                <span className="text-[34px] font-medium leading-none" style={{ color: PAISLEY }}>
+                <span className="text-[56px] font-medium leading-none" style={{ color: PAISLEY, letterSpacing: "-0.02em" }}>
                   {initials}
                 </span>
               </div>
-              <span className="absolute top-3 left-3 -translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border">
+              <span className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-white border border-border">
                 <Camera className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </span>
-              <span className="absolute top-3 right-3 translate-x-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border">
+              <span className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-white border border-border">
                 <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </span>
             </div>
           </div>
 
-          <div className="mt-6 space-y-2.5">
+          <div className="mt-6 space-y-3">
             <div
-              className="flex items-center gap-2 rounded-full h-[56px] px-5 bg-white border"
+              className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
               style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
             >
-              <span className="shrink-0 text-[15px] font-semibold leading-none" style={{ color: PAISLEY }}>
+              <span className="shrink-0 text-[16px] font-semibold leading-none" style={{ color: PAISLEY, letterSpacing: "-0.01em" }}>
                 Name
               </span>
               <input
                 value={given}
                 onChange={(e) => setGiven(e.target.value)}
                 placeholder="Given Name"
-                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
               <input
                 value={family}
                 onChange={(e) => setFamily(e.target.value)}
                 placeholder="Family Name"
-                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[15px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
             </div>
 
@@ -2321,7 +2321,7 @@ function AddLearnerSheet({
                     key={opt.key}
                     type="button"
                     onClick={() => setGender(opt.key)}
-                    className="h-[56px] px-4 shrink-0 rounded-full text-[15px] font-medium transition-colors"
+                    className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
                     style={
                       active
                         ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
@@ -2339,7 +2339,7 @@ function AddLearnerSheet({
               <button
                 type="button"
                 onClick={() => setBdayOpen(true)}
-                className="flex-1 min-w-0 h-[56px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[15px] font-medium"
+                className="flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] font-medium"
                 style={{
                   borderColor: "color-mix(in oklab, var(--paisley) 55%, white)",
                   color: birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)",
