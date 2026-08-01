@@ -2238,6 +2238,7 @@ function AddLearnerSheet({
   const [birthday, setBirthday] = useState("");
   const [bdayOpen, setBdayOpen] = useState(false);
   const [error, setError] = useState("");
+  const [avatarScale, setAvatarScale] = useState(1);
 
   useEffect(() => {
     if (!open) return;
@@ -2246,6 +2247,7 @@ function AddLearnerSheet({
     setGender("");
     setBirthday("");
     setError("");
+    setAvatarScale(1);
   }, [open]);
 
   if (!open) return null;
@@ -2275,7 +2277,14 @@ function AddLearnerSheet({
                 className="h-full w-full rounded-full grid place-items-center"
                 style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
               >
-                <span className="text-[56px] font-medium leading-none" style={{ color: PAISLEY, letterSpacing: "-0.02em" }}>
+                <span
+                  className="text-[56px] font-medium leading-none"
+                  style={{
+                    color: PAISLEY,
+                    letterSpacing: "-0.02em",
+                    transform: `scale(${avatarScale})`,
+                  }}
+                >
                   {initials}
                 </span>
               </div>
@@ -2286,6 +2295,17 @@ function AddLearnerSheet({
                 <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </span>
             </div>
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.01}
+              value={avatarScale}
+              onChange={(e) => setAvatarScale(Number(e.target.value))}
+              className="mt-4 w-[38%] h-1 accent-current opacity-70"
+              style={{ color: "var(--muted-foreground)" }}
+              aria-label="Zoom"
+            />
           </div>
 
           <div className="mt-6 space-y-3">
