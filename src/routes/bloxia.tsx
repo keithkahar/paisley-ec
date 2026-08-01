@@ -211,6 +211,8 @@ function BloxiaPage() {
               onSelectItem={(it) => setSelectedItem(it)}
             />
           )}
+        </div>
+
         {page === "map" && <BottomTabBar />}
         {selectedPlace && (
           <PlaceSheet
