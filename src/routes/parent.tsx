@@ -1912,7 +1912,7 @@ function MembershipCards({ open }: { open: boolean }) {
 
 
               {/* Price */}
-              <div className="mt-[18px]">
+              <div className="mt-3">
                 <div className="flex items-end justify-between gap-2">
                   <div className="flex items-baseline gap-0.5">
                     <span
