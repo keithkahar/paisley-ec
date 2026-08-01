@@ -310,9 +310,7 @@ function ParentPage() {
   const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
   const [learner, setLearner] = useState("Amy");
   const [learnerOpen, setLearnerOpen] = useState(false);
-  const [learnerDeleteMode, setLearnerDeleteMode] = useState(false);
   const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
-  const [deletePwOpen, setDeletePwOpen] = useState(false);
   const [addLearnerOpen, setAddLearnerOpen] = useState(false);
   const [membershipOpen, setMembershipOpen] = useState(false);
 
