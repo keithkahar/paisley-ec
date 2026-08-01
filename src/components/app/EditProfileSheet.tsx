@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { useLearners } from "@/lib/learners";
-import { BottomAction } from "@/components/app/BottomAction";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
 const PROFILE_STORAGE_KEY = "my_profile_v1";
@@ -355,11 +354,10 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             </div>
           </div>
 
-          <div className="mt-auto shrink-0 h-[49px]" aria-hidden />
-          <BottomAction>
+          <div className="mt-auto shrink-0">
             {error && (
               <p
-                className="absolute bottom-full left-0 right-0 px-5 mb-2 text-center text-[14px] font-medium"
+                className="mb-2 text-center text-[14px] font-medium"
                 style={{ color: "#e5484d", letterSpacing: "-0.01em" }}
               >
                 {error}
@@ -368,12 +366,12 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             <button
               type="button"
               onClick={onSave}
-              className="w-full h-[49px] rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+              className="w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
               style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
             >
               Save
             </button>
-          </BottomAction>
+          </div>
         </div>
         </StandardSheet>
 
@@ -626,17 +624,14 @@ function BirthdaySheet({
         </div>
 
         {/* Save */}
-        <div className="shrink-0 h-[49px]" aria-hidden />
-        <BottomAction>
-          <button
-            type="button"
-            onClick={confirm}
-            className="w-full h-[49px] rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
-            style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
-          >
-            Save
-          </button>
-        </BottomAction>
+        <button
+          type="button"
+          onClick={confirm}
+          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+          style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
+        >
+          Save
+        </button>
       </div>
     </StandardSheet>
   );

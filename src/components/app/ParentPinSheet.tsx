@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
-import { BottomAction } from "@/components/app/BottomAction";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
 const PAISLEY = "var(--paisley)";
@@ -82,33 +81,31 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             </p>
           )}
 
-          <BottomAction>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-semibold text-white transition-transform active:scale-[0.98]"
+            style={{ background: PAISLEY }}
+          >
+            {isSet ? "设置密码" : "解锁"}
+          </button>
+
+          {!isSet && (
             <button
               type="button"
-              onClick={handleSubmit}
-              className="w-full h-[49px] rounded-full px-4 text-[17px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
+              onClick={() => {
+                localStorage.removeItem(PIN_STORAGE_KEY);
+                setPin("");
+                setConfirmPin("");
+                setError("");
+                setMode("set");
+              }}
+              className="mt-3 w-full text-[12px] font-semibold"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
-              {isSet ? "设置密码" : "解锁"}
+              忘记密码？重新设置
             </button>
-
-            {!isSet && (
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.removeItem(PIN_STORAGE_KEY);
-                  setPin("");
-                  setConfirmPin("");
-                  setError("");
-                  setMode("set");
-                }}
-                className="absolute top-full left-0 right-0 mt-3 w-full text-[12px] font-semibold"
-                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-              >
-                忘记密码？重新设置
-              </button>
-            )}
-          </BottomAction>
+          )}
       </div>
     </StandardSheet>
   );

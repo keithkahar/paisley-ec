@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { BottomAction } from "@/components/app/BottomAction";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
@@ -1839,17 +1838,16 @@ function AvatarPickerSheet({
             );
           })}
         </div>
-        <div className="mt-auto pt-5 h-[49px] shrink-0" aria-hidden />
-        <BottomAction>
+        <div className="mt-auto pt-5">
           <button
             type="button"
             onClick={() => onConfirm(pending)}
-            className="w-full h-[49px] rounded-full text-[15px] font-semibold"
+            className="w-full h-12 rounded-full text-[15px] font-semibold"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             {confirmLabel}
           </button>
-        </BottomAction>
+        </div>
       </div>
     </Sheet>
   );

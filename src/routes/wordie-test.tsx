@@ -616,26 +616,26 @@ function QuizView({
       </div>
 
       {/* Nav */}
-      <div className="mt-6 flex gap-2.5">
-          {stageIdx > 0 && (
-            <button
-              onClick={onPrev}
-              className="flex-1 h-[49px] rounded-full font-semibold border border-border bg-white text-[14px]"
-              style={{ color: "var(--wordie)" }}
-            >
-              Previous
-            </button>
-          )}
+      <div className="mt-5 flex gap-2.5">
+        {stageIdx > 0 && (
           <button
-            onClick={onNext}
-            className="flex-[2] h-[49px] rounded-full font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
-            style={{
-              background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)"
-            }}
+            onClick={onPrev}
+            className="flex-1 rounded-full py-3.5 font-semibold border border-border bg-white text-[14px]"
+            style={{ color: "var(--wordie)" }}
           >
-            {isLast ? "Submit" : "Next"}
-            {!isLast && <ChevronRight className="h-4 w-4" />}
+            Previous
           </button>
+        )}
+        <button
+          onClick={onNext}
+          className="flex-[2] rounded-full py-3.5 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
+          style={{
+            background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)"
+          }}
+        >
+          {isLast ? "Submit" : "Next"}
+          {!isLast && <ChevronRight className="h-4 w-4" />}
+        </button>
       </div>
     </div>
   );

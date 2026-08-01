@@ -3,7 +3,6 @@ import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import type { Learner } from "@/lib/learners";
 import { AvatarDraggable } from "@/components/app/EditProfileSheet";
-import { BottomAction } from "@/components/app/BottomAction";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -241,16 +240,14 @@ function DeleteLearnerPasswordSheet({
           </p>
         )}
 
-        <BottomAction>
-          <button
-            type="button"
-            onClick={submit}
-            className="w-full h-[49px] rounded-full px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
-            style={{ background: DANGER }}
-          >
-            Delete
-          </button>
-        </BottomAction>
+        <button
+          type="button"
+          onClick={submit}
+          className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+          style={{ background: DANGER }}
+        >
+          Delete
+        </button>
       </div>
     </StandardSheet>
   );
@@ -520,25 +517,21 @@ function AddLearnerSheet({
             </div>
           </div>
 
-          <div className="mt-auto shrink-0 h-[49px]" aria-hidden />
-          <BottomAction>
+          <div className="mt-auto shrink-0">
             {error && (
-              <p
-                className="absolute bottom-full left-0 right-0 px-5 mb-2 text-center text-[14px] font-medium"
-                style={{ color: DANGER, letterSpacing: "-0.01em" }}
-              >
+              <p className="mb-2 text-center text-[14px] font-medium" style={{ color: DANGER, letterSpacing: "-0.01em" }}>
                 {error}
               </p>
             )}
             <button
               type="button"
               onClick={submit}
-              className="w-full h-[49px] rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+              className="w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
               style={{ background: PAISLEY }}
             >
               Save
             </button>
-          </BottomAction>
+          </div>
         </div>
       </StandardSheet>
 
@@ -643,19 +636,16 @@ function LearnerBirthdaySheet({
           )}
         </div>
 
-        <div className="shrink-0 h-[49px]" aria-hidden />
-        <BottomAction>
-          <button
-            type="button"
-            onClick={() =>
-              onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
-            }
-            className="w-full h-[49px] rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
-            style={{ background: PAISLEY }}
-          >
-            Save
-          </button>
-        </BottomAction>
+        <button
+          type="button"
+          onClick={() =>
+            onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
+          }
+          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+          style={{ background: PAISLEY }}
+        >
+          Save
+        </button>
       </div>
     </StandardSheet>
   );

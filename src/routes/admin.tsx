@@ -3,7 +3,6 @@ import { ChevronLeft, Pencil, ChevronDown, Check, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { StandardSheet } from "@/components/app/StandardSheet";
-import { BottomAction } from "@/components/app/BottomAction";
 import { CalendarIcon, ChevronLeft as CalPrev, ChevronRight as CalNext, X as CloseX } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -1374,16 +1373,15 @@ function AdminPageInner() {
                     />
                   )}
               </div>
-              <div className="mt-4 shrink-0 h-[49px]" aria-hidden />
-              <BottomAction>
+              <div className="mt-4 shrink-0">
                 <button
                   onClick={saveEditor}
-                  className="w-full h-[49px] rounded-full text-[14px] font-normal text-white active:scale-[0.99] transition-transform"
+                  className="w-full h-12 rounded-full text-[14px] font-normal text-white active:scale-[0.99] transition-transform"
                   style={{ background: PAISLEY }}
                 >
                   保存
                 </button>
-              </BottomAction>
+              </div>
             </div>
           )}
         </StandardSheet>
@@ -1508,10 +1506,9 @@ function AdminPageInner() {
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" accentColor={YELLOW} />
                   </SRField>
               </div>
-              <div className="mt-4 shrink-0 h-[49px]" aria-hidden />
-              <BottomAction>
-                <button onClick={saveSrBookEditor} className="w-full h-[49px] rounded-full text-[14px] font-medium" style={{ background: YELLOW, color: "#fff" }}>保存</button>
-              </BottomAction>
+              <div className="mt-4 shrink-0">
+                <button onClick={saveSrBookEditor} className="w-full h-12 rounded-full text-[14px] font-medium" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+              </div>
             </div>
           </StandardSheet>
         )}
@@ -1555,10 +1552,9 @@ function AdminPageInner() {
                     <textarea value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
               </div>
-              <div className="mt-4 shrink-0 h-[49px]" aria-hidden />
-              <BottomAction>
-                <button onClick={saveSrUnitEditor} className="w-full h-[49px] rounded-full text-[14px] font-medium" style={{ background: YELLOW, color: "#fff" }}>保存</button>
-              </BottomAction>
+              <div className="mt-4 shrink-0">
+                <button onClick={saveSrUnitEditor} className="w-full h-12 rounded-full text-[14px] font-medium" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+              </div>
             </div>
           </StandardSheet>
         )}
