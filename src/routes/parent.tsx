@@ -1886,25 +1886,21 @@ function MembershipCards({ open }: { open: boolean }) {
               </h3>
 
               {/* Subtitle + features */}
-              <div className="mt-2 flex items-end justify-between gap-2">
+              <div className="mt-2 flex items-baseline justify-between gap-2">
                 <p
-                  className="text-[13px] leading-snug"
+                  className="text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   {card.subtitle}
                 </p>
-                <div className="flex flex-wrap items-end justify-end gap-2 shrink-0 leading-none">
-                  {card.features.map((f, fi) => (
-                    <span
-                      key={fi}
-                      className="text-[11px] font-normal"
-                      style={{ color: "var(--muted-foreground)" }}
-                    >
-                      {f.label}
-                    </span>
-                  ))}
-                </div>
+                <span
+                  className="shrink-0 text-[11px] font-normal leading-none"
+                  style={{ color: "var(--muted-foreground)" }}
+                >
+                  {card.features.map((f) => f.label).join(" ")}
+                </span>
               </div>
+
 
 
 
