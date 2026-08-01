@@ -1,87 +1,106 @@
 /**
- * Shared learner roster — persisted in localStorage so additions/deletions
- * survive reloads and stay in sync between /parent and /profile.
+ * Shared learner roster — single source of truth for /profile and /parent.
+ * Persisted in localStorage and exposed through a subscribable store so any
+ * mounted page updates instantly (same tab via listeners, other tabs via the
+ * `storage` event).
  */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 
 const LEARNERS_KEY = "paisley.learners.v1";
 const SELECTED_KEY = "paisley.learners.selected.v1";
 const DEFAULT_LEARNERS = ["Amy", "Jack"];
 
-function readList(): string[] {
-  if (typeof window === "undefined") return DEFAULT_LEARNERS;
+type State = { learners: string[]; learner: string };
+
+const SERVER_STATE: State = { learners: DEFAULT_LEARNERS, learner: DEFAULT_LEARNERS[0] };
+
+let state: State = SERVER_STATE;
+let hydrated = false;
+const listeners = new Set<() => void>();
+
+function emit() {
+  listeners.forEach((l) => l());
+}
+
+function readState(): State {
+  let learners = DEFAULT_LEARNERS;
   try {
     const raw = window.localStorage.getItem(LEARNERS_KEY);
-    if (!raw) return DEFAULT_LEARNERS;
-    const arr = JSON.parse(raw);
-    if (!Array.isArray(arr)) return DEFAULT_LEARNERS;
-    const names = arr.filter((n): n is string => typeof n === "string" && n.trim().length > 0);
-    return names.length ? names : DEFAULT_LEARNERS;
+    const arr = raw ? JSON.parse(raw) : null;
+    if (Array.isArray(arr)) {
+      const names = arr.filter((n): n is string => typeof n === "string" && n.trim().length > 0);
+      if (names.length) learners = names;
+    }
   } catch {
-    return DEFAULT_LEARNERS;
+    /* ignore */
   }
+  let learner = "";
+  try {
+    learner = window.localStorage.getItem(SELECTED_KEY) ?? "";
+  } catch {
+    /* ignore */
+  }
+  if (!learner || !learners.includes(learner)) learner = learners[0];
+  return { learners, learner };
 }
 
-function readSelected(list: string[]): string {
-  if (typeof window === "undefined") return "";
+function persist(next: State) {
   try {
-    const s = window.localStorage.getItem(SELECTED_KEY) ?? "";
-    return s && list.includes(s) ? s : "";
-  } catch {
-    return "";
-  }
-}
-
-function write(key: string, value: unknown) {
-  try {
-    window.localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
+    window.localStorage.setItem(LEARNERS_KEY, JSON.stringify(next.learners));
+    window.localStorage.setItem(SELECTED_KEY, next.learner);
   } catch {
     /* ignore */
   }
 }
 
-export function useLearners(fallbackSelected = "") {
-  const [learners, setLearners] = useState<string[]>(DEFAULT_LEARNERS);
-  const [learner, setLearnerState] = useState<string>(fallbackSelected);
+function setState(next: State, write = true) {
+  state = next;
+  if (write) persist(next);
+  emit();
+}
 
-  // Hydrate after mount (localStorage is browser-only).
+function hydrate() {
+  if (hydrated || typeof window === "undefined") return;
+  hydrated = true;
+  state = readState();
+  window.addEventListener("storage", (e) => {
+    if (e.key === LEARNERS_KEY || e.key === SELECTED_KEY) setState(readState(), false);
+  });
+  emit();
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+const getSnapshot = () => state;
+const getServerSnapshot = () => SERVER_STATE;
+
+export function useLearners() {
   useEffect(() => {
-    const list = readList();
-    setLearners(list);
-    const sel = readSelected(list);
-    if (sel) setLearnerState(sel);
+    if (!hydrated) hydrate();
   }, []);
+  const snap = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const setLearner = useCallback((name: string) => {
-    setLearnerState(name);
-    write(SELECTED_KEY, name);
+    if (!name) return;
+    setState({ learners: state.learners, learner: name });
   }, []);
 
   const addLearner = useCallback((name: string) => {
     const clean = name.trim();
     if (!clean) return;
-    setLearners((ls) => {
-      const next = ls.includes(clean) ? ls : [...ls, clean];
-      write(LEARNERS_KEY, next);
-      return next;
-    });
-    setLearnerState(clean);
-    write(SELECTED_KEY, clean);
+    const learners = state.learners.includes(clean) ? state.learners : [...state.learners, clean];
+    setState({ learners, learner: clean });
   }, []);
 
   const deleteLearner = useCallback((name: string) => {
-    setLearners((ls) => {
-      if (ls.length <= 1) return ls;
-      const next = ls.filter((n) => n !== name);
-      write(LEARNERS_KEY, next);
-      setLearnerState((cur) => {
-        if (cur !== name) return cur;
-        write(SELECTED_KEY, next[0]);
-        return next[0];
-      });
-      return next;
-    });
+    if (state.learners.length <= 1) return;
+    const learners = state.learners.filter((n) => n !== name);
+    const learner = state.learner === name ? learners[0] : state.learner;
+    setState({ learners, learner });
   }, []);
 
-  return { learners, learner, setLearner, addLearner, deleteLearner };
+  return { learners: snap.learners, learner: snap.learner, setLearner, addLearner, deleteLearner };
 }

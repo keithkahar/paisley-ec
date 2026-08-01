@@ -76,6 +76,7 @@ function ProfilePage() {
   }, []);
   const PROFILE_NAME = `${profile.givenName} ${profile.familyName}`.trim();
   const DISPLAY_NAME = learner || PROFILE_NAME;
+  void PROFILE_NAME;
   const INITIALS = DISPLAY_NAME.split(/\s+/)
     .slice(0, 2)
     .map((part) => part[0] ?? "")
@@ -255,7 +256,7 @@ function ProfilePage() {
       <LearnerSelectFlow
         open={learnerOpen}
         onClose={() => setLearnerOpen(false)}
-        learners={PROFILE_NAME && !learners.includes(PROFILE_NAME) ? [PROFILE_NAME, ...learners] : learners}
+        learners={learners}
         learner={DISPLAY_NAME}
         onSelect={setLearner}
         onAdd={addLearner}

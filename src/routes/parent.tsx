@@ -308,7 +308,7 @@ function ParentPage() {
   });
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
-  const { learners, learner, setLearner, addLearner, deleteLearner } = useLearners("Amy");
+  const { learners, learner, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
   const [addLearnerOpen, setAddLearnerOpen] = useState(false);
