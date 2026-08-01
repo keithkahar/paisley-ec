@@ -2238,6 +2238,7 @@ function AddLearnerSheet({
   const [birthday, setBirthday] = useState("");
   const [bdayOpen, setBdayOpen] = useState(false);
   const [error, setError] = useState("");
+  const [avatarScale, setAvatarScale] = useState(1);
 
   useEffect(() => {
     if (!open) return;
@@ -2246,6 +2247,7 @@ function AddLearnerSheet({
     setGender("");
     setBirthday("");
     setError("");
+    setAvatarScale(1);
   }, [open]);
 
   if (!open) return null;
@@ -2275,7 +2277,14 @@ function AddLearnerSheet({
                 className="h-full w-full rounded-full grid place-items-center"
                 style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
               >
-                <span className="text-[56px] font-medium leading-none" style={{ color: PAISLEY, letterSpacing: "-0.02em" }}>
+                <span
+                  className="text-[56px] font-medium leading-none"
+                  style={{
+                    color: PAISLEY,
+                    letterSpacing: "-0.02em",
+                    transform: `scale(${avatarScale})`,
+                  }}
+                >
                   {initials}
                 </span>
               </div>
