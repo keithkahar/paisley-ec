@@ -1897,9 +1897,16 @@ function MembershipCards({ open }: { open: boolean }) {
                   className="shrink-0 text-[11px] font-normal leading-none"
                   style={{ color: "var(--muted-foreground)" }}
                 >
-                  {card.features.map((f) => f.label).join(" ")}
+                  {card.features.map((f) => f.label).join("·")}
                 </span>
               </div>
+
+              {/* Divider */}
+              <div
+                className="mt-3 w-full"
+                style={{ height: 1, background: "color-mix(in oklab, var(--foreground) 10%, transparent)" }}
+              />
+
 
 
 
