@@ -1978,7 +1978,7 @@ function MembershipCards({ open }: { open: boolean }) {
                   <button
                     type="button"
                     onClick={() => scrollToCard(i)}
-                    className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
+                    className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
                     style={{ background: "var(--paisley)" }}
                   >
                     订阅
