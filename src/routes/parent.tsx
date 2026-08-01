@@ -1953,17 +1953,36 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Embedded CTA */}
               <div className="mt-[18px]">
-                <button
-                  type="button"
-                  className="relative w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
-                  style={{ background: "var(--paisley)" }}
-                >
-                  <span className="absolute left-1/3 -translate-x-1/2 top-1/2 -translate-y-1/2">订阅</span>
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                    升级
-                    <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={2.5} style={{ color: "white" }} />
-                  </span>
-                </button>
+                {cards[i + 1] ? (
+                  <button
+                    type="button"
+                    className="relative w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
+                    style={{ background: "var(--paisley)" }}
+                  >
+                    <span
+                      className="absolute left-1/3 -translate-x-1/2 top-1/2 -translate-y-1/2"
+                      onClick={() => scrollToCard(i)}
+                    >
+                      订阅
+                    </span>
+                    <span
+                      className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1 cursor-pointer"
+                      onClick={() => scrollToCard(i + 1)}
+                    >
+                      升级
+                      <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={2.5} style={{ color: "white" }} />
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => scrollToCard(i)}
+                    className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
+                    style={{ background: "var(--paisley)" }}
+                  >
+                    订阅
+                  </button>
+                )}
               </div>
 
               {/* Benefits */}
