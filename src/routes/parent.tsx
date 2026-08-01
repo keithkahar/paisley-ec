@@ -308,7 +308,7 @@ function ParentPage() {
   });
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
-  const { learnerNames, learner, setLearner, addLearner, deleteLearner } = useLearners();
+  const { learnerNames, learner, displayName, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
   const [addLearnerOpen, setAddLearnerOpen] = useState(false);
@@ -383,7 +383,7 @@ function ParentPage() {
                   className="text-[22px] font-medium leading-none text-white"
                   style={{ letterSpacing: "-0.01em", fontFamily: "var(--font-display)" }}
                 >
-                  {learner}
+                  {displayName}
                 </span>
                 <ChevronDown
                   className="h-4 w-4 shrink-0 transition-transform group-hover:translate-y-0.5"

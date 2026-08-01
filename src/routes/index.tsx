@@ -21,8 +21,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const { learner } = useLearners();
-  const name = learner;
+  const { current, hasLearner, displayName } = useLearners();
+  const name = displayName;
+  const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";
   const navigate = useNavigate();
   const clickCount = useRef(0);
   const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -74,11 +75,29 @@ function Home() {
           <Cloud className="absolute top-44 right-16 w-20 opacity-60" />
 
           <div className="relative flex justify-center">
-            <img
-              src={shirinHero.url}
-              alt="Shirin"
-              className="relative z-10 translate-y-[25px] w-[58%] max-w-[220px] object-contain"
-            />
+            {avatarPath ? (
+              <div
+                className="relative z-10 translate-y-[25px] w-[58%] max-w-[220px] aspect-square rounded-full overflow-hidden bg-white"
+                style={{ boxShadow: "0 8px 24px rgba(1,70,185,0.14)" }}
+              >
+                <img
+                  src={avatarPath}
+                  alt={name}
+                  className="h-full w-full object-cover"
+                  style={{
+                    objectPosition: `${current?.avatarPosX ?? 50}% ${current?.avatarPosY ?? 50}%`,
+                    transform: `scale(${current?.avatarScale ?? 1})`,
+                    transformOrigin: `${current?.avatarPosX ?? 50}% ${current?.avatarPosY ?? 50}%`,
+                  }}
+                />
+              </div>
+            ) : (
+              <img
+                src={shirinHero.url}
+                alt="Shirin"
+                className="relative z-10 translate-y-[25px] w-[58%] max-w-[220px] object-contain"
+              />
+            )}
           </div>
         </section>
 
