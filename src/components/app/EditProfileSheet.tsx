@@ -165,18 +165,18 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
     setToast("Profile Saved");
     setTimeout(() => {
       setToast("");
-      navigate({ to: "/profile" });
+      onSaved?.();
+      onClose();
     }, 600);
   }
 
   return (
-    <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
+    <>
         <StandardSheet
-          open
+          open={open}
           title="Edit Profile"
           brandColor={SHEET_BRAND.paisley}
-          onClose={() => navigate({ to: "/profile" })}
+          onClose={onClose}
         >
         <div className="flex flex-col h-full">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
@@ -313,7 +313,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
 
         {/* Toast — above the Save pill */}
         {toast && (
-          <div className="pointer-events-none absolute inset-x-0 bottom-24 z-40 flex justify-center">
+          <div className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex justify-center">
             <div
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-semibold shadow-lg"
               style={{ background: ACCENT, color: "white" }}
@@ -335,8 +335,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             }}
           />
         )}
-      </div>
-    </PhoneFrame>
+    </>
   );
 }
 
