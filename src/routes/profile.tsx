@@ -52,6 +52,9 @@ function ProfilePage() {
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
   const [profile] = useState(DEFAULT_PROFILE);
+  const { learnerNames, learner, current, setLearner, addLearner, deleteLearner } = useLearners();
+  const [learnerOpen, setLearnerOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const DISPLAY_NAME = current?.name || learner;
   const avatarPos = { x: current?.avatarPosX ?? 50, y: current?.avatarPosY ?? 50, scale: current?.avatarScale ?? 1 };
   const avatarPath = current?.avatarPath ?? "";
