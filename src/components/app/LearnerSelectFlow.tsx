@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { AvatarDraggable } from "@/components/app/EditProfileSheet";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -317,6 +318,8 @@ function AddLearnerSheet({
   const [avatarScale, setAvatarScale] = useState(1);
   const [nameFocused, setNameFocused] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState("");
+  const [avatarPosX, setAvatarPosX] = useState(50);
+  const [avatarPosY, setAvatarPosY] = useState(50);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -329,6 +332,8 @@ function AddLearnerSheet({
     setAvatarScale(1);
     setNameFocused(false);
     setAvatarSrc("");
+    setAvatarPosX(50);
+    setAvatarPosY(50);
   }, [open]);
 
   if (!open) return null;
@@ -356,27 +361,18 @@ function AddLearnerSheet({
         <div className="flex flex-col h-full">
           <div className="mt-5 flex flex-col items-center">
             <div className="relative h-40 w-40">
-              <div
-                className="h-full w-full rounded-full grid place-items-center overflow-hidden"
-                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
-              >
-                {avatarSrc ? (
-                  <img
-                    src={avatarSrc}
-                    alt=""
-                    draggable={false}
-                    className="h-full w-full object-cover pointer-events-none"
-                    style={{ transform: `scale(${avatarScale})` }}
-                  />
-                ) : (
-                  <span
-                    className="text-[56px] font-medium leading-none"
-                    style={{ color: PAISLEY, letterSpacing: "-0.02em", transform: `scale(${avatarScale})` }}
-                  >
-                    {initials}
-                  </span>
-                )}
-              </div>
+              <AvatarDraggable
+                src={avatarSrc}
+                initials={initials}
+                posX={avatarPosX}
+                posY={avatarPosY}
+                scale={avatarScale}
+                onChangePos={(x, y) => {
+                  setAvatarPosX(x);
+                  setAvatarPosY(y);
+                }}
+                onChangeScale={setAvatarScale}
+              />
               <button
                 type="button"
                 aria-label="Choose photo"
@@ -410,6 +406,8 @@ function AddLearnerSheet({
                   if (typeof reader.result === "string") {
                     setAvatarSrc(reader.result);
                     setAvatarScale(1);
+                    setAvatarPosX(50);
+                    setAvatarPosY(50);
                   }
                 };
                 reader.readAsDataURL(file);
