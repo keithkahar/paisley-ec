@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { AvatarDraggable } from "@/components/app/EditProfileSheet";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -317,6 +318,8 @@ function AddLearnerSheet({
   const [avatarScale, setAvatarScale] = useState(1);
   const [nameFocused, setNameFocused] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState("");
+  const [avatarPosX, setAvatarPosX] = useState(50);
+  const [avatarPosY, setAvatarPosY] = useState(50);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -329,6 +332,8 @@ function AddLearnerSheet({
     setAvatarScale(1);
     setNameFocused(false);
     setAvatarSrc("");
+    setAvatarPosX(50);
+    setAvatarPosY(50);
   }, [open]);
 
   if (!open) return null;
