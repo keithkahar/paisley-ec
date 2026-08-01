@@ -572,6 +572,7 @@ function ParentPage() {
           title="Membership"
           brandColor={SHEET_BRAND.paisley}
           onClose={() => setMembershipOpen(false)}
+          height="min(58vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))"
         >
           <MembershipCards open={membershipOpen} />
         </StandardSheet>
