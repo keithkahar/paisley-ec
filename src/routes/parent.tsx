@@ -1944,13 +1944,43 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Embedded CTA */}
               <div className="mt-[18px]">
-                <button
-                  type="button"
-                  className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
-                  style={{ background: "var(--paisley)" }}
-                >
-                  订阅  升级
-                </button>
+                {cards[i + 1] ? (
+                  <div
+                    className="flex items-center gap-2 rounded-full p-1"
+                    style={{ background: "var(--paisley)" }}
+                  >
+                    <button
+                      type="button"
+                      className="h-9 shrink-0 rounded-full px-6 text-[14px] font-bold text-white transition-transform active:scale-[0.98]"
+                      style={{ background: "rgba(255,255,255,0.18)" }}
+                    >
+                      订阅
+                    </button>
+                    <span
+                      className="flex-1 min-w-0 truncate text-center text-[14px] font-normal text-white"
+                    >
+                      升级到 {cards[i + 1].title}
+                    </span>
+                    <button
+                      type="button"
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-transform active:scale-[0.95]"
+                      style={{ background: "rgba(255,255,255,0.18)" }}
+                      aria-label={`升级到 ${cards[i + 1].title}`}
+                    >
+                      <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={2.5} style={{ color: "white" }} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="rounded-full p-1" style={{ background: "var(--paisley)" }}>
+                    <button
+                      type="button"
+                      className="w-full h-9 rounded-full text-[14px] font-bold text-white transition-transform active:scale-[0.98]"
+                      style={{ background: "rgba(255,255,255,0.18)" }}
+                    >
+                      订阅
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Benefits */}
