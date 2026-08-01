@@ -585,29 +585,55 @@ function ParentPage() {
           open={learnerOpen}
           title="Select A Learner"
           brandColor={SHEET_BRAND.paisley}
-          onClose={() => setLearnerOpen(false)}
+          onClose={() => {
+            setLearnerOpen(false);
+            setLearnerDeleteMode(false);
+            setLearnerDeleteTarget("");
+          }}
         >
           <div className="flex flex-col h-full">
             <div className="flex-1">
               {learners.map((n) => {
                 const active = n === learner;
+                const marked = n === learnerDeleteTarget;
                 return (
                   <button
                     key={n}
                     type="button"
                     onClick={() => {
+                      if (learnerDeleteMode) {
+                        setLearnerDeleteTarget((t) => (t === n ? "" : n));
+                        return;
+                      }
                       setLearner(n);
                       setLearnerOpen(false);
                     }}
-                    className="w-full flex items-center justify-between py-3.5 text-left"
+                    className="w-full flex items-center gap-3 py-3.5 text-left"
                   >
+                    {learnerDeleteMode && (
+                      <span
+                        className="h-[22px] w-[22px] shrink-0 rounded-full grid place-items-center"
+                        style={{
+                          border: `1.5px solid color-mix(in oklab, var(--destructive) ${marked ? 100 : 40}%, white)`,
+                        }}
+                      >
+                        {marked && (
+                          <span
+                            className="h-[11px] w-[11px] rounded-full"
+                            style={{ background: "var(--destructive)" }}
+                          />
+                        )}
+                      </span>
+                    )}
                     <span
                       className="text-[15px] font-semibold"
                       style={{ color: active ? PAISLEY : "var(--foreground)" }}
                     >
                       {n}
                     </span>
-                    {active && <Check className="h-5 w-5" strokeWidth={2.5} style={{ color: PAISLEY }} />}
+                    {!learnerDeleteMode && active && (
+                      <Check className="ml-auto h-5 w-5" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                    )}
                   </button>
                 );
               })}
@@ -615,36 +641,73 @@ function ParentPage() {
             <div className="pt-4 flex items-center gap-3">
               <button
                 type="button"
-                aria-label="删除学习者"
-                onClick={() =>
-                  setLearners((ls) => {
-                    if (ls.length <= 1) return ls;
-                    const next = ls.filter((n) => n !== learner);
-                    setLearner(next[0]);
-                    return next;
-                  })
-                }
+                aria-label={learnerDeleteMode ? "退出删除模式" : "进入删除模式"}
+                onClick={() => {
+                  setLearnerDeleteMode((v) => !v);
+                  setLearnerDeleteTarget("");
+                }}
                 className="h-11 w-11 shrink-0 grid place-items-center rounded-full active:scale-95 transition-transform"
-                style={{ border: "1px solid color-mix(in oklab, var(--destructive) 45%, white)" }}
+                style={{
+                  border: "1px solid color-mix(in oklab, var(--destructive) 45%, white)",
+                  background: learnerDeleteMode
+                    ? "color-mix(in oklab, var(--destructive) 10%, white)"
+                    : "white",
+                }}
               >
                 <Trash2 className="h-5 w-5" style={{ color: "var(--destructive)" }} strokeWidth={2} />
               </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setLearners((ls) => [...ls, `Learner ${ls.length + 1}`])
-                }
-                className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
-                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
-              >
-                <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
-                  <Plus className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
-                </span>
-                <span className="text-[15px] font-semibold">Add A Learner</span>
-              </button>
+              {learnerDeleteMode ? (
+                <button
+                  type="button"
+                  disabled={!learnerDeleteTarget || learners.length <= 1}
+                  onClick={() => setDeletePwOpen(true)}
+                  className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-50"
+                  style={{
+                    background: "color-mix(in oklab, var(--destructive) 10%, white)",
+                    color: "var(--destructive)",
+                  }}
+                >
+                  <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
+                    <Minus className="h-4 w-4" strokeWidth={2.5} style={{ color: "var(--destructive)" }} />
+                  </span>
+                  <span className="text-[15px] font-semibold">Delete A Learner</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLearners((ls) => [...ls, `Learner ${ls.length + 1}`])
+                  }
+                  className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+                  style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
+                >
+                  <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
+                    <Plus className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                  </span>
+                  <span className="text-[15px] font-semibold">Add A Learner</span>
+                </button>
+              )}
             </div>
           </div>
         </StandardSheet>
+
+        {/* Delete confirmation — parent password */}
+        <DeleteLearnerPasswordSheet
+          open={deletePwOpen}
+          learner={learnerDeleteTarget}
+          onClose={() => setDeletePwOpen(false)}
+          onConfirm={() => {
+            setLearners((ls) => {
+              if (ls.length <= 1) return ls;
+              const next = ls.filter((n) => n !== learnerDeleteTarget);
+              if (learnerDeleteTarget === learner) setLearner(next[0]);
+              return next;
+            });
+            setDeletePwOpen(false);
+            setLearnerDeleteMode(false);
+            setLearnerDeleteTarget("");
+          }}
+        />
 
         {sheet.type && (
           <BottomSheet title={sheet.title} onClose={() => setSheet({ type: "", title: "" })}>
