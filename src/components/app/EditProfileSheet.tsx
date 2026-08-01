@@ -195,17 +195,17 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 type="button"
                 onClick={onChooseAvatar}
                 aria-label="Choose photo"
-                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <Camera className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+                <Camera className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </button>
               <button
                 type="button"
                 onClick={onClearAvatar}
                 aria-label="Remove photo"
-                className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+                className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+                <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </button>
             </div>
             <input
