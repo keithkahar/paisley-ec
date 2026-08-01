@@ -242,7 +242,7 @@ function EditProfilePage() {
             />
           </div>
 
-          <div className="space-y-3 mt-auto -translate-y-[14px]">
+          <div className="mt-6 space-y-3">
             {/* Name — single pill: label + given + family */}
             <div
               className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
@@ -313,19 +313,17 @@ function EditProfilePage() {
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Sticky save bar */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 pt-3 pb-5 bg-white">
           <button
             type="button"
             onClick={onSave}
-            className="w-full h-12 rounded-full text-[15px] font-semibold active:scale-[0.99] transition-transform"
+            className="mt-auto shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
             style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
           >
             Save
           </button>
         </div>
+        </StandardSheet>
 
         {/* Toast — above the Save pill */}
         {toast && (
