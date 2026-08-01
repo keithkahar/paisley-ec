@@ -123,8 +123,8 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   const [toast, setToast] = useState<string>("");
 
   useEffect(() => {
-    setForm(loadProfile());
-  }, []);
+    if (open) setForm(loadProfile());
+  }, [open]);
 
   const initials = useMemo(() => computeInitials(form.givenName, form.familyName), [form.givenName, form.familyName]);
 
