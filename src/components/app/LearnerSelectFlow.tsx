@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
@@ -316,6 +316,8 @@ function AddLearnerSheet({
   const [error, setError] = useState("");
   const [avatarScale, setAvatarScale] = useState(1);
   const [nameFocused, setNameFocused] = useState(false);
+  const [avatarSrc, setAvatarSrc] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -326,6 +328,7 @@ function AddLearnerSheet({
     setError("");
     setAvatarScale(1);
     setNameFocused(false);
+    setAvatarSrc("");
   }, [open]);
 
   if (!open) return null;
@@ -354,23 +357,65 @@ function AddLearnerSheet({
           <div className="mt-5 flex flex-col items-center">
             <div className="relative h-40 w-40">
               <div
-                className="h-full w-full rounded-full grid place-items-center"
+                className="h-full w-full rounded-full grid place-items-center overflow-hidden"
                 style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
               >
-                <span
-                  className="text-[56px] font-medium leading-none"
-                  style={{ color: PAISLEY, letterSpacing: "-0.02em", transform: `scale(${avatarScale})` }}
-                >
-                  {initials}
-                </span>
+                {avatarSrc ? (
+                  <img
+                    src={avatarSrc}
+                    alt=""
+                    draggable={false}
+                    className="h-full w-full object-cover pointer-events-none"
+                    style={{ transform: `scale(${avatarScale})` }}
+                  />
+                ) : (
+                  <span
+                    className="text-[56px] font-medium leading-none"
+                    style={{ color: PAISLEY, letterSpacing: "-0.02em", transform: `scale(${avatarScale})` }}
+                  >
+                    {initials}
+                  </span>
+                )}
               </div>
-              <span className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white border border-border">
+              <button
+                type="button"
+                aria-label="Choose photo"
+                onClick={() => fileRef.current?.click()}
+                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white border border-border z-10 active:scale-95 transition-transform"
+              >
                 <Camera className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-              </span>
-              <span className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white border border-border">
+              </button>
+              <button
+                type="button"
+                aria-label="Remove photo"
+                onClick={() => {
+                  setAvatarSrc("");
+                  setAvatarScale(1);
+                }}
+                className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white border border-border z-10 active:scale-95 transition-transform"
+              >
                 <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-              </span>
+              </button>
             </div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = () => {
+                  if (typeof reader.result === "string") {
+                    setAvatarSrc(reader.result);
+                    setAvatarScale(1);
+                  }
+                };
+                reader.readAsDataURL(file);
+                e.target.value = "";
+              }}
+            />
             <input
               type="range"
               min={1}
