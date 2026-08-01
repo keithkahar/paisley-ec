@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, Plus, Trash2, ArrowUpRight } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, Plus, Minus, Trash2, ArrowUpRight, Eye, EyeOff } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
@@ -309,6 +309,9 @@ function ParentPage() {
   const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
   const [learner, setLearner] = useState("Amy");
   const [learnerOpen, setLearnerOpen] = useState(false);
+  const [learnerDeleteMode, setLearnerDeleteMode] = useState(false);
+  const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
+  const [deletePwOpen, setDeletePwOpen] = useState(false);
   const [membershipOpen, setMembershipOpen] = useState(false);
 
   const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
