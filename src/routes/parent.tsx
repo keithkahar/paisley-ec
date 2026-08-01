@@ -1943,23 +1943,9 @@ function MembershipCards({ open }: { open: boolean }) {
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-wrap items-center justify-end gap-2 shrink-0 pb-[1px]">
-                    {card.features.map((f, fi) => (
-                      <span
-                        key={fi}
-                        className="inline-flex items-center gap-1 text-[11px] font-normal"
-                        style={{ color: "var(--foreground)" }}
-                      >
-                        {f.icon === "device" ? (
-                          <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--foreground)" }} />
-                        ) : (
-                          <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--foreground)" }} />
-                        )}
-                        {f.label}
-                      </span>
-                    ))}
-                  </div>
+                  <div className="shrink-0 pb-[1px]" />
                 </div>
+
                 <p
                   className="mt-2 text-[13px] leading-none"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
