@@ -513,48 +513,15 @@ function BirthdaySheet({
   ];
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end justify-center"
-      role="dialog"
-      aria-modal="true"
-      onClick={onCancel}
+    <StandardSheet
+      open
+      title="Birthday"
+      brandColor={SHEET_BRAND.paisley}
+      onClose={onCancel}
     >
-      <div className="absolute inset-0 bg-sheet-backdrop" />
-      <div
-        className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-        style={{ height: "62vh" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Grabber */}
-        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-          <span className="h-1 w-10 rounded-full bg-border" />
-        </div>
-        <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="text-[13px] font-semibold text-muted-foreground w-12 text-left"
-          >
-            Cancel
-          </button>
-          <p
-            className="text-[17px] font-semibold tracking-tight leading-none"
-            style={{ letterSpacing: "-0.01em", color: YELLOW }}
-          >
-            Birthday
-          </p>
-          <button
-            type="button"
-            onClick={confirm}
-            className="text-[13px] font-semibold w-12 text-right"
-            style={{ color: YELLOW }}
-          >
-            Done
-          </button>
-        </div>
-
+      <div className="flex flex-col h-full">
         {/* M / D / Y tabs — each chip shows current value */}
-        <div className="px-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
+        <div className="pb-3 grid grid-cols-3 gap-2 shrink-0">
           {tabs.map((t) => {
             const active = tab === t.key;
             return (
@@ -562,7 +529,7 @@ function BirthdaySheet({
                 key={t.key}
                 type="button"
                 onClick={() => setTab(t.key)}
-                className="rounded-2xl py-2 px-3 text-center transition-colors"
+                className="rounded-full py-2.5 px-3 text-center transition-colors"
                 style={
                   active
                     ? {
@@ -584,7 +551,7 @@ function BirthdaySheet({
                   {t.label}
                 </span>
                 <span
-                  className="block text-[17px] font-semibold leading-tight mt-0.5"
+                  className="block text-[17px] font-medium leading-tight mt-0.5"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {t.value}
@@ -595,7 +562,7 @@ function BirthdaySheet({
         </div>
 
         {/* Options grid for the active tab */}
-        <div className="flex-1 overflow-y-auto px-5 pb-8">
+        <div className="flex-1 min-h-0 overflow-y-auto pb-4">
           {tab === "month" && (
             <ChipGrid
               cols={3}
@@ -627,8 +594,18 @@ function BirthdaySheet({
             />
           )}
         </div>
+
+        {/* Save */}
+        <button
+          type="button"
+          onClick={confirm}
+          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+          style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
+        >
+          Save
+        </button>
       </div>
-    </div>
+    </StandardSheet>
   );
 }
 
@@ -655,7 +632,7 @@ function ChipGrid({
             key={it.key}
             type="button"
             onClick={() => onPick(it.key)}
-            className="h-11 rounded-xl text-[13px] font-semibold transition-colors"
+            className="h-11 rounded-full text-[13px] font-medium transition-colors"
             style={
               active
                 ? {
