@@ -406,6 +406,8 @@ function AddLearnerSheet({
                   if (typeof reader.result === "string") {
                     setAvatarSrc(reader.result);
                     setAvatarScale(1);
+                    setAvatarPosX(50);
+                    setAvatarPosY(50);
                   }
                 };
                 reader.readAsDataURL(file);
