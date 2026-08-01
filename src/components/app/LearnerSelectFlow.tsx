@@ -333,9 +333,11 @@ function AddLearnerSheet({
     : "Select birthday";
 
   const submit = () => {
-    if (!given.trim()) return setError("请输入 Given Name");
-    if (!gender) return setError("请选择性别");
-    if (!birthday) return setError("请选择生日");
+    if (!given.trim()) return setError("Add given name");
+    if (!family.trim()) return setError("Add family name");
+    if (!gender) return setError("Select girl or boy");
+    if (!birthday) return setError("Select birthday");
+    setError("");
     onCreate(given.trim());
   };
 
@@ -386,13 +388,13 @@ function AddLearnerSheet({
               </span>
               <input
                 value={given}
-                onChange={(e) => setGiven(e.target.value)}
+                onChange={(e) => { setGiven(e.target.value); setError(""); }}
                 placeholder="Given Name"
                 className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
               <input
                 value={family}
-                onChange={(e) => setFamily(e.target.value)}
+                onChange={(e) => { setFamily(e.target.value); setError(""); }}
                 placeholder="Family Name"
                 className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
@@ -408,7 +410,7 @@ function AddLearnerSheet({
                   <button
                     key={opt.key}
                     type="button"
-                    onClick={() => setGender(opt.key)}
+                    onClick={() => { setGender(opt.key); setError(""); }}
                     className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
                     style={
                       active
@@ -439,20 +441,21 @@ function AddLearnerSheet({
             </div>
           </div>
 
-          {error && (
-            <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: DANGER }}>
-              {error}
-            </p>
-          )}
-
-          <button
-            type="button"
-            onClick={submit}
-            className="mt-auto shrink-0 w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
-            style={{ background: PAISLEY }}
-          >
-            Save
-          </button>
+          <div className="mt-auto shrink-0">
+            {error && (
+              <p className="mb-2 text-center text-[14px] font-medium" style={{ color: DANGER, letterSpacing: "-0.01em" }}>
+                {error}
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={submit}
+              className="w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+              style={{ background: PAISLEY }}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </StandardSheet>
 
