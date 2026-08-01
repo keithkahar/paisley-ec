@@ -1946,36 +1946,40 @@ function MembershipCards({ open }: { open: boolean }) {
               <div className="mt-[18px]">
                 {cards[i + 1] ? (
                   <div
-                    className="flex items-center gap-2 rounded-full p-1"
-                    style={{ background: "var(--paisley)" }}
+                    className="flex items-center gap-1.5 rounded-full p-1.5"
+                    style={{ background: "white", border: "1.5px solid color-mix(in oklab, var(--paisley) 12%, white)" }}
                   >
                     <button
                       type="button"
-                      className="h-9 shrink-0 rounded-full px-6 text-[14px] font-bold text-white transition-transform active:scale-[0.98]"
-                      style={{ background: "rgba(255,255,255,0.18)" }}
+                      className="h-10 shrink-0 rounded-full px-8 text-[14px] font-bold text-white transition-transform active:scale-[0.98]"
+                      style={{ background: "var(--paisley)" }}
                     >
                       订阅
                     </button>
                     <span
-                      className="flex-1 min-w-0 truncate text-center text-[14px] font-normal text-white"
+                      className="flex-1 min-w-0 truncate text-center text-[14px] font-normal"
+                      style={{ color: "var(--foreground)" }}
                     >
                       升级到 {cards[i + 1].title}
                     </span>
                     <button
                       type="button"
-                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition-transform active:scale-[0.95]"
-                      style={{ background: "rgba(255,255,255,0.18)" }}
+                      className="grid h-10 w-10 shrink-0 place-items-center rounded-full transition-transform active:scale-[0.95]"
+                      style={{ background: "var(--paisley)" }}
                       aria-label={`升级到 ${cards[i + 1].title}`}
                     >
                       <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={2.5} style={{ color: "white" }} />
                     </button>
                   </div>
                 ) : (
-                  <div className="rounded-full p-1" style={{ background: "var(--paisley)" }}>
+                  <div
+                    className="rounded-full p-1.5"
+                    style={{ background: "white", border: "1.5px solid color-mix(in oklab, var(--paisley) 12%, white)" }}
+                  >
                     <button
                       type="button"
-                      className="w-full h-9 rounded-full text-[14px] font-bold text-white transition-transform active:scale-[0.98]"
-                      style={{ background: "rgba(255,255,255,0.18)" }}
+                      className="w-full h-10 rounded-full text-[14px] font-bold text-white transition-transform active:scale-[0.98]"
+                      style={{ background: "var(--paisley)" }}
                     >
                       订阅
                     </button>
