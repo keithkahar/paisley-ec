@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import type { Learner } from "@/lib/learners";
 import { AvatarDraggable } from "@/components/app/EditProfileSheet";
 
 const PAISLEY = "var(--paisley)";
@@ -33,7 +34,7 @@ export function LearnerSelectFlow({
   learners: string[];
   learner: string;
   onSelect: (name: string) => void;
-  onAdd: (name: string) => void;
+  onAdd: (learner: Partial<Learner> & { name: string }) => void;
   onDelete: (name: string) => void;
 }) {
   const [deleteMode, setDeleteMode] = useState(false);
@@ -174,8 +175,8 @@ export function LearnerSelectFlow({
       <AddLearnerSheet
         open={addOpen}
         onClose={() => setAddOpen(false)}
-        onCreate={(name) => {
-          onAdd(name);
+        onCreate={(created) => {
+          onAdd(created);
           setAddOpen(false);
           onClose();
         }}
@@ -307,7 +308,7 @@ function AddLearnerSheet({
 }: {
   open: boolean;
   onClose: () => void;
-  onCreate: (name: string) => void;
+  onCreate: (learner: Partial<Learner> & { name: string }) => void;
 }) {
   const [given, setGiven] = useState("");
   const [family, setFamily] = useState("");
@@ -352,7 +353,15 @@ function AddLearnerSheet({
     if (!gender) return setError("Select girl or boy");
     if (!birthday) return setError("Select birthday");
     setError("");
-    onCreate(`${given.trim()} ${family.trim()}`);
+    onCreate({
+      name: `${given.trim()} ${family.trim()}`,
+      avatarPath: avatarSrc,
+      avatarPosX,
+      avatarPosY,
+      avatarScale,
+      gender,
+      birthday,
+    });
   };
 
   return (
