@@ -266,7 +266,8 @@ function ProfilePage() {
           });
         }}
       />
-      <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen} />
+      <EditProfileSheet open={editOpen} onClose={() => setEditOpen(false)} />
+      <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen || editOpen} />
       <ParentPinSheet
         open={parentPinOpen}
         onClose={() => setParentPinOpen(false)}
