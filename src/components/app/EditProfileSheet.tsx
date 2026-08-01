@@ -121,6 +121,16 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   const [form, setForm] = useState<ProfileForm>(DEFAULT_FORM);
   const [showBirthdayPicker, setShowBirthdayPicker] = useState(false);
   const [toast, setToast] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  function validate(): string {
+    if (!form.avatarPath) return "Add avatar";
+    if (!form.givenName.trim()) return "Add given name";
+    if (!form.familyName.trim()) return "Add family name";
+    if (!form.gender) return "Select girl or boy";
+    if (!form.birthday) return "Select birthday";
+    return "";
+  }
 
   useEffect(() => {
     if (open) setForm(loadProfile());
