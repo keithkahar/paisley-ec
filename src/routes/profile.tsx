@@ -255,7 +255,7 @@ function ProfilePage() {
       <LearnerSelectFlow
         open={learnerOpen}
         onClose={() => setLearnerOpen(false)}
-        learners={PROFILE_NAME && !learners.includes(PROFILE_NAME) ? [PROFILE_NAME, ...learners] : learners}
+        learners={learners}
         learner={DISPLAY_NAME}
         onSelect={setLearner}
         onAdd={addLearner}
