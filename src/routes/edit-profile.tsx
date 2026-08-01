@@ -187,8 +187,18 @@ function EditProfilePage() {
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
         <FloatingBack to="/profile" />
 
+        {/* Title */}
+        <div className="pt-[55px] text-center">
+          <h1
+            className="text-[19px] font-semibold leading-none"
+            style={{ color: ACCENT, letterSpacing: "-0.01em" }}
+          >
+            Edit Profile
+          </h1>
+        </div>
+
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-[55px] pb-[195px] overflow-y-auto flex flex-col">
+        <div className="flex-1 px-6 pt-6 pb-[195px] overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
           <div className="flex flex-col items-center pb-5">
             <div className="relative h-40 w-40">
@@ -205,39 +215,30 @@ function EditProfilePage() {
                 type="button"
                 onClick={onChooseAvatar}
                 aria-label="Choose photo"
-                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <Camera className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
+                <Camera className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </button>
-              {form.avatarPath ? (
-                <button
-                  type="button"
-                  onClick={onClearAvatar}
-                  aria-label="Remove photo"
-                  className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
-                >
-                  <X className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
-                </button>
-              ) : null}
+              <button
+                type="button"
+                onClick={onClearAvatar}
+                aria-label="Remove photo"
+                className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+              >
+                <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+              </button>
             </div>
-            {form.avatarPath ? (
-              <>
-                <p className="mt-2 text-[11px] font-semibold text-muted-foreground">
-                  Drag and scroll to adjust
-                </p>
-                <input
-                  type="range"
-                  min={1}
-                  max={3}
-                  step={0.01}
-                  value={form.avatarScale}
-                  onChange={(e) => update("avatarScale", Number(e.target.value))}
-                  className="mt-2 w-20 h-1 accent-current opacity-60"
-                  style={{ color: "var(--muted-foreground)" }}
-                  aria-label="Zoom"
-                />
-              </>
-            ) : null}
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.01}
+              value={form.avatarScale}
+              onChange={(e) => update("avatarScale", Number(e.target.value))}
+              className="mt-4 w-[38%] h-1 accent-current opacity-70"
+              style={{ color: "var(--muted-foreground)" }}
+              aria-label="Zoom"
+            />
             <input
               ref={fileRef}
               type="file"
@@ -248,18 +249,37 @@ function EditProfilePage() {
           </div>
 
           <div className="space-y-3 mt-auto -translate-y-[14px]">
+            {/* Name — single pill: label + given + family */}
+            <div
+              className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
+              style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
+            >
+              <span
+                className="shrink-0 text-[16px] font-semibold leading-none"
+                style={{ color: ACCENT, letterSpacing: "-0.01em" }}
+              >
+                Name
+              </span>
+              <input
+                type="text"
+                value={form.givenName}
+                onChange={(e) => update("givenName", e.target.value)}
+                placeholder="Given Name"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                style={{ letterSpacing: "-0.01em" }}
+              />
+              <input
+                type="text"
+                value={form.familyName}
+                onChange={(e) => update("familyName", e.target.value)}
+                placeholder="Family Name"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                style={{ letterSpacing: "-0.01em" }}
+              />
+            </div>
 
-          {/* Name */}
-          <NamePill
-            givenName={form.givenName}
-            familyName={form.familyName}
-            onGivenNameChange={(value) => update("givenName", value)}
-            onFamilyNameChange={(value) => update("familyName", value)}
-          />
-
-          {/* Gender */}
-          <RowPill label="Gender">
-            <div className="flex gap-1.5 justify-end">
+            {/* Gender + Birthday on one row */}
+            <div className="flex items-center gap-2">
               {GENDER_OPTIONS.map((opt) => {
                 const active = form.gender === opt.key;
                 return (
@@ -267,35 +287,37 @@ function EditProfilePage() {
                     key={opt.key}
                     type="button"
                     onClick={() => onGenderChange(opt.key)}
-                    className="h-8 px-4 rounded-full text-[14px] font-semibold transition-colors"
+                    className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
                     style={
                       active
-                        ? { background: opt.color, color: "white" }
-                        : { background: "white", color: opt.color, border: `1px solid color-mix(in oklab, ${opt.color} 35%, white)` }
+                        ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
+                        : {
+                            background: "white",
+                            color: opt.color,
+                            border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
+                          }
                     }
                   >
                     {opt.label}
                   </button>
                 );
               })}
+              <button
+                type="button"
+                onClick={() => setShowBirthdayPicker(true)}
+                className="flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] font-medium"
+                style={{
+                  borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)`,
+                  letterSpacing: "-0.01em",
+                  color: form.birthday
+                    ? "var(--foreground)"
+                    : "color-mix(in oklab, var(--foreground) 45%, white)",
+                }}
+              >
+                {formatBirthday(form.birthday)}
+                <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
+              </button>
             </div>
-          </RowPill>
-
-          {/* Birthday */}
-          <RowPill label="Birthday">
-            <button
-              type="button"
-              onClick={() => setShowBirthdayPicker(true)}
-              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-semibold"
-              style={{
-                letterSpacing: "-0.01em",
-                color: form.birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)"
-              }}
-            >
-              {formatBirthday(form.birthday)}
-              <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2.25} />
-            </button>
-          </RowPill>
           </div>
         </div>
 
