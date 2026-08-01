@@ -160,6 +160,12 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   }
 
   function onSave() {
+    const missing = validate();
+    if (missing) {
+      setError(missing);
+      return;
+    }
+    setError("");
     const normalized = saveProfile(form);
     setForm(normalized);
     setToast("Profile Saved");
