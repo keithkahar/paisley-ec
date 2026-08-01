@@ -382,7 +382,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   );
 }
 
-function AvatarDraggable({
+export function AvatarDraggable({
   src,
   initials,
   posX,
