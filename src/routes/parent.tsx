@@ -2182,18 +2182,12 @@ function DangerPasswordInput({
   return (
     <label className="block">
       <div
-        className="rounded-full py-4 px-4 flex items-center gap-3 transition-colors focus-within:bg-white"
+        className="rounded-full h-[60px] px-6 flex items-center gap-3 transition-colors focus-within:bg-white"
         style={{
           background: "color-mix(in oklab, var(--destructive) 6%, white)",
           border: "1px solid color-mix(in oklab, var(--destructive) 14%, white)",
         }}
       >
-        <span
-          className="text-[11px] font-semibold uppercase tracking-[0.1em] shrink-0"
-          style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-        >
-          {label}
-        </span>
         <input
           type={visible ? "text" : "password"}
           inputMode="text"
@@ -2201,22 +2195,21 @@ function DangerPasswordInput({
           autoFocus={autoFocus}
           maxLength={6}
           value={value}
+          placeholder={label}
           onChange={(e) => onChange(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))}
-          className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
-          style={{ color: DANGER }}
+          className="flex-1 min-w-0 bg-transparent outline-none text-[16px] font-medium placeholder:font-normal placeholder:tracking-normal placeholder:text-muted-foreground"
+          style={{ color: DANGER, letterSpacing: value ? "0.28em" : "normal" }}
         />
-        {value.length > 0 && (
         <button
           type="button"
           aria-label={visible ? "隐藏密码" : "显示密码"}
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => setVisible((v) => !v)}
           className="shrink-0 grid place-items-center h-7 w-7 rounded-full transition-opacity active:opacity-60"
-          style={{ color: DANGER }}
+          style={{ color: "color-mix(in oklab, var(--destructive) 55%, white)" }}
         >
-          {visible ? <EyeOff size={17} strokeWidth={2} /> : <Eye size={17} strokeWidth={2} />}
+          {visible ? <EyeOff size={18} strokeWidth={1.75} /> : <Eye size={18} strokeWidth={1.75} />}
         </button>
-        )}
       </div>
     </label>
   );
