@@ -52,7 +52,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
   const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
-  const [learner, setLearner] = useState("Amy");
+  const [learner, setLearner] = useState("");
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
@@ -74,8 +74,13 @@ function ProfilePage() {
       });
     } catch { /* ignore */ }
   }, []);
-  const DISPLAY_NAME = `${profile.givenName} ${profile.familyName}`.trim();
-  const INITIALS = ((profile.givenName[0] ?? "") + (profile.familyName[0] ?? "")).toUpperCase();
+  const PROFILE_NAME = `${profile.givenName} ${profile.familyName}`.trim();
+  const DISPLAY_NAME = learner || PROFILE_NAME;
+  const INITIALS = DISPLAY_NAME.split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0] ?? "")
+    .join("")
+    .toUpperCase();
   const today = new Date();
   const week = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date(today);
