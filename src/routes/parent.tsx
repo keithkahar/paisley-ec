@@ -312,6 +312,7 @@ function ParentPage() {
   const [learnerDeleteMode, setLearnerDeleteMode] = useState(false);
   const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
   const [deletePwOpen, setDeletePwOpen] = useState(false);
+  const [addLearnerOpen, setAddLearnerOpen] = useState(false);
   const [membershipOpen, setMembershipOpen] = useState(false);
 
   const bento = tab === "talk" ? TALK_BENTO : WORDIE_BENTO;
@@ -592,7 +593,7 @@ function ParentPage() {
           }}
         >
           <div className="flex flex-col h-full">
-            <div className="flex-1">
+            <div className="flex-1 mt-5">
               {learners.map((n) => {
                 const active = n === learner;
                 const marked = n === learnerDeleteTarget;
@@ -654,7 +655,7 @@ function ParentPage() {
                     : "white",
                 }}
               >
-                <Trash2 className="h-5 w-5" style={{ color: "var(--destructive)" }} strokeWidth={2} />
+                <Trash2 className="h-7 w-7" style={{ color: "var(--destructive)" }} strokeWidth={2} />
               </button>
               {learnerDeleteMode ? (
                 <button
@@ -675,9 +676,7 @@ function ParentPage() {
               ) : (
                 <button
                   type="button"
-                  onClick={() =>
-                    setLearners((ls) => [...ls, `Learner ${ls.length + 1}`])
-                  }
+                  onClick={() => setAddLearnerOpen(true)}
                   className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
                   style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
                 >
@@ -706,6 +705,18 @@ function ParentPage() {
             setDeletePwOpen(false);
             setLearnerDeleteMode(false);
             setLearnerDeleteTarget("");
+          }}
+        />
+
+        {/* Add a learner — full profile entry */}
+        <AddLearnerSheet
+          open={addLearnerOpen}
+          onClose={() => setAddLearnerOpen(false)}
+          onCreate={(name) => {
+            setLearners((ls) => (ls.includes(name) ? ls : [...ls, name]));
+            setLearner(name);
+            setAddLearnerOpen(false);
+            setLearnerOpen(false);
           }}
         />
 
