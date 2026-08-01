@@ -2084,3 +2084,118 @@ function MembershipCards({ open }: { open: boolean }) {
 
 
 
+
+// ---- Delete learner: parent password confirmation ----
+function DeleteLearnerPasswordSheet({
+  open,
+  learner,
+  onClose,
+  onConfirm,
+}: {
+  open: boolean;
+  learner: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  const DANGER = "var(--destructive)";
+  const [pw, setPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!open) return;
+    setPw("");
+    setConfirmPw("");
+    setError("");
+  }, [open]);
+
+  if (!open) return null;
+
+  const submit = () => {
+    setError("");
+    const saved = typeof window !== "undefined" ? localStorage.getItem(PIN_STORAGE_KEY) : null;
+    if (!pw || !confirmPw) return setError("请输入并确认家长密码");
+    if (pw !== confirmPw) return setError("两次输入的密码不一致");
+    if (saved && pw !== saved) return setError("密码不正确");
+    onConfirm();
+  };
+
+  return (
+    <StandardSheet open={open} title="Enter Parent Password" brandColor={DANGER} onClose={onClose}>
+      <div>
+        <p
+          className="text-[12px] leading-[1.55] text-center"
+          style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+        >
+          This password confirms the learner deletion
+          {learner ? ` · ${learner}` : ""}
+        </p>
+
+        <div className="mt-5 space-y-3">
+          <DangerPasswordInput label="Password" value={pw} onChange={setPw} />
+          <DangerPasswordInput label="Confirm" value={confirmPw} onChange={setConfirmPw} />
+        </div>
+
+        {error && (
+          <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: DANGER }}>
+            {error}
+          </p>
+        )}
+
+        <button
+          type="button"
+          onClick={submit}
+          className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+          style={{ background: DANGER }}
+        >
+          Delete
+        </button>
+      </div>
+    </StandardSheet>
+  );
+}
+
+function DangerPasswordInput({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const DANGER = "var(--destructive)";
+  const [visible, setVisible] = useState(false);
+  return (
+    <label className="block">
+      <div
+        className="rounded-full py-4 px-5 flex items-center gap-3"
+        style={{
+          background: "color-mix(in oklab, var(--destructive) 6%, white)",
+          border: "1px solid color-mix(in oklab, var(--destructive) 16%, white)",
+        }}
+      >
+        <input
+          type={visible ? "text" : "password"}
+          autoComplete="off"
+          maxLength={6}
+          value={value}
+          onChange={(e) => onChange(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))}
+          placeholder={label}
+          className="flex-1 min-w-0 bg-transparent outline-none text-[16px] font-medium tracking-[0.06em] placeholder:tracking-normal placeholder:font-normal"
+          style={{ color: "var(--foreground)" }}
+        />
+        <button
+          type="button"
+          aria-label={visible ? "隐藏密码" : "显示密码"}
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => setVisible((v) => !v)}
+          className="shrink-0 grid place-items-center h-7 w-7 rounded-full active:opacity-60"
+          style={{ color: DANGER }}
+        >
+          {visible ? <EyeOff size={18} strokeWidth={2} /> : <Eye size={18} strokeWidth={2} />}
+        </button>
+      </div>
+    </label>
+  );
+}
