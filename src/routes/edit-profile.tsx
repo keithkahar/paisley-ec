@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 export const Route = createFileRoute("/edit-profile")({
   head: () => ({ meta: [
@@ -187,8 +188,18 @@ function EditProfilePage() {
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
         <FloatingBack to="/profile" />
 
+        {/* Title */}
+        <div className="pt-[55px] text-center">
+          <h1
+            className="text-[19px] font-semibold leading-none"
+            style={{ color: ACCENT, letterSpacing: "-0.01em" }}
+          >
+            Edit Profile
+          </h1>
+        </div>
+
         {/* Scroll body */}
-        <div className="flex-1 px-6 pt-[55px] pb-[195px] overflow-y-auto flex flex-col">
+        <div className="flex-1 px-6 pt-6 pb-[195px] overflow-y-auto flex flex-col">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
           <div className="flex flex-col items-center pb-5">
             <div className="relative h-40 w-40">
@@ -205,39 +216,30 @@ function EditProfilePage() {
                 type="button"
                 onClick={onChooseAvatar}
                 aria-label="Choose photo"
-                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
               >
-                <Camera className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
+                <Camera className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </button>
-              {form.avatarPath ? (
-                <button
-                  type="button"
-                  onClick={onClearAvatar}
-                  aria-label="Remove photo"
-                  className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
-                >
-                  <X className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
-                </button>
-              ) : null}
+              <button
+                type="button"
+                onClick={onClearAvatar}
+                aria-label="Remove photo"
+                className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+              >
+                <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+              </button>
             </div>
-            {form.avatarPath ? (
-              <>
-                <p className="mt-2 text-[11px] font-semibold text-muted-foreground">
-                  Drag and scroll to adjust
-                </p>
-                <input
-                  type="range"
-                  min={1}
-                  max={3}
-                  step={0.01}
-                  value={form.avatarScale}
-                  onChange={(e) => update("avatarScale", Number(e.target.value))}
-                  className="mt-2 w-20 h-1 accent-current opacity-60"
-                  style={{ color: "var(--muted-foreground)" }}
-                  aria-label="Zoom"
-                />
-              </>
-            ) : null}
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.01}
+              value={form.avatarScale}
+              onChange={(e) => update("avatarScale", Number(e.target.value))}
+              className="mt-4 w-[38%] h-1 accent-current opacity-70"
+              style={{ color: "var(--muted-foreground)" }}
+              aria-label="Zoom"
+            />
             <input
               ref={fileRef}
               type="file"
@@ -248,18 +250,37 @@ function EditProfilePage() {
           </div>
 
           <div className="space-y-3 mt-auto -translate-y-[14px]">
+            {/* Name — single pill: label + given + family */}
+            <div
+              className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
+              style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
+            >
+              <span
+                className="shrink-0 text-[16px] font-semibold leading-none"
+                style={{ color: ACCENT, letterSpacing: "-0.01em" }}
+              >
+                Name
+              </span>
+              <input
+                type="text"
+                value={form.givenName}
+                onChange={(e) => update("givenName", e.target.value)}
+                placeholder="Given Name"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                style={{ letterSpacing: "-0.01em" }}
+              />
+              <input
+                type="text"
+                value={form.familyName}
+                onChange={(e) => update("familyName", e.target.value)}
+                placeholder="Family Name"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                style={{ letterSpacing: "-0.01em" }}
+              />
+            </div>
 
-          {/* Name */}
-          <NamePill
-            givenName={form.givenName}
-            familyName={form.familyName}
-            onGivenNameChange={(value) => update("givenName", value)}
-            onFamilyNameChange={(value) => update("familyName", value)}
-          />
-
-          {/* Gender */}
-          <RowPill label="Gender">
-            <div className="flex gap-1.5 justify-end">
+            {/* Gender + Birthday on one row */}
+            <div className="flex items-center gap-2">
               {GENDER_OPTIONS.map((opt) => {
                 const active = form.gender === opt.key;
                 return (
@@ -267,35 +288,37 @@ function EditProfilePage() {
                     key={opt.key}
                     type="button"
                     onClick={() => onGenderChange(opt.key)}
-                    className="h-8 px-4 rounded-full text-[14px] font-semibold transition-colors"
+                    className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
                     style={
                       active
-                        ? { background: opt.color, color: "white" }
-                        : { background: "white", color: opt.color, border: `1px solid color-mix(in oklab, ${opt.color} 35%, white)` }
+                        ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
+                        : {
+                            background: "white",
+                            color: opt.color,
+                            border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
+                          }
                     }
                   >
                     {opt.label}
                   </button>
                 );
               })}
+              <button
+                type="button"
+                onClick={() => setShowBirthdayPicker(true)}
+                className="flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] font-medium"
+                style={{
+                  borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)`,
+                  letterSpacing: "-0.01em",
+                  color: form.birthday
+                    ? "var(--foreground)"
+                    : "color-mix(in oklab, var(--foreground) 45%, white)",
+                }}
+              >
+                {formatBirthday(form.birthday)}
+                <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
+              </button>
             </div>
-          </RowPill>
-
-          {/* Birthday */}
-          <RowPill label="Birthday">
-            <button
-              type="button"
-              onClick={() => setShowBirthdayPicker(true)}
-              className="w-full inline-flex items-center justify-end gap-1 text-[15px] font-semibold"
-              style={{
-                letterSpacing: "-0.01em",
-                color: form.birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)"
-              }}
-            >
-              {formatBirthday(form.birthday)}
-              <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2.25} />
-            </button>
-          </RowPill>
           </div>
         </div>
 
@@ -337,96 +360,6 @@ function EditProfilePage() {
         )}
       </div>
     </PhoneFrame>
-  );
-}
-
-function RowPill({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div
-      className="relative isolate flex items-center gap-3 rounded-full py-3 px-5 min-h-[64px] bg-white border"
-      style={{
-        borderColor: `color-mix(in oklab, ${YELLOW} 55%, white)`
-        }}
-    >
-      <span
-        className="shrink-0 text-[15px] font-semibold leading-none"
-        style={{ color: YELLOW, letterSpacing: "-0.01em" }}
-      >
-        {label}
-      </span>
-      <div className="flex-1 min-w-0">{children}</div>
-    </div>
-  );
-}
-
-function NamePill({
-  givenName,
-  familyName,
-  onGivenNameChange,
-  onFamilyNameChange,
-}: {
-  givenName: string;
-  familyName: string;
-  onGivenNameChange: (value: string) => void;
-  onFamilyNameChange: (value: string) => void;
-}) {
-  const [editing, setEditing] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const hasFullName = givenName.trim().length > 0 && familyName.trim().length > 0;
-
-  useEffect(() => {
-    if (!editing) return;
-    const onDocDown = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as Node | null;
-      if (containerRef.current && target && !containerRef.current.contains(target)) {
-        if (givenName.trim() && familyName.trim()) setEditing(false);
-      }
-    };
-    document.addEventListener("mousedown", onDocDown);
-    document.addEventListener("touchstart", onDocDown);
-    return () => {
-      document.removeEventListener("mousedown", onDocDown);
-      document.removeEventListener("touchstart", onDocDown);
-    };
-  }, [editing, givenName, familyName]);
-
-  return (
-    <RowPill label="Name">
-      <div ref={containerRef}>
-      {hasFullName && !editing ? (
-        <button
-          type="button"
-          onClick={() => setEditing(true)}
-          className="w-full truncate text-right text-[15px] font-semibold text-foreground"
-          style={{ letterSpacing: "-0.01em" }}
-        >
-          {givenName.trim()} {familyName.trim()}
-        </button>
-      ) : (
-        <div
-          className="grid grid-cols-2 gap-2"
-          onFocus={() => setEditing(true)}
-        >
-          <input
-            type="text"
-            value={givenName}
-            onChange={(e) => onGivenNameChange(e.target.value)}
-            placeholder="Given Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-semibold text-foreground placeholder:text-muted-foreground"
-            style={{ letterSpacing: "-0.01em" }}
-          />
-          <input
-            type="text"
-            value={familyName}
-            onChange={(e) => onFamilyNameChange(e.target.value)}
-            placeholder="Family Name"
-            className="min-w-0 bg-transparent outline-none text-right text-[15px] font-semibold text-foreground placeholder:text-muted-foreground"
-            style={{ letterSpacing: "-0.01em" }}
-          />
-        </div>
-      )}
-      </div>
-    </RowPill>
   );
 }
 
@@ -581,48 +514,15 @@ function BirthdaySheet({
   ];
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end justify-center"
-      role="dialog"
-      aria-modal="true"
-      onClick={onCancel}
+    <StandardSheet
+      open
+      title="Birthday"
+      brandColor={SHEET_BRAND.paisley}
+      onClose={onCancel}
     >
-      <div className="absolute inset-0 bg-sheet-backdrop" />
-      <div
-        className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-        style={{ height: "62vh" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Grabber */}
-        <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-          <span className="h-1 w-10 rounded-full bg-border" />
-        </div>
-        <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="text-[13px] font-semibold text-muted-foreground w-12 text-left"
-          >
-            Cancel
-          </button>
-          <p
-            className="text-[17px] font-semibold tracking-tight leading-none"
-            style={{ letterSpacing: "-0.01em", color: YELLOW }}
-          >
-            Birthday
-          </p>
-          <button
-            type="button"
-            onClick={confirm}
-            className="text-[13px] font-semibold w-12 text-right"
-            style={{ color: YELLOW }}
-          >
-            Done
-          </button>
-        </div>
-
+      <div className="flex flex-col h-full">
         {/* M / D / Y tabs — each chip shows current value */}
-        <div className="px-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
+        <div className="pb-3 grid grid-cols-3 gap-2 shrink-0">
           {tabs.map((t) => {
             const active = tab === t.key;
             return (
@@ -630,7 +530,7 @@ function BirthdaySheet({
                 key={t.key}
                 type="button"
                 onClick={() => setTab(t.key)}
-                className="rounded-2xl py-2 px-3 text-center transition-colors"
+                className="rounded-full py-2.5 px-3 text-center transition-colors"
                 style={
                   active
                     ? {
@@ -652,7 +552,7 @@ function BirthdaySheet({
                   {t.label}
                 </span>
                 <span
-                  className="block text-[17px] font-semibold leading-tight mt-0.5"
+                  className="block text-[17px] font-medium leading-tight mt-0.5"
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   {t.value}
@@ -663,7 +563,7 @@ function BirthdaySheet({
         </div>
 
         {/* Options grid for the active tab */}
-        <div className="flex-1 overflow-y-auto px-5 pb-8">
+        <div className="flex-1 min-h-0 overflow-y-auto pb-4">
           {tab === "month" && (
             <ChipGrid
               cols={3}
@@ -695,8 +595,18 @@ function BirthdaySheet({
             />
           )}
         </div>
+
+        {/* Save */}
+        <button
+          type="button"
+          onClick={confirm}
+          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+          style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
+        >
+          Save
+        </button>
       </div>
-    </div>
+    </StandardSheet>
   );
 }
 
@@ -723,7 +633,7 @@ function ChipGrid({
             key={it.key}
             type="button"
             onClick={() => onPick(it.key)}
-            className="h-11 rounded-xl text-[13px] font-semibold transition-colors"
+            className="h-11 rounded-full text-[13px] font-medium transition-colors"
             style={
               active
                 ? {
