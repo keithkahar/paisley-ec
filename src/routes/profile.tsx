@@ -52,17 +52,19 @@ function ProfilePage() {
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
   const [profile] = useState(DEFAULT_PROFILE);
-  const { learnerNames, learner, current, setLearner, addLearner, deleteLearner } = useLearners();
+  const { learnerNames, learner, current, hasLearner, displayName, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const DISPLAY_NAME = current?.name || learner;
+  const DISPLAY_NAME = displayName;
   const avatarPos = { x: current?.avatarPosX ?? 50, y: current?.avatarPosY ?? 50, scale: current?.avatarScale ?? 1 };
-  const avatarPath = current?.avatarPath ?? "";
-  const INITIALS = DISPLAY_NAME.split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0] ?? "")
-    .join("")
-    .toUpperCase();
+  const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";
+  const INITIALS = hasLearner
+    ? DISPLAY_NAME.split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0] ?? "")
+        .join("")
+        .toUpperCase() || "PEC"
+    : "PEC";
   const today = new Date();
   const week = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date(today);

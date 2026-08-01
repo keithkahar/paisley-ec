@@ -130,7 +130,7 @@ export function LearnerSelectFlow({
             {deleteMode ? (
               <button
                 type="button"
-                disabled={!target || learners.length <= 1}
+                disabled={!target}
                 onClick={() => setDeletePwOpen(true)}
                 className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-50"
                 style={{

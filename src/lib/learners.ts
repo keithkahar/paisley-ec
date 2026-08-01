@@ -35,14 +35,13 @@ export function makeLearner(partial: Partial<Learner> & { name: string }): Learn
   };
 }
 
-const DEFAULT_LEARNERS: Learner[] = [
-  makeLearner({ name: "Daniella Wang" }),
-  makeLearner({ name: "Amy" }),
-];
+/** Fallback identity used everywhere until the first learner exists. */
+export const DEFAULT_LEARNER_NAME = "Paizley Learner";
+export const DEFAULT_LEARNER_INITIALS = "PEC";
 
 type State = { learners: Learner[]; learner: string };
 
-const SERVER_STATE: State = { learners: DEFAULT_LEARNERS, learner: DEFAULT_LEARNERS[0].name };
+const SERVER_STATE: State = { learners: [], learner: "" };
 
 let state: State = SERVER_STATE;
 let hydrated = false;
@@ -86,8 +85,8 @@ function readState(): State {
     } catch {
       /* ignore */
     }
-    learners = names.length ? names.map((n) => makeLearner({ name: n })) : [...DEFAULT_LEARNERS];
-    const legacy = readLegacyProfile(learners[0].name);
+    learners = names.map((n) => makeLearner({ name: n }));
+    const legacy = learners.length ? readLegacyProfile(learners[0].name) : null;
     if (legacy) {
       const idx = learners.findIndex((l) => l.name === legacy.name);
       if (idx >= 0) learners[idx] = legacy;
@@ -101,7 +100,7 @@ function readState(): State {
   } catch {
     /* ignore */
   }
-  if (!learner || !learners.some((l) => l.name === learner)) learner = learners[0].name;
+  if (!learner || !learners.some((l) => l.name === learner)) learner = learners[0]?.name ?? "";
   return { learners, learner };
 }
 
@@ -167,15 +166,18 @@ export function useLearners() {
   }, []);
 
   const deleteLearner = useCallback((name: string) => {
-    if (state.learners.length <= 1) return;
     const learners = state.learners.filter((l) => l.name !== name);
-    const learner = state.learner === name ? learners[0].name : state.learner;
+    const learner = state.learner === name ? learners[0]?.name ?? "" : state.learner;
     setState({ learners, learner });
   }, []);
 
-  const current = snap.learners.find((l) => l.name === snap.learner) ?? snap.learners[0];
+  const current = snap.learners.find((l) => l.name === snap.learner) ?? snap.learners[0] ?? null;
+  const hasLearner = snap.learners.length > 0 && !!current;
+  const displayName = hasLearner ? current!.name : DEFAULT_LEARNER_NAME;
 
   return {
+    hasLearner,
+    displayName,
     learners: snap.learners,
     learnerNames: snap.learners.map((l) => l.name),
     learner: snap.learner,
