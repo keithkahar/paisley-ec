@@ -18,6 +18,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
+import { useLearners } from "@/lib/learners";
 import { EditProfileSheet } from "@/components/app/EditProfileSheet";
 import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
@@ -257,18 +258,8 @@ function ProfilePage() {
         learners={PROFILE_NAME && !learners.includes(PROFILE_NAME) ? [PROFILE_NAME, ...learners] : learners}
         learner={DISPLAY_NAME}
         onSelect={setLearner}
-        onAdd={(name) => {
-          setLearners((ls) => (ls.includes(name) ? ls : [...ls, name]));
-          setLearner(name);
-        }}
-        onDelete={(name) => {
-          setLearners((ls) => {
-            if (ls.length <= 1) return ls;
-            const next = ls.filter((n) => n !== name);
-            if (name === learner) setLearner(next[0]);
-            return next;
-          });
-        }}
+        onAdd={addLearner}
+        onDelete={deleteLearner}
       />
       <EditProfileSheet open={editOpen} onClose={() => setEditOpen(false)} />
       <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen || editOpen} />
