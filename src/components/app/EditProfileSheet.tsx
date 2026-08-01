@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { X, Check, ChevronRight, Camera } from "lucide-react";
+import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
@@ -120,7 +120,6 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<ProfileForm>(DEFAULT_FORM);
   const [showBirthdayPicker, setShowBirthdayPicker] = useState(false);
-  const [toast, setToast] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [nameFocused, setNameFocused] = useState(false);
 
@@ -180,12 +179,8 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
     setError("");
     const normalized = saveProfile(form);
     setForm(normalized);
-    setToast("Profile Saved");
-    setTimeout(() => {
-      setToast("");
-      onSaved?.();
-      onClose();
-    }, 600);
+    onSaved?.();
+    onClose();
   }
 
   return (
@@ -353,19 +348,6 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           </div>
         </div>
         </StandardSheet>
-
-        {/* Toast — above the Save pill */}
-        {toast && (
-          <div className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex justify-center">
-            <div
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-semibold shadow-lg"
-              style={{ background: ACCENT, color: "white" }}
-            >
-              <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
-              {toast}
-            </div>
-          </div>
-        )}
 
         {/* Birthday picker sheet */}
         {showBirthdayPicker && (

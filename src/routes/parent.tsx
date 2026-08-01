@@ -5,6 +5,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
+import { useLearners } from "@/lib/learners";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { formatNumber } from "@/lib/utils";
 
@@ -307,8 +308,7 @@ function ParentPage() {
   });
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
-  const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
-  const [learner, setLearner] = useState("Amy");
+  const { learners, learner, setLearner, addLearner, deleteLearner } = useLearners("Amy");
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
   const [addLearnerOpen, setAddLearnerOpen] = useState(false);
@@ -588,18 +588,8 @@ function ParentPage() {
           learners={learners}
           learner={learner}
           onSelect={setLearner}
-          onAdd={(name) => {
-            setLearners((ls) => (ls.includes(name) ? ls : [...ls, name]));
-            setLearner(name);
-          }}
-          onDelete={(name) => {
-            setLearners((ls) => {
-              if (ls.length <= 1) return ls;
-              const next = ls.filter((n) => n !== name);
-              if (name === learner) setLearner(next[0]);
-              return next;
-            });
-          }}
+          onAdd={addLearner}
+          onDelete={deleteLearner}
         />
 
 

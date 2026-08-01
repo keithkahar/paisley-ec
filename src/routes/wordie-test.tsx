@@ -438,12 +438,6 @@ function WordieTestPage() {
           )}
         </div>
 
-        {/* Toast */}
-        {toast && (
-          <div className="fixed left-1/2 bottom-24 -translate-x-1/2 z-40 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-semibold">
-            {toast}
-          </div>
-        )}
 
         {/* Review overlay */}
         {reviewId && (

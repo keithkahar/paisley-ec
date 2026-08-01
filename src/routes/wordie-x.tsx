@@ -884,12 +884,6 @@ function WordieXPage() {
         />
       )}
 
-      {/* Toast */}
-      {toast && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 rounded-full bg-black/85 text-white px-4 py-2 text-[12px] font-semibold">
-          {toast}
-        </div>
-      )}
     </PhoneFrame>
   );
 }
