@@ -149,12 +149,12 @@ function ProfilePage() {
               style={{ color: PAISLEY }}
             />
           </button>
-          {/* Registration date — mirrors ShirinTalk subtitle position */}
+          {/* Subtitle — mirrors ShirinTalk subtitle style */}
           <p
-            className="mt-1 text-[13px] leading-none font-semibold"
-            style={{ color: PAISLEY_YELLOW }}
+            className="mt-1 text-[15px] text-foreground/70 font-semibold tracking-tight"
+            style={{ letterSpacing: "-0.01em" }}
           >
-            Since {profile.registeredAt.toLocaleString("en-US", { month: "short" })} {profile.registeredAt.getDate()} {profile.registeredAt.getFullYear()}
+            Keep on practicing.
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             <span
