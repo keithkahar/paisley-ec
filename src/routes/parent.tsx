@@ -1960,7 +1960,7 @@ function MembershipCards({ open }: { open: boolean }) {
                     style={{ background: "var(--paisley)" }}
                   >
                     <span
-                      className="absolute left-1/3 -translate-x-1/2 top-1/2 -translate-y-1/2"
+                      className="absolute left-1/3 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[13px]"
                       onClick={() => scrollToCard(i)}
                     >
                       订阅
