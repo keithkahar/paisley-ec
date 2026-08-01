@@ -1966,11 +1966,12 @@ function MembershipCards({ open }: { open: boolean }) {
                       订阅
                     </span>
                     <span
-                      className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1 cursor-pointer"
+                      className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1 h-8 pl-3 pr-2.5 rounded-full cursor-pointer"
                       onClick={() => scrollToCard(i + 1)}
+                      style={{ background: "white", color: "var(--paisley)" }}
                     >
                       升级
-                      <ArrowUpRight className="h-[18px] w-[18px]" strokeWidth={2.5} style={{ color: "white" }} />
+                      <ArrowUpRight className="h-[16px] w-[16px]" strokeWidth={2.5} style={{ color: "var(--paisley)" }} />
                     </span>
                   </button>
                 ) : (
