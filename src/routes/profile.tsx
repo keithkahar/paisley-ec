@@ -76,7 +76,6 @@ function ProfilePage() {
   }, []);
   const PROFILE_NAME = `${profile.givenName} ${profile.familyName}`.trim();
   const DISPLAY_NAME = learner || PROFILE_NAME;
-  void PROFILE_NAME;
   const INITIALS = DISPLAY_NAME.split(/\s+/)
     .slice(0, 2)
     .map((part) => part[0] ?? "")
