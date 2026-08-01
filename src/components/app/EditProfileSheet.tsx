@@ -140,6 +140,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
 
   function update<K extends keyof ProfileForm>(key: K, value: ProfileForm[K]) {
     setForm((f) => ({ ...f, [key]: value }));
+    setError("");
   }
 
   function onChooseAvatar() {
@@ -316,14 +317,24 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onSave}
-            className="mt-auto shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
-            style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
-          >
-            Save
-          </button>
+          <div className="mt-auto shrink-0">
+            {error && (
+              <p
+                className="mb-2 text-center text-[14px] font-medium"
+                style={{ color: "#e5484d", letterSpacing: "-0.01em" }}
+              >
+                {error}
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={onSave}
+              className="w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+              style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
+            >
+              Save
+            </button>
+          </div>
         </div>
         </StandardSheet>
 
