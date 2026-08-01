@@ -24,6 +24,15 @@ function Home() {
   const { current, hasLearner, displayName } = useLearners();
   const name = displayName;
   const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";
+  const initials =
+    (hasLearner
+      ? displayName
+          .split(/\s+/)
+          .slice(0, 2)
+          .map((part) => part[0] ?? "")
+          .join("")
+          .toUpperCase()
+      : "") || "PEC";
   const navigate = useNavigate();
   const clickCount = useRef(0);
   const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -90,6 +99,21 @@ function Home() {
                     transformOrigin: `${current?.avatarPosX ?? 50}% ${current?.avatarPosY ?? 50}%`,
                   }}
                 />
+              </div>
+            ) : hasLearner ? (
+              <div
+                className="relative z-10 translate-y-[25px] w-[58%] max-w-[220px] aspect-square rounded-full grid place-items-center"
+                style={{
+                  background: "color-mix(in oklab, var(--paisley) 12%, white)",
+                  boxShadow: "0 8px 24px rgba(1,70,185,0.14)",
+                }}
+              >
+                <span
+                  className="text-[72px] font-medium leading-none"
+                  style={{ color: "var(--paisley)", letterSpacing: "-0.02em" }}
+                >
+                  {initials}
+                </span>
               </div>
             ) : (
               <img
