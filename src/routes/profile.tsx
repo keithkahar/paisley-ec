@@ -51,8 +51,7 @@ function ProfilePage() {
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
-  const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
-  const [learner, setLearner] = useState("");
+  const { learners, learner, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
