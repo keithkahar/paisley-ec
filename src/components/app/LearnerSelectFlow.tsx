@@ -388,13 +388,13 @@ function AddLearnerSheet({
               </span>
               <input
                 value={given}
-                onChange={(e) => setGiven(e.target.value)}
+                onChange={(e) => { setGiven(e.target.value); setError(""); }}
                 placeholder="Given Name"
                 className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
               <input
                 value={family}
-                onChange={(e) => setFamily(e.target.value)}
+                onChange={(e) => { setFamily(e.target.value); setError(""); }}
                 placeholder="Family Name"
                 className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
@@ -410,7 +410,7 @@ function AddLearnerSheet({
                   <button
                     key={opt.key}
                     type="button"
-                    onClick={() => setGender(opt.key)}
+                    onClick={() => { setGender(opt.key); setError(""); }}
                     className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
                     style={
                       active
