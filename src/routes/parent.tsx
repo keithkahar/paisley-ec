@@ -308,7 +308,7 @@ function ParentPage() {
   });
 
   const [sheet, setSheet] = useState<{ type: SheetType; title: string }>({ type: "", title: "" });
-  const { learners, learner, setLearner, addLearner, deleteLearner } = useLearners();
+  const { learnerNames, learner, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [learnerDeleteTarget, setLearnerDeleteTarget] = useState<string>("");
   const [addLearnerOpen, setAddLearnerOpen] = useState(false);
@@ -585,7 +585,7 @@ function ParentPage() {
         <LearnerSelectFlow
           open={learnerOpen}
           onClose={() => setLearnerOpen(false)}
-          learners={learners}
+          learners={learnerNames}
           learner={learner}
           onSelect={setLearner}
           onAdd={addLearner}

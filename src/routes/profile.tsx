@@ -51,31 +51,13 @@ function ProfilePage() {
   const [calOpen, setCalOpen] = useState(false);
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
-  const [profile, setProfile] = useState(DEFAULT_PROFILE);
-  const { learners, learner, setLearner, addLearner, deleteLearner } = useLearners();
+  const [profile] = useState(DEFAULT_PROFILE);
+  const { learnerNames, learner, current, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem("my_profile_v1");
-      if (!raw) return;
-      const s = JSON.parse(raw);
-      setProfile((p) => ({
-        ...p,
-        avatarPath: typeof s.avatarPath === "string" && s.avatarPath ? s.avatarPath : p.avatarPath,
-        givenName: typeof s.givenName === "string" && s.givenName.trim() ? s.givenName.trim() : p.givenName,
-        familyName: typeof s.familyName === "string" && s.familyName.trim() ? s.familyName.trim() : p.familyName,
-      }));
-      setAvatarPos({
-        x: typeof s.avatarPosX === "number" ? s.avatarPosX : 50,
-        y: typeof s.avatarPosY === "number" ? s.avatarPosY : 50,
-        scale: typeof s.avatarScale === "number" ? s.avatarScale : 1,
-      });
-    } catch { /* ignore */ }
-  }, []);
-  const PROFILE_NAME = `${profile.givenName} ${profile.familyName}`.trim();
-  const DISPLAY_NAME = learner || PROFILE_NAME;
+  const DISPLAY_NAME = current?.name || learner;
+  const avatarPos = { x: current?.avatarPosX ?? 50, y: current?.avatarPosY ?? 50, scale: current?.avatarScale ?? 1 };
+  const avatarPath = current?.avatarPath ?? "";
   const INITIALS = DISPLAY_NAME.split(/\s+/)
     .slice(0, 2)
     .map((part) => part[0] ?? "")
@@ -104,9 +86,9 @@ function ProfilePage() {
               className="h-40 w-40 rounded-full grid place-items-center overflow-hidden"
               style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
             >
-              {profile.avatarPath ? (
+              {avatarPath ? (
                 <img
-                  src={profile.avatarPath}
+                  src={avatarPath}
                   alt={DISPLAY_NAME}
                   className="h-full w-full object-cover"
                   style={{
@@ -255,8 +237,8 @@ function ProfilePage() {
       <LearnerSelectFlow
         open={learnerOpen}
         onClose={() => setLearnerOpen(false)}
-        learners={learners}
-        learner={DISPLAY_NAME}
+        learners={learnerNames}
+        learner={learner}
         onSelect={setLearner}
         onAdd={addLearner}
         onDelete={deleteLearner}
