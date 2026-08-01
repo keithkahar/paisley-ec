@@ -355,10 +355,11 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             </div>
           </div>
 
-          <div className="mt-auto shrink-0">
+          <div className="mt-auto shrink-0 h-[49px]" aria-hidden />
+          <BottomAction>
             {error && (
               <p
-                className="mb-2 text-center text-[14px] font-medium"
+                className="absolute bottom-full left-0 right-0 px-5 mb-2 text-center text-[14px] font-medium"
                 style={{ color: "#e5484d", letterSpacing: "-0.01em" }}
               >
                 {error}
@@ -367,12 +368,12 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             <button
               type="button"
               onClick={onSave}
-              className="w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+              className="w-full h-[49px] rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
               style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
             >
               Save
             </button>
-          </div>
+          </BottomAction>
         </div>
         </StandardSheet>
 
@@ -625,14 +626,17 @@ function BirthdaySheet({
         </div>
 
         {/* Save */}
-        <button
-          type="button"
-          onClick={confirm}
-          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
-          style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
-        >
-          Save
-        </button>
+        <div className="shrink-0 h-[49px]" aria-hidden />
+        <BottomAction>
+          <button
+            type="button"
+            onClick={confirm}
+            className="w-full h-[49px] rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+            style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
+          >
+            Save
+          </button>
+        </BottomAction>
       </div>
     </StandardSheet>
   );
