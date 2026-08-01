@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 export const Route = createFileRoute("/edit-profile")({
@@ -186,22 +185,15 @@ function EditProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh)] flex flex-col bg-white">
-        <FloatingBack to="/profile" />
-
-        {/* Title */}
-        <div className="pt-[55px] text-center">
-          <h1
-            className="text-[19px] font-semibold leading-none"
-            style={{ color: ACCENT, letterSpacing: "-0.01em" }}
-          >
-            Edit Profile
-          </h1>
-        </div>
-
-        {/* Scroll body */}
-        <div className="flex-1 px-6 pt-6 pb-[195px] overflow-y-auto flex flex-col">
+        <StandardSheet
+          open
+          title="Edit Profile"
+          brandColor={SHEET_BRAND.paisley}
+          onClose={() => navigate({ to: "/profile" })}
+        >
+        <div className="flex flex-col h-full">
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
-          <div className="flex flex-col items-center pb-5">
+          <div className="mt-5 flex flex-col items-center">
             <div className="relative h-40 w-40">
               <AvatarDraggable
                 src={form.avatarPath}
@@ -249,7 +241,7 @@ function EditProfilePage() {
             />
           </div>
 
-          <div className="space-y-3 mt-auto -translate-y-[14px]">
+          <div className="mt-6 space-y-3">
             {/* Name — single pill: label + given + family */}
             <div
               className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
@@ -320,19 +312,17 @@ function EditProfilePage() {
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Sticky save bar */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 pt-3 pb-5 bg-white">
           <button
             type="button"
             onClick={onSave}
-            className="w-full h-12 rounded-full text-[15px] font-semibold active:scale-[0.99] transition-transform"
+            className="mt-auto shrink-0 w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
             style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
           >
             Save
           </button>
         </div>
+        </StandardSheet>
 
         {/* Toast — above the Save pill */}
         {toast && (

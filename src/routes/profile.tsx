@@ -143,7 +143,7 @@ function ProfilePage() {
             <ChevronDown
               className="h-5 w-5 shrink-0 transition-transform group-hover:translate-y-0.5"
               strokeWidth={2.5}
-              style={{ color: "color-mix(in oklab, var(--paisley) 65%, white)" }}
+              style={{ color: PAISLEY }}
             />
           </button>
           {/* Registration date — mirrors ShirinTalk subtitle position */}
