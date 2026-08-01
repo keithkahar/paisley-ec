@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { useLearners } from "@/lib/learners";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
 const PROFILE_STORAGE_KEY = "my_profile_v1";
@@ -117,6 +118,7 @@ function formatBirthday(birthday: string) {
 }
 
 export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; onClose: () => void; onSaved?: () => void }) {
+  const { learner, current, updateLearner } = useLearners();
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<ProfileForm>(DEFAULT_FORM);
   const [showBirthdayPicker, setShowBirthdayPicker] = useState(false);
@@ -133,8 +135,23 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   }
 
   useEffect(() => {
-    if (open) setForm(loadProfile());
-  }, [open]);
+    if (!open) return;
+    if (current) {
+      const parts = current.name.trim().split(/\s+/);
+      setForm({
+        avatarPath: current.avatarPath,
+        avatarPosX: current.avatarPosX,
+        avatarPosY: current.avatarPosY,
+        avatarScale: current.avatarScale,
+        givenName: parts[0] ?? "",
+        familyName: parts.slice(1).join(" "),
+        birthday: current.birthday,
+        gender: current.gender,
+      });
+    } else {
+      setForm(loadProfile());
+    }
+  }, [open, current]);
 
   const initials = useMemo(() => computeInitials(form.givenName, form.familyName), [form.givenName, form.familyName]);
 
@@ -179,6 +196,15 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
     setError("");
     const normalized = saveProfile(form);
     setForm(normalized);
+    updateLearner(learner, {
+      name: `${normalized.givenName} ${normalized.familyName}`.trim(),
+      avatarPath: normalized.avatarPath,
+      avatarPosX: normalized.avatarPosX,
+      avatarPosY: normalized.avatarPosY,
+      avatarScale: normalized.avatarScale,
+      gender: normalized.gender,
+      birthday: normalized.birthday,
+    });
     onSaved?.();
     onClose();
   }
