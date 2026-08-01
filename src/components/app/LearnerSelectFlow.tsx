@@ -114,12 +114,16 @@ export function LearnerSelectFlow({
                 setTarget("");
               }}
               className="h-11 w-11 shrink-0 grid place-items-center rounded-full active:scale-95 transition-transform"
-              style={{
-                border: "1px solid color-mix(in oklab, var(--destructive) 45%, white)",
-                background: deleteMode ? "color-mix(in oklab, var(--destructive) 10%, white)" : "white",
-              }}
             >
-              <Trash2 className="h-7 w-7" style={{ color: DANGER }} strokeWidth={2} />
+              <span
+                className="h-7 w-7 grid place-items-center rounded-full"
+                style={{
+                  border: "1px solid color-mix(in oklab, var(--destructive) 45%, white)",
+                  background: deleteMode ? "color-mix(in oklab, var(--destructive) 10%, white)" : "white",
+                }}
+              >
+                <Trash2 className="h-4 w-4" style={{ color: DANGER }} strokeWidth={2} />
+              </span>
             </button>
             {deleteMode ? (
               <button
@@ -311,6 +315,7 @@ function AddLearnerSheet({
   const [bdayOpen, setBdayOpen] = useState(false);
   const [error, setError] = useState("");
   const [avatarScale, setAvatarScale] = useState(1);
+  const [nameFocused, setNameFocused] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -320,6 +325,7 @@ function AddLearnerSheet({
     setBirthday("");
     setError("");
     setAvatarScale(1);
+    setNameFocused(false);
   }, [open]);
 
   if (!open) return null;
@@ -338,7 +344,7 @@ function AddLearnerSheet({
     if (!gender) return setError("Select girl or boy");
     if (!birthday) return setError("Select birthday");
     setError("");
-    onCreate(given.trim());
+    onCreate(`${given.trim()} ${family.trim()}`);
   };
 
   return (
@@ -386,18 +392,35 @@ function AddLearnerSheet({
               <span className="shrink-0 text-[16px] font-semibold leading-none" style={{ color: PAISLEY, letterSpacing: "-0.01em" }}>
                 Name
               </span>
-              <input
-                value={given}
-                onChange={(e) => { setGiven(e.target.value); setError(""); }}
-                placeholder="Given Name"
-                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
-              />
-              <input
-                value={family}
-                onChange={(e) => { setFamily(e.target.value); setError(""); }}
-                placeholder="Family Name"
-                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
-              />
+              {!nameFocused && given.trim() && family.trim() ? (
+                <button
+                  type="button"
+                  onClick={() => setNameFocused(true)}
+                  className="flex-1 min-w-0 text-right text-[16px] font-semibold text-foreground truncate"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  {`${given.trim()} ${family.trim()}`}
+                </button>
+              ) : (
+                <>
+                  <input
+                    value={given}
+                    onChange={(e) => { setGiven(e.target.value); setError(""); }}
+                    onFocus={() => setNameFocused(true)}
+                    onBlur={() => setNameFocused(false)}
+                    placeholder="Given Name"
+                    className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
+                  />
+                  <input
+                    value={family}
+                    onChange={(e) => { setFamily(e.target.value); setError(""); }}
+                    onFocus={() => setNameFocused(true)}
+                    onBlur={() => setNameFocused(false)}
+                    placeholder="Family Name"
+                    className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
+                  />
+                </>
+              )}
             </div>
 
             <div className="flex items-center gap-2">

@@ -122,6 +122,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
   const [showBirthdayPicker, setShowBirthdayPicker] = useState(false);
   const [toast, setToast] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [nameFocused, setNameFocused] = useState(false);
 
   function validate(): string {
     if (!form.avatarPath) return "Add avatar";
@@ -246,7 +247,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           </div>
 
           <div className="mt-6 space-y-3">
-            {/* Name — single pill: label + given + family */}
+            {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
             <div
               className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
               style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
@@ -257,22 +258,39 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
               >
                 Name
               </span>
-              <input
-                type="text"
-                value={form.givenName}
-                onChange={(e) => update("givenName", e.target.value)}
-                placeholder="Given Name"
-                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium text-foreground placeholder:text-muted-foreground placeholder:font-normal"
-                style={{ letterSpacing: "-0.01em" }}
-              />
-              <input
-                type="text"
-                value={form.familyName}
-                onChange={(e) => update("familyName", e.target.value)}
-                placeholder="Family Name"
-                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium text-foreground placeholder:text-muted-foreground placeholder:font-normal"
-                style={{ letterSpacing: "-0.01em" }}
-              />
+              {!nameFocused && form.givenName.trim() && form.familyName.trim() ? (
+                <button
+                  type="button"
+                  onClick={() => setNameFocused(true)}
+                  className="flex-1 min-w-0 text-right text-[16px] font-semibold text-foreground truncate"
+                  style={{ letterSpacing: "-0.01em" }}
+                >
+                  {`${form.givenName.trim()} ${form.familyName.trim()}`}
+                </button>
+              ) : (
+                <>
+                  <input
+                    type="text"
+                    value={form.givenName}
+                    onChange={(e) => update("givenName", e.target.value)}
+                    onFocus={() => setNameFocused(true)}
+                    onBlur={() => setNameFocused(false)}
+                    placeholder="Given Name"
+                    className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-semibold text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                    style={{ letterSpacing: "-0.01em" }}
+                  />
+                  <input
+                    type="text"
+                    value={form.familyName}
+                    onChange={(e) => update("familyName", e.target.value)}
+                    onFocus={() => setNameFocused(true)}
+                    onBlur={() => setNameFocused(false)}
+                    placeholder="Family Name"
+                    className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-semibold text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                    style={{ letterSpacing: "-0.01em" }}
+                  />
+                </>
+              )}
             </div>
 
             {/* Gender + Birthday on one row */}
