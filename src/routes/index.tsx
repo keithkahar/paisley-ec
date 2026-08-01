@@ -7,6 +7,7 @@ import paisleyLogo from "@/assets/brand/paisley-ec-logo.png.asset.json";
 import shirinTalkText from "@/assets/brand/shirintalk-text.png.asset.json";
 import { Mic } from "lucide-react";
 import { useRef } from "react";
+import { useLearners } from "@/lib/learners";
 
 
 export const Route = createFileRoute("/")({
@@ -20,7 +21,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const name = "Daniella Wang";
+  const { learner } = useLearners();
+  const name = learner;
   const navigate = useNavigate();
   const clickCount = useRef(0);
   const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
