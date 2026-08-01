@@ -356,27 +356,18 @@ function AddLearnerSheet({
         <div className="flex flex-col h-full">
           <div className="mt-5 flex flex-col items-center">
             <div className="relative h-40 w-40">
-              <div
-                className="h-full w-full rounded-full grid place-items-center overflow-hidden"
-                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
-              >
-                {avatarSrc ? (
-                  <img
-                    src={avatarSrc}
-                    alt=""
-                    draggable={false}
-                    className="h-full w-full object-cover pointer-events-none"
-                    style={{ transform: `scale(${avatarScale})` }}
-                  />
-                ) : (
-                  <span
-                    className="text-[56px] font-medium leading-none"
-                    style={{ color: PAISLEY, letterSpacing: "-0.02em", transform: `scale(${avatarScale})` }}
-                  >
-                    {initials}
-                  </span>
-                )}
-              </div>
+              <AvatarDraggable
+                src={avatarSrc}
+                initials={initials}
+                posX={avatarPosX}
+                posY={avatarPosY}
+                scale={avatarScale}
+                onChangePos={(x, y) => {
+                  setAvatarPosX(x);
+                  setAvatarPosY(y);
+                }}
+                onChangeScale={setAvatarScale}
+              />
               <button
                 type="button"
                 aria-label="Choose photo"
