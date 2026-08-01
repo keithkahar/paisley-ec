@@ -356,11 +356,11 @@ function AddLearnerSheet({
                   {initials}
                 </span>
               </div>
-              <span className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-white border border-border">
-                <Camera className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+              <span className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white border border-border">
+                <Camera className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </span>
-              <span className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-white border border-border">
-                <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+              <span className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full bg-white border border-border">
+                <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </span>
             </div>
             <input
