@@ -1,5 +1,9 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { Check, X } from "lucide-react";
+import {
+  BOTTOM_ACTION_RESERVE,
+  BottomActionReserveContext,
+} from "@/components/app/BottomAction";
 
 /**
  * Global bottom-sheet standard.
@@ -69,6 +73,13 @@ export function StandardSheet({
   const hasDone = typeof onDone === "function";
   const showX = !hasDone || showCancel;
 
+  // Any <BottomAction> rendered in `children` registers here so the scroll
+  // area reserves exactly the space the fixed button covers.
+  const [bottomActions, setBottomActions] = useState(0);
+  const registerBottomAction = useCallback((present: boolean) => {
+    setBottomActions((n) => Math.max(0, n + (present ? 1 : -1)));
+  }, []);
+
   return (
     <div
       className={`fixed inset-0 z-40 flex items-end justify-center transition-opacity duration-200 ${
@@ -129,12 +140,17 @@ export function StandardSheet({
             </button>
           )}
         </div>
-        <div
-          className="flex-1 overflow-y-auto px-5 pb-8"
-          style={{ paddingTop: contentPaddingTop }}
-        >
-          {children}
-        </div>
+        <BottomActionReserveContext.Provider value={registerBottomAction}>
+          <div
+            className="flex-1 overflow-y-auto px-5"
+            style={{
+              paddingTop: contentPaddingTop,
+              paddingBottom: bottomActions > 0 ? BOTTOM_ACTION_RESERVE : 32,
+            }}
+          >
+            {children}
+          </div>
+        </BottomActionReserveContext.Provider>
       </div>
     </div>
   );

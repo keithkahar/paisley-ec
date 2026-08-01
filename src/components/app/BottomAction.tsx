@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, createContext, useContext, useEffect } from "react";
 
 /**
  * Global bottom action bar.
@@ -13,6 +13,22 @@ import { ReactNode } from "react";
 export const BOTTOM_ACTION_HEIGHT = 49;
 export const BOTTOM_ACTION_CLEARANCE = 93;
 
+/**
+ * Total vertical space a bottom action occupies measured from the bottom edge,
+ * plus breathing room. Any scroll container that sits behind a BottomAction
+ * must reserve this much padding-bottom so content is never covered.
+ */
+export const BOTTOM_ACTION_RESERVE =
+  BOTTOM_ACTION_HEIGHT + BOTTOM_ACTION_CLEARANCE + 16;
+
+/**
+ * Containers (e.g. StandardSheet) provide this so any BottomAction rendered
+ * inside them auto-reserves the space it covers — no per-call-site padding.
+ */
+export const BottomActionReserveContext = createContext<
+  ((present: boolean) => void) | null
+>(null);
+
 export function BottomAction({
   children,
   className = "",
@@ -20,6 +36,13 @@ export function BottomAction({
   children: ReactNode;
   className?: string;
 }) {
+  const reserve = useContext(BottomActionReserveContext);
+  useEffect(() => {
+    if (!reserve) return;
+    reserve(true);
+    return () => reserve(false);
+  }, [reserve]);
+
   return (
     <div
       className={`fixed left-1/2 -translate-x-1/2 bottom-[93px] z-[45] w-full max-w-[420px] px-5 ${className}`}
