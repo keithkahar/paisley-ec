@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { BottomAction } from "@/components/app/BottomAction";
 import { Heart, X, ChevronRight, ChevronLeft, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";

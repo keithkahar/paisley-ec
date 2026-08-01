@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { BottomAction } from "@/components/app/BottomAction";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
 const PAISLEY = "var(--paisley)";

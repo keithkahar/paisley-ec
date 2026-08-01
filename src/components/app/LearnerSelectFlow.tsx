@@ -3,6 +3,7 @@ import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import type { Learner } from "@/lib/learners";
 import { AvatarDraggable } from "@/components/app/EditProfileSheet";
+import { BottomAction } from "@/components/app/BottomAction";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";

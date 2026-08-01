@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { useLearners } from "@/lib/learners";
+import { BottomAction } from "@/components/app/BottomAction";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
 const PROFILE_STORAGE_KEY = "my_profile_v1";
