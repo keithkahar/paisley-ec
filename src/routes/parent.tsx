@@ -1988,10 +1988,10 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Benefits */}
               <div
-                className="mt-[20px] flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
+                className="mt-[14px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                <ul className="space-y-3">
+                <ul className="space-y-2 pb-3">
                   {card.benefits.map((benefit, j) => (
                     <li key={j} className="flex items-start gap-2">
                       <Check className="shrink-0 mt-[2px] h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "var(--foreground)" }} />
