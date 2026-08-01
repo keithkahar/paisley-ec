@@ -409,7 +409,7 @@ function AddLearnerSheet({
                     onFocus={() => setNameFocused(true)}
                     onBlur={() => setNameFocused(false)}
                     placeholder="Given Name"
-                    className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
+                    className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
                   />
                   <input
                     value={family}
@@ -417,7 +417,7 @@ function AddLearnerSheet({
                     onFocus={() => setNameFocused(true)}
                     onBlur={() => setNameFocused(false)}
                     placeholder="Family Name"
-                    className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
+                    className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
                   />
                 </>
               )}
@@ -452,10 +452,11 @@ function AddLearnerSheet({
               <button
                 type="button"
                 onClick={() => setBdayOpen(true)}
-                className="flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] font-medium"
+                className={`flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${birthday ? "font-semibold" : "font-normal"}`}
                 style={{
                   borderColor: "color-mix(in oklab, var(--paisley) 55%, white)",
-                  color: birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)",
+                  color: birthday ? "var(--foreground)" : "var(--muted-foreground)",
+                  letterSpacing: "-0.01em",
                 }}
               >
                 {bdayLabel}
