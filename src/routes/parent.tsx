@@ -1942,10 +1942,20 @@ function MembershipCards({ open }: { open: boolean }) {
                 </p>
               </div>
 
+              {/* Embedded CTA */}
+              <div className="mt-[18px]">
+                <button
+                  type="button"
+                  className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
+                  style={{ background: "var(--paisley)" }}
+                >
+                  订阅  升级
+                </button>
+              </div>
 
               {/* Benefits */}
               <div
-                className="mt-[26px] flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
+                className="mt-[20px] flex-1 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 <ul className="space-y-3">
@@ -1965,16 +1975,6 @@ function MembershipCards({ open }: { open: boolean }) {
             </div>
           </div>
         ))}
-      </div>
-      {/* Shared bottom CTA */}
-      <div className="shrink-0 pt-4">
-        <button
-          type="button"
-          className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
-          style={{ background: "var(--paisley)" }}
-        >
-          订阅  升级
-        </button>
       </div>
     </div>
   );
