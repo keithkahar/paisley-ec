@@ -1276,12 +1276,6 @@ function AdminPageInner() {
           </>
         )}
 
-        {/* Toast */}
-        {toast && (
-          <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center">
-            <div className="px-5 py-3 rounded-xl text-white text-[14px] font-medium" style={{ background: "rgba(11,37,69,0.85)" }}>{toast}</div>
-          </div>
-        )}
 
         {/* Help modal */}
         {helpFor && (

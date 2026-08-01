@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { X, Check, ChevronRight, Camera } from "lucide-react";
+import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 // ---- Profile storage (mirrors utils/profile.js) ----

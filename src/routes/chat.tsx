@@ -622,12 +622,6 @@ function ChatPage() {
           />
         )}
 
-        {/* Toast */}
-        {toast && (
-          <div className="fixed bottom-[140px] left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-black/80 text-white text-[12px] font-semibold shadow-lg">
-            {toast}
-          </div>
-        )}
 
         {/* Voice hold overlay */}
         {holding && <VoiceHoldOverlay />}
