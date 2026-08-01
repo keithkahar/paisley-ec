@@ -482,7 +482,7 @@ function AvatarDraggable({
       ) : (
         <span
           className="text-[56px] font-medium leading-none"
-          style={{ color: YELLOW, letterSpacing: "-0.02em" }}
+          style={{ color: YELLOW, letterSpacing: "-0.02em", transform: `scale(${scale})` }}
         >
           {initials}
         </span>
