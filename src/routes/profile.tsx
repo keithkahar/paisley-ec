@@ -18,6 +18,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
+import { EditProfileSheet } from "@/components/app/EditProfileSheet";
 import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
 export const Route = createFileRoute("/profile")({
@@ -53,6 +54,7 @@ function ProfilePage() {
   const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
   const [learner, setLearner] = useState("Amy");
   const [learnerOpen, setLearnerOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
   useEffect(() => {
     try {
@@ -118,13 +120,14 @@ function ProfilePage() {
               )}
             </div>
             {/* Edit profile entry — small badge tucked at avatar's upper-left */}
-            <Link
-              to="/edit-profile"
+            <button
+              type="button"
+              onClick={() => setEditOpen(true)}
               aria-label="Edit profile"
               className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
             >
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
-            </Link>
+            </button>
           </div>
           <button
             type="button"
