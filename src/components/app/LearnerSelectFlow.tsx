@@ -1,0 +1,612 @@
+import { useEffect, useState } from "react";
+import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from "lucide-react";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+
+const PAISLEY = "var(--paisley)";
+const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
+const DANGER = "var(--destructive)";
+export const PARENT_PIN_STORAGE_KEY = "paisley.parent.pin";
+
+const MONTHS_LONG = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/**
+ * Shared "Select A Learner" flow: selection sheet with delete mode,
+ * parent-password delete confirmation, and Add A Learner profile entry.
+ * Used by both /parent (learner card) and /profile (my profile hero).
+ */
+export function LearnerSelectFlow({
+  open,
+  onClose,
+  learners,
+  learner,
+  onSelect,
+  onAdd,
+  onDelete,
+}: {
+  open: boolean;
+  onClose: () => void;
+  learners: string[];
+  learner: string;
+  onSelect: (name: string) => void;
+  onAdd: (name: string) => void;
+  onDelete: (name: string) => void;
+}) {
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [target, setTarget] = useState("");
+  const [deletePwOpen, setDeletePwOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) return;
+    setDeleteMode(false);
+    setTarget("");
+  }, [open]);
+
+  return (
+    <>
+      <StandardSheet
+        open={open}
+        title="Select A Learner"
+        brandColor={SHEET_BRAND.paisley}
+        onClose={() => {
+          onClose();
+          setDeleteMode(false);
+          setTarget("");
+        }}
+      >
+        <div className="flex flex-col h-full">
+          <div className="flex-1 mt-5">
+            {learners.map((n) => {
+              const active = n === learner;
+              const marked = n === target;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => {
+                    if (deleteMode) {
+                      setTarget((t) => (t === n ? "" : n));
+                      return;
+                    }
+                    onSelect(n);
+                    onClose();
+                  }}
+                  className="w-full flex items-center gap-3 py-3.5 text-left"
+                >
+                  {deleteMode && (
+                    <span
+                      className="h-[22px] w-[22px] shrink-0 rounded-full grid place-items-center"
+                      style={{
+                        border: `1.5px solid color-mix(in oklab, var(--destructive) ${marked ? 100 : 40}%, white)`,
+                      }}
+                    >
+                      {marked && (
+                        <span
+                          className="h-[11px] w-[11px] rounded-full"
+                          style={{ background: DANGER }}
+                        />
+                      )}
+                    </span>
+                  )}
+                  <span
+                    className="text-[15px] font-semibold"
+                    style={{ color: active ? PAISLEY : "var(--foreground)" }}
+                  >
+                    {n}
+                  </span>
+                  {!deleteMode && active && (
+                    <Check className="ml-auto h-5 w-5" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          <div className="pt-4 flex items-center gap-3">
+            <button
+              type="button"
+              aria-label={deleteMode ? "退出删除模式" : "进入删除模式"}
+              onClick={() => {
+                setDeleteMode((v) => !v);
+                setTarget("");
+              }}
+              className="h-11 w-11 shrink-0 grid place-items-center rounded-full active:scale-95 transition-transform"
+              style={{
+                border: "1px solid color-mix(in oklab, var(--destructive) 45%, white)",
+                background: deleteMode ? "color-mix(in oklab, var(--destructive) 10%, white)" : "white",
+              }}
+            >
+              <Trash2 className="h-7 w-7" style={{ color: DANGER }} strokeWidth={2} />
+            </button>
+            {deleteMode ? (
+              <button
+                type="button"
+                disabled={!target || learners.length <= 1}
+                onClick={() => setDeletePwOpen(true)}
+                className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-50"
+                style={{
+                  background: "color-mix(in oklab, var(--destructive) 10%, white)",
+                  color: DANGER,
+                }}
+              >
+                <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
+                  <Minus className="h-4 w-4" strokeWidth={2.5} style={{ color: DANGER }} />
+                </span>
+                <span className="text-[15px] font-semibold">Delete A Learner</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setAddOpen(true)}
+                className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
+              >
+                <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
+                  <Plus className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                </span>
+                <span className="text-[15px] font-semibold">Add A Learner</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </StandardSheet>
+
+      <DeleteLearnerPasswordSheet
+        open={deletePwOpen}
+        learner={target}
+        onClose={() => setDeletePwOpen(false)}
+        onConfirm={() => {
+          onDelete(target);
+          setDeletePwOpen(false);
+          setDeleteMode(false);
+          setTarget("");
+        }}
+      />
+
+      <AddLearnerSheet
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
+        onCreate={(name) => {
+          onAdd(name);
+          setAddOpen(false);
+          onClose();
+        }}
+      />
+    </>
+  );
+}
+
+function DeleteLearnerPasswordSheet({
+  open,
+  learner,
+  onClose,
+  onConfirm,
+}: {
+  open: boolean;
+  learner: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  const [pw, setPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!open) return;
+    setPw("");
+    setConfirmPw("");
+    setError("");
+  }, [open]);
+
+  if (!open) return null;
+
+  const submit = () => {
+    setError("");
+    const saved = typeof window !== "undefined" ? localStorage.getItem(PARENT_PIN_STORAGE_KEY) : null;
+    if (!pw || !confirmPw) return setError("请输入并确认家长密码");
+    if (pw !== confirmPw) return setError("两次输入的密码不一致");
+    if (saved && pw !== saved) return setError("密码不正确");
+    onConfirm();
+  };
+
+  return (
+    <StandardSheet open={open} title="Enter Parent Password" brandColor={DANGER} onClose={onClose}>
+      <div>
+        <p
+          className="text-[12px] leading-[1.55] text-center"
+          style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+        >
+          This password confirms the learner deletion
+          {learner ? ` · ${learner}` : ""}
+        </p>
+
+        <div className="mt-5 space-y-3">
+          <DangerPasswordInput label="Password" value={pw} onChange={setPw} />
+          <DangerPasswordInput label="Confirm" value={confirmPw} onChange={setConfirmPw} />
+        </div>
+
+        {error && (
+          <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: DANGER }}>
+            {error}
+          </p>
+        )}
+
+        <button
+          type="button"
+          onClick={submit}
+          className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+          style={{ background: DANGER }}
+        >
+          Delete
+        </button>
+      </div>
+    </StandardSheet>
+  );
+}
+
+function DangerPasswordInput({
+  label,
+  value,
+  onChange,
+  autoFocus,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  autoFocus?: boolean;
+}) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <label className="block">
+      <div
+        className="rounded-full h-[60px] px-6 flex items-center gap-3 transition-colors focus-within:bg-white"
+        style={{
+          background: "color-mix(in oklab, var(--destructive) 6%, white)",
+          border: "1px solid color-mix(in oklab, var(--destructive) 14%, white)",
+        }}
+      >
+        <input
+          type={visible ? "text" : "password"}
+          inputMode="text"
+          autoComplete="off"
+          autoFocus={autoFocus}
+          maxLength={6}
+          value={value}
+          placeholder={label}
+          onChange={(e) => onChange(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))}
+          className="flex-1 min-w-0 bg-transparent outline-none text-[16px] font-medium placeholder:font-normal placeholder:tracking-normal placeholder:text-muted-foreground"
+          style={{ color: DANGER, letterSpacing: value ? "0.28em" : "normal" }}
+        />
+        <button
+          type="button"
+          aria-label={visible ? "隐藏密码" : "显示密码"}
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => setVisible((v) => !v)}
+          className="shrink-0 grid place-items-center h-7 w-7 rounded-full transition-opacity active:opacity-60"
+          style={{ color: "color-mix(in oklab, var(--destructive) 55%, white)" }}
+        >
+          {visible ? <EyeOff size={18} strokeWidth={1.75} /> : <Eye size={18} strokeWidth={1.75} />}
+        </button>
+      </div>
+    </label>
+  );
+}
+
+function AddLearnerSheet({
+  open,
+  onClose,
+  onCreate,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onCreate: (name: string) => void;
+}) {
+  const [given, setGiven] = useState("");
+  const [family, setFamily] = useState("");
+  const [gender, setGender] = useState<"" | "male" | "female">("");
+  const [birthday, setBirthday] = useState("");
+  const [bdayOpen, setBdayOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [avatarScale, setAvatarScale] = useState(1);
+
+  useEffect(() => {
+    if (!open) return;
+    setGiven("");
+    setFamily("");
+    setGender("");
+    setBirthday("");
+    setError("");
+    setAvatarScale(1);
+  }, [open]);
+
+  if (!open) return null;
+
+  const initials = ((given.trim()[0] ?? "") + (family.trim()[0] ?? "")).toUpperCase() || "PEC";
+  const bdayLabel = /^\d{4}-\d{2}-\d{2}$/.test(birthday)
+    ? (() => {
+        const [y, m, d] = birthday.split("-").map(Number);
+        return `${MONTHS_SHORT[m - 1]} ${d} ${y}`;
+      })()
+    : "Select birthday";
+
+  const submit = () => {
+    if (!given.trim()) return setError("请输入 Given Name");
+    if (!gender) return setError("请选择性别");
+    if (!birthday) return setError("请选择生日");
+    onCreate(given.trim());
+  };
+
+  return (
+    <>
+      <StandardSheet open={open} title="Add A Learner" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
+        <div className="flex flex-col h-full">
+          <div className="mt-5 flex flex-col items-center">
+            <div className="relative h-40 w-40">
+              <div
+                className="h-full w-full rounded-full grid place-items-center"
+                style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
+              >
+                <span
+                  className="text-[56px] font-medium leading-none"
+                  style={{ color: PAISLEY, letterSpacing: "-0.02em", transform: `scale(${avatarScale})` }}
+                >
+                  {initials}
+                </span>
+              </div>
+              <span className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-white border border-border">
+                <Camera className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+              </span>
+              <span className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-white border border-border">
+                <X className="h-4 w-4" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+              </span>
+            </div>
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.01}
+              value={avatarScale}
+              onChange={(e) => setAvatarScale(Number(e.target.value))}
+              className="mt-4 w-[38%] h-1 accent-current opacity-70"
+              style={{ color: "var(--muted-foreground)" }}
+              aria-label="Zoom"
+            />
+          </div>
+
+          <div className="mt-6 space-y-3">
+            <div
+              className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
+              style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
+            >
+              <span className="shrink-0 text-[16px] font-semibold leading-none" style={{ color: PAISLEY, letterSpacing: "-0.01em" }}>
+                Name
+              </span>
+              <input
+                value={given}
+                onChange={(e) => setGiven(e.target.value)}
+                placeholder="Given Name"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
+              />
+              <input
+                value={family}
+                onChange={(e) => setFamily(e.target.value)}
+                placeholder="Family Name"
+                className="flex-1 min-w-0 bg-transparent outline-none text-center text-[16px] font-medium placeholder:text-muted-foreground placeholder:font-normal"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              {([
+                { key: "female" as const, label: "Girl", color: "var(--shirin)" },
+                { key: "male" as const, label: "Boy", color: "var(--wordie)" },
+              ]).map((opt) => {
+                const active = gender === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setGender(opt.key)}
+                    className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
+                    style={
+                      active
+                        ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
+                        : {
+                            background: "white",
+                            color: opt.color,
+                            border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
+                          }
+                    }
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
+              <button
+                type="button"
+                onClick={() => setBdayOpen(true)}
+                className="flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] font-medium"
+                style={{
+                  borderColor: "color-mix(in oklab, var(--paisley) 55%, white)",
+                  color: birthday ? "var(--foreground)" : "color-mix(in oklab, var(--foreground) 45%, white)",
+                }}
+              >
+                {bdayLabel}
+                <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
+              </button>
+            </div>
+          </div>
+
+          {error && (
+            <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: DANGER }}>
+              {error}
+            </p>
+          )}
+
+          <button
+            type="button"
+            onClick={submit}
+            className="mt-auto shrink-0 w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+            style={{ background: PAISLEY }}
+          >
+            Save
+          </button>
+        </div>
+      </StandardSheet>
+
+      {bdayOpen && (
+        <LearnerBirthdaySheet
+          value={birthday || "2017-01-01"}
+          onClose={() => setBdayOpen(false)}
+          onConfirm={(v) => {
+            setBirthday(v);
+            setBdayOpen(false);
+          }}
+        />
+      )}
+    </>
+  );
+}
+
+function LearnerBirthdaySheet({
+  value,
+  onClose,
+  onConfirm,
+}: {
+  value: string;
+  onClose: () => void;
+  onConfirm: (v: string) => void;
+}) {
+  const [y0, m0, d0] = value.split("-").map(Number);
+  const [year, setYear] = useState(y0);
+  const [month, setMonth] = useState(m0);
+  const [day, setDay] = useState(d0);
+  const [tab, setTab] = useState<"month" | "day" | "year">("month");
+
+  const maxDay = new Date(year, month, 0).getDate();
+  const years: number[] = [];
+  for (let y = new Date().getFullYear(); y >= 2000; y--) years.push(y);
+
+  const tabs = [
+    { key: "month" as const, label: "Month", value: MONTHS_SHORT[month - 1] },
+    { key: "day" as const, label: "Day", value: String(Math.min(day, maxDay)) },
+    { key: "year" as const, label: "Year", value: String(year) },
+  ];
+
+  return (
+    <StandardSheet open title="Birthday" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
+      <div className="flex flex-col h-full">
+        <div className="mt-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
+          {tabs.map((t) => {
+            const active = tab === t.key;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setTab(t.key)}
+                className="rounded-full py-2.5 px-3 text-center transition-colors"
+                style={
+                  active
+                    ? { background: PAISLEY_SOFT, color: PAISLEY, border: `1px solid ${PAISLEY_SOFT}` }
+                    : {
+                        background: "white",
+                        color: PAISLEY,
+                        border: "1px solid color-mix(in oklab, var(--paisley) 45%, white)",
+                      }
+                }
+              >
+                <span className="block text-[11px] font-semibold leading-none opacity-80">{t.label}</span>
+                <span className="block text-[17px] font-medium leading-tight mt-0.5">{t.value}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="flex-1 min-h-0 overflow-y-auto pb-4">
+          {tab === "month" && (
+            <LearnerChipGrid
+              cols={3}
+              items={MONTHS_LONG.map((name, i) => ({ key: i + 1, label: name }))}
+              value={month}
+              onPick={(v) => {
+                setMonth(v);
+                setTab("day");
+              }}
+            />
+          )}
+          {tab === "day" && (
+            <LearnerChipGrid
+              cols={7}
+              items={Array.from({ length: maxDay }, (_, i) => ({ key: i + 1, label: String(i + 1) }))}
+              value={Math.min(day, maxDay)}
+              onPick={(v) => {
+                setDay(v);
+                setTab("year");
+              }}
+            />
+          )}
+          {tab === "year" && (
+            <LearnerChipGrid
+              cols={4}
+              items={years.map((y) => ({ key: y, label: String(y) }))}
+              value={year}
+              onPick={setYear}
+            />
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() =>
+            onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
+          }
+          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+          style={{ background: PAISLEY }}
+        >
+          Save
+        </button>
+      </div>
+    </StandardSheet>
+  );
+}
+
+function LearnerChipGrid({
+  cols,
+  items,
+  value,
+  onPick,
+}: {
+  cols: number;
+  items: { key: number; label: string }[];
+  value: number;
+  onPick: (v: number) => void;
+}) {
+  return (
+    <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+      {items.map((it) => {
+        const active = it.key === value;
+        return (
+          <button
+            key={it.key}
+            type="button"
+            onClick={() => onPick(it.key)}
+            className="h-11 rounded-full text-[13px] font-medium transition-colors"
+            style={
+              active
+                ? { background: PAISLEY_SOFT, color: PAISLEY, border: `1px solid ${PAISLEY_SOFT}` }
+                : {
+                    background: "white",
+                    color: "var(--foreground)",
+                    border: "1px solid color-mix(in oklab, var(--paisley) 45%, white)",
+                  }
+            }
+          >
+            {it.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
