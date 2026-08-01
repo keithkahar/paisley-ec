@@ -15,7 +15,9 @@ import {
   Users,
   Pencil,
   ChevronRight,
+  ChevronDown,
 } from "lucide-react";
+import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
 export const Route = createFileRoute("/profile")({
@@ -48,6 +50,9 @@ function ProfilePage() {
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
+  const [learners, setLearners] = useState<string[]>(["Amy", "Jack"]);
+  const [learner, setLearner] = useState("Amy");
+  const [learnerOpen, setLearnerOpen] = useState(false);
   const [avatarPos, setAvatarPos] = useState({ x: 50, y: 50, scale: 1 });
   useEffect(() => {
     try {
@@ -121,12 +126,26 @@ function ProfilePage() {
               <Pencil className="h-3.5 w-3.5" strokeWidth={2.25} style={{ color: "var(--muted-foreground)" }} />
             </Link>
           </div>
-          <h2
-            className="mt-2 text-[26px] leading-[1.2] font-medium tracking-tight"
-            style={{ color: PAISLEY, letterSpacing: "-0.01em" }}
+          <button
+            type="button"
+            onClick={() => setLearnerOpen(true)}
+            aria-label="选择孩子"
+            className="group mt-2 mx-auto flex w-fit items-center gap-1.5 leading-none active:scale-[0.98] transition-transform"
           >
-            {DISPLAY_NAME}
-          </h2>
+            {/* Invisible spacer balances the chevron so the name stays optically centered */}
+            <span className="h-5 w-5 shrink-0" aria-hidden="true" />
+            <h2
+              className="text-[26px] leading-[1.2] font-medium tracking-tight"
+              style={{ color: PAISLEY, letterSpacing: "-0.01em", fontFamily: "var(--font-display)" }}
+            >
+              {DISPLAY_NAME}
+            </h2>
+            <ChevronDown
+              className="h-5 w-5 shrink-0 transition-transform group-hover:translate-y-0.5"
+              strokeWidth={2.5}
+              style={{ color: "color-mix(in oklab, var(--paisley) 65%, white)" }}
+            />
+          </button>
           {/* Registration date — mirrors ShirinTalk subtitle position */}
           <p
             className="mt-1 text-[13px] leading-none font-semibold"
@@ -225,7 +244,26 @@ function ProfilePage() {
 
       </div>
 
-      <BottomTabBar hidden={calOpen || parentPinOpen} />
+      <LearnerSelectFlow
+        open={learnerOpen}
+        onClose={() => setLearnerOpen(false)}
+        learners={learners}
+        learner={learner}
+        onSelect={setLearner}
+        onAdd={(name) => {
+          setLearners((ls) => (ls.includes(name) ? ls : [...ls, name]));
+          setLearner(name);
+        }}
+        onDelete={(name) => {
+          setLearners((ls) => {
+            if (ls.length <= 1) return ls;
+            const next = ls.filter((n) => n !== name);
+            if (name === learner) setLearner(next[0]);
+            return next;
+          });
+        }}
+      />
+      <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen} />
       <ParentPinSheet
         open={parentPinOpen}
         onClose={() => setParentPinOpen(false)}
