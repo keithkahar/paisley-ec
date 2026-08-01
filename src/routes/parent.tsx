@@ -1787,16 +1787,25 @@ function MembershipCards({ open }: { open: boolean }) {
 
   const [cycle, setCycle] = useState<"month" | "year">("month");
 
+  const scrollToCard = (index: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>(`[data-index="${index}"]`);
+    if (card) {
+      el.scrollTo({
+        left: card.offsetLeft - (el.clientWidth - card.clientWidth) / 2,
+        behavior: "smooth",
+      });
+    }
+  };
+
   // Default to the Premium card, centered
   useEffect(() => {
     if (!open) return;
     const el = scrollerRef.current;
     if (!el) return;
     const id = window.setTimeout(() => {
-      const card = el.querySelector<HTMLElement>('[data-index="1"]');
-      if (card) {
-        el.scrollLeft = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
-      }
+      scrollToCard(1);
     }, 30);
     return () => window.clearTimeout(id);
   }, [open]);
