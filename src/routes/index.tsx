@@ -92,7 +92,7 @@ function Home() {
           >
             Hi, {name}.
             <span className="block mt-[41.63px] text-[26px] text-foreground/80 font-normal leading-[1.7]">
-              Are you ready for today's English adventure?
+              Are you ready to for today's English practice?
             </span>
           </h1>
 
