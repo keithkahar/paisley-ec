@@ -333,9 +333,11 @@ function AddLearnerSheet({
     : "Select birthday";
 
   const submit = () => {
-    if (!given.trim()) return setError("请输入 Given Name");
-    if (!gender) return setError("请选择性别");
-    if (!birthday) return setError("请选择生日");
+    if (!given.trim()) return setError("Add given name");
+    if (!family.trim()) return setError("Add family name");
+    if (!gender) return setError("Select girl or boy");
+    if (!birthday) return setError("Select birthday");
+    setError("");
     onCreate(given.trim());
   };
 
@@ -439,20 +441,21 @@ function AddLearnerSheet({
             </div>
           </div>
 
-          {error && (
-            <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: DANGER }}>
-              {error}
-            </p>
-          )}
-
-          <button
-            type="button"
-            onClick={submit}
-            className="mt-auto shrink-0 w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
-            style={{ background: PAISLEY }}
-          >
-            Save
-          </button>
+          <div className="mt-auto shrink-0">
+            {error && (
+              <p className="mb-2 text-center text-[14px] font-medium" style={{ color: DANGER, letterSpacing: "-0.01em" }}>
+                {error}
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={submit}
+              className="w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+              style={{ background: PAISLEY }}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </StandardSheet>
 
