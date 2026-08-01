@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, Plus, Trash2, ArrowUpRight, Smartphone, Cloud } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, Plus, Trash2, ArrowUpRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
@@ -1886,30 +1886,26 @@ function MembershipCards({ open }: { open: boolean }) {
               </h3>
 
               {/* Subtitle + features */}
-              <div className="mt-2 flex items-center justify-between gap-2">
+              <div className="mt-2 flex items-end justify-between gap-2">
                 <p
                   className="text-[13px] leading-snug"
                   style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                 >
                   {card.subtitle}
                 </p>
-                <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
+                <div className="flex flex-wrap items-end justify-end gap-2 shrink-0 leading-none">
                   {card.features.map((f, fi) => (
                     <span
                       key={fi}
-                      className="inline-flex items-center gap-1 text-[11px] font-normal"
+                      className="text-[11px] font-normal"
                       style={{ color: "var(--muted-foreground)" }}
                     >
-                      {f.icon === "device" ? (
-                        <Smartphone className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                      ) : (
-                        <Cloud className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-                      )}
                       {f.label}
                     </span>
                   ))}
                 </div>
               </div>
+
 
 
               {/* Price */}
