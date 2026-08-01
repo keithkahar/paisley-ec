@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, Check, ChevronRight, Camera } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 
 export const Route = createFileRoute("/edit-profile")({
