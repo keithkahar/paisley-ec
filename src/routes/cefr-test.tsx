@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProgressBar } from "@/components/app/WordieKit";
-import { BottomAction } from "@/components/app/BottomAction";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ChevronLeft,
@@ -679,9 +678,7 @@ function QuizView({
       )}
 
       {/* Nav */}
-      <div className="h-[132px]" aria-hidden />
-      <BottomAction>
-        <div className="flex gap-2.5">
+      <div className="mt-6 flex gap-2.5">
           {stageIdx > 0 && (
             <button
               onClick={onPrev}
@@ -703,8 +700,7 @@ function QuizView({
             {isLast ? "Submit" : "Next"}
             {!isLast && <ChevronRight className="h-4 w-4" />}
           </button>
-        </div>
-      </BottomAction>
+      </div>
     </div>
   );
 }
