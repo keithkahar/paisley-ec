@@ -332,10 +332,10 @@ function TopBar({
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
               to="/"
-              aria-label="Back"
+              aria-label="Home"
               className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
             >
-              <ChevronLeft className="h-5 w-5" style={{ color: "#0F172A" }} />
+              <Home className="h-5 w-5" strokeWidth={2} style={{ color: "#0F172A" }} />
             </Link>
             {tabs.map((t) => {
               const active = t.key === page;
