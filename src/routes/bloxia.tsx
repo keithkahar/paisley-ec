@@ -346,25 +346,25 @@ function TopBar({
                   type="button"
                   onClick={() => onNavigate(t.key)}
                   aria-label={t.label}
-                  className="h-9 w-9 rounded-full grid place-items-center transition-colors shrink-0"
+                  className="h-8 w-8 rounded-full grid place-items-center transition-colors shrink-0"
                   style={
                     active
                       ? { background: T.goldGradient, color: T.goldOnDark, border: `1px solid ${T.goldLight}` }
-                      : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1.5px solid rgba(216,175,87,0.55)` }
+                      : { background: "rgba(23,63,41,0.9)", color: T.goldLight, border: `1px solid rgba(216,175,87,0.55)` }
                   }
                 >
                   <Icon className="h-4 w-4" strokeWidth={2.5} />
                 </button>
               );
             })}
-            {/* Bp pill: hidden on profile (Bp is shown in the stat pills below) */}
+            {/* Bp pill: same height as the close button */}
             {page !== "profile" && (
             <div
-              className="h-9 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
+              className="h-8 px-2.5 rounded-full grid place-items-center shrink-0 text-[11px] font-extrabold"
               style={{
                 background: "rgba(23,63,41,0.9)",
                 color: T.goldLight,
-                border: `1.5px solid rgba(216,175,87,0.55)`,
+                border: `1px solid rgba(216,175,87,0.55)`,
               }}
             >
               {formatBp(bp)}
