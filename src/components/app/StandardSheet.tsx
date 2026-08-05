@@ -4,13 +4,12 @@ import { Check, X } from "lucide-react";
 /**
  * Global bottom-sheet standard.
  * - Height: 62vh, white, top rounded 3xl, max-w-[420px]
- * - Grabber: 1px x 40px
+ * - No grabber (title sits at the top of the sheet).
  * - Title: 17px / font-normal / tracking-tight / leading-none, centered,
  *   colored by `brandColor` (section brand color)
- * - Corner buttons: 32px white round with 1px border, no shadow.
- *   Icon 16px / #0F172A / strokeWidth 2.5.
- *   Single button -> right (top-1/2 -translate-y-1/2 relative to title).
- *   If both onCancel + onDone provided -> X left, Check right.
+ * - Close button: 32px white circle with 1px border, no shadow, fixed to the
+ *   top-left corner of the sheet. Icon 16px / #0F172A / strokeWidth 2.5.
+ * - Done button (when `onDone` provided): matching 32px circle on the top-right.
  * - Content: paddingTop 10 by default.
  * All 11 project sheets should render through this component.
  */
@@ -20,15 +19,14 @@ type Props = {
   title: string;
   /** Section brand color (CSS color). Applied to title text. */
   brandColor: string;
-  /** Called by backdrop tap and by the visible corner icon. */
+  /** Called by backdrop tap and by the visible close icon. */
   onClose: () => void;
   /**
    * If provided, a Check ✓ button renders in the top-right and calls this.
-   * If not provided, the top-right shows an X ✕ button wired to onClose.
-   * Provide together with `showCancel` to render both (X left, ✓ right).
+   * The close icon always remains in the top-left.
    */
   onDone?: () => void;
-  /** Show the X button on the left corner (only when onDone is set). */
+  /** @deprecated Close icon is now always shown in the top-left. */
   showCancel?: boolean;
   /** Optional centered subtitle rendered below the title. */
   subtitle?: ReactNode;
@@ -49,7 +47,6 @@ export function StandardSheet({
   brandColor,
   onClose,
   onDone,
-  showCancel,
   subtitle,
   subtitleColor = "rgba(15, 23, 42, 0.55)",
   contentPaddingTop = 10,
@@ -67,7 +64,6 @@ export function StandardSheet({
   }, [open, onClose]);
 
   const hasDone = typeof onDone === "function";
-  const showX = !hasDone || showCancel;
 
   return (
     <div
@@ -89,12 +85,8 @@ export function StandardSheet({
           transition: "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)",
         }}
       >
-        {/* Grabber */}
-        <div className="pt-1.5 pb-1 grid place-items-center shrink-0">
-          <span className="h-1 w-10 rounded-full bg-border" />
-        </div>
-        {/* Header: centered title, optional subtitle, corner buttons vertically aligned with title */}
-        <div className="relative flex flex-col items-center px-5 pt-1 pb-0 shrink-0">
+        {/* Header: title centered, close icon top-left, optional done icon top-right */}
+        <div className="relative flex flex-col items-center px-5 pt-4 pb-3 shrink-0">
           <h2
             className="text-[17px] tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor, fontWeight: 400 }}
@@ -106,24 +98,20 @@ export function StandardSheet({
               {subtitle}
             </div>
           )}
-          {showX && (
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Cancel"
-              className={`absolute ${hasDone ? "left-4" : "right-4"} h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform`}
-              style={{ top: 0 }}
-            >
-              <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+          >
+            <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+          </button>
           {hasDone && (
             <button
               type="button"
               onClick={onDone}
               aria-label="Done"
-              className="absolute right-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-              style={{ top: 0 }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
             >
               <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>
