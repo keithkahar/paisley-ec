@@ -329,7 +329,6 @@ function TopBar({
         {/* Top row: nav cluster on the left, name + avatar on the right */}
         <div className="flex items-start justify-between gap-2">
           {/* Left cluster: back + nav icons + Bp pill */}
-            {/* Left cluster: align to the top so the close button matches the global 16px top offset */}
             <div className="flex items-start gap-1.5 min-w-0">
             <Link
               to="/"
