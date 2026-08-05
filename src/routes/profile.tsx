@@ -83,9 +83,9 @@ function ProfilePage() {
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-[65px] pb-1 text-center">
-          <div className="relative mx-auto h-40 w-40">
+          <div className="relative mx-auto h-[155px] w-[155px]">
             <div
-              className="h-40 w-40 rounded-full grid place-items-center overflow-hidden"
+              className="h-full w-full rounded-full grid place-items-center overflow-hidden"
               style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
             >
               {avatarPath ? (
