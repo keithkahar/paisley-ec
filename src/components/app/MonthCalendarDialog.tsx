@@ -224,7 +224,7 @@ export function MonthCalendarDialog({
               <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-6 pb-6" style={{ paddingTop: 10 }}>{calendarBody}</div>
+          <div className="flex-1 overflow-y-auto px-6 pb-6" style={{ paddingTop: 18 }}>{calendarBody}</div>
         </div>
       </div>
     );
