@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { useMemo, useState } from "react";
-import { Search, X, ChevronRight, ChevronDown, Check, Circle, CircleCheck } from "lucide-react";
+import { Search, X, ChevronRight, ChevronDown, Check, Circle } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import {
   FilterChip,
@@ -451,10 +451,7 @@ function WordieBankPage() {
             style={{ height: "62vh" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-              <span className="h-1 w-10 rounded-full bg-border" />
-            </div>
-            <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+            <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
               <p
                 className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
@@ -464,11 +461,10 @@ function WordieBankPage() {
               <button
                 type="button"
                 onClick={() => setBatchOpen(false)}
-                aria-label="Done"
-                className="absolute right-4 top-3 h-9 w-9 grid place-items-center rounded-full bg-transparent active:scale-95 transition-transform"
-                style={{ color: "#0F172A" }}
+                aria-label="Close"
+                className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
               >
-                <CircleCheck className="w-6 h-6" strokeWidth={1.75} />
+                <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
               </button>
             </div>
             <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">

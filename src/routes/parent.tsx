@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, ArrowUpRight } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, ArrowUpRight, X } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
@@ -63,18 +63,14 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
         <FloatingBack to="/profile" />
 
-        {/* Bottom sheet — wordie-bank filter style */}
+        {/* Bottom sheet — PIN entry */}
         <div className="fixed inset-0 z-40 flex items-end justify-center">
           <div className="absolute inset-0 bg-sheet-backdrop" />
           <div
             className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
             style={{ height: "62vh" }}
           >
-            {/* Grabber */}
-            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-              <span className="h-1 w-10 rounded-full bg-border" />
-            </div>
-            <div className="flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+            <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
               <p
                 className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: PAISLEY }}
@@ -85,10 +81,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 type="button"
                 aria-label="关闭"
                 onClick={() => history.back()}
-                className="absolute right-4 top-3 h-8 w-8 grid place-items-center rounded-full transition-colors active:scale-95"
-                style={{ background: "color-mix(in oklab, var(--foreground) 6%, white)", color: "color-mix(in oklab, var(--foreground) 60%, white)" }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
               </button>
             </div>
 
