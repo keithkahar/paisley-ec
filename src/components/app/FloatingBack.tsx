@@ -26,7 +26,7 @@ export function FloatingBack({
       <Link
         to={to}
         aria-label={label}
-        className="absolute left-4 h-9 w-9 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
+        className="absolute left-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border shadow-sm active:scale-95 transition-transform"
         style={{ top: "calc(1rem + env(safe-area-inset-top))" }}
       >
         <Icon className="h-5 w-5" strokeWidth={2} style={{ color: "#0F172A" }} />

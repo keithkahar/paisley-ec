@@ -333,7 +333,7 @@ function TopBar({
             <Link
               to="/"
               aria-label="Close"
-              className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
+              className="h-8 w-8 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
             >
               <X className="h-5 w-5" strokeWidth={2} style={{ color: "#0F172A" }} />
             </Link>
