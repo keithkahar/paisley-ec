@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
-import { Heart, X, ChevronRight, ChevronDown, Pencil, Camera, Compass, Award, Gem, Home } from "lucide-react";
+import { Heart, X, ChevronRight, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
 import {
@@ -332,10 +332,10 @@ function TopBar({
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
               to="/"
-              aria-label="Home"
+              aria-label="Close"
               className="h-9 w-9 rounded-full grid place-items-center shrink-0 bg-white border border-border shadow-sm active:scale-95 transition-transform"
             >
-              <Home className="h-5 w-5" strokeWidth={2} style={{ color: "#0F172A" }} />
+              <X className="h-5 w-5" strokeWidth={2} style={{ color: "#0F172A" }} />
             </Link>
             {tabs.map((t) => {
               const active = t.key === page;

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, Home } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 
 /**
  * Global back button. Sits sticky at the top of the page so it stays
@@ -18,9 +18,9 @@ export function FloatingBack({
 }: {
   to?: string;
   label?: string;
-  icon?: "back" | "home";
+  icon?: "back" | "close";
 }) {
-  const Icon = icon === "home" ? Home : ChevronLeft;
+  const Icon = icon === "close" ? X : ChevronLeft;
   return (
     <div className="sticky top-0 z-30 h-0 pb-[5px]">
       <Link
@@ -34,4 +34,3 @@ export function FloatingBack({
     </div>
   );
 }
-

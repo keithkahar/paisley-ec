@@ -46,7 +46,7 @@ function MyWordiePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <FloatingBack to="/" icon="home" />
+        <FloatingBack to="/" icon="close" />
         {/* Hero: today's card + small pills (mirrors ShirinTalk hero) */}
         <section className="px-5 pt-[53px] pb-1">
           <div
