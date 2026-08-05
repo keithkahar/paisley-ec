@@ -329,7 +329,7 @@ function TopBar({
         {/* Top row: nav cluster on the left, name + avatar on the right */}
         <div className="flex items-start justify-between gap-2">
           {/* Left cluster: back + nav icons + Bp pill */}
-          <div className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-start gap-1.5 min-w-0">
             <Link
               to="/"
               aria-label="Close"
