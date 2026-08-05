@@ -1858,7 +1858,7 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Price */}
               <div className="mt-3">
-                <div className="flex items-end justify-between gap-2">
+                <div className="flex items-baseline justify-between gap-4">
                   <div className="flex items-baseline gap-0.5">
                     <span
                       className="text-[18px] leading-none self-start mt-1"
@@ -1887,15 +1887,13 @@ function MembershipCards({ open }: { open: boolean }) {
                       </span>
                     )}
                   </div>
-                  <div className="shrink-0 pb-[1px]" />
+                  <p
+                    className="text-[13px] leading-none"
+                    style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
+                  >
+                    {cycle === "month" ? "按月计费" : `按年计费 ¥${formatNumber(card.yearly)}`}
+                  </p>
                 </div>
-
-                <p
-                  className="mt-2 text-[13px] leading-none"
-                  style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
-                >
-                  {cycle === "month" ? "按月计费" : `按年计费 ¥${formatNumber(card.yearly)}`}
-                </p>
               </div>
 
               {/* Embedded CTA */}
