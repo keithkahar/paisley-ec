@@ -1888,7 +1888,7 @@ function MembershipCards({ open }: { open: boolean }) {
                     )}
                   </div>
                   <p
-                    className="text-[13px] leading-none"
+                    className="text-[11px] leading-none"
                     style={{ color: "var(--muted-foreground)", fontWeight: 400 }}
                   >
                     {cycle === "month" ? "按月计费" : `按年计费 ¥${formatNumber(card.yearly)}`}
@@ -1898,7 +1898,7 @@ function MembershipCards({ open }: { open: boolean }) {
 
               {/* Benefits */}
               <div
-                className="mt-[20px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
+                className="mt-[25px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 <ul className="space-y-2 pb-2">
