@@ -1917,7 +1917,7 @@ function MembershipCards({ open }: { open: boolean }) {
               </div>
 
               {/* Embedded CTA */}
-              <div className="mt-[14px] shrink-0">
+              <div className="mt-[24px] shrink-0">
                 {cards[i + 1] ? (
                   <button
                     type="button"
