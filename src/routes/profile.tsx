@@ -79,7 +79,7 @@ function ProfilePage() {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative bg-white">
-        <FloatingBack to="/" />
+        <FloatingBack to="/" icon="home" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-[65px] pb-1 text-center">
