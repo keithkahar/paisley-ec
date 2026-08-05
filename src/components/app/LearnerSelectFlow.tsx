@@ -41,19 +41,31 @@ export function LearnerSelectFlow({
   const [target, setTarget] = useState("");
   const [deletePwOpen, setDeletePwOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
+  const [pending, setPending] = useState(learner);
 
   useEffect(() => {
-    if (open) return;
+    if (open) {
+      setPending(learner);
+      return;
+    }
     setDeleteMode(false);
     setTarget("");
-  }, [open]);
+  }, [open, learner]);
 
   return (
     <>
       <StandardSheet
         open={open}
-        title="Select A Learner"
+        title="Select Learner"
         brandColor={SHEET_BRAND.paisley}
+        onDone={
+          deleteMode
+            ? undefined
+            : () => {
+                if (pending) onSelect(pending);
+                onClose();
+              }
+        }
         onClose={() => {
           onClose();
           setDeleteMode(false);
@@ -63,7 +75,7 @@ export function LearnerSelectFlow({
         <div className="flex flex-col h-full">
           <div className="flex-1 mt-5">
             {learners.map((n) => {
-              const active = n === learner;
+              const active = n === pending;
               const marked = n === target;
               return (
                 <button
@@ -74,8 +86,7 @@ export function LearnerSelectFlow({
                       setTarget((t) => (t === n ? "" : n));
                       return;
                     }
-                    onSelect(n);
-                    onClose();
+                    setPending(n);
                   }}
                   className="w-full flex items-center gap-3 py-3.5 text-left"
                 >
@@ -141,7 +152,7 @@ export function LearnerSelectFlow({
                 <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
                   <Minus className="h-4 w-4" strokeWidth={2.5} style={{ color: DANGER }} />
                 </span>
-                <span className="text-[15px] font-semibold">Delete A Learner</span>
+                <span className="text-[15px] font-semibold">Delete Learner</span>
               </button>
             ) : (
               <button
@@ -153,7 +164,7 @@ export function LearnerSelectFlow({
                 <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
                   <Plus className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
                 </span>
-                <span className="text-[15px] font-semibold">Add A Learner</span>
+                <span className="text-[15px] font-semibold">Add Learner</span>
               </button>
             )}
           </div>
