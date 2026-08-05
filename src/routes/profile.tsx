@@ -83,7 +83,7 @@ function ProfilePage() {
 
         {/* Hero — mirrors ShirinTalk hero shape */}
         <section className="px-6 pt-[55px] pb-1 text-center">
-          <div className="relative mx-auto h-[155px] w-[155px]">
+          <div className="relative mx-auto h-[160px] w-[160px]">
             <div
               className="h-full w-full rounded-full grid place-items-center overflow-hidden"
               style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)" }}
