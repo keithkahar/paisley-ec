@@ -208,10 +208,7 @@ export function MonthCalendarDialog({
             transition: "transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)",
           }}
         >
-          <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-            <span className="h-1 w-10 rounded-full bg-border" />
-          </div>
-          <div className="relative flex items-center justify-center px-5 pt-2 pb-3 shrink-0">
+          <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
             <h2
               className="text-[17px] font-normal tracking-tight leading-none"
               style={{ letterSpacing: "-0.01em", color }}
@@ -222,7 +219,7 @@ export function MonthCalendarDialog({
               type="button"
               onClick={() => onOpenChange(false)}
               aria-label="Close"
-              className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+              className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
             >
               <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>

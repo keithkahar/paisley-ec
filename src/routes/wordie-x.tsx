@@ -785,11 +785,7 @@ function WordieXPage() {
             style={{ height: "58vh" }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="pt-2.5 pb-1 grid place-items-center shrink-0">
-              <span className="h-1 w-10 rounded-full bg-border" />
-            </div>
-            <div className="flex items-center justify-between px-5 pt-2 pb-3 shrink-0">
-              <span className="w-12" />
+            <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
               <p
                 className="text-[17px] font-semibold tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
@@ -799,10 +795,10 @@ function WordieXPage() {
               <button
                 type="button"
                 onClick={() => setBatchOpen(false)}
-                className="text-[13px] font-semibold w-12 text-right"
-                style={{ color: "var(--wordie)" }}
+                aria-label="Close"
+                className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
               >
-                Done
+                <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
               </button>
             </div>
             <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">

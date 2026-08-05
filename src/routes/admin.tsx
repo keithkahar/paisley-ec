@@ -1630,12 +1630,12 @@ function SRDatePicker(props: { value: string; onChange: (v: string) => void; acc
               background: SOFT_BG_C,
             }}
           >
-            {/* Close button (standard sheet position: top-right, aligned with title row) */}
+            {/* Close button: top-left of the sheet, aligned with the title row */}
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close"
-              className="absolute right-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+              className="absolute left-4 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
               style={{ top: 12 }}
             >
               <CloseX className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
