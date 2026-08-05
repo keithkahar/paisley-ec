@@ -82,7 +82,7 @@ function ProfilePage() {
         <FloatingBack to="/" icon="close" />
 
         {/* Hero — mirrors ShirinTalk hero shape */}
-        <section className="px-6 pt-[65px] pb-1 text-center">
+        <section className="px-6 pt-[55px] pb-1 text-center">
           <div className="relative mx-auto h-[155px] w-[155px]">
             <div
               className="h-full w-full rounded-full grid place-items-center overflow-hidden"
