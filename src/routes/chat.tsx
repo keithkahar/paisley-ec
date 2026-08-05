@@ -814,7 +814,7 @@ function CommentsSheet({
       <div className="relative w-full max-w-[420px] bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "80dvh" }}>
         <div className="relative flex items-center justify-center px-4 pt-4 pb-2 border-b border-border shrink-0">
           <h3 className="text-[15px] font-semibold">Comments {count}</h3>
-          <button onClick={onClose} className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full grid place-items-center bg-white border border-border active:scale-95 transition-transform" aria-label="Close">
+          <button onClick={onClose} className="absolute left-[14px] top-[14px] h-8 w-8 rounded-full grid place-items-center bg-white border border-border active:scale-95 transition-transform" aria-label="Close">
             <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
           </button>
         </div>
