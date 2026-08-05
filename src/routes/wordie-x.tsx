@@ -796,7 +796,7 @@ function WordieXPage() {
                 type="button"
                 onClick={() => setBatchOpen(false)}
                 aria-label="Close"
-                className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+                className="absolute left-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
               >
                 <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
               </button>

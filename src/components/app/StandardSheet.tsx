@@ -86,7 +86,7 @@ export function StandardSheet({
         }}
       >
         {/* Header: title centered, close icon top-left, optional done icon top-right */}
-        <div className="relative flex flex-col items-center px-5 pt-4 pb-3 shrink-0">
+        <div className="relative flex flex-col items-center px-5 pt-[18px] pb-3 shrink-0">
           <h2
             className="text-[17px] tracking-tight leading-none"
             style={{ letterSpacing: "-0.01em", color: brandColor, fontWeight: 400 }}
@@ -102,7 +102,7 @@ export function StandardSheet({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+            className="absolute left-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
           >
             <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
           </button>
@@ -111,7 +111,7 @@ export function StandardSheet({
               type="button"
               onClick={onDone}
               aria-label="Done"
-              className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+              className="absolute right-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
             >
               <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
             </button>
