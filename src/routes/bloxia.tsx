@@ -1469,16 +1469,16 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full grid place-items-center"
+          className="absolute left-[14px] top-[14px] z-10 h-8 w-8 rounded-full grid place-items-center"
           style={{ background: "rgba(255,244,191,0.1)", color: T.goldLight }}
         >
-          <X className="w-4 h-4" />
+          <X className="w-4 h-4" strokeWidth={2.5} />
         </button>
         <div
           className="relative p-5 overflow-y-auto flex flex-col"
           style={{
             height: "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
-            paddingTop: "calc(0.75rem + 24px)",
+            paddingTop: "58px",
             paddingBottom: "2rem",
           }}
         >
