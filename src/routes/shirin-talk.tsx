@@ -142,10 +142,10 @@ function ShirinTalkPage() {
           {cards.map((c) => {
             const Icon = c.icon;
             const isJourneyDebug = "journeyDebug" in c;
-            const Pill = isJourneyDebug ? "button" : Link;
-            const pillProps = isJourneyDebug
+            const Pill = (isJourneyDebug ? "button" : Link) as React.ElementType;
+            const pillProps: Record<string, unknown> = isJourneyDebug
               ? {
-                  type: "button" as const,
+                  type: "button",
                   onClick: () => {
                     requestLearningJourneyPrompt("free_talk");
                     navigate({ to: "/profile" });
@@ -155,7 +155,7 @@ function ShirinTalkPage() {
             return (
               <Pill
                 key={c.title}
-                {...(pillProps as never)}
+                {...pillProps}
                 className="relative isolate flex w-full items-center gap-3 rounded-full py-4 px-4 text-left active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)" }}
               >
