@@ -312,7 +312,7 @@ function DangerPasswordInput({
   );
 }
 
-function AddLearnerSheet({
+export function AddLearnerSheet({
   open,
   onClose,
   onCreate,
