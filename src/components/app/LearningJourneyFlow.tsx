@@ -125,7 +125,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
 
             <div
-              className="mt-[25px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
+              className="mt-[35px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2">
@@ -155,25 +155,28 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
+
+            <div className="mt-4 shrink-0">
+              <button
+                type="button"
+                disabled={busy}
+                onClick={continueJourney}
+                className="w-full h-12 rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+                style={{ background: PAISLEY }}
+              >
+                继续创建
+              </button>
+            </div>
           </div>
 
           <div className="mt-auto pt-6 shrink-0">
-            <button
-              type="button"
-              disabled={busy}
-              onClick={continueJourney}
-              className="w-full h-12 rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
-              style={{ background: PAISLEY }}
-            >
-              继续创建
-            </button>
             <button
               type="button"
               onClick={() => {
                 dismissLearningJourneyPrompt();
                 setStep("none");
               }}
-              className="mt-3 w-full text-[13px] font-medium text-center"
+              className="w-full text-[13px] font-medium text-center bg-transparent border-0 p-0"
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
