@@ -48,7 +48,7 @@ const PAISLEY = "var(--paisley)";
 const PAISLEY_YELLOW = "var(--paisley-yellow)";
 const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
-function ProfilePage() {
+export function ProfilePage() {
   const [calOpen, setCalOpen] = useState(false);
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
