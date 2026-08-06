@@ -246,7 +246,7 @@ function JourneyPinSheet({
       brandColor={SHEET_BRAND.paisley}
       onClose={onClose}
     >
-      <div className="flex flex-col min-h-0" style={{ height: 386 }}>
+      <div className="flex flex-col min-h-0" style={{ height: 429 }}>
         <div className="flex-1 min-h-0">
           <p
             className="text-[12px] leading-[1.55] text-center"
