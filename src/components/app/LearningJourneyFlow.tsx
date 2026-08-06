@@ -81,19 +81,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
-            <h3
-              className="text-[24px] leading-none"
-              style={{
-                fontFamily: "var(--font-display)",
-                color: PAISLEY,
-                fontWeight: 400,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Free Trial
-            </h3>
-
-            <div className="mt-2 flex items-baseline justify-between gap-2">
+            <div className="flex items-baseline justify-center gap-2">
               <p className="text-[13px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
                 保存学习记录 | 让 PEC 更好地陪伴孩子成长
               </p>
@@ -104,34 +92,11 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               style={{ height: 1, background: "color-mix(in oklab, var(--foreground) 10%, transparent)" }}
             />
 
-            <div className="mt-3 flex items-baseline justify-between gap-4">
-              <div className="flex items-baseline gap-0.5">
-                <span
-                  className="text-[18px] leading-none self-start mt-1"
-                  style={{ color: "var(--foreground)", fontWeight: 300 }}
-                >
-                  ¥
-                </span>
-                <span
-                  className="text-[28px] leading-none tracking-tight"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
-                >
-                  0
-                </span>
-                <span className="text-[13px] leading-none ml-1" style={{ color: "var(--muted-foreground)" }}>
-                  /月
-                </span>
-              </div>
-              <p className="text-[11px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                7天有效
-              </p>
-            </div>
-
             <div
-              className="mt-[35px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
+              className="mt-[35px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
-              <ul className="space-y-2 pb-2">
+              <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
                 {[
                   "获得个性化学习体验",
                   "保存孩子的学习记录",

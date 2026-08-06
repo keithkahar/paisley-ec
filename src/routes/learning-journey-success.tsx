@@ -112,7 +112,7 @@ function JourneySuccessPage() {
                     r="18"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="3"
+                    strokeWidth="1.5"
                     className="text-foreground/10"
                   />
                   <circle
@@ -122,7 +122,7 @@ function JourneySuccessPage() {
                     fill="none"
                     stroke="currentColor"
                     className="text-foreground/40"
-                    strokeWidth="3"
+                    strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeDasharray={2 * Math.PI * 18}
                     strokeDashoffset={2 * Math.PI * 18 * (1 - secondsLeft / 5)}
@@ -130,7 +130,7 @@ function JourneySuccessPage() {
                   />
                 </svg>
                 <span
-                  className="relative text-[15px] font-semibold leading-none text-foreground/50"
+                  className="relative text-[15px] font-normal leading-none text-foreground/50"
                 >
                   {secondsLeft}
                 </span>
