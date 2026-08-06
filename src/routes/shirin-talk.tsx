@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
@@ -11,6 +11,7 @@ import {
   mockActivity,
 } from "@/components/app/MonthCalendarDialog";
 import { useBloxia } from "@/lib/bloxia/progress";
+import { requestLearningJourneyPrompt } from "@/lib/learningJourney";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [
@@ -27,11 +28,14 @@ const PINK = "var(--shirin)";
 function ShirinTalkPage() {
   const [calOpen, setCalOpen] = useState(false);
   const { bp } = useBloxia();
+  const navigate = useNavigate();
   const cards = [
     { to: "/topics", title: "Topic Talk", icon: Lightbulb },
     { to: "/smart-reading", title: "Smart Reading Talk", icon: BookOpen, search: { from: "shirin-talk" } as const },
     { to: "/chat", title: "myWordie Talk", icon: null, search: { mode: "mywordie", from: "shirin-talk" } as const },
-    { to: "/chat", title: "Free Talk", icon: MessageCircle, search: { mode: "free", from: "shirin-talk" } as const },
+    // Free Talk is temporarily repurposed as the debug entry for the
+    // first learning journey creation flow (hosted on /profile).
+    { to: "/chat", title: "Free Talk", icon: MessageCircle, search: { mode: "free", from: "shirin-talk" } as const, journeyDebug: true as const },
   ];
 
   const today = new Date();
@@ -142,6 +146,15 @@ function ShirinTalkPage() {
                 key={c.title}
                 to={c.to}
                 search={"search" in c ? c.search : undefined}
+                onClick={
+                  "journeyDebug" in c
+                    ? (e) => {
+                        e.preventDefault();
+                        requestLearningJourneyPrompt("free_talk");
+                        navigate({ to: "/profile" });
+                      }
+                    : undefined
+                }
                 className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)" }}
               >

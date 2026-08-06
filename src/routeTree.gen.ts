@@ -21,6 +21,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ParentRouteImport } from './routes/parent'
 import { Route as MywordieRouteImport } from './routes/mywordie'
 import { Route as MyTestsRouteImport } from './routes/my-tests'
+import { Route as LearningJourneySuccessRouteImport } from './routes/learning-journey-success'
 import { Route as EditProfileRouteImport } from './routes/edit-profile'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CefrTestRouteImport } from './routes/cefr-test'
@@ -91,6 +92,11 @@ const MyTestsRoute = MyTestsRouteImport.update({
   path: '/my-tests',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearningJourneySuccessRoute = LearningJourneySuccessRouteImport.update({
+  id: '/learning-journey-success',
+  path: '/learning-journey-success',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EditProfileRoute = EditProfileRouteImport.update({
   id: '/edit-profile',
   path: '/edit-profile',
@@ -147,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/cefr-test': typeof CefrTestRoute
   '/chat': typeof ChatRoute
   '/edit-profile': typeof EditProfileRoute
+  '/learning-journey-success': typeof LearningJourneySuccessRoute
   '/my-tests': typeof MyTestsRoute
   '/mywordie': typeof MywordieRoute
   '/parent': typeof ParentRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByTo {
   '/cefr-test': typeof CefrTestRoute
   '/chat': typeof ChatRoute
   '/edit-profile': typeof EditProfileRoute
+  '/learning-journey-success': typeof LearningJourneySuccessRoute
   '/my-tests': typeof MyTestsRoute
   '/mywordie': typeof MywordieRoute
   '/parent': typeof ParentRoute
@@ -194,6 +202,7 @@ export interface FileRoutesById {
   '/cefr-test': typeof CefrTestRoute
   '/chat': typeof ChatRoute
   '/edit-profile': typeof EditProfileRoute
+  '/learning-journey-success': typeof LearningJourneySuccessRoute
   '/my-tests': typeof MyTestsRoute
   '/mywordie': typeof MywordieRoute
   '/parent': typeof ParentRoute
@@ -219,6 +228,7 @@ export interface FileRouteTypes {
     | '/cefr-test'
     | '/chat'
     | '/edit-profile'
+    | '/learning-journey-success'
     | '/my-tests'
     | '/mywordie'
     | '/parent'
@@ -242,6 +252,7 @@ export interface FileRouteTypes {
     | '/cefr-test'
     | '/chat'
     | '/edit-profile'
+    | '/learning-journey-success'
     | '/my-tests'
     | '/mywordie'
     | '/parent'
@@ -265,6 +276,7 @@ export interface FileRouteTypes {
     | '/cefr-test'
     | '/chat'
     | '/edit-profile'
+    | '/learning-journey-success'
     | '/my-tests'
     | '/mywordie'
     | '/parent'
@@ -289,6 +301,7 @@ export interface RootRouteChildren {
   CefrTestRoute: typeof CefrTestRoute
   ChatRoute: typeof ChatRoute
   EditProfileRoute: typeof EditProfileRoute
+  LearningJourneySuccessRoute: typeof LearningJourneySuccessRoute
   MyTestsRoute: typeof MyTestsRoute
   MywordieRoute: typeof MywordieRoute
   ParentRoute: typeof ParentRoute
@@ -389,6 +402,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyTestsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning-journey-success': {
+      id: '/learning-journey-success'
+      path: '/learning-journey-success'
+      fullPath: '/learning-journey-success'
+      preLoaderRoute: typeof LearningJourneySuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/edit-profile': {
       id: '/edit-profile'
       path: '/edit-profile'
@@ -465,6 +485,7 @@ const rootRouteChildren: RootRouteChildren = {
   CefrTestRoute: CefrTestRoute,
   ChatRoute: ChatRoute,
   EditProfileRoute: EditProfileRoute,
+  LearningJourneySuccessRoute: LearningJourneySuccessRoute,
   MyTestsRoute: MyTestsRoute,
   MywordieRoute: MywordieRoute,
   ParentRoute: ParentRoute,
@@ -481,13 +502,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
