@@ -61,7 +61,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
 
   return (
     <>
-      <ProfilePage />
+      <ProfilePage tabBarHidden />
       <StandardSheet
         open={true}
         title={isSet ? "设置家长密码" : "请输入家长密码"}
