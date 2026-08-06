@@ -84,14 +84,13 @@ function JourneySuccessPage() {
             </div>
 
             <div className="mt-auto shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={goHome}
-                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              <Link
+                to="/"
+                className="flex items-center justify-center w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
                 Now Get Started
-              </button>
+              </Link>
             </div>
           </div>
       </StandardSheet>
