@@ -21,6 +21,7 @@ const PAISLEY = "var(--paisley)";
 function JourneySuccessPage() {
   const navigate = useNavigate();
   const { current, hasLearner, displayName } = useLearners();
+  const [secondsLeft, setSecondsLeft] = useState(3);
 
   const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";
   const initials =
@@ -34,6 +35,20 @@ function JourneySuccessPage() {
       : "") || "PEC";
 
   const goHome = () => navigate({ to: "/" });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          goHome();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [goHome]);
 
   return (
     <>
