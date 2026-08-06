@@ -217,9 +217,9 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           brandColor={SHEET_BRAND.paisley}
           onClose={onClose}
         >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
-          <div className="mt-5 flex flex-col items-center">
+          <div className="mt-[10px] flex flex-col items-center">
             <div className="relative h-40 w-40">
               <AvatarDraggable
                 src={form.avatarPath}
@@ -354,7 +354,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             </div>
           </div>
 
-          <div className="mt-auto shrink-0">
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
             {error && (
               <p
                 className="mb-2 text-center text-[14px] font-medium"
@@ -366,7 +366,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             <button
               type="button"
               onClick={onSave}
-              className="w-full h-12 rounded-full text-[16px] font-medium active:scale-[0.99] transition-transform"
+              className="w-full h-full rounded-full text-[17px] font-medium active:scale-[0.99] transition-transform"
               style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
             >
               Save
