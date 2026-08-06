@@ -359,6 +359,7 @@ export function AddLearnerSheet({
     : "Select birthday";
 
   const submit = () => {
+    if (!avatarSrc) return setError("Add avatar");
     if (!given.trim()) return setError("Add given name");
     if (!family.trim()) return setError("Add family name");
     if (!gender) return setError("Select girl or boy");
@@ -469,7 +470,7 @@ export function AddLearnerSheet({
                 <>
                   <input
                     value={given}
-                    onChange={(e) => { setGiven(e.target.value); setError(""); }}
+                    onChange={(e) => { setGiven(capitalizeName(e.target.value)); setError(""); }}
                     onFocus={() => setNameFocused(true)}
                     onBlur={() => setNameFocused(false)}
                     placeholder="Given Name"
@@ -477,7 +478,7 @@ export function AddLearnerSheet({
                   />
                   <input
                     value={family}
-                    onChange={(e) => { setFamily(e.target.value); setError(""); }}
+                    onChange={(e) => { setFamily(capitalizeName(e.target.value)); setError(""); }}
                     onFocus={() => setNameFocused(true)}
                     onBlur={() => setNameFocused(false)}
                     placeholder="Family Name"

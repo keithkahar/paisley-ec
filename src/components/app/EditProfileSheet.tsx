@@ -105,6 +105,14 @@ function saveProfile(form: ProfileForm): ProfileForm {
 }
 
 function computeInitials(given: string, family: string) {
+  return ((given.trim()[0] ?? "") + (family.trim()[0] ?? "")).toUpperCase() || "PEC";
+}
+
+export function capitalizeName(value: string) {
+  return value.replace(/(^|[\s'-])([a-z])/g, (_m, p1, p2) => p1 + p2.toUpperCase());
+}
+
+function computeInitialsLegacy(given: string, family: string) {
   const g = given.trim()[0] ?? "";
   const f = family.trim()[0] ?? "";
   const initials = (g + f).toUpperCase();
