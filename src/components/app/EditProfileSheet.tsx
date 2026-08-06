@@ -218,139 +218,141 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           onClose={onClose}
         >
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
-          {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
-          <div className="mt-[10px] flex flex-col items-center">
-            <div className="relative h-40 w-40">
-              <AvatarDraggable
-                src={form.avatarPath}
-                initials={initials}
-                posX={form.avatarPosX}
-                posY={form.avatarPosY}
-                scale={form.avatarScale}
-                onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
-                onChangeScale={(s) => setForm((f) => ({ ...f, avatarScale: s }))}
-              />
-              <button
-                type="button"
-                onClick={onChooseAvatar}
-                aria-label="Choose photo"
-                className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
-              >
-                <Camera className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-              </button>
-              <button
-                type="button"
-                onClick={onClearAvatar}
-                aria-label="Remove photo"
-                className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
-              >
-                <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
-              </button>
-            </div>
-            <input
-              type="range"
-              min={1}
-              max={3}
-              step={0.01}
-              value={form.avatarScale}
-              onChange={(e) => update("avatarScale", Number(e.target.value))}
-              className="mt-4 w-[38%] h-1 accent-current opacity-70"
-              style={{ color: "var(--muted-foreground)" }}
-              aria-label="Zoom"
-            />
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={onAvatarFile}
-            />
-          </div>
-
-          <div className="mt-6 space-y-3">
-            {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
-            <div
-              className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
-              style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
-            >
-              <span
-                className="shrink-0 text-[16px] font-semibold leading-none"
-                style={{ color: ACCENT, letterSpacing: "-0.01em" }}
-              >
-                Name
-              </span>
-              {!nameFocused && form.givenName.trim() && form.familyName.trim() ? (
+          <div style={{ marginTop: -10 }}>
+            {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
+            <div className="mt-[10px] flex flex-col items-center">
+              <div className="relative h-40 w-40">
+                <AvatarDraggable
+                  src={form.avatarPath}
+                  initials={initials}
+                  posX={form.avatarPosX}
+                  posY={form.avatarPosY}
+                  scale={form.avatarScale}
+                  onChangePos={(x, y) => setForm((f) => ({ ...f, avatarPosX: x, avatarPosY: y }))}
+                  onChangeScale={(s) => setForm((f) => ({ ...f, avatarScale: s }))}
+                />
                 <button
                   type="button"
-                  onClick={() => setNameFocused(true)}
-                  className="flex-1 min-w-0 text-right text-[16px] font-semibold text-foreground truncate"
-                  style={{ letterSpacing: "-0.01em" }}
+                  onClick={onChooseAvatar}
+                  aria-label="Choose photo"
+                  className="absolute top-6 left-6 -translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
                 >
-                  {`${form.givenName.trim()} ${form.familyName.trim()}`}
+                  <Camera className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
                 </button>
-              ) : (
-                <>
-                  <input
-                    type="text"
-                    value={form.givenName}
-                    onChange={(e) => update("givenName", e.target.value)}
-                    onFocus={() => setNameFocused(true)}
-                    onBlur={() => setNameFocused(false)}
-                    placeholder="Given Name"
-                    className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold text-foreground placeholder:text-muted-foreground placeholder:font-normal"
-                    style={{ letterSpacing: "-0.01em" }}
-                  />
-                  <input
-                    type="text"
-                    value={form.familyName}
-                    onChange={(e) => update("familyName", e.target.value)}
-                    onFocus={() => setNameFocused(true)}
-                    onBlur={() => setNameFocused(false)}
-                    placeholder="Family Name"
-                    className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold text-foreground placeholder:text-muted-foreground placeholder:font-normal"
-                    style={{ letterSpacing: "-0.01em" }}
-                  />
-                </>
-              )}
+                <button
+                  type="button"
+                  onClick={onClearAvatar}
+                  aria-label="Remove photo"
+                  className="absolute top-6 right-6 translate-x-1/2 -translate-y-1/2 h-7 w-7 grid place-items-center rounded-full z-10 active:scale-95 transition-transform bg-white border border-gray-200"
+                >
+                  <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
+                </button>
+              </div>
+              <input
+                type="range"
+                min={1}
+                max={3}
+                step={0.01}
+                value={form.avatarScale}
+                onChange={(e) => update("avatarScale", Number(e.target.value))}
+                className="mt-4 w-[38%] h-1 accent-current opacity-70"
+                style={{ color: "var(--muted-foreground)" }}
+                aria-label="Zoom"
+              />
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={onAvatarFile}
+              />
             </div>
 
-            {/* Gender + Birthday on one row */}
-            <div className="flex items-center gap-2">
-              {GENDER_OPTIONS.map((opt) => {
-                const active = form.gender === opt.key;
-                return (
-                  <button
-                    key={opt.key}
-                    type="button"
-                    onClick={() => onGenderChange(opt.key)}
-                    className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
-                    style={
-                      active
-                        ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
-                        : {
-                            background: "white",
-                            color: opt.color,
-                            border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
-                          }
-                    }
-                  >
-                    {opt.label}
-                  </button>
-                );
-              })}
-              <button
-                type="button"
-                onClick={() => setShowBirthdayPicker(true)}
-                className={`flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${form.birthday ? "font-semibold" : "font-normal"}`}
-                style={{
-                  borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)`,
-                  letterSpacing: "-0.01em",
-                  color: form.birthday ? "var(--foreground)" : "var(--muted-foreground)",
-                }}
+            <div className="mt-6 space-y-3">
+              {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
+              <div
+                className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
+                style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
               >
-                {formatBirthday(form.birthday)}
-                <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
-              </button>
+                <span
+                  className="shrink-0 text-[16px] font-semibold leading-none"
+                  style={{ color: ACCENT, letterSpacing: "-0.01em" }}
+                >
+                  Name
+                </span>
+                {!nameFocused && form.givenName.trim() && form.familyName.trim() ? (
+                  <button
+                    type="button"
+                    onClick={() => setNameFocused(true)}
+                    className="flex-1 min-w-0 text-right text-[16px] font-semibold text-foreground truncate"
+                    style={{ letterSpacing: "-0.01em" }}
+                  >
+                    {`${form.givenName.trim()} ${form.familyName.trim()}`}
+                  </button>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      value={form.givenName}
+                      onChange={(e) => update("givenName", e.target.value)}
+                      onFocus={() => setNameFocused(true)}
+                      onBlur={() => setNameFocused(false)}
+                      placeholder="Given Name"
+                      className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                      style={{ letterSpacing: "-0.01em" }}
+                    />
+                    <input
+                      type="text"
+                      value={form.familyName}
+                      onChange={(e) => update("familyName", e.target.value)}
+                      onFocus={() => setNameFocused(true)}
+                      onBlur={() => setNameFocused(false)}
+                      placeholder="Family Name"
+                      className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold text-foreground placeholder:text-muted-foreground placeholder:font-normal"
+                      style={{ letterSpacing: "-0.01em" }}
+                    />
+                  </>
+                )}
+              </div>
+
+              {/* Gender + Birthday on one row */}
+              <div className="flex items-center gap-2">
+                {GENDER_OPTIONS.map((opt) => {
+                  const active = form.gender === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={() => onGenderChange(opt.key)}
+                      className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
+                      style={
+                        active
+                          ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
+                          : {
+                              background: "white",
+                              color: opt.color,
+                              border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+                <button
+                  type="button"
+                  onClick={() => setShowBirthdayPicker(true)}
+                  className={`flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${form.birthday ? "font-semibold" : "font-normal"}`}
+                  style={{
+                    borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)`,
+                    letterSpacing: "-0.01em",
+                    color: form.birthday ? "var(--foreground)" : "var(--muted-foreground)",
+                  }}
+                >
+                  {formatBirthday(form.birthday)}
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
+                </button>
+              </div>
             </div>
           </div>
 
