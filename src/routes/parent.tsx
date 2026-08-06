@@ -23,7 +23,6 @@ export const Route = createFileRoute("/parent")({
 
 // ---- Parent PIN gate ----
 const PIN_STORAGE_KEY = "paisley.parent.pin";
-const PIN_SESSION_KEY = "paisley.parent.unlocked";
 
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const [mode, setMode] = useState<"set" | "enter" | "loading">("loading");
