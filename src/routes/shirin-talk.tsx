@@ -141,21 +141,22 @@ function ShirinTalkPage() {
         <section className="px-6 pt-6 pb-6 flex flex-col gap-3">
           {cards.map((c) => {
             const Icon = c.icon;
-            return (
-              <Link
-                key={c.title}
-                to={c.to}
-                search={"search" in c ? c.search : undefined}
-                onClick={
-                  "journeyDebug" in c
-                    ? (e) => {
-                        e.preventDefault();
-                        requestLearningJourneyPrompt("free_talk");
-                        navigate({ to: "/profile" });
-                      }
-                    : undefined
+            const isJourneyDebug = "journeyDebug" in c;
+            const Pill = isJourneyDebug ? "button" : Link;
+            const pillProps = isJourneyDebug
+              ? {
+                  type: "button" as const,
+                  onClick: () => {
+                    requestLearningJourneyPrompt("free_talk");
+                    navigate({ to: "/profile" });
+                  },
                 }
-                className="relative isolate flex items-center gap-3 rounded-full py-4 px-4 active:scale-[0.98] transition-transform"
+              : { to: c.to, search: "search" in c ? c.search : undefined };
+            return (
+              <Pill
+                key={c.title}
+                {...(pillProps as never)}
+                className="relative isolate flex w-full items-center gap-3 rounded-full py-4 px-4 text-left active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--shirin) 14%, white)" }}
               >
                 <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
@@ -183,7 +184,7 @@ function ShirinTalkPage() {
                   {c.title}
                 </span>
                 <ChevronRight className="ml-auto h-5 w-5 shrink-0" strokeWidth={2.25} style={{ color: "white" }} />
-              </Link>
+              </Pill>
             );
           })}
         </section>
