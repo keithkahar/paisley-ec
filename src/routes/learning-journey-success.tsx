@@ -6,9 +6,9 @@ import { useLearners } from "@/lib/learners";
 export const Route = createFileRoute("/learning-journey-success")({
   head: () => ({
     meta: [
-      { title: "Journey Created — Paizley EC" },
+      { title: "Learner Added — Paizley EC" },
       { name: "description", content: "The learner's first English learning journey is ready to begin." },
-      { property: "og:title", content: "Journey Created — Paisley EC" },
+      { property: "og:title", content: "Learner Added — Paisley EC" },
       { property: "og:description", content: "The learner's first English learning journey is ready to begin." },
     ],
   }),
