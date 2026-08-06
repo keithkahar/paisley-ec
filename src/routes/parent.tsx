@@ -172,17 +172,28 @@ function PinInput({
           {label}
         </span>
         <input
-          type="password"
+          type={visible ? "text" : "password"}
           inputMode="text"
           autoComplete="off"
           autoFocus={autoFocus}
           maxLength={6}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="••••••"
-          className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em] placeholder:tracking-[0.2em] placeholder:font-normal"
+          className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
           style={{ color: PAISLEY }}
         />
+        {value.length > 0 && (
+          <button
+            type="button"
+            aria-label={visible ? "隐藏密码" : "显示密码"}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => setVisible((v) => !v)}
+            className="shrink-0 grid place-items-center h-7 w-7 rounded-full transition-opacity active:opacity-60"
+            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+          >
+            {visible ? <EyeOff size={17} strokeWidth={2} /> : <Eye size={17} strokeWidth={2} />}
+          </button>
+        )}
       </div>
     </label>
   );
