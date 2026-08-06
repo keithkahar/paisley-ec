@@ -177,7 +177,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
           </div>
 
-          <div className="mt-3 shrink-0">
+          <div className="mt-auto pt-6 shrink-0">
             <button
               type="button"
               onClick={() => {
