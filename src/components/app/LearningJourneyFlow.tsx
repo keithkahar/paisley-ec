@@ -138,6 +138,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                   "Bloxia 成长地图/徽章",
                   "管理孩子的学习目标",
                   "查看孩子的学习数据",
+                  "获得CEFR和Wordie测试",
                 ].map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2">
                     <Check
