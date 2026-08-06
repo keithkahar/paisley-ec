@@ -246,14 +246,15 @@ function JourneyPinSheet({
       brandColor={SHEET_BRAND.paisley}
       onClose={onClose}
     >
-      <div>
+      <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
+        <div className="flex-1 min-h-0">
         <p
           className="text-[12px] leading-[1.55] text-center"
           style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
         >
           请设置 6 位由字母和数字组合的密码
           <br />
-          此密码用于避免儿童误入家长中心
+          此密码用于保护孩子的学习数据，并进入家长中心
         </p>
 
         <div className="mt-5 space-y-3">
@@ -266,15 +267,18 @@ function JourneyPinSheet({
             {error}
           </p>
         )}
+        </div>
 
-        <button
-          type="button"
-          onClick={submit}
-          className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-semibold text-white transition-transform active:scale-[0.98]"
-          style={{ background: PAISLEY }}
-        >
-          设置密码
-        </button>
+        <div className="mt-5 shrink-0" style={{ height: 48 }}>
+          <button
+            type="button"
+            onClick={submit}
+            className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98]"
+            style={{ background: PAISLEY }}
+          >
+            设置密码
+          </button>
+        </div>
       </div>
     </StandardSheet>
   );
