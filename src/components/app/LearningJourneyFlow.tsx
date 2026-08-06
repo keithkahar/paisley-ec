@@ -75,7 +75,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       >
         <div
           className="flex flex-col h-full min-h-0 mt-5"
-          style={{ height: 836 }}
+          style={{ height: 816 }}
         >
           {/* Membership-style benefit card */}
           <div
