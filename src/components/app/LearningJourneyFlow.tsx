@@ -93,7 +93,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             />
 
             <div
-              className="mt-[35px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
+              className="mt-[35px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
