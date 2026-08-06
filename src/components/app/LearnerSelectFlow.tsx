@@ -379,6 +379,7 @@ export function AddLearnerSheet({
     <>
       <StandardSheet open={open} title="Add A Learner" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div style={{ marginTop: -10 }}>
           <div className="mt-[10px] flex flex-col items-center">
             <div className="relative h-40 w-40">
               <AvatarDraggable
@@ -526,6 +527,7 @@ export function AddLearnerSheet({
                 <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
               </button>
             </div>
+          </div>
           </div>
 
           <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
