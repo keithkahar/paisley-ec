@@ -89,19 +89,13 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 letterSpacing: "-0.01em",
               }}
             >
-              Free
+              Free Trial
             </h3>
 
             <div className="mt-2 flex items-baseline justify-between gap-2">
               <p className="text-[13px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
                 开启学习旅程
               </p>
-              <span
-                className="shrink-0 text-[11px] font-normal leading-none"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                多设备·云储存
-              </span>
             </div>
 
             <div
@@ -128,7 +122,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 </span>
               </div>
               <p className="text-[11px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                注册即赠
+                7天有效
               </p>
             </div>
 
@@ -138,11 +132,11 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             >
               <ul className="space-y-2 pb-2">
                 {[
-                  "保存孩子的学习记录",
-                  "记录孩子的成长变化",
                   "获得个性化学习体验",
-                  "Bloxia 成长地图与徽章",
-                  "家长中心查看学习进度",
+                  "保存孩子的学习记录",
+                  "Bloxia 成长地图/徽章",
+                  "管理孩子的学习目标",
+                  "查看孩子的学习数据",
                 ].map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2">
                     <Check
@@ -163,29 +157,26 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-
-            <div className="mt-[24px] shrink-0">
-              <button
-                type="button"
-                disabled={busy}
-                onClick={continueJourney}
-                className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 flex items-center justify-center"
-                style={{ background: PAISLEY }}
-              >
-                继续创建
-              </button>
-            </div>
           </div>
 
           <div className="mt-auto pt-6 shrink-0">
+            <button
+              type="button"
+              disabled={busy}
+              onClick={continueJourney}
+              className="w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              style={{ background: PAISLEY }}
+            >
+              继续创建
+            </button>
             <button
               type="button"
               onClick={() => {
                 dismissLearningJourneyPrompt();
                 setStep("none");
               }}
-              className="w-full h-11 rounded-full text-[13px] font-semibold transition-transform active:scale-[0.98] flex items-center justify-center"
-              style={{ background: "white", border: `1.5px solid ${PAISLEY}`, color: PAISLEY }}
+              className="mt-3 w-full text-[13px] font-medium text-center"
+              style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
             </button>
