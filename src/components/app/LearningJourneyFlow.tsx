@@ -82,18 +82,13 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             style={{ background: "white" }}
           >
             <div className="flex items-baseline justify-center gap-2">
-              <p className="text-[13px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
                 保存学习记录 | 让 PEC 更好地陪伴孩子成长
               </p>
             </div>
 
             <div
-              className="mt-3 w-full"
-              style={{ height: 1, background: "color-mix(in oklab, var(--foreground) 10%, transparent)" }}
-            />
-
-            <div
-              className="mt-[35px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="mt-[55px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
@@ -111,7 +106,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                       strokeWidth={1.5}
                       style={{ color: "var(--foreground)" }}
                     />
-                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                    <span className="text-[13px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
                       {benefit}
                     </span>
                   </li>
