@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import type { Learner } from "@/lib/learners";
-import { AvatarDraggable } from "@/components/app/EditProfileSheet";
+import { AvatarDraggable, capitalizeName } from "@/components/app/EditProfileSheet";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -359,6 +359,7 @@ export function AddLearnerSheet({
     : "Select birthday";
 
   const submit = () => {
+    if (!avatarSrc) return setError("Add avatar");
     if (!given.trim()) return setError("Add given name");
     if (!family.trim()) return setError("Add family name");
     if (!gender) return setError("Select girl or boy");
@@ -469,7 +470,7 @@ export function AddLearnerSheet({
                 <>
                   <input
                     value={given}
-                    onChange={(e) => { setGiven(e.target.value); setError(""); }}
+                    onChange={(e) => { setGiven(capitalizeName(e.target.value)); setError(""); }}
                     onFocus={() => setNameFocused(true)}
                     onBlur={() => setNameFocused(false)}
                     placeholder="Given Name"
@@ -477,7 +478,7 @@ export function AddLearnerSheet({
                   />
                   <input
                     value={family}
-                    onChange={(e) => { setFamily(e.target.value); setError(""); }}
+                    onChange={(e) => { setFamily(capitalizeName(e.target.value)); setError(""); }}
                     onFocus={() => setNameFocused(true)}
                     onBlur={() => setNameFocused(false)}
                     placeholder="Family Name"

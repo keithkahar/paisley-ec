@@ -21,7 +21,7 @@ const PAISLEY = "var(--paisley)";
 function JourneySuccessPage() {
   const navigate = useNavigate();
   const { current, hasLearner, displayName } = useLearners();
-  const [secondsLeft, setSecondsLeft] = useState(3);
+  const [secondsLeft, setSecondsLeft] = useState(5);
 
   const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";
   const initials =
@@ -120,17 +120,17 @@ function JourneySuccessPage() {
                     cy="20"
                     r="18"
                     fill="none"
-                    stroke={PAISLEY}
+                    stroke="currentColor"
+                    className="text-foreground/40"
                     strokeWidth="3"
                     strokeLinecap="round"
                     strokeDasharray={2 * Math.PI * 18}
-                    strokeDashoffset={2 * Math.PI * 18 * (1 - secondsLeft / 3)}
+                    strokeDashoffset={2 * Math.PI * 18 * (1 - secondsLeft / 5)}
                     style={{ transition: "stroke-dashoffset 1s linear" }}
                   />
                 </svg>
                 <span
-                  className="relative text-[15px] font-semibold leading-none"
-                  style={{ color: PAISLEY }}
+                  className="relative text-[15px] font-semibold leading-none text-foreground/50"
                 >
                   {secondsLeft}
                 </span>

@@ -105,11 +105,14 @@ function saveProfile(form: ProfileForm): ProfileForm {
 }
 
 function computeInitials(given: string, family: string) {
-  const g = given.trim()[0] ?? "";
-  const f = family.trim()[0] ?? "";
-  const initials = (g + f).toUpperCase();
-  return initials || "me";
+  return ((given.trim()[0] ?? "") + (family.trim()[0] ?? "")).toUpperCase() || "PEC";
 }
+
+export function capitalizeName(value: string) {
+  return value.replace(/(^|[\s'-])([a-z])/g, (_m, p1, p2) => p1 + p2.toUpperCase());
+}
+
+
 
 function formatBirthday(birthday: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(birthday)) return "Select birthday";
@@ -294,7 +297,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                     <input
                       type="text"
                       value={form.givenName}
-                      onChange={(e) => update("givenName", e.target.value)}
+                      onChange={(e) => update("givenName", capitalizeName(e.target.value))}
                       onFocus={() => setNameFocused(true)}
                       onBlur={() => setNameFocused(false)}
                       placeholder="Given Name"
@@ -304,7 +307,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                     <input
                       type="text"
                       value={form.familyName}
-                      onChange={(e) => update("familyName", e.target.value)}
+                      onChange={(e) => update("familyName", capitalizeName(e.target.value))}
                       onFocus={() => setNameFocused(true)}
                       onBlur={() => setNameFocused(false)}
                       placeholder="Family Name"
