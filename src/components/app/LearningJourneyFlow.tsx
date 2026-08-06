@@ -73,51 +73,123 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           setStep("none");
         }}
       >
-        <div className="flex flex-col h-full">
-          <div className="mt-5 flex flex-col gap-3">
-            {["保存学习记录", "记录孩子成长变化", "获得个性化学习体验"].map((label) => (
-              <div
-                key={label}
-                className="flex items-center gap-3 rounded-full h-[52px] px-4"
-                style={{ background: "color-mix(in oklab, var(--paisley) 8%, white)" }}
+        <div className="flex flex-col h-full min-h-0 mt-5">
+          {/* Membership-style benefit card */}
+          <div
+            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            style={{
+              background: "white",
+              border: "1.5px solid color-mix(in oklab, var(--paisley) 10%, white)",
+              boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
+            }}
+          >
+            <h3
+              className="text-[24px] leading-none"
+              style={{
+                fontFamily: "var(--font-display)",
+                color: PAISLEY,
+                fontWeight: 400,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Free
+            </h3>
+
+            <div className="mt-2 flex items-baseline justify-between gap-2">
+              <p className="text-[13px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+                开启学习旅程
+              </p>
+              <span
+                className="shrink-0 text-[11px] font-normal leading-none"
+                style={{ color: "var(--muted-foreground)" }}
               >
-                <span className="h-7 w-7 shrink-0 grid place-items-center rounded-full bg-white">
-                  <Check className="h-4 w-4" strokeWidth={2.5} style={{ color: PAISLEY }} />
+                多设备·云储存
+              </span>
+            </div>
+
+            <div
+              className="mt-3 w-full"
+              style={{ height: 1, background: "color-mix(in oklab, var(--foreground) 10%, transparent)" }}
+            />
+
+            <div className="mt-3 flex items-baseline justify-between gap-4">
+              <div className="flex items-baseline gap-0.5">
+                <span
+                  className="text-[18px] leading-none self-start mt-1"
+                  style={{ color: "var(--foreground)", fontWeight: 300 }}
+                >
+                  ¥
                 </span>
-                <span className="text-[15px] font-semibold" style={{ color: PAISLEY }}>
-                  {label}
+                <span
+                  className="text-[28px] leading-none tracking-tight"
+                  style={{ fontFamily: "var(--font-display)", color: "var(--foreground)", fontWeight: 300 }}
+                >
+                  0
+                </span>
+                <span className="text-[13px] leading-none ml-1" style={{ color: "var(--muted-foreground)" }}>
+                  /月
                 </span>
               </div>
-            ))}
+              <p className="text-[11px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+                注册即赠
+              </p>
+            </div>
+
+            <div
+              className="mt-[25px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              <ul className="space-y-2 pb-2">
+                {[
+                  "保存孩子的学习记录",
+                  "记录孩子的成长变化",
+                  "获得个性化学习体验",
+                  "Bloxia 成长地图与徽章",
+                  "家长中心查看学习进度",
+                ].map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-2">
+                    <Check
+                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
+                      strokeWidth={1.5}
+                      style={{ color: "var(--foreground)" }}
+                    />
+                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                      {benefit}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {error && (
+              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+                {error}
+              </p>
+            )}
+
+            <div className="mt-[24px] shrink-0">
+              <button
+                type="button"
+                disabled={busy}
+                onClick={continueJourney}
+                className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 flex items-center justify-center"
+                style={{ background: PAISLEY }}
+              >
+                继续创建
+              </button>
+            </div>
           </div>
 
-          {error && (
-            <p className="mt-4 text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
-              {error}
-            </p>
-          )}
-
-          <div className="mt-auto pt-6">
-            <button
-              type="button"
-              disabled={busy}
-              onClick={continueJourney}
-              className="w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
-              style={{ background: PAISLEY }}
-            >
-              继续创建
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                dismissLearningJourneyPrompt();
-                setStep("none");
-              }}
-              className="mt-3 w-full text-[13px] font-semibold text-muted-foreground"
-            >
-              稍后再说
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              dismissLearningJourneyPrompt();
+              setStep("none");
+            }}
+            className="mt-3 shrink-0 w-full text-[13px] font-semibold text-muted-foreground"
+          >
+            稍后再说
+          </button>
         </div>
       </StandardSheet>
 
@@ -179,18 +251,10 @@ function JourneyPinSheet({
       open={open}
       title="设置家长密码"
       brandColor={SHEET_BRAND.paisley}
+      subtitle="此密码用于保护孩子的学习数据，并进入家长中心；请设置 6 位由字母和数字组合的密码"
       onClose={onClose}
     >
       <div className="flex flex-col h-full">
-        <p
-          className="text-[12px] leading-[1.55] text-center"
-          style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-        >
-          此密码用于保护孩子的学习数据，并进入家长中心
-          <br />
-          请设置 6 位由字母和数字组合的密码
-        </p>
-
         <div className="mt-5 space-y-3">
           <JourneyPinInput label="Password" value={pin} onChange={setPin} autoFocus />
           <JourneyPinInput label="Confirm" value={confirmPin} onChange={setConfirmPin} />
