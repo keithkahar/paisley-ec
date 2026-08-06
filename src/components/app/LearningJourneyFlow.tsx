@@ -95,7 +95,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
 
             <div className="mt-2 flex items-baseline justify-between gap-2">
               <p className="text-[13px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                保存学习记录  让 PEC 更好地陪伴孩子成长
+                保存学习记录   让 PEC 更好地陪伴孩子成长
               </p>
             </div>
 
