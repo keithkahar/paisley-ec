@@ -97,6 +97,8 @@ function JourneySuccessPage() {
                   </span>
                 </h1>
               </div>
+            </div>
+
             <div className="mt-auto shrink-0 flex justify-center items-center" style={{ height: 48 }}>
               <div className="relative h-10 w-10 grid place-items-center">
                 <svg
@@ -135,6 +137,7 @@ function JourneySuccessPage() {
               </div>
             </div>
           </div>
+      </StandardSheet>
     </>
   );
 }
