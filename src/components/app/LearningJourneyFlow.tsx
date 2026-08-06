@@ -78,10 +78,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-            style={{
-              background: "white",
-              boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
-            }}
+            style={{ background: "white" }}
           >
             <h3
               className="text-[24px] leading-none"
