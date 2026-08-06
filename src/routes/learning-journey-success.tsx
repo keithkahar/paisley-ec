@@ -39,7 +39,7 @@ function JourneySuccessPage() {
       <ProfilePage tabBarHidden />
       <StandardSheet
         open
-        title="Journey Created"
+        title="Learner Added"
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
@@ -72,12 +72,12 @@ function JourneySuccessPage() {
                 </div>
 
                 <h1
-                  className="mt-5 text-[26px] leading-[1.2] font-medium tracking-tight text-foreground"
+                  className="mt-5 text-[26px] leading-[1.2] font-medium tracking-tight text-foreground text-center"
                   style={{ letterSpacing: "-0.01em" }}
                 >
-                  Welcome, {displayName}.
+                  Hi, {displayName}.
                   <span className="block mt-[41.63px] text-[26px] text-foreground/80 font-normal leading-[1.7] text-center">
-                    Are you ready to for today's English journey?
+                    Welcome to Paizley EC.
                   </span>
                 </h1>
               </div>
@@ -90,7 +90,7 @@ function JourneySuccessPage() {
                 className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                Get Started
+                Now Get Started
               </button>
             </div>
           </div>
