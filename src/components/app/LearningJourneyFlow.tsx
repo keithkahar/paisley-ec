@@ -67,7 +67,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step === "intro"}
         title="创建孩子的学习旅程"
         brandColor={SHEET_BRAND.paisley}
-        height="min(570px, calc(100dvh - env(safe-area-inset-bottom)))"
         onClose={() => {
           dismissLearningJourneyPrompt();
           setStep("none");
@@ -75,7 +74,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       >
         <div
           className="flex flex-col h-full min-h-0 mt-5"
-          style={{ height: 409 }}
+          style={{ height: 361 }}
         >
           {/* Membership-style benefit card */}
           <div
