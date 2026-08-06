@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, ArrowUpRight, X } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, ArrowUpRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
@@ -61,48 +61,25 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   return (
     <PhoneFrame bg="bg-white">
       <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <FloatingBack to="/profile" />
-
-        {/* Bottom sheet — PIN entry */}
-        <div className="fixed inset-0 z-40 flex items-end justify-center">
-          <div className="absolute inset-0 bg-sheet-backdrop" />
-          <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-            style={{ height: "62vh" }}
-          >
-            <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
-              <p
-                className="text-[17px] font-semibold tracking-tight leading-none"
-                style={{ letterSpacing: "-0.01em", color: PAISLEY }}
-              >
-                {isSet ? "设置家长密码" : "请输入家长密码"}
-              </p>
-              <button
-                type="button"
-                aria-label="关闭"
-                onClick={() => history.back()}
-                className="absolute left-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-              >
-                <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto px-6 pb-6">
-              <p
-                className="text-[12px] leading-[1.55] text-center"
-                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-              >
-                {isSet ? (
-                  <>
-                    请设置 6 位由字母和数字组合的密码
-                    <br />
-                    此密码用于避免儿童误入家长中心
-                  </>
-                ) : (
-                  "此密码用于避免儿童误入家长中心"
-                )}
-              </p>
-
+        <StandardSheet
+          open={true}
+          title={isSet ? "设置家长密码" : "请输入家长密码"}
+          brandColor={SHEET_BRAND.paisley}
+          onClose={() => history.back()}
+          subtitle={
+            isSet ? (
+              <>
+                请设置 6 位由字母和数字组合的密码
+                <br />
+                此密码用于避免儿童误入家长中心
+              </>
+            ) : (
+              "此密码用于避免儿童误入家长中心"
+            )
+          }
+        >
+          <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+            <div className="flex-1 min-h-0">
               <div className="mt-5 space-y-3">
                 <PinInput
                   label="密码"
@@ -128,15 +105,6 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </p>
               )}
 
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="mt-6 w-full h-11 rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                {isSet ? "设置密码" : "解锁"}
-              </button>
-
               {!isSet && (
                 <button
                   type="button"
@@ -154,8 +122,19 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </button>
               )}
             </div>
+
+            <div className="mt-auto shrink-0" style={{ height: 48 }}>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98]"
+                style={{ background: PAISLEY }}
+              >
+                {isSet ? "设置密码" : "解锁"}
+              </button>
+            </div>
           </div>
-        </div>
+        </StandardSheet>
       </div>
     </PhoneFrame>
   );
@@ -175,7 +154,7 @@ function PinInput({
   return (
     <label className="block">
       <div
-        className="rounded-2xl px-4 py-3 flex items-center gap-3 transition-colors focus-within:bg-white"
+        className="rounded-2xl py-4 px-4 flex items-center gap-3 transition-colors focus-within:bg-white"
         style={{
           background: "color-mix(in oklab, var(--paisley) 6%, white)",
           border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
@@ -189,21 +168,21 @@ function PinInput({
         </span>
         <input
           type="password"
-          inputMode="numeric"
-          pattern="[0-9]*"
+          inputMode="text"
           autoComplete="off"
           autoFocus={autoFocus}
           maxLength={6}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="••••"
-          className="flex-1 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em] placeholder:tracking-[0.2em] placeholder:font-normal"
+          placeholder="••••••"
+          className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em] placeholder:tracking-[0.2em] placeholder:font-normal"
           style={{ color: PAISLEY }}
         />
       </div>
     </label>
   );
 }
+
 
 // ---- Mock data (parent-specific mini cards, per spec §7/§8) ----
 type Cell = { label: string; value: string; unit: string };
