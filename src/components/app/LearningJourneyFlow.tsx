@@ -245,26 +245,28 @@ function JourneyPinSheet({
       title="设置家长密码"
       brandColor={SHEET_BRAND.paisley}
       onClose={onClose}
-      subtitle={
-        <>
-          请设置 6 位由字母和数字组合的密码
-          <br />
-          此密码用于保护孩子的学习数据，并进入家长中心
-        </>
-      }
     >
       <div className="flex flex-col min-h-0" style={{ height: 386 }}>
         <div className="flex-1 min-h-0">
-        <div className="space-y-3">
-          <JourneyPinInput label="密码" value={pin} onChange={setPin} autoFocus />
-          <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
-        </div>
-
-        {error && (
-          <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
-            {error}
+          <p
+            className="text-[12px] leading-[1.55] text-center"
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+          >
+            请设置 6 位由字母和数字组合的密码
+            <br />
+            此密码用于保护孩子的学习数据，并进入家长中心
           </p>
-        )}
+
+          <div className="mt-5 space-y-3">
+            <JourneyPinInput label="密码" value={pin} onChange={setPin} autoFocus />
+            <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
+          </div>
+
+          {error && (
+            <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+              {error}
+            </p>
+          )}
         </div>
 
         <div className="mt-auto shrink-0" style={{ height: 48 }}>
