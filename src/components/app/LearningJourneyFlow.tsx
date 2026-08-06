@@ -155,28 +155,25 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-
-            <div className="mt-4 shrink-0">
-              <button
-                type="button"
-                disabled={busy}
-                onClick={continueJourney}
-                className="w-full h-12 rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
-                style={{ background: PAISLEY }}
-              >
-                继续创建
-              </button>
-            </div>
           </div>
 
-          <div className="mt-auto pt-6 shrink-0">
+          <div className="mt-5 shrink-0">
+            <button
+              type="button"
+              disabled={busy}
+              onClick={continueJourney}
+              className="w-full h-12 rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              style={{ background: PAISLEY }}
+            >
+              继续创建
+            </button>
             <button
               type="button"
               onClick={() => {
                 dismissLearningJourneyPrompt();
                 setStep("none");
               }}
-              className="w-full text-[13px] font-medium text-center bg-transparent border-0 p-0"
+              className="mt-3 w-full text-[13px] font-medium text-center bg-transparent border-0 p-0"
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
