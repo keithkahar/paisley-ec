@@ -266,14 +266,6 @@ function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
   const navigate = useNavigate();
   const [unlocked, setUnlocked] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (sessionStorage.getItem(PIN_SESSION_KEY) === "1") setUnlocked(true);
-    } catch {
-      /* ignore */
-    }
-  }, []);
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
@@ -317,16 +309,7 @@ function ParentPage() {
 
   if (!unlocked)
     return (
-      <ParentPinGate
-        onUnlock={() => {
-          try {
-            sessionStorage.setItem(PIN_SESSION_KEY, "1");
-          } catch {
-            /* ignore */
-          }
-          setUnlocked(true);
-        }}
-      />
+      <ParentPinGate onUnlock={() => setUnlocked(true)} />
     );
 
   return (
