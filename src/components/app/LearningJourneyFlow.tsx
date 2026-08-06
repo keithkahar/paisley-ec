@@ -88,7 +88,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
 
             <div
-              className="mt-[55px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="mt-[60px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
@@ -106,7 +106,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                       strokeWidth={1.5}
                       style={{ color: "var(--foreground)" }}
                     />
-                    <span className="text-[13px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
                       {benefit}
                     </span>
                   </li>
