@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ProfilePage } from "@/routes/profile";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { useLearners } from "@/lib/learners";
