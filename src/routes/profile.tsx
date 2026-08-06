@@ -20,6 +20,7 @@ import {
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import { EditProfileSheet } from "@/components/app/EditProfileSheet";
+import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
 import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
 export const Route = createFileRoute("/profile")({
@@ -55,6 +56,7 @@ function ProfilePage() {
   const { learnerNames, learner, current, hasLearner, displayName, setLearner, addLearner, deleteLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [journeyOpen, setJourneyOpen] = useState(false);
   const DISPLAY_NAME = displayName;
   const avatarPos = { x: current?.avatarPosX ?? 50, y: current?.avatarPosY ?? 50, scale: current?.avatarScale ?? 1 };
   const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";
@@ -246,7 +248,8 @@ function ProfilePage() {
         onDelete={deleteLearner}
       />
       <EditProfileSheet open={editOpen} onClose={() => setEditOpen(false)} />
-      <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen || editOpen} />
+      <LearningJourneyFlow onOpenChange={setJourneyOpen} />
+      <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen || editOpen || journeyOpen} />
       <ParentPinSheet
         open={parentPinOpen}
         onClose={() => setParentPinOpen(false)}
