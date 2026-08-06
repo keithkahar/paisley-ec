@@ -270,8 +270,15 @@ type SheetType = "" | "voice" | "theme" | "speechRate" | "reminderTime";
 function ParentPage() {
   const [tab, setTab] = useState<ProgressTab>("talk");
   const navigate = useNavigate();
-  // 调试期间暂时关闭家长密码验证（原逻辑校验 PARENT_UNLOCK_FLAG 后才允许进入）
-  const unlocked = true;
+  const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(PIN_SESSION_KEY) === "1") setUnlocked(true);
+    } catch {
+      /* ignore */
+    }
+  }, []);
   const [open, setOpen] = useState({
     settingTalk: true,
     settingWordie: true,
@@ -313,7 +320,19 @@ function ParentPage() {
   const accent = tab === "talk" ? SHIRIN : WORDIE;
   const tint = (pct: number) => `color-mix(in oklab, ${accent} ${pct}%, white)`;
 
-  if (!unlocked) return null;
+  if (!unlocked)
+    return (
+      <ParentPinGate
+        onUnlock={() => {
+          try {
+            sessionStorage.setItem(PIN_SESSION_KEY, "1");
+          } catch {
+            /* ignore */
+          }
+          setUnlocked(true);
+        }}
+      />
+    );
 
   return (
     <PhoneFrame bg="bg-white">
