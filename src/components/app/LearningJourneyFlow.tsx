@@ -72,7 +72,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           setStep("none");
         }}
       >
-        <div className="flex flex-col h-full min-h-0 mt-5">
+        <div
+          className="flex flex-col h-full min-h-0 mt-5"
+          style={{ height: 361 }}
+        >
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -157,12 +160,12 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
           </div>
 
-          <div className="mt-5 shrink-0 -translate-y-[62px]">
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
             <button
               type="button"
               disabled={busy}
               onClick={continueJourney}
-              className="w-full h-12 rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
               style={{ background: PAISLEY }}
             >
               马上创建
