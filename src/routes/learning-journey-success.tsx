@@ -76,6 +76,9 @@ function JourneySuccessPage() {
                   style={{ letterSpacing: "-0.01em" }}
                 >
                   Welcome, {displayName}.
+                  <span className="block mt-[41.63px] text-[26px] text-foreground/80 font-normal leading-[1.7] text-center">
+                    Are you ready to for today's English journey?
+                  </span>
                 </h1>
               </div>
             </div>
@@ -87,7 +90,7 @@ function JourneySuccessPage() {
                 className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                Start Your Journey
+                Get Started
               </button>
             </div>
           </div>
