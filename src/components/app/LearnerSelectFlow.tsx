@@ -528,9 +528,12 @@ export function AddLearnerSheet({
             </div>
           </div>
 
-          <div className="mt-auto shrink-0" style={{ height: 48 }}>
+          <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
             {error && (
-              <p className="mb-2 text-center text-[14px] font-medium" style={{ color: DANGER, letterSpacing: "-0.01em" }}>
+              <p
+                className="absolute left-0 right-0 bottom-full mb-2 text-center text-[14px] font-medium pointer-events-none"
+                style={{ color: DANGER, letterSpacing: "-0.01em" }}
+              >
                 {error}
               </p>
             )}
