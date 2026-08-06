@@ -164,7 +164,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         onCreate={(created) => {
           addLearner(created);
           completeLearningJourney(created.name);
-          setStep("none");
           navigate({ to: "/learning-journey-success" });
         }}
       />
