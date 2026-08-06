@@ -378,8 +378,8 @@ export function AddLearnerSheet({
   return (
     <>
       <StandardSheet open={open} title="Add A Learner" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
-        <div className="flex flex-col h-full">
-          <div className="mt-5 flex flex-col items-center">
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="mt-[10px] flex flex-col items-center">
             <div className="relative h-40 w-40">
               <AvatarDraggable
                 src={avatarSrc}
@@ -528,7 +528,7 @@ export function AddLearnerSheet({
             </div>
           </div>
 
-          <div className="mt-auto shrink-0">
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
             {error && (
               <p className="mb-2 text-center text-[14px] font-medium" style={{ color: DANGER, letterSpacing: "-0.01em" }}>
                 {error}
@@ -537,7 +537,7 @@ export function AddLearnerSheet({
             <button
               type="button"
               onClick={submit}
-              className="w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+              className="w-full h-full rounded-full text-[17px] font-medium text-white active:scale-[0.99] transition-transform"
               style={{ background: PAISLEY }}
             >
               Save
