@@ -67,7 +67,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step === "intro"}
         title="创建孩子的学习旅程"
         brandColor={SHEET_BRAND.paisley}
-        subtitle="保存孩子的学习进度，让 Paizley 更好地陪伴孩子成长。"
+        subtitle="保存学习进度，让 Paizley 更好地陪伴孩子成长"
+        subtitleSpacing={22}
         onClose={() => {
           dismissLearningJourneyPrompt();
           setStep("none");
@@ -79,7 +80,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{
               background: "white",
-              border: "1.5px solid color-mix(in oklab, var(--paisley) 10%, white)",
               boxShadow: "0 2px 12px rgba(1, 70, 185, 0.06)",
             }}
           >
@@ -180,16 +180,19 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              dismissLearningJourneyPrompt();
-              setStep("none");
-            }}
-            className="mt-3 shrink-0 w-full text-[13px] font-semibold text-muted-foreground"
-          >
-            稍后再说
-          </button>
+          <div className="mt-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                dismissLearningJourneyPrompt();
+                setStep("none");
+              }}
+              className="w-full h-11 rounded-full text-[13px] font-semibold transition-transform active:scale-[0.98] flex items-center justify-center"
+              style={{ background: "white", border: `1.5px solid ${PAISLEY}`, color: PAISLEY }}
+            >
+              稍后再说
+            </button>
+          </div>
         </div>
       </StandardSheet>
 
