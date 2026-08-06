@@ -97,10 +97,44 @@ function JourneySuccessPage() {
                   </span>
                 </h1>
               </div>
+            <div className="mt-auto shrink-0 flex justify-center items-center" style={{ height: 48 }}>
+              <div className="relative h-10 w-10 grid place-items-center">
+                <svg
+                  className="absolute inset-0 h-full w-full -rotate-90"
+                  viewBox="0 0 40 40"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    className="text-foreground/10"
+                  />
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="18"
+                    fill="none"
+                    stroke={PAISLEY}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeDasharray={2 * Math.PI * 18}
+                    strokeDashoffset={2 * Math.PI * 18 * (1 - secondsLeft / 3)}
+                    style={{ transition: "stroke-dashoffset 1s linear" }}
+                  />
+                </svg>
+                <span
+                  className="relative text-[15px] font-semibold leading-none"
+                  style={{ color: PAISLEY }}
+                >
+                  {secondsLeft}
+                </span>
+              </div>
             </div>
-
           </div>
-      </StandardSheet>
     </>
   );
 }
