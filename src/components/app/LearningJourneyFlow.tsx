@@ -67,8 +67,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step === "intro"}
         title="创建孩子的学习旅程"
         brandColor={SHEET_BRAND.paisley}
-        subtitle="保存学习进度，让 Paizley 更好地陪伴孩子成长"
-        subtitleSpacing={22}
         onClose={() => {
           dismissLearningJourneyPrompt();
           setStep("none");
@@ -94,7 +92,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
 
             <div className="mt-2 flex items-baseline justify-between gap-2">
               <p className="text-[13px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                开启学习旅程
+                保存记录，让 PEC 更好地陪伴孩子成长
               </p>
             </div>
 
@@ -164,7 +162,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               type="button"
               disabled={busy}
               onClick={continueJourney}
-              className="w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-12 rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
               style={{ background: PAISLEY }}
             >
               继续创建
