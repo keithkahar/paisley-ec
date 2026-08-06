@@ -48,7 +48,7 @@ const PAISLEY = "var(--paisley)";
 const PAISLEY_YELLOW = "var(--paisley-yellow)";
 const PAISLEY_YELLOW_SOFT = "var(--paisley-yellow-soft)";
 
-function ProfilePage() {
+export function ProfilePage({ tabBarHidden = false }: { tabBarHidden?: boolean } = {}) {
   const [calOpen, setCalOpen] = useState(false);
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
@@ -249,7 +249,7 @@ function ProfilePage() {
       />
       <EditProfileSheet open={editOpen} onClose={() => setEditOpen(false)} />
       <LearningJourneyFlow onOpenChange={setJourneyOpen} />
-      <BottomTabBar hidden={calOpen || parentPinOpen || learnerOpen || editOpen || journeyOpen} />
+      <BottomTabBar hidden={tabBarHidden || calOpen || parentPinOpen || learnerOpen || editOpen || journeyOpen} />
       <ParentPinSheet
         open={parentPinOpen}
         onClose={() => setParentPinOpen(false)}

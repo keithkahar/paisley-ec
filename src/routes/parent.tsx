@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, ArrowUpRight } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, ArrowUpRight, Eye, EyeOff } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
+import { ProfilePage } from "@/routes/profile";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
@@ -59,27 +60,31 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   if (mode === "loading") return null;
 
   return (
-    <PhoneFrame bg="bg-white">
-      <div className="relative min-h-[calc(100dvh-6rem)] flex flex-col bg-white">
-        <StandardSheet
-          open={true}
-          title={isSet ? "设置家长密码" : "请输入家长密码"}
-          brandColor={SHEET_BRAND.paisley}
-          onClose={() => history.back()}
-          subtitle={
-            isSet ? (
-              <>
-                请设置 6 位由字母和数字组合的密码
-                <br />
-                此密码用于避免儿童误入家长中心
-              </>
-            ) : (
-              "此密码用于避免儿童误入家长中心"
-            )
-          }
-        >
+    <>
+      <ProfilePage tabBarHidden />
+      <StandardSheet
+        open={true}
+        title={isSet ? "设置家长密码" : "请输入家长密码"}
+        brandColor={SHEET_BRAND.paisley}
+        onClose={() => history.back()}
+      >
           <div className="flex flex-col min-h-0" style={{ height: 429 }}>
             <div className="flex-1 min-h-0">
+              <p
+                className="text-[12px] leading-[1.55] text-center"
+                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              >
+                {isSet ? (
+                  <>
+                    请设置 6 位由字母和数字组合的密码
+                    <br />
+                    此密码用于保护孩子的学习数据，并进入家长中心
+                  </>
+                ) : (
+                  "此密码用于避免儿童误入家长中心"
+                )}
+              </p>
+
               <div className="mt-5 space-y-3">
                 <PinInput
                   label="密码"
@@ -127,16 +132,15 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98]"
+                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
                 {isSet ? "设置密码" : "解锁"}
               </button>
             </div>
           </div>
-        </StandardSheet>
-      </div>
-    </PhoneFrame>
+      </StandardSheet>
+    </>
   );
 }
 
@@ -151,10 +155,11 @@ function PinInput({
   onChange: (v: string) => void;
   autoFocus?: boolean;
 }) {
+  const [visible, setVisible] = useState(false);
   return (
     <label className="block">
       <div
-        className="rounded-2xl py-4 px-4 flex items-center gap-3 transition-colors focus-within:bg-white"
+        className="rounded-full py-4 px-4 flex items-center gap-3 transition-colors focus-within:bg-white"
         style={{
           background: "color-mix(in oklab, var(--paisley) 6%, white)",
           border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
@@ -167,17 +172,28 @@ function PinInput({
           {label}
         </span>
         <input
-          type="password"
+          type={visible ? "text" : "password"}
           inputMode="text"
           autoComplete="off"
           autoFocus={autoFocus}
           maxLength={6}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="••••••"
-          className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em] placeholder:tracking-[0.2em] placeholder:font-normal"
+          className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
           style={{ color: PAISLEY }}
         />
+        {value.length > 0 && (
+          <button
+            type="button"
+            aria-label={visible ? "隐藏密码" : "显示密码"}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => setVisible((v) => !v)}
+            className="shrink-0 grid place-items-center h-7 w-7 rounded-full transition-opacity active:opacity-60"
+            style={{ color: "color-mix(in oklab, var(--foreground) 45%, white)" }}
+          >
+            {visible ? <EyeOff size={17} strokeWidth={2} /> : <Eye size={17} strokeWidth={2} />}
+          </button>
+        )}
       </div>
     </label>
   );
