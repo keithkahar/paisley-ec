@@ -74,7 +74,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       >
         <div
           className="flex flex-col h-full min-h-0 mt-5"
-          style={{ height: 816 }}
+          style={{ height: 378 }}
         >
           {/* Membership-style benefit card */}
           <div
@@ -160,7 +160,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
           </div>
 
-          <div className="mt-5 shrink-0" style={{ height: 96 }}>
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
             <button
               type="button"
               disabled={busy}
