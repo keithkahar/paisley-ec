@@ -201,7 +201,7 @@ function JourneyPinSheet({
   return (
     <StandardSheet
       open={open}
-      title="设置家长密码"
+      title="设置家长PIN码"
       brandColor={SHEET_BRAND.paisley}
       onClose={onClose}
     >
@@ -211,13 +211,11 @@ function JourneyPinSheet({
             className="text-[12px] leading-[1.55] text-center"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
-            请设置 6 位由字母和数字组合的密码
-            <br />
-            此密码用于保护孩子的学习数据，并进入家长中心
+            用于保护孩子的学习数据，并进入家长中心
           </p>
 
           <div className="mt-5 space-y-3">
-            <JourneyPinInput label="密码" value={pin} onChange={setPin} autoFocus />
+            <JourneyPinInput label="PIN码" value={pin} onChange={setPin} autoFocus />
             <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
           </div>
 
@@ -235,7 +233,7 @@ function JourneyPinSheet({
             className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
             style={{ background: PAISLEY }}
           >
-            设置密码
+            保存设置
           </button>
         </div>
       </div>
@@ -272,12 +270,12 @@ function JourneyPinInput({
         </span>
         <input
           type={visible ? "text" : "password"}
-          inputMode="text"
+          inputMode="numeric"
           autoComplete="off"
           autoFocus={autoFocus}
           maxLength={6}
           value={value}
-          onChange={(e) => onChange(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))}
+          onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 6))}
           className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
           style={{ color: PAISLEY }}
         />
