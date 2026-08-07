@@ -32,6 +32,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
   const [step, setStep] = useState<Step>("none");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
 
   // Open or resume the flow, mirroring maybeOpenLearningJourneyFlow().
   useEffect(() => {
@@ -48,17 +50,55 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     onOpenChange?.(step !== "none");
   }, [step, onOpenChange]);
 
+  // Reset the PIN fields whenever the PIN step is entered.
+  useEffect(() => {
+    if (step !== "pin") return;
+    setPin("");
+    setConfirmPin("");
+    setError("");
+  }, [step]);
+
+  const submitPin = () => {
+    const result = setJourneyParentPin(pin, confirmPin);
+    if (!result.ok) return setError(result.message);
+    setError("");
+    markLearnerCreationPending();
+    setStep("learner");
+  };
+
+  const dismiss = () => {
+    dismissLearningJourneyPrompt();
+    setStep("none");
+  };
+
+  // A single sheet instance hosts every step so transitions (especially back
+  // navigation) morph in place instead of closing/reopening the sheet.
+  const sheetTitle =
+    step === "guardian"
+      ? "创建家长账户"
+      : step === "guardian-error"
+        ? "无法创建家长账户"
+        : step === "pin"
+          ? "请设置家长PIN码"
+          : "创建孩子的学习旅程";
+
   return (
     <>
       <StandardSheet
-        open={step === "intro"}
-        title="创建孩子的学习旅程"
+        open={step !== "none" && step !== "learner"}
+        title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        onClose={() => {
-          dismissLearningJourneyPrompt();
-          setStep("none");
-        }}
+        contentPaddingTop={step === "guardian" ? 16 : undefined}
+        showBack={step === "guardian" || step === "pin"}
+        onClose={
+          step === "guardian"
+            ? () => setStep("intro")
+            : step === "pin"
+              ? () => setStep("guardian")
+              : dismiss
+        }
       >
+        {step === "intro" ? (
         <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           {/* Membership-style benefit card */}
           <div
