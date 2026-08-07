@@ -27,7 +27,7 @@ const PIN_STORAGE_KEY = "paisley.parent.pin";
 
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"set" | "enter" | "recover" | "loading">("loading");
+  const [mode, setMode] = useState<"set" | "enter" | "recover" | "reset" | "loading">("loading");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
   const [error, setError] = useState("");
@@ -37,7 +37,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     setMode(saved ? "enter" : "set");
   }, []);
 
-  const isSet = mode === "set";
+  const isReset = mode === "reset";
+  const isSet = mode === "set" || isReset;
   const isRecover = mode === "recover";
   const sanitize = (s: string) => s.replace(/\D/g, "").slice(0, 6);
 
@@ -47,7 +48,13 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       if (pin.length !== 6) return setError("PIN码需为 6 位数字");
       if (pin !== confirmPin) return setError("两次输入的PIN码不一致");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
-      onUnlock();
+      if (isReset) {
+        setPin("");
+        setConfirmPin("");
+        setMode("enter");
+      } else {
+        onUnlock();
+      }
     } else {
       const saved = localStorage.getItem(PIN_STORAGE_KEY);
       if (pin === saved) {
@@ -67,12 +74,21 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
 
   const handleRecover = () => {
     // Debug flow: simulate verified WeChat identity, then allow resetting PIN.
-    setMode("set");
+    setPin("");
+    setConfirmPin("");
+    setError("");
+    setMode("reset");
   };
 
   if (mode === "loading") return null;
 
-  const sheetTitle = isSet ? "设置家长PIN码" : isRecover ? "找回家长PIN码" : "请输入家长PIN码";
+  const sheetTitle = isReset
+    ? "验证成功"
+    : isSet
+      ? "设置家长PIN码"
+      : isRecover
+        ? "找回家长PIN码"
+        : "请输入家长PIN码";
 
   return (
     <>
@@ -82,10 +98,15 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
         contentPaddingTop={16}
-        showBack={isRecover}
+        showBack={isRecover || isReset}
         onClose={
-          isRecover
-            ? () => setMode("enter")
+          isRecover || isReset
+            ? () => {
+                setPin("");
+                setConfirmPin("");
+                setError("");
+                setMode(isReset ? "recover" : "enter");
+              }
             : () => navigate({ to: "/profile" })
         }
       >
@@ -138,21 +159,27 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
           <div className="flex flex-col h-full min-h-0">
             <p
               className="text-[13px] leading-[1.5] text-center"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              style={{
+                color: isReset ? PAISLEY : "color-mix(in oklab, var(--foreground) 55%, white)",
+              }}
             >
-              {isSet ? "用于保护孩子的学习数据，并进入家长中心" : "用于避免孩子误入家长中心"}
+              {isReset
+                ? "请设置新的家长PIN"
+                : isSet
+                  ? "用于保护孩子的学习数据，并进入家长中心"
+                  : "用于避免孩子误入家长中心"}
             </p>
             <div className="mt-4 flex-1 min-h-0">
               <div className="space-y-3">
                 <PinInput
-                  label="PIN"
+                  label={isReset ? "新PIN" : "PIN"}
                   value={pin}
                   onChange={(v) => setPin(sanitize(v))}
                   autoFocus
                 />
                 {isSet && (
                   <PinInput
-                    label="确认"
+                    label={isReset ? "确认PIN" : "确认"}
                     value={confirmPin}
                     onChange={(v) => setConfirmPin(sanitize(v))}
                   />
@@ -187,7 +214,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                {isSet ? "保存" : "解锁"}
+                {isReset ? "保存新PIN" : isSet ? "保存" : "解锁"}
               </button>
             </div>
           </div>
