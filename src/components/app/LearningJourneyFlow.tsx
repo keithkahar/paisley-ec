@@ -270,12 +270,12 @@ function JourneyPinInput({
         </span>
         <input
           type={visible ? "text" : "password"}
-          inputMode="text"
+          inputMode="numeric"
           autoComplete="off"
           autoFocus={autoFocus}
           maxLength={6}
           value={value}
-          onChange={(e) => onChange(e.target.value.replace(/[^A-Za-z0-9]/g, "").slice(0, 6))}
+          onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 6))}
           className="flex-1 min-w-0 bg-transparent outline-none text-[17px] font-semibold tabular-nums tracking-[0.35em]"
           style={{ color: PAISLEY }}
         />
