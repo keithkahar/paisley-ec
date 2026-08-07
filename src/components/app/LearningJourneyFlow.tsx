@@ -309,17 +309,44 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </button>
           </div>
         </div>
-      </StandardSheet>
+        ) : (
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="flex-1 min-h-0">
+            <p
+              className="text-[12px] leading-[1.55] text-center"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              6位数字｜用于进入家长中心，管理学习数据
+            </p>
 
-      <JourneyPinSheet
-        open={step === "pin"}
-        showBack
-        onClose={() => setStep("guardian")}
-        onDone={() => {
-          markLearnerCreationPending();
-          setStep("learner");
-        }}
-      />
+            <div className="mt-5 space-y-3">
+              <JourneyPinInput label="PIN" value={pin} onChange={setPin} autoFocus />
+              <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
+            </div>
+
+            {error && (
+              <p
+                className="mt-3 text-[12px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
+                {error}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              onClick={submitPin}
+              className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              style={{ background: PAISLEY }}
+            >
+              保存
+            </button>
+          </div>
+        </div>
+        )}
+      </StandardSheet>
 
       <AddLearnerSheet
         title="创建孩子档案"
