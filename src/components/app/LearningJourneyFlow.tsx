@@ -156,7 +156,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               type="button"
               disabled={busy}
               onClick={() => setStep("guardian")}
-              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
               style={{ background: PAISLEY }}
             >
               现在创建
@@ -167,7 +167,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 dismissLearningJourneyPrompt();
                 setStep("none");
               }}
-              className="mt-3 w-full text-[13px] font-semibold text-center bg-transparent border-0 p-0"
+              className="mt-3 w-full text-[14px] font-semibold text-center bg-transparent border-0 p-0"
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
@@ -226,7 +226,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               type="button"
               disabled={busy}
               onClick={() => setStep("guardian-error")}
-              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
+              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
               style={{ background: PAISLEY }}
             >
               <img
@@ -287,7 +287,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               type="button"
               disabled={busy}
               onClick={() => setStep("guardian")}
-              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
+              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
               style={{ background: PAISLEY }}
             >
               <img
@@ -302,7 +302,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             <button
               type="button"
               onClick={() => setStep("pin")}
-              className="mt-3 w-full text-[13px] font-semibold text-center bg-transparent border-0 p-0"
+              className="mt-3 w-full text-[14px] font-semibold text-center bg-transparent border-0 p-0"
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
@@ -338,7 +338,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             <button
               type="button"
               onClick={submitPin}
-              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
+              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
               style={{ background: PAISLEY }}
             >
               保存

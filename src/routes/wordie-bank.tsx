@@ -569,14 +569,14 @@ function WordieBankPage() {
               <button
                 type="button"
                 onClick={() => setResetConfirm(false)}
-                className="rounded-full py-2.5 text-[13px] font-semibold bg-muted"
+                className="rounded-full py-2.5 text-[14px] font-semibold bg-muted"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={resetProgress}
-                className="rounded-full py-2.5 text-[13px] font-semibold text-white"
+                className="rounded-full py-2.5 text-[14px] font-semibold text-white"
                 style={{ background: "var(--destructive)" }}
               >
                 Reset

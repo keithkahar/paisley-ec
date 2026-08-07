@@ -1285,7 +1285,7 @@ function AdminPageInner() {
               <div className="text-[13px] mt-2 leading-relaxed" style={{ color: SUB }}>{helpFor.helpText || "暂无说明。"}</div>
               <button
                 onClick={() => setHelpFor(null)}
-                className="mt-4 w-full h-10 rounded-full text-[13px] font-semibold text-white"
+                className="mt-4 w-full h-10 rounded-full text-[14px] font-semibold text-white"
                 style={{ background: PAISLEY }}
               >
                 知道了
@@ -1301,8 +1301,8 @@ function AdminPageInner() {
               <div className="text-[16px] font-normal" style={{ color: NAVY }}>重置后台参数？</div>
               <div className="text-[13px] mt-2" style={{ color: SUB }}>这会把所有前端参数恢复为默认值。</div>
               <div className="mt-4 flex gap-3">
-                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[13px] font-semibold text-white" style={{ background: "#D9534F" }}>重置</button>
+                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>重置</button>
               </div>
             </div>
           </div>
@@ -1376,7 +1376,7 @@ function AdminPageInner() {
               <div className="mt-4 shrink-0">
                 <button
                   onClick={saveEditor}
-                  className="w-full h-12 rounded-full text-[13px] font-semibold text-white active:scale-[0.99] transition-transform"
+                  className="w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
                   style={{ background: PAISLEY }}
                 >
                   保存
@@ -1393,8 +1393,8 @@ function AdminPageInner() {
               <div className="text-[16px] font-normal" style={{ color: NAVY }}>清除导入内容？</div>
               <div className="text-[13px] mt-2" style={{ color: SUB }}>清除后 Smart Reading 将回到默认代码内容。</div>
               <div className="mt-4 flex gap-3">
-                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[13px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[13px] font-semibold text-white" style={{ background: "#D9534F" }}>清除</button>
+                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
+                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>清除</button>
               </div>
             </div>
           </div>
@@ -1436,9 +1436,9 @@ function AdminPageInner() {
               )}
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2 shrink-0">
-              <button onClick={srValidate} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
-              <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
-              <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>合并</button>
+              <button onClick={srValidate} className="h-11 rounded-full text-[14px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>校验</button>
+              <button onClick={() => srImport("replace")} className="h-11 rounded-full text-[14px] font-semibold" style={{ background: "#fff", color: NAVY, border: `1px solid ${YELLOW_BORDER}` }}>替换</button>
+              <button onClick={() => srImport("merge")} className="h-11 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>合并</button>
             </div>
           </div>
         </StandardSheet>
@@ -1507,7 +1507,7 @@ function AdminPageInner() {
                   </SRField>
               </div>
               <div className="mt-4 shrink-0">
-                <button onClick={saveSrBookEditor} className="w-full h-12 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+                <button onClick={saveSrBookEditor} className="w-full h-12 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
           </StandardSheet>
@@ -1553,7 +1553,7 @@ function AdminPageInner() {
                   </SRField>
               </div>
               <div className="mt-4 shrink-0">
-                <button onClick={saveSrUnitEditor} className="w-full h-12 rounded-full text-[13px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+                <button onClick={saveSrUnitEditor} className="w-full h-12 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
           </StandardSheet>
