@@ -5,6 +5,7 @@ import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import {
+  clearLearnerCreationPending,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
   ensureGuardianAccount,
@@ -161,7 +162,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       <AddLearnerSheet
         title="创建孩子档案"
         open={step === "learner"}
-        onClose={() => setStep("none")}
+        onClose={() => {
+          clearLearnerCreationPending();
+          setStep("none");
+        }}
         onCreate={(created) => {
           addLearner(created);
           completeLearningJourney(created.name);
