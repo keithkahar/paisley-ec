@@ -5,6 +5,7 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
+import { SHEET_PRIMARY } from "@/components/app/StandardSheet";
 import {
   BLOXIAN_AVATARS,
   CHARACTER_ASSETS,
