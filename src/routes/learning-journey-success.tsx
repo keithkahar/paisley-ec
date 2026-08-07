@@ -30,13 +30,13 @@ function JourneySuccessPage() {
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
-        <div className="flex flex-col min-h-0" style={{ height: 915 }}>
+        <div className="flex flex-col flex-1 min-h-0">
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
-            <div className="flex items-baseline justify-center gap-2">
+            <div className="flex items-baseline justify-center gap-2 mt-[10px]">
               <p
                 className="text-[26px] leading-[1.4] font-medium tracking-tight text-center text-foreground"
                 style={{ letterSpacing: "-0.01em" }}
