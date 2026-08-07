@@ -4,6 +4,7 @@ import { Check, Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
+import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 import {
   clearLearnerCreationPending,
   completeLearningJourney,
@@ -196,9 +197,16 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               type="button"
               disabled={busy}
               onClick={createGuardian}
-              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
               style={{ background: PAISLEY }}
             >
+              <img
+                src={wechatWhite.url}
+                alt=""
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ width: 18, height: 18, objectFit: "contain" }}
+              />
               微信授权并继续
             </button>
           </div>
