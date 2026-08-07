@@ -84,14 +84,14 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
-            <div className="flex items-baseline justify-center gap-2">
+            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
               <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
                 保存学习记录 | 让 PEC 更好地陪伴孩子成长
               </p>
             </div>
 
             <div
-              className="mt-[60px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
@@ -154,10 +154,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         title="创建家长账户"
         brandColor={SHEET_BRAND.paisley}
         progress={{ total: 4, current: 2 }}
-        onClose={() => {
-          dismissLearningJourneyPrompt();
-          setStep("none");
-        }}
+        showBack
+        onClose={() => setStep("intro")}
       >
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           <div className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
@@ -217,10 +215,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
 
       <JourneyPinSheet
         open={step === "pin"}
-        onClose={() => {
-          dismissLearningJourneyPrompt();
-          setStep("none");
-        }}
+        showBack
+        onClose={() => setStep("guardian")}
         onDone={() => {
           markLearnerCreationPending();
           setStep("learner");
@@ -247,10 +243,12 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
 
 function JourneyPinSheet({
   open,
+  showBack,
   onClose,
   onDone,
 }: {
   open: boolean;
+  showBack?: boolean;
   onClose: () => void;
   onDone: () => void;
 }) {
@@ -278,6 +276,7 @@ function JourneyPinSheet({
       title="设置家长PIN码"
       brandColor={SHEET_BRAND.paisley}
       progress={{ total: 4, current: 3 }}
+      showBack={showBack}
       onClose={onClose}
     >
       <div className="flex flex-col min-h-0" style={{ height: 429 }}>

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from "react";
-import { Check, X } from "lucide-react";
+import { Check, ChevronLeft, X } from "lucide-react";
 
 /**
  * Global bottom-sheet standard.
@@ -40,6 +40,8 @@ type Props = {
   height?: string;
   /** Optional segmented step progress bar rendered 7px below the close button. */
   progress?: { total: number; current: number };
+  /** When true, render a back chevron instead of the close X in the top-left. */
+  showBack?: boolean;
   children: ReactNode;
 };
 
@@ -55,6 +57,7 @@ export function StandardSheet({
   subtitleSpacing = 6,
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   progress,
+  showBack,
   children,
 }: Props) {
   useEffect(() => {
@@ -104,10 +107,14 @@ export function StandardSheet({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close"
+            aria-label={showBack ? "Back" : "Close"}
             className="absolute left-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
           >
-            <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+            {showBack ? (
+              <ChevronLeft className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+            ) : (
+              <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+            )}
           </button>
           {hasDone && (
             <button
