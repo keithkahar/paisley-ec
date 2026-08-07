@@ -2203,13 +2203,13 @@ function MembershipCards({ open }: { open: boolean }) {
                   >
                     <span
                       className="absolute left-1/3 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[13px]"
-                      onClick={() => scrollToCard(i)}
+                      onClick={() => setPurchasePhoneOpen(true)}
                     >
                       订阅
                     </span>
                     <span
                       className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1 h-8 pl-3 pr-2.5 rounded-full cursor-pointer font-normal text-[13px]"
-                      onClick={() => scrollToCard(i + 1)}
+                      onClick={() => setPurchasePhoneOpen(true)}
                       style={{ background: "white", color: "var(--paisley)" }}
                     >
                       升级
@@ -2219,7 +2219,7 @@ function MembershipCards({ open }: { open: boolean }) {
                 ) : (
                   <button
                     type="button"
-                    onClick={() => scrollToCard(i)}
+                    onClick={() => setPurchasePhoneOpen(true)}
                     className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
                     style={{ background: "var(--paisley)" }}
                   >
@@ -2232,7 +2232,146 @@ function MembershipCards({ open }: { open: boolean }) {
           </div>
         ))}
       </div>
+      <PurchasePhoneSheet open={purchasePhoneOpen} onClose={() => setPurchasePhoneOpen(false)} />
     </div>
+  );
+}
+
+// ---- Forced phone binding before purchasing a membership ----
+function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [step, setStep] = useState<"prompt" | "entry">("prompt");
+  const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+  const [countdown, setCountdown] = useState(0);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!open) return;
+    setStep("prompt");
+    setError("");
+  }, [open]);
+
+  useEffect(() => {
+    if (countdown <= 0) return;
+    const t = window.setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => window.clearTimeout(t);
+  }, [countdown]);
+
+  if (!open) return null;
+  const isEntry = step === "entry";
+
+  const handleSave = () => {
+    setError("");
+    if (!/^1\d{10}$/.test(phone)) return setError("请输入正确的 11 位手机号");
+    if (!/^\d{4,6}$/.test(code)) return setError("请输入验证码");
+    try {
+      localStorage.setItem(PHONE_STORAGE_KEY, phone);
+    } catch {
+      /* ignore */
+    }
+    onClose();
+  };
+
+  return (
+    <StandardSheet
+      open={open}
+      title={isEntry ? "请输入手机号" : "绑定手机号以完成购买"}
+      brandColor={SHEET_BRAND.paisley}
+      contentPaddingTop={16}
+      showBack={isEntry}
+      onClose={isEntry ? () => { setError(""); setStep("prompt"); } : onClose}
+    >
+      {isEntry ? (
+        <div className="flex flex-col h-full min-h-0">
+          <div className="mt-4 flex-1 min-h-0 space-y-3">
+            <PhoneField
+              label="手机号"
+              value={phone}
+              onChange={(v) => setPhone(v.replace(/\D/g, "").slice(0, 11))}
+              placeholder=""
+            />
+            <div className="flex items-center gap-2">
+              <div className="flex-1 min-w-0">
+                <PhoneField
+                  label="验证码"
+                  value={code}
+                  onChange={(v) => setCode(v.replace(/\D/g, "").slice(0, 6))}
+                  placeholder=""
+                />
+              </div>
+              <button
+                type="button"
+                disabled={countdown > 0}
+                onClick={() => {
+                  if (!/^1\d{10}$/.test(phone)) return setError("请输入正确的 11 位手机号");
+                  setError("");
+                  setCountdown(60);
+                }}
+                className="shrink-0 rounded-full px-4 h-[54px] text-[13px] transition-opacity active:opacity-70 disabled:opacity-50"
+                style={{
+                  background: "transparent",
+                  border: "1px solid color-mix(in oklab, var(--paisley) 45%, white)",
+                  fontWeight: 400,
+                  color: PAISLEY,
+                }}
+              >
+                {countdown > 0 ? `${countdown}s` : "发验证码"}
+              </button>
+            </div>
+            {error && (
+              <p className="text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+                {error}
+              </p>
+            )}
+          </div>
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              onClick={handleSave}
+              className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              style={{ background: PAISLEY }}
+            >
+              保存
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col h-full min-h-0">
+          <p
+            className="text-[13px] leading-none text-center shrink-0"
+            style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
+          >
+            用于保障会员权益和账户安全
+          </p>
+          <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
+            <div
+              className="grid place-items-center rounded-full"
+              style={{
+                width: 88,
+                height: 88,
+                background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                boxShadow: "none",
+              }}
+            >
+              <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
+            </div>
+          </div>
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              onClick={() => {
+                setError("");
+                setStep("entry");
+              }}
+              className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              style={{ background: PAISLEY }}
+            >
+              现在绑定
+            </button>
+          </div>
+        </div>
+      )}
+    </StandardSheet>
   );
 }
 
