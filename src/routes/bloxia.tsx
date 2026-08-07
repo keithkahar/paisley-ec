@@ -1564,7 +1564,18 @@ function PlaceSheet({
   const badge = placeBadgeById[place.placeBadgeId];
 
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      action={
+        !unlocked && !canUnlock ? (
+          <BloxiaAction>{formatBp(place.unlockBp - bp)} still needed to unlock</BloxiaAction>
+        ) : unlocked ? (
+          <BloxiaAction>You are here</BloxiaAction>
+        ) : (
+          <BloxiaAction onClick={onUnlock}>Unlock Place</BloxiaAction>
+        )
+      }
+    >
       <img
         src={badge.asset}
         alt=""
@@ -1582,34 +1593,6 @@ function PlaceSheet({
         <SheetRow label="Required Bp" value={formatBp(place.unlockBp)} />
         <SheetRow label="Status" value={statusText} />
       </div>
-
-      {!unlocked && !canUnlock && (
-        <div
-          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          {formatBp(place.unlockBp - bp)} still needed to unlock
-        </div>
-      )}
-
-      {unlocked && (
-        <div
-          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          You are here
-        </div>
-      )}
-      {!unlocked && canUnlock && (
-        <button
-          type="button"
-          onClick={onUnlock}
-          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          Unlock Place
-        </button>
-      )}
     </Sheet>
   );
 }
@@ -1637,7 +1620,25 @@ function ItemSheet({
     ? isFavorite ? "Favorite" : "Collected"
     : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      action={
+        collected ? (
+          <BloxiaAction onClick={onToggleFavorite}>
+            <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
+            {isFavorite ? "Favorite" : "Add to Favorite"}
+          </BloxiaAction>
+        ) : canCollect ? (
+          <BloxiaAction onClick={onCollect}>Collect</BloxiaAction>
+        ) : (
+          <BloxiaAction>
+            {!placeUnlocked
+              ? "Unlock this place first"
+              : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
+          </BloxiaAction>
+        )
+      }
+    >
       <img
         src={item.asset}
         alt=""
@@ -1658,36 +1659,6 @@ function ItemSheet({
         <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
-
-      {collected ? (
-        <button
-          type="button"
-          onClick={onToggleFavorite}
-          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
-          {isFavorite ? "Favorite" : "Add to Favorite"}
-        </button>
-      ) : canCollect ? (
-        <button
-          type="button"
-          onClick={onCollect}
-          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          Collect
-        </button>
-      ) : (
-        <div
-          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          {!placeUnlocked
-            ? "Unlock this place first"
-            : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
-        </div>
-      )}
     </Sheet>
   );
 }
