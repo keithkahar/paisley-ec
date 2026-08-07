@@ -46,7 +46,7 @@ function JourneySuccessPage() {
             </div>
 
             <div
-              className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="mt-[47px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
