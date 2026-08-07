@@ -171,7 +171,11 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   background: "color-mix(in oklab, var(--paisley) 8%, white)",
                 }}
               >
-                <Smartphone size={42} strokeWidth={1.6} style={{ color: PAISLEY }} />
+                <Smartphone
+                  size={42}
+                  strokeWidth={1.6}
+                  style={{ color: "color-mix(in oklab, var(--paisley) 22%, white)" }}
+                />
               </div>
             </div>
 
@@ -190,7 +194,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             </div>
             <button
               type="button"
-              onClick={goPinFlow}
+              onClick={() => {
+                setPin("");
+                setConfirmPin("");
+                setError("");
+                setMode("set");
+              }}
               className="mt-3 shrink-0 w-full text-[14px] font-medium"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
@@ -204,7 +213,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 label="手机号"
                 value={phone}
                 onChange={(v) => setPhone(v.replace(/\D/g, "").slice(0, 11))}
-                placeholder="11 位手机号"
+                placeholder=""
                 autoFocus
               />
               <div className="flex items-center gap-2">
@@ -224,9 +233,11 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                     setError("");
                     setCountdown(60);
                   }}
-                  className="shrink-0 rounded-full px-4 h-[54px] text-[13px] font-semibold transition-opacity active:opacity-70 disabled:opacity-50"
+                  className="shrink-0 rounded-full px-4 h-[54px] text-[13px] transition-opacity active:opacity-70 disabled:opacity-50"
                   style={{
-                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                    background: "transparent",
+                    border: "1px solid color-mix(in oklab, var(--paisley) 45%, white)",
+                    fontWeight: 400,
                     color: PAISLEY,
                   }}
                 >
@@ -343,7 +354,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   className="mt-3 w-full text-[12px] font-normal"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
-                  忘记 / 重设PIN
+                  忘记PIN?
                 </button>
               )}
             </div>
