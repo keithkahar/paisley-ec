@@ -210,8 +210,12 @@ export function MonthCalendarDialog({
         >
           <div className="relative flex items-center justify-center px-5 pt-[18px] pb-3 shrink-0">
             <h2
-              className="text-[17px] font-normal tracking-tight leading-none"
-              style={{ letterSpacing: "-0.01em", color }}
+              className="font-normal tracking-tight leading-none"
+              style={{
+                fontSize: /[\u3400-\u4DBF\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/.test(String(title)) ? 16 : 17,
+                letterSpacing: "-0.01em",
+                color,
+              }}
             >
               {title}
             </h2>
