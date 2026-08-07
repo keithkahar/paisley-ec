@@ -91,9 +91,9 @@ function JourneySuccessPage() {
                   className="mt-5 text-[26px] leading-[1.2] font-medium tracking-tight text-foreground text-center"
                   style={{ letterSpacing: "-0.01em" }}
                 >
-                  Hi, {displayName}.
+                  Welcome, Keith!
                   <span className="block mt-[41.63px] text-[26px] text-foreground/80 font-normal leading-[1.7] text-center">
-                    Welcome to Paizley EC.
+                    Your learning journey begins today.
                   </span>
                 </h1>
               </div>
