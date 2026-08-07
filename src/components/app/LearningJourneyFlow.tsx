@@ -74,10 +74,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           setStep("none");
         }}
       >
-        <div
-          className="flex flex-col h-full min-h-0 mt-5"
-          style={{ height: 385 }}
-        >
+        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -108,7 +105,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                       strokeWidth={1.5}
                       style={{ color: "var(--foreground)" }}
                     />
-                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                    <span
+                      className="text-[11px] leading-[1.55]"
+                      style={{ color: "var(--foreground)", fontWeight: 400 }}
+                    >
                       {benefit}
                     </span>
                   </li>
@@ -117,7 +117,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
 
             {error && (
-              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+              <p
+                className="mt-2 text-[11px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
                 {error}
               </p>
             )}
@@ -156,7 +159,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         onClose={() => setStep("intro")}
       >
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
-          <div className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
+          <div
+            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            style={{ background: "white" }}
+          >
             <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
               <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
                 用于管理孩子的学习旅程
@@ -168,23 +174,31 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
-                {["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"].map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2">
-                    <Check
-                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
-                      strokeWidth={1.5}
-                      style={{ color: "var(--foreground)" }}
-                    />
-                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
+                {["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"].map(
+                  (benefit) => (
+                    <li key={benefit} className="flex items-start gap-2">
+                      <Check
+                        className="shrink-0 mt-[2px] h-3.5 w-3.5"
+                        strokeWidth={1.5}
+                        style={{ color: "var(--foreground)" }}
+                      />
+                      <span
+                        className="text-[11px] leading-[1.55]"
+                        style={{ color: "var(--foreground)", fontWeight: 400 }}
+                      >
+                        {benefit}
+                      </span>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
 
             {error && (
-              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+              <p
+                className="mt-2 text-[11px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
                 {error}
               </p>
             )}
@@ -221,7 +235,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         }}
       >
         <div className="flex flex-col min-h-0" style={{ height: 385 }}>
-          <div className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
+          <div
+            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            style={{ background: "white" }}
+          >
             <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
               <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
                 需要微信授权来创建家长账户，并保护学习记录
@@ -249,7 +266,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
 
             {error && (
-              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+              <p
+                className="mt-2 text-[11px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
                 {error}
               </p>
             )}
@@ -363,7 +383,10 @@ function JourneyPinSheet({
           </div>
 
           {error && (
-            <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+            <p
+              className="mt-3 text-[12px] font-semibold text-center"
+              style={{ color: "var(--destructive)" }}
+            >
               {error}
             </p>
           )}
