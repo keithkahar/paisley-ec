@@ -1816,8 +1816,11 @@ function AvatarPickerSheet({
 }) {
   const [pending, setPending] = useState(selectedAvatarId);
   return (
-    <Sheet onClose={onClose ?? (() => {})}>
-      <div className="flex flex-col h-full">
+    <Sheet
+      onClose={onClose ?? (() => {})}
+      action={<BloxiaAction onClick={() => onConfirm(pending)}>{confirmLabel}</BloxiaAction>}
+    >
+      <div className="flex flex-col min-h-0">
         <div className="text-[22px] font-semibold leading-tight" style={{ color: T.ivory }}>
           {title}
         </div>
@@ -1856,16 +1859,6 @@ function AvatarPickerSheet({
               </button>
             );
           })}
-        </div>
-        <div className="mt-auto pt-5">
-          <button
-            type="button"
-            onClick={() => onConfirm(pending)}
-            className="w-full h-12 rounded-full text-[15px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-          >
-            {confirmLabel}
-          </button>
         </div>
       </div>
     </Sheet>
