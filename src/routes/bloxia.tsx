@@ -2095,7 +2095,32 @@ function BadgeSheet({
     : "Locked";
 
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      action={
+        isGrowthLocked ? (
+          canAfford ? (
+            <BloxiaAction onClick={onUnlockGrowth}>
+              Unlock · {growthCost.toLocaleString()} Bp
+            </BloxiaAction>
+          ) : (
+            <BloxiaAction>
+              {(growthCost - bp).toLocaleString()} Bp still needed to unlock
+            </BloxiaAction>
+          )
+        ) : isFavorite ? (
+          <BloxiaAction onClick={onToggleFavorite}>
+            <Heart className="w-4 h-4" fill="currentColor" />
+            Favorite
+          </BloxiaAction>
+        ) : (
+          <BloxiaAction onClick={unlocked ? onToggleFavorite : undefined}>
+            <Heart className="w-4 h-4" fill="none" />
+            {unlocked ? "Add to Favorite" : "Locked"}
+          </BloxiaAction>
+        )
+      }
+    >
       <img
         src={badge.asset}
         alt=""
