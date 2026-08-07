@@ -1313,10 +1313,11 @@ function AdminPageInner() {
           open={!!editing}
           title={editing?.label ?? ""}
           brandColor={PAISLEY}
+          primaryAction={editing ? { label: "保存", onClick: saveEditor } : undefined}
           onClose={closeEditor}
         >
           {editing && (
-            <div className="flex flex-col h-full min-h-0">
+            <div className="flex flex-col min-h-0" style={{ height: 361 }}>
               <p
                 className="text-[12px] leading-[1.55] text-center"
                 style={{ color: MUTED }}
@@ -1372,15 +1373,6 @@ function AdminPageInner() {
                       style={{ background: SOFT_BG, color: NAVY }}
                     />
                   )}
-              </div>
-              <div className="mt-4 shrink-0">
-                <button
-                  onClick={saveEditor}
-                  className="w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-                  style={{ background: PAISLEY }}
-                >
-                  保存
-                </button>
               </div>
             </div>
           )}
