@@ -37,6 +37,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [countdown, setCountdown] = useState(0);
+  const [verifyMethod, setVerifyMethod] = useState<"wechat" | "phone" | null>(null);
 
   useEffect(() => {
     // DEBUG: always show phone binding popup on every entry
