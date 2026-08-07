@@ -240,17 +240,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </button>
           </div>
         </div>
-      </StandardSheet>
-
-      <StandardSheet
-        open={step === "guardian-error"}
-        title="无法创建家长账户"
-        brandColor={SHEET_BRAND.paisley}
-        onClose={() => {
-          dismissLearningJourneyPrompt();
-          setStep("none");
-        }}
-      >
+        ) : step === "guardian-error" ? (
         <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
