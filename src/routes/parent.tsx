@@ -81,15 +81,6 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        subtitle={
-          isRecover
-            ? "请验证家长身份，以保护孩子的学习数据"
-            : isSet
-              ? "用于保护孩子的学习数据，并进入家长中心"
-              : "用于避免孩子误入家长中心"
-        }
-        subtitleColor={PAISLEY}
-        subtitleSpacing={12}
         contentPaddingTop={16}
         showBack={isRecover}
         onClose={
@@ -100,6 +91,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       >
         {isRecover ? (
           <div className="flex flex-col h-full min-h-0">
+            <p
+              className="text-[13px] leading-[1.5] text-center"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              请验证家长身份，以保护孩子的学习数据
+            </p>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
                 className="grid place-items-center rounded-full overflow-hidden"
@@ -139,7 +136,13 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
           </div>
         ) : (
           <div className="flex flex-col h-full min-h-0">
-            <div className="flex-1 min-h-0">
+            <p
+              className="text-[13px] leading-[1.5] text-center"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              {isSet ? "用于保护孩子的学习数据，并进入家长中心" : "用于避免孩子误入家长中心"}
+            </p>
+            <div className="mt-4 flex-1 min-h-0">
               <div className="space-y-3">
                 <PinInput
                   label="PIN"
