@@ -167,7 +167,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 dismissLearningJourneyPrompt();
                 setStep("none");
               }}
-              className="mt-3 w-full text-[14px] font-semibold text-center bg-transparent border-0 p-0"
+              className="mt-3 w-full text-[14px] font-normal text-center bg-transparent border-0 p-0"
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
@@ -302,7 +302,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             <button
               type="button"
               onClick={() => setStep("pin")}
-              className="mt-3 w-full text-[14px] font-semibold text-center bg-transparent border-0 p-0"
+              className="mt-3 w-full text-[14px] font-normal text-center bg-transparent border-0 p-0"
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说

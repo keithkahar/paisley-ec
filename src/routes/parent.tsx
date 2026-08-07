@@ -203,7 +203,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 setError("");
                 setMode("enter");
               }}
-              className="mt-3 shrink-0 w-full text-[14px] font-semibold"
+              className="mt-3 shrink-0 w-full text-[14px] font-normal"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
               稍后再说
