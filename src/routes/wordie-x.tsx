@@ -787,7 +787,7 @@ function WordieXPage() {
           >
             <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
               <p
-                className="text-[17px] font-semibold tracking-tight leading-none"
+                className="text-[17px] font-normal tracking-tight leading-none"
                 style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
               >
                 Batch Actions

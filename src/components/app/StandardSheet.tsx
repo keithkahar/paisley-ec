@@ -94,8 +94,13 @@ export function StandardSheet({
         {/* Header: title centered, close icon top-left, optional done icon top-right */}
         <div className="relative flex flex-col items-center px-5 pt-[18px] pb-3 shrink-0">
           <h2
-            className="text-[17px] tracking-tight leading-none"
-            style={{ letterSpacing: "-0.01em", color: brandColor, fontWeight: 400 }}
+            className="tracking-tight leading-none"
+            style={{
+              fontSize: /[\u3400-\u4DBF\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/.test(title) ? 16 : 17,
+              letterSpacing: "-0.01em",
+              color: brandColor,
+              fontWeight: 400,
+            }}
           >
             {title}
           </h2>
