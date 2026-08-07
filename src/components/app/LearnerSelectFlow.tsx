@@ -535,23 +535,16 @@ export function AddLearnerSheet({
           </div>
           </div>
 
-          <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
+          <div className="mt-auto shrink-0 relative">
             {error && (
               <p
-                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: DANGER, letterSpacing: "-0.01em", marginBottom: 7 }}
+                className="absolute left-0 right-0 top-0 text-center text-[14px] font-medium pointer-events-none"
+                style={{ color: DANGER, letterSpacing: "-0.01em" }}
               >
                 {error}
               </p>
             )}
-            <button
-              type="button"
-              onClick={submit}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-              style={{ background: PAISLEY }}
-            >
-              Save
-            </button>
+            <SheetActions primary={{ label: "Save", onClick: submit }} />
           </div>
         </div>
       </StandardSheet>
