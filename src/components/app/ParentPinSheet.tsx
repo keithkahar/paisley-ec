@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { SheetActions } from "@/components/app/SheetActions";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
@@ -68,32 +69,10 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
       brandColor={SHEET_BRAND.paisley}
       subtitle={isRecover ? "请验证家长身份，以保护孩子的学习数据" : undefined}
       showBack={isRecover}
-      primaryAction={
-        isRecover
-          ? {
-              label: (
-                <span className="inline-flex items-center justify-center gap-2">
-                  <img
-                    src={wechatWhite.url}
-                    alt=""
-                    aria-hidden="true"
-                    className="shrink-0"
-                    style={{ width: 22, height: 22, objectFit: "contain" }}
-                  />
-                  微信验证
-                </span>
-              ),
-              onClick: handleRecover,
-            }
-          : { label: isSet ? "设置密码" : "解锁", onClick: handleSubmit }
-      }
-      secondaryAction={
-        !isRecover && !isSet ? { label: "忘记密码？重新设置", onClick: handleForgot } : undefined
-      }
       onClose={isRecover ? () => setMode("enter") : onClose}
     >
       {isRecover ? (
-        <div className="flex flex-col min-h-0" style={{ height: 361 }}>
+        <div className="flex flex-col h-full min-h-0">
           <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
             <div
               className="grid place-items-center rounded-full overflow-hidden"
@@ -112,6 +91,24 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
               />
             </div>
           </div>
+
+          <SheetActions
+            primary={{
+              label: (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <img
+                    src={wechatWhite.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ width: 22, height: 22, objectFit: "contain" }}
+                  />
+                  微信验证
+                </span>
+              ),
+              onClick: handleRecover,
+            }}
+          />
         </div>
       ) : (
         <div>
@@ -141,6 +138,26 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
               {error}
             </p>
+          )}
+
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="mt-6 w-full rounded-full py-4 px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+            style={{ background: PAISLEY }}
+          >
+            {isSet ? "设置密码" : "解锁"}
+          </button>
+
+          {!isSet && (
+            <button
+              type="button"
+              onClick={handleForgot}
+              className="mt-3 w-full text-[12px] font-semibold"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              忘记密码？重新设置
+            </button>
           )}
         </div>
       )}

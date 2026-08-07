@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Check, Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
-import { SheetBenefitList, SheetCard, SheetCardSubtitle } from "@/components/app/SheetActions";
+import {
+  SheetActionBody,
+  SheetBenefitList,
+  SheetCardSubtitle,
+} from "@/components/app/SheetActions";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
@@ -89,59 +93,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step !== "none" && step !== "learner"}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
+        contentPaddingTop={step === "guardian" ? 16 : undefined}
         showBack={step === "guardian" || step === "pin"}
-        primaryAction={
-          step === "intro"
-            ? { label: "现在创建", disabled: busy, onClick: () => setStep("guardian") }
-            : step === "guardian"
-              ? {
-                  label: (
-                    <span className="inline-flex items-center justify-center gap-2">
-                      <img
-                        src={wechatWhite.url}
-                        alt=""
-                        aria-hidden="true"
-                        className="shrink-0"
-                        style={{ width: 22, height: 22, objectFit: "contain" }}
-                      />
-                      微信授权并继续
-                    </span>
-                  ),
-                  disabled: busy,
-                  onClick: () => setStep("guardian-error"),
-                }
-              : step === "guardian-error"
-                ? {
-                    label: (
-                      <span className="inline-flex items-center justify-center gap-2">
-                        <img
-                          src={wechatWhite.url}
-                          alt=""
-                          aria-hidden="true"
-                          className="shrink-0"
-                          style={{ width: 22, height: 22, objectFit: "contain" }}
-                        />
-                        重新授权
-                      </span>
-                    ),
-                    disabled: busy,
-                    onClick: () => setStep("guardian"),
-                  }
-                : { label: "保存", onClick: submitPin }
-        }
-        secondaryAction={
-          step === "intro"
-            ? {
-                label: "稍后再说",
-                onClick: () => {
-                  dismissLearningJourneyPrompt();
-                  setStep("none");
-                },
-              }
-            : step === "guardian-error"
-              ? { label: "稍后再说", onClick: () => setStep("pin") }
-              : undefined
-        }
         onClose={
           step === "guardian"
             ? () => setStep("intro")
@@ -151,7 +104,16 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         }
       >
         {step === "intro" ? (
-        <SheetCard>
+        <SheetActionBody
+          primary={{ label: "现在创建", disabled: busy, onClick: () => setStep("guardian") }}
+          secondary={{
+            label: "稍后再说",
+            onClick: () => {
+              dismissLearningJourneyPrompt();
+              setStep("none");
+            },
+          }}
+        >
           <SheetCardSubtitle>保存学习记录 | 让 PEC 更好地陪伴孩子成长</SheetCardSubtitle>
           <SheetBenefitList
             items={[
@@ -171,9 +133,26 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-        </SheetCard>
+        </SheetActionBody>
         ) : step === "guardian" ? (
-        <SheetCard>
+        <SheetActionBody
+          primary={{
+            label: (
+              <span className="inline-flex items-center justify-center gap-2">
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                />
+                微信授权并继续
+              </span>
+            ),
+            disabled: busy,
+            onClick: () => setStep("guardian-error"),
+          }}
+        >
           <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
           <SheetBenefitList
             items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
@@ -186,9 +165,27 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-        </SheetCard>
+        </SheetActionBody>
         ) : step === "guardian-error" ? (
-        <SheetCard>
+        <SheetActionBody
+          primary={{
+            label: (
+              <span className="inline-flex items-center justify-center gap-2">
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                />
+                重新授权
+              </span>
+            ),
+            disabled: busy,
+            onClick: () => setStep("guardian"),
+          }}
+          secondary={{ label: "稍后再说", onClick: () => setStep("pin") }}
+        >
           <SheetCardSubtitle>需要微信授权来创建家长账户，并保护学习记录</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
@@ -217,10 +214,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-        </SheetCard>
+        </SheetActionBody>
         ) : (
-        <div className="flex flex-col min-h-0">
-          <div>
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="flex-1 min-h-0">
             <p
               className="text-[12px] leading-[1.55] text-center"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -241,6 +238,17 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
+          </div>
+
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              onClick={submitPin}
+              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+              style={{ background: PAISLEY }}
+            >
+              保存
+            </button>
           </div>
         </div>
         )}

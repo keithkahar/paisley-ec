@@ -5,7 +5,6 @@ import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { Heart, X, ChevronRight, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
-import { SHEET_PRIMARY } from "@/components/app/StandardSheet";
 import {
   BLOXIAN_AVATARS,
   CHARACTER_ASSETS,
@@ -1445,16 +1444,7 @@ function formatActivityDate(ts: number): string {
 
 // ============ Sheets ============
 
-function Sheet({
-  children,
-  onClose,
-  action,
-}: {
-  children: React.ReactNode;
-  onClose: () => void;
-  /** Pinned bottom action, aligned to the global sheet button coordinate. */
-  action?: React.ReactNode;
-}) {
+function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center pointer-events-none">
       <button
@@ -1494,45 +1484,7 @@ function Sheet({
         >
           {children}
         </div>
-        {action && (
-          <div
-            className="absolute"
-            style={{
-              left: SHEET_PRIMARY.inset,
-              right: SHEET_PRIMARY.inset,
-              top: SHEET_PRIMARY.top,
-              height: SHEET_PRIMARY.height,
-            }}
-          >
-            {action}
-          </div>
-        )}
       </div>
-    </div>
-  );
-}
-
-/** Gold pill matching the global sheet button metrics (48px, 14px label). */
-function BloxiaAction({
-  children,
-  onClick,
-}: {
-  children: React.ReactNode;
-  onClick?: () => void;
-}) {
-  const style = {
-    background: "rgba(216,175,87,0.32)",
-    color: T.goldLight,
-  } as const;
-  const cls =
-    "w-full h-full rounded-full px-4 text-[14px] font-semibold inline-flex items-center justify-center gap-2 text-center";
-  return onClick ? (
-    <button type="button" onClick={onClick} className={cls} style={style}>
-      {children}
-    </button>
-  ) : (
-    <div className={cls} style={style}>
-      {children}
     </div>
   );
 }
@@ -1564,18 +1516,7 @@ function PlaceSheet({
   const badge = placeBadgeById[place.placeBadgeId];
 
   return (
-    <Sheet
-      onClose={onClose}
-      action={
-        !unlocked && !canUnlock ? (
-          <BloxiaAction>{formatBp(place.unlockBp - bp)} still needed to unlock</BloxiaAction>
-        ) : unlocked ? (
-          <BloxiaAction>You are here</BloxiaAction>
-        ) : (
-          <BloxiaAction onClick={onUnlock}>Unlock Place</BloxiaAction>
-        )
-      }
-    >
+    <Sheet onClose={onClose}>
       <img
         src={badge.asset}
         alt=""
@@ -1593,6 +1534,34 @@ function PlaceSheet({
         <SheetRow label="Required Bp" value={formatBp(place.unlockBp)} />
         <SheetRow label="Status" value={statusText} />
       </div>
+
+      {!unlocked && !canUnlock && (
+        <div
+          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          {formatBp(place.unlockBp - bp)} still needed to unlock
+        </div>
+      )}
+
+      {unlocked && (
+        <div
+          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          You are here
+        </div>
+      )}
+      {!unlocked && canUnlock && (
+        <button
+          type="button"
+          onClick={onUnlock}
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          Unlock Place
+        </button>
+      )}
     </Sheet>
   );
 }
@@ -1620,25 +1589,7 @@ function ItemSheet({
     ? isFavorite ? "Favorite" : "Collected"
     : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
-    <Sheet
-      onClose={onClose}
-      action={
-        collected ? (
-          <BloxiaAction onClick={onToggleFavorite}>
-            <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
-            {isFavorite ? "Favorite" : "Add to Favorite"}
-          </BloxiaAction>
-        ) : canCollect ? (
-          <BloxiaAction onClick={onCollect}>Collect</BloxiaAction>
-        ) : (
-          <BloxiaAction>
-            {!placeUnlocked
-              ? "Unlock this place first"
-              : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
-          </BloxiaAction>
-        )
-      }
-    >
+    <Sheet onClose={onClose}>
       <img
         src={item.asset}
         alt=""
@@ -1659,6 +1610,36 @@ function ItemSheet({
         <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
+
+      {collected ? (
+        <button
+          type="button"
+          onClick={onToggleFavorite}
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
+          {isFavorite ? "Favorite" : "Add to Favorite"}
+        </button>
+      ) : canCollect ? (
+        <button
+          type="button"
+          onClick={onCollect}
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          Collect
+        </button>
+      ) : (
+        <div
+          className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          {!placeUnlocked
+            ? "Unlock this place first"
+            : `${(item.bpCost - bp).toLocaleString()} Bp still needed to collect`}
+        </div>
+      )}
     </Sheet>
   );
 }
@@ -1699,15 +1680,8 @@ function NameEditor({
     touchStartX.x = null;
   };
   return (
-    <Sheet
-      onClose={onClose}
-      action={
-        <BloxiaAction onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}>
-          Save
-        </BloxiaAction>
-      }
-    >
-      <div className="flex flex-col min-h-0">
+    <Sheet onClose={onClose}>
+      <div className="flex flex-col min-h-full">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Edit Profile
         </div>
@@ -1772,7 +1746,7 @@ function NameEditor({
             />
           </button>
         </div>
-        <div className="mt-10 flex items-stretch">
+        <div className="mt-10 flex items-stretch gap-3">
           <div
             className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14 relative"
             style={{
@@ -1792,6 +1766,14 @@ function NameEditor({
               } as React.CSSProperties}
             />
           </div>
+          <button
+            type="button"
+            onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
+            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+          >
+            Save
+          </button>
         </div>
       </div>
     </Sheet>
@@ -1815,11 +1797,8 @@ function AvatarPickerSheet({
 }) {
   const [pending, setPending] = useState(selectedAvatarId);
   return (
-    <Sheet
-      onClose={onClose ?? (() => {})}
-      action={<BloxiaAction onClick={() => onConfirm(pending)}>{confirmLabel}</BloxiaAction>}
-    >
-      <div className="flex flex-col min-h-0">
+    <Sheet onClose={onClose ?? (() => {})}>
+      <div className="flex flex-col h-full">
         <div className="text-[22px] font-semibold leading-tight" style={{ color: T.ivory }}>
           {title}
         </div>
@@ -1858,6 +1837,16 @@ function AvatarPickerSheet({
               </button>
             );
           })}
+        </div>
+        <div className="mt-auto pt-5">
+          <button
+            type="button"
+            onClick={() => onConfirm(pending)}
+            className="w-full h-12 rounded-full text-[15px] font-semibold"
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+          >
+            {confirmLabel}
+          </button>
         </div>
       </div>
     </Sheet>
@@ -1921,15 +1910,8 @@ function WelcomeSheet({
   };
 
   return (
-    <Sheet
-      onClose={onClose}
-      action={
-        <BloxiaAction onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}>
-          Start
-        </BloxiaAction>
-      }
-    >
-      <div className="flex flex-col min-h-0">
+    <Sheet onClose={onClose}>
+      <div className="flex flex-col min-h-full">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Welcome to Bloxia
         </div>
@@ -1998,7 +1980,7 @@ function WelcomeSheet({
           </button>
         </div>
 
-        <div className="mt-10 flex items-stretch">
+        <div className="mt-10 flex items-stretch gap-3">
           <div
             className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14"
             style={{
@@ -2020,6 +2002,14 @@ function WelcomeSheet({
               } as React.CSSProperties}
             />
           </div>
+          <button
+            type="button"
+            onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
+            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+          >
+            Start
+          </button>
         </div>
       </div>
     </Sheet>
@@ -2094,32 +2084,7 @@ function BadgeSheet({
     : "Locked";
 
   return (
-    <Sheet
-      onClose={onClose}
-      action={
-        isGrowthLocked ? (
-          canAfford ? (
-            <BloxiaAction onClick={onUnlockGrowth}>
-              Unlock · {growthCost.toLocaleString()} Bp
-            </BloxiaAction>
-          ) : (
-            <BloxiaAction>
-              {(growthCost - bp).toLocaleString()} Bp still needed to unlock
-            </BloxiaAction>
-          )
-        ) : isFavorite ? (
-          <BloxiaAction onClick={onToggleFavorite}>
-            <Heart className="w-4 h-4" fill="currentColor" />
-            Favorite
-          </BloxiaAction>
-        ) : (
-          <BloxiaAction onClick={unlocked ? onToggleFavorite : undefined}>
-            <Heart className="w-4 h-4" fill="none" />
-            {unlocked ? "Add to Favorite" : "Locked"}
-          </BloxiaAction>
-        )
-      }
-    >
+    <Sheet onClose={onClose}>
       <img
         src={badge.asset}
         alt=""
@@ -2141,6 +2106,50 @@ function BadgeSheet({
         <SheetRow label={unlocked ? "Used Bp" : "Required Bp"} value={formatBp(cost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
+
+      {isGrowthLocked ? (
+        canAfford ? (
+          <button
+            type="button"
+            onClick={onUnlockGrowth}
+            className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+          >
+            Unlock · {growthCost.toLocaleString()} Bp
+          </button>
+        ) : (
+          <div
+            className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+          >
+            {(growthCost - bp).toLocaleString()} Bp still needed to unlock
+          </div>
+        )
+      ) : isFavorite ? (
+        <button
+          type="button"
+          onClick={onToggleFavorite}
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          <Heart className="w-4 h-4" fill="currentColor" />
+          Favorite
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={onToggleFavorite}
+          disabled={!unlocked}
+          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          style={{
+            background: "rgba(216,175,87,0.32)",
+            color: T.goldLight,
+          }}
+        >
+          <Heart className="w-4 h-4" fill="none" />
+          {unlocked ? "Add to Favorite" : "Locked"}
+        </button>
+      )}
     </Sheet>
   );
 }

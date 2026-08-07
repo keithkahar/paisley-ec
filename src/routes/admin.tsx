@@ -1313,11 +1313,10 @@ function AdminPageInner() {
           open={!!editing}
           title={editing?.label ?? ""}
           brandColor={PAISLEY}
-          primaryAction={editing ? { label: "保存", onClick: saveEditor } : undefined}
           onClose={closeEditor}
         >
           {editing && (
-            <div className="flex flex-col min-h-0" style={{ height: 361 }}>
+            <div className="flex flex-col h-full min-h-0">
               <p
                 className="text-[12px] leading-[1.55] text-center"
                 style={{ color: MUTED }}
@@ -1373,6 +1372,15 @@ function AdminPageInner() {
                       style={{ background: SOFT_BG, color: NAVY }}
                     />
                   )}
+              </div>
+              <div className="mt-4 shrink-0">
+                <button
+                  onClick={saveEditor}
+                  className="w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
+                  style={{ background: PAISLEY }}
+                >
+                  保存
+                </button>
               </div>
             </div>
           )}
@@ -1441,11 +1449,10 @@ function AdminPageInner() {
             open={!!srBookEditForm}
             title="书籍信息"
             brandColor={YELLOW}
-            primaryAction={{ label: "保存", onClick: saveSrBookEditor, background: YELLOW }}
             onClose={() => setSrBookEditForm(null)}
             contentPaddingTop={16}
           >
-            <div className="flex flex-col min-h-0" style={{ height: 361 }}>
+            <div className="flex flex-col h-full min-h-0">
               <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="书名">
                     <input value={srBookEditForm.bookTitle} onChange={(e) => setSrBookEditForm({ ...srBookEditForm, bookTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
@@ -1499,6 +1506,9 @@ function AdminPageInner() {
                     <SRSelect value={srBookEditForm.contentLicense} options={SR_LICENSE_OPTIONS} open={srBookLicensePickerOpen} setOpen={setSrBookLicensePickerOpen} onChange={(v) => setSrBookEditForm({ ...srBookEditForm, contentLicense: v })} placeholder="请选择授权" accentColor={YELLOW} />
                   </SRField>
               </div>
+              <div className="mt-4 shrink-0">
+                <button onClick={saveSrBookEditor} className="w-full h-12 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+              </div>
             </div>
           </StandardSheet>
         )}
@@ -1509,11 +1519,10 @@ function AdminPageInner() {
             open={!!srUnitEditForm}
             title="单元信息"
             brandColor={YELLOW}
-            primaryAction={{ label: "保存", onClick: saveSrUnitEditor, background: YELLOW }}
             onClose={() => setSrUnitEditForm(null)}
             contentPaddingTop={16}
           >
-            <div className="flex flex-col min-h-0" style={{ height: 361 }}>
+            <div className="flex flex-col h-full min-h-0">
               <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
                   <SRField label="标题">
                     <input value={srUnitEditForm.storyTitle} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, storyTitle: e.target.value })} className="w-full px-3 py-2 rounded-xl text-[14px] outline-none" style={{ background: SOFT_BG, color: NAVY }} />
@@ -1542,6 +1551,9 @@ function AdminPageInner() {
                   <SRField label="Shirin Opening">
                     <textarea value={srUnitEditForm.shirinOpening} onChange={(e) => setSrUnitEditForm({ ...srUnitEditForm, shirinOpening: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-xl text-[13px] outline-none resize-none" style={{ background: SOFT_BG, color: NAVY }} />
                   </SRField>
+              </div>
+              <div className="mt-4 shrink-0">
+                <button onClick={saveSrUnitEditor} className="w-full h-12 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
           </StandardSheet>
