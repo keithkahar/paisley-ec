@@ -439,7 +439,7 @@ export function AddLearnerSheet({
             />
           </div>
 
-          <div className="mt-6 space-y-3">
+          <div className="space-y-3" style={{ marginTop: 40 }}>
             <div
               className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
               style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
@@ -524,8 +524,8 @@ export function AddLearnerSheet({
           <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
             {error && (
               <p
-                className="absolute left-0 right-0 bottom-full mb-2 text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: DANGER, letterSpacing: "-0.01em" }}
+                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
+                style={{ color: DANGER, letterSpacing: "-0.01em", marginBottom: 7 }}
               >
                 {error}
               </p>
