@@ -61,14 +61,6 @@ export function LearnerSelectFlow({
         open={open}
         title="Select Learner"
         brandColor={SHEET_BRAND.paisley}
-        onDone={
-          deleteMode
-            ? undefined
-            : () => {
-                if (pending) onSelect(pending);
-                onClose();
-              }
-        }
         onClose={() => {
           onClose();
           setDeleteMode(false);
@@ -173,6 +165,21 @@ export function LearnerSelectFlow({
             )}
           </div>
           )}
+
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              disabled={deleteMode || !pending}
+              onClick={() => {
+                if (pending) onSelect(pending);
+                onClose();
+              }}
+              className="w-full h-full rounded-full text-[17px] font-medium active:scale-[0.99] transition-transform disabled:opacity-50"
+              style={{ background: PAISLEY, color: "white", letterSpacing: "-0.01em" }}
+            >
+              Confirm
+            </button>
+          </div>
         </div>
       </StandardSheet>
 
