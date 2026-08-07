@@ -349,7 +349,7 @@ function JourneyPinSheet({
   return (
     <StandardSheet
       open={open}
-      title="设置家长PIN码"
+      title="请设置家长PIN码"
       brandColor={SHEET_BRAND.paisley}
       showBack={showBack}
       onClose={onClose}
@@ -360,7 +360,7 @@ function JourneyPinSheet({
             className="text-[12px] leading-[1.55] text-center"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
-            6位数字｜用于保护孩子的学习数据，并进入家长中心
+            6位数字｜用于进入家长中心，管理学习数据
           </p>
 
           <div className="mt-5 space-y-3">
