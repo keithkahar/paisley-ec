@@ -483,14 +483,14 @@ function ChatPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={confirmShare}
-                    className="flex-1 h-11 rounded-full font-semibold text-white text-[14px]"
+                    className="flex-1 h-11 rounded-full font-semibold text-white text-[13px]"
                     style={{ background: PINK }}
                   >
                     Share to WeChat
                   </button>
                   <button
                     onClick={() => setShareMode(false)}
-                    className="h-11 px-5 rounded-full font-semibold border border-border bg-white text-[14px]"
+                    className="h-11 px-5 rounded-full font-semibold border border-border bg-white text-[13px]"
                   >
                     Cancel
                   </button>

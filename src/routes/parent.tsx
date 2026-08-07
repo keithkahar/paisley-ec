@@ -189,7 +189,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   setError("");
                   setMode("phone-entry");
                 }}
-                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+                className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
                 现在绑定
@@ -203,7 +203,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 setError("");
                 setMode("enter");
               }}
-              className="mt-3 shrink-0 w-full text-[14px] font-medium"
+              className="mt-3 shrink-0 w-full text-[13px] font-semibold"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
               稍后再说
@@ -260,7 +260,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               <button
                 type="button"
                 onClick={handleSavePhone}
-                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+                className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
                 保存
@@ -299,7 +299,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               <button
                 type="button"
                 onClick={handleRecover}
-                className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
+                className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
                 style={{ background: PAISLEY }}
               >
                 <img
@@ -367,7 +367,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+                className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
                 {isReset ? "保存" : isSet ? "保存" : "解锁"}
@@ -2329,7 +2329,7 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
             <button
               type="button"
               onClick={handleSave}
-              className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
               style={{ background: PAISLEY }}
             >
               保存
@@ -2364,7 +2364,7 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
                 setError("");
                 setStep("entry");
               }}
-              className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
               style={{ background: PAISLEY }}
             >
               现在绑定
