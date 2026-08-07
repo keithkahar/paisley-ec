@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { SheetActions } from "@/components/app/SheetActions";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
