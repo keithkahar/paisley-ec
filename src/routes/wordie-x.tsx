@@ -603,14 +603,14 @@ function WordieXPage() {
                 <button
                   type="button"
                   onClick={cancelEditor}
-                  className="flex-1 rounded-full py-2.5 text-[13px] font-semibold bg-muted text-foreground active:scale-[0.98] transition-transform"
+                  className="flex-1 rounded-full py-2.5 text-[14px] font-semibold bg-muted text-foreground active:scale-[0.98] transition-transform"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={addWordToWordieX}
-                  className="flex-1 rounded-full py-2.5 text-[13px] font-semibold text-white active:scale-[0.98] transition-transform"
+                  className="flex-1 rounded-full py-2.5 text-[14px] font-semibold text-white active:scale-[0.98] transition-transform"
                   style={{ background: WORDIE }}
                 >
                   Add to Wordie-X
@@ -836,14 +836,14 @@ function WordieXPage() {
               <button
                 type="button"
                 onClick={() => setConfirmDelete(null)}
-                className="flex-1 rounded-full py-2.5 text-[13px] font-semibold bg-muted"
+                className="flex-1 rounded-full py-2.5 text-[14px] font-semibold bg-muted"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={() => performDelete(confirmDelete)}
-                className="flex-1 rounded-full py-2.5 text-[13px] font-semibold text-white"
+                className="flex-1 rounded-full py-2.5 text-[14px] font-semibold text-white"
                 style={{ background: "var(--destructive)" }}
               >
                 Delete

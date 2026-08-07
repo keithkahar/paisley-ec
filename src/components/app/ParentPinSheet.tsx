@@ -95,7 +95,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             <button
               type="button"
               onClick={handleRecover}
-              className="w-full h-full rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
+              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
               style={{ background: PAISLEY }}
             >
               <img
@@ -142,7 +142,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
           <button
             type="button"
             onClick={handleSubmit}
-            className="mt-6 w-full rounded-full py-4 px-4 text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
+            className="mt-6 w-full rounded-full py-4 px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
             style={{ background: PAISLEY }}
           >
             {isSet ? "设置密码" : "解锁"}

@@ -368,7 +368,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             <button
               type="button"
               onClick={onSave}
-              className="w-full h-full rounded-full text-[13px] font-semibold active:scale-[0.99] transition-transform"
+              className="w-full h-full rounded-full text-[14px] font-semibold active:scale-[0.99] transition-transform"
               style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
             >
               Save
@@ -669,7 +669,7 @@ function BirthdaySheet({
         <button
           type="button"
           onClick={confirm}
-          className="shrink-0 w-full h-12 rounded-full text-[13px] font-semibold active:scale-[0.99] transition-transform"
+          className="shrink-0 w-full h-12 rounded-full text-[14px] font-semibold active:scale-[0.99] transition-transform"
           style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
         >
           Save
