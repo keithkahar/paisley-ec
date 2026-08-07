@@ -119,7 +119,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
               style={{ background: PAISLEY }}
             >
-              马上创建
+              现在创建
             </button>
             <button
               type="button"
@@ -359,7 +359,7 @@ function JourneyPinSheet({
             className="text-[12px] leading-[1.55] text-center"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
-            用于保护孩子的学习数据，并进入家长中心
+            6位数字｜用于保护孩子的学习数据，并进入家长中心
           </p>
 
           <div className="mt-5 space-y-3">
