@@ -25,7 +25,7 @@ export const Route = createFileRoute("/parent")({
 const PIN_STORAGE_KEY = "paisley.parent.pin";
 
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
-  const [mode, setMode] = useState<"set" | "enter" | "loading">("loading");
+  const [mode, setMode] = useState<"set" | "enter" | "recover" | "loading">("loading");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
   const [error, setError] = useState("");
@@ -36,6 +36,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   }, []);
 
   const isSet = mode === "set";
+  const isRecover = mode === "recover";
   const sanitize = (s: string) => s.replace(/\D/g, "").slice(0, 6);
 
   const handleSubmit = () => {
@@ -55,17 +56,73 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     }
   };
 
+  const handleForgot = () => {
+    setPin("");
+    setConfirmPin("");
+    setError("");
+    setMode("recover");
+  };
+
+  const handleRecover = () => {
+    // Debug flow: simulate verified WeChat identity, then allow resetting PIN.
+    setMode("set");
+  };
+
   if (mode === "loading") return null;
+
+  const sheetTitle = isSet ? "设置家长PIN码" : isRecover ? "找回家长PIN码" : "请输入家长PIN码";
 
   return (
     <>
       <ProfilePage tabBarHidden />
       <StandardSheet
         open={true}
-        title={isSet ? "设置家长PIN码" : "请输入家长PIN码"}
+        title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        onClose={() => history.back()}
+        subtitle={isRecover ? "请验证家长身份，以保护孩子的学习数据" : undefined}
+        showBack={isRecover}
+        onClose={isRecover ? () => setMode("enter") : () => history.back()}
       >
+        {isRecover ? (
+          <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
+              <div
+                className="grid place-items-center rounded-full overflow-hidden"
+                style={{
+                  width: 88,
+                  height: 88,
+                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                }}
+              >
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 46, height: 46, objectFit: "contain" }}
+                />
+              </div>
+            </div>
+
+            <div className="mt-auto shrink-0" style={{ height: 48 }}>
+              <button
+                type="button"
+                onClick={handleRecover}
+                className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
+                style={{ background: PAISLEY }}
+              >
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                />
+                微信验证
+              </button>
+            </div>
+          </div>
+        ) : (
           <div className="flex flex-col min-h-0" style={{ height: 429 }}>
             <div className="flex-1 min-h-0">
               <p
@@ -103,13 +160,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               {!isSet && (
                 <button
                   type="button"
-                  onClick={() => {
-                    localStorage.removeItem(PIN_STORAGE_KEY);
-                    setPin("");
-                    setConfirmPin("");
-                    setError("");
-                    setMode("set");
-                  }}
+                  onClick={handleForgot}
                   className="mt-3 w-full text-[12px] font-normal"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
@@ -129,6 +180,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               </button>
             </div>
           </div>
+        )}
       </StandardSheet>
     </>
   );
