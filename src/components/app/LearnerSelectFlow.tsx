@@ -317,11 +317,13 @@ export function AddLearnerSheet({
   onClose,
   onCreate,
   title = "Add Learner",
+  progress,
 }: {
   open: boolean;
   onClose: () => void;
   onCreate: (learner: Partial<Learner> & { name: string }) => void;
   title?: string;
+  progress?: { total: number; current: number };
 }) {
   const [given, setGiven] = useState("");
   const [family, setFamily] = useState("");
@@ -380,7 +382,7 @@ export function AddLearnerSheet({
 
   return (
     <>
-      <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose}>
+      <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose} progress={progress}>
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           <div style={{ marginTop: -10 }}>
           <div className="mt-[22px] flex flex-col items-center">

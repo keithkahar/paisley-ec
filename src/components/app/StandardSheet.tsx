@@ -38,6 +38,8 @@ type Props = {
   subtitleSpacing?: number;
   /** Optional override height (default: 62vh capped by safe bottom clearance). */
   height?: string;
+  /** Optional segmented step progress bar rendered 7px below the close button. */
+  progress?: { total: number; current: number };
   children: ReactNode;
 };
 
@@ -52,6 +54,7 @@ export function StandardSheet({
   contentPaddingTop = 10,
   subtitleSpacing = 6,
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
+  progress,
   children,
 }: Props) {
   useEffect(() => {
@@ -117,9 +120,29 @@ export function StandardSheet({
             </button>
           )}
         </div>
+        {progress && (
+          <div
+            className="absolute left-0 right-0 px-5 flex items-center gap-2 pointer-events-none"
+            style={{ top: 14 + 32 + 7 }}
+          >
+            {Array.from({ length: progress.total }).map((_, i) => (
+              <span
+                key={i}
+                className="flex-1 rounded-full"
+                style={{
+                  height: 6,
+                  background:
+                    i < progress.current
+                      ? brandColor
+                      : "color-mix(in oklab, var(--foreground) 8%, white)",
+                }}
+              />
+            ))}
+          </div>
+        )}
         <div
           className="flex-1 overflow-y-auto px-5 pb-8"
-          style={{ paddingTop: contentPaddingTop }}
+          style={{ paddingTop: progress ? contentPaddingTop + 18 : contentPaddingTop }}
         >
           {children}
         </div>
