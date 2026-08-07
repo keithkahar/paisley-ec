@@ -104,7 +104,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                       strokeWidth={1.5}
                       style={{ color: "var(--foreground)" }}
                     />
-                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                    <span className="text-[13px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
                       {benefit}
                     </span>
                   </li>
