@@ -66,7 +66,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     } catch {
       /* ignore */
     }
-    goPinFlow();
+    setPin("");
+    setConfirmPin("");
+    setMode("set");
   };
 
   const isReset = mode === "reset";
@@ -174,7 +176,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 <Smartphone
                   size={42}
                   strokeWidth={1.6}
-                  style={{ color: "color-mix(in oklab, var(--paisley) 22%, white)" }}
+                  style={{ color: "#ffffff" }}
                 />
               </div>
             </div>
@@ -214,7 +216,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 value={phone}
                 onChange={(v) => setPhone(v.replace(/\D/g, "").slice(0, 11))}
                 placeholder=""
-                autoFocus
+
               />
               <div className="flex items-center gap-2">
                 <div className="flex-1 min-w-0">
@@ -222,7 +224,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                     label="验证码"
                     value={code}
                     onChange={(v) => setCode(v.replace(/\D/g, "").slice(0, 6))}
-                    placeholder="6 位验证码"
+                    placeholder=""
                   />
                 </div>
                 <button
@@ -241,7 +243,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                     color: PAISLEY,
                   }}
                 >
-                  {countdown > 0 ? `${countdown}s` : "发送验证码"}
+                  {countdown > 0 ? `${countdown}s` : "发验证码"}
                 </button>
               </div>
               {error && (
@@ -467,7 +469,7 @@ function PhoneField({
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 min-w-0 bg-transparent outline-none text-[16px] font-semibold tabular-nums text-right"
+          className="flex-1 min-w-0 bg-transparent outline-none text-[16px] font-semibold tabular-nums tracking-[0.25em] text-left"
           style={{ color: PAISLEY }}
         />
       </div>
