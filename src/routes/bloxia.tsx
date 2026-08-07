@@ -1699,7 +1699,32 @@ function NameEditor({
     touchStartX.x = null;
   };
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      action={
+        isGrowthLocked ? (
+          canAfford ? (
+            <BloxiaAction onClick={onUnlockGrowth}>
+              Unlock · {growthCost.toLocaleString()} Bp
+            </BloxiaAction>
+          ) : (
+            <BloxiaAction>
+              {(growthCost - bp).toLocaleString()} Bp still needed to unlock
+            </BloxiaAction>
+          )
+        ) : isFavorite ? (
+          <BloxiaAction onClick={onToggleFavorite}>
+            <Heart className="w-4 h-4" fill="currentColor" />
+            Favorite
+          </BloxiaAction>
+        ) : (
+          <BloxiaAction onClick={unlocked ? onToggleFavorite : undefined}>
+            <Heart className="w-4 h-4" fill="none" />
+            {unlocked ? "Add to Favorite" : "Locked"}
+          </BloxiaAction>
+        )
+      }
+    >
       <div className="flex flex-col min-h-full">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Edit Profile
@@ -2118,50 +2143,6 @@ function BadgeSheet({
         <SheetRow label={unlocked ? "Used Bp" : "Required Bp"} value={formatBp(cost)} />
         <SheetRow label="Status" value={statusText} />
       </div>
-
-      {isGrowthLocked ? (
-        canAfford ? (
-          <button
-            type="button"
-            onClick={onUnlockGrowth}
-            className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center"
-            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-          >
-            Unlock · {growthCost.toLocaleString()} Bp
-          </button>
-        ) : (
-          <div
-            className="mt-auto w-full h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-          >
-            {(growthCost - bp).toLocaleString()} Bp still needed to unlock
-          </div>
-        )
-      ) : isFavorite ? (
-        <button
-          type="button"
-          onClick={onToggleFavorite}
-          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-        >
-          <Heart className="w-4 h-4" fill="currentColor" />
-          Favorite
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={onToggleFavorite}
-          disabled={!unlocked}
-          className="mt-auto w-full h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
-          style={{
-            background: "rgba(216,175,87,0.32)",
-            color: T.goldLight,
-          }}
-        >
-          <Heart className="w-4 h-4" fill="none" />
-          {unlocked ? "Add to Favorite" : "Locked"}
-        </button>
-      )}
     </Sheet>
   );
 }
