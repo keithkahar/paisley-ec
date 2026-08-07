@@ -170,7 +170,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={16}
+        contentPaddingTop={isPhoneSuccess ? undefined : 16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
           isPhoneSuccess
@@ -196,30 +196,40 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         }
       >
         {isPhoneSuccess ? (
-          <div className="flex flex-col h-full min-h-0">
-            <div
-              className="mt-[47px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
-                {["账号恢复方式已添加", "可以找回家长PIN", "会员权益更安全"].map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2">
-                    <Check
-                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
-                      strokeWidth={1.5}
-                      style={{ color: "var(--foreground)" }}
-                    />
-                    <span
-                      className="text-[11px] leading-[1.55]"
-                      style={{ color: "var(--foreground)", fontWeight: 400 }}
-                    >
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+          <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
+            <div className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
+              {/* Spacer matching the subtitle slot of the onboarding sheet */}
+              <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
+                <p className="text-[13px] leading-none" aria-hidden="true">
+                  &nbsp;
+                </p>
+              </div>
+
+              <div
+                className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
+                  {["账号恢复方式已添加", "可以找回家长PIN", "会员权益更安全"].map((benefit) => (
+                    <li key={benefit} className="flex items-start gap-2">
+                      <Check
+                        className="shrink-0 mt-[2px] h-3.5 w-3.5"
+                        strokeWidth={1.5}
+                        style={{ color: "var(--foreground)" }}
+                      />
+                      <span
+                        className="text-[11px] leading-[1.55]"
+                        style={{ color: "var(--foreground)", fontWeight: 400 }}
+                      >
+                        {benefit}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
+
+            <div className="mt-auto shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={onUnlock}
