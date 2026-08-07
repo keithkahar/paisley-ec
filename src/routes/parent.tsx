@@ -83,12 +83,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   if (mode === "loading") return null;
 
   const sheetTitle = isReset
-    ? "验证成功"
+    ? "设置新的家长PIN"
     : isSet
       ? "设置家长PIN码"
       : isRecover
-        ? "找回家长PIN码"
-        : "请输入家长PIN码";
+        ? "找回家长PIN"
+        : "请输入家长PIN";
 
   return (
     <>
@@ -164,7 +164,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               }}
             >
               {isReset
-                ? "请设置新的家长PIN"
+                ? "用于保护孩子的学习数据，并进入家长中心"
                 : isSet
                   ? "用于保护孩子的学习数据，并进入家长中心"
                   : "用于避免孩子误入家长中心"}
@@ -202,7 +202,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   className="mt-3 w-full text-[12px] font-normal"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
-                  忘记PIN码？重新设置
+                  忘记PIN&nbsp;&nbsp;--- or ---&nbsp;&nbsp;新设PIN
                 </button>
               )}
             </div>
@@ -214,7 +214,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                {isReset ? "保存新PIN" : isSet ? "保存" : "解锁"}
+                {isReset ? "保存" : isSet ? "保存" : "解锁"}
               </button>
             </div>
           </div>
