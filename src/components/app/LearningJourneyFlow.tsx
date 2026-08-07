@@ -69,6 +69,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step === "intro"}
         title="创建孩子的学习旅程"
         brandColor={SHEET_BRAND.paisley}
+        progress={{ total: 4, current: 1 }}
         onClose={() => {
           dismissLearningJourneyPrompt();
           setStep("none");
@@ -152,6 +153,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step === "guardian"}
         title="创建家长账户"
         brandColor={SHEET_BRAND.paisley}
+        progress={{ total: 4, current: 2 }}
         onClose={() => {
           dismissLearningJourneyPrompt();
           setStep("none");
@@ -228,6 +230,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       <AddLearnerSheet
         title="创建孩子档案"
         open={step === "learner"}
+        progress={{ total: 4, current: 4 }}
         onClose={() => {
           clearLearnerCreationPending();
           setStep("none");
@@ -274,6 +277,7 @@ function JourneyPinSheet({
       open={open}
       title="设置家长PIN码"
       brandColor={SHEET_BRAND.paisley}
+      progress={{ total: 4, current: 3 }}
       onClose={onClose}
     >
       <div className="flex flex-col min-h-0" style={{ height: 429 }}>
