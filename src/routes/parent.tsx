@@ -29,7 +29,15 @@ const PHONE_STORAGE_KEY = "paisley.parent.phone";
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const navigate = useNavigate();
   const [mode, setMode] = useState<
-    "set" | "enter" | "recover" | "reset" | "phone" | "phone-entry" | "recover-phone" | "loading"
+    | "set"
+    | "enter"
+    | "recover"
+    | "reset"
+    | "phone"
+    | "phone-entry"
+    | "recover-phone"
+    | "phone-success"
+    | "loading"
   >("loading");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
@@ -85,7 +93,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       setMode("recover-phone");
     } else {
       setRecoverViaPhone(false);
-      setMode("enter");
+      setMode("phone-success");
     }
   };
 
@@ -137,11 +145,14 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const isPhone = mode === "phone";
   const isRecoverPhone = mode === "recover-phone";
   const isPhoneEntry = mode === "phone-entry" || isRecoverPhone;
+  const isPhoneSuccess = mode === "phone-success";
 
   const sheetTitle = isReset
     ? "请设置新的家长PIN"
     : isPhone
       ? "绑定手机号"
+      : isPhoneSuccess
+        ? "手机号绑定成功"
       : isRecoverPhone
         ? "找回家长PIN"
         : isPhoneEntry
@@ -162,7 +173,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         contentPaddingTop={16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
-          isPhoneEntry
+          isPhoneSuccess
+            ? () => onUnlock()
+            : isPhoneEntry
             ? () => {
                 setError("");
                 setMode(isRecoverPhone || recoverViaPhone ? "recover" : "phone");
@@ -182,7 +195,42 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             : () => navigate({ to: "/profile" })
         }
       >
-        {isPhone ? (
+        {isPhoneSuccess ? (
+          <div className="flex flex-col h-full min-h-0">
+            <div
+              className="mt-[47px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
+                {["账号恢复方式已添加", "可以找回家长PIN", "会员权益更安全"].map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-2">
+                    <Check
+                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
+                      strokeWidth={1.5}
+                      style={{ color: "var(--foreground)" }}
+                    />
+                    <span
+                      className="text-[11px] leading-[1.55]"
+                      style={{ color: "var(--foreground)", fontWeight: 400 }}
+                    >
+                      {benefit}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
+              <button
+                type="button"
+                onClick={onUnlock}
+                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+                style={{ background: PAISLEY }}
+              >
+                完成
+              </button>
+            </div>
+          </div>
+        ) : isPhone ? (
           <div className="flex flex-col h-full min-h-0">
             <p
               className="text-[13px] leading-none text-center shrink-0"
