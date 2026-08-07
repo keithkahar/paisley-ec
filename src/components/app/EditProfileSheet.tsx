@@ -252,17 +252,6 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 </button>
               </div>
               <input
-                type="range"
-                min={1}
-                max={3}
-                step={0.01}
-                value={form.avatarScale}
-                onChange={(e) => update("avatarScale", Number(e.target.value))}
-                className="mt-4 w-[38%] h-1 accent-current opacity-70"
-                style={{ color: "var(--muted-foreground)" }}
-                aria-label="Zoom"
-              />
-              <input
                 ref={fileRef}
                 type="file"
                 accept="image/*"

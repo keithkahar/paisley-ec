@@ -437,17 +437,6 @@ export function AddLearnerSheet({
                 e.target.value = "";
               }}
             />
-            <input
-              type="range"
-              min={1}
-              max={3}
-              step={0.01}
-              value={avatarScale}
-              onChange={(e) => setAvatarScale(Number(e.target.value))}
-              className="mt-4 w-[38%] h-1 accent-current opacity-70"
-              style={{ color: "var(--muted-foreground)" }}
-              aria-label="Zoom"
-            />
           </div>
 
           <div className="mt-6 space-y-3">
