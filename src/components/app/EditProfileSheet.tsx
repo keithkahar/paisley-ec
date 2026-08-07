@@ -425,17 +425,18 @@ export function AvatarDraggable({
     if (!el || !src) return;
 
     let dragging: { sx: number; sy: number; px: number; py: number } | null = null;
+    let pinching: { startDist: number; startScale: number } | null = null;
 
     const onDown = (e: PointerEvent) => {
-      // ignore clicks that hit overlay buttons
-      if ((e.target as HTMLElement).closest("button")) return;
+      // ignore during pinch or clicks that hit overlay buttons
+      if (pinching || (e.target as HTMLElement).closest("button")) return;
       e.preventDefault();
       dragging = { sx: e.clientX, sy: e.clientY, px: stateRef.current.posX, py: stateRef.current.posY };
       el.style.cursor = "grabbing";
       el.setPointerCapture?.(e.pointerId);
     };
     const onMove = (e: PointerEvent) => {
-      if (!dragging) return;
+      if (pinching || !dragging) return;
       e.preventDefault();
       const rect = el.getBoundingClientRect();
       const s = Math.max(stateRef.current.scale, 1);
@@ -456,17 +457,56 @@ export function AvatarDraggable({
       callbacksRef.current.onChangeScale(next);
     };
 
+    // Pinch-to-zoom for touch devices: track the distance between two active touches.
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const t0 = e.touches[0];
+        const t1 = e.touches[1];
+        const dist = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+        pinching = { startDist: dist, startScale: stateRef.current.scale };
+        dragging = null;
+        el.style.cursor = "default";
+      }
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!pinching || e.touches.length !== 2) return;
+      e.preventDefault();
+      const t0 = e.touches[0];
+      const t1 = e.touches[1];
+      const dist = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+      if (pinching.startDist <= 0) return;
+      const ratio = dist / pinching.startDist;
+      const next = Math.max(1, Math.min(3, pinching.startScale * ratio));
+      callbacksRef.current.onChangeScale(next);
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length < 2) {
+        pinching = null;
+        el.style.cursor = "grab";
+      }
+    };
+
     el.addEventListener("pointerdown", onDown);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointercancel", onUp);
     el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("touchstart", onTouchStart, { passive: false });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd);
+    el.addEventListener("touchcancel", onTouchEnd);
+
     return () => {
       el.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
       el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
     };
   }, [src]);
 
