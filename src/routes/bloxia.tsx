@@ -1702,30 +1702,12 @@ function NameEditor({
     <Sheet
       onClose={onClose}
       action={
-        isGrowthLocked ? (
-          canAfford ? (
-            <BloxiaAction onClick={onUnlockGrowth}>
-              Unlock · {growthCost.toLocaleString()} Bp
-            </BloxiaAction>
-          ) : (
-            <BloxiaAction>
-              {(growthCost - bp).toLocaleString()} Bp still needed to unlock
-            </BloxiaAction>
-          )
-        ) : isFavorite ? (
-          <BloxiaAction onClick={onToggleFavorite}>
-            <Heart className="w-4 h-4" fill="currentColor" />
-            Favorite
-          </BloxiaAction>
-        ) : (
-          <BloxiaAction onClick={unlocked ? onToggleFavorite : undefined}>
-            <Heart className="w-4 h-4" fill="none" />
-            {unlocked ? "Add to Favorite" : "Locked"}
-          </BloxiaAction>
-        )
+        <BloxiaAction onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}>
+          Save
+        </BloxiaAction>
       }
     >
-      <div className="flex flex-col min-h-full">
+      <div className="flex flex-col min-h-0">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Edit Profile
         </div>
@@ -1790,7 +1772,7 @@ function NameEditor({
             />
           </button>
         </div>
-        <div className="mt-10 flex items-stretch gap-3">
+        <div className="mt-10 flex items-stretch">
           <div
             className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14 relative"
             style={{
@@ -1810,14 +1792,6 @@ function NameEditor({
               } as React.CSSProperties}
             />
           </div>
-          <button
-            type="button"
-            onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
-            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
-            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-          >
-            Save
-          </button>
         </div>
       </div>
     </Sheet>
