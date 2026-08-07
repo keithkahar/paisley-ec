@@ -382,7 +382,7 @@ export function AddLearnerSheet({
       <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose}>
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           <div style={{ marginTop: -10 }}>
-          <div className="mt-[10px] flex flex-col items-center">
+          <div className="mt-[22px] flex flex-col items-center">
             <div className="relative h-40 w-40">
               <AvatarDraggable
                 src={avatarSrc}
@@ -439,7 +439,7 @@ export function AddLearnerSheet({
             />
           </div>
 
-          <div className="space-y-3" style={{ marginTop: 45 }}>
+          <div className="space-y-3" style={{ marginTop: 33 }}>
             <div
               className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
               style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}

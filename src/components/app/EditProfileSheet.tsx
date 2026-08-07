@@ -223,7 +223,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           <div style={{ marginTop: -10 }}>
             {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
-            <div className="mt-[10px] flex flex-col items-center">
+            <div className="mt-[22px] flex flex-col items-center">
               <div className="relative h-40 w-40">
                 <AvatarDraggable
                   src={form.avatarPath}
@@ -260,7 +260,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
               />
             </div>
 
-            <div className="space-y-3" style={{ marginTop: 45 }}>
+            <div className="space-y-3" style={{ marginTop: 33 }}>
               {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
               <div
                 className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
