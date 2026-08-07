@@ -215,7 +215,7 @@ function JourneyPinSheet({
           </p>
 
           <div className="mt-5 space-y-3">
-            <JourneyPinInput label="PIN码" value={pin} onChange={setPin} autoFocus />
+            <JourneyPinInput label="PIN" value={pin} onChange={setPin} autoFocus />
             <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
           </div>
 
