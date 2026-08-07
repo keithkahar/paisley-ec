@@ -39,10 +39,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem(PIN_STORAGE_KEY) : null;
-    const phoneBound = typeof window !== "undefined" ? localStorage.getItem(PHONE_STORAGE_KEY) : null;
-    if (!phoneBound) setMode("phone");
-    else setMode(saved ? "enter" : "set");
+    // DEBUG: always show phone binding popup on every entry
+    setMode("phone");
   }, []);
 
   useEffect(() => {
