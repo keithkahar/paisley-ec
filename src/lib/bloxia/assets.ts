@@ -69,3 +69,7 @@ export const BLOXIA_URLS: Record<string, string> = {
   "shirin_portrait": "/__l5e/assets-v1/6eb6c6ef-cdce-4a2c-916a-a4abe31210e7/shirin_portrait.png",
   "shirin_success": "/__l5e/assets-v1/5822ecf9-1a6e-40b4-bd07-41fd02858057/shirin_success.png",
 };
+
+/** Request a CDN-resized variant so tiles don't download multi-MB originals. */
+export const bxImg = (url: string, w: number) =>
+  url && url.startsWith("/__l5e/") ? `${url}?w=${w}` : url;

@@ -26,6 +26,7 @@ import {
   type PlaceBadge,
   type PlaceId,
 } from "@/lib/bloxia/config";
+import { bxImg } from "@/lib/bloxia/assets";
 import {
   calculateStreakDays,
   nextPlace,
@@ -405,7 +406,7 @@ function TopBar({
               }}
             >
               <img
-                src={avatarUrl}
+                src={bxImg(avatarUrl, 256)}
                 alt=""
                 className="h-full w-full rounded-full object-cover"
                 draggable={false}
@@ -540,14 +541,14 @@ function MapView({
         >
           {p.current && (
             <img
-              src={avatarUrl}
+              src={bxImg(avatarUrl, 256)}
               alt=""
               className="h-11 w-11 -mb-1"
               style={{ imageRendering: "pixelated", filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.42))" }}
             />
           )}
           <img
-            src={p.marker}
+            src={bxImg(p.marker, 192)}
             alt=""
             className={p.status === "current" ? "h-9 w-9" : "h-7 w-7"}
             style={{ imageRendering: "pixelated", filter: "drop-shadow(0 4px 5px rgba(0,0,0,0.4))" }}
@@ -719,8 +720,10 @@ function BadgeTile({
     >
       <div className="mx-auto aspect-square w-full grid place-items-center overflow-hidden">
         <img
-          src={asset}
+          src={bxImg(asset, 256)}
           alt=""
+          loading="lazy"
+          decoding="async"
           className={`${imgSize} object-contain`}
           style={{
             imageRendering: "pixelated",
@@ -1009,7 +1012,7 @@ function ProfileView({
           }}
         >
           <img
-            src={avatarFullUrl}
+            src={bxImg(avatarFullUrl, 512)}
             alt=""
             draggable={false}
             style={{
@@ -1518,7 +1521,7 @@ function PlaceSheet({
   return (
     <Sheet onClose={onClose}>
       <img
-        src={badge.asset}
+        src={bxImg(badge.asset, 448)}
         alt=""
         className="h-28 w-28 mx-auto"
         style={{ imageRendering: "pixelated" }}
@@ -1591,7 +1594,7 @@ function ItemSheet({
   return (
     <Sheet onClose={onClose}>
       <img
-        src={item.asset}
+        src={bxImg(item.asset, 448)}
         alt=""
         className="h-28 w-28 mx-auto"
         style={{
@@ -1702,7 +1705,7 @@ function NameEditor({
             }}
           >
             <img
-              src={prev.portrait}
+              src={bxImg(prev.portrait, 224)}
               alt=""
               className="h-full w-full object-cover"
               style={AVATAR_HEAD_STYLE}
@@ -1718,7 +1721,7 @@ function NameEditor({
               }}
             >
               <img
-                src={current.portrait}
+                src={bxImg(current.portrait, 320)}
                 alt=""
                 className="h-full w-full object-cover"
                 style={AVATAR_HEAD_STYLE}
@@ -1738,7 +1741,7 @@ function NameEditor({
             }}
           >
             <img
-              src={next.portrait}
+              src={bxImg(next.portrait, 224)}
               alt=""
               className="h-full w-full object-cover"
               style={AVATAR_HEAD_STYLE}
@@ -1827,7 +1830,7 @@ function AvatarPickerSheet({
                   }}
                 >
                   <img
-                    src={a.portrait}
+                    src={bxImg(a.portrait, 224)}
                     alt=""
                     className="h-full w-full object-cover"
                     style={AVATAR_HEAD_STYLE}
@@ -1931,7 +1934,7 @@ function WelcomeSheet({
             }}
           >
             <img
-              src={prev.portrait}
+              src={bxImg(prev.portrait, 224)}
               alt=""
               className="h-full w-full object-cover"
               style={AVATAR_HEAD_STYLE}
@@ -1948,7 +1951,7 @@ function WelcomeSheet({
               }}
             >
               <img
-                src={current.portrait}
+                src={bxImg(current.portrait, 320)}
                 alt=""
                 className="h-full w-full object-cover"
               style={AVATAR_HEAD_STYLE}
@@ -1969,7 +1972,7 @@ function WelcomeSheet({
             }}
           >
             <img
-              src={next.portrait}
+              src={bxImg(next.portrait, 224)}
               alt=""
               className="h-full w-full object-cover"
                 style={AVATAR_HEAD_STYLE}
@@ -2084,7 +2087,7 @@ function BadgeSheet({
   return (
     <Sheet onClose={onClose}>
       <img
-        src={badge.asset}
+        src={bxImg(badge.asset, 448)}
         alt=""
         className="h-28 w-28 mx-auto"
         style={{
