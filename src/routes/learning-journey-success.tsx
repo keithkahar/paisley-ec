@@ -30,14 +30,17 @@ function JourneySuccessPage() {
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
-        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
+        <div className="flex flex-col h-full min-h-0 mt-5">
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
             <div className="flex items-baseline justify-center gap-2">
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+              <p
+                className="text-[26px] leading-[1.4] font-medium tracking-tight text-center text-foreground"
+                style={{ letterSpacing: "-0.01em" }}
+              >
                 Welcome, Keith!
               </p>
             </div>
@@ -70,7 +73,7 @@ function JourneySuccessPage() {
             </div>
           </div>
 
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
+          <div className="mt-auto shrink-0" style={{ height: 96 }}>
             <button
               type="button"
               onClick={goHome}
