@@ -1921,8 +1921,15 @@ function WelcomeSheet({
   };
 
   return (
-    <Sheet onClose={onClose}>
-      <div className="flex flex-col min-h-full">
+    <Sheet
+      onClose={onClose}
+      action={
+        <BloxiaAction onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}>
+          Start
+        </BloxiaAction>
+      }
+    >
+      <div className="flex flex-col min-h-0">
         <div className="text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
           Welcome to Bloxia
         </div>
@@ -1991,7 +1998,7 @@ function WelcomeSheet({
           </button>
         </div>
 
-        <div className="mt-10 flex items-stretch gap-3">
+        <div className="mt-10 flex items-stretch">
           <div
             className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14"
             style={{
@@ -2013,14 +2020,6 @@ function WelcomeSheet({
               } as React.CSSProperties}
             />
           </div>
-          <button
-            type="button"
-            onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
-            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
-            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-          >
-            Start
-          </button>
         </div>
       </div>
     </Sheet>
