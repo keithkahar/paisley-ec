@@ -3,6 +3,7 @@ import { Check, Plus, Minus, Trash2, Eye, EyeOff, ChevronRight, Camera, X } from
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import type { Learner } from "@/lib/learners";
 import { AvatarDraggable, capitalizeName } from "@/components/app/EditProfileSheet";
+import { AvatarPicker } from "@/components/app/AvatarPicker";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -383,7 +384,16 @@ export function AddLearnerSheet({
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           <div style={{ marginTop: -10 }}>
           <div className="mt-[22px] flex flex-col items-center">
-            <div className="relative h-40 w-40">
+            <AvatarPicker
+              currentSrc={avatarSrc}
+              onSelect={(src) => {
+                setAvatarSrc(src);
+                setAvatarPosX(50);
+                setAvatarPosY(50);
+                setAvatarScale(1);
+              }}
+            >
+            <div className="relative h-40 w-40 shrink-0">
               <AvatarDraggable
                 src={avatarSrc}
                 initials={initials}
@@ -416,6 +426,7 @@ export function AddLearnerSheet({
                 <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
               </button>
             </div>
+            </AvatarPicker>
             <input
               ref={fileRef}
               type="file"
