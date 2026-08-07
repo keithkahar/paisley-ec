@@ -194,7 +194,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             <button
               type="button"
               disabled={busy}
-              onClick={createGuardian}
+              onClick={() => setStep("guardian-error")}
               className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
               style={{ background: PAISLEY }}
             >
@@ -206,6 +206,79 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 style={{ width: 22, height: 22, objectFit: "contain" }}
               />
               微信授权并继续
+            </button>
+          </div>
+        </div>
+      </StandardSheet>
+
+      <StandardSheet
+        open={step === "guardian-error"}
+        title="无法创建家长账户"
+        brandColor={SHEET_BRAND.paisley}
+        onClose={() => {
+          dismissLearningJourneyPrompt();
+          setStep("none");
+        }}
+      >
+        <div className="flex flex-col min-h-0" style={{ height: 385 }}>
+          <div className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
+            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
+              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+                需要微信授权来创建家长账户，并保护学习记录
+              </p>
+            </div>
+
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
+              <div
+                className="grid place-items-center rounded-full"
+                style={{
+                  width: 88,
+                  height: 88,
+                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                  border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
+                }}
+              >
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 46, height: 46, objectFit: "contain" }}
+                />
+              </div>
+            </div>
+
+            {error && (
+              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+                {error}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => setStep("guardian")}
+              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
+              style={{ background: PAISLEY }}
+            >
+              <img
+                src={wechatWhite.url}
+                alt=""
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ width: 22, height: 22, objectFit: "contain" }}
+              />
+              重新授权
+            </button>
+            <button
+              type="button"
+              onClick={() => setStep("pin")}
+              className="mt-3 w-full text-[13px] font-medium text-center bg-transparent border-0 p-0"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              稍后再说
             </button>
           </div>
         </div>
