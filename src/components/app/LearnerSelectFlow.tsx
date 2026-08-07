@@ -379,8 +379,15 @@ export function AddLearnerSheet({
 
   return (
     <>
-      <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose} progress={progress}>
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+      <StandardSheet
+        open={open}
+        title={title}
+        brandColor={SHEET_BRAND.paisley}
+        primaryAction={{ label: "Save", onClick: submit, error }}
+        onClose={onClose}
+        progress={progress}
+      >
+        <div className="flex flex-col min-h-0" style={{ height: 361 }}>
           <div style={{ marginTop: -10 }}>
           <div className="mt-[22px] flex flex-col items-center">
             <AvatarPicker
@@ -529,25 +536,6 @@ export function AddLearnerSheet({
               </button>
             </div>
           </div>
-          </div>
-
-          <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
-            {error && (
-              <p
-                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: DANGER, letterSpacing: "-0.01em", marginBottom: 7 }}
-              >
-                {error}
-              </p>
-            )}
-            <button
-              type="button"
-              onClick={submit}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-              style={{ background: PAISLEY }}
-            >
-              Save
-            </button>
           </div>
         </div>
       </StandardSheet>
