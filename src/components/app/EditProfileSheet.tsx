@@ -219,9 +219,10 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           open={open}
           title="Edit Profile"
           brandColor={SHEET_BRAND.paisley}
+          primaryAction={{ label: "Save", onClick: onSave, error }}
           onClose={onClose}
         >
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col min-h-0" style={{ height: 361 }}>
           <div style={{ marginTop: -10 }}>
             {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
             <div className="mt-[22px] flex flex-col items-center">
@@ -354,25 +355,6 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 </button>
               </div>
             </div>
-          </div>
-
-          <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
-            {error && (
-              <p
-                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: "#e5484d", letterSpacing: "-0.01em", marginBottom: 7 }}
-              >
-                {error}
-              </p>
-            )}
-            <button
-              type="button"
-              onClick={onSave}
-              className="w-full h-full rounded-full text-[14px] font-semibold active:scale-[0.99] transition-transform"
-              style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
-            >
-              Save
-            </button>
           </div>
         </div>
         </StandardSheet>
