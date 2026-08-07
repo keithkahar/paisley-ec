@@ -92,12 +92,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         {isRecover ? (
           <div className="flex flex-col h-full min-h-0">
             <p
-              className="text-[13px] leading-[1.5] text-center"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              className="text-[13px] leading-none text-center shrink-0"
+              style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
             >
               请验证家长身份，以保护孩子的学习数据
             </p>
-            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
               <div
                 className="grid place-items-center rounded-full overflow-hidden"
                 style={{
