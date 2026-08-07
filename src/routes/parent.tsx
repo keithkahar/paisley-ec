@@ -72,7 +72,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     }
     setPin("");
     setConfirmPin("");
-    setMode(isRecoverPhone ? "reset" : "enter");
+    const wasRecovery = isRecoverPhone || recoverViaPhone;
+    setRecoverViaPhone(false);
+    setMode(wasRecovery ? "reset" : "enter");
   };
 
   const isReset = mode === "reset";
