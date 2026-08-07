@@ -215,7 +215,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   setError("");
                   setCode("");
                   setPhone("");
-                  setMode(recoverViaPhone ? "recover-phone" : "phone-entry");
+                  setMode("phone-entry");
                 }}
                 className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
