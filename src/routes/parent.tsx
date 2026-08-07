@@ -297,16 +297,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </p>
               )}
             </div>
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={handleSavePhone}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                {isRecoverPhone ? "确认" : "保存"}
-              </button>
-            </div>
+            <SheetActions primary={{ label: isRecoverPhone ? "确认" : "保存", onClick: handleSavePhone }} />
           </div>
         ) : isRecover ? (
           <div className="flex flex-col h-full min-h-0">
@@ -463,16 +454,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               )}
             </div>
 
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                {isReset ? "保存" : isSet ? "保存" : "解锁"}
-              </button>
-            </div>
+            <SheetActions primary={{ label: isReset ? "保存" : isSet ? "保存" : "解锁", onClick: handleSubmit }} />
           </div>
         )}
       </StandardSheet>
@@ -2425,28 +2407,19 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
               </p>
             )}
           </div>
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={handleSave}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
-            >
-              保存
-            </button>
-          </div>
+          <SheetActions primary={{ label: "保存", onClick: handleSave }} />
         </div>
       ) : (
-        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-          <div
-            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-            style={{ background: "white" }}
-          >
-            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                用于保障会员权益和账户安全
-              </p>
-            </div>
+        <SheetActionBody
+          primary={{
+            label: "现在绑定",
+            onClick: () => {
+              setError("");
+              setStep("entry");
+            },
+          }}
+        >
+          <SheetCardSubtitle>用于保障会员权益和账户安全</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
                 className="grid place-items-center rounded-full"
@@ -2460,21 +2433,7 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
                 <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
               </div>
             </div>
-          </div>
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={() => {
-                setError("");
-                setStep("entry");
-              }}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
-            >
-              现在绑定
-            </button>
-          </div>
-        </div>
+        </SheetActionBody>
       )}
     </StandardSheet>
   );
