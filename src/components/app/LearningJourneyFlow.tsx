@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Check, Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import {
+  SheetActionBody,
+  SheetBenefitList,
+  SheetCardSubtitle,
+} from "@/components/app/SheetActions";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
@@ -99,48 +104,27 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         }
       >
         {step === "intro" ? (
-        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-          {/* Membership-style benefit card */}
-          <div
-            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-            style={{ background: "white" }}
-          >
-            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                保存学习记录 | 让 PEC 更好地陪伴孩子成长
-              </p>
-            </div>
-
-            <div
-              className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
-                {[
-                  "获得个性化学习体验",
-                  "保存孩子的学习记录",
-                  "Bloxia 成长地图/徽章",
-                  "管理孩子的学习目标",
-                  "查看孩子的学习数据",
-                  "获得CEFR和Wordie测试",
-                ].map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2">
-                    <Check
-                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
-                      strokeWidth={1.5}
-                      style={{ color: "var(--foreground)" }}
-                    />
-                    <span
-                      className="text-[11px] leading-[1.55]"
-                      style={{ color: "var(--foreground)", fontWeight: 400 }}
-                    >
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
+        <SheetActionBody
+          primary={{ label: "现在创建", disabled: busy, onClick: () => setStep("guardian") }}
+          secondary={{
+            label: "稍后再说",
+            onClick: () => {
+              dismissLearningJourneyPrompt();
+              setStep("none");
+            },
+          }}
+        >
+          <SheetCardSubtitle>保存学习记录 | 让 PEC 更好地陪伴孩子成长</SheetCardSubtitle>
+          <SheetBenefitList
+            items={[
+              "获得个性化学习体验",
+              "保存孩子的学习记录",
+              "Bloxia 成长地图/徽章",
+              "管理孩子的学习目标",
+              "查看孩子的学习数据",
+              "获得CEFR和Wordie测试",
+            ]}
+          />
             {error && (
               <p
                 className="mt-2 text-[11px] font-semibold text-center"
@@ -149,68 +133,30 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-          </div>
-
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => setStep("guardian")}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
-              style={{ background: PAISLEY }}
-            >
-              现在创建
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                dismissLearningJourneyPrompt();
-                setStep("none");
-              }}
-              className="mt-3 w-full text-[14px] font-normal text-center bg-transparent border-0 p-0"
-              style={{ color: "var(--muted-foreground)" }}
-            >
-              稍后再说
-            </button>
-          </div>
-        </div>
+        </SheetActionBody>
         ) : step === "guardian" ? (
-        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-          <div
-            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-            style={{ background: "white" }}
-          >
-            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                用于管理孩子的学习旅程
-              </p>
-            </div>
-
-            <div
-              className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
-                {["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"].map(
-                  (benefit) => (
-                    <li key={benefit} className="flex items-start gap-2">
-                      <Check
-                        className="shrink-0 mt-[2px] h-3.5 w-3.5"
-                        strokeWidth={1.5}
-                        style={{ color: "var(--foreground)" }}
-                      />
-                      <span
-                        className="text-[11px] leading-[1.55]"
-                        style={{ color: "var(--foreground)", fontWeight: 400 }}
-                      >
-                        {benefit}
-                      </span>
-                    </li>
-                  ),
-                )}
-              </ul>
-            </div>
-
+        <SheetActionBody
+          primary={{
+            label: (
+              <span className="inline-flex items-center justify-center gap-2">
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                />
+                微信授权并继续
+              </span>
+            ),
+            disabled: busy,
+            onClick: () => setStep("guardian-error"),
+          }}
+        >
+          <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
+          <SheetBenefitList
+            items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
+          />
             {error && (
               <p
                 className="mt-2 text-[11px] font-semibold text-center"
@@ -219,39 +165,28 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-          </div>
-
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => setStep("guardian-error")}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
-              style={{ background: PAISLEY }}
-            >
-              <img
-                src={wechatWhite.url}
-                alt=""
-                aria-hidden="true"
-                className="shrink-0"
-                style={{ width: 22, height: 22, objectFit: "contain" }}
-              />
-              微信授权并继续
-            </button>
-          </div>
-        </div>
+        </SheetActionBody>
         ) : step === "guardian-error" ? (
-        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-          <div
-            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-            style={{ background: "white" }}
-          >
-            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                需要微信授权来创建家长账户，并保护学习记录
-              </p>
-            </div>
-
+        <SheetActionBody
+          primary={{
+            label: (
+              <span className="inline-flex items-center justify-center gap-2">
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 22, height: 22, objectFit: "contain" }}
+                />
+                重新授权
+              </span>
+            ),
+            disabled: busy,
+            onClick: () => setStep("guardian"),
+          }}
+          secondary={{ label: "稍后再说", onClick: () => setStep("pin") }}
+        >
+          <SheetCardSubtitle>需要微信授权来创建家长账户，并保护学习记录</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
                 className="grid place-items-center rounded-full overflow-hidden"
@@ -271,7 +206,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 />
               </div>
             </div>
-
             {error && (
               <p
                 className="mt-2 text-[11px] font-semibold text-center"
@@ -280,35 +214,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-          </div>
-
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => setStep("guardian")}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
-              style={{ background: PAISLEY }}
-            >
-              <img
-                src={wechatWhite.url}
-                alt=""
-                aria-hidden="true"
-                className="shrink-0"
-                style={{ width: 22, height: 22, objectFit: "contain" }}
-              />
-              重新授权
-            </button>
-            <button
-              type="button"
-              onClick={() => setStep("pin")}
-              className="mt-3 w-full text-[14px] font-normal text-center bg-transparent border-0 p-0"
-              style={{ color: "var(--muted-foreground)" }}
-            >
-              稍后再说
-            </button>
-          </div>
-        </div>
+        </SheetActionBody>
         ) : (
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           <div className="flex-1 min-h-0">

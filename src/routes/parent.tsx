@@ -5,6 +5,12 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProfilePage } from "@/routes/profile";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import {
+  SheetActions,
+  SheetActionBody,
+  SheetBenefitList,
+  SheetCardSubtitle,
+} from "@/components/app/SheetActions";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import { ProgressBar } from "@/components/app/WordieKit";
@@ -196,62 +202,33 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         }
       >
         {isPhoneSuccess ? (
-          <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-            <div className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
-              {/* Spacer matching the subtitle slot of the onboarding sheet */}
-              <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-                <p className="text-[13px] leading-none" aria-hidden="true">
-                  &nbsp;
-                </p>
-              </div>
-
-              <div
-                className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
-                style={{ WebkitOverflowScrolling: "touch" }}
-              >
-                <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
-                  {["账号恢复方式已添加", "可以找回家长PIN", "会员权益更安全"].map((benefit) => (
-                    <li key={benefit} className="flex items-start gap-2">
-                      <Check
-                        className="shrink-0 mt-[2px] h-3.5 w-3.5"
-                        strokeWidth={1.5}
-                        style={{ color: "var(--foreground)" }}
-                      />
-                      <span
-                        className="text-[11px] leading-[1.55]"
-                        style={{ color: "var(--foreground)", fontWeight: 400 }}
-                      >
-                        {benefit}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={onUnlock}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                完成
-              </button>
-            </div>
-          </div>
+          <SheetActionBody primary={{ label: "完成", onClick: onUnlock }}>
+            {/* Spacer matching the subtitle slot of the onboarding sheet */}
+            <SheetCardSubtitle />
+            <SheetBenefitList items={["账号恢复方式已添加", "可以找回家长PIN", "会员权益更安全"]} />
+          </SheetActionBody>
         ) : isPhone ? (
-          <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-            <div
-              className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-              style={{ background: "white" }}
-            >
-              <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-                <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                  用于找回家长PIN，保护孩子的学习数据
-                </p>
-              </div>
-
+          <SheetActionBody
+            primary={{
+              label: "现在绑定",
+              onClick: () => {
+                setError("");
+                setCode("");
+                setPhone("");
+                setMode("phone-entry");
+              },
+            }}
+            secondary={{
+              label: "稍后再说",
+              onClick: () => {
+                setPin("");
+                setConfirmPin("");
+                setError("");
+                setMode(recoverViaPhone ? "recover" : "enter");
+              },
+            }}
+          >
+            <SheetCardSubtitle>用于找回家长PIN，保护孩子的学习数据</SheetCardSubtitle>
               <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
                 <div
                   className="grid place-items-center rounded-full"
@@ -265,37 +242,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
                 </div>
               </div>
-            </div>
-
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={() => {
-                  setError("");
-                  setCode("");
-                  setPhone("");
-                  setMode("phone-entry");
-                }}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                现在绑定
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setPin("");
-                  setConfirmPin("");
-                  setError("");
-                  setMode(recoverViaPhone ? "recover" : "enter");
-                }}
-                className="mt-3 w-full text-[14px] font-normal text-center bg-transparent border-0 p-0"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                稍后再说
-              </button>
-            </div>
-          </div>
+          </SheetActionBody>
         ) : isPhoneEntry ? (
           <div className="flex flex-col h-full min-h-0">
             {isRecoverPhone && (
@@ -351,16 +298,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </p>
               )}
             </div>
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={handleSavePhone}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                {isRecoverPhone ? "确认" : "保存"}
-              </button>
-            </div>
+            <SheetActions primary={{ label: isRecoverPhone ? "确认" : "保存", onClick: handleSavePhone }} />
           </div>
         ) : isRecover ? (
           <div className="flex flex-col h-full min-h-0">
@@ -517,16 +455,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               )}
             </div>
 
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                {isReset ? "保存" : isSet ? "保存" : "解锁"}
-              </button>
-            </div>
+            <SheetActions primary={{ label: isReset ? "保存" : isSet ? "保存" : "解锁", onClick: handleSubmit }} />
           </div>
         )}
       </StandardSheet>
@@ -2479,28 +2408,19 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
               </p>
             )}
           </div>
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={handleSave}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
-            >
-              保存
-            </button>
-          </div>
+          <SheetActions primary={{ label: "保存", onClick: handleSave }} />
         </div>
       ) : (
-        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
-          <div
-            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
-            style={{ background: "white" }}
-          >
-            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                用于保障会员权益和账户安全
-              </p>
-            </div>
+        <SheetActionBody
+          primary={{
+            label: "现在绑定",
+            onClick: () => {
+              setError("");
+              setStep("entry");
+            },
+          }}
+        >
+          <SheetCardSubtitle>用于保障会员权益和账户安全</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
                 className="grid place-items-center rounded-full"
@@ -2514,21 +2434,7 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
                 <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
               </div>
             </div>
-          </div>
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={() => {
-                setError("");
-                setStep("entry");
-              }}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
-            >
-              现在绑定
-            </button>
-          </div>
-        </div>
+        </SheetActionBody>
       )}
     </StandardSheet>
   );

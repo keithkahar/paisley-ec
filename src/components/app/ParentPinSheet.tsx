@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { SheetActions } from "@/components/app/SheetActions";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 
 const PIN_STORAGE_KEY = "paisley.parent.pin";
@@ -91,23 +92,23 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             </div>
           </div>
 
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={handleRecover}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
-              style={{ background: PAISLEY }}
-            >
-              <img
-                src={wechatWhite.url}
-                alt=""
-                aria-hidden="true"
-                className="shrink-0"
-                style={{ width: 22, height: 22, objectFit: "contain" }}
-              />
-              微信验证
-            </button>
-          </div>
+          <SheetActions
+            primary={{
+              label: (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <img
+                    src={wechatWhite.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ width: 22, height: 22, objectFit: "contain" }}
+                  />
+                  微信验证
+                </span>
+              ),
+              onClick: handleRecover,
+            }}
+          />
         </div>
       ) : (
         <div>
