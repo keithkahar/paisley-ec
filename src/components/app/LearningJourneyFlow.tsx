@@ -238,6 +238,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                   width: 88,
                   height: 88,
                   background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                  boxShadow: "none",
                 }}
               >
                 <img
