@@ -222,7 +222,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           brandColor={SHEET_BRAND.paisley}
           onClose={onClose}
         >
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col h-full min-h-0">
           <div style={{ marginTop: -10 }}>
             {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
             <div className="mt-[22px] flex flex-col items-center">

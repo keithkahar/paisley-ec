@@ -384,7 +384,7 @@ export function AddLearnerSheet({
   return (
     <>
       <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose} progress={progress}>
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col h-full min-h-0">
           <div style={{ marginTop: -10 }}>
           <div className="mt-[22px] flex flex-col items-center">
             <AvatarPicker
