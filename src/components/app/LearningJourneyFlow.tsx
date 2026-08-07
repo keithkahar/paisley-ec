@@ -9,7 +9,6 @@ import {
   clearLearnerCreationPending,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
-  ensureGuardianAccount,
   markLearnerCreationPending,
   setJourneyParentPin,
   shouldResumeLearnerCreation,
@@ -19,7 +18,7 @@ import {
 
 const PAISLEY = "var(--paisley)";
 
-type Step = "none" | "intro" | "guardian" | "pin" | "learner";
+type Step = "none" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
 
 /**
  * First Learning Journey creation flow.
@@ -49,20 +48,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     onOpenChange?.(step !== "none");
   }, [step, onOpenChange]);
 
-  const createGuardian = async () => {
-    if (busy) return;
-    setBusy(true);
-    setError("");
-    try {
-      await ensureGuardianAccount();
-      setStep("pin");
-    } catch {
-      setError("创建失败，请稍后再试");
-    } finally {
-      setBusy(false);
-    }
-  };
-
   return (
     <>
       <StandardSheet
@@ -74,10 +59,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           setStep("none");
         }}
       >
-        <div
-          className="flex flex-col h-full min-h-0 mt-5"
-          style={{ height: 385 }}
-        >
+        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -108,7 +90,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                       strokeWidth={1.5}
                       style={{ color: "var(--foreground)" }}
                     />
-                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                    <span
+                      className="text-[11px] leading-[1.55]"
+                      style={{ color: "var(--foreground)", fontWeight: 400 }}
+                    >
                       {benefit}
                     </span>
                   </li>
@@ -117,7 +102,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </div>
 
             {error && (
-              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+              <p
+                className="mt-2 text-[11px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
                 {error}
               </p>
             )}
@@ -156,7 +144,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         onClose={() => setStep("intro")}
       >
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
-          <div className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
+          <div
+            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            style={{ background: "white" }}
+          >
             <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
               <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
                 用于管理孩子的学习旅程
@@ -168,23 +159,31 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
-                {["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"].map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2">
-                    <Check
-                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
-                      strokeWidth={1.5}
-                      style={{ color: "var(--foreground)" }}
-                    />
-                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
+                {["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"].map(
+                  (benefit) => (
+                    <li key={benefit} className="flex items-start gap-2">
+                      <Check
+                        className="shrink-0 mt-[2px] h-3.5 w-3.5"
+                        strokeWidth={1.5}
+                        style={{ color: "var(--foreground)" }}
+                      />
+                      <span
+                        className="text-[11px] leading-[1.55]"
+                        style={{ color: "var(--foreground)", fontWeight: 400 }}
+                      >
+                        {benefit}
+                      </span>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
 
             {error && (
-              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+              <p
+                className="mt-2 text-[11px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
                 {error}
               </p>
             )}
@@ -194,7 +193,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             <button
               type="button"
               disabled={busy}
-              onClick={createGuardian}
+              onClick={() => setStep("guardian-error")}
               className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
               style={{ background: PAISLEY }}
             >
@@ -206,6 +205,85 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 style={{ width: 22, height: 22, objectFit: "contain" }}
               />
               微信授权并继续
+            </button>
+          </div>
+        </div>
+      </StandardSheet>
+
+      <StandardSheet
+        open={step === "guardian-error"}
+        title="无法创建家长账户"
+        brandColor={SHEET_BRAND.paisley}
+        onClose={() => {
+          dismissLearningJourneyPrompt();
+          setStep("none");
+        }}
+      >
+        <div className="flex flex-col min-h-0" style={{ height: 385 }}>
+          <div
+            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            style={{ background: "white" }}
+          >
+            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
+              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+                需要微信授权来创建家长账户，并保护学习记录
+              </p>
+            </div>
+
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
+              <div
+                className="grid place-items-center rounded-full"
+                style={{
+                  width: 88,
+                  height: 88,
+                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                  border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
+                }}
+              >
+                <img
+                  src={wechatWhite.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="shrink-0"
+                  style={{ width: 46, height: 46, objectFit: "contain" }}
+                />
+              </div>
+            </div>
+
+            {error && (
+              <p
+                className="mt-2 text-[11px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
+                {error}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => setStep("guardian")}
+              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60 inline-flex items-center justify-center gap-2"
+              style={{ background: PAISLEY }}
+            >
+              <img
+                src={wechatWhite.url}
+                alt=""
+                aria-hidden="true"
+                className="shrink-0"
+                style={{ width: 22, height: 22, objectFit: "contain" }}
+              />
+              重新授权
+            </button>
+            <button
+              type="button"
+              onClick={() => setStep("pin")}
+              className="mt-3 w-full text-[13px] font-medium text-center bg-transparent border-0 p-0"
+              style={{ color: "var(--muted-foreground)" }}
+            >
+              稍后再说
             </button>
           </div>
         </div>
@@ -290,7 +368,10 @@ function JourneyPinSheet({
           </div>
 
           {error && (
-            <p className="mt-3 text-[12px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+            <p
+              className="mt-3 text-[12px] font-semibold text-center"
+              style={{ color: "var(--destructive)" }}
+            >
               {error}
             </p>
           )}
