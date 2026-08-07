@@ -6,6 +6,7 @@ import { ProfilePage } from "@/routes/profile";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import {
+  SheetActions,
   SheetActionBody,
   SheetBenefitList,
   SheetCardSubtitle,
