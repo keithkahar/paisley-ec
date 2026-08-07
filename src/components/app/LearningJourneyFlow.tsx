@@ -32,6 +32,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
   const [step, setStep] = useState<Step>("none");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
 
   // Open or resume the flow, mirroring maybeOpenLearningJourneyFlow().
   useEffect(() => {
@@ -48,17 +50,55 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     onOpenChange?.(step !== "none");
   }, [step, onOpenChange]);
 
+  // Reset the PIN fields whenever the PIN step is entered.
+  useEffect(() => {
+    if (step !== "pin") return;
+    setPin("");
+    setConfirmPin("");
+    setError("");
+  }, [step]);
+
+  const submitPin = () => {
+    const result = setJourneyParentPin(pin, confirmPin);
+    if (!result.ok) return setError(result.message);
+    setError("");
+    markLearnerCreationPending();
+    setStep("learner");
+  };
+
+  const dismiss = () => {
+    dismissLearningJourneyPrompt();
+    setStep("none");
+  };
+
+  // A single sheet instance hosts every step so transitions (especially back
+  // navigation) morph in place instead of closing/reopening the sheet.
+  const sheetTitle =
+    step === "guardian"
+      ? "创建家长账户"
+      : step === "guardian-error"
+        ? "无法创建家长账户"
+        : step === "pin"
+          ? "请设置家长PIN码"
+          : "创建孩子的学习旅程";
+
   return (
     <>
       <StandardSheet
-        open={step === "intro"}
-        title="创建孩子的学习旅程"
+        open={step !== "none" && step !== "learner"}
+        title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        onClose={() => {
-          dismissLearningJourneyPrompt();
-          setStep("none");
-        }}
+        contentPaddingTop={step === "guardian" ? 16 : undefined}
+        showBack={step === "guardian" || step === "pin"}
+        onClose={
+          step === "guardian"
+            ? () => setStep("intro")
+            : step === "pin"
+              ? () => setStep("guardian")
+              : dismiss
+        }
       >
+        {step === "intro" ? (
         <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           {/* Membership-style benefit card */}
           <div
@@ -134,16 +174,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </button>
           </div>
         </div>
-      </StandardSheet>
-
-      <StandardSheet
-        open={step === "guardian"}
-        title="创建家长账户"
-        brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={16}
-        showBack
-        onClose={() => setStep("intro")}
-      >
+        ) : step === "guardian" ? (
         <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -209,17 +240,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </button>
           </div>
         </div>
-      </StandardSheet>
-
-      <StandardSheet
-        open={step === "guardian-error"}
-        title="无法创建家长账户"
-        brandColor={SHEET_BRAND.paisley}
-        onClose={() => {
-          dismissLearningJourneyPrompt();
-          setStep("none");
-        }}
-      >
+        ) : step === "guardian-error" ? (
         <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -288,17 +309,44 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             </button>
           </div>
         </div>
-      </StandardSheet>
+        ) : (
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="flex-1 min-h-0">
+            <p
+              className="text-[12px] leading-[1.55] text-center"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              6位数字｜用于进入家长中心，管理学习数据
+            </p>
 
-      <JourneyPinSheet
-        open={step === "pin"}
-        showBack
-        onClose={() => setStep("guardian")}
-        onDone={() => {
-          markLearnerCreationPending();
-          setStep("learner");
-        }}
-      />
+            <div className="mt-5 space-y-3">
+              <JourneyPinInput label="PIN" value={pin} onChange={setPin} autoFocus />
+              <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
+            </div>
+
+            {error && (
+              <p
+                className="mt-3 text-[12px] font-semibold text-center"
+                style={{ color: "var(--destructive)" }}
+              >
+                {error}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              onClick={submitPin}
+              className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+              style={{ background: PAISLEY }}
+            >
+              保存
+            </button>
+          </div>
+        </div>
+        )}
+      </StandardSheet>
 
       <AddLearnerSheet
         title="创建孩子档案"
@@ -314,82 +362,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         }}
       />
     </>
-  );
-}
-
-function JourneyPinSheet({
-  open,
-  showBack,
-  onClose,
-  onDone,
-}: {
-  open: boolean;
-  showBack?: boolean;
-  onClose: () => void;
-  onDone: () => void;
-}) {
-  const [pin, setPin] = useState("");
-  const [confirmPin, setConfirmPin] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (!open) return;
-    setPin("");
-    setConfirmPin("");
-    setError("");
-  }, [open]);
-
-  const submit = () => {
-    const result = setJourneyParentPin(pin, confirmPin);
-    if (!result.ok) return setError(result.message);
-    setError("");
-    onDone();
-  };
-
-  return (
-    <StandardSheet
-      open={open}
-      title="请设置家长PIN码"
-      brandColor={SHEET_BRAND.paisley}
-      showBack={showBack}
-      onClose={onClose}
-    >
-      <div className="flex flex-col min-h-0" style={{ height: 429 }}>
-        <div className="flex-1 min-h-0">
-          <p
-            className="text-[12px] leading-[1.55] text-center"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-          >
-            6位数字｜用于进入家长中心，管理学习数据
-          </p>
-
-          <div className="mt-5 space-y-3">
-            <JourneyPinInput label="PIN" value={pin} onChange={setPin} autoFocus />
-            <JourneyPinInput label="确认" value={confirmPin} onChange={setConfirmPin} />
-          </div>
-
-          {error && (
-            <p
-              className="mt-3 text-[12px] font-semibold text-center"
-              style={{ color: "var(--destructive)" }}
-            >
-              {error}
-            </p>
-          )}
-        </div>
-
-        <div className="mt-auto shrink-0" style={{ height: 48 }}>
-          <button
-            type="button"
-            onClick={submit}
-            className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
-            style={{ background: PAISLEY }}
-          >
-            保存
-          </button>
-        </div>
-      </div>
-    </StandardSheet>
   );
 }
 
