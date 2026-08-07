@@ -357,24 +357,15 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             </div>
           </div>
 
-          <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
-            {error && (
-              <p
-                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: "#e5484d", letterSpacing: "-0.01em", marginBottom: 7 }}
-              >
-                {error}
-              </p>
-            )}
-            <button
-              type="button"
-              onClick={onSave}
-              className="w-full h-full rounded-full text-[14px] font-semibold active:scale-[0.99] transition-transform"
-              style={{ background: ACCENT, color: "white", letterSpacing: "-0.01em" }}
+          {error && (
+            <p
+              className="absolute left-0 right-0 text-center text-[14px] font-medium pointer-events-none"
+              style={{ bottom: 32 + 48 + 7, color: "#e5484d", letterSpacing: "-0.01em" }}
             >
-              Save
-            </button>
-          </div>
+              {error}
+            </p>
+          )}
+          <SheetActions primary={{ label: "Save", onClick: onSave, background: ACCENT }} />
         </div>
         </StandardSheet>
 
