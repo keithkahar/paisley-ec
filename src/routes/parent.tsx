@@ -38,6 +38,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const [code, setCode] = useState("");
   const [countdown, setCountdown] = useState(0);
   const [verifyMethod, setVerifyMethod] = useState<"wechat" | "phone" | null>(null);
+  // True when the phone-binding flow was entered as part of PIN recovery
+  // (unbound user picked 手机验证): binding also counts as verification.
+  const [recoverViaPhone, setRecoverViaPhone] = useState(false);
 
   useEffect(() => {
     // DEBUG: always show phone binding popup on every entry
@@ -141,12 +144,17 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
         contentPaddingTop={16}
-        showBack={isRecover || isReset || isPhoneEntry}
+        showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
           isPhoneEntry
             ? () => {
                 setError("");
-                setMode(isRecoverPhone ? "recover" : "phone");
+                setMode(isRecoverPhone || recoverViaPhone ? "recover" : "phone");
+              }
+            : isPhone && recoverViaPhone
+            ? () => {
+                setError("");
+                setMode("recover");
               }
             : isRecover || isReset
             ? () => {
@@ -189,7 +197,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 type="button"
                 onClick={() => {
                   setError("");
-                  setMode("phone-entry");
+                  setCode("");
+                  setPhone("");
+                  setMode(recoverViaPhone ? "recover-phone" : "phone-entry");
                 }}
                 className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
@@ -203,7 +213,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 setPin("");
                 setConfirmPin("");
                 setError("");
-                setMode("enter");
+                setMode(recoverViaPhone ? "recover" : "enter");
               }}
               className="mt-3 shrink-0 w-full text-[14px] font-normal"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -275,7 +285,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               className="text-[13px] leading-none text-center shrink-0"
               style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
             >
-              请选择身份验证方式，以保护孩子的学习数据
+              请选择身份验证方式
             </p>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
               <div className="flex items-start justify-center gap-5">
@@ -347,13 +357,23 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   if (verifyMethod === "phone") {
                     setError("");
                     setCode("");
+                    setPhone("");
+                    let bound: string | null = null;
                     try {
-                      setPhone(localStorage.getItem(PHONE_STORAGE_KEY) ?? "");
+                      bound = localStorage.getItem(PHONE_STORAGE_KEY);
                     } catch {
-                      setPhone("");
+                      bound = null;
                     }
-                    setMode("recover-phone");
+                    if (bound) {
+                      setRecoverViaPhone(false);
+                      setMode("recover-phone");
+                    } else {
+                      // Not bound yet: bind first, which also completes verification.
+                      setRecoverViaPhone(true);
+                      setMode("phone");
+                    }
                   } else {
+                    setRecoverViaPhone(false);
                     handleRecover();
                   }
                 }}
