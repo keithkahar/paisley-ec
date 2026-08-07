@@ -242,7 +242,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             {isRecoverPhone && (
               <p
                 className="text-[13px] leading-[1.5] text-center shrink-0"
-                style={{ color: PAISLEY, fontWeight: 400 }}
+                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontWeight: 400 }}
               >
                 请验证家长身份，以保护孩子学习数据
               </p>
