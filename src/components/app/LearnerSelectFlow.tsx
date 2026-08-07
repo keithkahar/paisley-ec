@@ -580,8 +580,18 @@ function LearnerBirthdaySheet({
   ];
 
   return (
-    <StandardSheet open title="Birthday" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
-      <div className="flex flex-col h-full">
+    <StandardSheet
+      open
+      title="Birthday"
+      brandColor={SHEET_BRAND.paisley}
+      primaryAction={{
+        label: "Save",
+        onClick: () =>
+          onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`),
+      }}
+      onClose={onClose}
+    >
+      <div className="flex flex-col min-h-0" style={{ height: 361 }}>
         <div className="mt-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
           {tabs.map((t) => {
             const active = tab === t.key;
@@ -640,17 +650,6 @@ function LearnerBirthdaySheet({
             />
           )}
         </div>
-
-        <button
-          type="button"
-          onClick={() =>
-            onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
-          }
-          className="shrink-0 w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-          style={{ background: PAISLEY }}
-        >
-          Save
-        </button>
       </div>
     </StandardSheet>
   );
