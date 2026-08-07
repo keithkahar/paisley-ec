@@ -18,7 +18,7 @@ import {
 
 const PAISLEY = "var(--paisley)";
 
-type Step = "none" | "intro" | "pin" | "learner";
+type Step = "none" | "intro" | "guardian" | "pin" | "learner";
 
 /**
  * First Learning Journey creation flow.
@@ -49,6 +49,20 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
   }, [step, onOpenChange]);
 
   const continueJourney = async () => {
+    if (busy) return;
+    setBusy(true);
+    setError("");
+    try {
+      await ensureGuardianAccount();
+      setStep("pin");
+    } catch {
+      setError("创建失败，请稍后再试");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const createGuardian = async () => {
     if (busy) return;
     setBusy(true);
     setError("");
@@ -126,7 +140,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             <button
               type="button"
               disabled={busy}
-              onClick={continueJourney}
+              onClick={() => setStep("guardian")}
               className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
               style={{ background: PAISLEY }}
             >
@@ -142,6 +156,64 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               style={{ color: "var(--muted-foreground)" }}
             >
               稍后再说
+            </button>
+          </div>
+        </div>
+      </StandardSheet>
+
+      <StandardSheet
+        open={step === "guardian"}
+        title="创建家长账户"
+        brandColor={SHEET_BRAND.paisley}
+        onClose={() => {
+          dismissLearningJourneyPrompt();
+          setStep("none");
+        }}
+      >
+        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
+          <div className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
+            <div className="flex items-baseline justify-center gap-2">
+              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+                用于管理孩子的学习旅程
+              </p>
+            </div>
+
+            <div
+              className="mt-[60px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
+                {["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"].map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-2">
+                    <Check
+                      className="shrink-0 mt-[2px] h-3.5 w-3.5"
+                      strokeWidth={1.5}
+                      style={{ color: "var(--foreground)" }}
+                    />
+                    <span className="text-[11px] leading-[1.55]" style={{ color: "var(--foreground)", fontWeight: 400 }}>
+                      {benefit}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {error && (
+              <p className="mt-2 text-[11px] font-semibold text-center" style={{ color: "var(--destructive)" }}>
+                {error}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={createGuardian}
+              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+              style={{ background: PAISLEY }}
+            >
+              微信授权并继续
             </button>
           </div>
         </div>
