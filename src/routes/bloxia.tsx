@@ -1838,16 +1838,14 @@ function AvatarPickerSheet({
             );
           })}
         </div>
-        <div className="mt-auto pt-5">
-          <button
-            type="button"
-            onClick={() => onConfirm(pending)}
-            className="w-full h-12 rounded-full text-[15px] font-semibold"
-            style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
-          >
-            {confirmLabel}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => onConfirm(pending)}
+          className="absolute left-5 right-5 bottom-8 h-12 rounded-full text-[15px] font-semibold"
+          style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
+        >
+          {confirmLabel}
+        </button>
       </div>
     </Sheet>
   );
