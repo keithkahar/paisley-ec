@@ -141,9 +141,8 @@ export async function ensureGuardianAccount() {
 export const PARENT_PIN_KEY = "paisley.parent.pin";
 
 export function setJourneyParentPin(pin: string, confirmPin: string) {
-  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{6}$/.test(pin))
-    return { ok: false as const, message: "密码需为 6 位，且由字母与数字组合" };
-  if (pin !== confirmPin) return { ok: false as const, message: "两次输入的密码不一致" };
+  if (!/^\d{6}$/.test(pin)) return { ok: false as const, message: "PIN码需为 6 位数字" };
+  if (pin !== confirmPin) return { ok: false as const, message: "两次输入的PIN码不一致" };
   try {
     window.localStorage.setItem(PARENT_PIN_KEY, pin);
   } catch {
