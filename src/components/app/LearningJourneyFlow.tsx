@@ -5,6 +5,7 @@ import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import {
+  clearLearnerCreationPending,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
   ensureGuardianAccount,
