@@ -324,7 +324,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                       key={opt.key}
                       type="button"
                       onClick={() => onGenderChange(opt.key)}
-                      className="h-[64px] px-5 shrink-0 rounded-full text-[16px] font-medium transition-colors"
+                      className="h-[64px] w-[64px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
                       style={
                         active
                           ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
