@@ -191,7 +191,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                绑定
+                现在绑定
               </button>
             </div>
             <button
@@ -318,10 +318,10 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
               {isReset
-                ? "用于保护孩子的学习数据，并进入家长中心"
+                ? "6位数字｜用于保护孩子的学习数据，并进入家长中心"
                 : isSet
-                  ? "用于保护孩子的学习数据，并进入家长中心"
-                  : "用于避免孩子误入家长中心"}
+                  ? "6位数字｜用于保护孩子的学习数据，并进入家长中心"
+                  : "6位数字｜用于避免孩子误入家长中心"}
             </p>
             <div className="mt-4 flex-1 min-h-0">
               <div className="space-y-3">
