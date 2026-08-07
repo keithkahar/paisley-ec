@@ -28,14 +28,17 @@ export function LearnerSelectFlow({
   onSelect,
   onAdd,
   onDelete,
+  manage = true,
 }: {
   open: boolean;
   onClose: () => void;
   learners: string[];
   learner: string;
   onSelect: (name: string) => void;
-  onAdd: (learner: Partial<Learner> & { name: string }) => void;
-  onDelete: (name: string) => void;
+  onAdd?: (learner: Partial<Learner> & { name: string }) => void;
+  onDelete?: (name: string) => void;
+  /** When false, the sheet is selection-only (no add/delete) — used on /profile. */
+  manage?: boolean;
 }) {
   const [deleteMode, setDeleteMode] = useState(false);
   const [target, setTarget] = useState("");
@@ -118,6 +121,7 @@ export function LearnerSelectFlow({
               );
             })}
           </div>
+          {manage && (
           <div className="pt-4 flex items-center gap-3">
             <button
               type="button"
@@ -168,6 +172,7 @@ export function LearnerSelectFlow({
               </button>
             )}
           </div>
+          )}
         </div>
       </StandardSheet>
 
@@ -176,7 +181,7 @@ export function LearnerSelectFlow({
         learner={target}
         onClose={() => setDeletePwOpen(false)}
         onConfirm={() => {
-          onDelete(target);
+          onDelete?.(target);
           setDeletePwOpen(false);
           setDeleteMode(false);
           setTarget("");
@@ -187,7 +192,7 @@ export function LearnerSelectFlow({
         open={addOpen}
         onClose={() => setAddOpen(false)}
         onCreate={(created) => {
-          onAdd(created);
+          onAdd?.(created);
           setAddOpen(false);
           onClose();
         }}
