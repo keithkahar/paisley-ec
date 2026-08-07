@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AvatarPicker } from "@/components/app/AvatarPicker";
+import { SheetActions } from "@/components/app/SheetActions";
 import { useLearners } from "@/lib/learners";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
