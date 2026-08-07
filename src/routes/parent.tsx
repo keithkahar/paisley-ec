@@ -216,7 +216,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 value={phone}
                 onChange={(v) => setPhone(v.replace(/\D/g, "").slice(0, 11))}
                 placeholder=""
-                autoFocus
+
               />
               <div className="flex items-center gap-2">
                 <div className="flex-1 min-w-0">
