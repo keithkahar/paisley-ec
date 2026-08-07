@@ -95,10 +95,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         onClose={
           isRecover
             ? () => setMode("enter")
-            : () => {
-                if (typeof window !== "undefined" && window.history.length > 1) history.back();
-                else navigate({ to: "/profile" });
-              }
+            : () => navigate({ to: "/profile" })
         }
       >
         {isRecover ? (
