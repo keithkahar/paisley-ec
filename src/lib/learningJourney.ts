@@ -160,6 +160,11 @@ export function markLearnerCreationPending() {
   saveJourneyState({ status: JOURNEY_STATUS.learnerPending, forcePrompt: false });
 }
 
+/** Cancel the learner creation step (e.g. user closes the Add Learner sheet). */
+export function clearLearnerCreationPending() {
+  saveJourneyState({ status: JOURNEY_STATUS.postponed, forcePrompt: false });
+}
+
 type Entitlement = {
   entitlement_id: string;
   learner_name: string;
