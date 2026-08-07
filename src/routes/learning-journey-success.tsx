@@ -6,9 +6,9 @@ import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 export const Route = createFileRoute("/learning-journey-success")({
   head: () => ({
     meta: [
-      { title: "7-Day Free Trial — Paizley EC" },
+      { title: "您的7天免费体验已经开始 — Paizley EC" },
       { name: "description", content: "The learner's first English learning journey is ready to begin." },
-      { property: "og:title", content: "7-Day Free Trial — Paizley EC" },
+      { property: "og:title", content: "您的7天免费体验已经开始 — Paizley EC" },
       { property: "og:description", content: "The learner's first English learning journey is ready to begin." },
     ],
   }),
@@ -26,7 +26,7 @@ function JourneySuccessPage() {
       <ProfilePage tabBarHidden />
       <StandardSheet
         open
-        title="7-Day Free Trial"
+        title="您的7天免费体验已经开始"
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
@@ -36,21 +36,18 @@ function JourneySuccessPage() {
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
-            <div className="flex items-baseline justify-center gap-2">
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                7-Day Free Trial Started
-              </p>
-            </div>
-
             <div
-              className="mt-[60px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center flex flex-col justify-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
                 {[
-                  "AI English Coach",
-                  "Learning Progress",
-                  "Bloxia Journey",
+                  "获得个性化学习体验",
+                  "保存孩子的学习记录",
+                  "Bloxia 成长地图/徽章",
+                  "管理孩子的学习目标",
+                  "查看孩子的学习数据",
+                  "获得CEFR和Wordie测试",
                 ].map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2">
                     <Check
