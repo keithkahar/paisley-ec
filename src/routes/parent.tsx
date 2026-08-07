@@ -110,7 +110,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                     setError("");
                     setMode("set");
                   }}
-                  className="mt-3 w-full text-[12px] font-semibold"
+                  className="mt-3 w-full text-[12px] font-normal"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
                   忘记PIN码？重新设置
@@ -163,7 +163,7 @@ function PinInput({
         </span>
         <input
           type={visible ? "text" : "password"}
-          inputMode="text"
+          inputMode="numeric"
           autoComplete="off"
           autoFocus={autoFocus}
           maxLength={6}
