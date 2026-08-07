@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, HelpCircle, Check, ArrowUpRight, Eye, EyeOff } from "lucide-react";
+import { ChevronDown, HelpCircle, Check, ArrowUpRight, Eye, EyeOff, Smartphone } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProfilePage } from "@/routes/profile";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -24,18 +24,52 @@ export const Route = createFileRoute("/parent")({
 
 // ---- Parent PIN gate ----
 const PIN_STORAGE_KEY = "paisley.parent.pin";
+const PHONE_STORAGE_KEY = "paisley.parent.phone";
 
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"set" | "enter" | "recover" | "reset" | "loading">("loading");
+  const [mode, setMode] = useState<
+    "set" | "enter" | "recover" | "reset" | "phone" | "phone-entry" | "loading"
+  >("loading");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
   const [error, setError] = useState("");
+  const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     const saved = typeof window !== "undefined" ? localStorage.getItem(PIN_STORAGE_KEY) : null;
-    setMode(saved ? "enter" : "set");
+    const phoneBound = typeof window !== "undefined" ? localStorage.getItem(PHONE_STORAGE_KEY) : null;
+    if (!phoneBound) setMode("phone");
+    else setMode(saved ? "enter" : "set");
   }, []);
+
+  useEffect(() => {
+    if (countdown <= 0) return;
+    const t = window.setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => window.clearTimeout(t);
+  }, [countdown]);
+
+  const goPinFlow = () => {
+    setPin("");
+    setConfirmPin("");
+    setError("");
+    const saved = typeof window !== "undefined" ? localStorage.getItem(PIN_STORAGE_KEY) : null;
+    setMode(saved ? "enter" : "set");
+  };
+
+  const handleSavePhone = () => {
+    setError("");
+    if (!/^1\d{10}$/.test(phone)) return setError("请输入正确的 11 位手机号");
+    if (!/^\d{4,6}$/.test(code)) return setError("请输入验证码");
+    try {
+      localStorage.setItem(PHONE_STORAGE_KEY, phone);
+    } catch {
+      /* ignore */
+    }
+    goPinFlow();
+  };
 
   const isReset = mode === "reset";
   const isSet = mode === "set" || isReset;
@@ -82,13 +116,20 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
 
   if (mode === "loading") return null;
 
+  const isPhone = mode === "phone";
+  const isPhoneEntry = mode === "phone-entry";
+
   const sheetTitle = isReset
     ? "设置新的家长PIN"
-    : isSet
-      ? "设置家长PIN码"
-      : isRecover
-        ? "找回家长PIN"
-        : "请输入家长PIN";
+    : isPhone
+      ? "绑定手机号"
+      : isPhoneEntry
+        ? "请输入手机号"
+        : isSet
+          ? "设置家长PIN码"
+          : isRecover
+            ? "找回家长PIN"
+            : "请输入家长PIN";
 
   return (
     <>
@@ -98,9 +139,14 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
         contentPaddingTop={16}
-        showBack={isRecover || isReset}
+        showBack={isRecover || isReset || isPhoneEntry}
         onClose={
-          isRecover || isReset
+          isPhoneEntry
+            ? () => {
+                setError("");
+                setMode("phone");
+              }
+            : isRecover || isReset
             ? () => {
                 setPin("");
                 setConfirmPin("");
@@ -110,7 +156,106 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             : () => navigate({ to: "/profile" })
         }
       >
-        {isRecover ? (
+        {isPhone ? (
+          <div className="flex flex-col h-full min-h-0">
+            <p
+              className="text-[13px] leading-none text-center shrink-0"
+              style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
+            >
+              用于找回家长PIN，保护孩子的学习数据
+            </p>
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
+              <div
+                className="grid place-items-center rounded-full"
+                style={{
+                  width: 88,
+                  height: 88,
+                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                }}
+              >
+                <Smartphone size={42} strokeWidth={1.6} style={{ color: PAISLEY }} />
+              </div>
+            </div>
+
+            <div className="shrink-0" style={{ height: 48 }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setError("");
+                  setMode("phone-entry");
+                }}
+                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+                style={{ background: PAISLEY }}
+              >
+                绑定
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={goPinFlow}
+              className="mt-3 shrink-0 w-full text-[14px] font-medium"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            >
+              稍后再说
+            </button>
+          </div>
+        ) : isPhoneEntry ? (
+          <div className="flex flex-col h-full min-h-0">
+            <div className="mt-4 flex-1 min-h-0 space-y-3">
+              <PhoneField
+                label="手机号"
+                value={phone}
+                onChange={(v) => setPhone(v.replace(/\D/g, "").slice(0, 11))}
+                placeholder="11 位手机号"
+                autoFocus
+              />
+              <div className="flex items-center gap-2">
+                <div className="flex-1 min-w-0">
+                  <PhoneField
+                    label="验证码"
+                    value={code}
+                    onChange={(v) => setCode(v.replace(/\D/g, "").slice(0, 6))}
+                    placeholder="6 位验证码"
+                  />
+                </div>
+                <button
+                  type="button"
+                  disabled={countdown > 0}
+                  onClick={() => {
+                    if (!/^1\d{10}$/.test(phone)) return setError("请输入正确的 11 位手机号");
+                    setError("");
+                    setCountdown(60);
+                  }}
+                  className="shrink-0 rounded-full px-4 h-[54px] text-[13px] font-semibold transition-opacity active:opacity-70 disabled:opacity-50"
+                  style={{
+                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                    color: PAISLEY,
+                  }}
+                >
+                  {countdown > 0 ? `${countdown}s` : "发送验证码"}
+                </button>
+              </div>
+              {error && (
+                <p
+                  className="text-[12px] font-semibold text-center"
+                  style={{ color: "var(--destructive)" }}
+                >
+                  {error}
+                </p>
+              )}
+            </div>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
+              <button
+                type="button"
+                onClick={handleSavePhone}
+                className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+                style={{ background: PAISLEY }}
+              >
+                保存
+              </button>
+            </div>
+          </div>
+        ) : isRecover ? (
           <div className="flex flex-col h-full min-h-0">
             <p
               className="text-[13px] leading-none text-center shrink-0"
