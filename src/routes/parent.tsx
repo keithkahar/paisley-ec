@@ -120,7 +120,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const isPhoneEntry = mode === "phone-entry";
 
   const sheetTitle = isReset
-    ? "设置新的家长PIN"
+    ? "请设置新的家长PIN"
     : isPhone
       ? "绑定手机号"
       : isPhoneEntry
