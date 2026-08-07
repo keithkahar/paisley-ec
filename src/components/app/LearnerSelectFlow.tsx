@@ -254,7 +254,7 @@ function DeleteLearnerPasswordSheet({
         <button
           type="button"
           onClick={submit}
-          className="mt-6 w-full rounded-full py-4 px-4 text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
+          className="mt-6 w-full rounded-full py-4 px-4 text-[13px] font-semibold text-white transition-transform active:scale-[0.98]"
           style={{ background: DANGER }}
         >
           Delete
@@ -546,7 +546,7 @@ export function AddLearnerSheet({
             <button
               type="button"
               onClick={submit}
-              className="w-full h-full rounded-full text-[17px] font-medium text-white active:scale-[0.99] transition-transform"
+              className="w-full h-full rounded-full text-[13px] font-semibold text-white active:scale-[0.99] transition-transform"
               style={{ background: PAISLEY }}
             >
               Save
@@ -661,7 +661,7 @@ function LearnerBirthdaySheet({
           onClick={() =>
             onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
           }
-          className="shrink-0 w-full h-12 rounded-full text-[16px] font-medium text-white active:scale-[0.99] transition-transform"
+          className="shrink-0 w-full h-12 rounded-full text-[13px] font-semibold text-white active:scale-[0.99] transition-transform"
           style={{ background: PAISLEY }}
         >
           Save
@@ -691,7 +691,7 @@ function LearnerChipGrid({
             key={it.key}
             type="button"
             onClick={() => onPick(it.key)}
-            className="h-11 rounded-full text-[13px] font-medium transition-colors"
+            className="h-11 rounded-full text-[13px] font-semibold transition-colors"
             style={
               active
                 ? { background: PAISLEY_SOFT, color: PAISLEY, border: `1px solid ${PAISLEY_SOFT}` }

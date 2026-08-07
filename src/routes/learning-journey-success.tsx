@@ -77,7 +77,7 @@ function JourneySuccessPage() {
             <button
               type="button"
               onClick={goHome}
-              className="w-full h-full rounded-full text-[17px] font-medium text-white active:scale-[0.99] transition-transform"
+              className="w-full h-full rounded-full text-[13px] font-semibold text-white active:scale-[0.99] transition-transform"
               style={{ background: PAISLEY, letterSpacing: "-0.01em" }}
             >
               Get Started Now
