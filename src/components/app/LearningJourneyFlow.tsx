@@ -233,7 +233,7 @@ function JourneyPinSheet({
             className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
             style={{ background: PAISLEY }}
           >
-            保存设置
+            保存
           </button>
         </div>
       </div>
