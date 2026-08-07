@@ -205,7 +205,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 alt=""
                 aria-hidden="true"
                 className="shrink-0"
-                style={{ width: 18, height: 18, objectFit: "contain" }}
+                style={{ width: 22, height: 22, objectFit: "contain" }}
               />
               微信授权并继续
             </button>
