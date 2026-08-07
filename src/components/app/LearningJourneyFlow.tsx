@@ -272,7 +272,6 @@ function JourneyPinSheet({
       open={open}
       title="设置家长PIN码"
       brandColor={SHEET_BRAND.paisley}
-      progress={{ total: 4, current: 3 }}
       showBack={showBack}
       onClose={onClose}
     >
