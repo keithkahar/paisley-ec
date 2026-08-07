@@ -33,7 +33,7 @@ function JourneySuccessPage() {
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           {/* Membership-style benefit card */}
           <div
-            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
             <div className="flex items-baseline justify-center gap-2 mt-[10px]">
@@ -46,7 +46,7 @@ function JourneySuccessPage() {
             </div>
 
             <div
-              className="mt-[60px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
