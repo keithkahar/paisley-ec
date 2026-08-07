@@ -105,7 +105,10 @@ export function StandardSheet({
             {title}
           </h2>
           {subtitle && (
-            <div className="text-[12px] leading-[1.55] text-center break-all" style={{ color: subtitleColor, marginTop: subtitleSpacing }}>
+            <div
+              className="text-[12px] font-normal leading-[1.55] text-center break-all"
+              style={{ color: subtitleColor, marginTop: subtitleSpacing, fontWeight: 400 }}
+            >
               {subtitle}
             </div>
           )}
