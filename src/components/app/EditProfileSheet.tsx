@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { AvatarPicker } from "@/components/app/AvatarPicker";
 import { useLearners } from "@/lib/learners";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
@@ -224,7 +225,13 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           <div style={{ marginTop: -10 }}>
             {/* Avatar — mirrors Me page hero (h-40 w-40) with edit badge */}
             <div className="mt-[22px] flex flex-col items-center">
-              <div className="relative h-40 w-40">
+              <AvatarPicker
+                currentSrc={form.avatarPath}
+                onSelect={(src) =>
+                  setForm((f) => ({ ...f, avatarPath: src, avatarPosX: 50, avatarPosY: 50, avatarScale: 1 }))
+                }
+              >
+              <div className="relative h-40 w-40 shrink-0">
                 <AvatarDraggable
                   src={form.avatarPath}
                   initials={initials}
@@ -251,6 +258,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                   <X className="h-3.5 w-3.5" strokeWidth={2} style={{ color: "var(--muted-foreground)" }} />
                 </button>
               </div>
+              </AvatarPicker>
               <input
                 ref={fileRef}
                 type="file"
