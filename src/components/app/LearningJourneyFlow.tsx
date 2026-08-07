@@ -19,7 +19,7 @@ import {
 
 const PAISLEY = "var(--paisley)";
 
-type Step = "none" | "intro" | "guardian" | "pin" | "learner";
+type Step = "none" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
 
 /**
  * First Learning Journey creation flow.
