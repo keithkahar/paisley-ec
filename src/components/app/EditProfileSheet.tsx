@@ -260,7 +260,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
               />
             </div>
 
-            <div className="space-y-3" style={{ marginTop: 40 }}>
+            <div className="space-y-3" style={{ marginTop: 45 }}>
               {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
               <div
                 className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"

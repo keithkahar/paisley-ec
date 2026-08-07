@@ -439,7 +439,7 @@ export function AddLearnerSheet({
             />
           </div>
 
-          <div className="space-y-3" style={{ marginTop: 40 }}>
+          <div className="space-y-3" style={{ marginTop: 45 }}>
             <div
               className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
               style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
