@@ -142,7 +142,7 @@ export function StandardSheet({
         )}
         <div
           className="flex-1 overflow-y-auto px-5 pb-8"
-          style={{ paddingTop: progress ? contentPaddingTop + 18 : contentPaddingTop }}
+          style={{ paddingTop: contentPaddingTop }}
         >
           {children}
         </div>
