@@ -230,8 +230,14 @@ function DeleteLearnerPasswordSheet({
   };
 
   return (
-    <StandardSheet open={open} title="Enter Parent Password" brandColor={DANGER} onClose={onClose}>
-      <div>
+    <StandardSheet
+      open={open}
+      title="Enter Parent Password"
+      brandColor={DANGER}
+      primaryAction={{ label: "Delete", onClick: submit, background: DANGER }}
+      onClose={onClose}
+    >
+      <div className="flex flex-col min-h-0" style={{ height: 361 }}>
         <p
           className="text-[12px] leading-[1.55] text-center"
           style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -250,15 +256,6 @@ function DeleteLearnerPasswordSheet({
             {error}
           </p>
         )}
-
-        <button
-          type="button"
-          onClick={submit}
-          className="mt-6 w-full rounded-full py-4 px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-          style={{ background: DANGER }}
-        >
-          Delete
-        </button>
       </div>
     </StandardSheet>
   );
