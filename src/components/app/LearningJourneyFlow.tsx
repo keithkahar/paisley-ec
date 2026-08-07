@@ -136,7 +136,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
         </SheetActionBody>
         ) : step === "guardian" ? (
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col h-full min-h-0">
           <div className="flex-1 min-h-0 flex flex-col px-5">
             <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
             <SheetBenefitList
@@ -220,7 +220,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
         </SheetActionBody>
         ) : (
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col h-full min-h-0">
           <div className="flex-1 min-h-0">
             <p
               className="text-[12px] leading-[1.55] text-center"
