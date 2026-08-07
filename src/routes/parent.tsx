@@ -26,6 +26,7 @@ export const Route = createFileRoute("/parent")({
 const PIN_STORAGE_KEY = "paisley.parent.pin";
 
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
+  const navigate = useNavigate();
   const [mode, setMode] = useState<"set" | "enter" | "recover" | "loading">("loading");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
@@ -80,12 +81,28 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        subtitle={isRecover ? "请验证家长身份，以保护孩子的学习数据" : undefined}
+        subtitle={
+          isRecover
+            ? "请验证家长身份，以保护孩子的学习数据"
+            : isSet
+              ? "用于保护孩子的学习数据，并进入家长中心"
+              : "用于避免孩子误入家长中心"
+        }
+        subtitleColor={PAISLEY}
+        subtitleSpacing={12}
+        contentPaddingTop={16}
         showBack={isRecover}
-        onClose={isRecover ? () => setMode("enter") : () => history.back()}
+        onClose={
+          isRecover
+            ? () => setMode("enter")
+            : () => {
+                if (typeof window !== "undefined" && window.history.length > 1) history.back();
+                else navigate({ to: "/profile" });
+              }
+        }
       >
         {isRecover ? (
-          <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="flex flex-col h-full min-h-0">
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
                 className="grid place-items-center rounded-full overflow-hidden"
@@ -105,7 +122,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               </div>
             </div>
 
-            <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={handleRecover}
@@ -124,16 +141,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="flex flex-col h-full min-h-0">
             <div className="flex-1 min-h-0">
-              <p
-                className="text-[12px] leading-[1.55] text-center"
-                style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-              >
-                用于避免孩子误入家长中心
-              </p>
-
-              <div className="mt-5 space-y-3">
+              <div className="space-y-3">
                 <PinInput
                   label="PIN"
                   value={pin}
@@ -170,7 +180,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               )}
             </div>
 
-            <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={handleSubmit}
