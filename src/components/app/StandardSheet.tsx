@@ -78,6 +78,8 @@ type Props = {
    * Use this instead of rendering a bottom button inside the sheet body.
    */
   primaryAction?: SheetPrimaryAction;
+  /** Optional text-only secondary button rendered 12px below the primary. */
+  secondaryAction?: { label: ReactNode; onClick?: () => void; disabled?: boolean };
   children: ReactNode;
 };
 
@@ -95,6 +97,7 @@ export function StandardSheet({
   progress,
   showBack,
   primaryAction,
+  secondaryAction,
   children,
 }: Props) {
   useEffect(() => {
@@ -233,6 +236,21 @@ export function StandardSheet({
             >
               {primaryAction.label}
             </button>
+            {secondaryAction && (
+              <button
+                type="button"
+                disabled={secondaryAction.disabled}
+                onClick={secondaryAction.onClick}
+                className="w-full text-center bg-transparent border-0 p-0 font-normal disabled:opacity-60"
+                style={{
+                  marginTop: 12,
+                  fontSize: 14,
+                  color: "var(--muted-foreground)",
+                }}
+              >
+                {secondaryAction.label}
+              </button>
+            )}
           </div>
         )}
       </div>
