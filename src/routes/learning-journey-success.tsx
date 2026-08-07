@@ -30,7 +30,7 @@ function JourneySuccessPage() {
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
-        <div className="flex flex-col flex-1 min-h-0">
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -73,12 +73,12 @@ function JourneySuccessPage() {
             </div>
           </div>
 
-          <div className="mt-auto shrink-0" style={{ height: 96 }}>
+          <div className="mt-auto shrink-0" style={{ height: 48 }}>
             <button
               type="button"
               onClick={goHome}
-              className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
+              className="w-full h-full rounded-full text-[17px] font-medium text-white active:scale-[0.99] transition-transform"
+              style={{ background: PAISLEY, letterSpacing: "-0.01em" }}
             >
               Get Started Now
             </button>
