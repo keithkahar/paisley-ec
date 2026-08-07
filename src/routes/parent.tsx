@@ -170,7 +170,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={isPhoneSuccess ? undefined : 16}
+        contentPaddingTop={isPhoneSuccess || isPhone ? undefined : 16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
           isPhoneSuccess
@@ -229,7 +229,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               </div>
             </div>
 
-            <div className="mt-auto shrink-0" style={{ height: 48 }}>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={onUnlock}
@@ -241,32 +241,33 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             </div>
           </div>
         ) : isPhone ? (
-          <div className="flex flex-col h-full min-h-0">
-            <p
-              className="text-[13px] leading-none text-center shrink-0"
-              style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
+          <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
+            <div
+              className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+              style={{ background: "white" }}
             >
-              用于找回家长PIN，保护孩子的学习数据
-            </p>
-            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
-              <div
-                className="grid place-items-center rounded-full"
-                style={{
-                  width: 88,
-                  height: 88,
-                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                  boxShadow: "none",
-                }}
-              >
-                <Smartphone
-                  size={42}
-                  strokeWidth={1.6}
-                  style={{ color: "#ffffff" }}
-                />
+              <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
+                <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+                  用于找回家长PIN，保护孩子的学习数据
+                </p>
+              </div>
+
+              <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
+                <div
+                  className="grid place-items-center rounded-full"
+                  style={{
+                    width: 88,
+                    height: 88,
+                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                    boxShadow: "none",
+                  }}
+                >
+                  <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
+                </div>
               </div>
             </div>
 
-            <div className="shrink-0" style={{ height: 48 }}>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={() => {
@@ -280,20 +281,20 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               >
                 现在绑定
               </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setPin("");
+                  setConfirmPin("");
+                  setError("");
+                  setMode(recoverViaPhone ? "recover" : "enter");
+                }}
+                className="mt-3 w-full text-[14px] font-normal text-center bg-transparent border-0 p-0"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                稍后再说
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                setPin("");
-                setConfirmPin("");
-                setError("");
-                setMode(recoverViaPhone ? "recover" : "enter");
-              }}
-              className="mt-3 shrink-0 w-full text-[14px] font-normal"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-            >
-              稍后再说
-            </button>
           </div>
         ) : isPhoneEntry ? (
           <div className="flex flex-col h-full min-h-0">
@@ -2431,7 +2432,7 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
       open={open}
       title={isEntry ? "请输入手机号" : "绑定手机号以完成购买"}
       brandColor={SHEET_BRAND.paisley}
-      contentPaddingTop={16}
+      contentPaddingTop={isEntry ? 16 : undefined}
       showBack={isEntry}
       onClose={isEntry ? () => { setError(""); setStep("prompt"); } : onClose}
     >
@@ -2490,24 +2491,28 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
           </div>
         </div>
       ) : (
-        <div className="flex flex-col h-full min-h-0">
-          <p
-            className="text-[13px] leading-none text-center shrink-0"
-            style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
+        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
+          <div
+            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            style={{ background: "white" }}
           >
-            用于保障会员权益和账户安全
-          </p>
-          <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
-            <div
-              className="grid place-items-center rounded-full"
-              style={{
-                width: 88,
-                height: 88,
-                background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                boxShadow: "none",
-              }}
-            >
-              <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
+            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
+              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+                用于保障会员权益和账户安全
+              </p>
+            </div>
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
+              <div
+                className="grid place-items-center rounded-full"
+                style={{
+                  width: 88,
+                  height: 88,
+                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                  boxShadow: "none",
+                }}
+              >
+                <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
+              </div>
             </div>
           </div>
           <div className="mt-5 shrink-0" style={{ height: 48 }}>
