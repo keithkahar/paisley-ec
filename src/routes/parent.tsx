@@ -29,7 +29,7 @@ const PHONE_STORAGE_KEY = "paisley.parent.phone";
 function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const navigate = useNavigate();
   const [mode, setMode] = useState<
-    "set" | "enter" | "recover" | "reset" | "phone" | "phone-entry" | "loading"
+    "set" | "enter" | "recover" | "reset" | "phone" | "phone-entry" | "recover-phone" | "loading"
   >("loading");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
@@ -68,7 +68,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     }
     setPin("");
     setConfirmPin("");
-    setMode("enter");
+    setMode(isRecoverPhone ? "reset" : "enter");
   };
 
   const isReset = mode === "reset";
@@ -117,7 +117,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   if (mode === "loading") return null;
 
   const isPhone = mode === "phone";
-  const isPhoneEntry = mode === "phone-entry";
+  const isRecoverPhone = mode === "recover-phone";
+  const isPhoneEntry = mode === "phone-entry" || isRecoverPhone;
 
   const sheetTitle = isReset
     ? "请设置新的家长PIN"
