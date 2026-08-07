@@ -174,7 +174,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
           isPhoneSuccess
-            ? () => goPinFlow()
+            ? () => onUnlock()
             : isPhoneEntry
             ? () => {
                 setError("");
@@ -222,7 +222,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             <div className="mt-5 shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
-                onClick={() => goPinFlow()}
+                onClick={onUnlock}
                 className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
