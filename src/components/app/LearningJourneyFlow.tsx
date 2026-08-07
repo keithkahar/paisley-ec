@@ -9,7 +9,6 @@ import {
   clearLearnerCreationPending,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
-  ensureGuardianAccount,
   markLearnerCreationPending,
   setJourneyParentPin,
   shouldResumeLearnerCreation,
