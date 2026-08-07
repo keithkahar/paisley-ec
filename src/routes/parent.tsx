@@ -68,7 +68,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     }
     setPin("");
     setConfirmPin("");
-    setMode("set");
+    setMode("enter");
   };
 
   const isReset = mode === "reset";
@@ -126,7 +126,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       : isPhoneEntry
         ? "请输入手机号"
         : isSet
-          ? "请输入家长PIN"
+          ? "请设置家长PIN"
           : isRecover
             ? "找回家长PIN"
             : "请输入家长PIN";
@@ -201,7 +201,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 setPin("");
                 setConfirmPin("");
                 setError("");
-                setMode("set");
+                setMode("enter");
               }}
               className="mt-3 shrink-0 w-full text-[14px] font-medium"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
