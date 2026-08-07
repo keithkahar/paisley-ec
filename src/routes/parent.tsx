@@ -145,7 +145,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
           isPhoneEntry
             ? () => {
                 setError("");
-                setMode("phone");
+                setMode(isRecoverPhone ? "recover" : "phone");
               }
             : isRecover || isReset
             ? () => {
@@ -264,7 +264,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                保存
+                {isRecoverPhone ? "确认" : "保存"}
               </button>
             </div>
           </div>
