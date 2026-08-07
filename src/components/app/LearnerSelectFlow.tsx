@@ -535,17 +535,15 @@ export function AddLearnerSheet({
           </div>
           </div>
 
-          <div className="mt-auto shrink-0 relative">
-            {error && (
-              <p
-                className="absolute left-0 right-0 top-0 text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: DANGER, letterSpacing: "-0.01em" }}
-              >
-                {error}
-              </p>
-            )}
-            <SheetActions primary={{ label: "Save", onClick: submit }} />
-          </div>
+          {error && (
+            <p
+              className="absolute left-0 right-0 text-center text-[14px] font-medium pointer-events-none"
+              style={{ bottom: 32 + 48 + 7, color: DANGER, letterSpacing: "-0.01em" }}
+            >
+              {error}
+            </p>
+          )}
+          <SheetActions primary={{ label: "Save", onClick: submit }} />
         </div>
       </StandardSheet>
 
