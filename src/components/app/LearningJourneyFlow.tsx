@@ -159,6 +159,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       />
 
       <AddLearnerSheet
+        title="创建孩子档案"
         open={step === "learner"}
         onClose={() => setStep("none")}
         onCreate={(created) => {
