@@ -315,7 +315,7 @@ export function AddLearnerSheet({
   open,
   onClose,
   onCreate,
-  title = "Add A Learner",
+  title = "Add Learner",
 }: {
   open: boolean;
   onClose: () => void;
