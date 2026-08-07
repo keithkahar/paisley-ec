@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AvatarPicker } from "@/components/app/AvatarPicker";
+import { SheetActions } from "@/components/app/SheetActions";
 import { useLearners } from "@/lib/learners";
 
 // ---- Profile storage (mirrors utils/profile.js) ----
@@ -665,15 +666,8 @@ function BirthdaySheet({
           )}
         </div>
 
-        {/* Save */}
-        <button
-          type="button"
-          onClick={confirm}
-          className="shrink-0 w-full h-12 rounded-full text-[14px] font-semibold active:scale-[0.99] transition-transform"
-          style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
-        >
-          Save
-        </button>
+        {/* Save — locked global sheet action metrics */}
+        <SheetActions primary={{ label: "Save", onClick: confirm, background: YELLOW }} />
       </div>
     </StandardSheet>
   );

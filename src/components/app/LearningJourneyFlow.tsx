@@ -4,6 +4,7 @@ import { Check, Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import {
   SheetActionBody,
+  SheetActions,
   SheetBenefitList,
   SheetCardSubtitle,
 } from "@/components/app/SheetActions";
@@ -240,16 +241,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
           </div>
 
-          <div className="mt-auto shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={submitPin}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-              style={{ background: PAISLEY }}
-            >
-              保存
-            </button>
-          </div>
+          <SheetActions primary={{ label: "保存", onClick: submitPin }} />
         </div>
         )}
       </StandardSheet>

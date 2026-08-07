@@ -111,7 +111,8 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
           />
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col h-full min-h-0">
+          <div className="flex-1 min-h-0">
           <p
             className="text-[12px] leading-[1.55] text-center"
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -139,26 +140,12 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
               {error}
             </p>
           )}
+          </div>
 
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="mt-6 w-full rounded-full py-4 px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-            style={{ background: PAISLEY }}
-          >
-            {isSet ? "设置密码" : "解锁"}
-          </button>
-
-          {!isSet && (
-            <button
-              type="button"
-              onClick={handleForgot}
-              className="mt-3 w-full text-[12px] font-semibold"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-            >
-              忘记密码？重新设置
-            </button>
-          )}
+          <SheetActions
+            primary={{ label: isSet ? "设置密码" : "解锁", onClick: handleSubmit }}
+            secondary={isSet ? undefined : { label: "忘记密码？重新设置", onClick: handleForgot }}
+          />
         </div>
       )}
     </StandardSheet>

@@ -4,6 +4,7 @@ import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import type { Learner } from "@/lib/learners";
 import { AvatarDraggable, capitalizeName } from "@/components/app/EditProfileSheet";
 import { AvatarPicker } from "@/components/app/AvatarPicker";
+import { SheetActions } from "@/components/app/SheetActions";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -656,16 +657,15 @@ function LearnerBirthdaySheet({
           )}
         </div>
 
-        <button
-          type="button"
-          onClick={() =>
-            onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
-          }
-          className="shrink-0 w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-          style={{ background: PAISLEY }}
-        >
-          Save
-        </button>
+        <SheetActions
+          primary={{
+            label: "Save",
+            onClick: () =>
+              onConfirm(
+                `${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`,
+              ),
+          }}
+        />
       </div>
     </StandardSheet>
   );
