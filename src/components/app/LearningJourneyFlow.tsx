@@ -219,9 +219,9 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           setStep("none");
         }}
       >
-        <div className="flex flex-col min-h-0" style={{ height: 385 }}>
+        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           <div
-            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
             <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
@@ -232,12 +232,12 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
 
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
-                className="grid place-items-center rounded-full"
+                className="grid place-items-center rounded-full overflow-hidden"
                 style={{
                   width: 88,
                   height: 88,
                   background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                  border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
+                  border: "1px solid var(--border)",
                 }}
               >
                 <img
