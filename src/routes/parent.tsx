@@ -241,8 +241,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
           <div className="flex flex-col h-full min-h-0">
             {isRecoverPhone && (
               <p
-                className="text-[13px] leading-none text-center shrink-0"
-                style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
+                className="text-[13px] leading-[1.5] text-center shrink-0"
+                style={{ color: PAISLEY, fontWeight: 400 }}
               >
                 请验证家长身份，以保护孩子学习数据
               </p>
