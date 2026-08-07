@@ -37,6 +37,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [countdown, setCountdown] = useState(0);
+  const [verifyMethod, setVerifyMethod] = useState<"wechat" | "phone" | null>(null);
 
   useEffect(() => {
     // DEBUG: always show phone binding popup on every entry
@@ -274,74 +275,92 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               className="text-[13px] leading-none text-center shrink-0"
               style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
             >
-              请验证家长身份，以保护孩子的学习数据
+              请选择身份验证方式，以保护孩子的学习数据
             </p>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
-              <div className="flex items-center justify-center gap-5">
-                <div
-                  className="grid place-items-center rounded-full overflow-hidden"
-                  style={{
-                    width: 88,
-                    height: 88,
-                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                    boxShadow: "none",
-                  }}
+              <div className="flex items-start justify-center gap-5">
+                <button
+                  type="button"
+                  onClick={() => setVerifyMethod("wechat")}
+                  className="flex flex-col items-center gap-2 bg-transparent border-0 p-0"
                 >
-                  <img
-                    src={wechatWhite.url}
-                    alt=""
-                    aria-hidden="true"
-                    className="shrink-0"
-                    style={{ width: 46, height: 46, objectFit: "contain" }}
-                  />
-                </div>
-                <div
-                  className="grid place-items-center rounded-full overflow-hidden"
-                  style={{
-                    width: 88,
-                    height: 88,
-                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                    boxShadow: "none",
-                  }}
+                  <span
+                    className="text-[11px] leading-[1.55]"
+                    style={{ color: verifyMethod === "wechat" ? PAISLEY : "var(--foreground)", fontWeight: 400 }}
+                  >
+                    微信
+                  </span>
+                  <div
+                    className="grid place-items-center rounded-full overflow-hidden"
+                    style={{
+                      width: 88,
+                      height: 88,
+                      background:
+                        verifyMethod === "wechat"
+                          ? PAISLEY
+                          : "color-mix(in oklab, var(--paisley) 8%, white)",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <img
+                      src={wechatWhite.url}
+                      alt=""
+                      aria-hidden="true"
+                      className="shrink-0"
+                      style={{ width: 46, height: 46, objectFit: "contain" }}
+                    />
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setVerifyMethod("phone")}
+                  className="flex flex-col items-center gap-2 bg-transparent border-0 p-0"
                 >
-                  <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
-                </div>
+                  <span
+                    className="text-[11px] leading-[1.55]"
+                    style={{ color: verifyMethod === "phone" ? PAISLEY : "var(--foreground)", fontWeight: 400 }}
+                  >
+                    手机
+                  </span>
+                  <div
+                    className="grid place-items-center rounded-full overflow-hidden"
+                    style={{
+                      width: 88,
+                      height: 88,
+                      background:
+                        verifyMethod === "phone"
+                          ? PAISLEY
+                          : "color-mix(in oklab, var(--paisley) 8%, white)",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
+                  </div>
+                </button>
               </div>
             </div>
 
-            <div className="mt-5 shrink-0 flex items-center gap-3" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={handleRecover}
-                className="flex-1 min-w-0 h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
-                style={{ background: PAISLEY }}
-              >
-                <img
-                  src={wechatWhite.url}
-                  alt=""
-                  aria-hidden="true"
-                  className="shrink-0"
-                  style={{ width: 22, height: 22, objectFit: "contain" }}
-                />
-                微信验证
-              </button>
+            <div className="mt-5 shrink-0" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={() => {
-                  setError("");
-                  setCode("");
-                  try {
-                    setPhone(localStorage.getItem(PHONE_STORAGE_KEY) ?? "");
-                  } catch {
-                    setPhone("");
+                  if (verifyMethod === "phone") {
+                    setError("");
+                    setCode("");
+                    try {
+                      setPhone(localStorage.getItem(PHONE_STORAGE_KEY) ?? "");
+                    } catch {
+                      setPhone("");
+                    }
+                    setMode("recover-phone");
+                  } else {
+                    handleRecover();
                   }
-                  setMode("recover-phone");
                 }}
-                className="flex-1 min-w-0 h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
+                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                <Smartphone size={20} strokeWidth={2} className="shrink-0" />
-                手机验证
+                验证
               </button>
             </div>
           </div>
