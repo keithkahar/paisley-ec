@@ -277,30 +277,43 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               请验证家长身份，以保护孩子的学习数据
             </p>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1 pb-5">
-              <div
-                className="grid place-items-center rounded-full overflow-hidden"
-                style={{
-                  width: 88,
-                  height: 88,
-                  background: "color-mix(in oklab, var(--paisley) 8%, white)",
-                  boxShadow: "none",
-                }}
-              >
-                <img
-                  src={wechatWhite.url}
-                  alt=""
-                  aria-hidden="true"
-                  className="shrink-0"
-                  style={{ width: 46, height: 46, objectFit: "contain" }}
-                />
+              <div className="flex items-center justify-center gap-5">
+                <div
+                  className="grid place-items-center rounded-full overflow-hidden"
+                  style={{
+                    width: 88,
+                    height: 88,
+                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                    boxShadow: "none",
+                  }}
+                >
+                  <img
+                    src={wechatWhite.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ width: 46, height: 46, objectFit: "contain" }}
+                  />
+                </div>
+                <div
+                  className="grid place-items-center rounded-full overflow-hidden"
+                  style={{
+                    width: 88,
+                    height: 88,
+                    background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                    boxShadow: "none",
+                  }}
+                >
+                  <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
+                </div>
               </div>
             </div>
 
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <div className="mt-5 shrink-0 flex items-center gap-3" style={{ height: 48 }}>
               <button
                 type="button"
                 onClick={handleRecover}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
+                className="flex-1 min-w-0 h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
                 style={{ background: PAISLEY }}
               >
                 <img
@@ -311,6 +324,24 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   style={{ width: 22, height: 22, objectFit: "contain" }}
                 />
                 微信验证
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setError("");
+                  setCode("");
+                  try {
+                    setPhone(localStorage.getItem(PHONE_STORAGE_KEY) ?? "");
+                  } catch {
+                    setPhone("");
+                  }
+                  setMode("recover-phone");
+                }}
+                className="flex-1 min-w-0 h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
+                style={{ background: PAISLEY }}
+              >
+                <Smartphone size={20} strokeWidth={2} className="shrink-0" />
+                手机验证
               </button>
             </div>
           </div>
