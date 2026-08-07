@@ -126,7 +126,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       : isPhoneEntry
         ? "请输入手机号"
         : isSet
-          ? "请设置家长PIN"
+          ? "请输入家长PIN"
           : isRecover
             ? "找回家长PIN"
             : "请输入家长PIN";
