@@ -171,6 +171,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   width: 88,
                   height: 88,
                   background: "color-mix(in oklab, var(--paisley) 8%, white)",
+                  boxShadow: "none",
                 }}
               >
                 <Smartphone
