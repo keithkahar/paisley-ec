@@ -48,20 +48,6 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     onOpenChange?.(step !== "none");
   }, [step, onOpenChange]);
 
-  const continueJourney = async () => {
-    if (busy) return;
-    setBusy(true);
-    setError("");
-    try {
-      await ensureGuardianAccount();
-      setStep("pin");
-    } catch {
-      setError("创建失败，请稍后再试");
-    } finally {
-      setBusy(false);
-    }
-  };
-
   const createGuardian = async () => {
     if (busy) return;
     setBusy(true);
