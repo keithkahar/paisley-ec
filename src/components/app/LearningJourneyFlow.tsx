@@ -140,22 +140,20 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step === "guardian"}
         title="创建家长账户"
         brandColor={SHEET_BRAND.paisley}
+        subtitle="用于管理孩子的学习旅程"
+        subtitleColor={PAISLEY}
+        subtitleSpacing={12}
+        contentPaddingTop={16}
         showBack
         onClose={() => setStep("intro")}
       >
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col h-full min-h-0">
           <div
-            className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
+            className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
-            <div className="flex items-baseline justify-center gap-2" style={{ marginTop: 10 }}>
-              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
-                用于管理孩子的学习旅程
-              </p>
-            </div>
-
             <div
-              className="mt-[70px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
+              className="flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
@@ -189,7 +187,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
           </div>
 
-          <div className="mt-auto shrink-0" style={{ height: 48 }}>
+          <div className="mt-5 shrink-0" style={{ height: 48 }}>
             <button
               type="button"
               disabled={busy}
