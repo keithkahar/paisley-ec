@@ -2359,10 +2359,21 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
       brandColor={SHEET_BRAND.paisley}
       contentPaddingTop={isEntry ? 16 : undefined}
       showBack={isEntry}
+      primaryAction={
+        isEntry
+          ? { label: "保存", onClick: handleSave }
+          : {
+              label: "现在绑定",
+              onClick: () => {
+                setError("");
+                setStep("entry");
+              },
+            }
+      }
       onClose={isEntry ? () => { setError(""); setStep("prompt"); } : onClose}
     >
       {isEntry ? (
-        <div className="flex flex-col h-full min-h-0">
+        <div className="flex flex-col min-h-0" style={{ height: 361 }}>
           <div className="mt-4 flex-1 min-h-0 space-y-3">
             <PhoneField
               label="手机号"
@@ -2404,18 +2415,9 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
               </p>
             )}
           </div>
-          <SheetActions primary={{ label: "保存", onClick: handleSave }} />
         </div>
       ) : (
-        <SheetActionBody
-          primary={{
-            label: "现在绑定",
-            onClick: () => {
-              setError("");
-              setStep("entry");
-            },
-          }}
-        >
+        <SheetCard>
           <SheetCardSubtitle>用于保障会员权益和账户安全</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
@@ -2430,7 +2432,7 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
                 <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
               </div>
             </div>
-        </SheetActionBody>
+        </SheetCard>
       )}
     </StandardSheet>
   );
