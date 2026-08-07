@@ -422,6 +422,50 @@ function PinInput({
   );
 }
 
+function PhoneField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  autoFocus,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  autoFocus?: boolean;
+}) {
+  return (
+    <label className="block">
+      <div
+        className="rounded-full py-4 px-4 flex items-center gap-3 transition-colors focus-within:bg-white"
+        style={{
+          background: "color-mix(in oklab, var(--paisley) 6%, white)",
+          border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
+        }}
+      >
+        <span
+          className="text-[11px] font-semibold shrink-0"
+          style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+        >
+          {label}
+        </span>
+        <input
+          type="text"
+          inputMode="numeric"
+          autoComplete="off"
+          autoFocus={autoFocus}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 min-w-0 bg-transparent outline-none text-[16px] font-semibold tabular-nums text-right"
+          style={{ color: PAISLEY }}
+        />
+      </div>
+    </label>
+  );
+}
+
 
 // ---- Mock data (parent-specific mini cards, per spec §7/§8) ----
 type Cell = { label: string; value: string; unit: string };
