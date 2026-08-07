@@ -6,9 +6,9 @@ import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 export const Route = createFileRoute("/learning-journey-success")({
   head: () => ({
     meta: [
-      { title: "您的7天免费体验已经开始 — Paizley EC" },
+      { title: "7天免费旅程已开启 — Paizley EC" },
       { name: "description", content: "The learner's first English learning journey is ready to begin." },
-      { property: "og:title", content: "您的7天免费体验已经开始 — Paizley EC" },
+      { property: "og:title", content: "7天免费旅程已开启 — Paizley EC" },
       { property: "og:description", content: "The learner's first English learning journey is ready to begin." },
     ],
   }),
@@ -26,18 +26,24 @@ function JourneySuccessPage() {
       <ProfilePage tabBarHidden />
       <StandardSheet
         open
-        title="您的7天免费体验已经开始"
+        title="7天免费旅程已开启"
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
-        <div className="flex flex-col h-full min-h-0 mt-5">
+        <div className="flex flex-col h-full min-h-0 mt-5" style={{ height: 385 }}>
           {/* Membership-style benefit card */}
           <div
             className="rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
             style={{ background: "white" }}
           >
+            <div className="flex items-baseline justify-center gap-2">
+              <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
+                Welcome, Keith!
+              </p>
+            </div>
+
             <div
-              className="flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center flex flex-col justify-center"
+              className="mt-[60px] flex-1 min-h-0 -mx-1 px-1 overflow-y-auto scroll-hide text-center"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
@@ -64,20 +70,6 @@ function JourneySuccessPage() {
             </div>
           </div>
 
-          <div className="mt-5 flex flex-col items-center">
-            <h1
-              className="text-[26px] leading-[1.2] font-medium tracking-tight text-foreground text-center"
-              style={{ letterSpacing: "-0.01em" }}
-            >
-              Welcome, Keith!
-            </h1>
-            <span
-              className="block mt-[10px] text-[15px] text-foreground/80 font-normal leading-[1.7] text-center"
-            >
-              Your English journey begins today.
-            </span>
-          </div>
-
           <div className="mt-5 shrink-0" style={{ height: 48 }}>
             <button
               type="button"
@@ -85,7 +77,7 @@ function JourneySuccessPage() {
               className="w-full h-full rounded-full text-[16px] font-medium text-white transition-transform active:scale-[0.98]"
               style={{ background: PAISLEY }}
             >
-              开始学习
+              Get Started Now
             </button>
           </div>
         </div>
