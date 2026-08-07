@@ -72,9 +72,21 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     }
     setPin("");
     setConfirmPin("");
-    const wasRecovery = isRecoverPhone || recoverViaPhone;
-    setRecoverViaPhone(false);
-    setMode(wasRecovery ? "reset" : "enter");
+    if (isRecoverPhone) {
+      // Phone verification succeeded → allow setting a new PIN.
+      setRecoverViaPhone(false);
+      setMode("reset");
+    } else if (recoverViaPhone) {
+      // Binding just completed as part of recovery → now do phone verification.
+      setRecoverViaPhone(false);
+      setPhone("");
+      setCode("");
+      setError("");
+      setMode("recover-phone");
+    } else {
+      setRecoverViaPhone(false);
+      setMode("enter");
+    }
   };
 
   const isReset = mode === "reset";
@@ -130,8 +142,10 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     ? "请设置新的家长PIN"
     : isPhone
       ? "绑定手机号"
-      : isPhoneEntry
-        ? "请输入手机号"
+      : isRecoverPhone
+        ? "找回家长PIN"
+        : isPhoneEntry
+          ? "请输入手机号"
         : isSet
           ? "请设置家长PIN"
           : isRecover
@@ -225,6 +239,14 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
           </div>
         ) : isPhoneEntry ? (
           <div className="flex flex-col h-full min-h-0">
+            {isRecoverPhone && (
+              <p
+                className="text-[13px] leading-none text-center shrink-0"
+                style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
+              >
+                请验证家长身份，以保护孩子学习数据
+              </p>
+            )}
             <div className="mt-4 flex-1 min-h-0 space-y-3">
               <PhoneField
                 label="手机号"
