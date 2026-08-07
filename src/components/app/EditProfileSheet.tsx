@@ -569,9 +569,10 @@ function BirthdaySheet({
       open
       title="Birthday"
       brandColor={SHEET_BRAND.paisley}
+      primaryAction={{ label: "Save", onClick: confirm, background: YELLOW }}
       onClose={onCancel}
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col min-h-0" style={{ height: 361 }}>
         {/* M / D / Y tabs — each chip shows current value */}
         <div className="pb-3 grid grid-cols-3 gap-2 shrink-0">
           {tabs.map((t) => {
@@ -646,16 +647,6 @@ function BirthdaySheet({
             />
           )}
         </div>
-
-        {/* Save */}
-        <button
-          type="button"
-          onClick={confirm}
-          className="shrink-0 w-full h-12 rounded-full text-[14px] font-semibold active:scale-[0.99] transition-transform"
-          style={{ background: YELLOW, color: "white", letterSpacing: "-0.01em" }}
-        >
-          Save
-        </button>
       </div>
     </StandardSheet>
   );
