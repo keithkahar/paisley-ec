@@ -120,7 +120,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const isPhoneEntry = mode === "phone-entry";
 
   const sheetTitle = isReset
-    ? "设置新的家长PIN"
+    ? "请设置新的家长PIN"
     : isPhone
       ? "绑定手机号"
       : isPhoneEntry
@@ -319,8 +319,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               className="text-[13px] leading-[1.5] text-center"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
-              {isReset
-                ? "6位数字｜用于保护孩子的学习数据，并进入家长中心"
+            {isReset
+                ? "6位数字｜用于进入家长中心，管理学习数据"
                 : isSet
                   ? "6位数字｜用于进入家长中心，管理学习数据"
                   : "6位数字｜用于避免孩子误入家长中心"}
