@@ -1,126 +1,56 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Check } from "lucide-react";
+import { SHEET_PRIMARY } from "@/components/app/StandardSheet";
 
 /**
- * Single source of truth for the global bottom-sheet action layout.
- * Every sheet with a primary (+ optional secondary) button must use these
- * values so button height and vertical position stay pixel-identical.
+ * Card metrics for sheets that show a white content card above the pinned
+ * primary button. The button itself is owned by StandardSheet
+ * (`primaryAction`) and always sits at SHEET_PRIMARY.top — never render a
+ * bottom button inside a sheet body.
  */
 export const SHEET_ACTION_METRICS = {
-  /** Fixed height of the content card + actions column. */
-  bodyHeight: 385,
-  /** Top margin of the column (Tailwind mt-5). */
-  bodyTopMargin: 20,
+  /** Top margin of the white card inside the sheet body. */
+  cardTopMargin: 20,
+  /** Card height so that card bottom + 20 gap + 48 button = the locked coord. */
+  cardHeight: 341,
   cardRadius: 28,
   cardPadding: 20,
-  /** Gap between the content card and the primary button. */
-  primaryGap: 20,
-  primaryHeight: 48,
-  primaryFontSize: 14,
-  /** Gap between the primary and the secondary (text-only) button. */
-  secondaryGap: 12,
-  secondaryFontSize: 14,
-  /** Top margin of the subtitle line inside the card. */
+  primaryTop: SHEET_PRIMARY.top,
+  primaryHeight: SHEET_PRIMARY.height,
   subtitleTopMargin: 10,
-  /** Top margin of the benefit list inside the card. */
   listTopMargin: 70,
 } as const;
 
 const PAISLEY = "var(--paisley)";
 
-/** Fixed-height column: white content card on top, action buttons below. */
-export function SheetActionBody({
+/** White content card sized to sit exactly above the pinned primary button. */
+export function SheetCard({
   children,
-  cardStyle,
-  cardClassName = "",
-  primary,
-  secondary,
+  style,
+  className = "",
 }: {
   children?: ReactNode;
-  cardStyle?: CSSProperties;
-  cardClassName?: string;
-  primary: SheetPrimaryProps;
-  secondary?: SheetSecondaryProps;
+  style?: CSSProperties;
+  className?: string;
 }) {
   return (
     <div
-      className="flex flex-col h-full min-h-0"
-      style={{ height: SHEET_ACTION_METRICS.bodyHeight, marginTop: SHEET_ACTION_METRICS.bodyTopMargin }}
+      className={`flex flex-col min-h-0 ${className}`}
+      style={{
+        marginTop: SHEET_ACTION_METRICS.cardTopMargin,
+        height: SHEET_ACTION_METRICS.cardHeight,
+        background: "white",
+        borderRadius: SHEET_ACTION_METRICS.cardRadius,
+        padding: SHEET_ACTION_METRICS.cardPadding,
+        ...style,
+      }}
     >
-      <div
-        className={`flex-1 min-h-0 flex flex-col ${cardClassName}`}
-        style={{
-          background: "white",
-          borderRadius: SHEET_ACTION_METRICS.cardRadius,
-          padding: SHEET_ACTION_METRICS.cardPadding,
-          ...cardStyle,
-        }}
-      >
-        {children}
-      </div>
-      <SheetActions primary={primary} secondary={secondary} />
+      {children}
     </div>
   );
 }
 
-export type SheetPrimaryProps = {
-  label: ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-  background?: string;
-};
-
-export type SheetSecondaryProps = {
-  label: ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-};
-
-/** Primary pill + optional secondary text button, at the standard offsets. */
-export function SheetActions({
-  primary,
-  secondary,
-}: {
-  primary: SheetPrimaryProps;
-  secondary?: SheetSecondaryProps;
-}) {
-  return (
-    <div
-      className="shrink-0"
-      style={{ height: SHEET_ACTION_METRICS.primaryHeight, marginTop: SHEET_ACTION_METRICS.primaryGap }}
-    >
-      <button
-        type="button"
-        disabled={primary.disabled}
-        onClick={primary.onClick}
-        className="w-full h-full rounded-full font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
-        style={{
-          background: primary.background ?? PAISLEY,
-          fontSize: SHEET_ACTION_METRICS.primaryFontSize,
-        }}
-      >
-        {primary.label}
-      </button>
-      {secondary && (
-        <button
-          type="button"
-          disabled={secondary.disabled}
-          onClick={secondary.onClick}
-          className="w-full font-normal text-center bg-transparent border-0 p-0 disabled:opacity-60"
-          style={{
-            marginTop: SHEET_ACTION_METRICS.secondaryGap,
-            fontSize: SHEET_ACTION_METRICS.secondaryFontSize,
-            color: "var(--muted-foreground)",
-          }}
-        >
-          {secondary.label}
-        </button>
-      )}
-    </div>
-  );
-}
-
-/** Brand-blue subtitle line inside the card (pass empty for a spacer). */
+/** Brand subtitle line inside the card (renders a spacer when empty). */
 export function SheetCardSubtitle({ children }: { children?: ReactNode }) {
   return (
     <div

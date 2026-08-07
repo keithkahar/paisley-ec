@@ -230,8 +230,14 @@ function DeleteLearnerPasswordSheet({
   };
 
   return (
-    <StandardSheet open={open} title="Enter Parent Password" brandColor={DANGER} onClose={onClose}>
-      <div>
+    <StandardSheet
+      open={open}
+      title="Enter Parent Password"
+      brandColor={DANGER}
+      primaryAction={{ label: "Delete", onClick: submit, background: DANGER }}
+      onClose={onClose}
+    >
+      <div className="flex flex-col min-h-0" style={{ height: 361 }}>
         <p
           className="text-[12px] leading-[1.55] text-center"
           style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -250,15 +256,6 @@ function DeleteLearnerPasswordSheet({
             {error}
           </p>
         )}
-
-        <button
-          type="button"
-          onClick={submit}
-          className="mt-6 w-full rounded-full py-4 px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-          style={{ background: DANGER }}
-        >
-          Delete
-        </button>
       </div>
     </StandardSheet>
   );
@@ -382,8 +379,15 @@ export function AddLearnerSheet({
 
   return (
     <>
-      <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose} progress={progress}>
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+      <StandardSheet
+        open={open}
+        title={title}
+        brandColor={SHEET_BRAND.paisley}
+        primaryAction={{ label: "Save", onClick: submit, error }}
+        onClose={onClose}
+        progress={progress}
+      >
+        <div className="flex flex-col min-h-0" style={{ height: 361 }}>
           <div style={{ marginTop: -10 }}>
           <div className="mt-[22px] flex flex-col items-center">
             <AvatarPicker
@@ -533,25 +537,6 @@ export function AddLearnerSheet({
             </div>
           </div>
           </div>
-
-          <div className="mt-auto shrink-0 relative" style={{ height: 48 }}>
-            {error && (
-              <p
-                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
-                style={{ color: DANGER, letterSpacing: "-0.01em", marginBottom: 7 }}
-              >
-                {error}
-              </p>
-            )}
-            <button
-              type="button"
-              onClick={submit}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-              style={{ background: PAISLEY }}
-            >
-              Save
-            </button>
-          </div>
         </div>
       </StandardSheet>
 
@@ -595,8 +580,18 @@ function LearnerBirthdaySheet({
   ];
 
   return (
-    <StandardSheet open title="Birthday" brandColor={SHEET_BRAND.paisley} onClose={onClose}>
-      <div className="flex flex-col h-full">
+    <StandardSheet
+      open
+      title="Birthday"
+      brandColor={SHEET_BRAND.paisley}
+      primaryAction={{
+        label: "Save",
+        onClick: () =>
+          onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`),
+      }}
+      onClose={onClose}
+    >
+      <div className="flex flex-col min-h-0" style={{ height: 361 }}>
         <div className="mt-5 pb-3 grid grid-cols-3 gap-2 shrink-0">
           {tabs.map((t) => {
             const active = tab === t.key;
@@ -655,17 +650,6 @@ function LearnerBirthdaySheet({
             />
           )}
         </div>
-
-        <button
-          type="button"
-          onClick={() =>
-            onConfirm(`${year}-${String(month).padStart(2, "0")}-${String(Math.min(day, maxDay)).padStart(2, "0")}`)
-          }
-          className="shrink-0 w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-          style={{ background: PAISLEY }}
-        >
-          Save
-        </button>
       </div>
     </StandardSheet>
   );

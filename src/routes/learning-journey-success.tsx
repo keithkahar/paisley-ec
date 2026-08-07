@@ -28,9 +28,10 @@ function JourneySuccessPage() {
         open
         title="7天免费旅程已开启"
         brandColor={SHEET_BRAND.paisley}
+        primaryAction={{ label: "Get Started Now", onClick: goHome }}
         onClose={goHome}
       >
-        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+        <div className="flex flex-col min-h-0" style={{ height: 361 }}>
           {/* Membership-style benefit card */}
           <div
             className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col"
@@ -71,17 +72,6 @@ function JourneySuccessPage() {
                 ))}
               </ul>
             </div>
-          </div>
-
-          <div className="mt-auto shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={goHome}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
-              style={{ background: PAISLEY, letterSpacing: "-0.01em" }}
-            >
-              Get Started Now
-            </button>
           </div>
         </div>
       </StandardSheet>
