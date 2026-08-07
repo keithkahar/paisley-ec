@@ -1444,7 +1444,16 @@ function formatActivityDate(ts: number): string {
 
 // ============ Sheets ============
 
-function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+function Sheet({
+  children,
+  onClose,
+  action,
+}: {
+  children: React.ReactNode;
+  onClose: () => void;
+  /** Pinned bottom action, aligned to the global sheet button coordinate. */
+  action?: React.ReactNode;
+}) {
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center pointer-events-none">
       <button
@@ -1484,7 +1493,45 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         >
           {children}
         </div>
+        {action && (
+          <div
+            className="absolute"
+            style={{
+              left: SHEET_PRIMARY.inset,
+              right: SHEET_PRIMARY.inset,
+              top: SHEET_PRIMARY.top,
+              height: SHEET_PRIMARY.height,
+            }}
+          >
+            {action}
+          </div>
+        )}
       </div>
+    </div>
+  );
+}
+
+/** Gold pill matching the global sheet button metrics (48px, 14px label). */
+function BloxiaAction({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
+  const style = {
+    background: "rgba(216,175,87,0.32)",
+    color: T.goldLight,
+  } as const;
+  const cls =
+    "w-full h-full rounded-full px-4 text-[14px] font-semibold inline-flex items-center justify-center gap-2 text-center";
+  return onClick ? (
+    <button type="button" onClick={onClick} className={cls} style={style}>
+      {children}
+    </button>
+  ) : (
+    <div className={cls} style={style}>
+      {children}
     </div>
   );
 }
