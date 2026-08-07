@@ -53,7 +53,7 @@ export function ProfilePage({ tabBarHidden = false }: { tabBarHidden?: boolean }
   const [parentPinOpen, setParentPinOpen] = useState(false);
   const navigate = useNavigate();
   const [profile] = useState(DEFAULT_PROFILE);
-  const { learnerNames, learner, current, hasLearner, displayName, setLearner, addLearner, deleteLearner } = useLearners();
+  const { learnerNames, learner, current, hasLearner, displayName, setLearner } = useLearners();
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [journeyOpen, setJourneyOpen] = useState(false);
@@ -244,8 +244,7 @@ export function ProfilePage({ tabBarHidden = false }: { tabBarHidden?: boolean }
         learners={learnerNames}
         learner={learner}
         onSelect={setLearner}
-        onAdd={addLearner}
-        onDelete={deleteLearner}
+        manage={false}
       />
       <EditProfileSheet open={editOpen} onClose={() => setEditOpen(false)} />
       <LearningJourneyFlow onOpenChange={setJourneyOpen} />
