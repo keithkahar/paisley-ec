@@ -159,9 +159,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
           <div className="flex flex-col h-full min-h-0">
             <p
               className="text-[13px] leading-[1.5] text-center"
-              style={{
-                color: isReset ? PAISLEY : "color-mix(in oklab, var(--foreground) 55%, white)",
-              }}
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
               {isReset
                 ? "用于保护孩子的学习数据，并进入家长中心"
