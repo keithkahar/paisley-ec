@@ -36,14 +36,13 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   }, []);
 
   const isSet = mode === "set";
-  const sanitize = (s: string) => s.replace(/[^A-Za-z0-9]/g, "").slice(0, 6);
+  const sanitize = (s: string) => s.replace(/\D/g, "").slice(0, 6);
 
   const handleSubmit = () => {
     setError("");
     if (isSet) {
-      if (pin.length !== 6 || !/[A-Za-z]/.test(pin) || !/\d/.test(pin))
-        return setError("密码需为 6 位，且由字母与数字组合");
-      if (pin !== confirmPin) return setError("两次输入的密码不一致");
+      if (pin.length !== 6) return setError("PIN码需为 6 位数字");
+      if (pin !== confirmPin) return setError("两次输入的PIN码不一致");
       localStorage.setItem(PIN_STORAGE_KEY, pin);
       onUnlock();
     } else {
@@ -51,7 +50,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       if (pin === saved) {
         onUnlock();
       } else {
-        setError("密码不正确");
+        setError("PIN码不正确");
       }
     }
   };
@@ -63,7 +62,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       <ProfilePage tabBarHidden />
       <StandardSheet
         open={true}
-        title={isSet ? "设置家长密码" : "请输入家长密码"}
+        title={isSet ? "设置家长PIN码" : "请输入家长PIN码"}
         brandColor={SHEET_BRAND.paisley}
         onClose={() => history.back()}
       >
@@ -73,20 +72,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="text-[12px] leading-[1.55] text-center"
                 style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
               >
-                {isSet ? (
-                  <>
-                    请设置 6 位由字母和数字组合的密码
-                    <br />
-                    此密码用于避免儿童误入家长中心
-                  </>
-                ) : (
-                  "此密码用于避免儿童误入家长中心"
-                )}
+                用于避免孩子误入家长中心
               </p>
 
               <div className="mt-5 space-y-3">
                 <PinInput
-                  label="密码"
+                  label="PIN"
                   value={pin}
                   onChange={(v) => setPin(sanitize(v))}
                   autoFocus
@@ -122,7 +113,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   className="mt-3 w-full text-[12px] font-semibold"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
-                  忘记密码？重新设置
+                  忘记PIN码？重新设置
                 </button>
               )}
             </div>
@@ -134,7 +125,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="w-full h-full rounded-full text-[17px] font-medium text-white transition-transform active:scale-[0.98]"
                 style={{ background: PAISLEY }}
               >
-                {isSet ? "设置密码" : "解锁"}
+                {isSet ? "保存" : "解锁"}
               </button>
             </div>
           </div>
