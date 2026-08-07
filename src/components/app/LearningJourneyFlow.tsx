@@ -93,12 +93,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             >
               <ul className="space-y-2 pb-2 mx-auto inline-block text-left w-fit">
                 {[
-                  "获得个性化学习体验",
-                  "保存孩子的学习记录",
-                  "Bloxia 成长地图/徽章",
-                  "管理孩子的学习目标",
-                  "查看孩子的学习数据",
-                  "获得CEFR和Wordie测试",
+                  "AI口语陪练",
+                  "单词算法记忆",
+                  "学成数据查看",
+                  "Bloxia成长地图",
                 ].map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2">
                     <Check
