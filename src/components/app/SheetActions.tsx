@@ -2,29 +2,62 @@ import type { CSSProperties, ReactNode } from "react";
 import { Check } from "lucide-react";
 
 /**
- * Single source of truth for the global bottom-sheet action layout.
- * Every sheet with a primary (+ optional secondary) button must use these
- * values so button height and vertical position stay pixel-identical.
+ * 全局上拉菜单按钮执行标准 (GLOBAL SHEET BUTTON EXECUTION STANDARD v1)
+ *
+ * Single source of truth. All vertical positioning is anchored to the BOTTOM
+ * edge of the white sheet panel, never to a fixed column height, so buttons are
+ * pixel-identical on every device and in every sheet.
+ *
+ *  primary height ................ 48px, full-round, 14px semibold white
+ *  primary side inset ............ 20px
+ *  primary-only:  primary bottom -> panel bottom ....... 32px
+ *  with secondary: secondary bottom -> panel bottom .... 32px
+ *                  secondary height ................... 22px (14px regular)
+ *                  gap primary <-> secondary .......... 12px
+ *                  => primary bottom -> panel bottom .. 66px
+ *  minimum gap between content and the button area ..... 20px
+ *
+ * Do NOT override these four numbers (48 / 12 / 22 / 32) anywhere else, and do
+ * NOT add per-sheet pb-* or fixed column heights for button positioning.
  */
 export const SHEET_ACTION_METRICS = {
-  /** Fixed height of the content card + actions column. */
-  bodyHeight: 385,
   /** Top margin of the column (Tailwind mt-5). */
   bodyTopMargin: 20,
   cardRadius: 28,
   cardPadding: 20,
-  /** Gap between the content card and the primary button. */
-  primaryGap: 20,
+  /** Minimum whitespace between content and the button area. */
+  minContentGap: 20,
   primaryHeight: 48,
   primaryFontSize: 14,
   /** Gap between the primary and the secondary (text-only) button. */
   secondaryGap: 12,
+  secondaryHeight: 22,
   secondaryFontSize: 14,
+  /** Button area bottom edge -> panel bottom edge. */
+  bottomInset: 32,
+  sideInset: 20,
   /** Top margin of the subtitle line inside the card. */
   subtitleTopMargin: 10,
   /** Top margin of the benefit list inside the card. */
   listTopMargin: 70,
 } as const;
+
+/** Height of the button block itself (excluding the bottom inset). */
+export function sheetActionAreaHeight(hasSecondary: boolean) {
+  const m = SHEET_ACTION_METRICS;
+  return hasSecondary
+    ? m.primaryHeight + m.secondaryGap + m.secondaryHeight
+    : m.primaryHeight;
+}
+
+/**
+ * In-flow space the content must give up. StandardSheet already pads the
+ * content box by 32px (= bottomInset), so the reserve is the button block plus
+ * the minimum content gap.
+ */
+export function sheetContentReserve(hasSecondary: boolean) {
+  return sheetActionAreaHeight(hasSecondary) + SHEET_ACTION_METRICS.minContentGap;
+}
 
 const PAISLEY = "var(--paisley)";
 
@@ -45,7 +78,7 @@ export function SheetActionBody({
   return (
     <div
       className="flex flex-col h-full min-h-0"
-      style={{ height: SHEET_ACTION_METRICS.bodyHeight, marginTop: SHEET_ACTION_METRICS.bodyTopMargin }}
+      style={{ marginTop: SHEET_ACTION_METRICS.bodyTopMargin }}
     >
       <div
         className={`flex-1 min-h-0 flex flex-col ${cardClassName}`}
@@ -84,39 +117,52 @@ export function SheetActions({
   primary: SheetPrimaryProps;
   secondary?: SheetSecondaryProps;
 }) {
+  const hasSecondary = Boolean(secondary);
   return (
-    <div
-      className="shrink-0"
-      style={{ height: SHEET_ACTION_METRICS.primaryHeight, marginTop: SHEET_ACTION_METRICS.primaryGap }}
-    >
-      <button
-        type="button"
-        disabled={primary.disabled}
-        onClick={primary.onClick}
-        className="w-full h-full rounded-full font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+    <>
+      {/* In-flow reserve so content never sits under the pinned buttons. */}
+      <div className="shrink-0" aria-hidden="true" style={{ height: sheetContentReserve(hasSecondary) }} />
+      {/* Pinned to the sheet panel bottom — the locked standard. */}
+      <div
+        className="absolute left-0 right-0"
         style={{
-          background: primary.background ?? PAISLEY,
-          fontSize: SHEET_ACTION_METRICS.primaryFontSize,
+          bottom: SHEET_ACTION_METRICS.bottomInset,
+          paddingLeft: SHEET_ACTION_METRICS.sideInset,
+          paddingRight: SHEET_ACTION_METRICS.sideInset,
         }}
       >
-        {primary.label}
-      </button>
-      {secondary && (
         <button
           type="button"
-          disabled={secondary.disabled}
-          onClick={secondary.onClick}
-          className="w-full font-normal text-center bg-transparent border-0 p-0 disabled:opacity-60"
+          disabled={primary.disabled}
+          onClick={primary.onClick}
+          className="w-full rounded-full font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
           style={{
-            marginTop: SHEET_ACTION_METRICS.secondaryGap,
-            fontSize: SHEET_ACTION_METRICS.secondaryFontSize,
-            color: "var(--muted-foreground)",
+            height: SHEET_ACTION_METRICS.primaryHeight,
+            background: primary.background ?? PAISLEY,
+            fontSize: SHEET_ACTION_METRICS.primaryFontSize,
           }}
         >
-          {secondary.label}
+          {primary.label}
         </button>
-      )}
-    </div>
+        {secondary && (
+          <button
+            type="button"
+            disabled={secondary.disabled}
+            onClick={secondary.onClick}
+            className="w-full font-normal text-center bg-transparent border-0 p-0 disabled:opacity-60"
+            style={{
+              marginTop: SHEET_ACTION_METRICS.secondaryGap,
+              height: SHEET_ACTION_METRICS.secondaryHeight,
+              lineHeight: `${SHEET_ACTION_METRICS.secondaryHeight}px`,
+              fontSize: SHEET_ACTION_METRICS.secondaryFontSize,
+              color: "var(--muted-foreground)",
+            }}
+          >
+            {secondary.label}
+          </button>
+        )}
+      </div>
+    </>
   );
 }
 
