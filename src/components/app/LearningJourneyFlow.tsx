@@ -157,7 +157,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         }}
       >
         <div className="flex flex-col min-h-0" style={{ height: 429 }}>
-          <div className="flex-1 min-h-0 flex flex-col">
+          <div className="mt-5 rounded-[28px] p-5 flex-1 min-h-0 flex flex-col" style={{ background: "white" }}>
             <div className="flex items-baseline justify-center gap-2">
               <p className="text-[13px] leading-none" style={{ color: PAISLEY, fontWeight: 400 }}>
                 用于管理孩子的学习旅程
