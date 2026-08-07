@@ -136,28 +136,12 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
         </SheetActionBody>
         ) : step === "guardian" ? (
-        <SheetActionBody
-          primary={{
-            label: (
-              <span className="inline-flex items-center justify-center gap-2">
-                <img
-                  src={wechatWhite.url}
-                  alt=""
-                  aria-hidden="true"
-                  className="shrink-0"
-                  style={{ width: 22, height: 22, objectFit: "contain" }}
-                />
-                微信授权并继续
-              </span>
-            ),
-            disabled: busy,
-            onClick: () => setStep("guardian-error"),
-          }}
-        >
-          <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
-          <SheetBenefitList
-            items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
-          />
+        <div className="flex flex-col min-h-0" style={{ height: 429 }}>
+          <div className="flex-1 min-h-0 flex flex-col px-5">
+            <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
+            <SheetBenefitList
+              items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
+            />
             {error && (
               <p
                 className="mt-2 text-[11px] font-semibold text-center"
@@ -166,7 +150,26 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                 {error}
               </p>
             )}
-        </SheetActionBody>
+          </div>
+          <SheetActions
+            primary={{
+              label: (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <img
+                    src={wechatWhite.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ width: 22, height: 22, objectFit: "contain" }}
+                  />
+                  微信授权并继续
+                </span>
+              ),
+              disabled: busy,
+              onClick: () => setStep("guardian-error"),
+            }}
+          />
+        </div>
         ) : step === "guardian-error" ? (
         <SheetActionBody
           primary={{
