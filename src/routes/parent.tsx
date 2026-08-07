@@ -5,12 +5,7 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { ProfilePage } from "@/routes/profile";
 import { FloatingBack } from "@/components/app/FloatingBack";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
-import {
-  SheetActions,
-  SheetActionBody,
-  SheetBenefitList,
-  SheetCardSubtitle,
-} from "@/components/app/SheetActions";
+import { SheetBenefitList, SheetCard, SheetCardSubtitle } from "@/components/app/SheetActions";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import { ProgressBar } from "@/components/app/WordieKit";
@@ -146,6 +141,31 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     setMode("reset");
   };
 
+  const handleVerify = () => {
+    if (verifyMethod === "phone") {
+      setError("");
+      setCode("");
+      setPhone("");
+      let bound: string | null = null;
+      try {
+        bound = localStorage.getItem(PHONE_STORAGE_KEY);
+      } catch {
+        bound = null;
+      }
+      if (bound) {
+        setRecoverViaPhone(false);
+        setMode("recover-phone");
+      } else {
+        // Not bound yet: bind first, which also completes verification.
+        setRecoverViaPhone(true);
+        setMode("phone");
+      }
+    } else {
+      setRecoverViaPhone(false);
+      handleRecover();
+    }
+  };
+
   if (mode === "loading") return null;
 
   const isPhone = mode === "phone";
@@ -178,6 +198,38 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         brandColor={SHEET_BRAND.paisley}
         contentPaddingTop={isPhoneSuccess || isPhone ? undefined : 16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
+        primaryAction={
+          isPhoneSuccess
+            ? { label: "完成", onClick: onUnlock }
+            : isPhone
+              ? {
+                  label: "现在绑定",
+                  onClick: () => {
+                    setError("");
+                    setCode("");
+                    setPhone("");
+                    setMode("phone-entry");
+                  },
+                }
+              : isPhoneEntry
+                ? { label: isRecoverPhone ? "确认" : "保存", onClick: handleSavePhone }
+                : isRecover
+                  ? { label: "验证", onClick: handleVerify }
+                  : { label: isReset || isSet ? "保存" : "解锁", onClick: handleSubmit }
+        }
+        secondaryAction={
+          isPhone
+            ? {
+                label: "稍后再说",
+                onClick: () => {
+                  setPin("");
+                  setConfirmPin("");
+                  setError("");
+                  setMode(recoverViaPhone ? "recover" : "enter");
+                },
+              }
+            : undefined
+        }
         onClose={
           isPhoneSuccess
             ? () => onUnlock()
@@ -202,32 +254,13 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         }
       >
         {isPhoneSuccess ? (
-          <SheetActionBody primary={{ label: "完成", onClick: onUnlock }}>
+          <SheetCard>
             {/* Spacer matching the subtitle slot of the onboarding sheet */}
             <SheetCardSubtitle />
             <SheetBenefitList items={["账号恢复方式已添加", "可以找回家长PIN", "会员权益更安全"]} />
-          </SheetActionBody>
+          </SheetCard>
         ) : isPhone ? (
-          <SheetActionBody
-            primary={{
-              label: "现在绑定",
-              onClick: () => {
-                setError("");
-                setCode("");
-                setPhone("");
-                setMode("phone-entry");
-              },
-            }}
-            secondary={{
-              label: "稍后再说",
-              onClick: () => {
-                setPin("");
-                setConfirmPin("");
-                setError("");
-                setMode(recoverViaPhone ? "recover" : "enter");
-              },
-            }}
-          >
+          <SheetCard>
             <SheetCardSubtitle>用于找回家长PIN，保护孩子的学习数据</SheetCardSubtitle>
               <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
                 <div
@@ -242,9 +275,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   <Smartphone size={42} strokeWidth={1.6} style={{ color: "#ffffff" }} />
                 </div>
               </div>
-          </SheetActionBody>
+          </SheetCard>
         ) : isPhoneEntry ? (
-          <div className="flex flex-col h-full min-h-0">
+          <div className="flex flex-col min-h-0" style={{ height: 361 }}>
             {isRecoverPhone && (
               <p
                 className="text-[13px] leading-[1.5] text-center shrink-0"
@@ -298,10 +331,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </p>
               )}
             </div>
-            <SheetActions primary={{ label: isRecoverPhone ? "确认" : "保存", onClick: handleSavePhone }} />
           </div>
         ) : isRecover ? (
-          <div className="flex flex-col h-full min-h-0">
+          <div className="flex flex-col min-h-0" style={{ height: 361 }}>
             <p
               className="text-[13px] leading-none text-center shrink-0"
               style={{ color: PAISLEY, fontWeight: 400, marginTop: 50 }}
@@ -370,43 +402,9 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </button>
               </div>
             </div>
-
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (verifyMethod === "phone") {
-                    setError("");
-                    setCode("");
-                    setPhone("");
-                    let bound: string | null = null;
-                    try {
-                      bound = localStorage.getItem(PHONE_STORAGE_KEY);
-                    } catch {
-                      bound = null;
-                    }
-                    if (bound) {
-                      setRecoverViaPhone(false);
-                      setMode("recover-phone");
-                    } else {
-                      // Not bound yet: bind first, which also completes verification.
-                      setRecoverViaPhone(true);
-                      setMode("phone");
-                    }
-                  } else {
-                    setRecoverViaPhone(false);
-                    handleRecover();
-                  }
-                }}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                验证
-              </button>
-            </div>
           </div>
         ) : (
-          <div className="flex flex-col h-full min-h-0">
+          <div className="flex flex-col min-h-0" style={{ height: 361 }}>
             <p
               className="text-[13px] leading-[1.5] text-center"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
@@ -454,8 +452,6 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </button>
               )}
             </div>
-
-            <SheetActions primary={{ label: isReset ? "保存" : isSet ? "保存" : "解锁", onClick: handleSubmit }} />
           </div>
         )}
       </StandardSheet>
