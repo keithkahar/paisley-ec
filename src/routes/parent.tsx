@@ -200,7 +200,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   className="mt-3 w-full text-[12px] font-normal"
                   style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
                 >
-                  忘记PIN&nbsp;&nbsp;--- or ---&nbsp;&nbsp;新设PIN
+                  忘记/重设PIN
                 </button>
               )}
             </div>
