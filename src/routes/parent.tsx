@@ -126,7 +126,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
       : isPhoneEntry
         ? "请输入手机号"
         : isSet
-          ? "设置家长PIN码"
+          ? "请设置家长PIN"
           : isRecover
             ? "找回家长PIN"
             : "请输入家长PIN";
@@ -320,7 +320,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               {isReset
                 ? "6位数字｜用于保护孩子的学习数据，并进入家长中心"
                 : isSet
-                  ? "6位数字｜用于保护孩子的学习数据，并进入家长中心"
+                  ? "6位数字｜用于进入家长中心，管理学习数据"
                   : "6位数字｜用于避免孩子误入家长中心"}
             </p>
             <div className="mt-4 flex-1 min-h-0">
