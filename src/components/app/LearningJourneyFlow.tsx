@@ -4,6 +4,7 @@ import { Check, Eye, EyeOff } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
+import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 import {
   clearLearnerCreationPending,
   completeLearningJourney,
