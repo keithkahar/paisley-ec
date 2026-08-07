@@ -14,6 +14,37 @@ import { Check, ChevronLeft, X } from "lucide-react";
  * All 11 project sheets should render through this component.
  */
 
+/**
+ * Global single-button standard (locked, do not change per page).
+ * The primary button of every sheet sits at a fixed coordinate measured from
+ * the top of the sheet, so its height and position are pixel-identical
+ * everywhere: header (18 + 16 + 12) + content paddingTop 10 + column 429
+ * => bottom edge at 485, height 48 => top edge at 437.
+ */
+export const SHEET_PRIMARY = {
+  /** Distance from the sheet's top edge to the button's top edge. */
+  top: 437,
+  height: 48,
+  /** Horizontal inset, matching the sheet's px-5 content padding. */
+  inset: 20,
+  fontSize: 14,
+  radius: 9999,
+} as const;
+
+export type SheetPrimaryAction = {
+  label: ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  /** Button background (defaults to the section brand color). */
+  background?: string;
+  /** Label color (defaults to white). */
+  color?: string;
+  /** Optional error line rendered right above the button. */
+  error?: string;
+  /** Font size override (defaults to 14). */
+  fontSize?: number;
+};
+
 type Props = {
   open: boolean;
   title: string;
@@ -42,6 +73,11 @@ type Props = {
   progress?: { total: number; current: number };
   /** When true, render a back chevron instead of the close X in the top-left. */
   showBack?: boolean;
+  /**
+   * Single primary button, pinned to the global standard coordinate.
+   * Use this instead of rendering a bottom button inside the sheet body.
+   */
+  primaryAction?: SheetPrimaryAction;
   children: ReactNode;
 };
 
@@ -58,6 +94,7 @@ export function StandardSheet({
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   progress,
   showBack,
+  primaryAction,
   children,
 }: Props) {
   useEffect(() => {
@@ -157,10 +194,47 @@ export function StandardSheet({
         )}
         <div
           className="flex-1 overflow-y-auto px-5 pb-8"
-          style={{ paddingTop: contentPaddingTop }}
+          style={{
+            paddingTop: contentPaddingTop,
+            paddingBottom: primaryAction ? 24 : undefined,
+          }}
         >
           {children}
         </div>
+        {primaryAction && (
+          <div
+            className="absolute"
+            style={{
+              left: SHEET_PRIMARY.inset,
+              right: SHEET_PRIMARY.inset,
+              top: SHEET_PRIMARY.top,
+              height: SHEET_PRIMARY.height,
+            }}
+          >
+            {primaryAction.error && (
+              <p
+                className="absolute left-0 right-0 bottom-full text-center text-[14px] font-medium pointer-events-none"
+                style={{ color: "#e5484d", letterSpacing: "-0.01em", marginBottom: 7 }}
+              >
+                {primaryAction.error}
+              </p>
+            )}
+            <button
+              type="button"
+              disabled={primaryAction.disabled}
+              onClick={primaryAction.onClick}
+              className="w-full h-full rounded-full font-semibold active:scale-[0.98] transition-transform disabled:opacity-60"
+              style={{
+                background: primaryAction.background ?? brandColor,
+                color: primaryAction.color ?? "#ffffff",
+                fontSize: primaryAction.fontSize ?? SHEET_PRIMARY.fontSize,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {primaryAction.label}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
