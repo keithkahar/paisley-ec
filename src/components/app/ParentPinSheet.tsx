@@ -91,23 +91,23 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             </div>
           </div>
 
-          <div className="mt-5 shrink-0" style={{ height: 48 }}>
-            <button
-              type="button"
-              onClick={handleRecover}
-              className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98] inline-flex items-center justify-center gap-2"
-              style={{ background: PAISLEY }}
-            >
-              <img
-                src={wechatWhite.url}
-                alt=""
-                aria-hidden="true"
-                className="shrink-0"
-                style={{ width: 22, height: 22, objectFit: "contain" }}
-              />
-              微信验证
-            </button>
-          </div>
+          <SheetActions
+            primary={{
+              label: (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <img
+                    src={wechatWhite.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ width: 22, height: 22, objectFit: "contain" }}
+                  />
+                  微信验证
+                </span>
+              ),
+              onClick: handleRecover,
+            }}
+          />
         </div>
       ) : (
         <div>
