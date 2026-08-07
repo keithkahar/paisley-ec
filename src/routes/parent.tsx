@@ -9,6 +9,7 @@ import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { formatNumber } from "@/lib/utils";
+import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 
 
 export const Route = createFileRoute("/parent")({
