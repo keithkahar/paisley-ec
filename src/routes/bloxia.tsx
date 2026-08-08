@@ -710,6 +710,7 @@ function BadgeTile({
   onClick,
   size = "default",
   hideName = false,
+  scale = 1,
 }: {
   asset: string;
   name: string;
@@ -718,8 +719,11 @@ function BadgeTile({
   onClick: () => void;
   size?: "default" | "large";
   hideName?: boolean;
+  scale?: number;
 }) {
-  const imgSize = size === "large" ? "h-full w-full" : "h-[55%] w-[55%]";
+  const baseSize = size === "large" ? 100 : 85;
+  const s = Math.round(baseSize * scale);
+  const imgSize = size === "large" && scale === 1 ? "h-full w-full" : `h-[${s}%] w-[${s}%]`;
   return (
     <button
       type="button"
@@ -742,6 +746,8 @@ function BadgeTile({
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
             filter: unlocked ? undefined : "grayscale(100%)",
+            width: `${s}%`,
+            height: `${s}%`,
           }}
         />
       </div>
