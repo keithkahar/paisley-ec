@@ -1545,7 +1545,7 @@ function PlaceSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-28 w-28 mx-auto"
+        className="h-72 w-72 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
