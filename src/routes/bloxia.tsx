@@ -2151,15 +2151,11 @@ function BadgeSheet({
       onClose={onClose}
       pills={<SheetPills items={[{ value: formatBp(cost) }]} />}
     >
-      <img
+      <GlowImage
         src={bxImg(badge.asset, 448)}
-        alt=""
+        alt={badge.name}
         className="h-72 w-72 mx-auto"
-        style={{
-          imageRendering: "pixelated",
-          opacity: unlocked ? 1 : 0.4,
-          filter: unlocked ? undefined : "grayscale(100%)",
-        }}
+        dimmed={!unlocked}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {badge.name}
