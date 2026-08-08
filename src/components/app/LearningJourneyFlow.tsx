@@ -47,13 +47,13 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
   // Open or resume the flow, mirroring maybeOpenLearningJourneyFlow().
   useEffect(() => {
     if (step !== "none") return;
+    if (shouldShowVisitorQuotaPrompt(hasLearner)) {
+      setStep("quota");
+      return;
+    }
     if (shouldResumeLearnerCreation()) {
       markLearnerCreationPending();
       setStep("learner");
-      return;
-    }
-    if (shouldShowVisitorQuotaPrompt(hasLearner)) {
-      setStep("quota");
       return;
     }
     if (shouldShowLearningJourneyPrompt(hasLearner)) setStep("intro");
