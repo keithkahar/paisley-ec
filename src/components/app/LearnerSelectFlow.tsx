@@ -319,12 +319,14 @@ export function AddLearnerSheet({
   onCreate,
   title = "Add Learner",
   progress,
+  stepLabel,
 }: {
   open: boolean;
   onClose: () => void;
   onCreate: (learner: Partial<Learner> & { name: string }) => void;
   title?: string;
   progress?: { total: number; current: number };
+  stepLabel?: string;
 }) {
   const [given, setGiven] = useState("");
   const [family, setFamily] = useState("");
@@ -383,7 +385,7 @@ export function AddLearnerSheet({
 
   return (
     <>
-      <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose} progress={progress}>
+      <StandardSheet open={open} title={title} brandColor={SHEET_BRAND.paisley} onClose={onClose} progress={progress} stepLabel={stepLabel}>
         <div className="flex flex-col h-full min-h-0">
           <div style={{ marginTop: -10 }}>
           <div className="mt-[22px] flex flex-col items-center">
