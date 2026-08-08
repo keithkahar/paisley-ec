@@ -1,0 +1,75 @@
+import { useEffect, useState } from "react";
+import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { SheetActionBody, SheetBenefitList, SheetCardSubtitle } from "@/components/app/SheetActions";
+import { MembershipCards } from "@/routes/parent";
+
+/**
+ * Free-trial nudges shown on the home page.
+ *  day 5 -> 孩子的学习旅程正在成长
+ *  day 7 -> 7天免费旅程即将结束
+ * Primary button on both opens the Membership bottom sheet.
+ *
+ * Debug path (as requested): entering the home page opens the day-5 sheet, and
+ * tapping 继续体验 moves to the day-7 sheet so both can be reviewed in one pass.
+ */
+type Step = "none" | "day5" | "day7" | "membership";
+
+export function TrialReminderFlow() {
+  const [step, setStep] = useState<Step>("none");
+
+  useEffect(() => {
+    setStep("day5");
+  }, []);
+
+  const isDay5 = step === "day5";
+
+  return (
+    <>
+      <StandardSheet
+        open={step === "day5" || step === "day7"}
+        title={isDay5 ? "孩子的学习旅程正在成长" : "7天免费旅程即将结束"}
+        brandColor={SHEET_BRAND.paisley}
+        zClass="z-[70]"
+        contentPaddingTop={undefined}
+        onClose={() => setStep(isDay5 ? "day7" : "none")}
+      >
+        {isDay5 ? (
+          <SheetActionBody
+            primary={{ label: "查看会员方案", onClick: () => setStep("membership") }}
+            secondary={{ label: "继续体验", onClick: () => setStep("day7") }}
+          >
+            <SheetCardSubtitle>继续陪伴孩子学习｜让成长持续发生</SheetCardSubtitle>
+            <SheetBenefitList
+              items={["延续孩子的学习记录", "获得更多AI英语陪伴", "解锁更多成长体验"]}
+            />
+          </SheetActionBody>
+        ) : (
+          <SheetActionBody
+            primary={{ label: "升级会员", onClick: () => setStep("membership") }}
+            secondary={{ label: "以后考虑", onClick: () => setStep("none") }}
+          >
+            <SheetCardSubtitle>继续陪伴孩子成长｜开启更完整的学习体验</SheetCardSubtitle>
+            <SheetBenefitList
+              items={[
+                "更多AI英语陪伴时间",
+                "AI反馈与学习记忆",
+                "完整查看孩子成长数据",
+                "解锁更多Bloxia成长内容",
+              ]}
+            />
+          </SheetActionBody>
+        )}
+      </StandardSheet>
+
+      <StandardSheet
+        open={step === "membership"}
+        title="Membership"
+        brandColor={SHEET_BRAND.paisley}
+        zClass="z-[80]"
+        onClose={() => setStep("none")}
+      >
+        <MembershipCards open={step === "membership"} />
+      </StandardSheet>
+    </>
+  );
+}

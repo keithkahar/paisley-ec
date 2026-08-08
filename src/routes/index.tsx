@@ -8,6 +8,7 @@ import shirinTalkText from "@/assets/brand/shirintalk-text.png.asset.json";
 import { Mic } from "lucide-react";
 import { useRef } from "react";
 import { useLearners } from "@/lib/learners";
+import { TrialReminderFlow } from "@/components/app/TrialReminderFlow";
 
 
 export const Route = createFileRoute("/")({
@@ -175,6 +176,7 @@ function Home() {
         </section>
       </div>
 
+      <TrialReminderFlow />
       <BottomTabBar />
     </PhoneFrame>
   );
