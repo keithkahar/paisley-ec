@@ -11,7 +11,7 @@ import {
   mockActivity,
 } from "@/components/app/MonthCalendarDialog";
 import { useBloxia } from "@/lib/bloxia/progress";
-import { requestDailyLimitPrompt, requestVisitorQuotaPrompt } from "@/lib/learningJourney";
+import { requestVisitorQuotaPrompt } from "@/lib/learningJourney";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [
