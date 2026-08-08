@@ -138,17 +138,7 @@ export function StandardSheet({
             </button>
           )}
           {!hasDone && stepLabel && (
-            <span
-              className="absolute right-[14px] top-[18px] leading-none select-none"
-              style={{
-                fontSize: /[\u3400-\u4DBF\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/.test(title) ? 16 : 17,
-                letterSpacing: "-0.01em",
-                fontWeight: 400,
-                color: "color-mix(in oklab, var(--foreground) 45%, white)",
-              }}
-            >
-              {stepLabel.trim().replace(/\s*\/\s*/g, " / ")}
-            </span>
+            <StepLabel title={title} stepLabel={stepLabel} />
           )}
         </div>
         {progress && (
