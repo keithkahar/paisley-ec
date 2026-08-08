@@ -582,6 +582,10 @@ function MapView({
   );
 }
 
+const BADGE_TILE_SCALE: Record<string, number> = {
+  "Hill Adventurer": 0.9,
+};
+
 // ============ Badges View ============
 
 function BadgesView({
