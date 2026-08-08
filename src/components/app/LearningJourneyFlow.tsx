@@ -208,7 +208,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle>创建孩子学习旅程｜继续myWordie学习</SheetCardSubtitle>
+          <SheetCardSubtitle>创建孩子学习旅程｜继续使用myWordie学习</SheetCardSubtitle>
           <SheetBenefitList
             items={["创建专属词汇记录", "保存AI学习记录", "获得7天免费体验"]}
           />
@@ -231,7 +231,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle>创建孩子学习旅程｜继续使用PEC</SheetCardSubtitle>
+          <SheetCardSubtitle>创建孩子学习旅程｜继续与ShirinTalk聊天</SheetCardSubtitle>
           <SheetBenefitList
             items={["继续个性化学习", "保存AI学习记录", "获得7天免费体验"]}
           />
