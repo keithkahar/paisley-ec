@@ -268,11 +268,21 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 onChange={onAvatarFile}
               />
             </div>
+          </div>
 
-            <div className="space-y-3" style={{ marginTop: 33 }}>
+          <div className="flex-1 min-h-0 flex flex-col justify-end">
+            {error && (
+              <p
+                className="mb-3 text-center text-[14px] font-medium"
+                style={{ color: "#e5484d", letterSpacing: "-0.01em" }}
+              >
+                {error}
+              </p>
+            )}
+            <div className="space-y-3">
               {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
               <div
-                className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
+                className="flex items-center gap-2 rounded-full h-[50px] px-6 bg-white border"
                 style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
               >
                 <span
@@ -325,7 +335,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                       key={opt.key}
                       type="button"
                       onClick={() => onGenderChange(opt.key)}
-                      className="h-[64px] w-[64px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
+                      className="h-[50px] w-[50px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
                       style={
                         active
                           ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
@@ -343,7 +353,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 <button
                   type="button"
                   onClick={() => setShowBirthdayPicker(true)}
-                  className={`flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${form.birthday ? "font-semibold" : "font-normal"}`}
+                  className={`flex-1 min-w-0 h-[50px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${form.birthday ? "font-semibold" : "font-normal"}`}
                   style={{
                     borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)`,
                     letterSpacing: "-0.01em",
@@ -355,17 +365,10 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 </button>
               </div>
             </div>
+            <div style={{ marginTop: -8 }}>
+              <SheetActions primary={{ label: "Save", onClick: onSave, background: ACCENT }} />
+            </div>
           </div>
-
-          {error && (
-            <p
-              className="absolute left-0 right-0 text-center text-[14px] font-medium pointer-events-none"
-              style={{ bottom: 32 + 50 + 7, color: "#e5484d", letterSpacing: "-0.01em" }}
-            >
-              {error}
-            </p>
-          )}
-          <SheetActions primary={{ label: "Save", onClick: onSave, background: ACCENT }} />
         </div>
         </StandardSheet>
 

@@ -452,98 +452,101 @@ export function AddLearnerSheet({
               }}
             />
           </div>
+          </div>
 
-          <div className="space-y-3" style={{ marginTop: 33 }}>
-            <div
-              className="flex items-center gap-2 rounded-full h-[64px] px-6 bg-white border"
-              style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
-            >
-              <span className="shrink-0 text-[16px] font-semibold leading-none" style={{ color: PAISLEY, letterSpacing: "-0.01em" }}>
-                Name
-              </span>
-              {!nameFocused && given.trim() && family.trim() ? (
+          <div className="flex-1 min-h-0 flex flex-col justify-end">
+            {error && (
+              <p
+                className="mb-3 text-center text-[14px] font-medium"
+                style={{ color: DANGER, letterSpacing: "-0.01em" }}
+              >
+                {error}
+              </p>
+            )}
+            <div className="space-y-3">
+              <div
+                className="flex items-center gap-2 rounded-full h-[50px] px-6 bg-white border"
+                style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
+              >
+                <span className="shrink-0 text-[16px] font-semibold leading-none" style={{ color: PAISLEY, letterSpacing: "-0.01em" }}>
+                  Name
+                </span>
+                {!nameFocused && given.trim() && family.trim() ? (
+                  <button
+                    type="button"
+                    onClick={() => setNameFocused(true)}
+                    className="flex-1 min-w-0 text-right text-[16px] font-semibold text-foreground truncate"
+                    style={{ letterSpacing: "-0.01em" }}
+                  >
+                    {`${given.trim()} ${family.trim()}`}
+                  </button>
+                ) : (
+                  <>
+                    <input
+                      value={given}
+                      onChange={(e) => { setGiven(capitalizeName(e.target.value)); setError(""); }}
+                      onFocus={() => setNameFocused(true)}
+                      onBlur={() => setNameFocused(false)}
+                      placeholder="Given Name"
+                      className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
+                    />
+                    <input
+                      value={family}
+                      onChange={(e) => { setFamily(capitalizeName(e.target.value)); setError(""); }}
+                      onFocus={() => setNameFocused(true)}
+                      onBlur={() => setNameFocused(false)}
+                      placeholder="Family Name"
+                      className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
+                    />
+                  </>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {([
+                  { key: "female" as const, label: "Girl", color: "var(--shirin)" },
+                  { key: "male" as const, label: "Boy", color: "var(--wordie)" },
+                ]).map((opt) => {
+                  const active = gender === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={() => { setGender(opt.key); setError(""); }}
+                      className="h-[50px] w-[50px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
+                      style={
+                        active
+                          ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
+                          : {
+                              background: "white",
+                              color: opt.color,
+                              border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
                 <button
                   type="button"
-                  onClick={() => setNameFocused(true)}
-                  className="flex-1 min-w-0 text-right text-[16px] font-semibold text-foreground truncate"
-                  style={{ letterSpacing: "-0.01em" }}
+                  onClick={() => setBdayOpen(true)}
+                  className={`flex-1 min-w-0 h-[50px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${birthday ? "font-semibold" : "font-normal"}`}
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--paisley) 55%, white)",
+                    color: birthday ? "var(--foreground)" : "var(--muted-foreground)",
+                    letterSpacing: "-0.01em",
+                  }}
                 >
-                  {`${given.trim()} ${family.trim()}`}
+                  {bdayLabel}
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
                 </button>
-              ) : (
-                <>
-                  <input
-                    value={given}
-                    onChange={(e) => { setGiven(capitalizeName(e.target.value)); setError(""); }}
-                    onFocus={() => setNameFocused(true)}
-                    onBlur={() => setNameFocused(false)}
-                    placeholder="Given Name"
-                    className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
-                  />
-                  <input
-                    value={family}
-                    onChange={(e) => { setFamily(capitalizeName(e.target.value)); setError(""); }}
-                    onFocus={() => setNameFocused(true)}
-                    onBlur={() => setNameFocused(false)}
-                    placeholder="Family Name"
-                    className="flex-1 min-w-0 bg-transparent outline-none text-right text-[16px] font-semibold placeholder:text-muted-foreground placeholder:font-normal"
-                  />
-                </>
-              )}
+              </div>
             </div>
-
-            <div className="flex items-center gap-2">
-              {([
-                { key: "female" as const, label: "Girl", color: "var(--shirin)" },
-                { key: "male" as const, label: "Boy", color: "var(--wordie)" },
-              ]).map((opt) => {
-                const active = gender === opt.key;
-                return (
-                  <button
-                    key={opt.key}
-                    type="button"
-                    onClick={() => { setGender(opt.key); setError(""); }}
-                    className="h-[64px] w-[64px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
-                    style={
-                      active
-                        ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
-                        : {
-                            background: "white",
-                            color: opt.color,
-                            border: `1px solid color-mix(in oklab, ${opt.color} 45%, white)`,
-                          }
-                    }
-                  >
-                    {opt.label}
-                  </button>
-                );
-              })}
-              <button
-                type="button"
-                onClick={() => setBdayOpen(true)}
-                className={`flex-1 min-w-0 h-[64px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${birthday ? "font-semibold" : "font-normal"}`}
-                style={{
-                  borderColor: "color-mix(in oklab, var(--paisley) 55%, white)",
-                  color: birthday ? "var(--foreground)" : "var(--muted-foreground)",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {bdayLabel}
-                <ChevronRight className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
-              </button>
+            <div style={{ marginTop: -8 }}>
+              <SheetActions primary={{ label: "Save", onClick: submit }} />
             </div>
           </div>
-          </div>
-
-          {error && (
-            <p
-              className="absolute left-0 right-0 text-center text-[14px] font-medium pointer-events-none"
-              style={{ bottom: 32 + 50 + 7, color: DANGER, letterSpacing: "-0.01em" }}
-            >
-              {error}
-            </p>
-          )}
-          <SheetActions primary={{ label: "Save", onClick: submit }} />
         </div>
       </StandardSheet>
 
