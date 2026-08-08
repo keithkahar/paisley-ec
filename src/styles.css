@@ -222,3 +222,11 @@ input[type="password"]::-webkit-strong-password-auto-fill-button {
 .bloxia-caret-blink {
   animation: bloxia-caret-blink 1s step-end infinite;
 }
+
+@keyframes bloxia-glow-pulse {
+  0%, 100% { transform: scale(1.2); opacity: 0.55; }
+  50% { transform: scale(1.3); opacity: 0.75; }
+}
+.bloxia-glow-pulse {
+  animation: bloxia-glow-pulse 3s ease-in-out infinite;
+}
