@@ -361,14 +361,14 @@ export function AddLearnerSheet({
         const [y, m, d] = birthday.split("-").map(Number);
         return `${MONTHS_SHORT[m - 1]} ${d} ${y}`;
       })()
-    : "Select birthday";
+    : "Birthday";
 
   const submit = () => {
     if (!avatarSrc) return setError("Add avatar");
     if (!given.trim()) return setError("Add given name");
     if (!family.trim()) return setError("Add family name");
     if (!gender) return setError("Select girl or boy");
-    if (!birthday) return setError("Select birthday");
+    if (!birthday) return setError("Birthday");
     setError("");
     onCreate({
       name: `${given.trim()} ${family.trim()}`,
@@ -465,7 +465,7 @@ export function AddLearnerSheet({
             )}
             <div className="space-y-3">
               <div
-                className="flex items-center gap-2 rounded-full h-[50px] px-6 bg-white border"
+                className="flex items-center gap-2 rounded-full h-[60px] px-6 bg-white border"
                 style={{ borderColor: "color-mix(in oklab, var(--paisley) 55%, white)" }}
               >
                 <span className="shrink-0 text-[16px] font-semibold leading-none" style={{ color: PAISLEY, letterSpacing: "-0.01em" }}>
@@ -513,7 +513,7 @@ export function AddLearnerSheet({
                       key={opt.key}
                       type="button"
                       onClick={() => { setGender(opt.key); setError(""); }}
-                      className="h-[50px] w-[50px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
+                      className="h-[60px] w-[60px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
                       style={
                         active
                           ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
@@ -531,7 +531,7 @@ export function AddLearnerSheet({
                 <button
                   type="button"
                   onClick={() => setBdayOpen(true)}
-                  className={`flex-1 min-w-0 h-[50px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${birthday ? "font-semibold" : "font-normal"}`}
+                  className={`flex-1 min-w-0 h-[60px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${birthday ? "font-semibold" : "font-normal"}`}
                   style={{
                     borderColor: "color-mix(in oklab, var(--paisley) 55%, white)",
                     color: birthday ? "var(--foreground)" : "var(--muted-foreground)",

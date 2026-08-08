@@ -117,7 +117,7 @@ export function capitalizeName(value: string) {
 
 
 function formatBirthday(birthday: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(birthday)) return "Select birthday";
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(birthday)) return "Birthday";
   const [y, m, d] = birthday.split("-").map(Number);
   return `${MONTH_NAMES_SHORT[m - 1]} ${d} ${y}`;
 }
@@ -135,7 +135,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
     if (!form.givenName.trim()) return "Add given name";
     if (!form.familyName.trim()) return "Add family name";
     if (!form.gender) return "Select girl or boy";
-    if (!form.birthday) return "Select birthday";
+    if (!form.birthday) return "Birthday";
     return "";
   }
 
@@ -282,7 +282,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             <div className="space-y-3">
               {/* Name — single pill: label + given/family, merged into a full name once both are filled */}
               <div
-                className="flex items-center gap-2 rounded-full h-[50px] px-6 bg-white border"
+                className="flex items-center gap-2 rounded-full h-[60px] px-6 bg-white border"
                 style={{ borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)` }}
               >
                 <span
@@ -335,7 +335,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                       key={opt.key}
                       type="button"
                       onClick={() => onGenderChange(opt.key)}
-                      className="h-[50px] w-[50px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
+                      className="h-[60px] w-[60px] shrink-0 grid place-items-center rounded-full text-[16px] font-medium transition-colors"
                       style={
                         active
                           ? { background: opt.color, color: "white", border: `1px solid ${opt.color}` }
@@ -353,7 +353,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
                 <button
                   type="button"
                   onClick={() => setShowBirthdayPicker(true)}
-                  className={`flex-1 min-w-0 h-[50px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${form.birthday ? "font-semibold" : "font-normal"}`}
+                  className={`flex-1 min-w-0 h-[60px] rounded-full bg-white border inline-flex items-center justify-center gap-1 text-[16px] ${form.birthday ? "font-semibold" : "font-normal"}`}
                   style={{
                     borderColor: `color-mix(in oklab, ${ACCENT} 55%, white)`,
                     letterSpacing: "-0.01em",
