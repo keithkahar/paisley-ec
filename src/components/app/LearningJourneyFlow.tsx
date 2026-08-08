@@ -126,7 +126,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             disabled: busy,
             onClick: () => {
               clearVisitorQuotaPrompt();
-              setStep("guardian");
+              setStep("intro");
             },
           }}
           secondary={{
