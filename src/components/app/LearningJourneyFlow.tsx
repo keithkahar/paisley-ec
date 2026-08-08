@@ -13,18 +13,21 @@ import { useLearners } from "@/lib/learners";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 import {
   clearLearnerCreationPending,
+  clearVisitorQuotaPrompt,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
+  dismissVisitorQuotaPrompt,
   markLearnerCreationPending,
   setJourneyParentPin,
   shouldResumeLearnerCreation,
   shouldShowLearningJourneyPrompt,
+  shouldShowVisitorQuotaPrompt,
   useLearningJourney,
 } from "@/lib/learningJourney";
 
 const PAISLEY = "var(--paisley)";
 
-type Step = "none" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
+type Step = "none" | "quota" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
 
 /**
  * First Learning Journey creation flow.
@@ -47,6 +50,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     if (shouldResumeLearnerCreation()) {
       markLearnerCreationPending();
       setStep("learner");
+      return;
+    }
+    if (shouldShowVisitorQuotaPrompt(hasLearner)) {
+      setStep("quota");
       return;
     }
     if (shouldShowLearningJourneyPrompt(hasLearner)) setStep("intro");
@@ -86,7 +93,9 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         ? "无法创建家长账户"
         : step === "pin"
           ? "请设置家长PIN码"
-          : "创建孩子的学习旅程";
+          : step === "quota"
+            ? "孩子的学习旅程还未开启"
+            : "创建孩子的学习旅程";
 
   return (
     <>
@@ -104,7 +113,30 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               : dismiss
         }
       >
-        {step === "intro" ? (
+        {step === "quota" ? (
+        <SheetActionBody
+          primary={{
+            label: "创建孩子学习旅程",
+            disabled: busy,
+            onClick: () => {
+              clearVisitorQuotaPrompt();
+              setStep("intro");
+            },
+          }}
+          secondary={{
+            label: "以后再说",
+            onClick: () => {
+              dismissVisitorQuotaPrompt();
+              setStep("none");
+            },
+          }}
+        >
+          <SheetCardSubtitle>创建孩子档案｜保存学习记录｜开启7天免费体验</SheetCardSubtitle>
+          <SheetBenefitList
+            items={["获得完整学习体验", "保存学习进度", "开启Bloxia成长地图"]}
+          />
+        </SheetActionBody>
+        ) : step === "intro" ? (
         <SheetActionBody
           primary={{ label: "现在创建", disabled: busy, onClick: () => setStep("guardian") }}
           secondary={{
