@@ -1545,7 +1545,17 @@ function PlaceSheet({
   const badge = placeBadgeById[place.placeBadgeId];
 
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      pills={
+        <SheetPills
+          items={[
+            { value: formatBp(place.unlockBp) },
+            { value: statusText },
+          ]}
+        />
+      }
+    >
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
@@ -1558,13 +1568,6 @@ function PlaceSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {place.description}
       </div>
-
-      <SheetPills
-        items={[
-          { value: formatBp(place.unlockBp) },
-          { value: statusText },
-        ]}
-      />
 
       {!unlocked && !canUnlock && (
         <div
