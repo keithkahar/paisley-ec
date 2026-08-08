@@ -1535,13 +1535,6 @@ function PlaceSheet({
 }) {
   const unlocked = progress.unlockedPlaceIds.includes(place.id);
   const canUnlock = !unlocked && bp >= place.unlockBp;
-  const statusText = progress.currentPlaceId === place.id
-    ? "Current"
-    : unlocked
-    ? "Visited"
-    : canUnlock
-    ? "Available"
-    : "Locked";
   const badge = placeBadgeById[place.placeBadgeId];
 
   return (
@@ -1612,9 +1605,6 @@ function ItemSheet({
   const placeUnlocked = progress.unlockedPlaceIds.includes(item.placeId);
   const canCollect = !collected && placeUnlocked && bp >= item.bpCost;
   const isFavorite = (progress.favoriteItemIds ?? []).includes(item.id);
-  const statusText = collected
-    ? isFavorite ? "Favorite" : "Collected"
-    : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
     <Sheet
       onClose={onClose}
@@ -2101,16 +2091,6 @@ function BadgeSheet({
     badge.kind === "place"
       ? PLACES.find((p) => p.placeBadgeId === badge.id)?.unlockBp ?? 0
       : growthCost;
-  const statusText = unlocked
-    ? isFavorite
-      ? "Favorite"
-      : "Earned"
-    : isGrowthLocked
-    ? canAfford
-      ? "Available"
-      : "Locked"
-    : "Locked";
-
   return (
     <Sheet
       onClose={onClose}
