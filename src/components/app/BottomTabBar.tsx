@@ -88,13 +88,7 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
                   style={
                     active
                       ? { background: `color-mix(in oklab, ${t.color} 14%, white)` }
-                      : t.to === "/bloxia"
-                        ? (e: React.MouseEvent) => {
-                            e.preventDefault();
-                            requestBloxiaLimitPrompt("bloxia_tab");
-                            navigate({ to: "/profile" });
-                          }
-                        : undefined
+                      : undefined
                   }
                 >
                   <img
