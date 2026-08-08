@@ -676,7 +676,7 @@ function SheetBtn({
     <button
       type="button"
       onClick={onClick}
-      className="w-full rounded-2xl py-3 text-[14px] font-semibold text-center"
+      className="w-full h-[50px] rounded-2xl text-[14px] font-semibold text-center flex items-center justify-center"
       style={{
         background: muted ? "var(--muted)" : "white",
         color: danger ? "var(--destructive)" : muted ? "var(--foreground)" : "var(--wordie)",
