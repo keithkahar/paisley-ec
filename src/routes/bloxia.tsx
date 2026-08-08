@@ -582,6 +582,10 @@ function MapView({
   );
 }
 
+const BADGE_TILE_SCALE: Record<string, number> = {
+  "Hill Adventurer": 0.9,
+};
+
 // ============ Badges View ============
 
 function BadgesView({
@@ -676,6 +680,7 @@ function BadgesView({
             unlocked={item.unlocked}
             selected={selected?.id === item.id}
             onClick={() => onSelect(item)}
+            scale={BADGE_TILE_SCALE[item.name] ?? 1}
           />
         ))}
         {!visible.length && (
@@ -710,6 +715,7 @@ function BadgeTile({
   onClick,
   size = "default",
   hideName = false,
+  scale = 1,
 }: {
   asset: string;
   name: string;
@@ -718,8 +724,10 @@ function BadgeTile({
   onClick: () => void;
   size?: "default" | "large";
   hideName?: boolean;
+  scale?: number;
 }) {
-  const imgSize = size === "large" ? "h-full w-full" : "h-[85%] w-[85%]";
+  const baseSize = size === "large" ? 100 : 85;
+  const s = Math.round(baseSize * scale);
   return (
     <button
       type="button"
@@ -737,11 +745,13 @@ function BadgeTile({
           alt=""
           loading="lazy"
           decoding="async"
-          className={`${imgSize} object-cover`}
+          className="object-cover"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
             filter: unlocked ? undefined : "grayscale(100%)",
+            width: `${s}%`,
+            height: `${s}%`,
           }}
         />
       </div>
@@ -843,6 +853,7 @@ function CollectionView({
                 selected={selectedItemId === item.id}
                 onClick={() => onSelectItem(item)}
                 size="large"
+                scale={BADGE_TILE_SCALE[item.name] ?? 1}
               />
             ))}
           </div>
@@ -878,6 +889,7 @@ function CollectionView({
                   selected={selectedItemId === item.id}
                   onClick={() => onSelectItem(item)}
                   size="large"
+                  scale={BADGE_TILE_SCALE[item.name] ?? 1}
                 />
               );
             })}
@@ -1136,6 +1148,7 @@ function ProfileView({
                   onClick={() => onSelectBadge(e.badge)}
                   size="large"
                   hideName
+                  scale={BADGE_TILE_SCALE[e.badge.name] ?? 1}
                 />
               ) : (
                 <BadgeTile
@@ -1147,6 +1160,7 @@ function ProfileView({
                   onClick={() => onSelectItem(e.item)}
                   size="large"
                   hideName
+                  scale={BADGE_TILE_SCALE[e.item.name] ?? 1}
                 />
               ),
             )}
@@ -1170,6 +1184,7 @@ function ProfileView({
                 onClick={() => onSelectBadge(b)}
                 size="large"
                 hideName
+                scale={BADGE_TILE_SCALE[b.name] ?? 1}
               />
             ))}
           </div>
@@ -1192,6 +1207,7 @@ function ProfileView({
                 onClick={() => onSelectItem(it)}
                 size="large"
                 hideName
+                scale={BADGE_TILE_SCALE[it.name] ?? 1}
               />
             ))}
           </div>
