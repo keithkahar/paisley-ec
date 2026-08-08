@@ -95,13 +95,22 @@ function BloxiaPage() {
   const [badgeTab, setBadgeTab] = useState<BadgeTab>("place");
   const [collectionTab, setCollectionTab] = useState<CollectionTab>("items");
   const [welcomeOpen, setWelcomeOpen] = useState(false);
+  // The trial-limit sheet (LearningJourneyFlow) takes priority over the welcome
+  // sheet. We resolve its state first so the two never mount in the same frame,
+  // which used to cause a brief flash of overlapping sheets.
+  const [journeyOpen, setJourneyOpen] = useState(false);
+  const [journeyChecked, setJourneyChecked] = useState(false);
+  useEffect(() => {
+    setJourneyOpen(shouldShowBloxiaLimitPrompt());
+    setJourneyChecked(true);
+  }, []);
 
   // First-time avatar selection: prompt once when the user has never chosen.
   // DEBUG: always show welcome sheet on entry for debugging.
   useEffect(() => {
-    if (b.ready) setWelcomeOpen(true);
-  }, [b.ready]);
-  const showFirstTime = welcomeOpen;
+    if (b.ready && journeyChecked && !journeyOpen) setWelcomeOpen(true);
+  }, [b.ready, journeyChecked, journeyOpen]);
+  const showFirstTime = welcomeOpen && !journeyOpen;
 
   const next = nextPlace(b.progress);
   const progressPct = next
@@ -216,7 +225,7 @@ function BloxiaPage() {
           )}
         </div>
 
-        <LearningJourneyFlow />
+        <LearningJourneyFlow onOpenChange={setJourneyOpen} />
       {page === "map" && <BottomTabBar />}
         {selectedPlace && (
           <PlaceSheet
