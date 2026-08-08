@@ -180,7 +180,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={isPhoneSuccess || isPhone ? undefined : 16}
+        contentPaddingTop={isPhoneSuccess || isPhone || isGuardian ? undefined : 16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
           isGuardian
