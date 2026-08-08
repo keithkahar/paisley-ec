@@ -219,7 +219,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               },
             }}
             secondary={{
-              label: "稍后再说",
+              label: "以后再说",
               onClick: () => {
                 setPin("");
                 setConfirmPin("");
