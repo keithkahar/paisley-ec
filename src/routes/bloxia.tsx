@@ -707,6 +707,50 @@ function BadgesView({
   );
 }
 
+function GlowImage({
+  src,
+  alt,
+  className,
+  dimmed = false,
+  scale = 1.1,
+  blur = 28,
+  glowOpacity = 0.35,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  dimmed?: boolean;
+  scale?: number;
+  blur?: number;
+  glowOpacity?: number;
+}) {
+  return (
+    <div className={`relative ${className || ""}`}>
+      <img
+        src={src}
+        alt=""
+        className="absolute inset-0 w-full h-full"
+        style={{
+          imageRendering: "pixelated",
+          filter: dimmed ? `grayscale(100%) blur(${blur}px)` : `blur(${blur}px)`,
+          opacity: glowOpacity,
+          transform: `scale(${scale})`,
+        }}
+      />
+      <img
+        src={src}
+        alt={alt}
+        className="relative w-full h-full"
+        style={{
+          imageRendering: "pixelated",
+          opacity: dimmed ? 0.4 : 1,
+          filter: dimmed ? "grayscale(100%)" : undefined,
+        }}
+      />
+    </div>
+  );
+}
+
 function BadgeTile({
   asset,
   name,
