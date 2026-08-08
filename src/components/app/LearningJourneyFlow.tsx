@@ -16,6 +16,8 @@ import {
   clearVisitorQuotaPrompt,
   clearDailyLimitPrompt,
   dismissDailyLimitPrompt,
+  clearWordieLimitPrompt,
+  dismissWordieLimitPrompt,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
   dismissVisitorQuotaPrompt,
@@ -23,6 +25,7 @@ import {
   setJourneyParentPin,
   shouldResumeLearnerCreation,
   shouldShowDailyLimitPrompt,
+  shouldShowWordieLimitPrompt,
   shouldShowLearningJourneyPrompt,
   shouldShowVisitorQuotaPrompt,
   useLearningJourney,
@@ -30,7 +33,16 @@ import {
 
 const PAISLEY = "var(--paisley)";
 
-type Step = "none" | "quota" | "daily" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
+type Step =
+  | "none"
+  | "quota"
+  | "daily"
+  | "wordie"
+  | "intro"
+  | "guardian"
+  | "guardian-error"
+  | "pin"
+  | "learner";
 
 /**
  * First Learning Journey creation flow.
@@ -52,6 +64,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     if (step !== "none") return;
     if (shouldShowDailyLimitPrompt()) {
       setStep("daily");
+      return;
+    }
+    if (shouldShowWordieLimitPrompt()) {
+      setStep("wordie");
       return;
     }
     if (shouldShowVisitorQuotaPrompt(hasLearner)) {
@@ -104,7 +120,9 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             ? "孩子的学习旅程还未开启"
             : step === "daily"
               ? "今日体验已完成"
-              : "创建孩子的学习旅程";
+              : step === "wordie"
+                ? "体验次数已完成"
+                : "创建孩子的学习旅程";
 
   return (
     <>
@@ -130,10 +148,38 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                       dismissDailyLimitPrompt();
                       setStep("none");
                     }
-                  : dismiss
+                  : step === "wordie"
+                    ? () => {
+                        dismissWordieLimitPrompt();
+                        setStep("none");
+                      }
+                    : dismiss
         }
       >
-        {step === "daily" ? (
+        {step === "wordie" ? (
+        <SheetActionBody
+          primary={{
+            label: "现在创建",
+            disabled: busy,
+            onClick: () => {
+              clearWordieLimitPrompt();
+              setStep("guardian");
+            },
+          }}
+          secondary={{
+            label: "以后再说",
+            onClick: () => {
+              dismissWordieLimitPrompt();
+              setStep("none");
+            },
+          }}
+        >
+          <SheetCardSubtitle>创建孩子学习旅程｜继续探索词汇学习</SheetCardSubtitle>
+          <SheetBenefitList
+            items={["创建专属词汇记录", "保存AI学习记录", "获得7天免费体验"]}
+          />
+        </SheetActionBody>
+        ) : step === "daily" ? (
         <SheetActionBody
           primary={{
             label: "现在创建",
