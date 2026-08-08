@@ -18,6 +18,9 @@ import {
   dismissDailyLimitPrompt,
   clearWordieLimitPrompt,
   dismissWordieLimitPrompt,
+  clearBloxiaLimitPrompt,
+  dismissBloxiaLimitPrompt,
+  shouldShowBloxiaLimitPrompt,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
   dismissVisitorQuotaPrompt,
@@ -38,6 +41,7 @@ type Step =
   | "quota"
   | "daily"
   | "wordie"
+  | "bloxia"
   | "intro"
   | "guardian"
   | "guardian-error"
@@ -68,6 +72,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
     }
     if (shouldShowWordieLimitPrompt()) {
       setStep("wordie");
+      return;
+    }
+    if (shouldShowBloxiaLimitPrompt()) {
+      setStep("bloxia");
       return;
     }
     if (shouldShowVisitorQuotaPrompt(hasLearner)) {
@@ -120,7 +128,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             ? "孩子的学习旅程还未开启"
             : step === "daily"
               ? "体验次数已用完"
-              : step === "wordie"
+              : step === "wordie" || step === "bloxia"
                 ? "体验次数已用完"
                 : "创建孩子的学习旅程";
 
@@ -153,10 +161,36 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                         dismissWordieLimitPrompt();
                         setStep("none");
                       }
-                    : dismiss
+                    : step === "bloxia"
+                      ? () => {
+                          dismissBloxiaLimitPrompt();
+                          setStep("none");
+                        }
+                      : dismiss
         }
       >
-        {step === "wordie" ? (
+        {step === "bloxia" ? (
+        <SheetActionBody
+          primary={{
+            label: "现在创建",
+            disabled: busy,
+            onClick: () => {
+              clearBloxiaLimitPrompt();
+              setStep("guardian");
+            },
+          }}
+          secondary={{
+            label: "以后再说",
+            onClick: () => {
+              dismissBloxiaLimitPrompt();
+              setStep("none");
+            },
+          }}
+        >
+          <SheetCardSubtitle>创建孩子学习旅程｜开始探索Bloxia｜收集徽章</SheetCardSubtitle>
+          <SheetBenefitList items={["创建Bloxian身份", "保存成长记录", "获得7天免费探索"]} />
+        </SheetActionBody>
+        ) : step === "wordie" ? (
         <SheetActionBody
           primary={{
             label: "现在创建",
