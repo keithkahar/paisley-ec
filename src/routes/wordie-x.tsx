@@ -242,6 +242,7 @@ function WordieXPage() {
   const [batchOpen, setBatchOpen] = useState(false);
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
+  const [confirmBatchDelete, setConfirmBatchDelete] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
   // Load seed/notes
