@@ -27,7 +27,7 @@ export const SHEET_ACTION_METRICS = {
   cardPadding: 20,
   /** Minimum whitespace between content and the button area. */
   minContentGap: 20,
-  primaryHeight: 48,
+  primaryHeight: 50,
   primaryFontSize: 14,
   /** Gap between the primary and the secondary (text-only) button. */
   secondaryGap: 12,

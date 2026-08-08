@@ -1376,7 +1376,7 @@ function AdminPageInner() {
               <div className="mt-4 shrink-0">
                 <button
                   onClick={saveEditor}
-                  className="w-full h-12 rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
+                  className="w-full h-[50px] rounded-full text-[14px] font-semibold text-white active:scale-[0.99] transition-transform"
                   style={{ background: PAISLEY }}
                 >
                   保存
@@ -1507,7 +1507,7 @@ function AdminPageInner() {
                   </SRField>
               </div>
               <div className="mt-4 shrink-0">
-                <button onClick={saveSrBookEditor} className="w-full h-12 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+                <button onClick={saveSrBookEditor} className="w-full h-[50px] rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
           </StandardSheet>
@@ -1553,7 +1553,7 @@ function AdminPageInner() {
                   </SRField>
               </div>
               <div className="mt-4 shrink-0">
-                <button onClick={saveSrUnitEditor} className="w-full h-12 rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
+                <button onClick={saveSrUnitEditor} className="w-full h-[50px] rounded-full text-[14px] font-semibold" style={{ background: YELLOW, color: "#fff" }}>保存</button>
               </div>
             </div>
           </StandardSheet>
