@@ -178,3 +178,24 @@ export const SHEET_BRAND = {
   paisley: "var(--paisley)",
   bloxia: "var(--bloxia-deep)",
 } as const;
+
+function StepLabel({ title, stepLabel }: { title: string; stepLabel: string }) {
+  const normalized = stepLabel.trim().replace(/\s*\/\s*/g, "/");
+  const [current, total] = normalized.split("/");
+  const titleSize = /[\u3400-\u4DBF\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/.test(title) ? 16 : 17;
+  return (
+    <span
+      className="absolute right-[14px] top-[18px] inline-flex items-baseline leading-none select-none"
+      style={{
+        letterSpacing: "-0.01em",
+        fontWeight: 400,
+        color: "color-mix(in oklab, var(--foreground) 45%, white)",
+      }}
+    >
+      <span style={{ fontSize: titleSize }}>{current}</span>
+      {total && (
+        <span style={{ fontSize: 13 }}>{` / ${total}`}</span>
+      )}
+    </span>
+  );
+}
