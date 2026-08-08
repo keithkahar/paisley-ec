@@ -29,6 +29,7 @@ export type JourneyState = {
   forcePrompt: boolean;
   visitorQuotaPrompt: boolean;
   dailyLimitPrompt: boolean;
+  wordieLimitPrompt: boolean;
   guardianReady: boolean;
   parentPinReady: boolean;
   learnerName: string;
@@ -43,6 +44,7 @@ const EMPTY: JourneyState = {
   forcePrompt: false,
   visitorQuotaPrompt: false,
   dailyLimitPrompt: false,
+  wordieLimitPrompt: false,
   guardianReady: false,
   parentPinReady: false,
   learnerName: "",
@@ -174,6 +176,36 @@ export function clearDailyLimitPrompt() {
 export function dismissDailyLimitPrompt() {
   saveJourneyState({
     dailyLimitPrompt: false,
+    promptDismissed: true,
+    forcePrompt: false,
+    status: JOURNEY_STATUS.postponed,
+  });
+}
+
+/** Visitor used up the myWordie trial and taps in again. */
+export function requestWordieLimitPrompt(source = "") {
+  saveJourneyState({
+    firstLearningCompleted: true,
+    firstLearningSource: source || state.firstLearningSource,
+    wordieLimitPrompt: true,
+    dailyLimitPrompt: false,
+    visitorQuotaPrompt: false,
+    promptDismissed: false,
+    forcePrompt: false,
+  });
+}
+
+export function shouldShowWordieLimitPrompt() {
+  return state.wordieLimitPrompt;
+}
+
+export function clearWordieLimitPrompt() {
+  saveJourneyState({ wordieLimitPrompt: false });
+}
+
+export function dismissWordieLimitPrompt() {
+  saveJourneyState({
+    wordieLimitPrompt: false,
     promptDismissed: true,
     forcePrompt: false,
     status: JOURNEY_STATUS.postponed,
