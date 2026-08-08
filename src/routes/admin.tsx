@@ -1295,18 +1295,17 @@ function AdminPageInner() {
         )}
 
         {/* Reset confirm */}
-        {confirmReset && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setConfirmReset(false)}>
-            <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-normal" style={{ color: NAVY }}>重置后台参数？</div>
-              <div className="text-[13px] mt-2" style={{ color: SUB }}>这会把所有前端参数恢复为默认值。</div>
-              <div className="mt-4 flex gap-3">
-                <button onClick={() => setConfirmReset(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={resetAll} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>重置</button>
-              </div>
-            </div>
-          </div>
-        )}
+        <ConfirmSheet
+          open={confirmReset}
+          title="重置后台参数？"
+          description="这会把所有前端参数恢复为默认值。"
+          brandColor={PAISLEY}
+          confirmLabel="重置"
+          cancelLabel="取消"
+          confirmColor="#D9534F"
+          onConfirm={resetAll}
+          onClose={() => setConfirmReset(false)}
+        />
 
         {/* Editor bottom sheet */}
         <StandardSheet
@@ -1387,18 +1386,17 @@ function AdminPageInner() {
         </StandardSheet>
 
         {/* SR clear confirm */}
-        {srConfirmClear && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center px-8" style={{ background: "rgba(11,37,69,0.32)" }} onClick={() => setSrConfirmClear(false)}>
-            <div className="w-full max-w-[320px] bg-white rounded-2xl p-5" onClick={(e) => e.stopPropagation()}>
-              <div className="text-[16px] font-normal" style={{ color: NAVY }}>清除导入内容？</div>
-              <div className="text-[13px] mt-2" style={{ color: SUB }}>清除后 Smart Reading 将回到默认代码内容。</div>
-              <div className="mt-4 flex gap-3">
-                <button onClick={() => setSrConfirmClear(false)} className="flex-1 h-10 rounded-full text-[14px] font-semibold" style={{ background: SOFT_BG, color: SUB }}>取消</button>
-                <button onClick={srClear} className="flex-1 h-10 rounded-full text-[14px] font-semibold text-white" style={{ background: "#D9534F" }}>清除</button>
-              </div>
-            </div>
-          </div>
-        )}
+        <ConfirmSheet
+          open={srConfirmClear}
+          title="清除导入内容？"
+          description="清除后 Smart Reading 将回到默认代码内容。"
+          brandColor={YELLOW}
+          confirmLabel="清除"
+          cancelLabel="取消"
+          confirmColor="#D9534F"
+          onConfirm={srClear}
+          onClose={() => setSrConfirmClear(false)}
+        />
 
         {/* SR Import sheet */}
         <StandardSheet
