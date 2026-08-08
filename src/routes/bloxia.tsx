@@ -1540,7 +1540,7 @@ function PlaceSheet({
 
       {!unlocked && !canUnlock && (
         <div
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           {formatBp(place.unlockBp - bp)} still needed to unlock
@@ -1549,7 +1549,7 @@ function PlaceSheet({
 
       {unlocked && (
         <div
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           You are here
@@ -1559,7 +1559,7 @@ function PlaceSheet({
         <button
           type="button"
           onClick={onUnlock}
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full px-4 font-semibold text-[17px] text-center"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full px-4 font-semibold text-[17px] text-center"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           Unlock Place
@@ -1618,7 +1618,7 @@ function ItemSheet({
         <button
           type="button"
           onClick={onToggleFavorite}
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           <Heart className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
@@ -1628,14 +1628,14 @@ function ItemSheet({
         <button
           type="button"
           onClick={onCollect}
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full px-4 font-semibold text-[17px] text-center"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full px-4 font-semibold text-[17px] text-center"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           Collect
         </button>
       ) : (
         <div
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           {!placeUnlocked
@@ -1751,7 +1751,7 @@ function NameEditor({
         </div>
         <div className="mt-10 flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14 relative"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-[50px] relative"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -1772,7 +1772,7 @@ function NameEditor({
           <button
             type="button"
             onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
-            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
+            className="h-[50px] px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Save
@@ -1844,7 +1844,7 @@ function AvatarPickerSheet({
         <button
           type="button"
           onClick={() => onConfirm(pending)}
-          className="absolute left-5 right-5 bottom-8 h-12 rounded-full text-[15px] font-semibold"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full text-[15px] font-semibold"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           {confirmLabel}
@@ -1983,7 +1983,7 @@ function WelcomeSheet({
 
         <div className="mt-10 flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-14"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-[50px]"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -2006,7 +2006,7 @@ function WelcomeSheet({
           <button
             type="button"
             onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
-            className="h-14 px-7 rounded-full text-[15px] font-semibold shrink-0"
+            className="h-[50px] px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Start
@@ -2113,14 +2113,14 @@ function BadgeSheet({
           <button
             type="button"
             onClick={onUnlockGrowth}
-            className="absolute left-5 right-5 bottom-8 h-14 rounded-full px-4 font-semibold text-[17px] text-center"
+            className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full px-4 font-semibold text-[17px] text-center"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Unlock · {growthCost.toLocaleString()} Bp
           </button>
         ) : (
           <div
-            className="absolute left-5 right-5 bottom-8 h-14 rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
+            className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full flex items-center justify-center text-center px-4 text-[17px] font-semibold"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             {(growthCost - bp).toLocaleString()} Bp still needed to unlock
@@ -2130,7 +2130,7 @@ function BadgeSheet({
         <button
           type="button"
           onClick={onToggleFavorite}
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
         >
           <Heart className="w-4 h-4" fill="currentColor" />
@@ -2141,7 +2141,7 @@ function BadgeSheet({
           type="button"
           onClick={onToggleFavorite}
           disabled={!unlocked}
-          className="absolute left-5 right-5 bottom-8 h-14 rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
+          className="absolute left-5 right-5 bottom-8 h-[50px] rounded-full px-4 font-semibold text-[17px] text-center inline-flex items-center justify-center gap-2"
           style={{
             background: "rgba(216,175,87,0.32)",
             color: T.goldLight,

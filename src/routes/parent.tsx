@@ -371,7 +371,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               </div>
             </div>
 
-            <div className="mt-5 shrink-0" style={{ height: 48 }}>
+            <div className="mt-5 shrink-0" style={{ height: 50 }}>
               <button
                 type="button"
                 onClick={() => {

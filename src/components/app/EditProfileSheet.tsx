@@ -360,7 +360,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
           {error && (
             <p
               className="absolute left-0 right-0 text-center text-[14px] font-medium pointer-events-none"
-              style={{ bottom: 32 + 48 + 7, color: "#e5484d", letterSpacing: "-0.01em" }}
+              style={{ bottom: 32 + 50 + 7, color: "#e5484d", letterSpacing: "-0.01em" }}
             >
               {error}
             </p>

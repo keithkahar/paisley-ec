@@ -514,7 +514,7 @@ function InfoView({ onStart }: { onStart: () => void }) {
 
       <button
         onClick={onStart}
-        className="mt-5 w-full rounded-full py-3 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        className="mt-5 w-full rounded-full h-[50px] font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
         style={{ background: "var(--wordie)", fontSize: "17.25px" }}
       >
         <Play className="shrink-0 fill-current" style={{ width: "1.05em", height: "1.05em" }} />
@@ -620,7 +620,7 @@ function QuizView({
         {stageIdx > 0 && (
           <button
             onClick={onPrev}
-            className="flex-1 rounded-full py-3.5 font-semibold border border-border bg-white text-[14px]"
+            className="flex-1 rounded-full h-[50px] font-semibold border border-border bg-white text-[14px]"
             style={{ color: "var(--wordie)" }}
           >
             Previous
@@ -628,7 +628,7 @@ function QuizView({
         )}
         <button
           onClick={onNext}
-          className="flex-[2] rounded-full py-3.5 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
+          className="flex-[2] rounded-full h-[50px] font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-1.5 text-[14px]"
           style={{
             background: stageDone ? "var(--wordie)" : "color-mix(in oklab, var(--wordie) 35%, white)"
           }}
@@ -923,7 +923,7 @@ function ResultView({
 
       <Link
         to="/mywordie"
-        className="mt-5 w-full rounded-full py-3 font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
+        className="mt-5 w-full rounded-full h-[50px] font-semibold text-white active:scale-[0.98] transition-transform inline-flex items-center justify-center gap-2"
         style={{ background: "var(--wordie)", fontSize: "17.25px" }}
       >
         <span>Back to myWordie</span>
