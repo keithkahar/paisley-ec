@@ -712,9 +712,9 @@ function GlowImage({
   alt,
   className,
   dimmed = false,
-  scale = 1.1,
-  blur = 28,
-  glowOpacity = 0.35,
+  scale = 1.2,
+  blur = 24,
+  glowOpacity = 0.6,
 }: {
   src: string;
   alt: string;
@@ -726,17 +726,19 @@ function GlowImage({
 }) {
   return (
     <div className={`relative ${className || ""}`}>
-      <img
-        src={src}
-        alt=""
-        className="absolute inset-0 w-full h-full"
-        style={{
-          imageRendering: "pixelated",
-          filter: dimmed ? `grayscale(100%) blur(${blur}px)` : `blur(${blur}px)`,
-          opacity: glowOpacity,
-          transform: `scale(${scale})`,
-        }}
-      />
+      {!dimmed && (
+        <img
+          src={src}
+          alt=""
+          className="absolute inset-0 w-full h-full bloxia-glow-pulse"
+          style={{
+            imageRendering: "pixelated",
+            filter: `blur(${blur}px)`,
+            opacity: glowOpacity,
+            transform: `scale(${scale})`,
+          }}
+        />
+      )}
       <img
         src={src}
         alt={alt}
