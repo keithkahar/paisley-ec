@@ -1764,7 +1764,7 @@ function NameEditor({
         </div>
         <div className="mt-10 flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-[50px] relative"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-[60px] relative"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -1785,7 +1785,7 @@ function NameEditor({
           <button
             type="button"
             onClick={() => onSave(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
-            className="h-[50px] px-7 rounded-full text-[15px] font-semibold shrink-0"
+            className="h-[60px] px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Save
@@ -1996,7 +1996,7 @@ function WelcomeSheet({
 
         <div className="mt-10 flex items-stretch gap-3">
           <div
-            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-[50px]"
+            className="flex-1 flex items-center justify-center gap-1 rounded-full px-5 h-[60px]"
             style={{
               background: "rgba(8,36,22,0.55)",
               border: `1.5px solid ${T.borderSoft}`,
@@ -2019,7 +2019,7 @@ function WelcomeSheet({
           <button
             type="button"
             onClick={() => onStart(current.id, name.trim() || DEFAULT_BLOXIAN_NAME)}
-            className="h-[50px] px-7 rounded-full text-[15px] font-semibold shrink-0"
+            className="h-[60px] px-7 rounded-full text-[15px] font-semibold shrink-0"
             style={{ background: "rgba(216,175,87,0.32)", color: T.goldLight }}
           >
             Start
