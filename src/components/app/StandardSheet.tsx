@@ -139,7 +139,7 @@ export function StandardSheet({
           )}
           {!hasDone && stepLabel && (
             <span
-              className="absolute right-[14px] top-[14px] h-8 grid place-items-center tracking-tight leading-none select-none"
+              className="absolute right-[14px] top-[18px] leading-none select-none"
               style={{
                 fontSize: /[\u3400-\u4DBF\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/.test(title) ? 16 : 17,
                 letterSpacing: "-0.01em",
