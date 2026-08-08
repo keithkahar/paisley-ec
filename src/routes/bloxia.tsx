@@ -1608,6 +1608,7 @@ function PlaceSheet({
         src={bxImg(badge.asset, 448)}
         alt={badge.name}
         className="h-72 w-72 mx-auto"
+        dimmed={!unlocked}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {place.name}
