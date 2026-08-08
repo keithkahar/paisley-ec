@@ -55,23 +55,11 @@ function ShirinTalkPage() {
 
         {/* Hero */}
         <section className="px-6 pt-[55px] pb-1 text-center">
-          {/* Tapping Shirin is the temporary debug entry for the
-              "today's trial is done" sheet (hosted on /profile). */}
-          <button
-            type="button"
-            aria-label="今日体验已完成（调试）"
-            onClick={() => {
-              requestDailyLimitPrompt("shirin_talk_daily");
-              navigate({ to: "/profile" });
-            }}
-            className="block mx-auto active:opacity-80 transition-opacity"
-          >
-            <img
-              src={shirinHero.url}
-              alt="Shirin"
-              className="mx-auto h-40 w-40 object-contain"
-            />
-          </button>
+          <img
+            src={shirinHero.url}
+            alt="Shirin"
+            className="mx-auto h-40 w-40 object-contain"
+          />
           <h2
             className="mt-2 text-[26px] leading-[1.2] font-medium tracking-tight"
             style={{ color: PINK, letterSpacing: "-0.01em" }}
