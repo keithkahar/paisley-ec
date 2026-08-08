@@ -2126,7 +2126,17 @@ function BadgeSheet({
     : "Locked";
 
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      pills={
+        <SheetPills
+          items={[
+            { value: formatBp(cost) },
+            { value: statusText },
+          ]}
+        />
+      }
+    >
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
@@ -2143,13 +2153,6 @@ function BadgeSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {badge.description}
       </div>
-
-      <SheetPills
-        items={[
-          { value: formatBp(cost) },
-          { value: statusText },
-        ]}
-      />
 
       {isGrowthLocked ? (
         canAfford ? (
