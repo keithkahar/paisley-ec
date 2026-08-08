@@ -39,6 +39,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
     | "enter"
     | "recover"
     | "reset"
+    | "guardian"
     | "phone"
     | "phone-entry"
     | "recover-phone"
@@ -57,8 +58,8 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   const [recoverViaPhone, setRecoverViaPhone] = useState(false);
 
   useEffect(() => {
-    // DEBUG: always show phone binding popup on every entry
-    setMode("phone");
+    // DEBUG: always show the visitor guardian-account sheet on every entry
+    setMode("guardian");
   }, []);
 
   useEffect(() => {
@@ -149,13 +150,16 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   if (mode === "loading") return null;
 
   const isPhone = mode === "phone";
+  const isGuardian = mode === "guardian";
   const isRecoverPhone = mode === "recover-phone";
   const isPhoneEntry = mode === "phone-entry" || isRecoverPhone;
   const isPhoneSuccess = mode === "phone-success";
 
   const sheetTitle = isReset
     ? "请设置新的家长PIN"
-    : isPhone
+    : isGuardian
+      ? "创建家长账户"
+      : isPhone
       ? "绑定手机号"
       : isPhoneSuccess
         ? "手机号绑定成功"
@@ -176,10 +180,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={isPhoneSuccess || isPhone ? undefined : 16}
+        contentPaddingTop={isPhoneSuccess || isPhone || isGuardian ? undefined : 16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
-          isPhoneSuccess
+          isGuardian
+            ? () => navigate({ to: "/profile" })
+            : isPhoneSuccess
             ? () => onUnlock()
             : isPhoneEntry
             ? () => {
@@ -201,7 +207,37 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             : () => navigate({ to: "/profile" })
         }
       >
-        {isPhoneSuccess ? (
+        {isGuardian ? (
+          <SheetActionBody
+            primary={{
+              label: (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <img
+                    src={wechatWhite.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ width: 22, height: 22, objectFit: "contain" }}
+                  />
+                  微信授权并继续
+                </span>
+              ),
+              onClick: goPinFlow,
+            }}
+            secondary={{
+              label: "以后再说",
+              onClick: () => {
+                setError("");
+                setMode("phone");
+              },
+            }}
+          >
+            <SheetCardSubtitle>登陆家长中心｜管理孩子学习旅程</SheetCardSubtitle>
+            <SheetBenefitList
+              items={["查看孩子的成长数据", "管理孩子的学习档案", "设置孩子的学习目标"]}
+            />
+          </SheetActionBody>
+        ) : isPhoneSuccess ? (
           <SheetActionBody primary={{ label: "完成", onClick: onUnlock }}>
             {/* Spacer matching the subtitle slot of the onboarding sheet */}
             <SheetCardSubtitle />
