@@ -1669,15 +1669,11 @@ function ItemSheet({
       onClose={onClose}
       pills={<SheetPills items={[{ value: formatBp(item.bpCost) }]} />}
     >
-      <img
+      <GlowImage
         src={bxImg(item.asset, 448)}
-        alt=""
+        alt={item.name}
         className="h-72 w-72 mx-auto"
-        style={{
-          imageRendering: "pixelated",
-          opacity: collected ? 1 : 0.4,
-          filter: collected ? undefined : "grayscale(100%)",
-        }}
+        dimmed={!collected}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {item.name}
