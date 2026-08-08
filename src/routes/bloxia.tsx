@@ -854,6 +854,7 @@ function CollectionView({
                 selected={selectedItemId === item.id}
                 onClick={() => onSelectItem(item)}
                 size="large"
+                scale={BADGE_TILE_SCALE[item.name] ?? 1}
               />
             ))}
           </div>
