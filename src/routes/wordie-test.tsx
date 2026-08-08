@@ -729,7 +729,7 @@ function QuestionCard({
             className="h-14 w-14 rounded-full grid place-items-center text-white shadow-md active:scale-95 transition-transform touch-none"
             style={{
               background: recording
-                ? "#ef4444"
+                ? "var(--destructive)"
                 : answer?.record
                 ? "var(--wordie-accent)"
                 : "var(--wordie)",
