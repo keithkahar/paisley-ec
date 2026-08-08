@@ -1623,7 +1623,17 @@ function ItemSheet({
     ? isFavorite ? "Favorite" : "Collected"
     : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      pills={
+        <SheetPills
+          items={[
+            { value: formatBp(item.bpCost) },
+            { value: statusText },
+          ]}
+        />
+      }
+    >
       <img
         src={bxImg(item.asset, 448)}
         alt=""
@@ -1640,12 +1650,6 @@ function ItemSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {item.description}
       </div>
-      <SheetPills
-        items={[
-          { value: formatBp(item.bpCost) },
-          { value: statusText },
-        ]}
-      />
 
       {collected ? (
         <button
