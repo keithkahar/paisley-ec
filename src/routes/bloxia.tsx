@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
+import { shouldShowBloxiaLimitPrompt } from "@/lib/learningJourney";
 import { Heart, X, ChevronRight, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
