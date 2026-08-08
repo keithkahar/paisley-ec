@@ -1539,7 +1539,7 @@ function PlaceSheet({
         className="h-56 w-56 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
-      <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {place.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
@@ -1618,7 +1618,7 @@ function ItemSheet({
           filter: collected ? undefined : "grayscale(60%)",
         }}
       />
-      <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {item.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
@@ -2058,7 +2058,7 @@ function SheetPills({ items }: { items: { value: string }[] }) {
       {items.map((it) => (
         <div
           key={it.value}
-          className="h-[38px] px-5 rounded-full inline-flex items-center justify-center text-[15px] font-semibold whitespace-nowrap"
+          className="h-7 px-3 rounded-full inline-flex items-center justify-center text-[13px] leading-none font-semibold whitespace-nowrap"
           style={{ border: `1px solid rgba(216,175,87,0.55)`, color: T.goldLight }}
         >
           {it.value}
@@ -2117,7 +2117,7 @@ function BadgeSheet({
           filter: unlocked ? undefined : "grayscale(60%)",
         }}
       />
-      <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {badge.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
