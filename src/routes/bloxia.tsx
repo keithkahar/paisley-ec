@@ -712,9 +712,9 @@ function GlowImage({
   alt,
   className,
   dimmed = false,
-  scale = 1.2,
-  blur = 24,
-  glowOpacity = 0.6,
+  scale = 1.05,
+  blur = 8,
+  glowOpacity = 0.55,
 }: {
   src: string;
   alt: string;
