@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ProfilePage } from "@/routes/profile";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { SheetActionBody, SheetBenefitList } from "@/components/app/SheetActions";
+import { useLearners } from "@/lib/learners";
+
 
 export const Route = createFileRoute("/learning-journey-success")({
   head: () => ({
@@ -19,7 +21,9 @@ const PAISLEY = "var(--paisley)";
 
 function JourneySuccessPage() {
   const navigate = useNavigate();
+  const { displayName } = useLearners();
   const goHome = () => navigate({ to: "/" });
+
 
   return (
     <>
@@ -36,8 +40,9 @@ function JourneySuccessPage() {
               className="text-[26px] leading-[1.4] font-medium tracking-tight text-center"
               style={{ letterSpacing: "-0.01em", color: PAISLEY }}
             >
-              Welcome, Keith!
+              Welcome, {displayName}!
             </p>
+
           </div>
           <SheetBenefitList
             items={[
