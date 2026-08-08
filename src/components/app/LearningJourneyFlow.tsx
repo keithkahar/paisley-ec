@@ -103,7 +103,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step !== "none" && step !== "learner"}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={step === "guardian" ? 16 : undefined}
+        contentPaddingTop={undefined}
         showBack={step === "guardian" || step === "pin"}
         onClose={
           step === "guardian"
@@ -121,7 +121,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         {step === "quota" ? (
         <SheetActionBody
           primary={{
-            label: "创建孩子学习旅程",
+            label: "现在创建",
             disabled: busy,
             onClick: () => {
               clearVisitorQuotaPrompt();
@@ -145,7 +145,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         <SheetActionBody
           primary={{ label: "现在创建", disabled: busy, onClick: () => setStep("guardian") }}
           secondary={{
-            label: "稍后再说",
+            label: "以后再说",
             onClick: () => {
               dismissLearningJourneyPrompt();
               setStep("none");
@@ -173,23 +173,8 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             )}
         </SheetActionBody>
         ) : step === "guardian" ? (
-        <div className="flex flex-col h-full min-h-0">
-          <div className="flex-1 min-h-0 flex flex-col px-5">
-            <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
-            <SheetBenefitList
-              items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
-            />
-            {error && (
-              <p
-                className="mt-2 text-[11px] font-semibold text-center"
-                style={{ color: "var(--destructive)" }}
-              >
-                {error}
-              </p>
-            )}
-          </div>
-          <SheetActions
-            primary={{
+        <SheetActionBody
+          primary={{
               label: (
                 <span className="inline-flex items-center justify-center gap-2">
                   <img
@@ -202,11 +187,23 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                   微信授权并继续
                 </span>
               ),
-              disabled: busy,
-              onClick: () => setStep("guardian-error"),
-            }}
+            disabled: busy,
+            onClick: () => setStep("guardian-error"),
+          }}
+        >
+          <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
+          <SheetBenefitList
+            items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
           />
-        </div>
+          {error && (
+            <p
+              className="mt-2 text-[11px] font-semibold text-center"
+              style={{ color: "var(--destructive)" }}
+            >
+              {error}
+            </p>
+          )}
+        </SheetActionBody>
         ) : step === "guardian-error" ? (
         <SheetActionBody
           primary={{
