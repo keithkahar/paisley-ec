@@ -1460,7 +1460,15 @@ function formatActivityDate(ts: number): string {
 
 // ============ Sheets ============
 
-function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+function Sheet({
+  children,
+  onClose,
+  pills,
+}: {
+  children: React.ReactNode;
+  onClose: () => void;
+  pills?: React.ReactNode;
+}) {
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center pointer-events-none">
       <button
@@ -1490,6 +1498,11 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         >
           <X className="w-4 h-4" strokeWidth={2.5} />
         </button>
+        {pills && (
+          <div className="absolute right-[14px] top-[14px] z-10 flex items-center gap-2">
+            {pills}
+          </div>
+        )}
         <div
           className="relative p-5 overflow-y-auto flex flex-col"
           style={{
