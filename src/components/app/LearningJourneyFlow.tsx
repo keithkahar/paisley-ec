@@ -182,7 +182,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         {step === "bloxia" ? (
         <SheetActionBody
           primary={{
-            label: "现在创建",
+            label: "开始创建",
             background: SHEET_BRAND.bloxia,
             disabled: busy,
             onClick: () => {
@@ -198,13 +198,13 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle color={SHEET_BRAND.bloxia}>创建孩子学习档案｜开始探索Bloxia｜收集徽章</SheetCardSubtitle>
-          <SheetBenefitList items={["创建Bloxian身份", "保存成长记录", "获得7天免费探索"]} />
+          <SheetCardSubtitle color={SHEET_BRAND.bloxia}>创建孩子学习档案｜开始探索Bloxia成长世界｜收集成长徽章</SheetCardSubtitle>
+          <SheetBenefitList items={["创建Bloxian身份", "保存成长记录", "开启7天免费探索"]} />
         </SheetActionBody>
         ) : step === "wordie" ? (
         <SheetActionBody
           primary={{
-            label: "现在创建",
+            label: "开始创建",
             background: SHEET_BRAND.wordie,
             disabled: busy,
             onClick: () => {
@@ -222,13 +222,13 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         >
           <SheetCardSubtitle color={SHEET_BRAND.wordie}>创建孩子学习档案｜继续使用myWordie学习</SheetCardSubtitle>
           <SheetBenefitList
-            items={["创建专属词汇记录", "保存AI学习记录", "获得7天免费体验"]}
+            items={["创建专属词汇记录", "保存AI学习记录", "开启7天免费体验"]}
           />
         </SheetActionBody>
         ) : step === "daily" ? (
         <SheetActionBody
           primary={{
-            label: "现在创建",
+            label: "开始创建",
             background: SHEET_BRAND.shirin,
             disabled: busy,
             onClick: () => {
@@ -244,15 +244,15 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle color={SHEET_BRAND.shirin}>创建孩子学习档案｜继续与ShirinTalk聊天</SheetCardSubtitle>
+          <SheetCardSubtitle color={SHEET_BRAND.shirin}>创建孩子学习档案｜继续与ShirinTalk一起练习</SheetCardSubtitle>
           <SheetBenefitList
-            items={["继续个性化学习", "保存AI学习记录", "获得7天免费体验"]}
+            items={["继续个性化学习", "保存AI学习记录", "开启7天免费体验"]}
           />
         </SheetActionBody>
         ) : step === "quota" ? (
         <SheetActionBody
           primary={{
-            label: "现在创建",
+            label: "开始创建",
             disabled: busy,
             onClick: () => {
               clearVisitorQuotaPrompt();
@@ -269,12 +269,12 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         >
           <SheetCardSubtitle>创建孩子档案｜保存学习记录｜开启7天免费体验</SheetCardSubtitle>
           <SheetBenefitList
-            items={["获得完整学习体验", "保存学习进度", "开启Bloxia成长地图"]}
+            items={["获得完整学习体验", "保存孩子的学习进度", "开启Bloxia成长地图"]}
           />
         </SheetActionBody>
         ) : step === "intro" ? (
         <SheetActionBody
-          primary={{ label: "现在创建", disabled: busy, onClick: () => setStep("guardian") }}
+          primary={{ label: "开始创建", disabled: busy, onClick: () => setStep("guardian") }}
           secondary={{
             label: "以后再说",
             onClick: () => {
@@ -283,15 +283,15 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle>保存学习记录 | 让 PEC 更好地陪伴孩子成长</SheetCardSubtitle>
+          <SheetCardSubtitle>保存孩子的学习记录 | 开启 PEC 陪伴成长之旅</SheetCardSubtitle>
           <SheetBenefitList
             items={[
               "获得个性化学习体验",
               "保存孩子的学习记录",
-              "Bloxia 成长地图/徽章",
-              "管理孩子的学习目标",
-              "查看孩子的学习数据",
-              "获得CEFR和Wordie测试",
+              "开启Bloxia成长地图与徽章",
+              "设定孩子的学习目标",
+              "查看孩子的成长数据",
+              "完成CEFR和Wordie测试",
             ]}
           />
             {error && (
@@ -322,7 +322,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             onClick: () => setStep("guardian-error"),
           }}
         >
-          <SheetCardSubtitle>用于管理孩子的学习旅程</SheetCardSubtitle>
+          <SheetCardSubtitle>用于陪伴和管理孩子的学习旅程</SheetCardSubtitle>
           <SheetBenefitList
             items={["保存孩子的学习记录", "管理孩子的学习档案", "查看孩子的成长数据"]}
           />
@@ -355,7 +355,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           }}
           secondary={{ label: "以后再说", onClick: () => setStep("pin") }}
         >
-          <SheetCardSubtitle>需要微信授权来创建家长账户，并保护学习记录</SheetCardSubtitle>
+          <SheetCardSubtitle>需要微信授权创建家长账户，并保护孩子的学习记录</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
               <div
                 className="grid place-items-center rounded-full overflow-hidden"
@@ -391,7 +391,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
               className="text-[12px] leading-[1.55] text-center"
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
-              6位数字｜用于进入家长中心，管理学习数据
+              6位数字｜用于进入家长中心，保护孩子的学习数据
             </p>
 
             <div className="mt-5 space-y-3">
