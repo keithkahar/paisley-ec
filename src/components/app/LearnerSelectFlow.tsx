@@ -126,7 +126,7 @@ export function LearnerSelectFlow({
                 setDeleteMode((v) => !v);
                 setTarget("");
               }}
-              className="h-11 w-11 shrink-0 grid place-items-center rounded-full active:scale-95 transition-transform"
+              className="h-[50px] w-[50px] shrink-0 grid place-items-center rounded-full active:scale-95 transition-transform"
             >
               <span
                 className="h-7 w-7 grid place-items-center rounded-full"
@@ -143,7 +143,7 @@ export function LearnerSelectFlow({
                 type="button"
                 disabled={!target}
                 onClick={() => setDeletePwOpen(true)}
-                className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-50"
+                className="flex-1 h-[50px] rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform disabled:opacity-50"
                 style={{
                   background: "color-mix(in oklab, var(--destructive) 10%, white)",
                   color: DANGER,
@@ -158,7 +158,7 @@ export function LearnerSelectFlow({
               <button
                 type="button"
                 onClick={() => setAddOpen(true)}
-                className="flex-1 h-11 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+                className="flex-1 h-[50px] rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
                 style={{ background: "color-mix(in oklab, var(--paisley) 12%, white)", color: PAISLEY }}
               >
                 <span className="h-7 w-7 grid place-items-center rounded-full bg-white">
@@ -255,7 +255,7 @@ function DeleteLearnerPasswordSheet({
         <button
           type="button"
           onClick={submit}
-          className="mt-6 w-full rounded-full py-4 px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
+          className="mt-6 w-full h-[50px] rounded-full px-4 text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
           style={{ background: DANGER }}
         >
           Delete
