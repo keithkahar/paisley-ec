@@ -274,7 +274,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
             {error && (
               <p
                 className="mb-3 text-center text-[14px] font-medium"
-                style={{ color: "#e5484d", letterSpacing: "-0.01em" }}
+                style={{ color: "var(--destructive)", letterSpacing: "-0.01em" }}
               >
                 {error}
               </p>

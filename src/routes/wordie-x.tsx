@@ -242,6 +242,7 @@ function WordieXPage() {
   const [batchOpen, setBatchOpen] = useState(false);
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<Note | null>(null);
+  const [confirmBatchDelete, setConfirmBatchDelete] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
   // Load seed/notes
@@ -795,7 +796,11 @@ function WordieXPage() {
             label={allSelectedReview ? "Remove from Review" : "Move to Review"}
             onClick={allSelectedReview ? batchRemoveReview : batchMoveReview}
           />
-          <SheetBtn label="Delete" danger onClick={batchDelete} />
+          <SheetBtn
+            label="Delete"
+            danger
+            onClick={() => { setBatchOpen(false); setConfirmBatchDelete(true); }}
+          />
         </div>
       </StandardSheet>
 
@@ -808,6 +813,17 @@ function WordieXPage() {
         confirmLabel="Delete"
         onConfirm={() => confirmDelete && performDelete(confirmDelete)}
         onClose={() => setConfirmDelete(null)}
+      />
+
+      {/* Batch delete confirm */}
+      <ConfirmSheet
+        open={confirmBatchDelete}
+        title="Delete words?"
+        description={`${selected.size} card${selected.size === 1 ? "" : "s"} will be removed from Wordie-X.`}
+        brandColor={SHEET_BRAND.wordie}
+        confirmLabel="Delete"
+        onConfirm={() => { setConfirmBatchDelete(false); batchDelete(); }}
+        onClose={() => setConfirmBatchDelete(false)}
       />
 
       {/* Full-screen preview */}

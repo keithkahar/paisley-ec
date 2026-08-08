@@ -630,7 +630,7 @@ function SRView(props: {
           onClick={onClear}
           aria-label="清除导入"
           className="h-10 w-10 shrink-0 rounded-xl flex items-center justify-center active:scale-95 transition-transform"
-          style={{ background: "#fff", color: "#D9534F", border: "1px solid #D9534F" }}
+          style={{ background: "#fff", color: "var(--destructive)", border: "1px solid var(--destructive)" }}
         >
           <Trash2 className="h-4 w-4" strokeWidth={2.25} />
         </button>
@@ -1303,7 +1303,7 @@ function AdminPageInner() {
           brandColor={PAISLEY}
           confirmLabel="重置"
           cancelLabel="取消"
-          confirmColor="#D9534F"
+          confirmColor="var(--destructive)"
           onConfirm={resetAll}
           onClose={() => setConfirmReset(false)}
         />
@@ -1394,7 +1394,7 @@ function AdminPageInner() {
           brandColor={YELLOW}
           confirmLabel="清除"
           cancelLabel="取消"
-          confirmColor="#D9534F"
+          confirmColor="var(--destructive)"
           onConfirm={srClear}
           onClose={() => setSrConfirmClear(false)}
         />
@@ -1425,7 +1425,7 @@ function AdminPageInner() {
                   className="mt-2 w-full px-3 py-2 rounded-xl text-[12px] whitespace-pre-wrap"
                   style={{
                     background: srValidationOk === false ? "#FEF2F2" : srValidationOk === true ? "#ECFDF5" : SOFT_BG,
-                    color: srValidationOk === false ? "#9F1239" : srValidationOk === true ? "#065F46" : SUB,
+                    color: srValidationOk === false ? "var(--destructive)" : srValidationOk === true ? "#065F46" : SUB,
                     fontFamily: MONO,
                     border: `1px solid ${srValidationOk === false ? "#FECACA" : srValidationOk === true ? "#A7F3D0" : "#E6ECF5"}`,
                   }}
