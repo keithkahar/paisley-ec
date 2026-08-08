@@ -1,5 +1,9 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { requestDailyLimitPrompt, requestWordieLimitPrompt } from "@/lib/learningJourney";
+import {
+  requestBloxiaLimitPrompt,
+  requestDailyLimitPrompt,
+  requestWordieLimitPrompt,
+} from "@/lib/learningJourney";
 import shirinFilled from "@/assets/tabs/shirin-filled.png";
 import shirinOutline from "@/assets/tabs/shirin-outline-medium.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
@@ -70,7 +74,13 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
                           requestWordieLimitPrompt("mywordie_tab");
                           navigate({ to: "/profile" });
                         }
-                      : undefined
+                      : t.to === "/bloxia"
+                        ? (e: React.MouseEvent) => {
+                            e.preventDefault();
+                            requestBloxiaLimitPrompt("bloxia_tab");
+                            navigate({ to: "/profile" });
+                          }
+                        : undefined
                 }
               >
                 <span
@@ -78,7 +88,13 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
                   style={
                     active
                       ? { background: `color-mix(in oklab, ${t.color} 14%, white)` }
-                      : undefined
+                      : t.to === "/bloxia"
+                        ? (e: React.MouseEvent) => {
+                            e.preventDefault();
+                            requestBloxiaLimitPrompt("bloxia_tab");
+                            navigate({ to: "/profile" });
+                          }
+                        : undefined
                   }
                 >
                   <img

@@ -30,6 +30,7 @@ export type JourneyState = {
   visitorQuotaPrompt: boolean;
   dailyLimitPrompt: boolean;
   wordieLimitPrompt: boolean;
+  bloxiaLimitPrompt: boolean;
   guardianReady: boolean;
   parentPinReady: boolean;
   learnerName: string;
@@ -45,6 +46,7 @@ const EMPTY: JourneyState = {
   visitorQuotaPrompt: false,
   dailyLimitPrompt: false,
   wordieLimitPrompt: false,
+  bloxiaLimitPrompt: false,
   guardianReady: false,
   parentPinReady: false,
   learnerName: "",
@@ -206,6 +208,38 @@ export function clearWordieLimitPrompt() {
 export function dismissWordieLimitPrompt() {
   saveJourneyState({
     wordieLimitPrompt: false,
+  bloxiaLimitPrompt: false,
+    promptDismissed: true,
+    forcePrompt: false,
+    status: JOURNEY_STATUS.postponed,
+  });
+}
+
+/** Visitor used up the Bloxia trial and taps in again. */
+export function requestBloxiaLimitPrompt(source = "") {
+  saveJourneyState({
+    firstLearningCompleted: true,
+    firstLearningSource: source || state.firstLearningSource,
+    bloxiaLimitPrompt: true,
+    wordieLimitPrompt: false,
+    dailyLimitPrompt: false,
+    visitorQuotaPrompt: false,
+    promptDismissed: false,
+    forcePrompt: false,
+  });
+}
+
+export function shouldShowBloxiaLimitPrompt() {
+  return state.bloxiaLimitPrompt;
+}
+
+export function clearBloxiaLimitPrompt() {
+  saveJourneyState({ bloxiaLimitPrompt: false });
+}
+
+export function dismissBloxiaLimitPrompt() {
+  saveJourneyState({
+    bloxiaLimitPrompt: false,
     promptDismissed: true,
     forcePrompt: false,
     status: JOURNEY_STATUS.postponed,
