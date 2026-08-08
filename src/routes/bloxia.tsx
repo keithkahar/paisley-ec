@@ -1149,6 +1149,7 @@ function ProfileView({
                   onClick={() => onSelectBadge(e.badge)}
                   size="large"
                   hideName
+                  scale={BADGE_TILE_SCALE[e.badge.name] ?? 1}
                 />
               ) : (
                 <BadgeTile
