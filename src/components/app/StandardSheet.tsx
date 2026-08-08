@@ -42,6 +42,8 @@ type Props = {
   progress?: { total: number; current: number };
   /** When true, render a back chevron instead of the close X in the top-left. */
   showBack?: boolean;
+  /** Optional step indicator (e.g. "1/3") shown top-right in gray. */
+  stepLabel?: string;
   children: ReactNode;
 };
 
@@ -58,6 +60,7 @@ export function StandardSheet({
   height = "min(62vh, calc(100dvh - 6rem - env(safe-area-inset-bottom)))",
   progress,
   showBack,
+  stepLabel,
   children,
 }: Props) {
   useEffect(() => {
@@ -125,6 +128,29 @@ export function StandardSheet({
             )}
           </button>
           {hasDone && (
+            <button
+              type="button"
+              onClick={onDone}
+              aria-label="Done"
+              className="absolute right-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
+            >
+              <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
+            </button>
+          )}
+          {!hasDone && stepLabel && (
+            <span
+              className="absolute right-[14px] top-[14px] h-8 grid place-items-center tracking-tight leading-none select-none"
+              style={{
+                fontSize: /[\u3400-\u4DBF\u4E00-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/.test(title) ? 16 : 17,
+                letterSpacing: "-0.01em",
+                fontWeight: 400,
+                color: "color-mix(in oklab, var(--foreground) 45%, white)",
+              }}
+            >
+              {stepLabel}
+            </span>
+          )}
+          {false && (
             <button
               type="button"
               onClick={onDone}
