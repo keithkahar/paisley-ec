@@ -1602,11 +1602,10 @@ function PlaceSheet({
       onClose={onClose}
       pills={<SheetPills items={[{ value: formatBp(place.unlockBp) }]} />}
     >
-      <img
+      <GlowImage
         src={bxImg(badge.asset, 448)}
-        alt=""
+        alt={badge.name}
         className="h-72 w-72 mx-auto"
-        style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {place.name}
