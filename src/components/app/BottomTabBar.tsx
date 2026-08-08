@@ -66,19 +66,19 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
                     ? (e: React.MouseEvent) => {
                         e.preventDefault();
                         requestDailyLimitPrompt("shirin_talk_tab");
-                        navigate({ to: "/profile" });
+                        navigate({ to: "/shirin-talk" });
                       }
                     : t.to === "/mywordie"
                       ? (e: React.MouseEvent) => {
                           e.preventDefault();
                           requestWordieLimitPrompt("mywordie_tab");
-                          navigate({ to: "/profile" });
+                          navigate({ to: "/mywordie" });
                         }
                       : t.to === "/bloxia"
                         ? (e: React.MouseEvent) => {
                             e.preventDefault();
                             requestBloxiaLimitPrompt("bloxia_tab");
-                            navigate({ to: "/profile" });
+                            navigate({ to: "/bloxia" });
                           }
                         : undefined
                 }

@@ -3,6 +3,7 @@ import { capitalizeName } from "@/components/app/EditProfileSheet";
 import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
 import { Heart, X, ChevronRight, ChevronDown, Pencil, Camera, Compass, Award, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import bloxiaLogoText from "@/assets/brand/bloxia-logo-text.png";
@@ -215,7 +216,8 @@ function BloxiaPage() {
           )}
         </div>
 
-        {page === "map" && <BottomTabBar />}
+        <LearningJourneyFlow />
+      {page === "map" && <BottomTabBar />}
         {selectedPlace && (
           <PlaceSheet
             place={selectedPlace}
