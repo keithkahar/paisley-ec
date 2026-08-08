@@ -737,7 +737,7 @@ function BadgeTile({
           alt=""
           loading="lazy"
           decoding="async"
-          className={`${imgSize} object-contain`}
+          className={`${imgSize} object-cover`}
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
