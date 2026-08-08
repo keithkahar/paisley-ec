@@ -777,81 +777,37 @@ function WordieXPage() {
       </StandardSheet>
 
       {/* Batch sheet */}
-      {batchOpen && (
-        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
-          <div className="absolute inset-0 bg-sheet-backdrop" />
-          <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-            style={{ height: "58vh" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
-              <p
-                className="text-[17px] font-normal tracking-tight leading-none"
-                style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
-              >
-                Batch Actions
-              </p>
-              <button
-                type="button"
-                onClick={() => setBatchOpen(false)}
-                aria-label="Close"
-                className="absolute left-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-              >
-                <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-              </button>
-            </div>
-            <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">
-              {selected.size} selected
-            </p>
-            <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
-              <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
-              <SheetBtn
-                label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
-                onClick={allSelectedFocus ? batchRemoveFocus : batchAddFocus}
-              />
-              <SheetBtn
-                label={allSelectedReview ? "Remove from Review" : "Move to Review"}
-                onClick={allSelectedReview ? batchRemoveReview : batchMoveReview}
-              />
-              <SheetBtn label="Delete" danger onClick={batchDelete} />
-              <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
-            </div>
-          </div>
+      <StandardSheet
+        open={batchOpen}
+        title="Actions"
+        brandColor={SHEET_BRAND.wordie}
+        subtitle={`${selected.size} selected`}
+        onClose={() => setBatchOpen(false)}
+      >
+        <div className="space-y-2">
+          <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
+          <SheetBtn
+            label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
+            onClick={allSelectedFocus ? batchRemoveFocus : batchAddFocus}
+          />
+          <SheetBtn
+            label={allSelectedReview ? "Remove from Review" : "Move to Review"}
+            onClick={allSelectedReview ? batchRemoveReview : batchMoveReview}
+          />
+          <SheetBtn label="Delete" danger onClick={batchDelete} />
         </div>
-      )}
+      </StandardSheet>
 
       {/* Delete confirm */}
-      {confirmDelete && (
-        <div
-          className="fixed inset-0 z-50 grid place-items-center bg-sheet-backdrop px-6"
-          onClick={() => setConfirmDelete(null)}
-        >
-          <div className="w-full max-w-[320px] rounded-3xl bg-white p-5" onClick={(e) => e.stopPropagation()}>
-            <p className="text-[16px] font-semibold">Delete word?</p>
-            <p className="mt-1 text-[13px] text-muted-foreground">
-              This word will be removed from Wordie-X.
-            </p>
-            <div className="mt-4 flex gap-2">
-              <button
-                type="button"
-                onClick={() => setConfirmDelete(null)}
-                className="flex-1 rounded-full py-2.5 text-[14px] font-semibold bg-muted"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={() => performDelete(confirmDelete)}
-                className="flex-1 rounded-full py-2.5 text-[14px] font-semibold text-white"
-                style={{ background: "var(--destructive)" }}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmSheet
+        open={!!confirmDelete}
+        title="Delete word?"
+        description="This word will be removed from Wordie-X."
+        brandColor={SHEET_BRAND.wordie}
+        confirmLabel="Delete"
+        onConfirm={() => confirmDelete && performDelete(confirmDelete)}
+        onClose={() => setConfirmDelete(null)}
+      />
 
       {/* Full-screen preview */}
       {previewIdx !== null && filtered[previewIdx] && (
