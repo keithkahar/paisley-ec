@@ -135,7 +135,7 @@ export function EditProfileSheet({ open, onClose, onSaved }: { open: boolean; on
     if (!form.givenName.trim()) return "Add given name";
     if (!form.familyName.trim()) return "Add family name";
     if (!form.gender) return "Select girl or boy";
-    if (!form.birthday) return "Select birthday";
+    if (!form.birthday) return "Birthday";
     return "";
   }
 
