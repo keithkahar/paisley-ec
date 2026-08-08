@@ -1550,8 +1550,8 @@ function PlaceSheet({
       pills={
         <SheetPills
           items={[
-            { value: formatBp(place.unlockBp) },
             { value: statusText },
+            { value: formatBp(place.unlockBp) },
           ]}
         />
       }
@@ -1562,7 +1562,7 @@ function PlaceSheet({
         className="h-72 w-72 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
-      <div className="mt-[32px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
+      <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {place.name}
       </div>
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
@@ -1628,8 +1628,8 @@ function ItemSheet({
       pills={
         <SheetPills
           items={[
-            { value: formatBp(item.bpCost) },
             { value: statusText },
+            { value: formatBp(item.bpCost) },
           ]}
         />
       }
@@ -2131,8 +2131,8 @@ function BadgeSheet({
       pills={
         <SheetPills
           items={[
-            { value: formatBp(cost) },
             { value: statusText },
+            { value: formatBp(cost) },
           ]}
         />
       }
