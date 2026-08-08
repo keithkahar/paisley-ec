@@ -224,8 +224,8 @@ input[type="password"]::-webkit-strong-password-auto-fill-button {
 }
 
 @keyframes bloxia-glow-pulse {
-  0%, 100% { transform: scale(1.1); opacity: 0.5; }
-  50% { transform: scale(1.13); opacity: 0.65; }
+  0%, 100% { transform: scale(1.05); opacity: 0.4; }
+  50% { transform: scale(1.07); opacity: 0.5; }
 }
 .bloxia-glow-pulse {
   animation: bloxia-glow-pulse 3s ease-in-out infinite;
