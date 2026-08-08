@@ -222,13 +222,16 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                   微信授权并继续
                 </span>
               ),
-              onClick: goPinFlow,
+              onClick: () => {
+                setError("");
+                setMode("phone");
+              },
             }}
             secondary={{
               label: "以后再说",
               onClick: () => {
                 setError("");
-                setMode("phone");
+                navigate({ to: "/profile" });
               },
             }}
           >
