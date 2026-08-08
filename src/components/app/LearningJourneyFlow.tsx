@@ -14,12 +14,15 @@ import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 import {
   clearLearnerCreationPending,
   clearVisitorQuotaPrompt,
+  clearDailyLimitPrompt,
+  dismissDailyLimitPrompt,
   completeLearningJourney,
   dismissLearningJourneyPrompt,
   dismissVisitorQuotaPrompt,
   markLearnerCreationPending,
   setJourneyParentPin,
   shouldResumeLearnerCreation,
+  shouldShowDailyLimitPrompt,
   shouldShowLearningJourneyPrompt,
   shouldShowVisitorQuotaPrompt,
   useLearningJourney,
@@ -27,7 +30,7 @@ import {
 
 const PAISLEY = "var(--paisley)";
 
-type Step = "none" | "quota" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
+type Step = "none" | "quota" | "daily" | "intro" | "guardian" | "guardian-error" | "pin" | "learner";
 
 /**
  * First Learning Journey creation flow.
@@ -47,6 +50,10 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
   // Open or resume the flow, mirroring maybeOpenLearningJourneyFlow().
   useEffect(() => {
     if (step !== "none") return;
+    if (shouldShowDailyLimitPrompt()) {
+      setStep("daily");
+      return;
+    }
     if (shouldShowVisitorQuotaPrompt(hasLearner)) {
       setStep("quota");
       return;
@@ -95,7 +102,9 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           ? "请设置家长PIN"
           : step === "quota"
             ? "孩子的学习旅程还未开启"
-            : "创建孩子的学习旅程";
+            : step === "daily"
+              ? "今日体验已完成"
+              : "创建孩子的学习旅程";
 
   return (
     <>
@@ -116,10 +125,38 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
                     dismissVisitorQuotaPrompt();
                     setStep("none");
                   }
-                : dismiss
+                : step === "daily"
+                  ? () => {
+                      dismissDailyLimitPrompt();
+                      setStep("none");
+                    }
+                  : dismiss
         }
       >
-        {step === "quota" ? (
+        {step === "daily" ? (
+        <SheetActionBody
+          primary={{
+            label: "现在创建",
+            disabled: busy,
+            onClick: () => {
+              clearDailyLimitPrompt();
+              setStep("guardian");
+            },
+          }}
+          secondary={{
+            label: "以后再说",
+            onClick: () => {
+              dismissDailyLimitPrompt();
+              setStep("none");
+            },
+          }}
+        >
+          <SheetCardSubtitle>创建孩子学习旅程｜继续使用PEC</SheetCardSubtitle>
+          <SheetBenefitList
+            items={["继续个性化学习", "保存AI学习记录", "获得7天免费体验"]}
+          />
+        </SheetActionBody>
+        ) : step === "quota" ? (
         <SheetActionBody
           primary={{
             label: "现在创建",
