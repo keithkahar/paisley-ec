@@ -17,7 +17,7 @@ import { Check } from "lucide-react";
  *                  => primary bottom -> panel bottom .. 68px
  *  minimum gap between content and the button area ..... 20px
  *
- * Do NOT override these four numbers (48 / 12 / 22 / 32) anywhere else, and do
+ * Do NOT override these four numbers (50 / 12 / 22 / 32) anywhere else, and do
  * NOT add per-sheet pb-* or fixed column heights for button positioning.
  */
 export const SHEET_ACTION_METRICS = {
