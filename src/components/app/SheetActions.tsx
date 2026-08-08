@@ -135,7 +135,7 @@ export function SheetActions({
           type="button"
           disabled={primary.disabled}
           onClick={primary.onClick}
-          className="w-full rounded-full font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60"
+          className="w-full rounded-full font-semibold text-white transition-transform active:scale-[0.98] disabled:opacity-60 flex items-center justify-center leading-none"
           style={{
             height: SHEET_ACTION_METRICS.primaryHeight,
             background: primary.background ?? PAISLEY,

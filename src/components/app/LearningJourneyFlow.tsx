@@ -92,7 +92,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       : step === "guardian-error"
         ? "无法创建家长账户"
         : step === "pin"
-          ? "请设置家长PIN码"
+          ? "请设置家长PIN"
           : step === "quota"
             ? "孩子的学习旅程还未开启"
             : "创建孩子的学习旅程";
@@ -104,6 +104,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
         contentPaddingTop={undefined}
+        stepLabel={step === "guardian" ? "1/3" : step === "pin" ? "2/3" : undefined}
         showBack={step === "guardian" || step === "pin"}
         onClose={
           step === "guardian"
@@ -286,6 +287,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       <AddLearnerSheet
         title="创建孩子档案"
         open={step === "learner"}
+        stepLabel="3/3"
         onClose={() => {
           clearLearnerCreationPending();
           setStep("none");
