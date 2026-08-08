@@ -1536,7 +1536,7 @@ function PlaceSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-44 w-44 mx-auto"
+        className="h-56 w-56 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
@@ -1546,10 +1546,12 @@ function PlaceSheet({
         {place.description}
       </div>
 
-      <div className="mt-5 space-y-2">
-        <SheetRow label="Required Bp" value={formatBp(place.unlockBp)} />
-        <SheetRow label="Status" value={statusText} />
-      </div>
+      <SheetPills
+        items={[
+          { value: formatBp(place.unlockBp) },
+          { value: statusText },
+        ]}
+      />
 
       {!unlocked && !canUnlock && (
         <div
@@ -1609,7 +1611,7 @@ function ItemSheet({
       <img
         src={bxImg(item.asset, 448)}
         alt=""
-        className="h-44 w-44 mx-auto"
+        className="h-56 w-56 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: collected ? 1 : 0.4,
@@ -1622,10 +1624,12 @@ function ItemSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {item.description}
       </div>
-      <div className="mt-5 space-y-2">
-        <SheetRow label={collected ? "Used Bp" : "Required Bp"} value={formatBp(item.bpCost)} />
-        <SheetRow label="Status" value={statusText} />
-      </div>
+      <SheetPills
+        items={[
+          { value: formatBp(item.bpCost) },
+          { value: statusText },
+        ]}
+      />
 
       {collected ? (
         <button
@@ -2048,6 +2052,22 @@ function ActivitySheet({ logs, onClose }: { logs: SpendingLog[]; onClose: () => 
   );
 }
 
+function SheetPills({ items }: { items: { value: string }[] }) {
+  return (
+    <div className="mt-4 flex items-center justify-center gap-3">
+      {items.map((it) => (
+        <div
+          key={it.value}
+          className="h-[38px] px-5 rounded-full inline-flex items-center justify-center text-[15px] font-semibold whitespace-nowrap"
+          style={{ border: `1px solid rgba(216,175,87,0.55)`, color: T.goldLight }}
+        >
+          {it.value}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function SheetRow({ label, value }: { label: string; value: string }) {
   return (
     <div
@@ -2102,7 +2122,7 @@ function BadgeSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-44 w-44 mx-auto"
+        className="h-56 w-56 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: unlocked ? 1 : 0.4,
@@ -2116,10 +2136,12 @@ function BadgeSheet({
         {badge.description}
       </div>
 
-      <div className="mt-5 space-y-2">
-        <SheetRow label={unlocked ? "Used Bp" : "Required Bp"} value={formatBp(cost)} />
-        <SheetRow label="Status" value={statusText} />
-      </div>
+      <SheetPills
+        items={[
+          { value: formatBp(cost) },
+          { value: statusText },
+        ]}
+      />
 
       {isGrowthLocked ? (
         canAfford ? (
