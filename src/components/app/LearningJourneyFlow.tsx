@@ -222,7 +222,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             disabled: busy,
             onClick: () => setStep("guardian"),
           }}
-          secondary={{ label: "稍后再说", onClick: () => setStep("pin") }}
+          secondary={{ label: "以后再说", onClick: () => setStep("pin") }}
         >
           <SheetCardSubtitle>需要微信授权来创建家长账户，并保护学习记录</SheetCardSubtitle>
             <div className="flex-1 min-h-0 flex flex-col items-center justify-center -mx-1 px-1">
