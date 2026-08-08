@@ -719,12 +719,12 @@ function BadgeTile({
   size?: "default" | "large";
   hideName?: boolean;
 }) {
-  const imgSize = size === "large" ? "h-full w-full" : "h-full w-full";
+  const imgSize = "h-full w-full";
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-[14px] text-center transition-transform active:scale-95 flex flex-col ${hideName ? "p-1.5" : "p-2.5"}`}
+      className={`rounded-[14px] text-center transition-transform active:scale-95 flex flex-col ${hideName ? "p-1" : "p-1.5"}`}
       style={{
         background: "rgba(8,36,22,0.72)",
         border: selected ? `1.5px solid ${T.goldLight}` : `1.5px solid ${T.borderSoft}`,
