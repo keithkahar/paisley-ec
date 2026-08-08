@@ -444,49 +444,26 @@ function WordieBankPage() {
       </div>
 
       {/* Batch sheet */}
-      {batchOpen && (
-        <div className="fixed inset-0 z-40 flex items-end justify-center" onClick={() => setBatchOpen(false)}>
-          <div className="absolute inset-0 bg-sheet-backdrop" />
-          <div
-            className="relative w-full max-w-[420px] bg-white rounded-t-3xl flex flex-col"
-            style={{ height: "62vh" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative flex items-center justify-center px-5 pt-4 pb-3 shrink-0">
-              <p
-                className="text-[17px] font-normal tracking-tight leading-none"
-                style={{ letterSpacing: "-0.01em", color: "var(--wordie)" }}
-              >
-                Batch Actions
-              </p>
-              <button
-                type="button"
-                onClick={() => setBatchOpen(false)}
-                aria-label="Close"
-                className="absolute left-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-              >
-                <X className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-              </button>
-            </div>
-            <p className="text-[12px] text-muted-foreground text-center mb-4 shrink-0">
-              {selectedSummary}
-            </p>
-            <div className="flex-1 overflow-y-auto px-5 pb-8 space-y-2">
-              <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
-              <SheetBtn
-                label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
-                onClick={allSelectedFocus ? removeFromFocus : addToFocus}
-              />
-              <SheetBtn
-                label={allSelectedReview ? "Remove from Review" : "Move to Review"}
-                onClick={allSelectedReview ? removeFromReview : moveToReview}
-              />
-              <SheetBtn label="Reset Progress" danger onClick={() => { setBatchOpen(false); setResetConfirm(true); }} />
-              <SheetBtn label="Cancel" muted onClick={() => setBatchOpen(false)} />
-            </div>
-          </div>
+      <StandardSheet
+        open={batchOpen}
+        title="Actions"
+        brandColor={SHEET_BRAND.wordie}
+        subtitle={selectedSummary}
+        onClose={() => setBatchOpen(false)}
+      >
+        <div className="space-y-2">
+          <SheetBtn label="Preview" onClick={() => { setBatchOpen(false); setPreviewIdx(0); }} />
+          <SheetBtn
+            label={allSelectedFocus ? "Remove from Focus" : "Add to Focus"}
+            onClick={allSelectedFocus ? removeFromFocus : addToFocus}
+          />
+          <SheetBtn
+            label={allSelectedReview ? "Remove from Review" : "Move to Review"}
+            onClick={allSelectedReview ? removeFromReview : moveToReview}
+          />
+          <SheetBtn label="Reset Progress" danger onClick={() => { setBatchOpen(false); setResetConfirm(true); }} />
         </div>
-      )}
+      </StandardSheet>
 
       {/* Filter sheets */}
       <StandardSheet
@@ -558,34 +535,15 @@ function WordieBankPage() {
       </StandardSheet>
 
       {/* Reset confirm */}
-      {resetConfirm && (
-        <div className="fixed inset-0 z-50 grid place-items-center px-8">
-          <div className="absolute inset-0 bg-sheet-backdrop" onClick={() => setResetConfirm(false)} />
-          <div className="relative w-full max-w-[360px] bg-white rounded-2xl p-5 text-center">
-            <p className="font-semibold text-[15px]">Reset Progress?</p>
-            <p className="text-[12px] text-muted-foreground mt-1">
-              Selected cards will become New again.
-            </p>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setResetConfirm(false)}
-                className="rounded-full py-2.5 text-[14px] font-semibold bg-muted"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={resetProgress}
-                className="rounded-full py-2.5 text-[14px] font-semibold text-white"
-                style={{ background: "var(--destructive)" }}
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmSheet
+        open={resetConfirm}
+        title="Reset Progress?"
+        description="Selected cards will become New again."
+        brandColor={SHEET_BRAND.wordie}
+        confirmLabel="Reset"
+        onConfirm={resetProgress}
+        onClose={() => setResetConfirm(false)}
+      />
 
       {/* Full-screen preview */}
       {previewIdx !== null && filtered[previewIdx] && (
