@@ -76,7 +76,7 @@ export function StandardSheet({
 
   return (
     <div
-      className={`fixed inset-0 z-40 flex items-end justify-center transition-opacity duration-200 ${
+      className={`fixed inset-0 z-[60] flex items-end justify-center transition-opacity duration-200 ${
         open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
     >
@@ -176,7 +176,7 @@ export const SHEET_BRAND = {
   shirin: "var(--shirin)",
   wordie: "var(--wordie)",
   paisley: "var(--paisley)",
-  bloxia: "var(--bloxia-deep)",
+  bloxia: "#689c40",
 } as const;
 
 function StepLabel({ title, stepLabel }: { title: string; stepLabel: string }) {
