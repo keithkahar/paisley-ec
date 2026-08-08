@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { requestDailyLimitPrompt } from "@/lib/learningJourney";
+import { requestDailyLimitPrompt, requestWordieLimitPrompt } from "@/lib/learningJourney";
 import shirinFilled from "@/assets/tabs/shirin-filled.png";
 import shirinOutline from "@/assets/tabs/shirin-outline-medium.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
@@ -64,7 +64,13 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
                         requestDailyLimitPrompt("shirin_talk_tab");
                         navigate({ to: "/profile" });
                       }
-                    : undefined
+                    : t.to === "/mywordie"
+                      ? (e: React.MouseEvent) => {
+                          e.preventDefault();
+                          requestWordieLimitPrompt("mywordie_tab");
+                          navigate({ to: "/profile" });
+                        }
+                      : undefined
                 }
               >
                 <span
