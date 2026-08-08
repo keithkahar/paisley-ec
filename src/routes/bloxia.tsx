@@ -719,7 +719,7 @@ function BadgeTile({
   size?: "default" | "large";
   hideName?: boolean;
 }) {
-  const imgSize = size === "large" ? "h-full w-full" : "h-[80%] w-[80%]";
+  const imgSize = size === "large" ? "h-full w-full" : "h-[75%] w-[75%]";
   return (
     <button
       type="button"
