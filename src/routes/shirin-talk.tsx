@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import mywordieIcon from "@/assets/brand/mywordie-icon.png.asset.json";
 import { Flame, MessageCircle, BookOpen, Lightbulb, ChevronRight } from "lucide-react";
@@ -190,6 +191,7 @@ function ShirinTalkPage() {
         </section>
       </div>
 
+      <LearningJourneyFlow />
       <BottomTabBar hidden={calOpen} />
       <MonthCalendarDialog
         open={calOpen}

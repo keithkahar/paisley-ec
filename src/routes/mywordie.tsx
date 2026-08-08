@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
+import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
 import { Layers, Zap, ClipboardCheck, GraduationCap, Flame, Play, ChevronRight } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -183,6 +184,7 @@ function MyWordiePage() {
         </section>
       </div>
 
+      <LearningJourneyFlow />
       <BottomTabBar hidden={calOpen} />
       <MonthCalendarDialog
         open={calOpen}
