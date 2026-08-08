@@ -117,7 +117,7 @@ export function capitalizeName(value: string) {
 
 
 function formatBirthday(birthday: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(birthday)) return "Select birthday";
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(birthday)) return "Birthday";
   const [y, m, d] = birthday.split("-").map(Number);
   return `${MONTH_NAMES_SHORT[m - 1]} ${d} ${y}`;
 }

@@ -361,14 +361,14 @@ export function AddLearnerSheet({
         const [y, m, d] = birthday.split("-").map(Number);
         return `${MONTHS_SHORT[m - 1]} ${d} ${y}`;
       })()
-    : "Select birthday";
+    : "Birthday";
 
   const submit = () => {
     if (!avatarSrc) return setError("Add avatar");
     if (!given.trim()) return setError("Add given name");
     if (!family.trim()) return setError("Add family name");
     if (!gender) return setError("Select girl or boy");
-    if (!birthday) return setError("Select birthday");
+    if (!birthday) return setError("Birthday");
     setError("");
     onCreate({
       name: `${given.trim()} ${family.trim()}`,
