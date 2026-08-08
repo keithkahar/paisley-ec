@@ -2145,11 +2145,8 @@ function BadgeSheet({
   const isGrowthLocked = badge.kind === "growth" && !unlocked;
   const growthCost = badge.kind === "growth" ? (badge as GrowthBadge).bpCost : 0;
   const canAfford = bp >= growthCost;
-  const cost =
-    badge.kind === "place"
-      ? PLACES.find((p) => p.placeBadgeId === badge.id)?.unlockBp ?? 0
-      : growthCost;
   return (
+
     <Sheet onClose={onClose}>
       <GlowImage
         src={bxImg(badge.asset, 448)}
