@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { capitalizeName } from "@/components/app/EditProfileSheet";
 import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
@@ -1759,7 +1760,7 @@ function NameEditor({
           >
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(capitalizeName(e.target.value))}
               maxLength={24}
               placeholder="Enter your name"
               className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold placeholder:font-normal placeholder:text-[rgba(183,217,183,0.55)]"
@@ -1991,7 +1992,7 @@ function WelcomeSheet({
           >
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(capitalizeName(e.target.value))}
               maxLength={24}
               placeholder="Enter your name"
               className="min-w-0 bg-transparent outline-none text-center text-[15px] font-semibold placeholder:font-normal placeholder:text-[rgba(183,217,183,0.55)]"
