@@ -1161,6 +1161,7 @@ function ProfileView({
                   onClick={() => onSelectItem(e.item)}
                   size="large"
                   hideName
+                  scale={BADGE_TILE_SCALE[e.item.name] ?? 1}
                 />
               ),
             )}
