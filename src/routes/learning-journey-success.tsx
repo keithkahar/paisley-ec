@@ -40,8 +40,9 @@ function JourneySuccessPage() {
               className="text-[26px] leading-[1.4] font-medium tracking-tight text-center"
               style={{ letterSpacing: "-0.01em", color: PAISLEY }}
             >
-              Welcome, Keith!
+              Welcome, {displayName}!
             </p>
+
           </div>
           <SheetBenefitList
             items={[
