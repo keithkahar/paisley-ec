@@ -42,7 +42,7 @@ type Props = {
   progress?: { total: number; current: number };
   /** When true, render a back chevron instead of the close X in the top-left. */
   showBack?: boolean;
-  /** Optional step indicator (e.g. "1/3") shown top-right in gray. */
+  /** Optional step indicator (e.g. "1 /3") shown top-right in gray. */
   stepLabel?: string;
   children: ReactNode;
 };
@@ -194,7 +194,7 @@ function StepLabel({ title, stepLabel }: { title: string; stepLabel: string }) {
     >
       <span style={{ fontSize: titleSize }}>{current}</span>
       {total && (
-        <span style={{ fontSize: 13, whiteSpace: "pre" }}>{` / ${total}`}</span>
+        <span style={{ fontSize: 13, whiteSpace: "pre" }}>{` /${total}`}</span>
       )}
     </span>
   );
