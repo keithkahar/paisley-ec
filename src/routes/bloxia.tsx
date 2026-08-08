@@ -1460,7 +1460,15 @@ function formatActivityDate(ts: number): string {
 
 // ============ Sheets ============
 
-function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+function Sheet({
+  children,
+  onClose,
+  pills,
+}: {
+  children: React.ReactNode;
+  onClose: () => void;
+  pills?: React.ReactNode;
+}) {
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center pointer-events-none">
       <button
@@ -1490,6 +1498,11 @@ function Sheet({ children, onClose }: { children: React.ReactNode; onClose: () =
         >
           <X className="w-4 h-4" strokeWidth={2.5} />
         </button>
+        {pills && (
+          <div className="absolute right-[14px] top-[14px] z-10 flex items-center gap-2">
+            {pills}
+          </div>
+        )}
         <div
           className="relative p-5 overflow-y-auto flex flex-col"
           style={{
@@ -1532,7 +1545,17 @@ function PlaceSheet({
   const badge = placeBadgeById[place.placeBadgeId];
 
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      pills={
+        <SheetPills
+          items={[
+            { value: formatBp(place.unlockBp) },
+            { value: statusText },
+          ]}
+        />
+      }
+    >
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
@@ -1545,13 +1568,6 @@ function PlaceSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {place.description}
       </div>
-
-      <SheetPills
-        items={[
-          { value: formatBp(place.unlockBp) },
-          { value: statusText },
-        ]}
-      />
 
       {!unlocked && !canUnlock && (
         <div
@@ -1607,7 +1623,17 @@ function ItemSheet({
     ? isFavorite ? "Favorite" : "Collected"
     : !placeUnlocked ? "Place Locked" : canCollect ? "Available" : "Locked";
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      pills={
+        <SheetPills
+          items={[
+            { value: formatBp(item.bpCost) },
+            { value: statusText },
+          ]}
+        />
+      }
+    >
       <img
         src={bxImg(item.asset, 448)}
         alt=""
@@ -1624,12 +1650,6 @@ function ItemSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {item.description}
       </div>
-      <SheetPills
-        items={[
-          { value: formatBp(item.bpCost) },
-          { value: statusText },
-        ]}
-      />
 
       {collected ? (
         <button
@@ -2054,11 +2074,11 @@ function ActivitySheet({ logs, onClose }: { logs: SpendingLog[]; onClose: () => 
 
 function SheetPills({ items }: { items: { value: string }[] }) {
   return (
-    <div className="mt-4 flex items-center justify-center gap-3">
+    <div className="flex items-center gap-2">
       {items.map((it) => (
         <div
           key={it.value}
-          className="h-7 px-3 rounded-full inline-flex items-center justify-center text-[13px] leading-none font-semibold whitespace-nowrap"
+          className="h-8 px-3 rounded-full inline-flex items-center justify-center text-[13px] leading-none font-semibold whitespace-nowrap"
           style={{ border: `1px solid rgba(216,175,87,0.55)`, color: T.goldLight }}
         >
           {it.value}
@@ -2106,7 +2126,17 @@ function BadgeSheet({
     : "Locked";
 
   return (
-    <Sheet onClose={onClose}>
+    <Sheet
+      onClose={onClose}
+      pills={
+        <SheetPills
+          items={[
+            { value: formatBp(cost) },
+            { value: statusText },
+          ]}
+        />
+      }
+    >
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
@@ -2123,13 +2153,6 @@ function BadgeSheet({
       <div className="mt-1 text-center text-[13px] leading-snug" style={{ color: T.sage }}>
         {badge.description}
       </div>
-
-      <SheetPills
-        items={[
-          { value: formatBp(cost) },
-          { value: statusText },
-        ]}
-      />
 
       {isGrowthLocked ? (
         canAfford ? (
