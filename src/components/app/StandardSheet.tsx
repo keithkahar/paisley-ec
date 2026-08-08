@@ -44,6 +44,8 @@ type Props = {
   showBack?: boolean;
   /** Optional step indicator (e.g. "1 /3") shown top-right in gray. */
   stepLabel?: string;
+  /** Optional overlay z-index class, e.g. "z-[70]" to stack above other sheets. */
+  zClass?: string;
   children: ReactNode;
 };
 
@@ -61,6 +63,7 @@ export function StandardSheet({
   progress,
   showBack,
   stepLabel,
+  zClass = "z-[60]",
   children,
 }: Props) {
   useEffect(() => {
@@ -76,7 +79,7 @@ export function StandardSheet({
 
   return (
     <div
-      className={`fixed inset-0 z-[60] flex items-end justify-center transition-opacity duration-200 ${
+      className={`fixed inset-0 ${zClass} flex items-end justify-center transition-opacity duration-200 ${
         open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
     >

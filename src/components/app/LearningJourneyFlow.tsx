@@ -147,6 +147,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
         open={step !== "none" && step !== "learner"}
         title={sheetTitle}
         brandColor={stepBrand}
+        zClass="z-[70]"
         contentPaddingTop={undefined}
         stepLabel={step === "guardian" ? "1/3" : step === "pin" ? "2/3" : undefined}
         showBack={step === "guardian" || step === "pin"}
@@ -197,7 +198,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle color={SHEET_BRAND.bloxia}>创建孩子学习旅程｜开始探索Bloxia｜收集徽章</SheetCardSubtitle>
+          <SheetCardSubtitle color={SHEET_BRAND.bloxia}>创建孩子学习档案｜开始探索Bloxia｜收集徽章</SheetCardSubtitle>
           <SheetBenefitList items={["创建Bloxian身份", "保存成长记录", "获得7天免费探索"]} />
         </SheetActionBody>
         ) : step === "wordie" ? (
@@ -219,7 +220,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle color={SHEET_BRAND.wordie}>创建孩子学习旅程｜继续使用myWordie学习</SheetCardSubtitle>
+          <SheetCardSubtitle color={SHEET_BRAND.wordie}>创建孩子学习档案｜继续使用myWordie学习</SheetCardSubtitle>
           <SheetBenefitList
             items={["创建专属词汇记录", "保存AI学习记录", "获得7天免费体验"]}
           />
@@ -243,7 +244,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             },
           }}
         >
-          <SheetCardSubtitle color={SHEET_BRAND.shirin}>创建孩子学习旅程｜继续与ShirinTalk聊天</SheetCardSubtitle>
+          <SheetCardSubtitle color={SHEET_BRAND.shirin}>创建孩子学习档案｜继续与ShirinTalk聊天</SheetCardSubtitle>
           <SheetBenefitList
             items={["继续个性化学习", "保存AI学习记录", "获得7天免费体验"]}
           />
