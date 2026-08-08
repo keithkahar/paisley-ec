@@ -13,6 +13,7 @@ import {
 import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 import { WordPreview } from "@/components/app/WordPreview";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
+import { ConfirmSheet } from "@/components/app/ConfirmSheet";
 
 export const Route = createFileRoute("/wordie-x")({
   head: () => ({ meta: [
