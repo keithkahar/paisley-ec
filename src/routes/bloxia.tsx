@@ -728,7 +728,6 @@ function BadgeTile({
 }) {
   const baseSize = size === "large" ? 100 : 85;
   const s = Math.round(baseSize * scale);
-  const imgSize = size === "large" && scale === 1 ? "h-full w-full" : `h-[${s}%] w-[${s}%]`;
   return (
     <button
       type="button"
@@ -746,7 +745,7 @@ function BadgeTile({
           alt=""
           loading="lazy"
           decoding="async"
-          className={`${imgSize} object-cover`}
+          className="object-cover"
           style={{
             imageRendering: "pixelated",
             opacity: unlocked ? 1 : 0.34,
