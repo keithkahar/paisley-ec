@@ -21,7 +21,9 @@ const PAISLEY = "var(--paisley)";
 
 function JourneySuccessPage() {
   const navigate = useNavigate();
+  const { displayName } = useLearners();
   const goHome = () => navigate({ to: "/" });
+
 
   return (
     <>
