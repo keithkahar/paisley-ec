@@ -2068,18 +2068,6 @@ function SheetPills({ items }: { items: { value: string }[] }) {
   );
 }
 
-function SheetRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div
-      className="flex items-center justify-between py-2 text-[13px]"
-      style={{ borderTop: `1px solid rgba(216,175,87,0.22)`, color: T.goldLight }}
-    >
-      <span style={{ color: T.sage }}>{label}</span>
-      <span className="font-extrabold">{value}</span>
-    </div>
-  );
-}
-
 function BadgeSheet({
   badge,
   progress,
