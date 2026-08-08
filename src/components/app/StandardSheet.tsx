@@ -150,16 +150,6 @@ export function StandardSheet({
               {stepLabel}
             </span>
           )}
-          {false && (
-            <button
-              type="button"
-              onClick={onDone}
-              aria-label="Done"
-              className="absolute right-[14px] top-[14px] h-8 w-8 grid place-items-center rounded-full bg-white border border-border active:scale-95 transition-transform"
-            >
-              <Check className="h-4 w-4" style={{ color: "#0F172A" }} strokeWidth={2.5} />
-            </button>
-          )}
         </div>
         {progress && (
           <div
