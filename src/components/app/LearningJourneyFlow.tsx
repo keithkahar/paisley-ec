@@ -110,7 +110,12 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
             ? () => setStep("intro")
             : step === "pin"
               ? () => setStep("guardian")
-              : dismiss
+              : step === "quota"
+                ? () => {
+                    dismissVisitorQuotaPrompt();
+                    setStep("none");
+                  }
+                : dismiss
         }
       >
         {step === "quota" ? (
