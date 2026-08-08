@@ -28,6 +28,7 @@ export type JourneyState = {
   promptDismissed: boolean;
   forcePrompt: boolean;
   visitorQuotaPrompt: boolean;
+  dailyLimitPrompt: boolean;
   guardianReady: boolean;
   parentPinReady: boolean;
   learnerName: string;
@@ -41,6 +42,7 @@ const EMPTY: JourneyState = {
   promptDismissed: false,
   forcePrompt: false,
   visitorQuotaPrompt: false,
+  dailyLimitPrompt: false,
   guardianReady: false,
   parentPinReady: false,
   learnerName: "",
@@ -144,6 +146,38 @@ export function shouldShowVisitorQuotaPrompt(_hasLearner: boolean) {
 
 export function clearVisitorQuotaPrompt() {
   saveJourneyState({ visitorQuotaPrompt: false });
+}
+
+/**
+ * Visitor already finished today's single ShirinTalk trial and taps in again
+ * -> show the "today's trial is done" prompt.
+ */
+export function requestDailyLimitPrompt(source = "") {
+  saveJourneyState({
+    firstLearningCompleted: true,
+    firstLearningSource: source || state.firstLearningSource,
+    dailyLimitPrompt: true,
+    visitorQuotaPrompt: false,
+    promptDismissed: false,
+    forcePrompt: false,
+  });
+}
+
+export function shouldShowDailyLimitPrompt() {
+  return state.dailyLimitPrompt;
+}
+
+export function clearDailyLimitPrompt() {
+  saveJourneyState({ dailyLimitPrompt: false });
+}
+
+export function dismissDailyLimitPrompt() {
+  saveJourneyState({
+    dailyLimitPrompt: false,
+    promptDismissed: true,
+    forcePrompt: false,
+    status: JOURNEY_STATUS.postponed,
+  });
 }
 
 export function dismissVisitorQuotaPrompt() {
