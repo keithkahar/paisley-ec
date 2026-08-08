@@ -680,6 +680,7 @@ function BadgesView({
             unlocked={item.unlocked}
             selected={selected?.id === item.id}
             onClick={() => onSelect(item)}
+            scale={BADGE_TILE_SCALE[item.name] ?? 1}
           />
         ))}
         {!visible.length && (
