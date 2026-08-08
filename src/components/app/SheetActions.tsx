@@ -167,7 +167,7 @@ export function SheetActions({
 }
 
 /** Brand-blue subtitle line inside the card (pass empty for a spacer). */
-export function SheetCardSubtitle({ children }: { children?: ReactNode }) {
+export function SheetCardSubtitle({ children, color }: { children?: ReactNode; color?: string }) {
   return (
     <div
       className="flex items-baseline justify-center gap-2"
@@ -175,7 +175,7 @@ export function SheetCardSubtitle({ children }: { children?: ReactNode }) {
     >
       <p
         className="text-[13px] leading-none"
-        style={{ color: PAISLEY, fontWeight: 400 }}
+        style={{ color: color ?? PAISLEY, fontWeight: 400 }}
         aria-hidden={children ? undefined : "true"}
       >
         {children ?? "\u00a0"}
