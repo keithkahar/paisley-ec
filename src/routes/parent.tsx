@@ -180,7 +180,6 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
         open={true}
         title={sheetTitle}
         brandColor={SHEET_BRAND.paisley}
-        contentPaddingTop={isPhoneSuccess || isPhone || isGuardian ? undefined : 16}
         showBack={isRecover || isReset || isPhoneEntry || (isPhone && recoverViaPhone)}
         onClose={
           isGuardian
@@ -410,10 +409,10 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               </div>
             </div>
 
-            <div className="mt-5 shrink-0" style={{ height: 50 }}>
-              <button
-                type="button"
-                onClick={() => {
+            <SheetActions
+              primary={{
+                label: "验证",
+                onClick: () => {
                   if (verifyMethod === "phone") {
                     setError("");
                     setCode("");
@@ -428,7 +427,6 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                       setRecoverViaPhone(false);
                       setMode("recover-phone");
                     } else {
-                      // Not bound yet: bind first, which also completes verification.
                       setRecoverViaPhone(true);
                       setMode("phone");
                     }
@@ -436,19 +434,15 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                     setRecoverViaPhone(false);
                     handleRecover();
                   }
-                }}
-                className="w-full h-full rounded-full text-[14px] font-semibold text-white transition-transform active:scale-[0.98]"
-                style={{ background: PAISLEY }}
-              >
-                验证
-              </button>
-            </div>
+                },
+              }}
+            />
           </div>
         ) : (
           <div className="flex flex-col h-full min-h-0">
             <p
-              className="text-[13px] leading-[1.5] text-center"
-              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+              className="text-[13px] leading-[1.55] text-center"
+              style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontWeight: 400 }}
             >
             {isReset
                 ? "6位数字｜用于进入家长中心，保护孩子的学习数据"
@@ -459,14 +453,14 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
             <div className="mt-4 flex-1 min-h-0">
               <div className="space-y-3">
                 <PinInput
-                  label={isReset ? "新PIN" : "PIN"}
+                  label="PIN"
                   value={pin}
                   onChange={(v) => setPin(sanitize(v))}
                   autoFocus
                 />
                 {isSet && (
                   <PinInput
-                    label={isReset ? "确认PIN" : "确认"}
+                    label="确认PIN"
                     value={confirmPin}
                     onChange={(v) => setConfirmPin(sanitize(v))}
                   />
@@ -482,19 +476,12 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 </p>
               )}
 
-              {!isSet && (
-                <button
-                  type="button"
-                  onClick={handleForgot}
-                  className="mt-3 w-full text-[12px] font-normal"
-                  style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
-                >
-                  忘记PIN?
-                </button>
-              )}
             </div>
 
-            <SheetActions primary={{ label: isReset ? "保存" : isSet ? "保存" : "解锁", onClick: handleSubmit }} />
+            <SheetActions
+              primary={{ label: isSet || isReset ? "保存" : "解锁", onClick: handleSubmit }}
+              secondary={isSet || isReset ? undefined : { label: "忘记PIN?", onClick: handleForgot }}
+            />
           </div>
         )}
       </StandardSheet>
@@ -966,7 +953,7 @@ function ParentPage() {
         {/* Membership detail sheet */}
         <StandardSheet
           open={membershipOpen}
-          title="Membership"
+          title="会员方案"
           brandColor={SHEET_BRAND.paisley}
           onClose={() => setMembershipOpen(false)}
         >

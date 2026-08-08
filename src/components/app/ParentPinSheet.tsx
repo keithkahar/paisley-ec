@@ -114,8 +114,8 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
         <div className="flex flex-col h-full min-h-0">
           <div className="flex-1 min-h-0">
           <p
-            className="text-[12px] leading-[1.55] text-center"
-            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
+            className="text-[13px] leading-[1.55] text-center"
+            style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontWeight: 400 }}
           >
             {isSet ? (
               "6位数字｜用于进入家长中心，保护孩子的学习数据"
@@ -127,7 +127,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
           <div className="mt-5 space-y-3">
             <PinInput label="PIN" value={pin} onChange={(v) => setPin(sanitize(v))} autoFocus />
             {isSet && (
-            <PinInput label="确认" value={confirmPin} onChange={(v) => setConfirmPin(sanitize(v))} />
+            <PinInput label="确认PIN" value={confirmPin} onChange={(v) => setConfirmPin(sanitize(v))} />
             )}
           </div>
 

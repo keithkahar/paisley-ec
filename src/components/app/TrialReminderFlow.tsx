@@ -63,7 +63,7 @@ export function TrialReminderFlow() {
 
       <StandardSheet
         open={step === "membership"}
-        title="Membership"
+        title="会员方案"
         brandColor={SHEET_BRAND.paisley}
         zClass="z-[80]"
         onClose={() => setStep("none")}
