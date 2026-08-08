@@ -27,6 +27,7 @@ export type JourneyState = {
   firstLearningSource: string;
   promptDismissed: boolean;
   forcePrompt: boolean;
+  visitorQuotaPrompt: boolean;
   guardianReady: boolean;
   parentPinReady: boolean;
   learnerName: string;
@@ -39,6 +40,7 @@ const EMPTY: JourneyState = {
   firstLearningSource: "",
   promptDismissed: false,
   forcePrompt: false,
+  visitorQuotaPrompt: false,
   guardianReady: false,
   parentPinReady: false,
   learnerName: "",
@@ -118,6 +120,39 @@ export function shouldResumeLearnerCreation() {
   return (
     state.status === JOURNEY_STATUS.parentPinReady || state.status === JOURNEY_STATUS.learnerPending
   );
+}
+
+/**
+ * Visitor trial quota (ShirinTalk / myWordie / Bloxia) is fully used up while no
+ * learning journey exists yet -> show the "journey not started" prompt.
+ */
+export function requestVisitorQuotaPrompt(source = "") {
+  saveJourneyState({
+    firstLearningCompleted: true,
+    firstLearningSource: source || state.firstLearningSource,
+    visitorQuotaPrompt: true,
+    promptDismissed: false,
+    forcePrompt: false,
+    status: state.status === JOURNEY_STATUS.complete ? JOURNEY_STATUS.promptReady : state.status,
+  });
+}
+
+export function shouldShowVisitorQuotaPrompt(hasLearner: boolean) {
+  if (!state.visitorQuotaPrompt) return false;
+  return !hasLearner && state.status !== JOURNEY_STATUS.complete;
+}
+
+export function clearVisitorQuotaPrompt() {
+  saveJourneyState({ visitorQuotaPrompt: false });
+}
+
+export function dismissVisitorQuotaPrompt() {
+  saveJourneyState({
+    visitorQuotaPrompt: false,
+    promptDismissed: true,
+    forcePrompt: false,
+    status: JOURNEY_STATUS.postponed,
+  });
 }
 
 export function dismissLearningJourneyPrompt() {
