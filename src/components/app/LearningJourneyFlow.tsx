@@ -119,9 +119,9 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
           : step === "quota"
             ? "孩子的学习旅程还未开启"
             : step === "daily"
-              ? "今日体验已完成"
+              ? "体验次数已用完"
               : step === "wordie"
-                ? "体验次数已完成"
+                ? "体验次数已用完"
                 : "创建孩子的学习旅程";
 
   return (
