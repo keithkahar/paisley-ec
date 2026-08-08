@@ -1547,19 +1547,12 @@ function PlaceSheet({
   return (
     <Sheet
       onClose={onClose}
-      pills={
-        <SheetPills
-          items={[
-            { value: statusText },
-            { value: formatBp(place.unlockBp) },
-          ]}
-        />
-      }
+      pills={<SheetPills items={[{ value: formatBp(place.unlockBp) }]} />}
     >
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-72 w-72 mx-auto"
+        className="h-28 w-28 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
@@ -1625,14 +1618,7 @@ function ItemSheet({
   return (
     <Sheet
       onClose={onClose}
-      pills={
-        <SheetPills
-          items={[
-            { value: statusText },
-            { value: formatBp(item.bpCost) },
-          ]}
-        />
-      }
+      pills={<SheetPills items={[{ value: formatBp(item.bpCost) }]} />}
     >
       <img
         src={bxImg(item.asset, 448)}
@@ -1641,7 +1627,7 @@ function ItemSheet({
         style={{
           imageRendering: "pixelated",
           opacity: collected ? 1 : 0.4,
-          filter: collected ? undefined : "grayscale(60%)",
+          filter: collected ? undefined : "grayscale(100%)",
         }}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
@@ -2128,23 +2114,16 @@ function BadgeSheet({
   return (
     <Sheet
       onClose={onClose}
-      pills={
-        <SheetPills
-          items={[
-            { value: statusText },
-            { value: formatBp(cost) },
-          ]}
-        />
-      }
+      pills={<SheetPills items={[{ value: formatBp(cost) }]} />}
     >
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-72 w-72 mx-auto"
+        className="h-28 w-28 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: unlocked ? 1 : 0.4,
-          filter: unlocked ? undefined : "grayscale(60%)",
+          filter: unlocked ? undefined : "grayscale(100%)",
         }}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
