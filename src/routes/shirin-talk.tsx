@@ -11,7 +11,7 @@ import {
   mockActivity,
 } from "@/components/app/MonthCalendarDialog";
 import { useBloxia } from "@/lib/bloxia/progress";
-import { requestLearningJourneyPrompt } from "@/lib/learningJourney";
+import { requestVisitorQuotaPrompt } from "@/lib/learningJourney";
 
 export const Route = createFileRoute("/shirin-talk")({
   head: () => ({ meta: [
@@ -147,7 +147,7 @@ function ShirinTalkPage() {
               ? {
                   type: "button",
                   onClick: () => {
-                    requestLearningJourneyPrompt("free_talk");
+                    requestVisitorQuotaPrompt("free_talk");
                     navigate({ to: "/profile" });
                   },
                 }
