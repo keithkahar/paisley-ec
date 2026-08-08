@@ -2067,11 +2067,11 @@ function ActivitySheet({ logs, onClose }: { logs: SpendingLog[]; onClose: () => 
 
 function SheetPills({ items }: { items: { value: string }[] }) {
   return (
-    <div className="mt-4 flex items-center justify-center gap-3">
+    <div className="flex items-center gap-2">
       {items.map((it) => (
         <div
           key={it.value}
-          className="h-7 px-3 rounded-full inline-flex items-center justify-center text-[13px] leading-none font-semibold whitespace-nowrap"
+          className="h-8 px-3 rounded-full inline-flex items-center justify-center text-[13px] leading-none font-semibold whitespace-nowrap"
           style={{ border: `1px solid rgba(216,175,87,0.55)`, color: T.goldLight }}
         >
           {it.value}
