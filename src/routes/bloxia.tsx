@@ -1536,7 +1536,7 @@ function PlaceSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-56 w-56 mx-auto"
+        className="h-72 w-72 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-[32px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
@@ -1611,7 +1611,7 @@ function ItemSheet({
       <img
         src={bxImg(item.asset, 448)}
         alt=""
-        className="h-56 w-56 mx-auto"
+        className="h-72 w-72 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: collected ? 1 : 0.4,
@@ -2110,7 +2110,7 @@ function BadgeSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-56 w-56 mx-auto"
+        className="h-72 w-72 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: unlocked ? 1 : 0.4,
