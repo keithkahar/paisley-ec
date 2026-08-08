@@ -194,7 +194,7 @@ function StepLabel({ title, stepLabel }: { title: string; stepLabel: string }) {
     >
       <span style={{ fontSize: titleSize }}>{current}</span>
       {total && (
-        <span style={{ fontSize: 13 }}>{` / ${total}`}</span>
+        <span style={{ fontSize: 13, whiteSpace: "pre" }}>{` / ${total}`}</span>
       )}
     </span>
   );
