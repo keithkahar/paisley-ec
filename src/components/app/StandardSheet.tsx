@@ -147,7 +147,7 @@ export function StandardSheet({
                 color: "color-mix(in oklab, var(--foreground) 45%, white)",
               }}
             >
-              {stepLabel}
+              {stepLabel.trim().replace(/\s*\/\s*/g, " / ")}
             </span>
           )}
         </div>
