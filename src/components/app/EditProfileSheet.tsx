@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { X, ChevronRight, Camera } from "lucide-react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { AvatarPicker } from "@/components/app/AvatarPicker";
+import { BLOXIAN_AVATARS } from "@/lib/bloxia/config";
 import { SheetActions } from "@/components/app/SheetActions";
 import { useLearners } from "@/lib/learners";
 
@@ -405,6 +406,9 @@ export function AvatarDraggable({
   onChangeScale: (s: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  // Default Bloxian avatars are transparent PNGs — give them the soft brand-blue
+  // disc behind so they read as a chosen avatar, not a floating cut-out.
+  const isDefaultAvatar = !!src && BLOXIAN_AVATARS.some((a) => a.portrait === src);
 
   // Use refs + global window listeners — survives re-renders and dpr quirks.
   const stateRef = useRef({ posX, posY, scale });
@@ -507,7 +511,11 @@ export function AvatarDraggable({
       ref={ref}
       className="relative h-full w-full rounded-full overflow-hidden grid place-items-center select-none"
       style={{
-        background: src ? "transparent" : `color-mix(in oklab, ${YELLOW} 22%, white)`,
+        background: isDefaultAvatar
+          ? "color-mix(in oklab, var(--paisley) 14%, white)"
+          : src
+            ? "transparent"
+            : `color-mix(in oklab, ${YELLOW} 22%, white)`,
         touchAction: src ? "none" : "auto",
         cursor: src ? "grab" : "default"
       }}
