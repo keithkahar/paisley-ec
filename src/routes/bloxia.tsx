@@ -719,7 +719,7 @@ function BadgeTile({
   size?: "default" | "large";
   hideName?: boolean;
 }) {
-  const imgSize = size === "large" ? "h-full w-full" : "h-[90%] w-[90%]";
+  const imgSize = size === "large" ? "h-full w-full" : "h-full w-full";
   return (
     <button
       type="button"
@@ -833,7 +833,7 @@ function CollectionView({
 
       {tab === "favorite" ? (
         favoriteItems.length ? (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {favoriteItems.map((item) => (
               <BadgeTile
                 key={item.id}
@@ -866,7 +866,7 @@ function CollectionView({
               {g.collected}/{g.items.length}
             </span>
           </div>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {g.items.map((item) => {
               const unlocked = progress.collectedItemIds.includes(item.id);
               return (
@@ -1124,7 +1124,7 @@ function ProfileView({
       {/* --- Latest Earned --- */}
       <ProfileGroup title="Latest Earned">
         {latestEarned.length ? (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {latestEarned.map((e) =>
               e.kind === "badge" ? (
                 <BadgeTile
@@ -1159,7 +1159,7 @@ function ProfileView({
       {/* --- Favorite Badges --- */}
       <ProfileGroup title="Favorite Badges" onAction={onGoBadgesFavorite} actionKind="right">
         {favBadges.length ? (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {favBadges.map((b) => (
               <BadgeTile
                 key={b.id}
@@ -1181,7 +1181,7 @@ function ProfileView({
       {/* --- Favorite Items --- */}
       <ProfileGroup title="Favorite Items" onAction={onGoCollectionFavorite} actionKind="right">
         {favItems.length ? (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {favItems.map((it) => (
               <BadgeTile
                 key={it.id}
@@ -1536,7 +1536,7 @@ function PlaceSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-28 w-28 mx-auto"
+        className="h-44 w-44 mx-auto"
         style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-3 text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
@@ -1609,7 +1609,7 @@ function ItemSheet({
       <img
         src={bxImg(item.asset, 448)}
         alt=""
-        className="h-28 w-28 mx-auto"
+        className="h-44 w-44 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: collected ? 1 : 0.4,
@@ -2102,7 +2102,7 @@ function BadgeSheet({
       <img
         src={bxImg(badge.asset, 448)}
         alt=""
-        className="h-28 w-28 mx-auto"
+        className="h-44 w-44 mx-auto"
         style={{
           imageRendering: "pixelated",
           opacity: unlocked ? 1 : 0.4,
