@@ -235,7 +235,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               },
             }}
           >
-            <SheetCardSubtitle>登陆家长中心｜管理孩子学习旅程</SheetCardSubtitle>
+            <SheetCardSubtitle>登录家长中心｜陪伴孩子学习成长</SheetCardSubtitle>
             <SheetBenefitList
               items={["查看孩子的成长数据", "管理孩子的学习档案", "设置孩子的学习目标"]}
             />
@@ -289,7 +289,7 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
                 className="text-[13px] leading-[1.5] text-center shrink-0"
                 style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)", fontWeight: 400 }}
               >
-                请验证家长身份，以保护孩子学习数据
+                请验证家长身份，以保护孩子的学习数据
               </p>
             )}
             <div className="mt-4 flex-1 min-h-0 space-y-3">
@@ -451,10 +451,10 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
               style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
             >
             {isReset
-                ? "6位数字｜用于进入家长中心，管理学习数据"
+                ? "6位数字｜用于进入家长中心，保护孩子的学习数据"
                 : isSet
-                  ? "6位数字｜用于进入家长中心，管理学习数据"
-                  : "6位数字｜用于避免孩子误入家长中心"}
+                  ? "6位数字｜用于进入家长中心，保护孩子的学习数据"
+                  : "6位数字｜用于保护孩子隐私，进入家长中心"}
             </p>
             <div className="mt-4 flex-1 min-h-0">
               <div className="space-y-3">

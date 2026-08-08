@@ -30,7 +30,7 @@ function JourneySuccessPage() {
         brandColor={SHEET_BRAND.paisley}
         onClose={goHome}
       >
-        <SheetActionBody primary={{ label: "Get Started Now", onClick: goHome }}>
+        <SheetActionBody primary={{ label: "开始学习", onClick: goHome }}>
           <div className="flex items-baseline justify-center gap-2 mt-[10px]">
             <p
               className="text-[26px] leading-[1.4] font-medium tracking-tight text-center"
@@ -43,10 +43,10 @@ function JourneySuccessPage() {
             items={[
               "获得个性化学习体验",
               "保存孩子的学习记录",
-              "Bloxia 成长地图/徽章",
-              "管理孩子的学习目标",
-              "查看孩子的学习数据",
-              "获得CEFR和Wordie测试",
+              "开启Bloxia成长地图与徽章",
+              "设定孩子的学习目标",
+              "查看孩子的成长数据",
+              "完成CEFR和Wordie测试",
             ]}
           />
         </SheetActionBody>
