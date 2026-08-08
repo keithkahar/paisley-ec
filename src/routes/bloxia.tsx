@@ -707,6 +707,50 @@ function BadgesView({
   );
 }
 
+function GlowImage({
+  src,
+  alt,
+  className,
+  dimmed = false,
+  scale = 1.1,
+  blur = 28,
+  glowOpacity = 0.35,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  dimmed?: boolean;
+  scale?: number;
+  blur?: number;
+  glowOpacity?: number;
+}) {
+  return (
+    <div className={`relative ${className || ""}`}>
+      <img
+        src={src}
+        alt=""
+        className="absolute inset-0 w-full h-full"
+        style={{
+          imageRendering: "pixelated",
+          filter: dimmed ? `grayscale(100%) blur(${blur}px)` : `blur(${blur}px)`,
+          opacity: glowOpacity,
+          transform: `scale(${scale})`,
+        }}
+      />
+      <img
+        src={src}
+        alt={alt}
+        className="relative w-full h-full"
+        style={{
+          imageRendering: "pixelated",
+          opacity: dimmed ? 0.4 : 1,
+          filter: dimmed ? "grayscale(100%)" : undefined,
+        }}
+      />
+    </div>
+  );
+}
+
 function BadgeTile({
   asset,
   name,
@@ -1558,11 +1602,10 @@ function PlaceSheet({
       onClose={onClose}
       pills={<SheetPills items={[{ value: formatBp(place.unlockBp) }]} />}
     >
-      <img
+      <GlowImage
         src={bxImg(badge.asset, 448)}
-        alt=""
+        alt={badge.name}
         className="h-72 w-72 mx-auto"
-        style={{ imageRendering: "pixelated" }}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {place.name}
@@ -1626,15 +1669,11 @@ function ItemSheet({
       onClose={onClose}
       pills={<SheetPills items={[{ value: formatBp(item.bpCost) }]} />}
     >
-      <img
+      <GlowImage
         src={bxImg(item.asset, 448)}
-        alt=""
+        alt={item.name}
         className="h-72 w-72 mx-auto"
-        style={{
-          imageRendering: "pixelated",
-          opacity: collected ? 1 : 0.4,
-          filter: collected ? undefined : "grayscale(100%)",
-        }}
+        dimmed={!collected}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {item.name}
@@ -2112,15 +2151,11 @@ function BadgeSheet({
       onClose={onClose}
       pills={<SheetPills items={[{ value: formatBp(cost) }]} />}
     >
-      <img
+      <GlowImage
         src={bxImg(badge.asset, 448)}
-        alt=""
+        alt={badge.name}
         className="h-72 w-72 mx-auto"
-        style={{
-          imageRendering: "pixelated",
-          opacity: unlocked ? 1 : 0.4,
-          filter: unlocked ? undefined : "grayscale(100%)",
-        }}
+        dimmed={!unlocked}
       />
       <div className="mt-[22px] text-center text-[22px] font-semibold leading-none" style={{ color: T.ivory }}>
         {badge.name}
