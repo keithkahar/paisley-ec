@@ -60,7 +60,7 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
     setMode("set");
   };
 
-  const sheetTitle = isSet ? "设置家长密码" : isRecover ? "找回家长PIN码" : "请输入家长PIN码";
+  const sheetTitle = isSet ? "请设置家长PIN" : isRecover ? "找回家长PIN" : "请输入家长PIN";
 
   return (
     <StandardSheet
@@ -118,20 +118,16 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
             style={{ color: "color-mix(in oklab, var(--foreground) 55%, white)" }}
           >
             {isSet ? (
-              <>
-                请设置 6 位由字母和数字组合的密码
-                <br />
-                此密码用于避免儿童误入家长中心
-              </>
+              "6位数字｜用于进入家长中心，保护孩子的学习数据"
             ) : (
-              "此密码用于避免儿童误入家长中心"
+              "6位数字｜用于保护孩子隐私，进入家长中心"
             )}
           </p>
 
           <div className="mt-5 space-y-3">
-            <PinInput label="密码" value={pin} onChange={(v) => setPin(sanitize(v))} autoFocus />
+            <PinInput label="PIN" value={pin} onChange={(v) => setPin(sanitize(v))} autoFocus />
             {isSet && (
-              <PinInput label="确认" value={confirmPin} onChange={(v) => setConfirmPin(sanitize(v))} />
+            <PinInput label="确认" value={confirmPin} onChange={(v) => setConfirmPin(sanitize(v))} />
             )}
           </div>
 
@@ -143,8 +139,8 @@ export function ParentPinSheet({ open, onClose, onUnlock }: { open: boolean; onC
           </div>
 
           <SheetActions
-            primary={{ label: isSet ? "设置密码" : "解锁", onClick: handleSubmit }}
-            secondary={isSet ? undefined : { label: "忘记密码？重新设置", onClick: handleForgot }}
+            primary={{ label: isSet ? "保存" : "解锁", onClick: handleSubmit }}
+            secondary={isSet ? undefined : { label: "忘记PIN?", onClick: handleForgot }}
           />
         </div>
       )}
