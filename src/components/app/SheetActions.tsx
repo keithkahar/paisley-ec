@@ -8,13 +8,13 @@ import { Check } from "lucide-react";
  * edge of the white sheet panel, never to a fixed column height, so buttons are
  * pixel-identical on every device and in every sheet.
  *
- *  primary height ................ 48px, full-round, 14px semibold white
+ *  primary height ................ 50px, full-round, 14px semibold white
  *  primary side inset ............ 20px
  *  primary-only:  primary bottom -> panel bottom ....... 32px
  *  with secondary: secondary bottom -> panel bottom .... 32px
  *                  secondary height ................... 22px (14px regular)
  *                  gap primary <-> secondary .......... 12px
- *                  => primary bottom -> panel bottom .. 66px
+ *                  => primary bottom -> panel bottom .. 68px
  *  minimum gap between content and the button area ..... 20px
  *
  * Do NOT override these four numbers (48 / 12 / 22 / 32) anywhere else, and do
