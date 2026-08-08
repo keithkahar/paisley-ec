@@ -137,9 +137,9 @@ export function requestVisitorQuotaPrompt(source = "") {
   });
 }
 
-export function shouldShowVisitorQuotaPrompt(hasLearner: boolean) {
-  if (!state.visitorQuotaPrompt) return false;
-  return !hasLearner && state.status !== JOURNEY_STATUS.complete;
+export function shouldShowVisitorQuotaPrompt(_hasLearner: boolean) {
+  // Explicitly requested (debug entry / quota exhausted) -> always show.
+  return state.visitorQuotaPrompt;
 }
 
 export function clearVisitorQuotaPrompt() {
