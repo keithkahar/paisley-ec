@@ -16,6 +16,7 @@ import { Route as WordCardRouteImport } from './routes/word-card'
 import { Route as TopicsRouteImport } from './routes/topics'
 import { Route as SmartReadingRouteImport } from './routes/smart-reading'
 import { Route as ShirinTalkRouteImport } from './routes/shirin-talk'
+import { Route as SheetsRouteImport } from './routes/sheets'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ParentRouteImport } from './routes/parent'
@@ -65,6 +66,11 @@ const SmartReadingRoute = SmartReadingRouteImport.update({
 const ShirinTalkRoute = ShirinTalkRouteImport.update({
   id: '/shirin-talk',
   path: '/shirin-talk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SheetsRoute = SheetsRouteImport.update({
+  id: '/sheets',
+  path: '/sheets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgressRoute = ProgressRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/parent': typeof ParentRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
+  '/sheets': typeof SheetsRoute
   '/shirin-talk': typeof ShirinTalkRoute
   '/smart-reading': typeof SmartReadingRoute
   '/topics': typeof TopicsRoute
@@ -183,6 +190,7 @@ export interface FileRoutesByTo {
   '/parent': typeof ParentRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
+  '/sheets': typeof SheetsRoute
   '/shirin-talk': typeof ShirinTalkRoute
   '/smart-reading': typeof SmartReadingRoute
   '/topics': typeof TopicsRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/parent': typeof ParentRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
+  '/sheets': typeof SheetsRoute
   '/shirin-talk': typeof ShirinTalkRoute
   '/smart-reading': typeof SmartReadingRoute
   '/topics': typeof TopicsRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/parent'
     | '/profile'
     | '/progress'
+    | '/sheets'
     | '/shirin-talk'
     | '/smart-reading'
     | '/topics'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/parent'
     | '/profile'
     | '/progress'
+    | '/sheets'
     | '/shirin-talk'
     | '/smart-reading'
     | '/topics'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/parent'
     | '/profile'
     | '/progress'
+    | '/sheets'
     | '/shirin-talk'
     | '/smart-reading'
     | '/topics'
@@ -307,6 +319,7 @@ export interface RootRouteChildren {
   ParentRoute: typeof ParentRoute
   ProfileRoute: typeof ProfileRoute
   ProgressRoute: typeof ProgressRoute
+  SheetsRoute: typeof SheetsRoute
   ShirinTalkRoute: typeof ShirinTalkRoute
   SmartReadingRoute: typeof SmartReadingRoute
   TopicsRoute: typeof TopicsRoute
@@ -365,6 +378,13 @@ declare module '@tanstack/react-router' {
       path: '/shirin-talk'
       fullPath: '/shirin-talk'
       preLoaderRoute: typeof ShirinTalkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sheets': {
+      id: '/sheets'
+      path: '/sheets'
+      fullPath: '/sheets'
+      preLoaderRoute: typeof SheetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/progress': {
@@ -491,6 +511,7 @@ const rootRouteChildren: RootRouteChildren = {
   ParentRoute: ParentRoute,
   ProfileRoute: ProfileRoute,
   ProgressRoute: ProgressRoute,
+  SheetsRoute: SheetsRoute,
   ShirinTalkRoute: ShirinTalkRoute,
   SmartReadingRoute: SmartReadingRoute,
   TopicsRoute: TopicsRoute,
@@ -502,3 +523,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
