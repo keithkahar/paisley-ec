@@ -21,6 +21,7 @@ import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import { EditProfileSheet } from "@/components/app/EditProfileSheet";
 import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
+import { useSheetDebug } from "@/lib/sheetDebug";
 import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
 export const Route = createFileRoute("/profile")({
@@ -57,6 +58,15 @@ export function ProfilePage({ tabBarHidden = false }: { tabBarHidden?: boolean }
   const [learnerOpen, setLearnerOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [journeyOpen, setJourneyOpen] = useState(false);
+  const debugSheet = useSheetDebug();
+
+  // Debug: /profile?sheet=<slug> (see /sheets) force-opens one sheet.
+  useEffect(() => {
+    if (debugSheet === "edit-profile") setEditOpen(true);
+    if (debugSheet === "select-learner" || debugSheet === "add-learner" || debugSheet === "birthday")
+      setLearnerOpen(true);
+    if (debugSheet === "enter-parent-pin-profile") setParentPinOpen(true);
+  }, [debugSheet]);
   const DISPLAY_NAME = displayName;
   const avatarPos = { x: current?.avatarPosX ?? 50, y: current?.avatarPosY ?? 50, scale: current?.avatarScale ?? 1 };
   const avatarPath = hasLearner ? current?.avatarPath ?? "" : "";

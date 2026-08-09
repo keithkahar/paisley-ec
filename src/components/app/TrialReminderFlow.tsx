@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { SheetActionBody, SheetBenefitList, SheetCardSubtitle } from "@/components/app/SheetActions";
 import { MembershipCards } from "@/routes/parent";
+import { useSheetDebug } from "@/lib/sheetDebug";
 
 /**
  * Free-trial nudges shown on the home page.
@@ -16,10 +17,17 @@ type Step = "none" | "day5" | "day7" | "membership";
 
 export function TrialReminderFlow() {
   const [step, setStep] = useState<Step>("none");
+  const debug = useSheetDebug();
 
   useEffect(() => {
-    setStep("day5");
-  }, []);
+    setStep(
+      debug === "trial-day7"
+        ? "day7"
+        : debug === "membership" || debug === "purchase-phone"
+          ? "membership"
+          : "day5",
+    );
+  }, [debug]);
 
   const isDay5 = step === "day5";
 

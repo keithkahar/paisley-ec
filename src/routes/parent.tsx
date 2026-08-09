@@ -13,6 +13,7 @@ import {
 } from "@/components/app/SheetActions";
 import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
+import { useSheetDebug } from "@/lib/sheetDebug";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { formatNumber } from "@/lib/utils";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
@@ -56,11 +57,22 @@ function ParentPinGate({ onUnlock }: { onUnlock: () => void }) {
   // True when the phone-binding flow was entered as part of PIN recovery
   // (unbound user picked 手机验证): binding also counts as verification.
   const [recoverViaPhone, setRecoverViaPhone] = useState(false);
+  const debug = useSheetDebug();
 
   useEffect(() => {
-    // DEBUG: always show the visitor guardian-account sheet on every entry
-    setMode("guardian");
-  }, []);
+    // DEBUG: /parent?sheet=<slug> force-opens one sheet (see /sheets).
+    const forced: Record<string, typeof mode> = {
+      "guardian-account": "guardian",
+      "bind-phone": "phone",
+      "phone-entry": "phone-entry",
+      "phone-success": "phone-success",
+      "enter-parent-pin": "enter",
+      "setup-parent-pin": "set",
+      "recover-pin": "recover",
+      "recover-phone": "recover-phone",
+    };
+    setMode(forced[debug] ?? "guardian");
+  }, [debug]);
 
   useEffect(() => {
     if (countdown <= 0) return;
@@ -2055,6 +2067,10 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
 export function MembershipCards({ open }: { open: boolean }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [purchasePhoneOpen, setPurchasePhoneOpen] = useState(false);
+  const debugSheet = useSheetDebug();
+  useEffect(() => {
+    if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
+  }, [open, debugSheet]);
   const cards = [
     {
       title: "Basic",
