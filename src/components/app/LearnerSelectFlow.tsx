@@ -341,6 +341,7 @@ export function AddLearnerSheet({
   const [birthday, setBirthday] = useState("");
   const [bdayOpen, setBdayOpen] = useState(false);
   const [error, setError] = useState("");
+  const debugSheet = useSheetDebug();
   const [avatarScale, setAvatarScale] = useState(1);
   const [nameFocused, setNameFocused] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState("");
@@ -360,6 +361,7 @@ export function AddLearnerSheet({
     setAvatarSrc("");
     setAvatarPosX(50);
     setAvatarPosY(50);
+    setBdayOpen(debugSheet === "birthday");
   }, [open]);
 
   if (!open) return null;
