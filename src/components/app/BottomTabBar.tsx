@@ -37,10 +37,10 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
         <div
-          className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
+        className="relative h-20 rounded-full bg-white border border-border flex items-stretch"
           style={{
             boxShadow:
-              "0 -5px 16px rgba(255,255,255,0.95), 0 5px 16px rgba(0,0,0,0.15)",
+              "0 -3px 10px rgba(255,255,255,0.95), 0 3px 10px rgba(0,0,0,0.10)",
           }}
         >
           {tabs.map((t, i) => {
