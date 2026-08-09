@@ -5,6 +5,7 @@ import type { Learner } from "@/lib/learners";
 import { AvatarDraggable, capitalizeName } from "@/components/app/EditProfileSheet";
 import { AvatarPicker } from "@/components/app/AvatarPicker";
 import { SheetActions } from "@/components/app/SheetActions";
+import { useSheetDebug } from "@/lib/sheetDebug";
 
 const PAISLEY = "var(--paisley)";
 const PAISLEY_SOFT = "color-mix(in oklab, var(--paisley) 14%, white)";
@@ -47,6 +48,12 @@ export function LearnerSelectFlow({
   const [deletePwOpen, setDeletePwOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
   const [pending, setPending] = useState(learner);
+  const debug = useSheetDebug();
+
+  // Debug: ?sheet=add-learner / ?sheet=birthday opens the Add Learner sheet.
+  useEffect(() => {
+    if (open && (debug === "add-learner" || debug === "birthday")) setAddOpen(true);
+  }, [open, debug]);
 
   useEffect(() => {
     if (open) {
