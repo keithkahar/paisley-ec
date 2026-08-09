@@ -88,7 +88,7 @@ function Home() {
             {avatarPath ? (
               <div
                 className="relative z-10 translate-y-[25px] w-[58%] max-w-[220px] aspect-square rounded-full overflow-hidden bg-white"
-                style={{ boxShadow: "0 8px 24px rgba(1,70,185,0.14)" }}
+                style={{ boxShadow: "0 5px 16px rgba(1,70,185,0.13)" }}
               >
                 <img
                   src={avatarPath}
