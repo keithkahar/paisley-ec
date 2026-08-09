@@ -2305,32 +2305,29 @@ export function MembershipCards({ open }: { open: boolean }) {
 
               {/* Embedded CTA */}
               <div className="mt-[24px] shrink-0">
-                {cards[i + 1] ? (
+                {i === 0 ? (
                   <button
                     type="button"
-                    className="relative w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98]"
-                    style={{ background: "var(--paisley)" }}
+                    className="w-full h-11 rounded-full text-[15px] font-semibold transition-transform active:scale-[0.98] flex items-center justify-center"
+                    style={{ background: "var(--input)", color: "var(--muted-foreground)" }}
+                    disabled
                   >
-                    <span
-                      className="absolute left-1/3 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[13px]"
-                      onClick={() => setPurchasePhoneOpen(true)}
-                    >
-                      订阅
-                    </span>
-                    <span
-                      className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1 h-8 pl-3 pr-2.5 rounded-full cursor-pointer font-normal text-[13px]"
-                      onClick={() => setPurchasePhoneOpen(true)}
-                      style={{ background: "white", color: "var(--paisley)" }}
-                    >
-                      升级
-                      <ArrowUpRight className="h-[14px] w-[14px]" strokeWidth={2} style={{ color: "var(--paisley)" }} />
-                    </span>
+                    已包含
+                  </button>
+                ) : i === 1 ? (
+                  <button
+                    type="button"
+                    className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
+                    style={{ background: "var(--paisley)" }}
+                    disabled
+                  >
+                    当前方案
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={() => setPurchasePhoneOpen(true)}
-                    className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
+                    className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
                     style={{ background: "var(--paisley)" }}
                   >
                     订阅
