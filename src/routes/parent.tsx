@@ -2308,7 +2308,7 @@ export function MembershipCards({ open }: { open: boolean }) {
                 {i === 0 ? (
                   <button
                     type="button"
-                    className="w-full h-11 rounded-full text-[15px] font-semibold transition-transform active:scale-[0.98] flex items-center justify-center"
+                    className="w-full h-11 rounded-full text-[13px] font-semibold transition-transform active:scale-[0.98] flex items-center justify-center"
                     style={{ background: "var(--input)", color: "var(--muted-foreground)" }}
                     disabled
                   >
@@ -2317,8 +2317,8 @@ export function MembershipCards({ open }: { open: boolean }) {
                 ) : i === 1 ? (
                   <button
                     type="button"
-                    className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
-                    style={{ background: "var(--paisley)" }}
+                    className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
+                    style={{ background: "#4b73ce" }}
                     disabled
                   >
                     当前方案
@@ -2327,7 +2327,7 @@ export function MembershipCards({ open }: { open: boolean }) {
                   <button
                     type="button"
                     onClick={() => setPurchasePhoneOpen(true)}
-                    className="w-full h-11 rounded-full text-[15px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
+                    className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
                     style={{ background: "var(--paisley)" }}
                   >
                     订阅
