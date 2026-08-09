@@ -10,6 +10,7 @@ import {
 } from "@/components/app/SheetActions";
 import { AddLearnerSheet } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
+import { useSheetDebug } from "@/lib/sheetDebug";
 import wechatWhite from "@/assets/brand/wechat-white.png.asset.json";
 import {
   clearLearnerCreationPending,
@@ -62,10 +63,27 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
   const [error, setError] = useState("");
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
+  const debug = useSheetDebug();
 
   // Open or resume the flow, mirroring maybeOpenLearningJourneyFlow().
   useEffect(() => {
     if (step !== "none") return;
+    // Debug: /profile?sheet=<slug> force-opens one step (see /sheets).
+    const forced: Record<string, Step> = {
+      "journey-quota": "quota",
+      "limit-used": "daily",
+      "limit-used-wordie": "wordie",
+      "limit-used-bloxia": "bloxia",
+      "create-journey": "intro",
+      "guardian-account": "guardian",
+      "guardian-error": "guardian-error",
+      "setup-parent-pin": "pin",
+      "create-learner": "learner",
+    };
+    if (forced[debug]) {
+      setStep(forced[debug]);
+      return;
+    }
     if (shouldShowDailyLimitPrompt()) {
       setStep("daily");
       return;
@@ -88,7 +106,7 @@ export function LearningJourneyFlow({ onOpenChange }: { onOpenChange?: (open: bo
       return;
     }
     if (shouldShowLearningJourneyPrompt(hasLearner)) setStep("intro");
-  }, [step, hasLearner, journey]);
+  }, [step, hasLearner, journey, debug]);
 
   useEffect(() => {
     onOpenChange?.(step !== "none");
