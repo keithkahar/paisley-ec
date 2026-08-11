@@ -2170,6 +2170,12 @@ export function MembershipCards({ open }: { open: boolean }) {
     return () => window.clearTimeout(id);
   }, [open]);
 
+  useEffect(() => {
+    return () => {
+      if (scrollEndTimer.current) window.clearTimeout(scrollEndTimer.current);
+    };
+  }, []);
+
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     const t = e.touches[0];
     touchStartX.current = t.clientX;
