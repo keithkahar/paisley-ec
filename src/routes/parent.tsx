@@ -2288,15 +2288,9 @@ export function MembershipCards({ open }: { open: boolean }) {
       </div>
       <div
         ref={scrollerRef}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onScroll={handleScroll}
-        className="flex flex-1 min-h-0 overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5"
+        className="flex flex-1 min-h-0 overflow-x-auto scroll-hide -mx-5"
         style={{
           WebkitOverflowScrolling: "touch",
-          scrollPaddingLeft: 14,
-          scrollPaddingRight: 14,
           paddingLeft: 14,
           paddingRight: 14,
           overscrollBehaviorX: "contain",
@@ -2307,8 +2301,8 @@ export function MembershipCards({ open }: { open: boolean }) {
             key={i}
             data-card
             data-index={i}
-            className="snap-center shrink-0 h-full px-1"
-            style={{ width: "100%", scrollSnapStop: "always" }}
+            className="shrink-0 h-full px-1"
+            style={{ width: "100%" }}
           >
             <div
               className="rounded-[28px] p-5 h-full flex flex-col"
