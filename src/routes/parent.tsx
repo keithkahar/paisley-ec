@@ -2071,6 +2071,15 @@ export function MembershipCards({ open }: { open: boolean }) {
   useEffect(() => {
     if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
   }, [open, debugSheet]);
+
+  const currentIndexRef = useRef(1);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchLastX = useRef<number | null>(null);
+  const touchLastY = useRef<number | null>(null);
+  const startIndexRef = useRef(1);
+  const scrollEndTimer = useRef<number | null>(null);
+
   const cards = [
     {
       title: "Basic",
@@ -2138,13 +2147,15 @@ export function MembershipCards({ open }: { open: boolean }) {
   const scrollToCard = (index: number) => {
     const el = scrollerRef.current;
     if (!el) return;
-    const card = el.querySelector<HTMLElement>(`[data-index="${index}"]`);
+    const safe = Math.max(0, Math.min(cards.length - 1, index));
+    const card = el.querySelector<HTMLElement>(`[data-index="${safe}"]`);
     if (card) {
       el.scrollTo({
         left: card.offsetLeft - (el.clientWidth - card.clientWidth) / 2,
         behavior: "smooth",
       });
     }
+    currentIndexRef.current = safe;
   };
 
   // Default to the Premium card, centered
@@ -2153,10 +2164,68 @@ export function MembershipCards({ open }: { open: boolean }) {
     const el = scrollerRef.current;
     if (!el) return;
     const id = window.setTimeout(() => {
+      currentIndexRef.current = 1;
       scrollToCard(1);
     }, 30);
     return () => window.clearTimeout(id);
   }, [open]);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const t = e.touches[0];
+    touchStartX.current = t.clientX;
+    touchStartY.current = t.clientY;
+    touchLastX.current = t.clientX;
+    touchLastY.current = t.clientY;
+    startIndexRef.current = currentIndexRef.current;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const t = e.touches[0];
+    touchLastX.current = t.clientX;
+    touchLastY.current = t.clientY;
+  };
+
+  const handleTouchEnd = () => {
+    const sx = touchStartX.current;
+    const sy = touchStartY.current;
+    const lx = touchLastX.current;
+    const ly = touchLastY.current;
+    if (sx == null || sy == null || lx == null || ly == null) return;
+    const dx = sx - lx;
+    const dy = ly - sy;
+    const SWIPE_THRESHOLD = 40;
+    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) <= Math.abs(dy)) return;
+    const direction = dx > 0 ? 1 : -1;
+    const next = Math.max(0, Math.min(cards.length - 1, startIndexRef.current + direction));
+    scrollToCard(next);
+  };
+
+  const handleScroll = () => {
+    if (scrollEndTimer.current) window.clearTimeout(scrollEndTimer.current);
+    scrollEndTimer.current = window.setTimeout(() => {
+      const el = scrollerRef.current;
+      if (!el) return;
+      const card = el.querySelector<HTMLElement>(`[data-index="${currentIndexRef.current}"]`);
+      if (!card) return;
+      // snap points are centered, so the nearest card is the one whose left edge is closest to
+      // (scrollLeft - (container width - card width) / 2)
+      const offset = (el.clientWidth - card.clientWidth) / 2;
+      const left = el.scrollLeft - offset + card.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      el.querySelectorAll<HTMLElement>("[data-index]").forEach((c) => {
+        const idx = Number(c.dataset.index);
+        if (Number.isNaN(idx)) return;
+        const dist = Math.abs(c.offsetLeft + c.clientWidth / 2 - left);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = idx;
+        }
+      });
+      currentIndexRef.current = best;
+    }, 150);
+  };
+
 
   return (
     <div className="h-full flex flex-col min-h-0">
