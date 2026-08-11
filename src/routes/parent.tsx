@@ -2071,9 +2071,6 @@ export function MembershipCards({ open }: { open: boolean }) {
   useEffect(() => {
     if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
   }, [open, debugSheet]);
-
-  const currentIndexRef = useRef(1);
-
   const cards = [
     {
       title: "Basic",
@@ -2141,15 +2138,13 @@ export function MembershipCards({ open }: { open: boolean }) {
   const scrollToCard = (index: number) => {
     const el = scrollerRef.current;
     if (!el) return;
-    const safe = Math.max(0, Math.min(cards.length - 1, index));
-    const card = el.querySelector<HTMLElement>(`[data-index="${safe}"]`);
+    const card = el.querySelector<HTMLElement>(`[data-index="${index}"]`);
     if (card) {
       el.scrollTo({
         left: card.offsetLeft - (el.clientWidth - card.clientWidth) / 2,
         behavior: "smooth",
       });
     }
-    currentIndexRef.current = safe;
   };
 
   // Default to the Premium card, centered
@@ -2158,109 +2153,10 @@ export function MembershipCards({ open }: { open: boolean }) {
     const el = scrollerRef.current;
     if (!el) return;
     const id = window.setTimeout(() => {
-      currentIndexRef.current = 1;
       scrollToCard(1);
     }, 30);
     return () => window.clearTimeout(id);
   }, [open]);
-
-  // Enforce one-card-per-swipe: intercept touch, clamp the drag range to the
-  // adjacent card, and snap exactly one card on release.
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-
-    const getScrollLeft = (index: number) => {
-      const safe = Math.max(0, Math.min(cards.length - 1, index));
-      const card = el.querySelector<HTMLElement>(`[data-index="${safe}"]`);
-      if (!card) return 0;
-      return card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
-    };
-
-    const scrollToIndex = (index: number) => {
-      const safe = Math.max(0, Math.min(cards.length - 1, index));
-      const target = getScrollLeft(safe);
-      const start = el.scrollLeft;
-      const distance = target - start;
-      const duration = 250;
-      const startTime = performance.now();
-
-      const animate = (now: number) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        const ease = 1 - Math.pow(1 - progress, 3);
-        el.scrollLeft = start + distance * ease;
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      requestAnimationFrame(animate);
-      currentIndexRef.current = safe;
-    };
-
-    let startX = 0;
-    let startScroll = 0;
-    let isTouching = false;
-    let rafId: number | null = null;
-
-    const onTouchStart = (e: TouchEvent) => {
-      const t = e.touches[0];
-      isTouching = true;
-      startX = t.clientX;
-      startScroll = el.scrollLeft;
-      // Disable CSS scroll snap so we can clamp the drag without fighting
-      el.style.scrollSnapType = "none";
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (!isTouching) return;
-      const t = e.touches[0];
-      const dx = startX - t.clientX;
-      const current = currentIndexRef.current;
-      const min = getScrollLeft(current - 1);
-      const max = getScrollLeft(current + 1);
-      let target = startScroll + dx;
-      target = Math.max(min, Math.min(max, target));
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        el.scrollLeft = target;
-      });
-      e.preventDefault();
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!isTouching) return;
-      isTouching = false;
-      const t = e.changedTouches[0];
-      const dx = startX - t.clientX;
-      const threshold = 40;
-      const current = currentIndexRef.current;
-      if (Math.abs(dx) > threshold) {
-        scrollToIndex(current + (dx > 0 ? 1 : -1));
-      } else {
-        scrollToIndex(current);
-      }
-      // Restore CSS snap after the animated snap finishes
-      window.setTimeout(() => {
-        el.style.scrollSnapType = "";
-      }, 300);
-    };
-
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: false });
-    el.addEventListener("touchend", onTouchEnd, { passive: true });
-    el.addEventListener("touchcancel", onTouchEnd, { passive: true });
-
-    return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
-      el.removeEventListener("touchend", onTouchEnd);
-      el.removeEventListener("touchcancel", onTouchEnd);
-      if (rafId) cancelAnimationFrame(rafId);
-      el.style.scrollSnapType = "";
-    };
-  }, []);
-
 
   return (
     <div className="h-full flex flex-col min-h-0">
@@ -2303,9 +2199,11 @@ export function MembershipCards({ open }: { open: boolean }) {
       </div>
       <div
         ref={scrollerRef}
-        className="flex flex-1 min-h-0 overflow-x-auto scroll-hide -mx-5"
+        className="flex flex-1 min-h-0 overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5"
         style={{
           WebkitOverflowScrolling: "touch",
+          scrollPaddingLeft: 14,
+          scrollPaddingRight: 14,
           paddingLeft: 14,
           paddingRight: 14,
           overscrollBehaviorX: "contain",
@@ -2316,8 +2214,8 @@ export function MembershipCards({ open }: { open: boolean }) {
             key={i}
             data-card
             data-index={i}
-            className="shrink-0 h-full px-1"
-            style={{ width: "100%" }}
+            className="snap-center shrink-0 h-full px-1"
+            style={{ width: "100%", scrollSnapStop: "always" }}
           >
             <div
               className="rounded-[28px] p-5 h-full flex flex-col"
