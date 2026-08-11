@@ -2164,67 +2164,87 @@ export function MembershipCards({ open }: { open: boolean }) {
     return () => window.clearTimeout(id);
   }, [open]);
 
+  // Enforce one-card-per-swipe: intercept touch, clamp the drag range to the
+  // adjacent card, and snap exactly one card on release.
   useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const getScrollLeft = (index: number) => {
+      const safe = Math.max(0, Math.min(cards.length - 1, index));
+      const card = el.querySelector<HTMLElement>(`[data-index="${safe}"]`);
+      if (!card) return 0;
+      return card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
+    };
+
+    const scrollToIndex = (index: number) => {
+      const safe = Math.max(0, Math.min(cards.length - 1, index));
+      el.scrollTo({ left: getScrollLeft(safe), behavior: "smooth" });
+      currentIndexRef.current = safe;
+    };
+
+    let startX = 0;
+    let startScroll = 0;
+    let isTouching = false;
+    let rafId: number | null = null;
+
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      isTouching = true;
+      startX = t.clientX;
+      startScroll = el.scrollLeft;
+      // Disable CSS scroll snap so we can clamp the drag without fighting
+      el.style.scrollSnapType = "none";
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isTouching) return;
+      const t = e.touches[0];
+      const dx = startX - t.clientX;
+      const current = currentIndexRef.current;
+      const min = getScrollLeft(current - 1);
+      const max = getScrollLeft(current + 1);
+      let target = startScroll + dx;
+      target = Math.max(min, Math.min(max, target));
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        el.scrollLeft = target;
+      });
+      e.preventDefault();
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!isTouching) return;
+      isTouching = false;
+      const t = e.changedTouches[0];
+      const dx = startX - t.clientX;
+      const threshold = 40;
+      const current = currentIndexRef.current;
+      if (Math.abs(dx) > threshold) {
+        scrollToIndex(current + (dx > 0 ? 1 : -1));
+      } else {
+        scrollToIndex(current);
+      }
+      // Restore CSS snap after the smooth scroll finishes
+      window.setTimeout(() => {
+        el.style.scrollSnapType = "";
+      }, 350);
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+    el.addEventListener("touchcancel", onTouchEnd, { passive: true });
+
     return () => {
-      if (scrollEndTimer.current) window.clearTimeout(scrollEndTimer.current);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
+      if (rafId) cancelAnimationFrame(rafId);
+      el.style.scrollSnapType = "";
     };
   }, []);
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    const t = e.touches[0];
-    touchStartX.current = t.clientX;
-    touchStartY.current = t.clientY;
-    touchLastX.current = t.clientX;
-    touchLastY.current = t.clientY;
-    startIndexRef.current = currentIndexRef.current;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const t = e.touches[0];
-    touchLastX.current = t.clientX;
-    touchLastY.current = t.clientY;
-  };
-
-  const handleTouchEnd = () => {
-    const sx = touchStartX.current;
-    const sy = touchStartY.current;
-    const lx = touchLastX.current;
-    const ly = touchLastY.current;
-    if (sx == null || sy == null || lx == null || ly == null) return;
-    const dx = sx - lx;
-    const dy = ly - sy;
-    const SWIPE_THRESHOLD = 40;
-    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) <= Math.abs(dy)) return;
-    const direction = dx > 0 ? 1 : -1;
-    const next = Math.max(0, Math.min(cards.length - 1, startIndexRef.current + direction));
-    scrollToCard(next);
-  };
-
-  const handleScroll = () => {
-    if (scrollEndTimer.current) window.clearTimeout(scrollEndTimer.current);
-    scrollEndTimer.current = window.setTimeout(() => {
-      const el = scrollerRef.current;
-      if (!el) return;
-      const card = el.querySelector<HTMLElement>(`[data-index="${currentIndexRef.current}"]`);
-      if (!card) return;
-      // snap points are centered, so the nearest card is the one whose left edge is closest to
-      // (scrollLeft - (container width - card width) / 2)
-      const offset = (el.clientWidth - card.clientWidth) / 2;
-      const left = el.scrollLeft - offset + card.clientWidth / 2;
-      let best = 0;
-      let bestDist = Infinity;
-      el.querySelectorAll<HTMLElement>("[data-index]").forEach((c) => {
-        const idx = Number(c.dataset.index);
-        if (Number.isNaN(idx)) return;
-        const dist = Math.abs(c.offsetLeft + c.clientWidth / 2 - left);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = idx;
-        }
-      });
-      currentIndexRef.current = best;
-    }, 150);
-  };
 
 
   return (
