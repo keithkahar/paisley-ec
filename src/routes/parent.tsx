@@ -2179,7 +2179,22 @@ export function MembershipCards({ open }: { open: boolean }) {
 
     const scrollToIndex = (index: number) => {
       const safe = Math.max(0, Math.min(cards.length - 1, index));
-      el.scrollTo({ left: getScrollLeft(safe), behavior: "smooth" });
+      const target = getScrollLeft(safe);
+      const start = el.scrollLeft;
+      const distance = target - start;
+      const duration = 250;
+      const startTime = performance.now();
+
+      const animate = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.scrollLeft = start + distance * ease;
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      requestAnimationFrame(animate);
       currentIndexRef.current = safe;
     };
 
@@ -2225,10 +2240,10 @@ export function MembershipCards({ open }: { open: boolean }) {
       } else {
         scrollToIndex(current);
       }
-      // Restore CSS snap after the smooth scroll finishes
+      // Restore CSS snap after the animated snap finishes
       window.setTimeout(() => {
         el.style.scrollSnapType = "";
-      }, 350);
+      }, 300);
     };
 
     el.addEventListener("touchstart", onTouchStart, { passive: true });
