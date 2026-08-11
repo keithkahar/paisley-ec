@@ -2268,6 +2268,10 @@ export function MembershipCards({ open }: { open: boolean }) {
       </div>
       <div
         ref={scrollerRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onScroll={handleScroll}
         className="flex flex-1 min-h-0 overflow-x-auto snap-x snap-mandatory scroll-hide -mx-5"
         style={{
           WebkitOverflowScrolling: "touch",
