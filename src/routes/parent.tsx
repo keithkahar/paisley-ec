@@ -2073,12 +2073,6 @@ export function MembershipCards({ open }: { open: boolean }) {
   }, [open, debugSheet]);
 
   const currentIndexRef = useRef(1);
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
-  const touchLastX = useRef<number | null>(null);
-  const touchLastY = useRef<number | null>(null);
-  const startIndexRef = useRef(1);
-  const scrollEndTimer = useRef<number | null>(null);
 
   const cards = [
     {
