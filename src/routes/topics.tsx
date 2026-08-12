@@ -94,12 +94,13 @@ function TopicPill({ title }: { title: string }) {
     <span
       className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight whitespace-nowrap select-none"
       style={{
-        background: "color-mix(in oklab, var(--shirin) 14%, white)",
-        color: PINK,
+        background: "white",
+        border: `1.5px solid ${PINK}`,
+        color: "#3a3a3c",
       }}
     >
       {title}
-      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} style={{ color: PINK }} />
     </span>
   );
 }
