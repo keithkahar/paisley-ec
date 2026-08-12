@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { z } from "zod";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import shirinGirl from "@/assets/brand/shirin-girl.png";
+import shirinChatAvatar from "@/assets/brand/shirin-chat-avatar.png.asset.json";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import { useBloxia } from "@/lib/bloxia/progress";
 import {
@@ -355,7 +355,7 @@ function ChatPage() {
                     />
                   )}
                   {!isUser && (
-                    <img src={shirinGirl} alt="Shirin" className="h-8 w-8 mt-0.5 object-contain shrink-0" />
+                    <img src={shirinChatAvatar.url} alt="Shirin" className="h-8 w-8 mt-0.5 object-contain shrink-0" />
                   )}
                   <div className={`max-w-[76%] flex flex-col ${isUser ? "items-end ml-auto" : "items-start"}`}>
                     <div
@@ -412,7 +412,7 @@ function ChatPage() {
 
             {sending && (
               <div className="flex items-start gap-2">
-                <img src={shirinGirl} alt="Shirin" className="h-8 w-8 object-contain" />
+                <img src={shirinChatAvatar.url} alt="Shirin" className="h-8 w-8 object-contain" />
                 <div className="rounded-2xl rounded-tl-sm px-3.5 py-2 border border-border bg-white shadow-sm inline-flex items-center gap-1.5">
                   <span className="text-[12px] text-muted-foreground italic mr-1">Shirin is thinking</span>
                   <Dot delay={0} />
