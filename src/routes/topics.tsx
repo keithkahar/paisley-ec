@@ -32,7 +32,7 @@ const TOPICS: Topic[] = [
   {
     topic_id: "smart_reading",
     title: "Smart Reading",
-    pillTop: 37,
+    pillTop: 36.6,
     pillLeft: 22.8,
     hitArea: { top: 0, left: 0, width: 32, height: 42.5 },
   },
@@ -46,8 +46,8 @@ const TOPICS: Topic[] = [
   {
     topic_id: "football_talk",
     title: "Football Talk",
-    pillTop: 72.6,
-    pillLeft: 20.2,
+    pillTop: 73,
+    pillLeft: 21.5,
     hitArea: { top: 60.9, left: 0, width: 32, height: 21.5 },
   },
   {
@@ -63,20 +63,20 @@ const TOPICS: Topic[] = [
     topic_id: "minecraft_adventure",
     title: "Minecraft Talk",
     pillTop: 37.4,
-    pillLeft: 65.6,
+    pillLeft: 69.4,
     hitArea: { top: 0, left: 55, width: 38, height: 44.8 },
   },
   {
     topic_id: "food_talk",
     title: "Food Talk",
-    pillTop: 55.2,
-    pillLeft: 66,
+    pillTop: 55.8,
+    pillLeft: 69.8,
     hitArea: { top: 44.8, left: 55, width: 38, height: 18.8 },
   },
   {
     topic_id: "nature_explorer",
     title: "Nature Explore",
-    pillTop: 72.6,
+    pillTop: 71.9,
     pillLeft: 78.7,
     hitArea: { top: 63.6, left: 55, width: 38, height: 18.7 },
   },
@@ -84,7 +84,7 @@ const TOPICS: Topic[] = [
     topic_id: "mywordie",
     title: "myWordie Talk",
     pillTop: 92.6,
-    pillLeft: 74.6,
+    pillLeft: 75.9,
     hitArea: { top: 82.3, left: 55, width: 38, height: 17.7 },
   },
 ];
