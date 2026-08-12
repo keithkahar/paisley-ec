@@ -96,7 +96,7 @@ function TopicPill({ title }: { title: string }) {
       style={{
         background: "white",
         border: `1px solid ${PINK}`,
-        color: "#3a3a3c",
+        color: PINK,
       }}
     >
       {title}
