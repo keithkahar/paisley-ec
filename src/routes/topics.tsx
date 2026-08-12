@@ -92,7 +92,7 @@ const TOPICS: Topic[] = [
 function TopicPill({ title }: { title: string }) {
   return (
     <span
-      className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight shadow-sm whitespace-nowrap select-none"
+      className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight whitespace-nowrap select-none"
       style={{
         background: "color-mix(in oklab, var(--shirin) 14%, white)",
         color: PINK,
