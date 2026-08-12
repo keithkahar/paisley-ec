@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { z } from "zod";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import shirinGirl from "@/assets/brand/shirin-girl.png";
 import shirinChatAvatar from "@/assets/brand/shirin-chat-avatar.png.asset.json";
 import shirinHero from "@/assets/brand/Shirin.png.asset.json";
 import { useBloxia } from "@/lib/bloxia/progress";
