@@ -78,25 +78,36 @@ export interface BloxianAvatar {
 }
 
 const AV = {
-  a1: "/__l5e/assets-v1/561353f5-4309-4ad7-8cef-3f695dfd3ce7/bloxian_avatar_01.png",
-  a2: "/__l5e/assets-v1/dca18d1c-9130-4886-9fcb-82174d8c62ab/bloxian_avatar_02.png",
-  a3: "/__l5e/assets-v1/1ed30cd4-5351-4e63-8c7e-dd8b9606cc84/bloxian_avatar_03.png",
-  a4: "/__l5e/assets-v1/54a93250-2455-4ad7-b9c4-a76f1d29b898/bloxian_avatar_04.png",
-  a5: "/__l5e/assets-v1/93766303-cf12-4093-9c28-399dd8d57f37/bloxian_avatar_05.png",
-  a6: "/__l5e/assets-v1/4cb10b8f-2fad-43dc-97c0-c28b45d68e5c/bloxian_avatar_06.png",
-  a7: "/__l5e/assets-v1/0f878ac6-da09-449d-b83a-82341b758c0f/bloxian_avatar_07.png",
-  a8: "/__l5e/assets-v1/3688c316-6c6e-463c-b385-f28a57535c72/bloxian_avatar_08.png",
+  a1: "/__l5e/assets-v1/0002653e-b257-4b78-8b11-f8f04f914782/bloxian_avatar_01.png",
+  a2: "/__l5e/assets-v1/f421b62d-ec12-4111-8109-9f1db15c1d61/bloxian_avatar_02.png",
+  a3: "/__l5e/assets-v1/ef4ed802-ab17-4220-984f-7bbba9c2bb6e/bloxian_avatar_03.png",
+  a4: "/__l5e/assets-v1/9e4f2da9-f9f5-4fb1-9447-eaa63b64e75f/bloxian_avatar_04.png",
+  a5: "/__l5e/assets-v1/0b89d8a5-719d-4216-b6fe-bc91531867c6/bloxian_avatar_05.png",
+  a6: "/__l5e/assets-v1/dbc4f1b8-40d5-476f-a868-315e188694f8/bloxian_avatar_06.png",
+  a7: "/__l5e/assets-v1/585620b1-096d-40f2-90f1-4149de143244/bloxian_avatar_07.png",
+  a8: "/__l5e/assets-v1/48fe8e95-fa85-4311-bd9e-722a5bcd3861/bloxian_avatar_08.png",
+};
+
+const AV_FULL = {
+  a1: "/__l5e/assets-v1/892fe8ba-3d90-4f22-86ae-22241074b6c9/bloxian_avatar_01.png",
+  a2: "/__l5e/assets-v1/6d0ea098-0bc0-4741-a962-f67d4054d02f/bloxian_avatar_02.png",
+  a3: "/__l5e/assets-v1/e1dddabd-3a09-4136-bc47-46fefad41267/bloxian_avatar_03.png",
+  a4: "/__l5e/assets-v1/6f421fa8-a4d7-4ba7-890e-8c95d4059f61/bloxian_avatar_04.png",
+  a5: "/__l5e/assets-v1/d7d10406-3174-4754-b5c6-5fbcedee6c6e/bloxian_avatar_05.png",
+  a6: "/__l5e/assets-v1/1d04a9a6-022d-439a-9a18-c8d01554ef81/bloxian_avatar_06.png",
+  a7: "/__l5e/assets-v1/58207795-ec3b-460b-baa6-a7ea15b6cd30/bloxian_avatar_07.png",
+  a8: "/__l5e/assets-v1/e7f0df2e-96ed-4075-a611-c64660d6ff28/bloxian_avatar_08.png",
 };
 
 export const BLOXIAN_AVATARS: BloxianAvatar[] = [
-  { id: "shirin", name: "Bloxian", portrait: AV.a1, full: AV.a1, map: AV.a1, isDefault: true },
-  { id: "ezra",   name: "Ezra",    portrait: AV.a2, full: AV.a2, map: AV.a2 },
-  { id: "luna",   name: "Luna",    portrait: AV.a3, full: AV.a3, map: AV.a3 },
-  { id: "rex",    name: "Rex",     portrait: AV.a4, full: AV.a4, map: AV.a4 },
-  { id: "milo",   name: "Milo",    portrait: AV.a5, full: AV.a5, map: AV.a5 },
-  { id: "nova",   name: "Nova",    portrait: AV.a6, full: AV.a6, map: AV.a6 },
-  { id: "kai",    name: "Kai",     portrait: AV.a7, full: AV.a7, map: AV.a7 },
-  { id: "iris",   name: "Iris",    portrait: AV.a8, full: AV.a8, map: AV.a8 },
+  { id: "shirin", name: "Bloxian", portrait: AV.a1, full: AV_FULL.a1, map: AV_FULL.a1, isDefault: true },
+  { id: "ezra",   name: "Ezra",    portrait: AV.a2, full: AV_FULL.a2, map: AV_FULL.a2 },
+  { id: "luna",   name: "Luna",    portrait: AV.a3, full: AV_FULL.a3, map: AV_FULL.a3 },
+  { id: "rex",    name: "Rex",     portrait: AV.a4, full: AV_FULL.a4, map: AV_FULL.a4 },
+  { id: "milo",   name: "Milo",    portrait: AV.a5, full: AV_FULL.a5, map: AV_FULL.a5 },
+  { id: "nova",   name: "Nova",    portrait: AV.a6, full: AV_FULL.a6, map: AV_FULL.a6 },
+  { id: "kai",    name: "Kai",     portrait: AV.a7, full: AV_FULL.a7, map: AV_FULL.a7 },
+  { id: "iris",   name: "Iris",    portrait: AV.a8, full: AV_FULL.a8, map: AV_FULL.a8 },
 ];
 
 export const DEFAULT_AVATAR_ID = "shirin";
