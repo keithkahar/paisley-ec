@@ -92,14 +92,14 @@ const TOPICS: Topic[] = [
 function TopicPill({ title }: { title: string }) {
   return (
     <span
-      className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight border shadow-sm bg-white/90 backdrop-blur-sm whitespace-nowrap select-none"
+      className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight shadow-sm whitespace-nowrap select-none"
       style={{
-        borderColor: `color-mix(in oklab, ${PINK} 22%, white)`,
+        background: "color-mix(in oklab, var(--shirin) 14%, white)",
         color: PINK,
       }}
     >
       {title}
-      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "color-mix(in oklab, var(--shirin) 55%, white)" }} />
+      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "white" }} />
     </span>
   );
 }
