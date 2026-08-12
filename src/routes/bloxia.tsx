@@ -69,10 +69,10 @@ const T = {
   goldOnDark: "#1C2A12",
 };
 
-// Circular avatar crop: zoom to the head so the circle shows the whole head only.
+// Avatar icons are already square head crops, so show them 1:1 with no zoom.
 const AVATAR_HEAD_STYLE = {
-  transform: "scale(2.2) translateY(-6.25%)",
-  transformOrigin: "50% 0%",
+  transform: "none",
+  transformOrigin: "50% 50%",
 };
 
 function formatBp(n: number) {
