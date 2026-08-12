@@ -95,7 +95,7 @@ function TopicPill({ title }: { title: string }) {
       className="inline-flex items-center gap-1 h-8 px-3.5 rounded-full text-[15px] font-semibold tracking-tight whitespace-nowrap select-none"
       style={{
         background: "white",
-        border: `1px solid ${PINK}`,
+        border: `0.5px solid ${PINK}`,
         color: PINK,
       }}
     >
