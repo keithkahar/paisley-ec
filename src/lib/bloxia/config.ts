@@ -81,7 +81,7 @@ const AV = {
   a1: "/__l5e/assets-v1/0002653e-b257-4b78-8b11-f8f04f914782/bloxian_avatar_01.png",
   a2: "/__l5e/assets-v1/f421b62d-ec12-4111-8109-9f1db15c1d61/bloxian_avatar_02.png",
   a3: "/__l5e/assets-v1/ef4ed802-ab17-4220-984f-7bbba9c2bb6e/bloxian_avatar_03.png",
-  a4: "/__l5e/assets-v1/9e4f2da9-f9f5-4fb1-9447-eaa63b64e75f/bloxian_avatar_04.png",
+  a4: "/__l5e/assets-v1/7ad79600-3337-4b6c-bdc1-1a1906f888f2/bloxian_avatar_04_icon_v2.png",
   a5: "/__l5e/assets-v1/0b89d8a5-719d-4216-b6fe-bc91531867c6/bloxian_avatar_05.png",
   a6: "/__l5e/assets-v1/dbc4f1b8-40d5-476f-a868-315e188694f8/bloxian_avatar_06.png",
   a7: "/__l5e/assets-v1/585620b1-096d-40f2-90f1-4149de143244/bloxian_avatar_07.png",
