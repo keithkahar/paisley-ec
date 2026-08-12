@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { FloatingBack } from "@/components/app/FloatingBack";
-import topicsMap from "@/assets/topics/topics-map.png.asset.json";
+import topicsMap from "@/assets/topics/topics-map-v2.png.asset.json";
 
 const PINK = "var(--shirin)";
 
