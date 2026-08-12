@@ -128,7 +128,7 @@ function TopicsPage() {
     <PhoneFrame bg="bg-transparent">
       <div className="relative h-[100dvh] w-full overflow-hidden bg-transparent">
         {/* Full-bleed illustration */}
-        <div className="absolute inset-0" style={{ transform: "translateY(-5px)" }}>
+        <div className="absolute inset-0">
           <img
             src={topicsMap.url}
             alt="Topics"
