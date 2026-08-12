@@ -32,7 +32,7 @@ const TOPICS: Topic[] = [
   {
     topic_id: "smart_reading",
     title: "Smart Reading",
-    pillTop: 36.6,
+    pillTop: 36.84,
     pillLeft: 22.8,
     hitArea: { top: 0, left: 0, width: 32, height: 42.5 },
   },
@@ -63,14 +63,14 @@ const TOPICS: Topic[] = [
     topic_id: "minecraft_adventure",
     title: "Minecraft Talk",
     pillTop: 37.4,
-    pillLeft: 69.4,
+    pillLeft: 70.67,
     hitArea: { top: 0, left: 55, width: 38, height: 44.8 },
   },
   {
     topic_id: "food_talk",
     title: "Food Talk",
     pillTop: 56.04,
-    pillLeft: 72.34,
+    pillLeft: 74.38,
     hitArea: { top: 44.8, left: 55, width: 38, height: 18.8 },
   },
   {
@@ -99,7 +99,7 @@ function TopicPill({ title }: { title: string }) {
       }}
     >
       {title}
-      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} style={{ color: "white" }} />
+      <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} />
     </span>
   );
 }
