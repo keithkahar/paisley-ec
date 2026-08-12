@@ -176,16 +176,10 @@ function TopicsPage() {
           <div className="px-5 py-3 text-center">
             <h1
               className="text-[30px] leading-[1.2] font-medium tracking-tight"
-              style={{ color: PINK, letterSpacing: "-0.01em", textShadow: "0 1px 5px rgba(0,0,0,0.2)" }}
+              style={{ color: PINK, letterSpacing: "-0.01em" }}
             >
               Pick A Topic
             </h1>
-            <p
-              className="mt-1 text-[14px] font-semibold tracking-tight text-gray-500"
-              style={{ textShadow: "0 1px 4px rgba(0,0,0,0.25)" }}
-            >
-              Let's talk about it.
-            </p>
           </div>
         </div>
       </div>
