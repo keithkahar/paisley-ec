@@ -4,10 +4,10 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 export const Route = createFileRoute("/sheets")({
   head: () => ({
     meta: [
-      { title: "Bottom Sheet Index — Paizley EC" },
-      { name: "description", content: "Debug index of every bottom sheet with its source file and test link." },
-      { property: "og:title", content: "Bottom Sheet Index — Paizley EC" },
-      { property: "og:description", content: "Debug index of every bottom sheet with its source file and test link." },
+      { title: "Bottom Sheet Debug Preview — Paizley EC" },
+      { name: "description", content: "One debug list to open every migrated bottom sheet layout for review." },
+      { property: "og:title", content: "Bottom Sheet Debug Preview — Paizley EC" },
+      { property: "og:description", content: "One debug list to open every migrated bottom sheet layout for review." },
     ],
   }),
   component: SheetIndexPage,
@@ -29,7 +29,9 @@ const GROUPS: { group: string; rows: Row[] }[] = [
     group: "Onboarding / 学习旅程",
     rows: [
       { title: "孩子的学习旅程还未开启", slug: "journey-quota", to: "/profile", search: { sheet: "journey-quota" }, file: "src/components/app/LearningJourneyFlow.tsx" },
-      { title: "体验次数已用完", slug: "limit-used", to: "/profile", search: { sheet: "limit-used" }, file: "src/components/app/LearningJourneyFlow.tsx" },
+      { title: "体验次数已用完 · ShirinTalk", slug: "limit-used", to: "/profile", search: { sheet: "limit-used" }, file: "src/components/app/LearningJourneyFlow.tsx" },
+      { title: "体验次数已用完 · myWordie", slug: "limit-used-wordie", to: "/profile", search: { sheet: "limit-used-wordie" }, file: "src/components/app/LearningJourneyFlow.tsx" },
+      { title: "体验次数已用完 · Bloxia", slug: "limit-used-bloxia", to: "/profile", search: { sheet: "limit-used-bloxia" }, file: "src/components/app/LearningJourneyFlow.tsx" },
       { title: "创建孩子的学习旅程", slug: "create-journey", to: "/profile", search: { sheet: "create-journey" }, file: "src/components/app/LearningJourneyFlow.tsx" },
       { title: "创建家长账户", slug: "guardian-account", to: "/profile", search: { sheet: "guardian-account" }, file: "src/components/app/LearningJourneyFlow.tsx" },
       { title: "无法创建家长账户", slug: "guardian-error", to: "/profile", search: { sheet: "guardian-error" }, file: "src/components/app/LearningJourneyFlow.tsx" },
@@ -44,6 +46,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "请输入家长PIN", slug: "enter-parent-pin", to: "/parent", search: { sheet: "enter-parent-pin" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "请设置家长PIN", slug: "setup-parent-pin", to: "/parent", search: { sheet: "setup-parent-pin" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "找回家长PIN", slug: "recover-pin", to: "/parent", search: { sheet: "recover-pin" }, file: "src/routes/parent.tsx (ParentPinGate)" },
+      { title: "找回家长PIN · 手机验证", slug: "recover-phone", to: "/parent", search: { sheet: "recover-phone" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "创建家长账户 (visitor)", slug: "guardian-account", to: "/parent", search: { sheet: "guardian-account" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "绑定手机号", slug: "bind-phone", to: "/parent", search: { sheet: "bind-phone" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "请输入手机号", slug: "phone-entry", to: "/parent", search: { sheet: "phone-entry" }, file: "src/routes/parent.tsx (ParentPinGate)" },
