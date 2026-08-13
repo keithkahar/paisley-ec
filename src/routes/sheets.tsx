@@ -4,10 +4,10 @@ import { PhoneFrame } from "@/components/app/PhoneFrame";
 export const Route = createFileRoute("/sheets")({
   head: () => ({
     meta: [
-      { title: "Bottom Sheet Index — Paizley EC" },
-      { name: "description", content: "Debug index of every bottom sheet with its source file and test link." },
-      { property: "og:title", content: "Bottom Sheet Index — Paizley EC" },
-      { property: "og:description", content: "Debug index of every bottom sheet with its source file and test link." },
+      { title: "Bottom Sheet Debug Preview — Paizley EC" },
+      { name: "description", content: "One debug list to open every migrated bottom sheet layout for review." },
+      { property: "og:title", content: "Bottom Sheet Debug Preview — Paizley EC" },
+      { property: "og:description", content: "One debug list to open every migrated bottom sheet layout for review." },
     ],
   }),
   component: SheetIndexPage,
@@ -29,7 +29,9 @@ const GROUPS: { group: string; rows: Row[] }[] = [
     group: "Onboarding / 学习旅程",
     rows: [
       { title: "孩子的学习旅程还未开启", slug: "journey-quota", to: "/profile", search: { sheet: "journey-quota" }, file: "src/components/app/LearningJourneyFlow.tsx" },
-      { title: "体验次数已用完", slug: "limit-used", to: "/profile", search: { sheet: "limit-used" }, file: "src/components/app/LearningJourneyFlow.tsx" },
+      { title: "体验次数已用完 · ShirinTalk", slug: "limit-used", to: "/profile", search: { sheet: "limit-used" }, file: "src/components/app/LearningJourneyFlow.tsx" },
+      { title: "体验次数已用完 · myWordie", slug: "limit-used-wordie", to: "/profile", search: { sheet: "limit-used-wordie" }, file: "src/components/app/LearningJourneyFlow.tsx" },
+      { title: "体验次数已用完 · Bloxia", slug: "limit-used-bloxia", to: "/profile", search: { sheet: "limit-used-bloxia" }, file: "src/components/app/LearningJourneyFlow.tsx" },
       { title: "创建孩子的学习旅程", slug: "create-journey", to: "/profile", search: { sheet: "create-journey" }, file: "src/components/app/LearningJourneyFlow.tsx" },
       { title: "创建家长账户", slug: "guardian-account", to: "/profile", search: { sheet: "guardian-account" }, file: "src/components/app/LearningJourneyFlow.tsx" },
       { title: "无法创建家长账户", slug: "guardian-error", to: "/profile", search: { sheet: "guardian-error" }, file: "src/components/app/LearningJourneyFlow.tsx" },
@@ -44,6 +46,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "请输入家长PIN", slug: "enter-parent-pin", to: "/parent", search: { sheet: "enter-parent-pin" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "请设置家长PIN", slug: "setup-parent-pin", to: "/parent", search: { sheet: "setup-parent-pin" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "找回家长PIN", slug: "recover-pin", to: "/parent", search: { sheet: "recover-pin" }, file: "src/routes/parent.tsx (ParentPinGate)" },
+      { title: "找回家长PIN · 手机验证", slug: "recover-phone", to: "/parent", search: { sheet: "recover-phone" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "创建家长账户 (visitor)", slug: "guardian-account", to: "/parent", search: { sheet: "guardian-account" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "绑定手机号", slug: "bind-phone", to: "/parent", search: { sheet: "bind-phone" }, file: "src/routes/parent.tsx (ParentPinGate)" },
       { title: "请输入手机号", slug: "phone-entry", to: "/parent", search: { sheet: "phone-entry" }, file: "src/routes/parent.tsx (ParentPinGate)" },
@@ -64,57 +67,41 @@ const GROUPS: { group: string; rows: Row[] }[] = [
 function SheetIndexPage() {
   return (
     <PhoneFrame bg="bg-white">
-      <div className="min-h-[100dvh] bg-white px-6 pt-[53px] pb-16">
-        <h1 className="text-[20px] font-semibold" style={{ color: "var(--paisley)" }}>
-          Bottom Sheet Index
-        </h1>
-        <p className="mt-1 text-[12px]" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-          每个上拉菜单的代码位置与测试链接
-        </p>
+      <div className="min-h-[100dvh]" style={{ background: "#f7f8fa" }}>
+        {/* Sticky nav-bar style header, like the mini-program debug preview */}
+        <header
+          className="sticky top-0 z-10 bg-white px-6 pt-[18px] pb-3"
+          style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 7%, white)" }}
+        >
+          <h1 className="text-[24px] font-semibold leading-tight" style={{ color: "var(--paisley)" }}>
+            Bottom Sheet Debug Preview
+          </h1>
+          <p className="mt-1 text-[13px]" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+            Real migrated sheet layouts · No auth · Non-Bloxia
+          </p>
+        </header>
 
-        {GROUPS.map((g) => (
-          <section key={g.group} className="mt-7">
-            <h2
-              className="text-[11px] uppercase tracking-[0.12em]"
-              style={{ color: "var(--muted-foreground)", fontWeight: 600 }}
+        <div className="px-6 pt-4 pb-16 flex flex-col gap-3">
+          {GROUPS.flatMap((g) => g.rows).map((r) => (
+            <Link
+              key={`${r.to}-${r.slug}-${r.title}`}
+              to={r.to}
+              search={r.search}
+              className="block rounded-2xl bg-white px-5 py-4 active:scale-[0.99] transition-transform"
+              style={{
+                border: "1px solid color-mix(in oklab, var(--foreground) 6%, white)",
+                boxShadow: "0 1px 3px rgba(15,23,42,0.04)",
+              }}
             >
-              {g.group}
-            </h2>
-            <div className="mt-3 flex flex-col gap-2">
-              {g.rows.map((r) => (
-                <Link
-                  key={`${r.to}-${r.slug}-${r.title}`}
-                  to={r.to}
-                  search={r.search}
-                  className="block rounded-2xl px-4 py-3"
-                  style={{
-                    background: "color-mix(in oklab, var(--paisley) 5%, white)",
-                    border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
-                  }}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-[14px] font-semibold" style={{ color: "var(--foreground)" }}>
-                      {r.title}
-                    </span>
-                    <span
-                      className="shrink-0 rounded-full px-2.5 h-[22px] grid place-items-center text-[10px]"
-                      style={{ background: "var(--paisley)", color: "white", fontWeight: 600 }}
-                    >
-                      {r.slug}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-[10px] break-all" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                    {r.file}
-                  </p>
-                  <p className="mt-0.5 text-[10px]" style={{ color: "color-mix(in oklab, var(--paisley) 70%, white)", fontWeight: 400 }}>
-                    {r.to}
-                    {r.search ? `?sheet=${r.search["sheet"]}` : ""}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </section>
-        ))}
+              <span className="block text-[16px] font-semibold leading-snug" style={{ color: "var(--foreground)" }}>
+                {r.title}
+              </span>
+              <span className="mt-1 block text-[12px]" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+                {r.slug}
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </PhoneFrame>
   );

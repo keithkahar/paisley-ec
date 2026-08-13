@@ -10,8 +10,9 @@ import { useSheetDebug } from "@/lib/sheetDebug";
  *  day 7 -> 7天免费旅程即将结束
  * Primary button on both opens the Membership bottom sheet.
  *
- * Debug path (as requested): entering the home page opens the day-5 sheet, and
- * tapping 继续体验 moves to the day-7 sheet so both can be reviewed in one pass.
+ * These sheets only open from the debug preview list (/sheets), i.e. when the
+ * home page is opened with ?sheet=trial-day5 / trial-day7 / membership /
+ * purchase-phone. Normal home visits never auto-open them.
  */
 type Step = "none" | "day5" | "day7" | "membership";
 
@@ -21,11 +22,13 @@ export function TrialReminderFlow() {
 
   useEffect(() => {
     setStep(
-      debug === "trial-day7"
-        ? "day7"
-        : debug === "membership" || debug === "purchase-phone"
-          ? "membership"
-          : "day5",
+      debug === "trial-day5"
+        ? "day5"
+        : debug === "trial-day7"
+          ? "day7"
+          : debug === "membership" || debug === "purchase-phone"
+            ? "membership"
+            : "none",
     );
   }, [debug]);
 

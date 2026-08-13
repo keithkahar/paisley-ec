@@ -1,9 +1,4 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import {
-  requestBloxiaLimitPrompt,
-  requestDailyLimitPrompt,
-  requestWordieLimitPrompt,
-} from "@/lib/learningJourney";
 import shirinFilled from "@/assets/tabs/shirin-filled.png";
 import shirinOutline from "@/assets/tabs/shirin-outline-medium.png.asset.json";
 import wordieFilled from "@/assets/tabs/wordie-filled.png.asset.json";
@@ -22,7 +17,6 @@ const tabs = [
 
 export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const navigate = useNavigate();
 
   return (
     <>
@@ -59,29 +53,6 @@ export function BottomTabBar({ hidden = false }: { hidden?: boolean }) {
                 to={t.to}
                 aria-label={t.label}
                 className="relative flex-1"
-                onClick={
-                  // Temporary debug entry: tapping the ShirinTalk tab opens the
-                  // "today's trial is done" sheet (hosted on /profile).
-                  t.to === "/shirin-talk"
-                    ? (e: React.MouseEvent) => {
-                        e.preventDefault();
-                        requestDailyLimitPrompt("shirin_talk_tab");
-                        navigate({ to: "/shirin-talk" });
-                      }
-                    : t.to === "/mywordie"
-                      ? (e: React.MouseEvent) => {
-                          e.preventDefault();
-                          requestWordieLimitPrompt("mywordie_tab");
-                          navigate({ to: "/mywordie" });
-                        }
-                      : t.to === "/bloxia"
-                        ? (e: React.MouseEvent) => {
-                            e.preventDefault();
-                            requestBloxiaLimitPrompt("bloxia_tab");
-                            navigate({ to: "/bloxia" });
-                          }
-                        : undefined
-                }
               >
                 <span
                   className={`absolute top-0 bottom-0 ${anchor} aspect-square rounded-full flex items-center justify-center`}
