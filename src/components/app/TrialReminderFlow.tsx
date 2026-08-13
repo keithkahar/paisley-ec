@@ -26,7 +26,10 @@ export function TrialReminderFlow() {
         ? "day5"
         : debug === "trial-day7"
           ? "day7"
-          : debug === "membership" || debug === "purchase-phone"
+          : debug === "membership" ||
+              debug === "purchase-phone" ||
+              debug === "confirm-subscribe" ||
+              debug === "confirm-subscribe-plus"
             ? "membership"
             : "none",
     );
