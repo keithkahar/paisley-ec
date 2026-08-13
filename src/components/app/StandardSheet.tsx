@@ -1,5 +1,39 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useId, useState } from "react";
 import { Check, ChevronLeft, X } from "lucide-react";
+
+/**
+ * Global backdrop registry: when several sheets are open at once (e.g. a nested
+ * flow, or the debug preview opening a child sheet on top of its parent), only
+ * the top-most sheet paints the dark backdrop. Stacking two translucent
+ * backdrops used to darken the strip visible outside the rounded corners.
+ */
+const openSheets: string[] = [];
+const backdropListeners = new Set<() => void>();
+function notifyBackdrop() {
+  backdropListeners.forEach((fn) => fn());
+}
+function useIsTopSheet(open: boolean) {
+  const id = useId();
+  const [, force] = useState(0);
+  useEffect(() => {
+    const listener = () => force((n) => n + 1);
+    backdropListeners.add(listener);
+    return () => {
+      backdropListeners.delete(listener);
+    };
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    openSheets.push(id);
+    notifyBackdrop();
+    return () => {
+      const i = openSheets.indexOf(id);
+      if (i >= 0) openSheets.splice(i, 1);
+      notifyBackdrop();
+    };
+  }, [open, id]);
+  return openSheets.length === 0 || openSheets[openSheets.length - 1] === id;
+}
 
 /**
  * Global bottom-sheet standard.
@@ -76,6 +110,7 @@ export function StandardSheet({
   }, [open, onClose]);
 
   const hasDone = typeof onDone === "function";
+  const isTop = useIsTopSheet(open);
 
   return (
     <div
@@ -87,7 +122,7 @@ export function StandardSheet({
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className={`absolute inset-0 bg-sheet-backdrop ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={`absolute inset-0 ${isTop ? "bg-sheet-backdrop" : "bg-transparent"} ${open ? "pointer-events-auto" : "pointer-events-none"}`}
       />
       <div
         className="relative w-full max-w-[420px] rounded-t-3xl flex flex-col bg-white pointer-events-auto"
