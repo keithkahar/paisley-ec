@@ -2067,9 +2067,12 @@ function TimePickerSheet({ value, onChange }: { value: string; onChange: (v: str
 export function MembershipCards({ open }: { open: boolean }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [purchasePhoneOpen, setPurchasePhoneOpen] = useState(false);
+  const [confirmPlan, setConfirmPlan] = useState<"Premium" | "Premium Plus" | null>(null);
   const debugSheet = useSheetDebug();
   useEffect(() => {
     if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
+    if (open && debugSheet === "confirm-subscribe") setConfirmPlan("Premium");
+    if (open && debugSheet === "confirm-subscribe-plus") setConfirmPlan("Premium Plus");
   }, [open, debugSheet]);
   const cards = [
     {
