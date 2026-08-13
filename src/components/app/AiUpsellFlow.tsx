@@ -66,7 +66,7 @@ export function AiUpsellFlow() {
             升级会员，获得更多每日AI陪伴时间
           </SheetCardSubtitle>
           <SheetBenefitList
-            items={["今日AI使用 20 / 20 分钟", "升级后 · Premium Plus", "每天 30 分钟 AI 陪伴"]}
+            items={["今日AI使用 20 / 20 分钟", "升级后 30 分钟/天"]}
           />
         </SheetActionBody>
       </StandardSheet>
