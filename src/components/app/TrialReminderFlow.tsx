@@ -29,7 +29,8 @@ export function TrialReminderFlow() {
           : debug === "membership" ||
               debug === "purchase-phone" ||
               debug === "confirm-subscribe" ||
-              debug === "confirm-subscribe-plus"
+              debug === "confirm-subscribe-plus" ||
+              debug === "membership-activated"
             ? "membership"
             : "none",
     );

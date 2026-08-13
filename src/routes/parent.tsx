@@ -2068,11 +2068,13 @@ export function MembershipCards({ open }: { open: boolean }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [purchasePhoneOpen, setPurchasePhoneOpen] = useState(false);
   const [confirmPlan, setConfirmPlan] = useState<"Premium" | "Premium Plus" | null>(null);
+  const [activatedOpen, setActivatedOpen] = useState(false);
   const debugSheet = useSheetDebug();
   useEffect(() => {
     if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
     if (open && debugSheet === "confirm-subscribe") setConfirmPlan("Premium");
     if (open && debugSheet === "confirm-subscribe-plus") setConfirmPlan("Premium Plus");
+    if (open && debugSheet === "membership-activated") setActivatedOpen(true);
   }, [open, debugSheet]);
   const cards = [
     {
@@ -2366,7 +2368,15 @@ export function MembershipCards({ open }: { open: boolean }) {
           setPurchasePhoneOpen(true);
         }}
       />
-      <PurchasePhoneSheet open={purchasePhoneOpen} onClose={() => setPurchasePhoneOpen(false)} />
+      <PurchasePhoneSheet
+        open={purchasePhoneOpen}
+        onClose={() => setPurchasePhoneOpen(false)}
+        onSuccess={() => {
+          setPurchasePhoneOpen(false);
+          setActivatedOpen(true);
+        }}
+      />
+      <MembershipActivatedSheet open={activatedOpen} onClose={() => setActivatedOpen(false)} />
     </div>
   );
 }
@@ -2406,8 +2416,37 @@ function ConfirmSubscribeSheet({
   );
 }
 
+// ---- Payment success: membership activated ----
+function MembershipActivatedSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <StandardSheet
+      open={open}
+      title="会员已开启"
+      brandColor={SHEET_BRAND.paisley}
+      zClass="z-[80]"
+      onClose={onClose}
+    >
+      <SheetActionBody
+        primary={{ label: "开始学习", background: SHEET_BRAND.paisley, onClick: onClose }}
+        secondary={{ label: "查看会员权益", onClick: onClose }}
+      >
+        <SheetCardSubtitle color={SHEET_BRAND.paisley}>孩子现在可以使用完整学习体验</SheetCardSubtitle>
+        <SheetBenefitList items={["会员权益已生效", "AI学习能力已提升", "更多成长内容已解锁"]} />
+      </SheetActionBody>
+    </StandardSheet>
+  );
+}
+
 // ---- Forced phone binding before purchasing a membership ----
-function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
+function PurchasePhoneSheet({
+  open,
+  onClose,
+  onSuccess,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSuccess?: () => void;
+}) {
   const [step, setStep] = useState<"prompt" | "entry">("prompt");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
@@ -2438,7 +2477,8 @@ function PurchasePhoneSheet({ open, onClose }: { open: boolean; onClose: () => v
     } catch {
       /* ignore */
     }
-    onClose();
+    if (onSuccess) onSuccess();
+    else onClose();
   };
 
   return (
