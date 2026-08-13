@@ -3,6 +3,7 @@ import { useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { BottomTabBar } from "@/components/app/BottomTabBar";
 import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
+import { ContentUpsellFlow } from "@/components/app/ContentUpsellFlow";
 import { Layers, Zap, ClipboardCheck, GraduationCap, Flame, Play, ChevronRight } from "lucide-react";
 import { ProgressBar } from "@/components/app/WordieKit";
 import { FloatingBack } from "@/components/app/FloatingBack";
@@ -185,6 +186,7 @@ function MyWordiePage() {
       </div>
 
       <LearningJourneyFlow />
+      <ContentUpsellFlow variant="wordie" />
       <BottomTabBar hidden={calOpen} />
       <MonthCalendarDialog
         open={calOpen}
