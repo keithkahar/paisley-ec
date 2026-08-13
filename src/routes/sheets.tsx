@@ -23,6 +23,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "今天的AI学习时间已用完", slug: "ai-quota", to: "/shirin-talk", search: { sheet: "ai-quota" }, file: "src/components/app/AiUpsellFlow.tsx" },
       { title: "继续探索更多学习内容（myWordie）", slug: "content-more", to: "/mywordie", search: { sheet: "content-more" }, file: "src/components/app/ContentUpsellFlow.tsx" },
       { title: "继续探索更多学习内容（My Profile）", slug: "content-more", to: "/profile", search: { sheet: "content-more" }, file: "src/components/app/ContentUpsellFlow.tsx" },
+      { title: "解锁更多成长世界（Bloxia）", slug: "world-more", to: "/bloxia", search: { sheet: "world-more" }, file: "src/components/app/WorldUpsellFlow.tsx" },
       { title: "孩子的学习旅程正在成长", slug: "trial-day5", to: "/", search: { sheet: "trial-day5" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "7天免费旅程即将结束", slug: "trial-day7", to: "/", search: { sheet: "trial-day7" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "会员方案", slug: "membership", to: "/", search: { sheet: "membership" }, file: "src/routes/parent.tsx (MembershipCards)" },
