@@ -65,30 +65,9 @@ export function AiUpsellFlow() {
           <SheetCardSubtitle color={SHEET_BRAND.shirin}>
             升级会员，获得更多每日AI陪伴时间
           </SheetCardSubtitle>
-          <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-5">
-            <div className="text-center">
-              <p className="text-[12px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                今日AI使用
-              </p>
-              <p
-                className="mt-2 text-[24px] leading-none font-semibold"
-                style={{ color: SHEET_BRAND.shirin }}
-              >
-                20 / 20<span className="ml-1 text-[13px] font-normal">分钟</span>
-              </p>
-            </div>
-            <div
-              className="w-full max-w-[240px] rounded-2xl px-4 py-3 text-center"
-              style={{ background: "color-mix(in oklab, var(--shirin) 10%, white)" }}
-            >
-              <p className="text-[12px] leading-none" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                升级后 · Premium Plus
-              </p>
-              <p className="mt-2 text-[16px] leading-none font-semibold" style={{ color: "var(--foreground)" }}>
-                30分钟 / 天
-              </p>
-            </div>
-          </div>
+          <SheetBenefitList
+            items={["今日AI使用 20 / 20 分钟", "升级后 · Premium Plus", "每天 30 分钟 AI 陪伴"]}
+          />
         </SheetActionBody>
       </StandardSheet>
 
