@@ -733,7 +733,7 @@ function ParentPage() {
                     className="text-[11px] font-semibold leading-none"
                     style={{ color: "white" }}
                   >
-                    今日AI已用
+                    今日AI使用
                   </span>
                   <span
                     className="text-[22px] font-medium leading-none tabular-nums"
