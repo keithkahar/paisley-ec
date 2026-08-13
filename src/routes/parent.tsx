@@ -2070,6 +2070,7 @@ export function MembershipCards({ open }: { open: boolean }) {
   const [confirmPlan, setConfirmPlan] = useState<"Premium" | "Premium Plus" | null>(null);
   const [activatedOpen, setActivatedOpen] = useState(false);
   const [failedOpen, setFailedOpen] = useState(false);
+  const [plusUpgradeOpen, setPlusUpgradeOpen] = useState(false);
   const debugSheet = useSheetDebug();
   useEffect(() => {
     if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
@@ -2077,6 +2078,7 @@ export function MembershipCards({ open }: { open: boolean }) {
     if (open && debugSheet === "confirm-subscribe-plus") setConfirmPlan("Premium Plus");
     if (open && debugSheet === "membership-activated") setActivatedOpen(true);
     if (open && debugSheet === "payment-failed") setFailedOpen(true);
+    if (open && debugSheet === "upgrade-plus") setPlusUpgradeOpen(true);
   }, [open, debugSheet]);
   const cards = [
     {
@@ -2387,6 +2389,14 @@ export function MembershipCards({ open }: { open: boolean }) {
           setPurchasePhoneOpen(true);
         }}
       />
+      <PlusUpgradeSheet
+        open={plusUpgradeOpen}
+        onClose={() => setPlusUpgradeOpen(false)}
+        onUpgrade={() => {
+          setPlusUpgradeOpen(false);
+          setConfirmPlan("Premium Plus");
+        }}
+      />
     </div>
   );
 }
@@ -2448,6 +2458,34 @@ function MembershipActivatedSheet({ open, onClose }: { open: boolean; onClose: (
 }
 
 // ---- Forced phone binding before purchasing a membership ----
+function PlusUpgradeSheet({
+  open,
+  onClose,
+  onUpgrade,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onUpgrade: () => void;
+}) {
+  return (
+    <StandardSheet
+      open={open}
+      title="升级 Premium Plus"
+      brandColor={SHEET_BRAND.paisley}
+      zClass="z-[80]"
+      onClose={onClose}
+    >
+      <SheetActionBody
+        primary={{ label: "升级 Premium Plus", background: SHEET_BRAND.paisley, onClick: onUpgrade }}
+        secondary={{ label: "以后再说", onClick: onClose }}
+      >
+        <SheetCardSubtitle color={SHEET_BRAND.paisley}>获得更多AI陪伴和更完整成长支持</SheetCardSubtitle>
+        <SheetBenefitList items={["每日30分钟AI陪伴", "更多设备支持", "云端学习储存"]} />
+      </SheetActionBody>
+    </StandardSheet>
+  );
+}
+
 function PaymentFailedSheet({
   open,
   onClose,
