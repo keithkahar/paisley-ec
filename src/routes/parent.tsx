@@ -2345,7 +2345,7 @@ export function MembershipCards({ open }: { open: boolean }) {
                 ) : (
                   <button
                     type="button"
-                    onClick={() => setPurchasePhoneOpen(true)}
+                    onClick={() => setConfirmPlan("Premium Plus")}
                     className="w-full h-11 rounded-full text-[13px] font-semibold text-white transition-transform active:scale-[0.98] flex items-center justify-center"
                     style={{ background: "var(--paisley)" }}
                   >
@@ -2358,8 +2358,51 @@ export function MembershipCards({ open }: { open: boolean }) {
           </div>
         ))}
       </div>
+      <ConfirmSubscribeSheet
+        plan={confirmPlan}
+        onClose={() => setConfirmPlan(null)}
+        onPay={() => {
+          setConfirmPlan(null);
+          setPurchasePhoneOpen(true);
+        }}
+      />
       <PurchasePhoneSheet open={purchasePhoneOpen} onClose={() => setPurchasePhoneOpen(false)} />
     </div>
+  );
+}
+
+// ---- Confirm subscription before payment ----
+const CONFIRM_BENEFITS: Record<"Premium" | "Premium Plus", string[]> = {
+  Premium: ["每日20分钟AI陪伴", "AI反馈纠错", "学习趋势分析"],
+  "Premium Plus": ["每日30分钟AI陪伴", "多设备使用", "更多成长支持"],
+};
+
+function ConfirmSubscribeSheet({
+  plan,
+  onClose,
+  onPay,
+}: {
+  plan: "Premium" | "Premium Plus" | null;
+  onClose: () => void;
+  onPay: () => void;
+}) {
+  const current = plan ?? "Premium";
+  return (
+    <StandardSheet
+      open={plan !== null}
+      title={`确认订阅 ${current}`}
+      brandColor={SHEET_BRAND.paisley}
+      zClass="z-[80]"
+      onClose={onClose}
+    >
+      <SheetActionBody
+        primary={{ label: "立即支付", background: SHEET_BRAND.paisley, onClick: onPay }}
+        secondary={{ label: "返回修改", onClick: onClose }}
+      >
+        <SheetCardSubtitle color={SHEET_BRAND.paisley}>开启孩子完整的英语成长体验</SheetCardSubtitle>
+        <SheetBenefitList items={CONFIRM_BENEFITS[current]} />
+      </SheetActionBody>
+    </StandardSheet>
   );
 }
 

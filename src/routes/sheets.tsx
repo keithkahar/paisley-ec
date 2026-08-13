@@ -27,6 +27,8 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "孩子的学习旅程正在成长", slug: "trial-day5", to: "/", search: { sheet: "trial-day5" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "7天免费旅程即将结束", slug: "trial-day7", to: "/", search: { sheet: "trial-day7" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "会员方案", slug: "membership", to: "/", search: { sheet: "membership" }, file: "src/routes/parent.tsx (MembershipCards)" },
+      { title: "确认订阅 Premium", slug: "confirm-subscribe", to: "/", search: { sheet: "confirm-subscribe" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
+      { title: "确认订阅 Premium Plus", slug: "confirm-subscribe-plus", to: "/", search: { sheet: "confirm-subscribe-plus" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
       { title: "绑定手机号以完成购买", slug: "purchase-phone", to: "/", search: { sheet: "purchase-phone" }, file: "src/routes/parent.tsx (PurchasePhoneSheet)" },
     ],
   },
