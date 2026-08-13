@@ -67,57 +67,41 @@ const GROUPS: { group: string; rows: Row[] }[] = [
 function SheetIndexPage() {
   return (
     <PhoneFrame bg="bg-white">
-      <div className="min-h-[100dvh] bg-white px-6 pt-[53px] pb-16">
-        <h1 className="text-[20px] font-semibold" style={{ color: "var(--paisley)" }}>
-          Bottom Sheet Index
-        </h1>
-        <p className="mt-1 text-[12px]" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-          每个上拉菜单的代码位置与测试链接
-        </p>
+      <div className="min-h-[100dvh]" style={{ background: "#f7f8fa" }}>
+        {/* Sticky nav-bar style header, like the mini-program debug preview */}
+        <header
+          className="sticky top-0 z-10 bg-white px-6 pt-[18px] pb-3"
+          style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 7%, white)" }}
+        >
+          <h1 className="text-[24px] font-semibold leading-tight" style={{ color: "var(--paisley)" }}>
+            Bottom Sheet Debug Preview
+          </h1>
+          <p className="mt-1 text-[13px]" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+            Real migrated sheet layouts · No auth · Non-Bloxia
+          </p>
+        </header>
 
-        {GROUPS.map((g) => (
-          <section key={g.group} className="mt-7">
-            <h2
-              className="text-[11px] uppercase tracking-[0.12em]"
-              style={{ color: "var(--muted-foreground)", fontWeight: 600 }}
+        <div className="px-6 pt-4 pb-16 flex flex-col gap-3">
+          {GROUPS.flatMap((g) => g.rows).map((r) => (
+            <Link
+              key={`${r.to}-${r.slug}-${r.title}`}
+              to={r.to}
+              search={r.search}
+              className="block rounded-2xl bg-white px-5 py-4 active:scale-[0.99] transition-transform"
+              style={{
+                border: "1px solid color-mix(in oklab, var(--foreground) 6%, white)",
+                boxShadow: "0 1px 3px rgba(15,23,42,0.04)",
+              }}
             >
-              {g.group}
-            </h2>
-            <div className="mt-3 flex flex-col gap-2">
-              {g.rows.map((r) => (
-                <Link
-                  key={`${r.to}-${r.slug}-${r.title}`}
-                  to={r.to}
-                  search={r.search}
-                  className="block rounded-2xl px-4 py-3"
-                  style={{
-                    background: "color-mix(in oklab, var(--paisley) 5%, white)",
-                    border: "1px solid color-mix(in oklab, var(--paisley) 14%, white)",
-                  }}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-[14px] font-semibold" style={{ color: "var(--foreground)" }}>
-                      {r.title}
-                    </span>
-                    <span
-                      className="shrink-0 rounded-full px-2.5 h-[22px] grid place-items-center text-[10px]"
-                      style={{ background: "var(--paisley)", color: "white", fontWeight: 600 }}
-                    >
-                      {r.slug}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-[10px] break-all" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
-                    {r.file}
-                  </p>
-                  <p className="mt-0.5 text-[10px]" style={{ color: "color-mix(in oklab, var(--paisley) 70%, white)", fontWeight: 400 }}>
-                    {r.to}
-                    {r.search ? `?sheet=${r.search["sheet"]}` : ""}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </section>
-        ))}
+              <span className="block text-[16px] font-semibold leading-snug" style={{ color: "var(--foreground)" }}>
+                {r.title}
+              </span>
+              <span className="mt-1 block text-[12px]" style={{ color: "var(--muted-foreground)", fontWeight: 400 }}>
+                {r.slug}
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </PhoneFrame>
   );
