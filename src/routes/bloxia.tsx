@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { WorldUpsellFlow } from "@/components/app/WorldUpsellFlow";
 import { capitalizeName } from "@/components/app/EditProfileSheet";
 import { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
