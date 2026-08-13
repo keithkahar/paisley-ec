@@ -19,20 +19,10 @@ const GROUPS: { group: string; rows: Row[] }[] = [
   {
     group: "Trial conversion",
     rows: [
-      { title: "解锁 AI 智能陪伴", slug: "ai-companion", to: "/shirin-talk", search: { sheet: "ai-companion" }, file: "src/components/app/AiUpsellFlow.tsx" },
-      { title: "今天的AI学习时间已用完", slug: "ai-quota", to: "/shirin-talk", search: { sheet: "ai-quota" }, file: "src/components/app/AiUpsellFlow.tsx" },
-      { title: "继续探索更多学习内容（myWordie）", slug: "content-more", to: "/mywordie", search: { sheet: "content-more" }, file: "src/components/app/ContentUpsellFlow.tsx" },
-      { title: "继续探索更多学习内容（My Profile）", slug: "content-more", to: "/profile", search: { sheet: "content-more" }, file: "src/components/app/ContentUpsellFlow.tsx" },
-      { title: "解锁更多成长世界（Bloxia）", slug: "world-more", to: "/bloxia", search: { sheet: "world-more" }, file: "src/components/app/WorldUpsellFlow.tsx" },
       { title: "孩子的学习旅程正在成长", slug: "trial-day5", to: "/", search: { sheet: "trial-day5" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "7天免费旅程即将结束", slug: "trial-day7", to: "/", search: { sheet: "trial-day7" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "会员方案", slug: "membership", to: "/", search: { sheet: "membership" }, file: "src/routes/parent.tsx (MembershipCards)" },
-      { title: "确认订阅 Premium", slug: "confirm-subscribe", to: "/", search: { sheet: "confirm-subscribe" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
-      { title: "确认订阅 Premium Plus", slug: "confirm-subscribe-plus", to: "/", search: { sheet: "confirm-subscribe-plus" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
       { title: "绑定手机号以完成购买", slug: "purchase-phone", to: "/", search: { sheet: "purchase-phone" }, file: "src/routes/parent.tsx (PurchasePhoneSheet)" },
-      { title: "会员已开启", slug: "membership-activated", to: "/", search: { sheet: "membership-activated" }, file: "src/routes/parent.tsx (MembershipActivatedSheet)" },
-      { title: "支付未完成", slug: "payment-failed", to: "/", search: { sheet: "payment-failed" }, file: "src/routes/parent.tsx (PaymentFailedSheet)" },
-      { title: "升级 Premium Plus", slug: "upgrade-plus", to: "/", search: { sheet: "upgrade-plus" }, file: "src/routes/parent.tsx (PlusUpgradeSheet)" },
     ],
   },
   {
@@ -70,6 +60,21 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "Select Learner", slug: "select-learner", to: "/profile", search: { sheet: "select-learner" }, file: "src/components/app/LearnerSelectFlow.tsx" },
       { title: "Add Learner", slug: "add-learner", to: "/profile", search: { sheet: "add-learner" }, file: "src/components/app/LearnerSelectFlow.tsx (AddLearnerSheet)" },
       { title: "Birthday", slug: "birthday", to: "/profile", search: { sheet: "birthday" }, file: "src/components/app/LearnerSelectFlow.tsx (LearnerBirthdaySheet)" },
+    ],
+  },
+  {
+    group: "会员转化 · 新增",
+    rows: [
+      { title: "1. 解锁 AI 智能陪伴（ShirinTalk 粉）", slug: "ai-companion", to: "/shirin-talk", search: { sheet: "ai-companion" }, file: "src/components/app/AiUpsellFlow.tsx" },
+      { title: "2. AI学习时间已用完（ShirinTalk 粉）", slug: "ai-quota", to: "/shirin-talk", search: { sheet: "ai-quota" }, file: "src/components/app/AiUpsellFlow.tsx" },
+      { title: "3. 解锁更多学习内容（myWordie 蓝）", slug: "content-more", to: "/mywordie", search: { sheet: "content-more" }, file: "src/components/app/ContentUpsellFlow.tsx" },
+      { title: "3. 解锁更多学习内容（My Profile 蓝）", slug: "content-more", to: "/profile", search: { sheet: "content-more" }, file: "src/components/app/ContentUpsellFlow.tsx" },
+      { title: "4. 解锁更多成长世界（Bloxia 绿）", slug: "world-more", to: "/bloxia", search: { sheet: "world-more" }, file: "src/components/app/WorldUpsellFlow.tsx" },
+      { title: "5. 确认订阅 Premium（Parent 蓝）", slug: "confirm-subscribe", to: "/", search: { sheet: "confirm-subscribe" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
+      { title: "5. 确认订阅 Premium Plus（Parent 蓝）", slug: "confirm-subscribe-plus", to: "/", search: { sheet: "confirm-subscribe-plus" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
+      { title: "6. 会员已开启（全局）", slug: "membership-activated", to: "/", search: { sheet: "membership-activated" }, file: "src/routes/parent.tsx (MembershipActivatedSheet)" },
+      { title: "7. 支付未完成（全局）", slug: "payment-failed", to: "/", search: { sheet: "payment-failed" }, file: "src/routes/parent.tsx (PaymentFailedSheet)" },
+      { title: "8. 升级 Premium Plus（Parent 蓝）", slug: "upgrade-plus", to: "/", search: { sheet: "upgrade-plus" }, file: "src/routes/parent.tsx (PlusUpgradeSheet)" },
     ],
   },
 ];
