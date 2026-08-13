@@ -32,6 +32,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "绑定手机号以完成购买", slug: "purchase-phone", to: "/", search: { sheet: "purchase-phone" }, file: "src/routes/parent.tsx (PurchasePhoneSheet)" },
       { title: "会员已开启", slug: "membership-activated", to: "/", search: { sheet: "membership-activated" }, file: "src/routes/parent.tsx (MembershipActivatedSheet)" },
       { title: "支付未完成", slug: "payment-failed", to: "/", search: { sheet: "payment-failed" }, file: "src/routes/parent.tsx (PaymentFailedSheet)" },
+      { title: "升级 Premium Plus", slug: "upgrade-plus", to: "/", search: { sheet: "upgrade-plus" }, file: "src/routes/parent.tsx (PlusUpgradeSheet)" },
     ],
   },
   {
