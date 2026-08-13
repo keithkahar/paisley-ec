@@ -2069,12 +2069,14 @@ export function MembershipCards({ open }: { open: boolean }) {
   const [purchasePhoneOpen, setPurchasePhoneOpen] = useState(false);
   const [confirmPlan, setConfirmPlan] = useState<"Premium" | "Premium Plus" | null>(null);
   const [activatedOpen, setActivatedOpen] = useState(false);
+  const [failedOpen, setFailedOpen] = useState(false);
   const debugSheet = useSheetDebug();
   useEffect(() => {
     if (open && debugSheet === "purchase-phone") setPurchasePhoneOpen(true);
     if (open && debugSheet === "confirm-subscribe") setConfirmPlan("Premium");
     if (open && debugSheet === "confirm-subscribe-plus") setConfirmPlan("Premium Plus");
     if (open && debugSheet === "membership-activated") setActivatedOpen(true);
+    if (open && debugSheet === "payment-failed") setFailedOpen(true);
   }, [open, debugSheet]);
   const cards = [
     {
@@ -2377,6 +2379,14 @@ export function MembershipCards({ open }: { open: boolean }) {
         }}
       />
       <MembershipActivatedSheet open={activatedOpen} onClose={() => setActivatedOpen(false)} />
+      <PaymentFailedSheet
+        open={failedOpen}
+        onClose={() => setFailedOpen(false)}
+        onRetry={() => {
+          setFailedOpen(false);
+          setPurchasePhoneOpen(true);
+        }}
+      />
     </div>
   );
 }
@@ -2438,6 +2448,28 @@ function MembershipActivatedSheet({ open, onClose }: { open: boolean; onClose: (
 }
 
 // ---- Forced phone binding before purchasing a membership ----
+function PaymentFailedSheet({
+  open,
+  onClose,
+  onRetry,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onRetry: () => void;
+}) {
+  const red = "var(--destructive)";
+  return (
+    <StandardSheet open={open} title="支付未完成" brandColor={red} zClass="z-[80]" onClose={onClose}>
+      <SheetActionBody
+        primary={{ label: "重新支付", background: red, onClick: onRetry }}
+        secondary={{ label: "稍后再说", onClick: onClose }}
+      >
+        <SheetCardSubtitle color={red}>请重新尝试完成会员开通</SheetCardSubtitle>
+      </SheetActionBody>
+    </StandardSheet>
+  );
+}
+
 function PurchasePhoneSheet({
   open,
   onClose,
