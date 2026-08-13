@@ -31,6 +31,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "确认订阅 Premium Plus", slug: "confirm-subscribe-plus", to: "/", search: { sheet: "confirm-subscribe-plus" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
       { title: "绑定手机号以完成购买", slug: "purchase-phone", to: "/", search: { sheet: "purchase-phone" }, file: "src/routes/parent.tsx (PurchasePhoneSheet)" },
       { title: "会员已开启", slug: "membership-activated", to: "/", search: { sheet: "membership-activated" }, file: "src/routes/parent.tsx (MembershipActivatedSheet)" },
+      { title: "支付未完成", slug: "payment-failed", to: "/", search: { sheet: "payment-failed" }, file: "src/routes/parent.tsx (PaymentFailedSheet)" },
     ],
   },
   {

@@ -31,6 +31,7 @@ export function TrialReminderFlow() {
               debug === "confirm-subscribe" ||
               debug === "confirm-subscribe-plus" ||
               debug === "membership-activated"
+            || debug === "payment-failed"
             ? "membership"
             : "none",
     );
