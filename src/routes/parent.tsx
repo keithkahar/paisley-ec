@@ -2476,7 +2476,7 @@ function PlusUpgradeSheet({
       onClose={onClose}
     >
       <SheetActionBody
-        primary={{ label: "升级 Premium Plus", background: SHEET_BRAND.paisley, onClick: onUpgrade }}
+        primary={{ label: "现在升级", background: SHEET_BRAND.paisley, onClick: onUpgrade }}
         secondary={{ label: "以后再说", onClick: onClose }}
       >
         <SheetCardSubtitle color={SHEET_BRAND.paisley}>获得更多AI陪伴和更完整成长支持</SheetCardSubtitle>
