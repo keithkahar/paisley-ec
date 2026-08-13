@@ -21,6 +21,7 @@ import { LearnerSelectFlow } from "@/components/app/LearnerSelectFlow";
 import { useLearners } from "@/lib/learners";
 import { EditProfileSheet } from "@/components/app/EditProfileSheet";
 import { LearningJourneyFlow } from "@/components/app/LearningJourneyFlow";
+import { ContentUpsellFlow } from "@/components/app/ContentUpsellFlow";
 import { useSheetDebug } from "@/lib/sheetDebug";
 import paizleyIcon from "@/assets/paizley-icon.png.asset.json";
 
@@ -258,6 +259,7 @@ export function ProfilePage({ tabBarHidden = false }: { tabBarHidden?: boolean }
       />
       <EditProfileSheet open={editOpen} onClose={() => setEditOpen(false)} />
       <LearningJourneyFlow onOpenChange={setJourneyOpen} />
+      <ContentUpsellFlow variant="profile" />
       <BottomTabBar hidden={tabBarHidden || calOpen || parentPinOpen || learnerOpen || editOpen || journeyOpen} />
       <ParentPinSheet
         open={parentPinOpen}
