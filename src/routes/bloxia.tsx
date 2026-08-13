@@ -303,6 +303,7 @@ function BloxiaPage() {
             }}
           />
         )}
+        <WorldUpsellFlow />
       </div>
     </PhoneFrame>
   );
