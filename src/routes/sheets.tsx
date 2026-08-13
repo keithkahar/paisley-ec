@@ -19,6 +19,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
   {
     group: "Trial conversion",
     rows: [
+      { title: "解锁 AI 智能陪伴", slug: "ai-companion", to: "/shirin-talk", search: { sheet: "ai-companion" }, file: "src/components/app/AiUpsellFlow.tsx" },
       { title: "孩子的学习旅程正在成长", slug: "trial-day5", to: "/", search: { sheet: "trial-day5" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "7天免费旅程即将结束", slug: "trial-day7", to: "/", search: { sheet: "trial-day7" }, file: "src/components/app/TrialReminderFlow.tsx" },
       { title: "会员方案", slug: "membership", to: "/", search: { sheet: "membership" }, file: "src/routes/parent.tsx (MembershipCards)" },
