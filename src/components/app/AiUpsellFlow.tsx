@@ -40,7 +40,7 @@ export function AiUpsellFlow() {
           secondary={{ label: "以后再说", onClick: () => setStep("none") }}
         >
           <SheetCardSubtitle color={SHEET_BRAND.shirin}>
-            升级会员，让孩子获得更完整的AI英语学习支持
+            升级会员｜让孩子获得更完整的AI英语学习支持
           </SheetCardSubtitle>
           <SheetBenefitList items={["AI反馈纠错", "AI学习记忆", "更多AI陪伴时间"]} />
         </SheetActionBody>
@@ -63,7 +63,7 @@ export function AiUpsellFlow() {
           secondary={{ label: "明天继续", onClick: () => setStep("none") }}
         >
           <SheetCardSubtitle color={SHEET_BRAND.shirin}>
-            升级会员，获得更多每日AI陪伴时间
+            升级会员｜获得更多每日AI陪伴时间
           </SheetCardSubtitle>
           <SheetBenefitList
             items={["今日AI使用 20 / 20 分钟", "升级后享用 30 分钟/天"]}
