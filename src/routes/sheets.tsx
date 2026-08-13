@@ -30,6 +30,7 @@ const GROUPS: { group: string; rows: Row[] }[] = [
       { title: "确认订阅 Premium", slug: "confirm-subscribe", to: "/", search: { sheet: "confirm-subscribe" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
       { title: "确认订阅 Premium Plus", slug: "confirm-subscribe-plus", to: "/", search: { sheet: "confirm-subscribe-plus" }, file: "src/routes/parent.tsx (ConfirmSubscribeSheet)" },
       { title: "绑定手机号以完成购买", slug: "purchase-phone", to: "/", search: { sheet: "purchase-phone" }, file: "src/routes/parent.tsx (PurchasePhoneSheet)" },
+      { title: "会员已开启", slug: "membership-activated", to: "/", search: { sheet: "membership-activated" }, file: "src/routes/parent.tsx (MembershipActivatedSheet)" },
     ],
   },
   {
