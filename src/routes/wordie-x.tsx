@@ -9,6 +9,7 @@ import {
   Check,
   Circle,
   X,
+  Search,
 } from "lucide-react";
 import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 import { WordPreview } from "@/components/app/WordPreview";
