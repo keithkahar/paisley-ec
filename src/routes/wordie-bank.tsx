@@ -6,7 +6,6 @@ import { Search, X, ChevronRight, ChevronDown, Check, Circle } from "lucide-reac
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { ConfirmSheet } from "@/components/app/ConfirmSheet";
 import {
-  FilterChip,
   EmptyState,
   StatusBadge,
   type WordStatus,
@@ -52,26 +51,6 @@ const BANK: BankWord[] = [
   { wordId: "w9", word: "window", definitionEn: "an opening in a wall with glass", exampleSentence: "Open the window please.", partOfSpeech: "noun", pronunciation: "/ˈwɪndəʊ/", cefrLevel: "A1", theme: "Daily Life", packTitle: "Home and School", status: "review", focus: true, nextReviewLabel: "Today" },
   { wordId: "w10", word: "teacher", definitionEn: "a person who teaches", exampleSentence: "Our teacher is kind.", partOfSpeech: "noun", pronunciation: "/ˈtiːtʃə/", cefrLevel: "A1", theme: "Daily Life", packTitle: "Home and School", status: "learning", focus: false, nextReviewLabel: "Tomorrow" },
 ];
-
-const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "new", label: "New" },
-  { key: "learning", label: "Learning" },
-  { key: "review", label: "Review" },
-  { key: "focus", label: "Focus" },
-  { key: "mastered", label: "Mastered" },
-  { key: "relearning", label: "Relearning" },
-];
-
-const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
-  all: "var(--wordie)",
-  new: "oklch(0.66 0.24 280)",
-  learning: "oklch(0.7 0.18 195)",
-  review: "oklch(0.68 0.2 145)",
-  focus: "oklch(0.75 0.12 305)",
-  mastered: "var(--wordie-accent)",
-  relearning: "oklch(0.8 0.1 350)",
-};
 
 function WordieBankPage() {
   const [query, setQuery] = useState("");
