@@ -6,7 +6,6 @@ import { Search, X, ChevronRight, ChevronDown, Check, Circle } from "lucide-reac
 import { StandardSheet, SHEET_BRAND } from "@/components/app/StandardSheet";
 import { ConfirmSheet } from "@/components/app/ConfirmSheet";
 import {
-  FilterChip,
   EmptyState,
   StatusBadge,
   type WordStatus,
@@ -52,26 +51,6 @@ const BANK: BankWord[] = [
   { wordId: "w9", word: "window", definitionEn: "an opening in a wall with glass", exampleSentence: "Open the window please.", partOfSpeech: "noun", pronunciation: "/ˈwɪndəʊ/", cefrLevel: "A1", theme: "Daily Life", packTitle: "Home and School", status: "review", focus: true, nextReviewLabel: "Today" },
   { wordId: "w10", word: "teacher", definitionEn: "a person who teaches", exampleSentence: "Our teacher is kind.", partOfSpeech: "noun", pronunciation: "/ˈtiːtʃə/", cefrLevel: "A1", theme: "Daily Life", packTitle: "Home and School", status: "learning", focus: false, nextReviewLabel: "Tomorrow" },
 ];
-
-const STATUS_FILTERS: { key: FilterKey; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "new", label: "New" },
-  { key: "learning", label: "Learning" },
-  { key: "review", label: "Review" },
-  { key: "focus", label: "Focus" },
-  { key: "mastered", label: "Mastered" },
-  { key: "relearning", label: "Relearning" },
-];
-
-const FILTER_COLOR: Partial<Record<FilterKey, string>> = {
-  all: "var(--wordie)",
-  new: "oklch(0.66 0.24 280)",
-  learning: "oklch(0.7 0.18 195)",
-  review: "oklch(0.68 0.2 145)",
-  focus: "oklch(0.75 0.12 305)",
-  mastered: "var(--wordie-accent)",
-  relearning: "oklch(0.8 0.1 350)",
-};
 
 function WordieBankPage() {
   const [query, setQuery] = useState("");
@@ -289,7 +268,7 @@ function WordieBankPage() {
           <div className="relative">
             <Search
               className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4"
-              style={{ color: "var(--paisley)" }}
+              style={{ color: "var(--wordie)" }}
             />
             <input
               type="text"
@@ -298,8 +277,8 @@ function WordieBankPage() {
               placeholder="Search word, example, level, category, status"
               className="w-full rounded-full pl-10 pr-4 py-2.5 text-sm font-medium outline-none transition-colors"
               style={{
-                background: "color-mix(in oklab, var(--paisley) 10%, white)",
-                border: "1px solid color-mix(in oklab, var(--paisley) 25%, white)",
+                background: "color-mix(in oklab, var(--wordie) 10%, white)",
+                border: "1px solid color-mix(in oklab, var(--wordie) 25%, white)",
                 color: "var(--foreground)"
               }}
             />
@@ -326,22 +305,6 @@ function WordieBankPage() {
             active={statusSel.length > 0}
             onClick={() => setOpenSheet("status")}
           />
-        </div>
-
-        {/* Filter chips (Status incl. Focus) */}
-        <div className="mt-3 flex flex-wrap gap-2">
-          {STATUS_FILTERS.map((f) => (
-            <FilterChip
-              key={f.key}
-              active={filter === f.key}
-              onClick={() => setFilter(f.key)}
-              color={FILTER_COLOR[f.key] ?? "var(--wordie)"}
-              tone="tint"
-            >
-              {f.label}
-              <span className="ml-1.5 opacity-70">{counts[f.key] ?? 0}</span>
-            </FilterChip>
-          ))}
         </div>
 
         {/* Count row */}
