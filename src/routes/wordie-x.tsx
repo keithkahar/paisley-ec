@@ -9,6 +9,7 @@ import {
   Check,
   Circle,
   X,
+  Search,
 } from "lucide-react";
 import { StatusBadge, type WordStatus } from "@/components/app/WordieKit";
 import { WordPreview } from "@/components/app/WordPreview";
@@ -234,6 +235,7 @@ function WordieXPage() {
   // Filters
   const [sourceSel, setSourceSel] = useState<string[]>([]);
   const [statusSel, setStatusSel] = useState<string[]>([]);
+  const [query, setQuery] = useState("");
   const [openSheet, setOpenSheet] = useState<null | "source" | "status" | "pos">(null);
 
   // Select / preview / batch
@@ -358,15 +360,20 @@ function WordieXPage() {
   }
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return notes.filter((n) => {
       if (sourceSel.length > 0 && !sourceSel.includes(n.source)) return false;
       if (statusSel.length > 0) {
         const hit = statusSel.includes(n.learnStatus) || (n.isFocus && statusSel.includes("focus"));
         if (!hit) return false;
       }
-      return true;
+      if (!q) return true;
+      return [
+        n.word, n.definitionEn, n.exampleSentence, n.partOfSpeech,
+        n.cefrLevel, n.learnStatus, getSourceLabel(n.source), n.isFocus ? "focus" : "",
+      ].some((s) => (s || "").toLowerCase().includes(q));
     });
-  }, [notes, sourceSel, statusSel]);
+  }, [notes, sourceSel, statusSel, query]);
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { focus: 0 };
@@ -623,7 +630,29 @@ function WordieXPage() {
         </section>
 
         {/* Filters: Resource + Status (bank-style) */}
-        <div className="mt-4 grid grid-cols-2 gap-2">
+        {/* Search */}
+        <div className="mt-4">
+          <div className="relative">
+            <Search
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4"
+              style={{ color: "var(--wordie)" }}
+            />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search word, example, level, resource, status"
+              className="w-full rounded-full pl-10 pr-4 py-2.5 text-sm font-medium outline-none transition-colors"
+              style={{
+                background: "color-mix(in oklab, var(--wordie) 10%, white)",
+                border: "1px solid color-mix(in oklab, var(--wordie) 25%, white)",
+                color: "var(--foreground)",
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="mt-3 grid grid-cols-2 gap-2">
           <FilterDropdown
             label="Resource"
             value={labelFor(sourceSel, (k) => SOURCE_LABEL[k] || k)}
