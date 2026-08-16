@@ -87,6 +87,7 @@ function WordCardPage() {
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [exIdx, setExIdx] = useState(0);
+  const [revealed, setRevealed] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const startRef = useRef<number>(Date.now());
   const card = DECK[idx];
@@ -109,6 +110,7 @@ function WordCardPage() {
     }
     setFlipped(false);
     setExIdx(0);
+    setRevealed(false);
     setIdx((i) => i + 1);
   };
 
