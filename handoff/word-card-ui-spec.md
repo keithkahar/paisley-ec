@@ -57,7 +57,9 @@
 - 背景: `linear-gradient(160deg, white 0%, color-mix(--wordie 8%, white) 100%)`
 - 边框: `1px color-mix(--wordie 20%, transparent)`
 - 顶部: POS pill —`rounded-lg`, padding 7px/2px, 12px/600, 底色 `--wordie`, 文字白
-- 中部头块: `flex-1` 居中；隐藏的 40px 占位单词（与反面对齐）+ IPA 13px / mono / muted，`mt-3`（实测两面 IPA 同在 top 226px）
+- 中部头块: `flex-1` 居中；40px 占位单词（与反面对齐，默认 `visibility: hidden`）+ IPA 13px / mono / muted，`mt-3`（实测两面 IPA 同在 top 226px）
+  - 单词显形规则：进入新卡时隐藏；用户首次翻到反面后置 `revealed = true`，之后回到正面永久显示该单词（不改变布局，仅 `visibility` 切换），换下一张卡重置为隐藏
+  - 显形后的单词颜色：`var(--wordie)`（myWordie 品牌蓝 #5064f5），字重 `font-medium`，40px / leading-none / letter-spacing -0.02em
 - Definition 区: 固定高 `168px`，`pt-[15px]`
   - 小标题 "Definition" 14px / 600 / letter-spacing .08em / muted
   - 正文 18px / 600 / `leading-relaxed` / letter-spacing -0.01em，`mt-2`，与右列 gap 12px
