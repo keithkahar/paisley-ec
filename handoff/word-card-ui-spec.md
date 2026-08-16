@@ -28,10 +28,30 @@
 
 ## 卡片容器
 - `px-5 mt-4`；整卡为按钮，点击翻面；`rounded-[2rem]`，`shadow-xl`，按下 `scale .99`
-- 3D: `perspective 1200px`，`transform-style preserve-3d`
+- 3D: `perspective 1200px`（施加在外层按钮上），内层 `transform-style: preserve-3d`
 - 高度: `28rem` (448px)
-- 翻转: `rotateY(180deg)`，`0.6s cubic-bezier(0.4,0.2,0.2,1)`
-- 两面: `absolute inset-0`，`rounded-[2rem]`，`p-6`(24px)，`flex flex-col`，`backface-visibility hidden`
+- 两面: `absolute inset-0`，`rounded-[2rem]`，`p-6`(24px)，`flex flex-col`，`backface-visibility: hidden`
+
+### 翻页动画参数
+| 项 | 值 |
+|---|---|
+| 触发 | 点击卡片任意空白区（小喇叭 / 例句切换按钮阻止冒泡） |
+| 属性 | `transform: rotateY()` |
+| 正面态 | `rotateY(0deg)` |
+| 反面态 | `rotateY(180deg)` |
+| 时长 | `0.6s` (600ms) |
+| 缓动 | `cubic-bezier(0.4, 0.2, 0.2, 1)` |
+| 延迟 | 0ms |
+| 轴向 | Y 轴，方向恒为顺时针（0 → 180 → 0，无反向差异） |
+| 背面基准 | BACK 面自身叠加 `rotateY(180deg)` 静态偏移，保证翻转后正读 |
+| 遮挡 | 两面均 `backface-visibility: hidden`，无中途双面重叠 |
+| 按压反馈 | 外层按钮 `active:scale-[0.99]`，`transition-transform`（默认 150ms ease） |
+| 溢出 | 外层 `overflow-hidden` + `rounded-[2rem]`，翻转过程无露角 |
+
+### 关联联动（随翻面变化）
+- 评分区透明度：`opacity 0 → 1`，`transition-opacity`（默认 150ms ease），未翻面时 `pointer-events: none`
+- 换卡：先 `setFlipped(false)`（触发 600ms 回正）并重置例句索引，再切换到下一张
+- 例句切换：内容直接替换，无过渡动画；图标 `>`/`<` 即时互换，按下 `active:scale-90`（`transition-transform`）
 
 ## 正面（白，Definition）
 - 背景: `linear-gradient(160deg, white 0%, color-mix(--wordie 8%, white) 100%)`
