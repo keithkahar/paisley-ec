@@ -313,9 +313,9 @@ function WordCardPage() {
                           aria-label={exIdx === 0 ? "Show second example" : "Show first example"}
                         >
                           {exIdx === 0 ? (
-                            <ChevronRight className="h-5 w-5" strokeWidth={2.5} />
+                            <ChevronRight className="h-3.5 w-3.5" />
                           ) : (
-                            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+                            <ChevronLeft className="h-3.5 w-3.5" />
                           )}
                         </span>
                       ) : null}
