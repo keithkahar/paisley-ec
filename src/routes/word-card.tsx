@@ -208,7 +208,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px]">
+              <div className="h-[168px] pt-[15px]">
                 <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
                 <div className="mt-2 flex items-start gap-3">
                   <p
@@ -269,7 +269,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px]">
+              <div className="h-[168px] pt-[15px]">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
