@@ -173,7 +173,7 @@ function WordCardPage() {
               transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
             }}
           >
-            {/* FRONT */}
+            {/* FRONT — definition */}
             <div
               className="absolute inset-0 rounded-[2rem] p-6 flex flex-col"
               style={{
@@ -192,17 +192,24 @@ function WordCardPage() {
                 >
                   {card.pos}
                 </span>
-                <span
-                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold bg-muted text-muted-foreground"
-                >
-                  {card.level}
-                </span>
               </div>
 
-              <div className="flex-1 grid place-items-center text-center">
-                <div>
-                  <h2 className="text-5xl font-medium text-[color:var(--wordie)]">{card.word}</h2>
-                  <p className="text-sm text-muted-foreground mt-1.5 font-mono">{card.ipa}</p>
+              <div className="flex-1 flex flex-col justify-center">
+                <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
+                <div className="mt-2 flex items-start gap-3">
+                  <p
+                    className="flex-1 text-[18px] font-semibold leading-relaxed"
+                    style={{ letterSpacing: "-0.01em" }}
+                  >
+                    {card.meaning}
+                  </p>
+                  <span
+                    className="shrink-0 grid place-items-center text-[color:var(--wordie)]"
+                    style={{ height: "29px" }}
+                    aria-label="Listen to definition"
+                  >
+                    <Volume2 className="h-4 w-4" />
+                  </span>
                 </div>
               </div>
 
@@ -211,7 +218,7 @@ function WordCardPage() {
               </p>
             </div>
 
-            {/* BACK */}
+            {/* BACK — word + example */}
             <div
               className="absolute inset-0 rounded-[2rem] p-6 flex flex-col text-white overflow-hidden"
               style={{
@@ -227,6 +234,12 @@ function WordCardPage() {
                 >
                   {card.pos}
                 </span>
+                <span
+                  className="inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{ background: "rgba(255,255,255,0.2)", color: "white" }}
+                >
+                  {card.level}
+                </span>
               </div>
               <div className="text-center mt-2">
                 <h3
@@ -239,24 +252,6 @@ function WordCardPage() {
               </div>
 
               <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
-                <div>
-                  <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Definition</p>
-                  <div className="mt-2 flex items-start gap-3">
-                    <p
-                      className="flex-1 text-[18px] font-semibold leading-relaxed"
-                      style={{ letterSpacing: "-0.01em" }}
-                    >
-                      {card.meaning}
-                    </p>
-                    <span
-                      className="shrink-0 grid place-items-center opacity-80"
-                      style={{ height: "29px" }}
-                      aria-label="Listen to definition"
-                    >
-                      <Volume2 className="h-4 w-4" />
-                    </span>
-                  </div>
-                </div>
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
