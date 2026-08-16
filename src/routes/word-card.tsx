@@ -208,7 +208,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px] pt-[15px]">
+              <div className="h-[168px] pt-[15px] my-auto">
                 <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
                 <div className="mt-2 flex items-start gap-3">
                   <p
@@ -227,7 +227,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <p className="mt-auto text-center text-xs text-muted-foreground inline-flex items-center justify-center gap-1">
+              <p className="text-center text-xs text-muted-foreground inline-flex items-center justify-center gap-1">
                 <RotateCw className="h-3 w-3" /> Tap card to flip
               </p>
             </div>
@@ -269,7 +269,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px] pt-[15px]">
+              <div className="h-[168px] pt-[15px] my-auto">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
@@ -290,7 +290,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <p className="mt-auto text-center text-xs opacity-80 inline-flex items-center justify-center gap-1">
+              <p className="text-center text-xs opacity-80 inline-flex items-center justify-center gap-1">
                 <RotateCw className="h-3 w-3" /> Tap to flip back
               </p>
             </div>
