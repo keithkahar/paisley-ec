@@ -195,7 +195,7 @@ function WordCardPage() {
               </div>
 
               {/* Head block — mirrors BACK so the IPA lands on the same line */}
-              <div className="h-[120px] flex items-center justify-center">
+              <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
                   <h3
                     className="font-medium text-[40px] leading-none"
@@ -208,7 +208,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px] pt-[15px] my-auto">
+              <div className="h-[168px] pt-[15px]">
                 <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
                 <div className="mt-2 flex items-start gap-3">
                   <p
@@ -227,6 +227,7 @@ function WordCardPage() {
                 </div>
               </div>
 
+              <div className="h-[38px]" aria-hidden />
               <p className="text-center text-xs text-muted-foreground inline-flex items-center justify-center gap-1">
                 <RotateCw className="h-3 w-3" /> Tap card to flip
               </p>
@@ -257,7 +258,7 @@ function WordCardPage() {
               </div>
 
               {/* Head block — word + IPA centred between pill and example */}
-              <div className="h-[120px] flex items-center justify-center">
+              <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
                   <h3
                     className="font-medium text-[40px] leading-none text-white"
@@ -269,7 +270,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px] pt-[15px] my-auto">
+              <div className="h-[168px] pt-[15px]">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
@@ -290,6 +291,7 @@ function WordCardPage() {
                 </div>
               </div>
 
+              <div className="h-[38px]" aria-hidden />
               <p className="text-center text-xs opacity-80 inline-flex items-center justify-center gap-1">
                 <RotateCw className="h-3 w-3" /> Tap to flip back
               </p>
