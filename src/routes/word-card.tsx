@@ -194,7 +194,21 @@ function WordCardPage() {
                 </span>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center">
+              {/* Head block — mirrors BACK so the IPA lands on the same line */}
+              <div className="h-[120px] flex items-center justify-center">
+                <div className="text-center">
+                  <h3
+                    className="font-medium text-[40px] leading-none"
+                    style={{ letterSpacing: "-0.02em", visibility: "hidden" }}
+                    aria-hidden
+                  >
+                    {card.word}
+                  </h3>
+                  <p className="text-[13px] mt-3 font-mono text-muted-foreground">{card.ipa}</p>
+                </div>
+              </div>
+
+              <div className="h-[168px]">
                 <p className="text-[14px] font-semibold tracking-[0.08em] text-muted-foreground">Definition</p>
                 <div className="mt-2 flex items-start gap-3">
                   <p
@@ -213,7 +227,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <p className="text-center text-xs text-muted-foreground inline-flex items-center justify-center gap-1">
+              <p className="mt-auto text-center text-xs text-muted-foreground inline-flex items-center justify-center gap-1">
                 <RotateCw className="h-3 w-3" /> Tap card to flip
               </p>
             </div>
@@ -241,17 +255,21 @@ function WordCardPage() {
                   {card.level}
                 </span>
               </div>
-              <div className="text-center mt-2">
-                <h3
-                  className="font-medium text-[40px] leading-none text-white"
-                  style={{ letterSpacing: "-0.02em" }}
-                >
-                  {card.word}
-                </h3>
-                <p className="text-[13px] mt-3 font-mono opacity-80">{card.ipa}</p>
+
+              {/* Head block — word + IPA centred between pill and example */}
+              <div className="h-[120px] flex items-center justify-center">
+                <div className="text-center">
+                  <h3
+                    className="font-medium text-[40px] leading-none text-white"
+                    style={{ letterSpacing: "-0.02em" }}
+                  >
+                    {card.word}
+                  </h3>
+                  <p className="text-[13px] mt-3 font-mono opacity-80">{card.ipa}</p>
+                </div>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center gap-8 mt-6 mb-3">
+              <div className="h-[168px]">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
@@ -272,7 +290,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <p className="text-center text-xs opacity-80 inline-flex items-center justify-center gap-1">
+              <p className="mt-auto text-center text-xs opacity-80 inline-flex items-center justify-center gap-1">
                 <RotateCw className="h-3 w-3" /> Tap to flip back
               </p>
             </div>
