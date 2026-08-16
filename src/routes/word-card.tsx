@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { Volume2, RotateCw, ChevronLeft, Clock } from "lucide-react";
+import { Volume2, RotateCw, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useBloxia } from "@/lib/bloxia/progress";
 
 
@@ -24,6 +24,7 @@ type Card = {
   meaning: string;
   translation: string;
   example: string;
+  example2?: string;
   status: "new" | "learning" | "review" | "focus" | "relearning";
 };
 
@@ -45,6 +46,7 @@ const DECK: Card[] = [
     meaning: "to speak very softly using your breath rather than your full voice, so others nearby can barely hear you",
     translation: "悄悄说 / 低语",
     example: "She leaned in close and whispered a long, surprising secret into my ear during the quiet movie scene.",
+    example2: "The teacher whispered the answer so quietly that only the student in the front row could hear it.",
     status: "learning",
   },
   {
@@ -56,6 +58,7 @@ const DECK: Card[] = [
     meaning: "a piece of land where flowers and plants grow",
     translation: "花园",
     example: "We planted tomatoes in the garden.",
+    example2: "Grandma waters her garden every morning before breakfast.",
     status: "review",
   },
   {
@@ -67,6 +70,7 @@ const DECK: Card[] = [
     meaning: "wanting to know about something",
     translation: "好奇的",
     example: "The curious cat looked inside the box.",
+    example2: "Curious children ask a hundred questions a day.",
     status: "new",
   },
 ];
@@ -82,6 +86,7 @@ function WordCardPage() {
   const { earnBp } = useBloxia();
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [exIdx, setExIdx] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const startRef = useRef<number>(Date.now());
   const card = DECK[idx];
@@ -103,6 +108,7 @@ function WordCardPage() {
       return;
     }
     setFlipped(false);
+    setExIdx(0);
     setIdx((i) => i + 1);
   };
 
@@ -270,7 +276,7 @@ function WordCardPage() {
                 </div>
               </div>
 
-              <div className="h-[168px] pt-[15px]">
+              <div className="h-[168px] pt-[15px] relative">
                 <div>
                   <p className="text-[14px] font-semibold tracking-[0.08em] opacity-80">Example</p>
                   <div className="mt-2 flex items-start gap-3">
@@ -278,15 +284,42 @@ function WordCardPage() {
                       className="flex-1 text-[18px] font-semibold leading-relaxed"
                       style={{ letterSpacing: "-0.01em" }}
                     >
-                      {card.example}
+                      {exIdx === 0 ? card.example : (card.example2 ?? card.example)}
                     </p>
-                    <span
-                      className="shrink-0 grid place-items-center opacity-80"
-                      style={{ height: "29px" }}
-                      aria-label="Listen to example"
-                    >
-                      <Volume2 className="h-4 w-4" />
-                    </span>
+                    <div className="shrink-0 flex flex-col items-center justify-between self-stretch">
+                      <span
+                        className="grid place-items-center opacity-80"
+                        style={{ height: "29px" }}
+                        aria-label="Listen to example"
+                      >
+                        <Volume2 className="h-4 w-4" />
+                      </span>
+                      {card.example2 ? (
+                        <span
+                          role="button"
+                          tabIndex={0}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExIdx((v) => (v === 0 ? 1 : 0));
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.stopPropagation();
+                              setExIdx((v) => (v === 0 ? 1 : 0));
+                            }
+                          }}
+                          className="grid place-items-center text-white active:scale-90 transition-transform cursor-pointer"
+                          style={{ height: "29px", width: "29px" }}
+                          aria-label={exIdx === 0 ? "Show second example" : "Show first example"}
+                        >
+                          {exIdx === 0 ? (
+                            <ChevronRight className="h-5 w-5" strokeWidth={2.5} />
+                          ) : (
+                            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+                          )}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
