@@ -224,7 +224,13 @@ function WordCardPage() {
                     {card.meaning}
                   </p>
                   <span
-                    className="shrink-0 grid place-items-center text-[color:var(--wordie)]"
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") e.stopPropagation();
+                    }}
+                    className="shrink-0 grid place-items-center text-[color:var(--wordie)] cursor-pointer active:scale-90 transition-transform"
                     style={{ height: "29px" }}
                     aria-label="Listen to definition"
                   >
@@ -288,7 +294,13 @@ function WordCardPage() {
                     </p>
                     <div className="shrink-0 flex flex-col items-center justify-between self-stretch">
                       <span
-                        className="grid place-items-center opacity-80"
+                        role="button"
+                        tabIndex={0}
+                        onClick={(e) => e.stopPropagation()}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") e.stopPropagation();
+                        }}
+                        className="grid place-items-center opacity-80 cursor-pointer active:scale-90 transition-transform"
                         style={{ height: "29px" }}
                         aria-label="Listen to example"
                       >
