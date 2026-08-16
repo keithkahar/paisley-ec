@@ -167,7 +167,12 @@ function WordCardPage() {
       <section className="px-5 mt-4">
         <button
           type="button"
-          onClick={() => setFlipped((f) => !f)}
+          onClick={() =>
+            setFlipped((f) => {
+              if (!f) setRevealed(true);
+              return !f;
+            })
+          }
           className="block w-full text-left rounded-[2rem] overflow-hidden shadow-xl active:scale-[0.99] transition-transform"
           style={{ perspective: "1200px" }}
           aria-label="Flip card"
@@ -207,8 +212,11 @@ function WordCardPage() {
                 <div className="text-center">
                   <h3
                     className="font-medium text-[40px] leading-none"
-                    style={{ letterSpacing: "-0.02em", visibility: "hidden" }}
-                    aria-hidden
+                    style={{
+                      letterSpacing: "-0.02em",
+                      visibility: revealed ? "visible" : "hidden",
+                    }}
+                    aria-hidden={!revealed}
                   >
                     {card.word}
                   </h3>
