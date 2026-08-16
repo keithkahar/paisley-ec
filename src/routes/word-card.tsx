@@ -215,6 +215,7 @@ function WordCardPage() {
                     style={{
                       letterSpacing: "-0.02em",
                       visibility: revealed ? "visible" : "hidden",
+                      color: "var(--wordie)",
                     }}
                     aria-hidden={!revealed}
                   >
